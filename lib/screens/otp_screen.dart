@@ -29,38 +29,40 @@ class _OtpScreenState extends State<OtpScreen> {
         ),
         body: Padding(
           padding: const EdgeInsets.only(left: 24, right: 24),
-          child: Column(
-            children: [
-              SizedBox(height: 200),
-              Center(
-                child: Container(
-                    width: 220,
-                    child: Image(image: AssetImage("assets/lenzcamera.png"))),
-              ),
-              SizedBox(height: 50),
-             OtpTextField(
-             numberOfFields: 5,
-               enabledBorderColor: Color(0xffce443a),
-               focusedBorderColor: Color(0xff474747),
-               showFieldAsBox: true,
-               fieldWidth: 60
-             ),
-              SizedBox(height: 55),
-              Container(
-                height: 65,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xffec3436),
-                  ),
-                  onPressed: () {},
-                  child: Center(
-                      child: Text(
-                        "Send OTP",
-                        style: TextStyle(fontSize: 20, color: Colors.white),
-                      )),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(height: 200),
+                Center(
+                  child: Container(
+                      width: 220,
+                      child: Image(image: AssetImage("assets/images/logo_lenzcamera.png"))),
                 ),
-              ),
-            ],
+                SizedBox(height: 50),
+               OtpTextField(
+               numberOfFields: 5,
+                 enabledBorderColor: Color(0xffce443a),
+                 focusedBorderColor: Color(0xff474747),
+                 showFieldAsBox: true,
+                 fieldWidth: 60
+               ),
+                SizedBox(height: 55),
+                Container(
+                  height: 65,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color(0xffec3436),
+                    ),
+                    onPressed: () {},
+                    child: Center(
+                        child: Text(
+                          "Send OTP",
+                          style: TextStyle(fontSize: 20, color: Colors.white),
+                        )),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
