@@ -22,14 +22,17 @@ class _SplashScreenState extends State<SplashScreen> {
   }
   @override
   Widget build(BuildContext context) {
-   return Scaffold(
-     backgroundColor: Colors.white,
-     body: Center(child:
-     Container(
-      width: 350,
-       child:  Image(image: AssetImage("assets/images/logo_lenzcamera.png"),
-     ),
-    ),
+   return MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: Scaffold(
+       backgroundColor: Colors.white,
+       body: Center(child:
+       Container(
+        width: 350,
+         child:  Image(image: AssetImage("assets/images/logo_lenzcamera.png"),
+       ),
+      ),
+       ),
      ),
    );
   }
