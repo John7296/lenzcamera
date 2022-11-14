@@ -4,6 +4,7 @@ import 'package:lenzcamera/screens/forgot_password_screen.dart';
 
 
 
+
 class LoginScreen extends StatefulWidget {
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -23,7 +24,7 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Container(
                 width: 220,
                 child: Image(
-                  image: AssetImage("assets/lenzcamera.png"),
+                  image: AssetImage("assets/images/logo_lenzcamera.png"),
                 ),
               ),
             ),

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lenzcamera/screens/otp_screen.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   @override
@@ -69,7 +70,14 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xffec3436),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                    builder: (context) =>
+                    OtpScreen()));
+
+                  },
                   child: Center(
                       child: Text(
                         "Send OTP",
