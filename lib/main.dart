@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:lenzcamera/screens/add_new_address_screen.dart';
+import 'package:lenzcamera/screens/edit_profile_screen.dart';
+import 'package:lenzcamera/screens/home_screen.dart';
+import 'package:lenzcamera/screens/profile_screen.dart';
+import 'package:lenzcamera/screens/register_screen.dart';
 import 'package:lenzcamera/screens/splash_screen.dart';
 
 void main() {
@@ -12,7 +17,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-            home: SplashScreen(),
+       debugShowCheckedModeBanner: false,
+            home: AddNewAddressScreen(),
     );
   }
 }
