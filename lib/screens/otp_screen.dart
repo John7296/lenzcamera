@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
+import 'package:lenzcamera/screens/change_password_screen.dart';
+import 'package:lenzcamera/screens/reset_password_screen.dart';
 
 
 class OtpScreen extends StatefulWidget{
@@ -53,10 +55,14 @@ class _OtpScreenState extends State<OtpScreen> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xffec3436),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+
+                       Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context)=>ResetPasswordScreen()));
+                    },
                     child: Center(
                         child: Text(
-                          "Send OTP",
+                          "Submit OTP",
                           style: TextStyle(fontSize: 20, color: Colors.white),
                         )),
                   ),

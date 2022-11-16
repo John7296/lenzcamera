@@ -84,6 +84,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             thickness: 9,
             color: Color(0xffe3e3e3),
           ),
+
+          
     
           Padding(
             padding: const EdgeInsets.only(left:24, right: 24, top:5, bottom: 5),
