@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:lenzcamera/screens/forgot_password_screen.dart';
+import 'package:lenzcamera/screens/home_screen.dart';
 
 
 
@@ -90,7 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         context,
                         MaterialPageRoute(
                         builder: (context) =>
-                        ForgotPasswordScreen()));
+                       HomeScreen()));
           
                   },
                   child: Center(
@@ -103,7 +104,8 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(height: 40),
               TextButton(
                   onPressed: () {
-                   
+                    Navigator.pushReplacement(
+                      context, MaterialPageRoute(builder: (context)=>ForgotPasswordScreen()));
                   },
                   child: Center(
                       child: Text(

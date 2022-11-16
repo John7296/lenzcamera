@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:lenzcamera/screens/cart_screen.dart';
 import 'package:lenzcamera/screens/change_password_screen.dart';
+import 'package:lenzcamera/screens/checkout_screen.dart';
 import 'package:lenzcamera/screens/contact_us_screen.dart';
 import 'package:lenzcamera/screens/filter_screen.dart';
 import 'package:lenzcamera/screens/product_details_screen.dart';
+import 'package:lenzcamera/screens/reset_password_screen.dart';
+import 'package:lenzcamera/screens/search_screen.dart';
 import 'package:lenzcamera/screens/splash_screen.dart';
 
 void main() {
@@ -17,7 +21,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-            home: ContactUsScreen(),
+            home: ResetPasswordScreen(),
     );
   }
 }
