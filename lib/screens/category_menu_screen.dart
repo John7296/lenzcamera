@@ -62,11 +62,11 @@ class _CategoryMenuScreenState extends State<CategoryMenuScreen> {
                       child: Column(
                         children: [
                           Image(
-                            image: AssetImage("assets/images/lens.jpg"),
+                            image: AssetImage("assets/images/lens.png"),
                             height: 100,
                             width: 100,
                           ),
-                          Text('Name'),
+                          Text('CANON EF'),
                         ],
                       ),
                     ),

@@ -20,7 +20,7 @@ class _CartScreenState extends State<CartScreen> {
               Icons.arrow_back_ios_new_sharp,
               color: Colors.white,
             ),
-            onPressed: () {},
+            onPressed: () {Navigator.pop(context);},
           ),
           backgroundColor: Colors.black,
       ),

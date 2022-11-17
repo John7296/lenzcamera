@@ -37,7 +37,7 @@ class _WishlistItemWidgetState extends State<WishlistItemWidget> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Image(
-                      image: AssetImage("assets/images/lens.jpg"),
+                      image: AssetImage("assets/images/lens.png"),
                       height: 80,
                       width: 80,
                     ),

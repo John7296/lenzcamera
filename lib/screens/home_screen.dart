@@ -4,6 +4,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lenzcamera/screens/address_screen.dart';
+import 'package:lenzcamera/screens/cart_screen.dart';
 import 'package:lenzcamera/screens/category_menu_screen.dart';
 import 'package:lenzcamera/screens/contact_us_screen.dart';
 import 'package:lenzcamera/screens/featured_products_screen.dart';
@@ -37,7 +38,8 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: Icon(Icons.favorite_border),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => CartScreen()));},
             icon: Icon(Icons.shopping_cart),
           ),
         ],
@@ -125,6 +127,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
                     color: Colors.amber),
+                    child: Image(
+                    image: AssetImage("assets/images/camerabanner.png"),
+                    fit: BoxFit.fill,
+                    // width: MediaQuery.of(context).size.width,
+                  ),
               ),
             ),
             Container(
@@ -146,7 +153,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 height: 100,
                                 width: 100,
                                 child: Image(
-                                  image: AssetImage("assets/images/lens.jpg"),
+                                  image: AssetImage("assets/images/lens.png"),
                                 ),
                                 // color: Colors.red,
                               ),
@@ -236,7 +243,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     Center(
                                       child: Image(
                                         image: AssetImage(
-                                            "assets/images/lens.jpg"),
+                                            "assets/images/lens.png"),
                                         height: 60,
                                         width: 50,
                                       ),
@@ -387,7 +394,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     Center(
                                       child: Image(
                                         image: AssetImage(
-                                            "assets/images/lens.jpg"),
+                                            "assets/images/lens.png"),
                                         height: 100,
                                         width: 100,
                                       ),
@@ -517,7 +524,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     Center(
                                       child: Image(
                                         image: AssetImage(
-                                            "assets/images/lens.jpg"),
+                                            "assets/images/lens.png"),
                                         height: 100,
                                         width: 100,
                                       ),
