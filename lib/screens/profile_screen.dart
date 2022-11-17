@@ -2,6 +2,13 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lenzcamera/screens/address_screen.dart';
+import 'package:lenzcamera/screens/cart_screen.dart';
+import 'package:lenzcamera/screens/change_password_screen.dart';
+import 'package:lenzcamera/screens/contact_us_screen.dart';
+import 'package:lenzcamera/screens/edit_profile_screen.dart';
+import 'package:lenzcamera/screens/order_screen.dart';
+import 'package:lenzcamera/screens/wishlist_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -27,16 +34,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
               icon: Icon(Icons.favorite_border),
             ),
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => CartScreen()));
+              },
               icon: Icon(Icons.shopping_cart),
             ),
           ],
-            backgroundColor: Colors.grey,
-            leading: IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.arrow_back_ios),
-            ),
-            ),
+          backgroundColor: Colors.grey,
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(Icons.arrow_back_ios),
+          ),
+        ),
         backgroundColor: Colors.grey.shade100,
         body: SafeArea(
           child: SingleChildScrollView(
@@ -66,46 +78,293 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 SizedBox(height: 10),
                 Column(
                   children: [
-                    ListView.separated(
-                      physics: NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: 10,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.only(left: 20,right: 20),
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Colors.white),
-                            child: ListTile(
-                              title: Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Text("Personal"),
-                              ),
-                              subtitle: Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Text("Profile"),
-                              ),
-                              leading: Container(
-                            height: 50,
-                            width: 50,
-                            child: Icon(Icons.person),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Colors.grey),
-                              ),
-                              trailing: IconButton(
-                            onPressed: () {},
-                            icon: Icon(Icons.arrow_forward_ios),
-                              ),
+                    InkWell(
+                      onTap: (() {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => EditProfileScreen()));
+                      }),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 20, right: 20),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.white),
+                          child: ListTile(
+                            title: Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: Text("Personal"),
+                            ),
+                            subtitle: Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: Text("Profile,phone,email"),
+                            ),
+                            leading: Container(
+                              height: 50,
+                              width: 50,
+                              child: Icon(Icons.person),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Colors.grey),
+                            ),
+                            trailing: IconButton(
+                              onPressed: () {},
+                              icon: Icon(Icons.arrow_forward_ios),
                             ),
                           ),
-                        );
-                      },
-                      separatorBuilder: (BuildContext context, int index) {
-                        return SizedBox(height: 10);
-                      },
+                        ),
+                      ),
                     ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    InkWell(
+                      onTap: (() {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ChangePasswordScreen()));
+                      }),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 20, right: 20),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.white),
+                          child: ListTile(
+                            title: Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: Text("Change Password"),
+                            ),
+                            subtitle: Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: Text("Change your password"),
+                            ),
+                            leading: Container(
+                              height: 50,
+                              width: 50,
+                              child: Icon(Icons.remove_red_eye),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Colors.grey),
+                            ),
+                            trailing: IconButton(
+                              onPressed: () {},
+                              icon: Icon(Icons.arrow_forward_ios),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    InkWell(
+                      onTap: (() {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => AddressScreen()));
+                      }),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 20, right: 20),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.white),
+                          child: ListTile(
+                            title: Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: Text("Address Book"),
+                            ),
+                            subtitle: Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: Text("Add,Edit,Delete"),
+                            ),
+                            leading: Container(
+                              height: 50,
+                              width: 50,
+                              child: Icon(Icons.location_city),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Colors.grey),
+                            ),
+                            trailing: IconButton(
+                              onPressed: () {},
+                              icon: Icon(Icons.arrow_forward_ios),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    InkWell(
+                      onTap: (() {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => OrderScreen()));
+                      }),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 20, right: 20),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.white),
+                          child: ListTile(
+                            title: Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: Text("My Orders"),
+                            ),
+                            subtitle: Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: Text("View,Track,Update"),
+                            ),
+                            leading: Container(
+                              height: 50,
+                              width: 50,
+                              child: Icon(Icons.card_giftcard_outlined),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Colors.grey),
+                            ),
+                            trailing: IconButton(
+                              onPressed: () {},
+                              icon: Icon(Icons.arrow_forward_ios),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    InkWell(
+                      onTap: (() {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => WishlistScreen()));
+                      }),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 20, right: 20),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.white),
+                          child: ListTile(
+                            title: Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: Text("My Wishlist"),
+                            ),
+                            subtitle: Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: Text("View,Update,Remove"),
+                            ),
+                            leading: Container(
+                              height: 50,
+                              width: 50,
+                              child: Icon(Icons.favorite),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Colors.grey),
+                            ),
+                            trailing: IconButton(
+                              onPressed: () {},
+                              icon: Icon(Icons.arrow_forward_ios),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    InkWell(
+                      onTap: (() {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => EditProfileScreen()));
+                      }),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 20, right: 20),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.white),
+                          child: ListTile(
+                            title: Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: Text("My Wallet"),
+                            ),
+                            subtitle: Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: Text("View,Recharge"),
+                            ),
+                            leading: Container(
+                              height: 50,
+                              width: 50,
+                              child: Icon(Icons.money),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Colors.grey),
+                            ),
+                            trailing: IconButton(
+                              onPressed: () {},
+                              icon: Icon(Icons.arrow_forward_ios),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    InkWell(
+                      onTap: (() {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ContactUsScreen()));
+                      }),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 20, right: 20),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.white),
+                          child: ListTile(
+                            title: Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: Text("Support"),
+                            ),
+                            subtitle: Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: Text("Contact,Mail"),
+                            ),
+                            leading: Container(
+                              height: 50,
+                              width: 50,
+                              child: Icon(Icons.mail),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Colors.grey),
+                            ),
+                            trailing: IconButton(
+                              onPressed: () {},
+                              icon: Icon(Icons.arrow_forward_ios),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    )
                   ],
                 )
               ],

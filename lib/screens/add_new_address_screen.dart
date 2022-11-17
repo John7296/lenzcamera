@@ -9,7 +9,7 @@ class AddNewAddressScreen extends StatefulWidget {
 }
 
 class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
-  List<String>items= ['One','Two','Three','Four','Five'];
+  List<String> items = ['One', 'Two', 'Three', 'Four', 'Five'];
   String? selectedItem;
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,9 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
             ),
             leading: IconButton(
               icon: Icon(Icons.arrow_back_ios),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pop(context);
+              },
             ),
           ),
           backgroundColor: Colors.white,
@@ -43,7 +45,9 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                               padding: const EdgeInsets.only(bottom: 10),
                               child: Text(
                                 'First Name',
-                                style: TextStyle(color: Colors.grey.shade600,fontWeight: FontWeight.bold),
+                                style: TextStyle(
+                                    color: Colors.grey.shade600,
+                                    fontWeight: FontWeight.bold),
                               ),
                             )),
                         Container(
@@ -61,8 +65,9 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                             child: Padding(
                               padding: const EdgeInsets.only(bottom: 10),
                               child: Text('Last Name',
-                                  style:
-                                      TextStyle(color: Colors.grey.shade600,fontWeight: FontWeight.bold)),
+                                  style: TextStyle(
+                                      color: Colors.grey.shade600,
+                                      fontWeight: FontWeight.bold)),
                             )),
                         Container(
                           height: 35,
@@ -79,8 +84,9 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                             child: Padding(
                               padding: const EdgeInsets.only(bottom: 10),
                               child: Text('Address Line 1',
-                                  style:
-                                      TextStyle(color: Colors.grey.shade600,fontWeight: FontWeight.bold)),
+                                  style: TextStyle(
+                                      color: Colors.grey.shade600,
+                                      fontWeight: FontWeight.bold)),
                             )),
                         Container(
                           height: 35,
@@ -97,8 +103,9 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                             child: Padding(
                               padding: const EdgeInsets.only(bottom: 10),
                               child: Text('Address Line 2',
-                                  style:
-                                      TextStyle(color: Colors.grey.shade600,fontWeight: FontWeight.bold)),
+                                  style: TextStyle(
+                                      color: Colors.grey.shade600,
+                                      fontWeight: FontWeight.bold)),
                             )),
                         Container(
                           height: 35,
@@ -111,30 +118,14 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                           ),
                         ),
                         SizedBox(height: 20),
-                         Align(
+                        Align(
                             alignment: Alignment.topLeft,
                             child: Padding(
                               padding: const EdgeInsets.only(bottom: 10),
                               child: Text('Phone +974',
-                                  style:
-                                      TextStyle(color: Colors.grey.shade600,fontWeight: FontWeight.bold)),
-                            )),
-                        Container(
-                          height: 35,
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              // labelText: 'Mobile'
-                            ),
-                          ),
-                        ),SizedBox(height: 20),
-                         Align(
-                            alignment: Alignment.topLeft,
-                            child: Padding(
-                              padding: const EdgeInsets.only(bottom: 10),
-                              child: Text('PinCode',
-                                  style:
-                                      TextStyle(color: Colors.grey.shade600,fontWeight: FontWeight.bold)),
+                                  style: TextStyle(
+                                      color: Colors.grey.shade600,
+                                      fontWeight: FontWeight.bold)),
                             )),
                         Container(
                           height: 35,
@@ -146,7 +137,26 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                           ),
                         ),
                         SizedBox(height: 20),
-                         Align(
+                        Align(
+                            alignment: Alignment.topLeft,
+                            child: Padding(
+                              padding: const EdgeInsets.only(bottom: 10),
+                              child: Text('PinCode',
+                                  style: TextStyle(
+                                      color: Colors.grey.shade600,
+                                      fontWeight: FontWeight.bold)),
+                            )),
+                        Container(
+                          height: 35,
+                          child: TextFormField(
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              // labelText: 'Mobile'
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                        Align(
                             alignment: Alignment.topLeft,
                             child: Padding(
                               padding: const EdgeInsets.only(bottom: 10),
@@ -158,12 +168,12 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                           height: 35,
                           child: TextFormField(
                             decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              labelText: 'QATAR'
-                            ),
+                                border: OutlineInputBorder(),
+                                labelText: 'QATAR'),
                           ),
-                        ),SizedBox(height: 10),
-                         Align(
+                        ),
+                        SizedBox(height: 10),
+                        Align(
                             alignment: Alignment.topLeft,
                             child: Padding(
                               padding: const EdgeInsets.only(bottom: 10),
@@ -172,59 +182,87 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                                       TextStyle(color: Colors.grey.shade600)),
                             )),
                         Container(
-                          height: 35,
-                          width: 400,
+                            height: 35,
+                            width: 400,
                             decoration: BoxDecoration(
-                      border: Border.all(width: 1,color: Colors.grey.shade400),
-                      borderRadius: BorderRadius.all(Radius.circular(0)),
-                    ),
-                          child: DropdownButton(items:items.map((item) => DropdownMenuItem<
-                          String>(value: item,
-                          child: Text(item),)).toList(), onChanged: (item) =>setState(() =>
-                            selectedItem = item.toString() ), ) 
-                          // TextFormField(
-                          //   decoration: InputDecoration(
-                          //     border: OutlineInputBorder(),
-                          //     // labelText: 'Mobile'
-                          //   ),
-                          // ),
-                        ),
+                              border: Border.all(
+                                  width: 1, color: Colors.grey.shade400),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(0)),
+                            ),
+                            child: DropdownButton(
+                              items: items
+                                  .map((item) => DropdownMenuItem<String>(
+                                        value: item,
+                                        child: Text(item),
+                                      ))
+                                  .toList(),
+                              onChanged: (item) => setState(
+                                  () => selectedItem = item.toString()),
+                            )
+                            // TextFormField(
+                            //   decoration: InputDecoration(
+                            //     border: OutlineInputBorder(),
+                            //     // labelText: 'Mobile'
+                            //   ),
+                            // ),
+                            ),
                         SizedBox(height: 30),
-                              Container(
-                          height: 35,
-                          width: 400,
+                        Container(
+                            height: 35,
+                            width: 400,
                             decoration: BoxDecoration(
-                      border: Border.all(width: 1,color: Colors.grey.shade400),
-                      borderRadius: BorderRadius.all(Radius.circular(0)),
-                    ),
-                          child: DropdownButton(items:items.map((item) => DropdownMenuItem<
-                          String>(value: item,
-                          child: Text(item),)).toList(), onChanged: (item) =>setState(() =>
-                            selectedItem = item.toString() ), ) 
-                          // TextFormField(
-                          //   decoration: InputDecoration(
-                          //     border: OutlineInputBorder(),
-                          //     // labelText: 'Mobile'
-                          //   ),
-                          // ),
-                        ),
+                              border: Border.all(
+                                  width: 1, color: Colors.grey.shade400),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(0)),
+                            ),
+                            child: DropdownButton(
+                              items: items
+                                  .map((item) => DropdownMenuItem<String>(
+                                        value: item,
+                                        child: Text(item),
+                                      ))
+                                  .toList(),
+                              onChanged: (item) => setState(
+                                  () => selectedItem = item.toString()),
+                            )
+                            // TextFormField(
+                            //   decoration: InputDecoration(
+                            //     border: OutlineInputBorder(),
+                            //     // labelText: 'Mobile'
+                            //   ),
+                            // ),
+                            ),
                         SizedBox(height: 5),
-                             Row(
+                        Row(
                           children: [
                             Checkbox(
                               shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(0)), value: false, onChanged: (bool? value) {  },
+                                  borderRadius: BorderRadius.circular(0)),
+                              value: false,
+                              onChanged: (bool? value) {},
                             ),
-                            Text('Make As Default Billing Address',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12),),
+                            Text(
+                              'Make As Default Billing Address',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 12),
+                            ),
                           ],
                         ),
-                             Row(
+                        Row(
                           children: [
                             Checkbox(
                               shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(0)), value: false, onChanged: (bool? value) {  },
+                                  borderRadius: BorderRadius.circular(0)),
+                              value: false,
+                              onChanged: (bool? value) {},
                             ),
-                            Text('Make As Default Shipping Address',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12),),
+                            Text(
+                              'Make As Default Shipping Address',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 12),
+                            ),
                           ],
                         ),
                         Align(
@@ -232,8 +270,9 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                             child: Padding(
                               padding: const EdgeInsets.only(bottom: 10),
                               child: Text('Landmark',
-                                  style:
-                                      TextStyle(color: Colors.grey.shade600,fontWeight: FontWeight.bold)),
+                                  style: TextStyle(
+                                      color: Colors.grey.shade600,
+                                      fontWeight: FontWeight.bold)),
                             )),
                         Container(
                           height: 35,
