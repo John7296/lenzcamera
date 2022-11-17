@@ -22,7 +22,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               Icons.arrow_back_ios_new_sharp,
               color: Colors.white,
             ),
-            onPressed: () {},
+            onPressed: () {
+                Navigator.pop(context);
+            },
           ),
           backgroundColor: Colors.black,
         ),
@@ -59,7 +61,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 SizedBox(height: 25),
               
                 Container(
-                  height: 65,
+                  height: 50,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xffec3436),

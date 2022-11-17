@@ -21,7 +21,9 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                 Icons.arrow_back_ios_new_sharp,
                 color: Colors.white,
               ),
-              onPressed: () {},
+              onPressed: () {
+                  Navigator.pop(context);
+              },
             ),
             backgroundColor: Colors.black,
         ),
@@ -150,7 +152,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   SizedBox(height: 120),
                  
                   Container(
-                    height: 65,
+                    height: 50,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xffec3436),

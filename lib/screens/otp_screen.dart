@@ -25,7 +25,9 @@ class _OtpScreenState extends State<OtpScreen> {
               Icons.arrow_back_ios_new_sharp,
               color: Colors.white,
             ),
-            onPressed: () {},
+            onPressed: () {
+                Navigator.pop(context);
+            },
           ),
           backgroundColor: Color(0xff474747),
         ),
@@ -50,7 +52,7 @@ class _OtpScreenState extends State<OtpScreen> {
                ),
                 SizedBox(height: 55),
                 Container(
-                  height: 65,
+                  height: 50,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xffec3436),

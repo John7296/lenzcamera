@@ -31,6 +31,8 @@ dependencies:
     sdk: flutter
   flutter_otp_text_field: ^1.1.0+2
   carousel_slider: ^4.1.1
+  flutter_rating_bar: ^4.0.1
+ 
   
 
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:lenzcamera/screens/forgot_password_screen.dart';
 import 'package:lenzcamera/screens/home_screen.dart';
+import 'package:lenzcamera/screens/register_screen.dart';
 
 
 
@@ -81,7 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
               )),
               SizedBox(height: 30),
               Container(
-                height: 65,
+                height: 50,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xffec3436),
@@ -125,7 +126,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     SizedBox(),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                          Navigator.pushReplacement(
+                      context, MaterialPageRoute(builder: (context)=>RegisterScreen()));
+                      },
                       child: Text("Register Now",
                         style: TextStyle(
                             decoration: TextDecoration.underline,
@@ -139,49 +143,49 @@ class _LoginScreenState extends State<LoginScreen> {
             ]),
           ),
         ),
-        bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Colors.white,
-          type: BottomNavigationBarType.fixed,
-          onTap: (index){},
-          selectedItemColor: Color(0xffdb4454),
-          unselectedItemColor: Color(0xff8e8e8e),
-          selectedFontSize: 12,
-          unselectedFontSize: 12,
-          showUnselectedLabels: true,
-          items: [
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.home,
-                size: 30,
-              ),
-              label: "Home",
-            ),
+        // bottomNavigationBar: BottomNavigationBar(
+        //   backgroundColor: Colors.white,
+        //   type: BottomNavigationBarType.fixed,
+        //   onTap: (index){},
+        //   selectedItemColor: Color(0xffdb4454),
+        //   unselectedItemColor: Color(0xff8e8e8e),
+        //   selectedFontSize: 12,
+        //   unselectedFontSize: 12,
+        //   showUnselectedLabels: true,
+        //   items: [
+        //     BottomNavigationBarItem(
+        //       icon: Icon(
+        //         Icons.home,
+        //         size: 30,
+        //       ),
+        //       label: "Home",
+        //     ),
     
-            BottomNavigationBarItem(
-                icon: Icon(Icons.category_outlined,
-                    size: 25),
-                label: "Categories"),
+        //     BottomNavigationBarItem(
+        //         icon: Icon(Icons.category_outlined,
+        //             size: 25),
+        //         label: "Categories"),
     
-            BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_cart_outlined,
-                  size: 30),
-              label: "Cart",
-            ),
+        //     BottomNavigationBarItem(
+        //       icon: Icon(Icons.shopping_cart_outlined,
+        //           size: 30),
+        //       label: "Cart",
+        //     ),
     
-            BottomNavigationBarItem(
-              icon: Icon(Icons.search,
-                  size: 30),
-              label: "Search",
-            ),
+        //     BottomNavigationBarItem(
+        //       icon: Icon(Icons.search,
+        //           size: 30),
+        //       label: "Search",
+        //     ),
     
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person_outline,
-                  size: 30),
-              label: "Profile",
-            ),
-          ],
+        //     BottomNavigationBarItem(
+        //       icon: Icon(Icons.person_outline,
+        //           size: 30),
+        //       label: "Profile",
+        //     ),
+        //   ],
     
-        ),
+        // ),
       ),
     );
   }

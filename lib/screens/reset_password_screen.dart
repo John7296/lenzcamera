@@ -20,7 +20,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                 Icons.arrow_back_ios_new_sharp,
                 color: Colors.white,
               ),
-              onPressed: () {},
+              onPressed: () {
+                  Navigator.pop(context);
+              },
             ),
             backgroundColor: Colors.black,
         ),
@@ -97,12 +99,14 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   SizedBox(height: 20),
                  
                   Container(
-                    height: 65,
+                    height: 50,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xffec3436),
                       ),
                       onPressed: () {
+                          Navigator.pushReplacement(
+                      context, MaterialPageRoute(builder: (context)=>LoginScreen()));
             
                       },
                       child: Center(

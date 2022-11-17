@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lenzcamera/screens/cart_screen.dart';
+import 'package:lenzcamera/screens/filter_screen.dart';
 
 class SearchScreen extends StatefulWidget {
   @override
@@ -73,7 +74,13 @@ class _SearchScreenState extends State<SearchScreen> {
                         Container(
                             height: 20,
                             child: InkWell(
-                                onTap: () {},
+                                onTap: () {
+                                  Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              FilterScreen()));
+                                },
                                 child: Image.asset(
                                     "assets/images/filter_icon.png"))),
                       ],
@@ -92,10 +99,9 @@ class _SearchScreenState extends State<SearchScreen> {
           child: Expanded(
             child: SingleChildScrollView(
               child: Container(
-                height:600,
+                height: 600,
                 child: ListView.builder(
-                  itemBuilder: (BuildContext context, int index)
-                  {
+                    itemBuilder: (BuildContext context, int index) {
                   return Column(
                     children: [
                       Row(
@@ -112,29 +118,34 @@ class _SearchScreenState extends State<SearchScreen> {
                                   Row(
                                     children: [
                                       Image(
-                                        image: AssetImage("assets/images/lens.png"),
+                                        image: AssetImage(
+                                            "assets/images/lens.png"),
                                         height: 100,
                                       ),
                                       Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Row(children: [
                                             Stack(children: [
                                               Container(
                                                 width: 200,
                                                 child: Padding(
-                                                  padding: const EdgeInsets.only(top: 20),
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 20),
                                                   child: Text(
                                                       "CANON EF 16-35MM F/2.8L  III USM",
                                                       style: TextStyle(
                                                           fontSize: 17,
-                                                          fontWeight: FontWeight.w600),
+                                                          fontWeight:
+                                                              FontWeight.w600),
                                                       maxLines: 2),
                                                 ),
                                               ),
                                               Padding(
-                                                padding:
-                                                    const EdgeInsets.only(left: 240, top:10),
+                                                padding: const EdgeInsets.only(
+                                                    left: 240, top: 10),
                                                 child: IconButton(
                                                     onPressed: () {},
                                                     icon: Icon(
@@ -145,14 +156,15 @@ class _SearchScreenState extends State<SearchScreen> {
                                             ]),
                                           ]),
                                           SizedBox(
-                                            height:10,
+                                            height: 10,
                                           ),
                                           Row(
                                             children: [
                                               Text("QAR 549.00",
                                                   style: TextStyle(
                                                       fontSize: 15,
-                                                      fontWeight: FontWeight.w600,
+                                                      fontWeight:
+                                                          FontWeight.w600,
                                                       color: Color(0xffdf1715)),
                                                   maxLines: 2),
                                             ],
@@ -161,23 +173,25 @@ class _SearchScreenState extends State<SearchScreen> {
                                           Container(
                                             margin: EdgeInsets.only(left: 160),
                                             height: 30,
-                                             width: 120,
+                                            width: 120,
                                             child: ElevatedButton(
                                               style: ElevatedButton.styleFrom(
-                                                backgroundColor: Color(0xfffce303),
+                                                backgroundColor:
+                                                    Color(0xfffce303),
                                               ),
                                               onPressed: () {
                                                 Navigator.push(
                                                     context,
                                                     MaterialPageRoute(
-                                                    builder: (context) =>
-                                                    CartScreen()));
+                                                        builder: (context) =>
+                                                            CartScreen()));
                                               },
                                               child: Center(
                                                   child: Text(
                                                 "ADD",
                                                 style: TextStyle(
-                                                    fontSize: 15, color: Colors.black),
+                                                    fontSize: 15,
+                                                    color: Colors.black),
                                               )),
                                             ),
                                           ),
