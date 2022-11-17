@@ -32,7 +32,9 @@ class _AddressScreenState extends State<AddressScreen> {
           // ],
           backgroundColor: Colors.grey.shade700,
           leading: IconButton(
-            onPressed: () { Navigator.pop(context);},
+            onPressed: () {
+              Navigator.pop(context);
+            },
             icon: Icon(Icons.arrow_back_ios),
           ),
         ),
@@ -43,8 +45,10 @@ class _AddressScreenState extends State<AddressScreen> {
               children: [
                 TextButton(
                     onPressed: () {
-                       Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => AddNewAddressScreen()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => AddNewAddressScreen()));
                     },
                     child: Text(
                       "+Add New Address",
@@ -54,7 +58,52 @@ class _AddressScreenState extends State<AddressScreen> {
             ),
             Divider(
               thickness: 1,
-            )
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                height: 100,
+                width: 400,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(Radius.circular(0)),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey,
+                      offset: Offset(0.0, 1.0), //(x,y)
+                      blurRadius: 1.0,
+                    ),
+                  ],
+                ),
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Column(
+                        children: [
+                          Text('Abum nbuildings'),
+                          SizedBox(height: 5),
+                          Text('Abum nbuildings'),
+                        ],
+                      ),
+                    ),
+                    Spacer(),
+                    Column(
+                      children: [
+                        IconButton(
+                          onPressed: () {},
+                          icon: Icon(Icons.draw, color: Colors.grey),
+                        ),
+                        IconButton(
+                          onPressed: () {},
+                          icon: Icon(Icons.delete_outline, color: Colors.red),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),
