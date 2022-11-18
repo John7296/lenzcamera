@@ -31,7 +31,9 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
         // ],
         backgroundColor: Colors.grey.shade700,
         leading: IconButton(
-          onPressed: () { Navigator.pop(context);},
+          onPressed: () {
+            Navigator.pop(context);
+          },
           icon: Icon(Icons.arrow_back_ios),
         ),
       ),
@@ -42,25 +44,25 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
           Padding(
             padding: const EdgeInsets.all(10),
             child: Container(
-                                width: 400,
-                                height: 50,
-                                child: ElevatedButton(onPressed: () { 
-                                  Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => HomeScreen()));
-                                 }, child: Text('Back',style: TextStyle(fontSize: 20),),
-                                  style: ButtonStyle(
-                                    backgroundColor:
-                                    MaterialStateProperty.all(
-                                         Colors.red),
-                                    shape: MaterialStateProperty.all(
-                                        RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(5),
-                                        )),
-                                  ),
-                                ),
-                              ),
+              width: 400,
+              height: 50,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => HomeScreen()));
+                },
+                child: Text(
+                  'Back',
+                  style: TextStyle(fontSize: 20),
+                ),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.red),
+                  shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5),
+                  )),
+                ),
+              ),
+            ),
           ),
         ],
       ),

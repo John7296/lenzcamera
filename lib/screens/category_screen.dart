@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:lenzcamera/screens/cart_screen.dart';
 import 'package:lenzcamera/screens/home_screen.dart';
+import 'package:lenzcamera/screens/product_details_screen.dart';
 
 class CategoryScreen extends StatefulWidget {
   const CategoryScreen({super.key});
@@ -116,105 +118,177 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     itemCount: 10),
               ),
               Expanded(
-                  child: Container(
-                child: PageView(
-                  controller: _pageController,
-                  children: [
-                    for (var i = 0; i < pageCount; i++)
+                  child: PageView(
+                    controller: _pageController,
+                    children: [
+                      for (var i = 0; i < pageCount; i++)
                       Container(
-                          color: Colors.white,
-                          child: Column(
-                            children: [
-                              Row(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(20),
-                                    child: Container(
-                                      height: 140,
-                                      width: 100,
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(5)),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.grey,
-                                            offset: Offset(0.0, 1.0), //(x,y)
-                                            blurRadius: 6.0,
-                                          ),
-                                        ],
-                                      ),
+                          height: 650,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 10, right: 10,top: 20),
+                            child: StaggeredGridView.countBuilder(
+                              physics: NeverScrollableScrollPhysics(),
+                              crossAxisCount: 2,
+                              itemCount: 6,
+                              crossAxisSpacing: 0,
+                              mainAxisSpacing: 0,
+                              itemBuilder: (context, index) {
+                                return InkWell(
+                                  onTap: (() {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ProductDetailsScreen()));
+                                  }),
+                                  child: Card(
+                                    elevation: 2,
+                                    // shape: RoundedRectangleBorder(),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8),
                                       child: Column(
-                                        // mainAxisAlignment: MainAxisAlignment.start,
-                                        // crossAxisAlignment:
-                                        //     CrossAxisAlignment.start,
                                         children: [
-                                          Center(
-                                            child: Image(
-                                              image: AssetImage(
-                                                  "assets/images/lens.png"),
-                                              height: 80,
-                                              width: 100,
-                                            ),
+                                          Stack(
+                                            children: [
+                                              Container(
+                                                height: 120,
+                                                width: double.infinity,
+                                                clipBehavior: Clip.antiAlias,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(0),
+                                                ),
+                                                child: Image(
+                                                  image: AssetImage(
+                                                      "assets/images/lens.png"),
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                          Spacer(),
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Text(
-                                              'DSLR Cameras',
-                                              textAlign: TextAlign.center,
-                                            ),
-                                          )
+                                          const SizedBox(height: 10),
+                                          Text(
+                                            'DSLR Camera',
+                                            maxLines: 2,
+                                            style: const TextStyle(fontSize: 12),
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                          const SizedBox(height: 5),
                                         ],
                                       ),
                                     ),
                                   ),
-                                  Container(
-                                    height: 140,
-                                    width: 100,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(5)),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey,
-                                          offset: Offset(0.0, 1.0), //(x,y)
-                                          blurRadius: 6.0,
-                                        ),
-                                      ],
-                                    ),
-                                    child: Column(
-                                      // mainAxisAlignment: MainAxisAlignment.start,
-                                      // crossAxisAlignment:
-                                      //     CrossAxisAlignment.start,
-                                      children: [
-                                        Center(
-                                          child: Image(
-                                            image: AssetImage(
-                                                "assets/images/lens.png"),
-                                            height: 80,
-                                            width: 100,
-                                          ),
-                                        ),
-                                        Spacer(),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text(
-                                            'Mirrorless Cameras',
-                                            textAlign: TextAlign.center,
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          )),
-                  ],
-                ),
-              ))
+                                );
+                              },
+                              staggeredTileBuilder: (index) =>
+                                  StaggeredTile.fit(1),
+                            ),
+                          ),
+                        ),
+                  
+                    ], 
+                    
+                  ))
+                    
+              //     Container(
+              //   child: PageView(
+              //     controller: _pageController,
+              //     children: [
+              //       // for (var i = 0; i < pageCount; i++)
+              //         Container(
+              //             color: Colors.white,
+              //             child: Column(
+              //               children: [
+              //                 Row(
+              //                   children: [
+              //                     Padding(
+              //                       padding: const EdgeInsets.all(20),
+              //                       child: Container(
+              //                         height: 140,
+              //                         width: 100,
+              //                         decoration: BoxDecoration(
+              //                           color: Colors.white,
+              //                           borderRadius: BorderRadius.all(
+              //                               Radius.circular(5)),
+              //                           boxShadow: [
+              //                             BoxShadow(
+              //                               color: Colors.grey,
+              //                               offset: Offset(0.0, 1.0), //(x,y)
+              //                               blurRadius: 6.0,
+              //                             ),
+              //                           ],
+              //                         ),
+              //                         child: Column(
+              //                           // mainAxisAlignment: MainAxisAlignment.start,
+              //                           // crossAxisAlignment:
+              //                           //     CrossAxisAlignment.start,
+              //                           children: [
+              //                             Center(
+              //                               child: Image(
+              //                                 image: AssetImage(
+              //                                     "assets/images/lens.png"),
+              //                                 height: 80,
+              //                                 width: 100,
+              //                               ),
+              //                             ),
+              //                             Spacer(),
+              //                             Padding(
+              //                               padding: const EdgeInsets.all(8.0),
+              //                               child: Text(
+              //                                 'DSLR Cameras',
+              //                                 textAlign: TextAlign.center,
+              //                               ),
+              //                             )
+              //                           ],
+              //                         ),
+              //                       ),
+              //                     ),
+              //                     Container(
+              //                       height: 140,
+              //                       width: 100,
+              //                       decoration: BoxDecoration(
+              //                         color: Colors.white,
+              //                         borderRadius:
+              //                             BorderRadius.all(Radius.circular(5)),
+              //                         boxShadow: [
+              //                           BoxShadow(
+              //                             color: Colors.grey,
+              //                             offset: Offset(0.0, 1.0), //(x,y)
+              //                             blurRadius: 6.0,
+              //                           ),
+              //                         ],
+              //                       ),
+              //                       child: Column(
+              //                         // mainAxisAlignment: MainAxisAlignment.start,
+              //                         // crossAxisAlignment:
+              //                         //     CrossAxisAlignment.start,
+              //                         children: [
+              //                           Center(
+              //                             child: Image(
+              //                               image: AssetImage(
+              //                                   "assets/images/lens.png"),
+              //                               height: 80,
+              //                               width: 100,
+              //                             ),
+              //                           ),
+              //                           Spacer(),
+              //                           Padding(
+              //                             padding: const EdgeInsets.all(8.0),
+              //                             child: Text(
+              //                               'Mirrorless Cameras',
+              //                               textAlign: TextAlign.center,
+              //                             ),
+              //                           )
+              //                         ],
+              //                       ),
+              //                     ),
+              //                   ],
+              //                 ),
+              //               ],
+              //             )),
+              //     ],
+              //   ),
+              // ))
+            
             ],
           ),
         ));

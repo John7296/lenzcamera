@@ -36,10 +36,12 @@ class _EditProfileScreen extends State<EditProfileScreen> {
                   Container(
                     height: 80,
                     width: 150,
-                    color: Colors.red,
+                    child: Image(
+                      image: AssetImage("assets/images/lens.png"),
+                    ),
                   ),
                   Container(
-                    margin: EdgeInsets.all(25),
+                    margin: EdgeInsets.all(20),
                     child: Column(
                       children: [
                         SizedBox(height: 80),
@@ -53,10 +55,11 @@ class _EditProfileScreen extends State<EditProfileScreen> {
                               ),
                             )),
                         Container(
-                          height: 35,
+                          height: 40,
                           child: TextFormField(
                             decoration: InputDecoration(
                               border: OutlineInputBorder(),
+                              contentPadding: EdgeInsets.all(5)
                               // labelText: 'Customer Name'
                             ),
                           ),
@@ -71,10 +74,11 @@ class _EditProfileScreen extends State<EditProfileScreen> {
                                       TextStyle(color: Colors.grey.shade600)),
                             )),
                         Container(
-                          height: 35,
+                          height: 40,
                           child: TextFormField(
                             decoration: InputDecoration(
                               border: OutlineInputBorder(),
+                              contentPadding: EdgeInsets.all(5)
                               // labelText: 'Email ID'
                             ),
                           ),
@@ -89,10 +93,11 @@ class _EditProfileScreen extends State<EditProfileScreen> {
                                       TextStyle(color: Colors.grey.shade600)),
                             )),
                         Container(
-                          height: 35,
+                          height: 40,
                           child: TextFormField(
                             decoration: InputDecoration(
                               border: OutlineInputBorder(),
+                              contentPadding: EdgeInsets.all(5)
                               // labelText: 'Mobile'
                             ),
                           ),
@@ -104,8 +109,8 @@ class _EditProfileScreen extends State<EditProfileScreen> {
                           child: ElevatedButton(
                             onPressed: () {},
                             child: Text(
-                              'Sign Up',
-                              style: TextStyle(fontSize: 20),
+                              'Update',
+                              style: TextStyle(fontSize: 20,fontFamily: 'Intro'),
                             ),
                             style: ButtonStyle(
                               backgroundColor:

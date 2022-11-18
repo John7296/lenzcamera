@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lenzcamera/screens/order_screen.dart';
 
 class CartScreen extends StatefulWidget{
   @override
@@ -216,11 +217,11 @@ class _CartScreenState extends State<CartScreen> {
                                  backgroundColor: Color(0xff444444),
                                ),
                                onPressed: () {
-                                 // Navigator.push(
-                                 //     context,
-                                 //     MaterialPageRoute(
-                                 //     builder: (context) =>
-                                 //     ForgotPasswordScreen()));
+                                 Navigator.push(
+                                     context,
+                                     MaterialPageRoute(
+                                     builder: (context) =>
+                                     OrderScreen()));
                        
                                },
                                child: Center(
