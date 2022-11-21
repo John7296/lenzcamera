@@ -21,9 +21,6 @@ abstract class NetworkConnection {
         maxWidth: 90));
     
     return _NetworkConnection(dio);
-
-
-
   }
 
 

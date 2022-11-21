@@ -226,7 +226,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 Padding(
                                   padding: const EdgeInsets.all(5),
                                   child: Text(
-                                    _topCategories[index].catName ?? '',
+                                    // _topCategories[index].catName ?? 
+                                    'DSLR Camera',
                                     style: TextStyle(
                                         fontSize: 12,
                                         fontWeight: FontWeight.w400),
