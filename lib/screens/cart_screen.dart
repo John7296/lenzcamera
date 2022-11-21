@@ -102,7 +102,7 @@ class _CartScreenState extends State<CartScreen> {
                                                           ),
                                                         ),
                                                         Padding(
-                                                          padding: const EdgeInsets.only(left:230),
+                                                          padding: const EdgeInsets.only(left:220),
                                                           child: IconButton(
                                                               onPressed: () {},
                                                               icon: Icon(
@@ -128,7 +128,7 @@ class _CartScreenState extends State<CartScreen> {
                                                                        .w600),
                                                            maxLines: 2),
                                                        SizedBox(
-                                                         width: 100,
+                                                         width: 90,
                                                        ),
                                                        Row(
                                                          mainAxisAlignment:
