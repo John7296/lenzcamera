@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/screens/address_screen.dart';
+import 'package:lenzcamera/screens/cart_screen.dart';
+import 'package:lenzcamera/screens/category_screen.dart';
 import 'package:lenzcamera/screens/change_password_screen.dart';
 import 'package:lenzcamera/screens/checkout_screen.dart';
 import 'package:lenzcamera/screens/contact_us_screen.dart';
@@ -10,6 +13,7 @@ import 'package:lenzcamera/screens/order_details_screen.dart';
 import 'package:lenzcamera/screens/order_screen.dart';
 import 'package:lenzcamera/screens/privacy_policy_screen.dart';
 import 'package:lenzcamera/screens/product_details_screen.dart';
+import 'package:lenzcamera/screens/profile_screen.dart';
 import 'package:lenzcamera/screens/reset_password_screen.dart';
 import 'package:lenzcamera/screens/review_screen.dart';
 import 'package:lenzcamera/screens/search_screen.dart';
@@ -17,19 +21,9 @@ import 'package:lenzcamera/screens/splash_screen.dart';
 import 'package:lenzcamera/screens/write_review_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: SplashScreen(),
+  ));
+  NetworkManager.shared.init();
 }
-
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-            home: SplashScreen(),
-    );
-  }
-}
-
