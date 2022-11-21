@@ -75,7 +75,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                             padding: const EdgeInsets.only(left:15, top:5),
                             child: Row(
                               children: [
-                                Text("Doha,,",style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Color(0xff70706f)),maxLines: 3, ),
+                                Text("Doha,",style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Color(0xff70706f)),maxLines: 3, ),
                               ],
                             ),
                           ),

@@ -136,7 +136,7 @@ class _WriteReviewScreenState extends State<WriteReviewScreen> {
               Padding(
                 padding: const EdgeInsets.only(left:24, right:24, top:20),
                 child: Container(
-                    height: 50,
+                    height: 40,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xffec3436),
