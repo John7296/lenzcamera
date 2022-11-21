@@ -87,19 +87,22 @@ class _WriteReviewScreenState extends State<WriteReviewScreen> {
         
               Padding(
                 padding: const EdgeInsets.only(left:24, right:24, top:20),
-                child: TextFormField(
-                        decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xff878787)),
+                child: Container(
+                  height: 40,
+                  child: TextFormField(
+                          decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(color: Color(0xff878787)),
+                        ),
+                        hintText: "Title",
+                        hintStyle: TextStyle(color: Colors.black, fontSize: 15, fontWeight: FontWeight.w500 ),
+                        suffixIcon: Padding(
+                          padding: const EdgeInsets.only(right: 20),
+                          
+                        ),
                       ),
-                      hintText: "Title",
-                      hintStyle: TextStyle(color: Colors.black, fontSize: 15, fontWeight: FontWeight.w500 ),
-                      suffixIcon: Padding(
-                        padding: const EdgeInsets.only(right: 20),
-                        
                       ),
-                    ),
-                    ),
+                ),
               ),
         
               Padding(
@@ -133,7 +136,7 @@ class _WriteReviewScreenState extends State<WriteReviewScreen> {
               Padding(
                 padding: const EdgeInsets.only(left:24, right:24, top:20),
                 child: Container(
-                    height: 50,
+                    height: 40,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xffec3436),

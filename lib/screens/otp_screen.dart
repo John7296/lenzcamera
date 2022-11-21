@@ -52,7 +52,7 @@ class _OtpScreenState extends State<OtpScreen> {
                ),
                 SizedBox(height: 55),
                 Container(
-                  height: 50,
+                  height: 40,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xffec3436),

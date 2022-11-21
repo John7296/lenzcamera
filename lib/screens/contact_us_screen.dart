@@ -19,7 +19,10 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
               Icons.arrow_back_ios_new_sharp,
               color: Colors.white,
             ),
-            onPressed: () {},
+            onPressed: () {
+             Navigator.pop(context);
+
+            },
           ),
           backgroundColor: Colors.black,
 
@@ -72,7 +75,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                             padding: const EdgeInsets.only(left:15, top:5),
                             child: Row(
                               children: [
-                                Text("Doha,,",style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Color(0xff70706f)),maxLines: 3, ),
+                                Text("Doha,",style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Color(0xff70706f)),maxLines: 3, ),
                               ],
                             ),
                           ),
@@ -108,11 +111,17 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                           ),
                       ),
                
-                      Column(children: [
+                      Column(
+                       crossAxisAlignment:CrossAxisAlignment.end,
+                       mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                        
                        Container(
                          child: Padding(
-                           padding: const EdgeInsets.only(left: 280, top: 10),
-                           child: Row(children: [
+                           padding: const EdgeInsets.only( top: 10, right:24 ),
+                           child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
                              IconButton(onPressed: (){}, icon: Icon(Icons.phone, size: 50, color: Color(0xff70706f),)),                  
                              ]),
                      ),
@@ -120,8 +129,10 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                
                         Container(
                          child: Padding(
-                           padding: const EdgeInsets.only(left: 280, top: 10),
-                           child: Row(children: [
+                           padding: const EdgeInsets.only(right: 24, top: 10),
+                           child: Row(
+                             mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
                              IconButton(onPressed: (){}, icon: Icon(Icons.mail, size: 50, color: Color(0xff70706f),)),
                              ]),
                         ),
@@ -129,8 +140,10 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                
                         Container(
                          child: Padding(
-                           padding: const EdgeInsets.only(left: 280, top:10),
-                           child: Row(children: [
+                           padding: const EdgeInsets.only(right: 24, top:10),
+                           child: Row(
+                             mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
                              IconButton(onPressed: (){}, icon: Icon(Icons.whatsapp, size: 50, color: Color(0xff70706f),)),
                              ]),
                          ),
@@ -154,7 +167,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                       ),
                       SizedBox(height: 12),
                       Container(
-                        height: 50,
+                        height: 40,
                         child: TextFormField(
                             decoration: InputDecoration(
                           border: OutlineInputBorder(
@@ -177,7 +190,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                       ),
                       SizedBox(height: 12),
                       Container(
-                        height: 50,
+                        height: 40,
                         child: TextFormField(
                             decoration: InputDecoration(
                           border: OutlineInputBorder(
@@ -200,7 +213,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                       ),
                       SizedBox(height: 12),
                       Container(
-                        height: 50,
+                        height: 40,
                         child: TextFormField(
                             decoration: InputDecoration(
                           border: OutlineInputBorder(
@@ -222,14 +235,17 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                         ),
                       ),
                       SizedBox(height: 12),
-                      TextFormField(
-                          decoration: InputDecoration(
-                             contentPadding: const EdgeInsets.symmetric(vertical: 60.0),
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(color: Color(0xffb0b0b0)),
-                        ),
-                        labelText: " ",
-                      )),
+                      Container(
+                        height: 40,
+                        child: TextFormField(
+                            decoration: InputDecoration(
+                               contentPadding: const EdgeInsets.symmetric(vertical: 60.0),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Color(0xffb0b0b0)),
+                          ),
+                          labelText: " ",
+                        )),
+                      ),
                     SizedBox(height: 200),
                ],),
              ),
@@ -241,7 +257,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
            child: Padding(
              padding: const EdgeInsets.only(left:24, right:24, bottom: 8),
              child: Container(
-                    height: 50,
+                    height: 40,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xffec3436),
