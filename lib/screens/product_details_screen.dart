@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lenzcamera/screens/cart_screen.dart';
+import 'package:lenzcamera/screens/wishlist_screen.dart';
 import 'package:lenzcamera/screens/write_review_screen.dart';
 
 class ProductDetailsScreen extends StatefulWidget{
@@ -28,9 +29,24 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           ),
           backgroundColor: Colors.black,
         actions: [
-          Icon(Icons.favorite_border_outlined, color: Colors.white,),
-         SizedBox(width:40),
-          Icon(Icons.shopping_cart_outlined, color: Colors.white,),
+
+          IconButton(onPressed:(){
+                Navigator.push(
+                     context,
+                     MaterialPageRoute(
+                     builder: (context) =>
+                    WishlistScreen()));
+
+          }, icon: Icon(Icons.favorite_border_outlined, color: Colors.white)),
+         SizedBox(width:20),
+          IconButton(onPressed:(){
+              Navigator.push(
+                     context,
+                     MaterialPageRoute(
+                     builder: (context) =>
+                     CartScreen()));
+
+          }, icon: Icon(Icons.shopping_cart_outlined, color: Colors.white)),
            SizedBox(width:20),
         ],
     ),

@@ -45,7 +45,9 @@ class _FilterScreenState extends State<FilterScreen> {
                       borderRadius: BorderRadius.circular(10)
                     ),
                     color:  Color(0xffadadad),
-                     child: ExpansionTile(
+                     child: 
+                         
+                     ExpansionTile(
                                title: Text('Categories'),
                               // collapsedBackgroundColor: Color(0xffadadad),
                                backgroundColor: Color(0xffadadad),
@@ -81,22 +83,25 @@ class _FilterScreenState extends State<FilterScreen> {
                        
                             
                  SizedBox(height: 12),
-                 Container(
-                  height:60,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                  color:  Colors.grey,
-                  ),
-                    child: Expanded(
-                      child: Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left:15),
-                            child: Text("Price Range"),
-                          ),
-                        ],
-                      ),
-                    ),          
+                 Padding(
+                   padding: const EdgeInsets.only(left:4, right: 4),
+                   child: Container(
+                    height:60,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                    color:  Colors.grey,
+                    ),
+                      child: Expanded(
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left:15),
+                              child: Text("Price Range"),
+                            ),
+                          ],
+                        ),
+                      ),          
+                   ),
                  ),
                  SizedBox(
                   height: 20,
@@ -346,10 +351,11 @@ class _FilterScreenState extends State<FilterScreen> {
                   alignment: Alignment.bottomCenter,
                    child: Container(
                          height: 75,
+                         
                          //color: Color(0xfff2f2f2),
                           child: Row(children: [
                            Container(
-                            height: 50,
+                            height: 45,
                             width: 100,
                             child: ElevatedButton(
                    style: ElevatedButton.styleFrom(
@@ -361,7 +367,7 @@ class _FilterScreenState extends State<FilterScreen> {
                            SizedBox(width: 10,),
                            Expanded(
                              child: Container(
-                    height: 40,
+                    height: 45,
                     child: ElevatedButton(
                        style: ElevatedButton.styleFrom(
                           backgroundColor: Color(0xffec3436),
