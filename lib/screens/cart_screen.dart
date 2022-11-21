@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lenzcamera/screens/checkout_screen.dart';
+import 'package:lenzcamera/screens/order_screen.dart';
 
 class CartScreen extends StatefulWidget{
   @override
@@ -256,6 +257,19 @@ class _CartScreenState extends State<CartScreen> {
                                    style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.w400),
                                  )),
                                ),
+                              //  onPressed: () {
+                              //    Navigator.push(
+                              //        context,
+                              //        MaterialPageRoute(
+                              //        builder: (context) =>
+                              //        OrderScreen()));
+                       
+                              //  },
+                              //  child: Center(
+                              //      child: Text(
+                              //    "PROCEED TO CHECKOUT",
+                              //    style: TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.w400),
+                              //  )),
                              ),
              ),
            ),

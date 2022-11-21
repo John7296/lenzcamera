@@ -32,8 +32,8 @@ dependencies:
   flutter_otp_text_field: ^1.1.0+2
   carousel_slider: ^4.1.1
   flutter_rating_bar: ^4.0.1
- 
-  
+  retrofit: ^3.3.1
+  flutter_staggered_grid_view: ^0.4.1
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -81,11 +81,14 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  # - family: Intro
-  #   fonts:
-  #     - asset: assets/fonts/Roboto-Bold.ttf
-  #     - asset: assets/fonts/Roboto-Light.ttf
+  fonts:
+    - family: Intro
+      fonts:
+        - asset: assets/fonts/Intro.otf
+        - asset: assets/fonts/Intro Black.otf
+        - asset: assets/fonts/Intro Bold.otf
+        - asset: assets/fonts/Intro Book.otf
+        - asset: assets/fonts/Intro-Regular.otf
   #         style: italic
   #   - family: Trajan Pro
   #     fonts:

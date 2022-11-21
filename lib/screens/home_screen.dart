@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:lenzcamera/screens/address_screen.dart';
 import 'package:lenzcamera/screens/cart_screen.dart';
 import 'package:lenzcamera/screens/category_screen.dart';
@@ -10,6 +11,7 @@ import 'package:lenzcamera/screens/contact_us_screen.dart';
 import 'package:lenzcamera/screens/featured_products_screen.dart';
 import 'package:lenzcamera/screens/login_screen.dart';
 import 'package:lenzcamera/screens/privacy_policy_screen.dart';
+import 'package:lenzcamera/screens/product_details_screen.dart';
 import 'package:lenzcamera/screens/profile_screen.dart';
 import 'package:lenzcamera/screens/return_policy_screen.dart';
 import 'package:lenzcamera/screens/search_screen.dart';
@@ -36,9 +38,12 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Padding(
-          padding: const EdgeInsets.only(left: 50),
-          child: Text('Lenz Camera'),
+        title: Container(
+          height: 100,
+          width: 200,
+          child: Image(
+            image: AssetImage("assets/images/logo_lenzcamera.png"),
+          ),
         ),
         actions: [
           IconButton(
@@ -71,269 +76,316 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(5),
-                  child: Icon(Icons.circle_outlined),
-                ),
-                Container(
-                  child: Padding(
+            Padding(
+              padding: const EdgeInsets.only(left: 5, right: 5),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Padding(
                     padding: const EdgeInsets.all(5),
-                    child: Text(
-                      'Doha',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                    child: Icon(Icons.circle_outlined),
+                  ),
+                  Container(
+                    child: Padding(
+                      padding: const EdgeInsets.all(5),
+                      child: Text(
+                        'Doha',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
                     ),
                   ),
-                ),
-                Spacer(),
-                Padding(
-                  padding: const EdgeInsets.all(2),
-                  child: TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        'Change',
-                        style: TextStyle(color: Colors.red),
-                      )),
-                ),
-              ],
+                  Spacer(),
+                  Padding(
+                    padding: const EdgeInsets.all(2),
+                    child: TextButton(
+                        onPressed: () {},
+                        child: Text(
+                          'Change',
+                          style: TextStyle(color: Colors.red),
+                        )),
+                  ),
+                ],
+              ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Expanded(
-                  child: Container(
-                    child: Row(
-                      children: [
-                        Container(
-                          margin: EdgeInsets.only(left: 10),
-                          child: Icon(Icons.search_rounded,
-                              size: 30, color: Colors.grey.shade700),
-                        ),
-                        SizedBox(width: 30),
-                        SizedBox(
-                          child: Text(
-                            "SEARCH PRODUCTS",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.grey.shade700),
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SearchScreen()));
+                    },
+                    child: Container(
+                      child: Row(
+                        children: [
+                          Container(
+                            margin: EdgeInsets.only(left: 10),
+                            child: Icon(Icons.search_rounded,
+                                size: 30, color: Colors.grey.shade700),
                           ),
-                        ),
-                      ],
+                          SizedBox(width: 30),
+                          SizedBox(
+                            child: Text(
+                              "SEARCH PRODUCTS",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.grey.shade700),
+                            ),
+                          ),
+                        ],
+                      ),
+                      margin: EdgeInsets.only(left: 10, right: 10),
+                      height: 50,
+                      width: 50,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.grey.shade300),
                     ),
-                    margin: EdgeInsets.only(left: 20, right: 20),
-                    height: 70,
-                    width: 50,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        color: Colors.grey.shade300),
                   ),
                 ),
               ],
             ),
             SizedBox(
-              height: 20,
+              height: 5,
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                width: MediaQuery.of(context).size.width,
+              padding: const EdgeInsets.only(left: 10, right: 10),
+              child: SizedBox(
                 height: 150,
-                // color: Colors.amber,
-                // decoration: BoxDecoration(
-                //     borderRadius: BorderRadius.circular(15),
-                //     color: Colors.amber),
-                child: Image(
-                  image: AssetImage("assets/images/camerabanner.png"),
-                  fit: BoxFit.fill,
-                  // width: MediaQuery.of(context).size.width,
+                width: MediaQuery.of(context).size.width,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Image(
+                    image: AssetImage("assets/images/camerabanner.png"),
+                    fit: BoxFit.fill,
+                    // width: MediaQuery.of(context).size.width,
+                  ),
                 ),
               ),
             ),
-            Container(
-              height: 150,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                shrinkWrap: true,
-                itemCount: 8,
-                itemBuilder: (context, index) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Card(
-                        child: Column(
-                          children: [
-                            Container(
-                              height: 100,
-                              width: 100,
-                              child: Image(
-                                image: AssetImage("assets/images/lens.png"),
-                              ),
-                              // color: Colors.red,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(5),
-                              child: Text(
-                                "CANON EF 16-35 MM F/4L IS USM ",
-                                style: TextStyle(
-                                    fontSize: 10, fontWeight: FontWeight.w400),
-                                maxLines: 2,
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  );
-                },
-              ),
-            ),
-
-            Container(
-                height: 480,
-                color: Colors.white,
-                child: Stack(
-                  children: [
-                    Row(
+            SizedBox(height: 5),
+            Padding(
+              padding: const EdgeInsets.only(left: 8, right: 10),
+              child: SizedBox(
+                height: 160,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  shrinkWrap: true,
+                  itemCount: 8,
+                  itemBuilder: (context, index) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(top: 20, left: 10),
-                          child: Text(
-                            'Featured Products',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        Spacer(),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 20, right: 10),
-                          child: TextButton(
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            FeaturedProductsScreen()));
-                              },
-                              child: Text(
-                                'View All ➜',
-                                style: TextStyle(
-                                    color: Colors.red,
-                                    fontWeight: FontWeight.bold),
-                              )),
-                        )
-                      ],
-                    ),
-                    Padding(
-                      padding:
-                          const EdgeInsets.only(top: 70, left: 5, right: 5),
-                      child: GridView.builder(
-                        physics: NeverScrollableScrollPhysics(),
-                        itemCount: 9,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3),
-                        itemBuilder: (BuildContext context, int index) {
-                          return Card(
-                            semanticContainer: true,
-                            clipBehavior: Clip.antiAliasWithSaveLayer,
+                          padding: const EdgeInsets.all(5),
+                          child: Container(
+                            width: 120,
+
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(5),
+                              ),
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey,
+                                  offset: Offset(0.0, 1.0), //(x,y)
+                                  blurRadius: 3.0,
+                                ),
+                              ],
+                            ),
+                            // height: 150,
                             child: Column(
                               children: [
-                                Stack(children: [
-                                  Center(
-                                    child: Image(
-                                      image:
-                                          AssetImage("assets/images/lens.png"),
-                                      height: 60,
-                                      width: 50,
-                                    ),
+                                Container(
+                                  height: 120,
+                                  width: 100,
+                                  child: Image(
+                                    image: AssetImage("assets/images/lens.png"),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 80),
-                                    child: IconButton(
-                                        onPressed: () {
-                                          showDialog(
-                                            context: context,
-                                            builder: (context) => AlertDialog(
-                                              title: Text(
-                                                "Item Added to wishlist",
-                                                style: TextStyle(
-                                                    fontFamily: 'Poppins'),
-                                              ),
-                                              actions: [
-                                                ElevatedButton(
-                                                    onPressed: () {
-                                                      Navigator.pop(context);
-                                                    },
-                                                    child: Text('Ok'))
-                                              ],
-                                            ),
-                                          );
-                                        },
-                                        icon: Icon(
-                                          Icons.favorite,
-                                          color: Color(0xff70726f),
-                                        )),
-                                  ),
-                                ]),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 10, right: 10),
-                                  child: Align(
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        "CANON EF 16-35 MM F/4L IS USM ",
-                                        style: TextStyle(
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.w400),
-                                        maxLines: 2,
-                                        textAlign: TextAlign.center,
-                                      )),
+                                  // color: Colors.red,
                                 ),
-                                Text("QAR 39999.00",
-                                    style: TextStyle(
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w600)),
                                 Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 10, right: 10, bottom: 5),
-                                  child: Container(
-                                    height: 20,
-                                    width: 200,
-                                    child: ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        elevation: 0,
-                                        backgroundColor: Colors.yellowAccent,
-                                      ),
-                                      onPressed: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    CartScreen()));
-                                      },
-                                      child: Center(
-                                          child: Text(
-                                        "ADD",
-                                        style: TextStyle(
-                                            fontSize: 12, color: Colors.black),
-                                      )),
-                                    ),
+                                  padding: const EdgeInsets.all(5),
+                                  child: Text(
+                                    "DSLR Lenses",
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w400),
+                                    maxLines: 2,
+                                    textAlign: TextAlign.center,
                                   ),
                                 ),
                               ],
                             ),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(0),
-                            ),
-                            elevation: 2,
-                            margin: EdgeInsets.all(2),
-                          );
-                        },
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                ),
+              ),
+            ),
+
+            Container(
+              height: 700,
+              width: MediaQuery.of(context).size.width,
+              color: Colors.white,
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 15, right: 15),
+                    child: Row(
+                      children: [
+                        Text(
+                          'Featured Products',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        Spacer(),
+                        TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          FeaturedProductsScreen()));
+                            },
+                            child: Text(
+                              'View All ➜',
+                              style: TextStyle(
+                                  color: Colors.red,
+                                  fontWeight: FontWeight.bold),
+                            )),
+                      ],
+                    ),
+                  ),
+                  Column(
+                    children: [
+                      Container(
+                        height: 600,
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 10, right: 10),
+                          child: StaggeredGridView.countBuilder(
+                            physics: NeverScrollableScrollPhysics(),
+                            crossAxisCount: 3,
+                            itemCount: 9,
+                            crossAxisSpacing: 3,
+                            mainAxisSpacing: 3,
+                            itemBuilder: (context, index) {
+                              return InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              ProductDetailsScreen()));
+                                },
+                                child: Card(
+                                  shape: RoundedRectangleBorder(),
+                                  elevation: 3,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8),
+                                    child: Column(
+                                      children: [
+                                        Stack(
+                                          children: [
+                                            Container(
+                                              margin: EdgeInsets.only(left: 75),
+                                              child: IconButton(
+                                                  onPressed: () {
+                                                    showDialog(
+                                                      context: context,
+                                                      builder: (context) =>
+                                                          AlertDialog(
+                                                        title: Text(
+                                                          "Item Added to wishlist",
+                                                          style: TextStyle(),
+                                                        ),
+                                                        actions: [
+                                                          ElevatedButton(
+                                                              onPressed: () {
+                                                                Navigator.pop(
+                                                                    context);
+                                                              },
+                                                              child: Text('Ok'))
+                                                        ],
+                                                      ),
+                                                    );
+                                                  },
+                                                  icon: Icon(
+                                                    Icons.favorite,
+                                                    color: Color(0xff70726f),
+                                                  )),
+                                            ),
+                                            Container(
+                                              height: 100,
+                                              width: double.infinity,
+                                              clipBehavior: Clip.antiAlias,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(0),
+                                              ),
+                                              child: Image(
+                                                image: AssetImage(
+                                                    "assets/images/lens.png"),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 10),
+                                        Text(
+                                          'CANON EF 16-35 MM F/4L IS USM',
+                                          maxLines: 2,
+                                          style: const TextStyle(fontSize: 12),
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                        const SizedBox(height: 5),
+                                        Text(
+                                          'QAR 120.00',
+                                          style: const TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.grey),
+                                        ),
+                                        const SizedBox(height: 5),
+                                        Container(
+                                          width: 100,
+                                          decoration: BoxDecoration(
+                                            color: Colors.yellow,
+                                            borderRadius:
+                                                BorderRadius.circular(5),
+                                          ),
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 4, vertical: 2),
+                                          child: Text(
+                                            'ADD',
+                                            style: const TextStyle(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.bold),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                            staggeredTileBuilder: (index) =>
+                                StaggeredTile.fit(1),
+                          ),
+                        ),
                       ),
-                    )
-                  ],
-                )),
+                    ],
+                  )
+                ],
+              ),
+            ),
+
+            // SizedBox(height: 70),
             CarouselSlider.builder(
               options: CarouselOptions(
                 height: 150.0,
@@ -353,153 +405,168 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             SizedBox(height: 10),
             Container(
-                height: 900,
-                color: Colors.white,
-                child: Stack(
-                  children: [
-                    Row(
+              height: 855,
+              width: MediaQuery.of(context).size.width,
+              color: Colors.white,
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 15, right: 15),
+                    child: Row(
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 20, left: 10),
-                          child: Text(
-                            'Popular Products',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
+                        Text(
+                          'Popular Products',
+                          style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                         Spacer(),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 20, right: 10),
-                          child: TextButton(
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            FeaturedProductsScreen()));
-                              },
-                              child: Text(
-                                'View All ➜',
-                                style: TextStyle(
-                                    color: Colors.red,
-                                    fontWeight: FontWeight.bold),
-                              )),
-                        )
+                        TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          FeaturedProductsScreen()));
+                            },
+                            child: Text(
+                              'View All ➜',
+                              style: TextStyle(
+                                  color: Colors.red,
+                                  fontWeight: FontWeight.bold),
+                            )),
                       ],
                     ),
-                    Padding(
-                      padding:
-                          const EdgeInsets.only(left: 5, top: 70, right: 5),
-                      child: GridView.builder(
-                        physics: NeverScrollableScrollPhysics(),
-                        itemCount: 8,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2),
-                        itemBuilder: (BuildContext context, int index) {
-                          return Container(
-                            // color: Colors.white,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              // borderRadius:
-                              // BorderRadius.all(Radius.circular(5)),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey,
-                                  offset: Offset(0.0, 1.0), //(x,y)
-                                  blurRadius: 2.0,
-                                ),
-                              ],
-                            ),
-                            child: Column(
-                              children: [
-                                Stack(children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 30, top: 10),
-                                    child: Image(
-                                      image:
-                                          AssetImage("assets/images/lens.png"),
-                                      height: 100,
-                                      width: 100,
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 120),
-                                    child: IconButton(
-                                        onPressed: () {
-                                          showDialog(
-                                            context: context,
-                                            builder: (context) => AlertDialog(
-                                              title: Text(
-                                                "Item Added to wishlist",
-                                                style: TextStyle(
-                                                    fontFamily: 'Poppins'),
-                                              ),
-                                              actions: [
-                                                ElevatedButton(
-                                                    onPressed: () {
-                                                      Navigator.pop(context);
-                                                    },
-                                                    child: Text('Ok'))
-                                              ],
+                  ),
+                  Column(
+                    children: [
+                      Container(
+                        height: 650,
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 10, right: 10),
+                          child: StaggeredGridView.countBuilder(
+                            physics: NeverScrollableScrollPhysics(),
+                            crossAxisCount: 2,
+                            itemCount: 6,
+                            crossAxisSpacing: 0,
+                            mainAxisSpacing: 0,
+                            itemBuilder: (context, index) {
+                              return InkWell(
+                                onTap: (() {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              ProductDetailsScreen()));
+                                }),
+                                child: Card(
+                                  elevation: 1,
+                                  shape: RoundedRectangleBorder(),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8),
+                                    child: Column(
+                                      children: [
+                                        Stack(
+                                          children: [
+                                            Container(
+                                              margin:
+                                                  EdgeInsets.only(left: 125),
+                                              child: IconButton(
+                                                  onPressed: () {
+                                                    showDialog(
+                                                      context: context,
+                                                      builder: (context) =>
+                                                          AlertDialog(
+                                                        title: Text(
+                                                          "Item Added to wishlist",
+                                                          style: TextStyle(),
+                                                        ),
+                                                        actions: [
+                                                          ElevatedButton(
+                                                              onPressed: () {
+                                                                Navigator.pop(
+                                                                    context);
+                                                              },
+                                                              child: Text('Ok'))
+                                                        ],
+                                                      ),
+                                                    );
+                                                  },
+                                                  icon: Icon(
+                                                    Icons.favorite,
+                                                    color: Color(0xff70726f),
+                                                  )),
                                             ),
-                                          );
-                                        },
-                                        icon: Icon(
-                                          Icons.favorite,
-                                          color: Color(0xff70726f),
-                                        )),
-                                  ),
-                                ]),
-                                Spacer(),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 10, right: 10),
-                                  child: Align(
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        "CANON EF 16-35 MM F/4L IS USM ",
-                                        style: TextStyle(
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.w400),
-                                        maxLines: 2,
-                                        textAlign: TextAlign.center,
-                                      )),
-                                ),
-                                Text("QAR 39999.00",
-                                    style: TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w600)),
-                                Container(
-                                  width: 150,
-                                  child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      elevation: 0,
-                                      backgroundColor: Colors.yellowAccent,
+                                            Container(
+                                              height: 150,
+                                              width: double.infinity,
+                                              clipBehavior: Clip.antiAlias,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(0),
+                                              ),
+                                              child: Image(
+                                                image: AssetImage(
+                                                    "assets/images/lens.png"),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 10),
+                                        Text(
+                                          'CANON EF 16-35 MM F/4L IS USM',
+                                          maxLines: 2,
+                                          style: const TextStyle(fontSize: 12),
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                        const SizedBox(height: 5),
+                                        Text(
+                                          'QAR 120.00',
+                                          style: const TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.grey),
+                                        ),
+                                        const SizedBox(height: 5),
+                                        Container(
+                                          width: 160,
+                                          height: 30,
+                                          child: ElevatedButton(
+                                            style: ElevatedButton.styleFrom(
+                                              elevation: 0,
+                                              backgroundColor: Colors.yellow,
+                                            ),
+                                            onPressed: () {
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          CartScreen()));
+                                            },
+                                            child: Center(
+                                                child: Text(
+                                              "ADD",
+                                              style: TextStyle(
+                                                  fontSize: 15,
+                                                  color: Colors.black),
+                                            )),
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                    onPressed: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  CartScreen()));
-                                    },
-                                    child: Center(
-                                        child: Text(
-                                      "ADD",
-                                      style: TextStyle(
-                                          fontSize: 15, color: Colors.black),
-                                    )),
                                   ),
                                 ),
-                              ],
-                            ),
-                          );
-                        },
+                              );
+                            },
+                            staggeredTileBuilder: (index) =>
+                                StaggeredTile.fit(1),
+                          ),
+                        ),
                       ),
-                    )
-                  ],
-                )),
-            // SizedBox(height: 10),
+                    ],
+                  )
+                ],
+              ),
+            ),
+
             Container(
                 height: 300,
                 color: Colors.white,
@@ -508,7 +575,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     Row(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(top: 20, left: 10),
+                          padding: const EdgeInsets.only(
+                              top: 20, left: 15, right: 15),
                           child: Text(
                             'Recent Products',
                             style: TextStyle(fontWeight: FontWeight.bold),
@@ -539,108 +607,107 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
                         shrinkWrap: true,
-                        itemCount: 8,
+                        itemCount: 6,
                         itemBuilder: (context, index) {
-                          return Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              // borderRadius:
-                              //     BorderRadius.all(Radius.circular(5)),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey,
-                                  offset: Offset(0.0, 1.0), //(x,y)
-                                  blurRadius: 2.0,
-                                ),
-                              ],
-                            ),
-                            child: Column(
-                              children: [
-                                Stack(children: [
+                          return InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          ProductDetailsScreen()));
+                            },
+                            child: Card(
+                              shape: RoundedRectangleBorder(),
+                              elevation: 3,
+                              child: Column(
+                                children: [
+                                  Stack(children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 30, top: 10),
+                                      child: Image(
+                                        image: AssetImage(
+                                            "assets/images/lens.png"),
+                                        height: 100,
+                                        width: 100,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 120),
+                                      child: IconButton(
+                                          onPressed: () {
+                                            showDialog(
+                                              context: context,
+                                              builder: (context) => AlertDialog(
+                                                title: Text(
+                                                  "Item Added to wishlist",
+                                                  style: TextStyle(),
+                                                ),
+                                                actions: [
+                                                  ElevatedButton(
+                                                      onPressed: () {
+                                                        Navigator.pop(context);
+                                                      },
+                                                      child: Text('Ok'))
+                                                ],
+                                              ),
+                                            );
+                                          },
+                                          icon: Icon(
+                                            Icons.favorite,
+                                            color: Color(0xff70726f),
+                                          )),
+                                    ),
+                                  ]),
+                                  Spacer(),
                                   Padding(
                                     padding: const EdgeInsets.only(
-                                        left: 30, top: 10),
-                                    child: Image(
-                                      image:
-                                          AssetImage("assets/images/lens.png"),
-                                      height: 100,
-                                      width: 100,
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 120),
-                                    child: IconButton(
-                                        onPressed: () {
-                                          showDialog(
-                                            context: context,
-                                            builder: (context) => AlertDialog(
-                                              title: Text(
-                                                "Item Added to wishlist",
-                                                style: TextStyle(
-                                                    fontFamily: 'Poppins'),
-                                              ),
-                                              actions: [
-                                                ElevatedButton(
-                                                    onPressed: () {
-                                                      Navigator.pop(context);
-                                                    },
-                                                    child: Text('Ok'))
-                                              ],
-                                            ),
-                                          );
-                                        },
-                                        icon: Icon(
-                                          Icons.favorite,
-                                          color: Color(0xff70726f),
+                                        left: 10, right: 10),
+                                    child: Align(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          "CANON EF 16-35 MM F/4L IS USM ",
+                                          style: TextStyle(
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.w400),
+                                          maxLines: 2,
+                                          textAlign: TextAlign.center,
                                         )),
                                   ),
-                                ]),
-                                Spacer(),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 10, right: 10),
-                                  child: Align(
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        "CANON EF 16-35 MM F/4L IS USM ",
-                                        style: TextStyle(
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.w400),
-                                        maxLines: 2,
-                                        textAlign: TextAlign.center,
-                                      )),
-                                ),
-                                Text("QAR 39999.00",
-                                    style: TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w600)),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 10, right: 10),
-                                  child: Container(
-                                    width: 150,
-                                    child: ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        elevation: 0,
-                                        backgroundColor: Colors.yellowAccent,
+                                  Text("QAR 39999.00",
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w600)),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 10, right: 10),
+                                    child: Container(
+                                      width: 150,
+                                      child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          elevation: 0,
+                                          backgroundColor: Colors.yellow,
+                                        ),
+                                        onPressed: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      CartScreen()));
+                                        },
+                                        child: Center(
+                                            child: Text(
+                                          "ADD",
+                                          style: TextStyle(
+                                              fontSize: 15,
+                                              color: Colors.black),
+                                        )),
                                       ),
-                                      onPressed: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    CartScreen()));
-                                      },
-                                      child: Center(
-                                          child: Text(
-                                        "ADD",
-                                        style: TextStyle(
-                                            fontSize: 15, color: Colors.black),
-                                      )),
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           );
                         },
@@ -766,7 +833,8 @@ class _HomeScreenState extends State<HomeScreen> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => LoginScreen(),
+                  MaterialPageRoute(
+                    builder: (context) => LoginScreen(),
                   ),
                 );
               },

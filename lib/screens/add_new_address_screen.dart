@@ -35,7 +35,7 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
               child: Column(
                 children: [
                   Container(
-                    margin: EdgeInsets.all(25),
+                    margin: EdgeInsets.all(20),
                     child: Column(
                       children: [
                         SizedBox(height: 20),
@@ -51,10 +51,11 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                               ),
                             )),
                         Container(
-                          height: 35,
+                          height: 40,
                           child: TextFormField(
                             decoration: InputDecoration(
                               border: OutlineInputBorder(),
+                              contentPadding: EdgeInsets.all(5)
                               // labelText: 'Customer Name'
                             ),
                           ),
@@ -70,10 +71,11 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                                       fontWeight: FontWeight.bold)),
                             )),
                         Container(
-                          height: 35,
+                          height: 40,
                           child: TextFormField(
                             decoration: InputDecoration(
                               border: OutlineInputBorder(),
+                              contentPadding: EdgeInsets.all(5)
                               // labelText: 'Email ID'
                             ),
                           ),
@@ -89,10 +91,11 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                                       fontWeight: FontWeight.bold)),
                             )),
                         Container(
-                          height: 35,
+                          height: 40,
                           child: TextFormField(
                             decoration: InputDecoration(
                               border: OutlineInputBorder(),
+                              contentPadding: EdgeInsets.all(5)
                               // labelText: 'Mobile'
                             ),
                           ),
@@ -108,11 +111,12 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                                       fontWeight: FontWeight.bold)),
                             )),
                         Container(
-                          height: 35,
+                          height: 40,
                           child: TextFormField(
                             obscureText: true,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(),
+                              contentPadding: EdgeInsets.all(5)
                               // labelText: 'Password'
                             ),
                           ),
@@ -128,10 +132,11 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                                       fontWeight: FontWeight.bold)),
                             )),
                         Container(
-                          height: 35,
+                          height: 40,
                           child: TextFormField(
                             decoration: InputDecoration(
                               border: OutlineInputBorder(),
+                              contentPadding: EdgeInsets.all(5)
                               // labelText: 'Mobile'
                             ),
                           ),
@@ -147,10 +152,11 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                                       fontWeight: FontWeight.bold)),
                             )),
                         Container(
-                          height: 35,
+                          height: 40,
                           child: TextFormField(
                             decoration: InputDecoration(
                               border: OutlineInputBorder(),
+                              contentPadding: EdgeInsets.all(5)
                               // labelText: 'Mobile'
                             ),
                           ),
@@ -165,7 +171,7 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                               //         TextStyle(color: Colors.grey.shade600)),
                             )),
                         Container(
-                          height: 35,
+                          height: 40,
                           child: TextFormField(
                             decoration: InputDecoration(
                                 border: OutlineInputBorder(),
@@ -182,7 +188,7 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                                       TextStyle(color: Colors.grey.shade600)),
                             )),
                         Container(
-                            height: 35,
+                            height: 40,
                             width: 400,
                             decoration: BoxDecoration(
                               border: Border.all(
@@ -209,7 +215,7 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                             ),
                         SizedBox(height: 30),
                         Container(
-                            height: 35,
+                            height: 40,
                             width: 400,
                             decoration: BoxDecoration(
                               border: Border.all(
@@ -275,10 +281,11 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                                       fontWeight: FontWeight.bold)),
                             )),
                         Container(
-                          height: 35,
+                          height: 40,
                           child: TextFormField(
                             decoration: InputDecoration(
                               border: OutlineInputBorder(),
+                              contentPadding: EdgeInsets.all(5)
                               // labelText: 'Mobile'
                             ),
                           ),
