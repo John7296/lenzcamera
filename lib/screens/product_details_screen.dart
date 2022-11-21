@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lenzcamera/screens/cart_screen.dart';
 import 'package:lenzcamera/screens/write_review_screen.dart';
 
 class ProductDetailsScreen extends StatefulWidget{
@@ -59,7 +60,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   padding: const EdgeInsets.only(left:24, right: 24, top: 5, bottom: 5),
                   child: Row(children: [
                     Expanded(child: Text("CANON EF 16-35MM F/2.8L III USM  " ,style: TextStyle(color: Color(0xff6e706d), fontSize: 20, fontWeight: FontWeight.w600), maxLines: 2,)),
-                    SizedBox(width:50),
+                    // SizedBox(width:50),
                    IconButton(onPressed: (){}, icon: Icon(Icons.favorite, color: Color(0xff70726f),)),
                   ],),
                 ),
@@ -69,7 +70,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 ),
                
                  Padding(
-                  padding: const EdgeInsets.only(left:24, right: 24, top:5, bottom: 5),
+                  padding: const EdgeInsets.only(left:24,right: 24, top:5, bottom: 5),
                   child: Column(
                     children: [
                       Align(
@@ -97,29 +98,35 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 SizedBox(height: 5),
 
                 Padding(
-                  padding: const EdgeInsets.only(left:270, bottom: 5),
-                  child: Container(
-                    height: 25,
-                    width: 80,
-                               child: ElevatedButton(
-                                 style: ElevatedButton.styleFrom(
-                                   backgroundColor: Color(0xffec3436),
-                                 ),
-                                 onPressed: () {
-                                   Navigator.push(
-                                       context,
-                                       MaterialPageRoute(
-                                       builder: (context) =>
-                                       WriteReviewScreen()));
-                         
-                                 },
-                                 child: Center(
+                  padding: const EdgeInsets.only(bottom:5, right: 24),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Container(
+                        //height: 27,
+                        width: 75,
+                                   child: ElevatedButton(
+                                     style: ElevatedButton.styleFrom(
+                                       backgroundColor: Color(0xffec3436),
+                                     ),
+                                     onPressed: () {
+                                       Navigator.push(
+                                           context,
+                                           MaterialPageRoute(
+                                           builder: (context) =>
+                                           WriteReviewScreen()));
+                             
+                                     },
                                      child: Text(
-                                   "Reviews",
-                                   style: TextStyle(fontSize: 14, color: Colors.white, fontWeight: FontWeight.w500),
-                                 )),
-                               ),
+                                       "Reviews",
+                                       style: TextStyle(fontSize: 13, color: Colors.white, fontWeight: FontWeight.w500),
+                                       maxLines: 1,
+                                     ),
+                                   ),
 
+                      ),
+                    
+                    ],
                   ),
                 ),
 
@@ -306,17 +313,17 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
            child: Padding(
              padding: const EdgeInsets.only(bottom:10.0, left:24, right: 24),
              child: Container(
-                 height: 50,
+                 height: 40,
                  child: ElevatedButton(
                    style: ElevatedButton.styleFrom(
                      backgroundColor: Color(0xffec3436),
                    ),
                    onPressed: () {
-                     // Navigator.push(
-                     // context,
-                     // MaterialPageRoute(
-                     // builder: (context) =>
-                     // ReviewScreen()));
+                     Navigator.push(
+                     context,
+                     MaterialPageRoute(
+                     builder: (context) =>
+                     CartScreen()));
               
                    },
                    child: Center(

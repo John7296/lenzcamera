@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:lenzcamera/screens/address_screen.dart';
-<<<<<<< HEAD
-import 'package:lenzcamera/screens/cart_screen.dart';
-import 'package:lenzcamera/screens/category_menu_screen.dart';
-=======
->>>>>>> 2ead584f582fb1b7b9ffceb95a5c8f2cffdee6b4
 import 'package:lenzcamera/screens/change_password_screen.dart';
 import 'package:lenzcamera/screens/checkout_screen.dart';
 import 'package:lenzcamera/screens/contact_us_screen.dart';

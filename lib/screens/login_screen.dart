@@ -46,13 +46,16 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               SizedBox(height: 12),
-              TextFormField(
-                  decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(color: Color(0xffb0b0b0)),
-                ),
-                labelText: " ",
-              )),
+              Container(
+                height: 40,
+                child: TextFormField(
+                    decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color(0xffb0b0b0)),
+                  ),
+                  labelText: " ",
+                )),
+              ),
               SizedBox(height: 30),
               Align(
                 alignment: Alignment.topLeft,
@@ -63,26 +66,29 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               SizedBox(height: 12),
-              TextFormField(
-                  decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(color: Color(0xffb0b0b0)),
-                ),
-                labelText: " ",
-                suffixIcon: Padding(
-                  padding: const EdgeInsets.only(right: 20),
-                  child: IconButton(
-                    icon: Icon(
-                      Icons.visibility,
-                      color: Color(0xff6e6e6c),
-                    ),
-                    onPressed: () {},
+              Container(
+                height: 40,
+                child: TextFormField(
+                    decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color(0xffb0b0b0)),
                   ),
-                ),
-              )),
+                  labelText: " ",
+                  suffixIcon: Padding(
+                    padding: const EdgeInsets.only(right: 20),
+                    child: IconButton(
+                      icon: Icon(
+                        Icons.visibility,
+                        color: Color(0xff6e6e6c),
+                      ),
+                      onPressed: () {},
+                    ),
+                  ),
+                )),
+              ),
               SizedBox(height: 30),
               Container(
-                height: 50,
+                height: 40,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xffec3436),
@@ -116,29 +122,27 @@ class _LoginScreenState extends State<LoginScreen> {
                         fontWeight: FontWeight.w800,
                         fontSize: 14),
                   ))),
-              Padding(
-                padding: const EdgeInsets.only(left: 24, right: 24),
-                child: Row(
-                  children: [
-                    Text(
-                      "Dont't have an account? ",
-                      style: TextStyle(fontSize: 14, color: Color(0xff757575)),
+              Row(
+                 mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Dont't have an account? ",
+                    style: TextStyle(fontSize: 14, color: Color(0xff757575)),
+                  ),
+                  SizedBox(),
+                  TextButton(
+                    onPressed: () {
+                        Navigator.pushReplacement(
+                    context, MaterialPageRoute(builder: (context)=>RegisterScreen()));
+                    },
+                    child: Text("Register Now",
+                      style: TextStyle(
+                          decoration: TextDecoration.underline,
+                          fontSize: 16, fontWeight: FontWeight.normal,
+                          color: Color(0xffc5484c)),
                     ),
-                    SizedBox(),
-                    TextButton(
-                      onPressed: () {
-                          Navigator.pushReplacement(
-                      context, MaterialPageRoute(builder: (context)=>RegisterScreen()));
-                      },
-                      child: Text("Register Now",
-                        style: TextStyle(
-                            decoration: TextDecoration.underline,
-                            fontSize: 16, fontWeight: FontWeight.normal,
-                            color: Color(0xffc5484c)),
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ]),
           ),

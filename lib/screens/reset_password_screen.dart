@@ -46,24 +46,27 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   ),
                   ),
                  SizedBox(height: 12),
-                TextFormField(
-                    decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xffb0b0b0)),
-                  ),
-                  labelText: " ",
-                  suffixIcon: Padding(
-                    padding: const EdgeInsets.only(right: 20),
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.visibility,
-                        color: Color(0xff6e6e6c),
+                Container(
+                  height: 50,
+                  child: TextFormField(
+                      decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(color: Color(0xffb0b0b0)),
+                    ),
+                    labelText: " ",
+                    suffixIcon: Padding(
+                      padding: const EdgeInsets.only(right: 20),
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.visibility,
+                          color: Color(0xff6e6e6c),
+                        ),
+                        onPressed: () {},
                       ),
-                      onPressed: () {},
                     ),
                   ),
-                ),
-                 obscureText: true,
+                   obscureText: true,
+                  ),
                 ),
                  SizedBox(height: 8),
           
@@ -77,24 +80,27 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   ),
                   ),
                  SizedBox(height: 12),
-                TextFormField(
-                    decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xffb0b0b0)),
-                  ),
-                  labelText: " ",
-                  suffixIcon: Padding(
-                    padding: const EdgeInsets.only(right: 20),
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.visibility,
-                        color: Color(0xff6e6e6c),
+                Container(
+                  height: 50,
+                  child: TextFormField(
+                      decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(color: Color(0xffb0b0b0)),
+                    ),
+                    labelText: " ",
+                    suffixIcon: Padding(
+                      padding: const EdgeInsets.only(right: 20),
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.visibility,
+                          color: Color(0xff6e6e6c),
+                        ),
+                        onPressed: () {},
                       ),
-                      onPressed: () {},
                     ),
                   ),
-                ),
-                obscureText: true,
+                  obscureText: true,
+                  ),
                 ),
                   SizedBox(height: 20),
                  

@@ -51,17 +51,20 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   ),
                 ),
                 SizedBox(height: 12),
-                TextFormField(
-                    decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xffb0b0b0)),
-                  ),
-                  labelText: " ",
-                )),
+                Container(
+                  height: 40,
+                  child: TextFormField(
+                      decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(color: Color(0xffb0b0b0)),
+                    ),
+                    labelText: " ",
+                  )),
+                ),
                 SizedBox(height: 25),
               
                 Container(
-                  height: 50,
+                  height: 40,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xffec3436),

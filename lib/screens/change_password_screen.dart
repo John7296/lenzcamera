@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lenzcamera/screens/login_screen.dart';
 
 class ChangePasswordScreen extends StatefulWidget{
   @override
@@ -43,24 +44,27 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   ),
                   ),
                   SizedBox(height: 12),
-                TextFormField(
-                    decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xffb0b0b0)),
-                  ),
-                  labelText: " ",
-                  suffixIcon: Padding(
-                    padding: const EdgeInsets.only(right: 20),
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.visibility,
-                        color: Color(0xff6e6e6c),
+                Container(
+                  height: 40,
+                  child: TextFormField(
+                      decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(color: Color(0xffb0b0b0)),
+                    ),
+                    labelText: " ",
+                    suffixIcon: Padding(
+                      padding: const EdgeInsets.only(right: 20),
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.visibility,
+                          color: Color(0xff6e6e6c),
+                        ),
+                        onPressed: () {},
                       ),
-                      onPressed: () {},
                     ),
                   ),
-                ),
-                 obscureText: true,
+                   obscureText: true,
+                  ),
                 ),
                  SizedBox(height: 12),
                  Align(
@@ -81,24 +85,27 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   ),
                   ),
                  SizedBox(height: 12),
-                TextFormField(
-                    decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xffb0b0b0)),
-                  ),
-                  labelText: " ",
-                  suffixIcon: Padding(
-                    padding: const EdgeInsets.only(right: 20),
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.visibility,
-                        color: Color(0xff6e6e6c),
+                Container(
+                  height: 40,
+                  child: TextFormField(
+                      decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(color: Color(0xffb0b0b0)),
+                    ),
+                    labelText: " ",
+                    suffixIcon: Padding(
+                      padding: const EdgeInsets.only(right: 20),
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.visibility,
+                          color: Color(0xff6e6e6c),
+                        ),
+                        onPressed: () {},
                       ),
-                      onPressed: () {},
                     ),
                   ),
-                ),
-                 obscureText: true,
+                   obscureText: true,
+                  ),
                 ),
 
                 SizedBox(height: 12),
@@ -121,24 +128,27 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   ),
                   ),
                  SizedBox(height: 12),
-                TextFormField(
-                    decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xffb0b0b0)),
-                  ),
-                  labelText: " ",
-                  suffixIcon: Padding(
-                    padding: const EdgeInsets.only(right: 20),
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.visibility,
-                        color: Color(0xff6e6e6c),
+                Container(
+                  height: 40,
+                  child: TextFormField(
+                      decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(color: Color(0xffb0b0b0)),
+                    ),
+                    labelText: " ",
+                    suffixIcon: Padding(
+                      padding: const EdgeInsets.only(right: 20),
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.visibility,
+                          color: Color(0xff6e6e6c),
+                        ),
+                        onPressed: () {},
                       ),
-                      onPressed: () {},
                     ),
                   ),
-                ),
-                obscureText: true,
+                  obscureText: true,
+                  ),
                 ),
 
                    SizedBox(height: 12),
@@ -149,16 +159,20 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                 fontWeight: FontWeight.w600,
                                 fontSize: 10), ),
                  ),
-                  SizedBox(height: 120),
+                  SizedBox(height: 80),
                  
                   Container(
-                    height: 50,
+                    height: 40,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xffec3436),
                       ),
                       onPressed: () {
-            
+                        Navigator.push(
+                                     context,
+                                     MaterialPageRoute(
+                                     builder: (context) =>
+                                    LoginScreen()));
                       },
                       child: Center(
                           child: Text(

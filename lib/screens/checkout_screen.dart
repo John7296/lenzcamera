@@ -50,9 +50,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   
                             SizedBox(width: 10),
                   
-                           Text("Delivery to", style: TextStyle(color: Color(0xff717171), fontSize: 12, fontWeight: FontWeight.w600),),
+                           Expanded(child: Text("Delivery to", style: TextStyle(color: Color(0xff717171), fontSize: 12, fontWeight: FontWeight.w600),)),
                   
-                              SizedBox(width: 200),
+                              SizedBox(width: 150),
                   
                            Text("CHANGE", style: TextStyle(color: Color(0xffec3436), fontSize: 15),),                
                            ],),
@@ -93,9 +93,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   
                             SizedBox(width: 10),
                   
-                           Text("Billing to", style: TextStyle(color: Color(0xff717171), fontSize: 12, fontWeight: FontWeight.w600),),
+                           Expanded(child: Text("Billing to", style: TextStyle(color: Color(0xff717171), fontSize: 12, fontWeight: FontWeight.w600),)),
                   
-                              SizedBox(width: 210),
+                              SizedBox(width: 160),
                   
                            Text("CHANGE", style: TextStyle(color: Color(0xffec3436), fontSize: 15),),                
                            ],),
@@ -211,9 +211,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       padding: const EdgeInsets.only( left:10,top:15, right: 20),
                       child: Row(
                         children: [
-                                  Text("Subtotal: ", style: TextStyle(color: Color(0xff717171), fontSize: 12, fontWeight: FontWeight.w600),),
+                                  Expanded(child: Text("Subtotal: ", style: TextStyle(color: Color(0xff717171), fontSize: 12, fontWeight: FontWeight.w600),)),
                   
-                             SizedBox(width: 210),   
+                            //  SizedBox(width: 160),   
                                Text("QAR 549.00 ", style: TextStyle(color: Colors.black, fontSize: 15, fontWeight: FontWeight.w600),),                
                       ],
                       ),
@@ -228,12 +228,12 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     ),
           
                     Padding(
-                      padding: const EdgeInsets.only( left:10,top:10, right: 10),
+                      padding: const EdgeInsets.only( left:10,top:10, right: 20),
                       child: Row(
                         children: [
-                                  Text("Total ", style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w600),),
+                                  Expanded(child: Text("Total ", style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w600),)),
                   
-                             SizedBox(width: 220),   
+                            //  SizedBox(width: 175),   
                                Text("QAR 549.00 ", style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w600),),                
                       ],
                       ),
@@ -299,7 +299,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
            child: Padding(
              padding: const EdgeInsets.only(bottom:10.0),
              child: Container(
-                 height: 50,
+                 height: 40,
                  child: ElevatedButton(
                    style: ElevatedButton.styleFrom(
                      backgroundColor: Color(0xffec3436),
