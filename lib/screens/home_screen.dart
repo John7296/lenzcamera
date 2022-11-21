@@ -4,6 +4,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:lenzcamera/connection/network_manager.dart';
+import 'package:lenzcamera/model/top_categories.dart';
 import 'package:lenzcamera/screens/address_screen.dart';
 import 'package:lenzcamera/screens/cart_screen.dart';
 import 'package:lenzcamera/screens/category_screen.dart';
@@ -25,7 +27,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<Widget> datas = [
+  List<TopCategories> _topCategories = [];
+
+  List<Widget> pages = [
     HomeScreen(),
     CategoryScreen(),
     CartScreen(),
@@ -34,6 +38,17 @@ class _HomeScreenState extends State<HomeScreen> {
   ];
 
   int selesctedindex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+
+    NetworkManager.shared
+        .getTopCategories()
+        .then((value) {})
+        .catchError((e) {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -211,7 +226,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 Padding(
                                   padding: const EdgeInsets.all(5),
                                   child: Text(
-                                    "DSLR Lenses",
+                                    _topCategories[index].catName ?? '',
                                     style: TextStyle(
                                         fontSize: 12,
                                         fontWeight: FontWeight.w400),
@@ -848,7 +863,7 @@ class _HomeScreenState extends State<HomeScreen> {
         selectedItemColor: Colors.red,
         unselectedItemColor: Colors.black,
         currentIndex: selesctedindex,
-        onTap: selectedfromDatas,
+        onTap: selectedPage,
         items: [
           BottomNavigationBarItem(
               icon: Icon(Icons.home_outlined), label: "home"),
@@ -865,7 +880,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void selectedfromDatas(int index) {
+  void selectedPage(int index) {
     setState(() {
       selesctedindex = index;
     });
