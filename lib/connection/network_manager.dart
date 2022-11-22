@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:lenzcamera/connection/network_connection.dart';
+import 'package:lenzcamera/model/base_response.dart';
+import 'package:lenzcamera/model/login_customer.dart';
 import 'package:lenzcamera/model/top_categories.dart';
 
 class NetworkManager {
@@ -15,6 +17,10 @@ class NetworkManager {
 
   Dio? dio;
   late NetworkConnection networkConnection;
+    dynamic password;
+   dynamic userName;
+   dynamic token;
+     dynamic customerId;
 
   init() {
     dio = Dio();
@@ -23,6 +29,14 @@ class NetworkManager {
   Future<List<TopCategories>> getTopCategories() {
     return call(networkConnection.getTopCategories());
   }
+
+  
+  Future<BaseResponse<LoginCustomer>> userLogin(Map<String, dynamic> map) {
+    return call(
+        networkConnection.userLogin(password, userName, token, customerId
+         ));
+  }
+
 
   Future<T> call<T>(Future<T> call) async {
     T response;

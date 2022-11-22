@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:lenzcamera/connection/network_manager.dart';
+import 'package:lenzcamera/model/base_response.dart';
+import 'package:lenzcamera/model/login_customer.dart';
 import 'package:lenzcamera/screens/forgot_password_screen.dart';
 import 'package:lenzcamera/screens/home_screen.dart';
 import 'package:lenzcamera/screens/register_screen.dart';
@@ -8,11 +11,49 @@ import 'package:lenzcamera/screens/register_screen.dart';
 
 
 class LoginScreen extends StatefulWidget {
+
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+
+   final _usernameController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+
+   @override
+  void initState() {
+    super.initState();
+   
+  }
+
+  
+
+  void onLoginButtonTapped(){
+
+     String username = _usernameController.text;
+    String password = _passwordController.text;
+
+    // if(username==(NetworkManager.shared.userLogin
+
+    NetworkManager.shared.userLogin(<String, dynamic>{
+      "userName": username,
+      "password": password
+    }).then((BaseResponse<LoginCustomer> response) {
+          Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                        builder: (context) =>
+                       HomeScreen()));
+
+  }).catchError((e){
+
+    // print(e);
+
+  });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -49,6 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
               Container(
                 height: 40,
                 child: TextFormField(
+                  controller: _usernameController,
                     decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderSide: BorderSide(color: Color(0xffb0b0b0)),
@@ -69,11 +111,13 @@ class _LoginScreenState extends State<LoginScreen> {
               Container(
                 height: 40,
                 child: TextFormField(
+                  controller: _passwordController,
                     decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderSide: BorderSide(color: Color(0xffb0b0b0)),
                   ),
                   labelText: " ",
+                    
                   suffixIcon: Padding(
                     padding: const EdgeInsets.only(right: 20),
                     child: IconButton(
@@ -84,7 +128,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       onPressed: () {},
                     ),
                   ),
-                )),
+                ),
+                obscureText: true,
+                ),
               ),
               SizedBox(height: 30),
               Container(
@@ -94,11 +140,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     backgroundColor: Color(0xffec3436),
                   ),
                   onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                        builder: (context) =>
-                       HomeScreen()));
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //     builder: (context) =>
+                    //    HomeScreen()));
           
                   },
                   child: Center(
@@ -111,6 +157,7 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(height: 40),
               TextButton(
                   onPressed: () {
+                    onLoginButtonTapped();
                     Navigator.pushReplacement(
                       context, MaterialPageRoute(builder: (context)=>ForgotPasswordScreen()));
                   },

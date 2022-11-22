@@ -53,6 +53,7 @@ class _FilterScreenState extends State<FilterScreen> {
                         padding: const EdgeInsets.only(left:10, right:10),
                         child: DropdownButton(
                           hint: Text("Categories"),
+                          underline: Container(color: Colors.transparent),
                           isExpanded: true,
                           dropdownColor: Color(0xffadadad),
                           elevation: 5,
@@ -117,7 +118,7 @@ class _FilterScreenState extends State<FilterScreen> {
                       height: 40,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                        color: Colors.grey,
+                        color: Color(0xff6f7270),
                       ),
                       child: Expanded(
                         child: Row(
@@ -171,6 +172,7 @@ class _FilterScreenState extends State<FilterScreen> {
                         child: DropdownButton(
                           hint: Text("Brand"),
                           isExpanded: true,
+                          underline: Container(color: Colors.transparent),
                           dropdownColor: Color(0xffadadad),
                           elevation: 5,
                           value: dropdownValue,
@@ -208,6 +210,7 @@ class _FilterScreenState extends State<FilterScreen> {
                           dropdownColor: Color(0xffadadad),
                           elevation: 5,
                           value: dropdownValue,
+                        underline: Container(color: Colors.transparent),
                           icon: const Icon(Icons.arrow_drop_down_outlined, color: Colors.black,),
                           onChanged: (String? value) {
                             // This is called when the user selects an item.
@@ -240,6 +243,7 @@ class _FilterScreenState extends State<FilterScreen> {
                         child: DropdownButton(
                           hint: Text("Lens Mount"),
                           isExpanded: true,
+                          underline: Container(color: Colors.transparent),
                           dropdownColor: Color(0xffadadad),
                           elevation: 5,
                           value: dropdownValue,
@@ -262,47 +266,6 @@ class _FilterScreenState extends State<FilterScreen> {
                         ),
                       ),
                     ),
-
-                    //       Container(
-                    //  height: 60,
-                    //  decoration: BoxDecoration(borderRadius: BorderRadius.circular(15),
-                    //  color: Colors.grey,
-                    //  ),
-
-                    //  child:ExpansionTile(
-                    //         backgroundColor:  Color(0xffadadad),
-                    //         title: Text("Lens Mount"),
-                    //         trailing: Icon(Icons.arrow_drop_down_outlined),
-                    //      children: [
-
-                    //       ListTile(
-                    //     leading: CircleAvatar(
-                    //       backgroundColor: Colors.blue,
-                    //     ),
-                    //  Column(
-                    //    mainAxisSize: MainAxisSize.min,
-                    //    children: [
-                    //      Expanded(
-                    //        child: Container(
-                    //          height: 50,
-                    //          color: Color(0xffadadad),
-                    //          child: Column(children: [
-                    //            Row(children: [
-                    //              Text(",mvvfdv"),
-                    //            ],),
-                    //            Row(children: [
-                    //              Text(",mvvfdv"),
-                    //            ],)
-                    //          ]),
-                    //        ),
-                    //      ),
-                    //    ],
-                    //  ),
-
-                    //    ],
-
-                    //            ),
-                    //  ),
 
                     SizedBox(
                       height: 200,

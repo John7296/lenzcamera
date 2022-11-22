@@ -46,6 +46,7 @@ class _CartScreenState extends State<CartScreen> {
                       ),
                       //color: Colors.green,
                       child: ListView.builder(
+                        physics: NeverScrollableScrollPhysics(),
                           itemCount: 10,
                           itemBuilder: (BuildContext context, int index) {
                             return Column(
@@ -73,139 +74,136 @@ class _CartScreenState extends State<CartScreen> {
                                                 ),
                                               ],
                                             ),
-                                            Stack(children: [
-                                              Column(
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: [
-                                                  Row(
-                                                   
-                                                    children: [
-                                                      Stack(children: [
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                      .only(
-                                                                  top: 10),
-                                                          child: Container(
-                                                            width: 200,
-                                                            child: Expanded(
-                                                              child: Text(
-                                                                  "CANON LP-E6NH BATTERY(OG)",
-                                                                  style: TextStyle(
-                                                                      fontSize:
-                                                                          13,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w600),
-                                                                  maxLines: 2),
-                                                            ),
+                                            Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Row(
+                                                 
+                                                  children: [
+                                                    Stack(children: [
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .only(
+                                                                top: 10),
+                                                        child: Container(
+                                                          width: 200,
+                                                          child: Expanded(
+                                                            child: Text(
+                                                                "CANON LP-E6NH BATTERY(OG)",
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        13,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600),
+                                                                maxLines: 2),
                                                           ),
                                                         ),
-                                                        Padding(
-                                                          padding: const EdgeInsets.only(left:220),
-                                                          child: IconButton(
-                                                              onPressed: () {},
-                                                              icon: Icon(
-                                                                Icons
-                                                                    .delete_outlined,
-                                                                color:
-                                                                    Colors.red,
-                                                              )),
-                                                        ),
-                                                      ]),
-                                                      // SizedBox(width: 20),
-                                                    ],
-                                                  ),
+                                                      ),
+                                                      Padding(
+                                                        padding: const EdgeInsets.only(left:220),
+                                                        child: IconButton(
+                                                            onPressed: () {},
+                                                            icon: Icon(
+                                                              Icons
+                                                                  .delete_outlined,
+                                                              color:
+                                                                  Colors.red,
+                                                            )),
+                                                      ),
+                                                    ]),
+                                                    // SizedBox(width: 20),
+                                                  ],
+                                                ),
 
-                                                   Row(
+                                                 Row(
 
-                                                     children: [
-                                                       Text("QAR 549.00",
-                                                           style: TextStyle(
-                                                               fontSize: 13,
-                                                               fontWeight:
-                                                                   FontWeight
-                                                                       .w600),
-                                                           maxLines: 2),
-                                                       SizedBox(
-                                                         width: 90,
-                                                       ),
-                                                       Row(
-                                                         mainAxisAlignment:
-                                                             MainAxisAlignment
-                                                                 .center,
-                                                         children: [
-                                                           Container(
+                                                   children: [
+                                                     Text("QAR 549.00",
+                                                         style: TextStyle(
+                                                             fontSize: 13,
+                                                             fontWeight:
+                                                                 FontWeight
+                                                                     .w600),
+                                                         maxLines: 2),
+                                                     SizedBox(
+                                                       width: 90,
+                                                     ),
+                                                     Row(
+                                                       mainAxisAlignment:
+                                                           MainAxisAlignment
+                                                               .center,
+                                                       children: [
+                                                         Container(
+                                                           width: 30,
+                                                           height: 30,
+                                                           decoration:
+                                                               BoxDecoration(
+                                                                   color: Color(
+                                                                       0xff70726f),
+                                                                   borderRadius:
+                                                                       BorderRadius
+                                                                           .only(
+                                                                     topLeft: Radius
+                                                                         .circular(
+                                                                             5),
+                                                                     bottomLeft:
+                                                                         Radius.circular(
+                                                                             5),
+                                                                   )),
+                                                           child: Center(
+                                                               child: Icon(
+                                                             Icons.remove,
+                                                             color: Colors.white,
+                                                             size: 12,
+                                                           )),
+                                                         ),
+                                                         Container(
+                                                           width: 30,
+                                                           height: 30,
+                                                           decoration:
+                                                               BoxDecoration(
+                                                             color: Color(
+                                                                 0xffe3e3e3),
+                                                           ),
+                                                           child: Center(
+                                                               child: Text(
+                                                             "1",
+                                                             style: TextStyle(
+                                                                 color: Colors
+                                                                     .black),
+                                                           )),
+                                                         ),
+                                                         Container(
                                                              width: 30,
                                                              height: 30,
                                                              decoration:
                                                                  BoxDecoration(
                                                                      color: Color(
-                                                                         0xff70726f),
+                                                                         0xffe83031),
                                                                      borderRadius:
                                                                          BorderRadius
                                                                              .only(
-                                                                       topLeft: Radius
-                                                                           .circular(
+                                                                       topRight:
+                                                                           Radius.circular(
                                                                                5),
-                                                                       bottomLeft:
+                                                                       bottomRight:
                                                                            Radius.circular(
                                                                                5),
                                                                      )),
-                                                             child: Center(
-                                                                 child: Icon(
-                                                               Icons.remove,
-                                                               color: Colors.white,
+                                                             child: Icon(
+                                                               Icons.add,
+                                                               color:
+                                                                   Colors.white,
                                                                size: 12,
                                                              )),
-                                                           ),
-                                                           Container(
-                                                             width: 30,
-                                                             height: 30,
-                                                             decoration:
-                                                                 BoxDecoration(
-                                                               color: Color(
-                                                                   0xffe3e3e3),
-                                                             ),
-                                                             child: Center(
-                                                                 child: Text(
-                                                               "1",
-                                                               style: TextStyle(
-                                                                   color: Colors
-                                                                       .black),
-                                                             )),
-                                                           ),
-                                                           Container(
-                                                               width: 30,
-                                                               height: 30,
-                                                               decoration:
-                                                                   BoxDecoration(
-                                                                       color: Color(
-                                                                           0xffe83031),
-                                                                       borderRadius:
-                                                                           BorderRadius
-                                                                               .only(
-                                                                         topRight:
-                                                                             Radius.circular(
-                                                                                 5),
-                                                                         bottomRight:
-                                                                             Radius.circular(
-                                                                                 5),
-                                                                       )),
-                                                               child: Icon(
-                                                                 Icons.add,
-                                                                 color:
-                                                                     Colors.white,
-                                                                 size: 12,
-                                                               )),
-                                                         ],
-                                                       ),
-                                                     ],
-                                                   ),
-                                                ],
-                                              ),
-                                             
-                                            ])
+                                                       ],
+                                                     ),
+                                                   ],
+                                                 ),
+                                              ],
+                                            )
                                           ],
                                         ),
                                       ],

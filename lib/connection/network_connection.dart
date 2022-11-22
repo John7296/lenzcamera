@@ -1,3 +1,5 @@
+import 'package:lenzcamera/model/base_response.dart';
+import 'package:lenzcamera/model/login_customer.dart';
 import 'package:lenzcamera/model/top_categories.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:retrofit/retrofit.dart';
@@ -21,13 +23,20 @@ abstract class NetworkConnection {
         maxWidth: 90));
     
     return _NetworkConnection(dio);
-
-
-
   }
-
-
-
   @GET('category/TopCategory')
   Future<List<TopCategories>> getTopCategories();
+
+
+    @FormUrlEncoded()
+  @POST("/Account/Login")
+  Future<BaseResponse<LoginCustomer>> userLogin(
+    @Body() Map<String, dynamic> password,
+    @Body() Map<String, dynamic> userName,
+    @Header("Authorization") String token,
+     @Path() String customerId,
+
+  );
+
+
 }
