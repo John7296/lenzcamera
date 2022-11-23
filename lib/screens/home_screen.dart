@@ -21,14 +21,17 @@ import 'package:lenzcamera/screens/search_screen.dart';
 import 'package:lenzcamera/screens/wishlist_screen.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  final TopCategories? topCategories;
+
+  const HomeScreen({Key? key, this.topCategories}) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<TopCategories> _topCategories = [];
+  List<TopCategories> categoryList = [];
+  bool isLoading = false;
 
   List<Widget> pages = [
     HomeScreen(),
@@ -43,16 +46,26 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    getCategories();
   }
 
-  void getCategories() {
+  void _getCategories() {
+    setState(() {
+      isLoading = true;
+    });
+
     NetworkManager.shared
         .getTopCategories()
-        .then((List<TopCategories> response) {
-      _topCategories.clear();
-      _topCategories.addAll(response);
-    }).catchError((e) {});
+        .then((BaseResponse<List<TopCategories>> response) {
+      print(response.data);
+      setState(() {
+        isLoading = false;
+        categoryList.clear();
+        categoryList.addAll(response.data!);
+        print(response.data);
+      });
+    }).catchError((e) {
+      print(e.toString());
+    });
   }
 
   @override
@@ -119,7 +132,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   Padding(
                     padding: const EdgeInsets.all(2),
                     child: TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          _getCategories();
+                        },
                         child: Text(
                           'Change',
                           style: TextStyle(color: Colors.red),
@@ -195,8 +210,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   shrinkWrap: true,
-                  itemCount:8, 
-                  // _topCategories.length,
+                  itemCount:categoryList.length,
                   itemBuilder: (context, index) {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -233,7 +247,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 Padding(
                                   padding: const EdgeInsets.all(5),
                                   child: Text(
-                                    _topCategories.first.catName??'',
+                                    categoryList[index].catName ?? '',
                                     style: TextStyle(
                                         fontSize: 12,
                                         fontWeight: FontWeight.w400),

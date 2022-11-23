@@ -5,19 +5,19 @@ part 'top_categories.g.dart';
 @JsonSerializable()
 class TopCategories {
   @JsonKey(name: 'catId')
-  String? categoryId;
+  int? categoryId;
 
   @JsonKey(name: 'MobBannerImgUrl')
-  String? MobBannerImgUrl;
+  String? mobBannerImgUrl;
 
   @JsonKey(name: 'catName')
-  String? catName;
+  dynamic catName;
 
   @JsonKey(name: 'image')
-  String? image;
+  dynamic image;
 
   @JsonKey(name: 'parentId')
-  String? parentId;
+  int? parentId;
 
   @JsonKey(name: 'code')
   String? code;
@@ -26,7 +26,7 @@ class TopCategories {
   String? description;
 
   @JsonKey(name: 'ProductCount')
-  String? ProductCount;
+  String? productCount;
 
   @JsonKey(name: 'urlKey')
   String? urlKey;
@@ -41,7 +41,7 @@ class TopCategories {
   String? bannerImgUrl;
 
   @JsonKey(name: 'ShowInOfferZone')
-  String? ShowInOfferZone;
+  bool? phowInOfferZone;
 
   @JsonKey(name: 'metaDescription')
   String? metaDescription;
@@ -57,9 +57,9 @@ class TopCategories {
 
   TopCategories(
       {this.categoryId,
-      this.MobBannerImgUrl,
-      this.ProductCount,
-      this.ShowInOfferZone,
+      this.mobBannerImgUrl,
+      this.productCount,
+      this.phowInOfferZone,
       this.bannerImgUrl,
       this.catName,
       this.catUrlKey,

@@ -3,9 +3,12 @@ part 'base_response.g.dart';
 
 @JsonSerializable(genericArgumentFactories: true)
 class BaseResponse<T> {
+
+  @JsonKey(name: 'Message')
   final String? message;
 
-  @JsonKey(name: 'data')
+
+  @JsonKey(name: 'Data')
   final T? data;
 
   BaseResponse({this.message, this.data});

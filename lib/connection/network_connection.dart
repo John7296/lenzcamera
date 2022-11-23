@@ -25,7 +25,7 @@ abstract class NetworkConnection {
     return _NetworkConnection(dio);
   }
   @GET('category/TopCategory')
-  Future<List<TopCategories>> getTopCategories();
+  Future<BaseResponse<List<TopCategories>>> getTopCategories();
 
 
     @FormUrlEncoded()

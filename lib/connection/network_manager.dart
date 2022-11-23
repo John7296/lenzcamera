@@ -17,26 +17,24 @@ class NetworkManager {
 
   Dio? dio;
   late NetworkConnection networkConnection;
-    dynamic password;
-   dynamic userName;
-   dynamic token;
-     dynamic customerId;
+  dynamic password;
+  dynamic userName;
+  dynamic token;
+  dynamic customerId;
 
   init() {
     dio = Dio();
     networkConnection = NetworkConnection(dio!);
   }
-  Future<List<TopCategories>> getTopCategories() {
+
+  Future<BaseResponse<List<TopCategories>>> getTopCategories() {
     return call(networkConnection.getTopCategories());
   }
 
-  
   Future<BaseResponse<LoginCustomer>> userLogin(Map<String, dynamic> map) {
     return call(
-        networkConnection.userLogin(password, userName, token, customerId
-         ));
+        networkConnection.userLogin(password, userName, token, customerId));
   }
-
 
   Future<T> call<T>(Future<T> call) async {
     T response;
@@ -106,5 +104,4 @@ class NetworkManager {
 
     return response;
   }
-
 }
