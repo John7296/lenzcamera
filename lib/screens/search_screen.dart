@@ -148,7 +148,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                                 ),
                                                 Padding(
                                                   padding: const EdgeInsets.only(
-                                                      left: 230, top: 10),
+                                                      left: 220, top: 10),
                                                   child: IconButton(
                                                       onPressed: () {},
                                                       icon: Icon(
@@ -174,7 +174,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                             ),
                                             SizedBox(height: 10),
                                             Container(
-                                              margin: EdgeInsets.only(left: 145),
+                                              margin: EdgeInsets.only(left: 135),
                                               height: 30,
                                               width: 120,
                                               child: ElevatedButton(

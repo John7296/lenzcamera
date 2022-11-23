@@ -29,7 +29,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       padding: const EdgeInsets.only(left:15, right:15, top:15),
       child: Stack(
         children: [Container(
-          margin: EdgeInsets.only(bottom:70),
+          margin: EdgeInsets.only(bottom:65),
           child: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.only(bottom: 80),

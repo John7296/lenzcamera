@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
+import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/top_categories.dart';
 import 'package:lenzcamera/screens/address_screen.dart';
 import 'package:lenzcamera/screens/cart_screen.dart';
@@ -42,11 +43,16 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+    getCategories();
+  }
 
+  void getCategories() {
     NetworkManager.shared
         .getTopCategories()
-        .then((value) {})
-        .catchError((e) {});
+        .then((List<TopCategories> response) {
+      _topCategories.clear();
+      _topCategories.addAll(response);
+    }).catchError((e) {});
   }
 
   @override
@@ -189,7 +195,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   shrinkWrap: true,
-                  itemCount: 8,
+                  itemCount:8, 
+                  // _topCategories.length,
                   itemBuilder: (context, index) {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -226,8 +233,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 Padding(
                                   padding: const EdgeInsets.all(5),
                                   child: Text(
-                                    // _topCategories[index].catName ?? 
-                                    'DSLR Camera',
+                                    _topCategories.first.catName??'',
                                     style: TextStyle(
                                         fontSize: 12,
                                         fontWeight: FontWeight.w400),
