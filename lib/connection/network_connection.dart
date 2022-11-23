@@ -9,10 +9,7 @@ part 'network_connection.g.dart';
 
 @RestApi(baseUrl: 'https://dev.lenzcamera.com/api/api/v2/')
 abstract class NetworkConnection {
-
-
-  factory NetworkConnection(Dio dio, {String? baseUrl}){
-    
+  factory NetworkConnection(Dio dio, {String? baseUrl}) {
     dio.interceptors.add(PrettyDioLogger(
         requestHeader: true,
         requestBody: true,
@@ -21,22 +18,15 @@ abstract class NetworkConnection {
         error: true,
         compact: true,
         maxWidth: 90));
-    
+
     return _NetworkConnection(dio);
   }
   @GET('category/TopCategory')
   Future<List<TopCategories>> getTopCategories();
 
-
-    @FormUrlEncoded()
+  @FormUrlEncoded()
   @POST("/Account/Login")
   Future<BaseResponse<LoginCustomer>> userLogin(
-    @Body() Map<String, dynamic> password,
-    @Body() Map<String, dynamic> userName,
-    @Header("Authorization") String token,
-     @Path() String customerId,
-
-  );
-
-
+   @Body() Map<String, dynamic> map);
+    
 }

@@ -46,18 +46,12 @@ class _NetworkConnection implements NetworkConnection {
   }
 
   @override
-  Future<BaseResponse<LoginCustomer>> userLogin(
-    password,
-    userName,
-    token,
-    customerId,
-  ) async {
+  Future<BaseResponse<LoginCustomer>> userLogin(map) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{r'Authorization': token};
-    _headers.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(password);
+    _data.addAll(map);
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseResponse<LoginCustomer>>(Options(
       method: 'POST',

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lenzcamera/screens/order_screen.dart';
 
 class CheckoutScreen extends StatefulWidget{
   @override
@@ -305,11 +306,11 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                      backgroundColor: Color(0xffec3436),
                    ),
                    onPressed: () {
-                     // Navigator.push(
-                     // context,
-                     // MaterialPageRoute(
-                     // builder: (context) =>
-                     // ReviewScreen()));
+                     Navigator.push(
+                     context,
+                     MaterialPageRoute(
+                     builder: (context) =>
+                     OrderScreen()));
               
                    },
                    child: Center(
