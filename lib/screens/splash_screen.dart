@@ -3,7 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
+import 'package:lenzcamera/screens/home_screen.dart';
 import 'package:lenzcamera/screens/login_screen.dart';
+import 'package:lenzcamera/utils/sessions_manager.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -11,6 +13,8 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+
+   
   @override
   void initState() {
     Timer(Duration(seconds: 3), ()=>
@@ -19,11 +23,42 @@ class _SplashScreenState extends State<SplashScreen> {
 
     );
     super.initState();
+    _checkTokenAndNavigate();
 
     // NetworkManager.shared.getTopCategories().then((value) {
 
 
     // }).catchError((e){});
+  }
+
+
+
+
+  void _checkTokenAndNavigate() {
+   
+          SessionsManager.getUserToken().then((utoken) {
+           utoken = (utoken ?? "");
+            NetworkManager.shared.userKey =
+                utoken.isEmpty ? "" : "Bearer $utoken";
+            Timer(const Duration( seconds:2 ), () {
+            //      Navigator.push(
+            // context, MaterialPageRoute(builder: (context)=>HomeScreen()));
+                  
+             SessionsManager.isLoggedIn().then((value) {
+        if (!value) {
+           Navigator.push(
+             context, MaterialPageRoute(builder: (context)=>LoginScreen()));
+        
+        } else {
+          Navigator.push(
+            context, MaterialPageRoute(builder: (context)=>HomeScreen()));
+        }
+                   
+      });
+  
+  
+              });
+            });
   }
 
   @override

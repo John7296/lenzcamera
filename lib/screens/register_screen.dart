@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lenzcamera/screens/login_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -26,7 +27,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     alignment: Alignment.topLeft,
                     child: IconButton(
                       icon: Icon(Icons.arrow_back_ios),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
                     ),
                   ),
                   Container(
@@ -117,13 +120,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   borderRadius: BorderRadius.circular(15)), value: false, onChanged: (bool? value) {  },
                             ),
                             Text('I Read and agree to',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12),),
-                            TextButton(onPressed: (){}, child: Text('Terms & conditions',style: TextStyle(color: Colors.red,fontSize:12,fontWeight: FontWeight.bold,decoration:TextDecoration.underline),)),
+                            TextButton(onPressed: (){
+                                Navigator.push(
+                    context, MaterialPageRoute(builder: (context)=>LoginScreen()));
+
+                            }, child: Text('Terms & conditions',style: TextStyle(color: Colors.red,fontSize:12,fontWeight: FontWeight.bold,decoration:TextDecoration.underline),)),
                           ],
                         ),
                         Container(
                           width: 400,
                           height: 50,
-                          child: ElevatedButton(onPressed: () {  }, child: Text('Sign Up',style: TextStyle(fontSize: 20),),
+                          child: ElevatedButton(onPressed: () { 
+                            Navigator.push(
+                    context, MaterialPageRoute(builder: (context)=>LoginScreen()));
+
+                           }, child: Text('Sign Up',style: TextStyle(fontSize: 20),),
                             style: ButtonStyle(
                               backgroundColor:
                               MaterialStateProperty.all(
@@ -140,7 +151,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text('Already Have an Account',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12),),
-                          TextButton(onPressed: (){}, child: Text('Login',style: TextStyle(color: Colors.red,fontSize:12,fontWeight: FontWeight.bold,decoration:TextDecoration.underline),)),
+                          TextButton(onPressed: (){
+                                            Navigator.push(
+                    context, MaterialPageRoute(builder: (context)=>LoginScreen()));
+
+                          }, child: Text('Login',style: TextStyle(color: Colors.red,fontSize:12,fontWeight: FontWeight.bold,decoration:TextDecoration.underline),)),
             
                         ],
                       )

@@ -14,6 +14,8 @@ LoginCustomer _$LoginCustomerFromJson(Map<String, dynamic> json) =>
       phoneNo: json['phoneNo'] as String?,
       token: json['token'] as String?,
       roleId: json['roleId'] as String?,
+      userName: json['userName'] as String?,
+      password: json['password'] as String?,
     );
 
 Map<String, dynamic> _$LoginCustomerToJson(LoginCustomer instance) =>
@@ -24,4 +26,6 @@ Map<String, dynamic> _$LoginCustomerToJson(LoginCustomer instance) =>
       'phoneNo': instance.phoneNo,
       'token': instance.token,
       'roleId': instance.roleId,
+      'userName': instance.userName,
+      'password': instance.password,
     };

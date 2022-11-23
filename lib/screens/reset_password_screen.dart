@@ -111,7 +111,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                         backgroundColor: Color(0xffec3436),
                       ),
                       onPressed: () {
-                          Navigator.pushReplacement(
+                          Navigator.push(
                       context, MaterialPageRoute(builder: (context)=>LoginScreen()));
             
                       },

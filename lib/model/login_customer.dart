@@ -24,13 +24,24 @@ class LoginCustomer {
    @JsonKey(name: 'roleId')
   final String? roleId;
 
+   @JsonKey(name: 'userName')
+  final String? userName;
+
+
+ @JsonKey(name: 'password')
+  final String? password;
+
+
   LoginCustomer({
           this.customerId,
           this.customerName,
           this.emailId,
           this.phoneNo,
           this.token,
-          this.roleId
+          this.roleId,
+          this.userName,
+          this.password
+
 
   });
 
