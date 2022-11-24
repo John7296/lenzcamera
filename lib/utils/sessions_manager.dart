@@ -2,21 +2,21 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class SessionsManager{
 
- static const String userToken = "userToken";
+ static const String userKey = "userKey";
 
 static void saveUserToken(String data) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString(userToken, data);
+     prefs.setString(userKey, data);
   }
 
 static Future<String?> getUserToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString(userToken);
+    return prefs.getString(userKey);
   }
 
    static Future<bool> isLoggedIn() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.containsKey(userToken);
+    return prefs.containsKey(userKey);
   }
 
 }

@@ -17,49 +17,83 @@ class _SplashScreenState extends State<SplashScreen> {
    
   @override
   void initState() {
-    Timer(Duration(seconds: 3), ()=>
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context)=>LoginScreen()))
 
-    );
+    
+    Timer(Duration(seconds: 3), ()=>{
+        _checkTokenAndNavigate(),
+  
+    Navigator.push(
+            context, MaterialPageRoute(builder: (context)=>LoginScreen())) 
+
+    },
+        
+     );
     super.initState();
-    _checkTokenAndNavigate();
-
-    // NetworkManager.shared.getTopCategories().then((value) {
 
 
-    // }).catchError((e){});
+     
+    
   }
-
 
 
 
   void _checkTokenAndNavigate() {
-   
-          SessionsManager.getUserToken().then((utoken) {
-           utoken = (utoken ?? "");
-            NetworkManager.shared.userKey =
-                utoken.isEmpty ? "" : "Bearer $utoken";
-            Timer(const Duration( seconds:2 ), () {
-            //      Navigator.push(
-            // context, MaterialPageRoute(builder: (context)=>HomeScreen()));
-                  
-             SessionsManager.isLoggedIn().then((value) {
-        if (!value) {
-           Navigator.push(
-             context, MaterialPageRoute(builder: (context)=>LoginScreen()));
+      //     SessionsManager.getUserToken().then((utoken) {
+      //      utoken = (utoken ?? "");
+      //       NetworkManager.shared.userKey =
+      //           utoken.isEmpty ? "" : "Bearer $utoken";
+      //       Timer(const Duration( seconds:2 ), () {
+      //     //        Navigator.push(
+      //     //   context, MaterialPageRoute(builder: (context)=>HomeScreen()));  
+            
         
-        } else {
-          Navigator.push(
-            context, MaterialPageRoute(builder: (context)=>HomeScreen()));
-        }
+
+      //  // print(SessionsManager.userToken);
+
+
+             SessionsManager.getUserToken().then((value)  {
+
+                print("///////");
+                print(value);
+
+                
+               if((value??"").isNotEmpty){
+                 Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context)=>HomeScreen()));
+               }
+               else{
+                 Navigator.push(
+              context, MaterialPageRoute(builder: (context)=>LoginScreen()));
+               }
+
+             });
+
+            // if(SessionsManager.userToken.isNotEmpty){
+              
+            //    Navigator.push(
+            //   context, MaterialPageRoute(builder: (context)=>HomeScreen()));
+            // }
+
+            // else{
+            //  Navigator.push(
+            //   context, MaterialPageRoute(builder: (context)=>LoginScreen()));
+
+            // }
+        // SessionsManager.isLoggedIn().then((value) {
+      //   if (value) {
+      //      Navigator.push(
+      //        context, MaterialPageRoute(builder: (context)=>HomeScreen()));
+        
+      //   } else {
+      //     Navigator.push(
+      //       context, MaterialPageRoute(builder: (context)=>HomeScreen()));
+      //   }
                    
-      });
-  
-  
-              });
-            });
-  }
+      // });
+      // });
+      //       });
+   }
+          
 
   @override
   Widget build(BuildContext context) {

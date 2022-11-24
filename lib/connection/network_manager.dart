@@ -5,6 +5,7 @@ import 'package:lenzcamera/model/company_policy.dart';
 import 'package:lenzcamera/model/login_customer.dart';
 import 'package:lenzcamera/model/new_register.dart';
 import 'package:lenzcamera/model/top_categories.dart';
+import 'package:lenzcamera/utils/sessions_manager.dart';
 
 class NetworkManager {
   static final NetworkManager _singleton = NetworkManager._internal();
@@ -24,8 +25,15 @@ class NetworkManager {
 
   init() {
     dio = Dio();
-    networkConnection = NetworkConnection(dio!);
-   
+    networkConnection = NetworkConnection(dio!); 
+  }
+
+
+  void refreshTokens() {
+    SessionsManager.getUserToken().then((token) {
+      token = (token ?? ""); 
+      userKey = token.isEmpty ? "" : "Bearer $token";
+    });
   }
 
   Future<BaseResponse<List<TopCategories>>> getTopCategories() {

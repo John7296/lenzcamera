@@ -33,6 +33,11 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void onLoginButtonTapped(){
+
+    if (!_form.currentState!.validate()) {
+      return;
+    }
+
      String username = _usernameController.text;
     String password = _passwordController.text;
 
@@ -48,8 +53,9 @@ class _LoginScreenState extends State<LoginScreen> {
     }).then((
       BaseResponse<LoginCustomer> 
       response) {
-        SessionsManager.saveUserToken(response.data?.token??'');
-        NetworkManager.shared.userKey = "Bearer " + (response.data?.token?? "");
+         SessionsManager.saveUserToken(response.data?.token??'');
+         NetworkManager.shared.userKey = "Bearer " + (response.data?.token?? "");
+           NetworkManager.shared.refreshTokens();
         Navigator.push(
                         context,
                         MaterialPageRoute(
