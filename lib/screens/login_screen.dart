@@ -166,11 +166,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   onPressed: () {
 
                     onLoginButtonTapped();
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //     builder: (context) =>
-                    //    HomeScreen()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                        builder: (context) =>
+                       HomeScreen()));
           
                   },
                   child: Center(

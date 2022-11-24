@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -46,6 +47,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+
+    _getCategories();
   }
 
   void _getCategories() {
@@ -61,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
         isLoading = false;
         categoryList.clear();
         categoryList.addAll(response.data!);
-        print(response.data);
+        // print(response.data);
       });
     }).catchError((e) {
       print(e.toString());
@@ -132,9 +135,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Padding(
                     padding: const EdgeInsets.all(2),
                     child: TextButton(
-                        onPressed: () {
-                          _getCategories();
-                        },
+                        onPressed: () {},
                         child: Text(
                           'Change',
                           style: TextStyle(color: Colors.red),
@@ -210,7 +211,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   shrinkWrap: true,
-                  itemCount:categoryList.length,
+                  itemCount: categoryList.length,
                   itemBuilder: (context, index) {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -218,7 +219,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Padding(
                           padding: const EdgeInsets.all(5),
                           child: Container(
-                            width: 120,
+                            width: 125,
 
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.all(
@@ -237,13 +238,17 @@ class _HomeScreenState extends State<HomeScreen> {
                             child: Column(
                               children: [
                                 Container(
-                                  height: 120,
-                                  width: 100,
-                                  child: Image(
-                                    image: AssetImage("assets/images/lens.png"),
-                                  ),
-                                  // color: Colors.red,
-                                ),
+                                    height: 100,
+                                    width: 80,
+                                    child: CachedNetworkImage(imageUrl: "https://dev.lenzcamera.com/${
+                                      categoryList[index].imageUrl
+                                    }")
+
+                                    // Image(
+                                    //   image: AssetImage("assets/images/lens.png"),
+                                    // ),
+                                    // color: Colors.red,
+                                    ),
                                 Padding(
                                   padding: const EdgeInsets.all(5),
                                   child: Text(
@@ -251,7 +256,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     style: TextStyle(
                                         fontSize: 12,
                                         fontWeight: FontWeight.w400),
-                                    maxLines: 2,
+                                    maxLines: 1,
                                     textAlign: TextAlign.center,
                                   ),
                                 ),
@@ -427,11 +432,16 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 150.0,
                 autoPlay: true,
               ),
-              itemCount: 4,
+              itemCount: categoryList.length,
               itemBuilder: (context, itemIndex, realIndex) {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Image(
+                  child:
+                      // FadeInImage.assetNetwork(
+                      //   placeholder: 'assets/images/placeholder.jpg',
+                      //   image: categoryList.first.image,
+                      //   fit: BoxFit.cover),
+                      Image(
                     image: AssetImage("assets/images/camerabanner.png"),
                     fit: BoxFit.fill,
                     // width: MediaQuery.of(context).size.width,

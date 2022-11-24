@@ -1,5 +1,7 @@
 import 'package:lenzcamera/model/base_response.dart';
+import 'package:lenzcamera/model/company_policy.dart';
 import 'package:lenzcamera/model/login_customer.dart';
+import 'package:lenzcamera/model/new_register.dart';
 import 'package:lenzcamera/model/top_categories.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:retrofit/retrofit.dart';
@@ -29,4 +31,14 @@ abstract class NetworkConnection {
   Future<BaseResponse<LoginCustomer>> userLogin(
    @Body() Map<String, dynamic> map);
     
+    @GET('CompanyPolicy')
+    Future<BaseResponse<List<CompanyPolicy>>> getCompanyPolicy();
+
+    @FormUrlEncoded()
+    @POST("Customer/Register")
+    Future<BaseResponse<NewRegister>> newRegister(
+      @Body()Map<String, dynamic>map
+    );
+
+
 }
