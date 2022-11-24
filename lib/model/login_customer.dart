@@ -4,15 +4,17 @@ part 'login_customer.g.dart';
 
 @JsonSerializable()
 class LoginCustomer {
+
+
   @JsonKey(name: 'custId')
-  final String? customerId;
+  final int? customerId;
 
   @JsonKey(name: 'custName')
   final String? customerName;
 
   
   @JsonKey(name: 'emailId')
-  final String? emailId;
+   final String? emailId;
 
   
   @JsonKey(name: 'phoneNo')
@@ -22,7 +24,7 @@ class LoginCustomer {
   final String? token;
 
    @JsonKey(name: 'roleId')
-  final String? roleId;
+  final int? roleId;
 
    @JsonKey(name: 'userName')
   final String? userName;
