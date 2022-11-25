@@ -42,6 +42,11 @@ abstract class NetworkConnection {
   @GET("/Customer/VerifyOTP?OTP=34727&OtpUrlKey=O16G665VHN")
   Future<BaseResponse> verifyForgotPasswordOtp(
     @Body() Map<String, dynamic> map);
+
+      @FormUrlEncoded()
+  @GET("/Customer/ResetPassword?OtpUrlKey=8KUPP8MS4Y&password=123456")
+  Future<BaseResponse> resetPassword(
+    @Body() Map<String, dynamic> map);
      
     
     @GET('CompanyPolicy')
