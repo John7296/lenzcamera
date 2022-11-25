@@ -13,6 +13,8 @@ class AddNewAddressScreen extends StatefulWidget {
 class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
   List<String> items = ['One', 'Two', 'Three', 'Four', 'Five'];
   String? selectedItem;
+  bool isCheckedSA = false;
+  bool isCheckedBA = false;
 
   final _firstNameController = TextEditingController();
   final _secondNameController = TextEditingController();
@@ -21,6 +23,12 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
   final _phoneController = TextEditingController();
   final _landmarkController = TextEditingController();
   final _pinCodeController = TextEditingController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
 
   void addAddress() {
     // if (!_form.currentState!.validate()) {
@@ -99,6 +107,7 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                                 contentPadding: EdgeInsets.all(5)
                                 // labelText: 'Customer Name'
                                 ),
+                            controller: _firstNameController,
                           ),
                         ),
                         SizedBox(height: 20),
@@ -119,6 +128,7 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                                 contentPadding: EdgeInsets.all(5)
                                 // labelText: 'Email ID'
                                 ),
+                            controller: _secondNameController,
                           ),
                         ),
                         SizedBox(height: 20),
@@ -139,6 +149,7 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                                 contentPadding: EdgeInsets.all(5)
                                 // labelText: 'Mobile'
                                 ),
+                            controller: _addressL1Controller,
                           ),
                         ),
                         SizedBox(height: 20),
@@ -160,6 +171,7 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                                 contentPadding: EdgeInsets.all(5)
                                 // labelText: 'Password'
                                 ),
+                            controller: _addressL2Controller,
                           ),
                         ),
                         SizedBox(height: 20),
@@ -180,6 +192,7 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                                 contentPadding: EdgeInsets.all(5)
                                 // labelText: 'Mobile'
                                 ),
+                                controller: _phoneController,
                           ),
                         ),
                         SizedBox(height: 20),
@@ -200,6 +213,7 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                                 contentPadding: EdgeInsets.all(5)
                                 // labelText: 'Mobile'
                                 ),
+                            controller: _pinCodeController,
                           ),
                         ),
                         SizedBox(height: 20),
@@ -287,8 +301,12 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                             Checkbox(
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(0)),
-                              value: false,
-                              onChanged: (bool? value) {},
+                              value: isCheckedBA,
+                              onChanged: (value) {
+                                setState(() => isCheckedBA = value!);
+                              },
+                              activeColor: Colors.red,
+                              checkColor: Colors.white,
                             ),
                             Text(
                               'Make As Default Billing Address',
@@ -302,8 +320,12 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                             Checkbox(
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(0)),
-                              value: false,
-                              onChanged: (bool? value) {},
+                              value: isCheckedSA,
+                              onChanged: (value) {
+                                setState(() => isCheckedSA = value!);
+                              },
+                              activeColor: Colors.red,
+                              checkColor: Colors.white,
                             ),
                             Text(
                               'Make As Default Shipping Address',
@@ -329,14 +351,18 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                                 contentPadding: EdgeInsets.all(5)
                                 // labelText: 'Mobile'
                                 ),
+                          controller: _landmarkController,
                           ),
+                          
                         ),
                         SizedBox(height: 30),
                         Container(
                           width: 400,
                           height: 50,
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              addAddress();
+                            },
                             child: Text(
                               'Save',
                               style: TextStyle(fontSize: 20),

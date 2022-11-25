@@ -4,6 +4,7 @@ import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/new_register.dart';
 import 'package:lenzcamera/screens/login_screen.dart';
+import 'package:lenzcamera/screens/privacy_policy_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -18,6 +19,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final _emailController = TextEditingController();
   final _mobileController = TextEditingController();
   final _passwordController = TextEditingController();
+
+  bool isChecked = false;
 
   @override
   void initState() {
@@ -40,9 +43,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
     NetworkManager.shared
         .newRegister(map)
         .then((BaseResponse<NewRegister> response) {
+          // print((response.data!.otpUrlKey));
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => LoginScreen()));
-      print((response.data));
+      
       // showFlashMsg(response.message!);
       // Future.delayed(const Duration(milliseconds: 500), () {
       // login();
@@ -172,8 +176,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             Checkbox(
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(15)),
-                              value: false,
-                              onChanged: (bool? value) {},
+                              value: isChecked,
+                              onChanged: (value) {
+                                setState(() => isChecked = value!);
+                              },
+                              activeColor: Colors.red,
+                              checkColor: Colors.white,
                             ),
                             Text(
                               'I Read and agree to',
@@ -185,7 +193,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => LoginScreen()));
+                                          builder: (context) => PrivacyPolicyScreen()));
                                 },
                                 child: Text(
                                   'Terms & conditions',
