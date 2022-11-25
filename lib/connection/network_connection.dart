@@ -40,5 +40,9 @@ abstract class NetworkConnection {
       @Body()Map<String, dynamic>map
     );
 
+    @FormUrlEncoded()
+    @POST("NewAddress")
+    Future<BaseResponse> addAddress(@Body() Map<String, dynamic> map);
+
 
 }

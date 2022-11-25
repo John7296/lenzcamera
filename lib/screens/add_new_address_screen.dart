@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lenzcamera/connection/network_manager.dart';
+import 'package:lenzcamera/model/base_response.dart';
 
 class AddNewAddressScreen extends StatefulWidget {
   const AddNewAddressScreen({Key? key}) : super(key: key);
@@ -11,6 +13,45 @@ class AddNewAddressScreen extends StatefulWidget {
 class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
   List<String> items = ['One', 'Two', 'Three', 'Four', 'Five'];
   String? selectedItem;
+
+  final _firstNameController = TextEditingController();
+  final _secondNameController = TextEditingController();
+  final _addressL1Controller = TextEditingController();
+  final _addressL2Controller = TextEditingController();
+  final _phoneController = TextEditingController();
+  final _landmarkController = TextEditingController();
+  final _pinCodeController = TextEditingController();
+
+  void addAddress() {
+    // if (!_form.currentState!.validate()) {
+    //   return;
+    // }
+
+    // dismissKeyboard();
+    // showLoader();
+
+    Map<String, dynamic> map = {
+      'firstName': _firstNameController.text,
+      'lastName': _secondNameController.text,
+      'addLine1': _addressL1Controller.text,
+      'addLine2': _addressL2Controller.text,
+      'phone': _phoneController.text,
+      'landmark': _landmarkController.text,
+      'pincode': _pinCodeController,
+    };
+
+    NetworkManager.shared.addAddress(map).then((BaseResponse response) {
+      // hideLoader();
+
+      // showFlashMsg(response.message!);
+      // goBack();
+    }).catchError((e) {
+      // hideLoader();
+      // showFlashMsg(obj.toString());
+      print(e.toString());
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -54,10 +95,10 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                           height: 40,
                           child: TextFormField(
                             decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              contentPadding: EdgeInsets.all(5)
-                              // labelText: 'Customer Name'
-                            ),
+                                border: OutlineInputBorder(),
+                                contentPadding: EdgeInsets.all(5)
+                                // labelText: 'Customer Name'
+                                ),
                           ),
                         ),
                         SizedBox(height: 20),
@@ -74,10 +115,10 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                           height: 40,
                           child: TextFormField(
                             decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              contentPadding: EdgeInsets.all(5)
-                              // labelText: 'Email ID'
-                            ),
+                                border: OutlineInputBorder(),
+                                contentPadding: EdgeInsets.all(5)
+                                // labelText: 'Email ID'
+                                ),
                           ),
                         ),
                         SizedBox(height: 20),
@@ -94,10 +135,10 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                           height: 40,
                           child: TextFormField(
                             decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              contentPadding: EdgeInsets.all(5)
-                              // labelText: 'Mobile'
-                            ),
+                                border: OutlineInputBorder(),
+                                contentPadding: EdgeInsets.all(5)
+                                // labelText: 'Mobile'
+                                ),
                           ),
                         ),
                         SizedBox(height: 20),
@@ -115,10 +156,10 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                           child: TextFormField(
                             obscureText: true,
                             decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              contentPadding: EdgeInsets.all(5)
-                              // labelText: 'Password'
-                            ),
+                                border: OutlineInputBorder(),
+                                contentPadding: EdgeInsets.all(5)
+                                // labelText: 'Password'
+                                ),
                           ),
                         ),
                         SizedBox(height: 20),
@@ -135,10 +176,10 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                           height: 40,
                           child: TextFormField(
                             decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              contentPadding: EdgeInsets.all(5)
-                              // labelText: 'Mobile'
-                            ),
+                                border: OutlineInputBorder(),
+                                contentPadding: EdgeInsets.all(5)
+                                // labelText: 'Mobile'
+                                ),
                           ),
                         ),
                         SizedBox(height: 20),
@@ -155,10 +196,10 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                           height: 40,
                           child: TextFormField(
                             decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              contentPadding: EdgeInsets.all(5)
-                              // labelText: 'Mobile'
-                            ),
+                                border: OutlineInputBorder(),
+                                contentPadding: EdgeInsets.all(5)
+                                // labelText: 'Mobile'
+                                ),
                           ),
                         ),
                         SizedBox(height: 20),
@@ -284,10 +325,10 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                           height: 40,
                           child: TextFormField(
                             decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              contentPadding: EdgeInsets.all(5)
-                              // labelText: 'Mobile'
-                            ),
+                                border: OutlineInputBorder(),
+                                contentPadding: EdgeInsets.all(5)
+                                // labelText: 'Mobile'
+                                ),
                           ),
                         ),
                         SizedBox(height: 30),

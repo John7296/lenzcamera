@@ -13,6 +13,7 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  final GlobalKey<FormState> _form = GlobalKey<FormState>();
   final _customerNameController = TextEditingController();
   final _emailController = TextEditingController();
   final _mobileController = TextEditingController();
@@ -21,10 +22,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   void initState() {
     super.initState();
-    register();
+    // register();
   }
 
   void register() {
+    // if (!_form.currentState!.validate()) {
+    //   return;
+    // }
+
     Map<String, dynamic> map = {
       'email': _emailController.text,
       'mobile': _mobileController.text,
@@ -34,10 +39,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
     NetworkManager.shared
         .newRegister(map)
-        .then((BaseResponse<NewRegister> response) {})
-        .then((value) {
-      // print(value.toString());
+        .then((BaseResponse<NewRegister> response) {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => LoginScreen()));
+      print((response.data));
+      // showFlashMsg(response.message!);
+      // Future.delayed(const Duration(milliseconds: 500), () {
+      // login();
+      // });
+    }).catchError((e) {
+      print(e.toString());
     });
+    // print(value.toString());
   }
 
   @override
@@ -189,10 +202,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           height: 50,
                           child: ElevatedButton(
                             onPressed: () {
-                              // Navigator.push(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //         builder: (context) => LoginScreen()));
+                              register();
+                              if (!_form.currentState!.validate()) {
+                                return;
+                              }
+                              // requestOTP();
                             },
                             child: Text(
                               'Sign Up',

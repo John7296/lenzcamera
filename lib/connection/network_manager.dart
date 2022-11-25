@@ -54,6 +54,10 @@ class NetworkManager {
     return call(networkConnection.newRegister(map));
   }
 
+   Future<BaseResponse> addAddress(Map<String, dynamic> map) {
+    return call(networkConnection.addAddress(map));
+  }
+
   Future<T> call<T>(Future<T> call) async {
     T response;
 
