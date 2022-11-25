@@ -1,7 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:lenzcamera/connection/network_connection.dart';
 import 'package:lenzcamera/model/base_response.dart';
+import 'package:lenzcamera/model/company_policy.dart';
 import 'package:lenzcamera/model/login_customer.dart';
+import 'package:lenzcamera/model/new_register.dart';
 import 'package:lenzcamera/model/top_categories.dart';
 import 'package:lenzcamera/utils/sessions_manager.dart';
 
@@ -44,20 +46,17 @@ class NetworkManager {
          ));
   }
 
-    Future<BaseResponse> forgotPasswordOTPSend(Map<String, dynamic> map) {
-    return call(
-        networkConnection.forgotPasswordOTPSend(map
-         ));
+    Future<BaseResponse<List<CompanyPolicy>>> getCompanyPolicy() {
+    return call(networkConnection.getCompanyPolicy());
+  }
 
-    }
+   Future<BaseResponse<NewRegister>> newRegister(Map<String, dynamic> map) {
+    return call(networkConnection.newRegister(map));
+  }
 
-    Future<BaseResponse> verifyForgotPasswordOtp(Map<String, dynamic> map) {
-    return call(
-        networkConnection.verifyForgotPasswordOtp(map
-         ));
-
-    }
-
+   Future<BaseResponse> addAddress(Map<String, dynamic> map) {
+    return call(networkConnection.addAddress(map));
+  }
 
   Future<T> call<T>(Future<T> call) async {
     T response;

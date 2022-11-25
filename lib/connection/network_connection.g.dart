@@ -78,7 +78,64 @@ class _NetworkConnection implements NetworkConnection {
   }
 
   @override
-  Future<BaseResponse<dynamic>> forgotPasswordOTPSend(map) async {
+  Future<BaseResponse<List<CompanyPolicy>>> getCompanyPolicy() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<BaseResponse<List<CompanyPolicy>>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'CompanyPolicy',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = BaseResponse<List<CompanyPolicy>>.fromJson(
+      _result.data!,
+      (json) => (json as List<dynamic>)
+          .map<CompanyPolicy>(
+              (i) => CompanyPolicy.fromJson(i as Map<String, dynamic>))
+          .toList(),
+    );
+    return value;
+  }
+
+  @override
+  Future<BaseResponse<NewRegister>> newRegister(map) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(map);
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<BaseResponse<NewRegister>>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+      contentType: 'application/x-www-form-urlencoded',
+    )
+            .compose(
+              _dio.options,
+              'Customer/Register',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = BaseResponse<NewRegister>.fromJson(
+      _result.data!,
+      (json) => NewRegister.fromJson(json as Map<String, dynamic>),
+    );
+    return value;
+  }
+
+  @override
+  Future<BaseResponse<dynamic>> addAddress(map) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -86,14 +143,14 @@ class _NetworkConnection implements NetworkConnection {
     _data.addAll(map);
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseResponse<dynamic>>(Options(
-      method: 'GET',
+      method: 'POST',
       headers: _headers,
       extra: _extra,
       contentType: 'application/x-www-form-urlencoded',
     )
             .compose(
               _dio.options,
-              '/Customer/ForgotPassword?email=sreejith@intertoons.com&mobileNumber=',
+              'NewAddress',
               queryParameters: queryParameters,
               data: _data,
             )
