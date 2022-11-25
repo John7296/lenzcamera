@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
+import 'package:lenzcamera/connection/network_manager.dart';
+import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/screens/change_password_screen.dart';
 import 'package:lenzcamera/screens/reset_password_screen.dart';
+
 
 
 class OtpScreen extends StatefulWidget{
@@ -11,6 +14,23 @@ class OtpScreen extends StatefulWidget{
 }
 
 class _OtpScreenState extends State<OtpScreen> {
+
+  final TextEditingController _otpController = TextEditingController();
+
+  
+
+
+ void verifyForgotPasswordOtp() {
+    
+    NetworkManager.shared.verifyForgotPasswordOtp(<String, dynamic>{
+     
+      "otp": _otpController.text,
+     
+    }).then((BaseResponse response) {
+    }).catchError((Object obj) {
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -44,11 +64,13 @@ class _OtpScreenState extends State<OtpScreen> {
                 ),
                 SizedBox(height: 50),
                OtpTextField(
+                 
                numberOfFields: 5,
                  enabledBorderColor: Color(0xffce443a),
                  focusedBorderColor: Color(0xff474747),
                  showFieldAsBox: true,
-                 fieldWidth: 60
+                 fieldWidth: 60,
+ 
                ),
                 SizedBox(height: 55),
                 Container(

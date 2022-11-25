@@ -44,6 +44,21 @@ class NetworkManager {
          ));
   }
 
+    Future<BaseResponse> forgotPasswordOTPSend(Map<String, dynamic> map) {
+    return call(
+        networkConnection.forgotPasswordOTPSend(map
+         ));
+
+    }
+
+    Future<BaseResponse> verifyForgotPasswordOtp(Map<String, dynamic> map) {
+    return call(
+        networkConnection.verifyForgotPasswordOtp(map
+         ));
+
+    }
+
+
   Future<T> call<T>(Future<T> call) async {
     T response;
 
