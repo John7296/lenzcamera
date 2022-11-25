@@ -1,8 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
+import 'package:lenzcamera/connection/network_manager.dart';
+import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/screens/change_password_screen.dart';
+import 'package:lenzcamera/screens/login_screen.dart';
 import 'package:lenzcamera/screens/reset_password_screen.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
+
 
 
 class OtpScreen extends StatefulWidget{
@@ -11,6 +16,34 @@ class OtpScreen extends StatefulWidget{
 }
 
 class _OtpScreenState extends State<OtpScreen> {
+
+     bool emailSent = false;
+
+   final _otpController = TextEditingController();
+
+  
+
+
+ void verifyForgotPasswordOtp() {
+    
+    NetworkManager.shared.verifyForgotPasswordOtp(<String, dynamic>{
+     
+      "otp": _otpController.text,
+     
+    }).then((BaseResponse response) {
+
+
+   print("-----------------");
+   print(_otpController.text);
+      Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                      builder: (context) =>
+                      ResetPasswordScreen()));
+    }).catchError((Object obj) {
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -43,14 +76,45 @@ class _OtpScreenState extends State<OtpScreen> {
                       child: Image(image: AssetImage("assets/images/logo_lenzcamera.png"))),
                 ),
                 SizedBox(height: 50),
-               OtpTextField(
-               numberOfFields: 5,
-                 enabledBorderColor: Color(0xffce443a),
-                 focusedBorderColor: Color(0xff474747),
-                 showFieldAsBox: true,
-                 fieldWidth: 60
+
+               PinCodeTextField(
+                      appContext: context,
+                      pastedTextStyle: TextStyle(
+                        color: Color(0xff474747),
+                        fontWeight: FontWeight.bold,
+                      ),
+                      onChanged: (value) {},
+                      length: 5,
+
+                      pinTheme: PinTheme(
+                        shape: PinCodeFieldShape.box,
+                        borderRadius: BorderRadius.circular(5),
+                        selectedColor: Color(0xff474747) ,
+                        activeColor: Color(0xffec3436),
+                        inactiveColor: Color(0xffec3436),
+                        fieldHeight: 40,
+                        // fieldWidth: 40,
+                        activeFillColor: Colors.white,
+                      ),
+                      controller: _otpController,
+                       validator: (val) {
+                                        if (!emailSent) return null;
+                                        if (val!.isEmpty) {
+                                          return "Enter the OTP";
+                                        }
+                                        return null;
+                                      }
                ),
-                SizedBox(height: 55),
+              //  OtpTextField(
+                 
+              //  numberOfFields: 5,
+              //    enabledBorderColor: Color(0xffce443a),
+              //    focusedBorderColor: Color(0xff474747),
+              //    showFieldAsBox: true,
+              //    fieldWidth: 60,
+ 
+              //  ),
+                SizedBox(height: 35),
                 Container(
                   height: 40,
                   child: ElevatedButton(
@@ -59,8 +123,10 @@ class _OtpScreenState extends State<OtpScreen> {
                     ),
                     onPressed: () {
 
-                       Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context)=>ResetPasswordScreen()));
+                      verifyForgotPasswordOtp();
+
+            //            Navigator.pushReplacement(
+            // context, MaterialPageRoute(builder: (context)=>ResetPasswordScreen()));
                     },
                     child: Center(
                         child: Text(
