@@ -8,10 +8,10 @@ part of 'new_register.dart';
 
 NewRegister _$NewRegisterFromJson(Map<String, dynamic> json) => NewRegister(
       custId: json['custId'] as int?,
-      custName: json['custName'] as int?,
+      custName: json['custName'] as String?,
       emailId: json['emailId'] as String?,
       otpUrlKey: json['otpUrlKey'] as String?,
-      phoneNo: json['phoneNo'] as int?,
+      phoneNo: json['phoneNo'] as String?,
     );
 
 Map<String, dynamic> _$NewRegisterToJson(NewRegister instance) =>

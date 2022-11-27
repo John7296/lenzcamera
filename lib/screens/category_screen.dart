@@ -119,76 +119,74 @@ class _CategoryScreenState extends State<CategoryScreen> {
               ),
               Expanded(
                   child: PageView(
-                    controller: _pageController,
-                    children: [
-                      for (var i = 0; i < pageCount; i++)
-                      Container(
-                          height: 650,
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 10, right: 10,top: 20),
-                            child: StaggeredGridView.countBuilder(
-                              physics: NeverScrollableScrollPhysics(),
-                              crossAxisCount: 2,
-                              itemCount: 6,
-                              crossAxisSpacing: 0,
-                              mainAxisSpacing: 0,
-                              itemBuilder: (context, index) {
-                                return InkWell(
-                                  onTap: (() {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                ProductDetailsScreen()));
-                                  }),
-                                  child: Card(
-                                    elevation: 2,
-                                    // shape: RoundedRectangleBorder(),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8),
-                                      child: Column(
-                                        children: [
-                                          Stack(
-                                            children: [
-                                              Container(
-                                                height: 120,
-                                                width: double.infinity,
-                                                clipBehavior: Clip.antiAlias,
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(0),
-                                                ),
-                                                child: Image(
-                                                  image: AssetImage(
-                                                      "assets/images/lens.png"),
-                                                ),
-                                              ),
-                                            ],
+                controller: _pageController,
+                children: [
+                  // for (var i = 0; i < pageCount; i++)
+                  Container(
+                    height: 650,
+                    child: Padding(
+                      padding:
+                          const EdgeInsets.only(left: 10, right: 10, top: 20),
+                      child: StaggeredGridView.countBuilder(
+                        //physics: NeverScrollableScrollPhysics(),
+                        crossAxisCount: 2,
+                        itemCount: 12,
+                        crossAxisSpacing: 0,
+                        mainAxisSpacing: 0,
+                        itemBuilder: (context, index) {
+                          return InkWell(
+                            onTap: (() {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          ProductDetailsScreen()));
+                            }),
+                            child: Card(
+                              elevation: 2,
+                              // shape: RoundedRectangleBorder(),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8),
+                                child: Column(
+                                  children: [
+                                    Stack(
+                                      children: [
+                                        Container(
+                                          height: 120,
+                                          width: double.infinity,
+                                          clipBehavior: Clip.antiAlias,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(0),
                                           ),
-                                          const SizedBox(height: 10),
-                                          Text(
-                                            'DSLR Camera',
-                                            maxLines: 2,
-                                            style: const TextStyle(fontSize: 12),
-                                            overflow: TextOverflow.ellipsis,
+                                          child: Image(
+                                            image: AssetImage(
+                                                "assets/images/lens.png"),
                                           ),
-                                          const SizedBox(height: 5),
-                                        ],
-                                      ),
+                                        ),
+                                      ],
                                     ),
-                                  ),
-                                );
-                              },
-                              staggeredTileBuilder: (index) =>
-                                  StaggeredTile.fit(1),
+                                    const SizedBox(height: 10),
+                                    Text(
+                                      'DSLR Camera',
+                                      maxLines: 2,
+                                      style: const TextStyle(fontSize: 12),
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                    const SizedBox(height: 5),
+                                  ],
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
-                  
-                    ], 
-                    
-                  ))
-                    
+                          );
+                        },
+                        staggeredTileBuilder: (index) => StaggeredTile.fit(1),
+                      ),
+                    ),
+                  ),
+                ],
+              ))
+
               //     Container(
               //   child: PageView(
               //     controller: _pageController,
@@ -288,7 +286,6 @@ class _CategoryScreenState extends State<CategoryScreen> {
               //     ],
               //   ),
               // ))
-            
             ],
           ),
         ));

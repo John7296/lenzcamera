@@ -40,11 +40,11 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
       print("------------------------");
 
         print(_emailController.text);
-       Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                      builder: (context) =>
-                      OtpScreen()));
+      //  Navigator.push(
+      //                 context,
+      //                 MaterialPageRoute(
+      //                 builder: (context) =>
+      //                 OtpScreen()));
       // showFlashMsg(response.message!);
     }).catchError((Object obj) {
       // hideLoader();

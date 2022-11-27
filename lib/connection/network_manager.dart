@@ -1,10 +1,13 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:lenzcamera/connection/network_connection.dart';
 import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/company_policy.dart';
+import 'package:lenzcamera/model/featured_products.dart';
 import 'package:lenzcamera/model/login_customer.dart';
 import 'package:lenzcamera/model/new_register.dart';
 import 'package:lenzcamera/model/top_categories.dart';
+import 'package:lenzcamera/screens/featured_products_screen.dart';
 import 'package:lenzcamera/utils/sessions_manager.dart';
 
 class NetworkManager {
@@ -20,18 +23,18 @@ class NetworkManager {
 
   Dio? dio;
   late NetworkConnection networkConnection;
-   late String userKey;
- 
+  late String userKey;
+  late String otp;
+  late String otpurlkey;
 
   init() {
     dio = Dio();
-    networkConnection = NetworkConnection(dio!); 
+    networkConnection = NetworkConnection(dio!);
   }
-
 
   void refreshTokens() {
     SessionsManager.getUserToken().then((token) {
-      token = (token ?? ""); 
+      token = (token ?? "");
       userKey = token.isEmpty ? "" : "Bearer $token";
     });
   }
@@ -41,44 +44,50 @@ class NetworkManager {
   }
 
   Future<BaseResponse<LoginCustomer>> userLogin(Map<String, dynamic> map) {
-    return call(
-        networkConnection.userLogin(map
-         ));
+    return call(networkConnection.userLogin(map));
   }
 
-    Future<BaseResponse<List<CompanyPolicy>>> getCompanyPolicy() {
+  Future<BaseResponse<List<CompanyPolicy>>> getCompanyPolicy() {
     return call(networkConnection.getCompanyPolicy());
   }
 
-   Future<BaseResponse<NewRegister>> newRegister(Map<String, dynamic> map) {
-    return call(networkConnection.newRegister(map));
+  Future<BaseResponse<NewRegister>> newRegister(Map<String, dynamic> map) {
+    return call(networkConnection.newRegister(map)).then((value) {
+      debugPrint("2222");
+      return value;
+    });
   }
 
-   Future<BaseResponse> addAddress(Map<String, dynamic> map) {
+  Future<BaseResponse> addAddress(Map<String, dynamic> map) {
     return call(networkConnection.addAddress(map));
   }
 
-     Future<BaseResponse> forgotPasswordOTPSend(Map<String, dynamic> map) {
+  Future<BaseResponse> forgotPasswordOTPSend(Map<String, dynamic> map) {
+    return call(networkConnection.forgotPasswordOTPSend(map));
+  }
+
+  Future<BaseResponse> verifyForgotPasswordOtp(Map<String, dynamic> map) {
+    return call(networkConnection.verifyForgotPasswordOtp(map));
+  }
+
+  Future<BaseResponse> restPassword(Map<String, dynamic> map) {
+    return call(networkConnection.resetPassword(map));
+  }
+
+  Future<BaseResponse> verifyOtp(Map<String, dynamic> map) {
     return call(
-        networkConnection.forgotPasswordOTPSend(map
-         ));
+        networkConnection.verifyOtp(int.parse(map['OTP']), map['OtpUrlKey']));
+  }
 
-    }
-
-    Future<BaseResponse> verifyForgotPasswordOtp(Map<String, dynamic> map) {
-    return call(
-        networkConnection.verifyForgotPasswordOtp(map
-         ));
-
-    }
-
-    Future<BaseResponse> restPassword(Map<String, dynamic> map) {
-    return call(
-        networkConnection. resetPassword(map
-         ));
-
-    }
-
+  Future<BaseResponse<List<FeaturedProducts>>> featuredProducts() {
+    debugPrint("22223333");
+    // int custId;
+    return call(networkConnection.featuredProducts(int.parse("386"),0))
+        .then((value) {
+      debugPrint("2222");
+      return value;
+    });
+  }
 
   Future<T> call<T>(Future<T> call) async {
     T response;

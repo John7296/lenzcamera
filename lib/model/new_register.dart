@@ -5,7 +5,7 @@ part 'new_register.g.dart';
 @JsonSerializable()
 class NewRegister {
   @JsonKey(name: 'custName')
-  int? custName;
+   String? custName;
 
   @JsonKey(name: 'custId')
   int? custId;
@@ -14,7 +14,7 @@ class NewRegister {
   String? otpUrlKey;
 
   @JsonKey(name: 'phoneNo')
-  int? phoneNo;
+  String? phoneNo;
 
   @JsonKey(name: 'emailId')
   String? emailId;

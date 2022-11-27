@@ -4,7 +4,9 @@ import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/new_register.dart';
 import 'package:lenzcamera/screens/login_screen.dart';
+import 'package:lenzcamera/screens/otp_screen.dart';
 import 'package:lenzcamera/screens/privacy_policy_screen.dart';
+
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -43,15 +45,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
     NetworkManager.shared
         .newRegister(map)
         .then((BaseResponse<NewRegister> response) {
-          // print((response.data!.otpUrlKey));
+      debugPrint("respones regi");
+      // print((response.data!.otpUrlKey));
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => LoginScreen()));
-      
+          context, MaterialPageRoute(builder: (context) => OtpScreen(response.data?.otpUrlKey)));
+
       // showFlashMsg(response.message!);
       // Future.delayed(const Duration(milliseconds: 500), () {
-      // login();
+
       // });
-    }).catchError((e) {
+    }).catchError((Object e) {
+      print("error ");
       print(e.toString());
     });
     // print(value.toString());
@@ -193,7 +197,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => PrivacyPolicyScreen()));
+                                          builder: (context) =>
+                                              PrivacyPolicyScreen()));
                                 },
                                 child: Text(
                                   'Terms & conditions',
@@ -211,10 +216,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           child: ElevatedButton(
                             onPressed: () {
                               register();
-                              if (!_form.currentState!.validate()) {
-                                return;
-                              }
-                              // requestOTP();
                             },
                             child: Text(
                               'Sign Up',
