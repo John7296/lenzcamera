@@ -29,7 +29,6 @@ import 'package:lenzcamera/screens/wishlist_screen.dart';
 
 class HomeDetailsScreen extends StatefulWidget {
   final TopCategories? topCategories;
-
   const HomeDetailsScreen({Key? key, this.topCategories}) : super(key: key);
 
   @override
