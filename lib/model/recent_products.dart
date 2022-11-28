@@ -1,9 +1,9 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'featured_products.g.dart';
+part 'recent_products.g.dart';
 
 @JsonSerializable()
-class FeaturedProducts {
+class RecentProducts {
   @JsonKey(name: 'venderName')
   String? venderName;
 
@@ -181,7 +181,7 @@ class FeaturedProducts {
   @JsonKey(name: 'bvValue')
   int? bvValue;
 
-  FeaturedProducts(
+  RecentProducts(
       {this.catName,
       this.imageUrl,
       this.parentId,
@@ -242,7 +242,7 @@ class FeaturedProducts {
       this.vendorUrlKey,
       this.vendorid});
 
-  factory FeaturedProducts.fromJson(Map<String, dynamic> json) =>
-      _$FeaturedProductsFromJson(json);
-  Map<String, dynamic> toJson() => _$FeaturedProductsToJson(this);
+  factory RecentProducts.fromJson(Map<String, dynamic> json) =>
+      _$RecentProductsFromJson(json);
+  Map<String, dynamic> toJson() => _$RecentProductsToJson(this);
 }

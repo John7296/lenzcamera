@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
-
 import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -12,6 +11,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
+import 'package:lenzcamera/model/featured_products.dart';
+import 'package:lenzcamera/model/popular_products.dart';
+import 'package:lenzcamera/model/recent_products.dart';
 import 'package:lenzcamera/model/top_categories.dart';
 import 'package:lenzcamera/screens/address_screen.dart';
 import 'package:lenzcamera/screens/cart_screen.dart';
@@ -20,6 +22,7 @@ import 'package:lenzcamera/screens/contact_us_screen.dart';
 import 'package:lenzcamera/screens/featured_products_screen.dart';
 import 'package:lenzcamera/screens/home_screen.dart';
 import 'package:lenzcamera/screens/login_screen.dart';
+import 'package:lenzcamera/screens/popular_products_screen.dart';
 import 'package:lenzcamera/screens/privacy_policy_screen.dart';
 import 'package:lenzcamera/screens/product_details_screen.dart';
 import 'package:lenzcamera/screens/profile_screen.dart';
@@ -29,7 +32,6 @@ import 'package:lenzcamera/screens/wishlist_screen.dart';
 
 class HomeDetailsScreen extends StatefulWidget {
   final TopCategories? topCategories;
-
   const HomeDetailsScreen({Key? key, this.topCategories}) : super(key: key);
 
   @override
@@ -38,16 +40,20 @@ class HomeDetailsScreen extends StatefulWidget {
 
 class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
   List<TopCategories> categoryList = [];
-  bool isLoading = false;
+  List<FeaturedProducts> featuredList = [];
+  List<PopularProducts> popularProductsList = [];
+  List<RecentProducts> recentProductsList = [];
+  bool isLoading = true;
 
   @override
   void initState() {
     super.initState();
-    _getCategories(); 
-   
+    _getTopCategories();
+    _featuredProducts();
+    _popularProducts();
   }
 
-  void _getCategories() {
+  void _getTopCategories() {
     setState(() {
       isLoading = true;
     });
@@ -61,6 +67,66 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
         categoryList.clear();
         categoryList.addAll(response.data!);
         // print(response.data);
+      });
+    }).catchError((e) {
+      print(e.toString());
+    });
+  }
+
+  void _featuredProducts() {
+    setState(() {
+      isLoading = true;
+    });
+
+    NetworkManager.shared
+        .featuredProducts()
+        .then((BaseResponse<List<FeaturedProducts>> response) {
+      // print(response.data);
+      setState(() {
+        isLoading = false;
+        featuredList.clear();
+        featuredList.addAll(response.data!);
+        // print(response.data!.first.catId);
+      });
+    }).catchError((e) {
+      print(e.toString());
+    });
+  }
+
+  void _popularProducts() {
+    setState(() {
+      isLoading = true;
+    });
+
+    NetworkManager.shared
+        .popularProducts()
+        .then((BaseResponse<List<PopularProducts>> response) {
+      // print(response.data);
+      setState(() {
+        isLoading = false;
+        popularProductsList.clear();
+        popularProductsList.addAll(response.data!);
+        // print(response.data!.first.catId);
+      });
+    }).catchError((e) {
+      print(e.toString());
+    });
+  }
+
+  void _recentProducts() {
+    setState(() {
+      isLoading = true;
+    });
+
+    NetworkManager.shared
+        .recentProducts()
+        .then((BaseResponse<List<RecentProducts>> response) {
+      // print(response.data);
+      setState(() {
+        isLoading = false;
+        recentProductsList.clear();
+        recentProductsList.addAll(response.data!);
+        // print(response.data!.first.catId);
       });
     }).catchError((e) {
       print(e.toString());
@@ -101,9 +167,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
         // ),
       ),
       backgroundColor: Colors.grey.shade100,
-      body:
-         
-          SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -129,9 +193,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                   Padding(
                     padding: const EdgeInsets.all(2),
                     child: TextButton(
-                        onPressed: () {
-                          
-                        },
+                        onPressed: () {},
                         child: Text(
                           'Change',
                           style: TextStyle(color: Colors.red),
@@ -204,67 +266,63 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
               padding: const EdgeInsets.only(left: 8, right: 10),
               child: SizedBox(
                 height: 160,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  shrinkWrap: true,
-                  itemCount: 
-                  categoryList.length,
-                  itemBuilder: (context, index) {
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(5),
-                          child: Container(
-                            width: 125,
+                child: isLoading
+                    ? Center(child: LinearProgressIndicator())
+                    : ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        shrinkWrap: true,
+                        itemCount: categoryList.length,
+                        itemBuilder: (context, index) {
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(5),
+                                child: Container(
+                                  width: 125,
 
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(5),
-                              ),
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey,
-                                  offset: Offset(0.0, 1.0), //(x,y)
-                                  blurRadius: 3.0,
-                                ),
-                              ],
-                            ),
-                            // height: 150,
-                            child: Column(
-                              children: [
-                                Container(
-                                    height: 100,
-                                    width: 80,
-                                    child: CachedNetworkImage(imageUrl: "https://dev.lenzcamera.com/${
-                                      categoryList[index].imageUrl
-                                    }")
-
-                                    // Image(
-                                    //   image: AssetImage("assets/images/lens.png"),
-                                    // ),
-                                    // color: Colors.red,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(5),
                                     ),
-                                Padding(
-                                  padding: const EdgeInsets.all(5),
-                                  child: Text(
-                                    categoryList[index].catName ?? '',
-                                    style: TextStyle(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w400),
-                                    maxLines: 1,
-                                    textAlign: TextAlign.center,
+                                    color: Colors.white,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey,
+                                        offset: Offset(0.0, 1.0), //(x,y)
+                                        blurRadius: 3.0,
+                                      ),
+                                    ],
+                                  ),
+                                  // height: 150,
+                                  child: Column(
+                                    children: [
+                                      Container(
+                                          height: 100,
+                                          width: 80,
+                                          child: CachedNetworkImage(
+                                              imageUrl:
+                                                  "https://dev.lenzcamera.com/webadmin/${categoryList[index].imageUrl}")
+                                          ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(5),
+                                        child: Text(
+                                          categoryList[index].catName ?? '',
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w400),
+                                          maxLines: 1,
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    );
-                  },
-                ),
+                              ),
+                            ],
+                          );
+                        },
+                      ),
               ),
             ),
 
@@ -302,121 +360,136 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                   ),
                   Column(
                     children: [
-                      Container(
-                        height: 600,
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 10, right: 10),
-                          child: StaggeredGridView.countBuilder(
-                            physics: NeverScrollableScrollPhysics(),
-                            crossAxisCount: 3,
-                            itemCount: 9,
-                            crossAxisSpacing: 3,
-                            mainAxisSpacing: 3,
-                            itemBuilder: (context, index) {
-                              return InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              ProductDetailsScreen()));
-                                },
-                                child: Card(
-                                  shape: RoundedRectangleBorder(),
-                                  elevation: 3,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8),
-                                    child: Column(
-                                      children: [
-                                        Stack(
-                                          children: [
-                                            Container(
-                                              margin: EdgeInsets.only(left: 75),
-                                              child: IconButton(
-                                                  onPressed: () {
-                                                    showDialog(
-                                                      context: context,
-                                                      builder: (context) =>
-                                                          AlertDialog(
-                                                        title: Text(
-                                                          "Item Added to wishlist",
-                                                          style: TextStyle(),
-                                                        ),
-                                                        actions: [
-                                                          ElevatedButton(
-                                                              onPressed: () {
-                                                                Navigator.pop(
-                                                                    context);
-                                                              },
-                                                              child: Text('Ok'))
-                                                        ],
+                      isLoading
+                          ? Center(child: CircularProgressIndicator())
+                          : Container(
+                              height: 630,
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 10, right: 10),
+                                child: StaggeredGridView.countBuilder(
+                                  physics: NeverScrollableScrollPhysics(),
+                                  crossAxisCount: 3,
+                                  itemCount: featuredList.length,
+                                  crossAxisSpacing: 3,
+                                  mainAxisSpacing: 3,
+                                  itemBuilder: (context, index) {
+                                    return InkWell(
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ProductDetailsScreen()));
+                                      },
+                                      child: Card(
+                                        shape: RoundedRectangleBorder(),
+                                        elevation: 3,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8),
+                                          child: Column(
+                                            children: [
+                                              Stack(
+                                                children: [
+                                                  Container(
+                                                    margin: EdgeInsets.only(
+                                                        left: 75),
+                                                    child: IconButton(
+                                                        onPressed: () {
+                                                          showDialog(
+                                                            context: context,
+                                                            builder:
+                                                                (context) =>
+                                                                    AlertDialog(
+                                                              title: Text(
+                                                                "Item Added to wishlist",
+                                                                style:
+                                                                    TextStyle(),
+                                                              ),
+                                                              actions: [
+                                                                ElevatedButton(
+                                                                    onPressed:
+                                                                        () {
+                                                                      Navigator.pop(
+                                                                          context);
+                                                                    },
+                                                                    child: Text(
+                                                                        'Ok'))
+                                                              ],
+                                                            ),
+                                                          );
+                                                        },
+                                                        icon: Icon(
+                                                          Icons.favorite,
+                                                          color:
+                                                              Color(0xff70726f),
+                                                        )),
+                                                  ),
+                                                  Container(
+                                                      height: 100,
+                                                      width: double.infinity,
+                                                      clipBehavior:
+                                                          Clip.antiAlias,
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(0),
                                                       ),
-                                                    );
-                                                  },
-                                                  icon: Icon(
-                                                    Icons.favorite,
-                                                    color: Color(0xff70726f),
-                                                  )),
-                                            ),
-                                            Container(
-                                              height: 100,
-                                              width: double.infinity,
-                                              clipBehavior: Clip.antiAlias,
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(0),
+                                                      child: CachedNetworkImage(
+                                                          imageUrl:
+                                                              "https://dev.lenzcamera.com/webadmin/${featuredList[index].imageUrl}")),
+                                                ],
                                               ),
-                                              child: Image(
-                                                image: AssetImage(
-                                                    "assets/images/lens.png"),
+                                              const SizedBox(height: 10),
+                                              Text(
+                                                // 'CANON EF 16-35 MM F/4L IS USM',
+                                                featuredList[index].prName ??
+                                                    '',
+                                                maxLines: 2,
+                                                style: const TextStyle(
+                                                    fontSize: 12),
+                                                overflow: TextOverflow.ellipsis,
                                               ),
-                                            ),
-                                          ],
-                                        ),
-                                        const SizedBox(height: 10),
-                                        Text(
-                                          'CANON EF 16-35 MM F/4L IS USM',
-                                          maxLines: 2,
-                                          style: const TextStyle(fontSize: 12),
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                        const SizedBox(height: 5),
-                                        Text(
-                                          'QAR 120.00',
-                                          style: const TextStyle(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.grey),
-                                        ),
-                                        const SizedBox(height: 5),
-                                        Container(
-                                          width: 100,
-                                          decoration: BoxDecoration(
-                                            color: Colors.yellow,
-                                            borderRadius:
-                                                BorderRadius.circular(5),
-                                          ),
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 4, vertical: 2),
-                                          child: Text(
-                                            'ADD',
-                                            style: const TextStyle(
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.bold),
-                                            textAlign: TextAlign.center,
+                                              const SizedBox(height: 5),
+                                              Text(
+                                                "QAR${featuredList[index].unitPrice}",
+                                                style: const TextStyle(
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.grey),
+                                              ),
+                                              const SizedBox(height: 5),
+                                              Container(
+                                                width: 100,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.yellow,
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
+                                                ),
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 4,
+                                                        vertical: 2),
+                                                child: Text(
+                                                  'ADD',
+                                                  style: const TextStyle(
+                                                      color: Colors.black,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
-                                      ],
-                                    ),
-                                  ),
+                                      ),
+                                    );
+                                  },
+                                  staggeredTileBuilder: (index) =>
+                                      StaggeredTile.fit(1),
                                 ),
-                              );
-                            },
-                            staggeredTileBuilder: (index) =>
-                                StaggeredTile.fit(1),
-                          ),
-                        ),
-                      ),
+                              ),
+                            ),
                     ],
                   )
                 ],
@@ -468,7 +541,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          FeaturedProductsScreen()));
+                                          PopularProductsScreen()));
                             },
                             child: Text(
                               'View All ➜',
@@ -481,97 +554,275 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                   ),
                   Column(
                     children: [
-                      Container(
-                        height: 650,
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 10, right: 10),
-                          child: StaggeredGridView.countBuilder(
-                            physics: NeverScrollableScrollPhysics(),
-                            crossAxisCount: 2,
-                            itemCount: 6,
-                            crossAxisSpacing: 0,
-                            mainAxisSpacing: 0,
+                      isLoading
+                          ? Center(child: CircularProgressIndicator())
+                          : Container(
+                              height: 800,
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 10, right: 10),
+                                child: StaggeredGridView.countBuilder(
+                                  physics: NeverScrollableScrollPhysics(),
+                                  crossAxisCount: 2,
+                                  itemCount: popularProductsList.length,
+                                  crossAxisSpacing: 0,
+                                  mainAxisSpacing: 0,
+                                  itemBuilder: (context, index) {
+                                    return InkWell(
+                                      onTap: (() {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ProductDetailsScreen()));
+                                      }),
+                                      child: Card(
+                                        elevation: 1,
+                                        shape: RoundedRectangleBorder(),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8),
+                                          child: Column(
+                                            children: [
+                                              Stack(
+                                                children: [
+                                                  Container(
+                                                    margin: EdgeInsets.only(
+                                                        left: 125),
+                                                    child: IconButton(
+                                                        onPressed: () {
+                                                          showDialog(
+                                                            context: context,
+                                                            builder:
+                                                                (context) =>
+                                                                    AlertDialog(
+                                                              title: Text(
+                                                                "Item Added to wishlist",
+                                                                style:
+                                                                    TextStyle(),
+                                                              ),
+                                                              actions: [
+                                                                ElevatedButton(
+                                                                    onPressed:
+                                                                        () {
+                                                                      Navigator.pop(
+                                                                          context);
+                                                                    },
+                                                                    child: Text(
+                                                                        'Ok'))
+                                                              ],
+                                                            ),
+                                                          );
+                                                        },
+                                                        icon: Icon(
+                                                          Icons.favorite,
+                                                          color:
+                                                              Color(0xff70726f),
+                                                        )),
+                                                  ),
+                                                  Container(
+                                                      height: 150,
+                                                      width: 120,
+                                                      child: CachedNetworkImage(
+                                                          imageUrl:
+                                                              "https://dev.lenzcamera.com/webadmin/${popularProductsList[index].imageUrl}")),
+                                                ],
+                                              ),
+                                              const SizedBox(height: 10),
+                                              Text(
+                                                // 'CANON EF 16-35 MM F/4L IS USM',
+                                                popularProductsList[index]
+                                                        .prName ??
+                                                    '',
+                                                maxLines: 2,
+                                                style: const TextStyle(
+                                                    fontSize: 12),
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                              const SizedBox(height: 5),
+                                              Text(
+                                                // 'QAR 120.00',
+                                                "QAR${popularProductsList[index].unitPrice.toString()}",
+                                                style: const TextStyle(
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.grey),
+                                              ),
+                                              const SizedBox(height: 5),
+                                              Container(
+                                                width: 160,
+                                                height: 30,
+                                                child: ElevatedButton(
+                                                  style:
+                                                      ElevatedButton.styleFrom(
+                                                    elevation: 0,
+                                                    backgroundColor:
+                                                        Colors.yellow,
+                                                  ),
+                                                  onPressed: () {
+                                                    Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                CartScreen()));
+                                                  },
+                                                  child: Center(
+                                                      child: Text(
+                                                    "ADD",
+                                                    style: TextStyle(
+                                                        fontSize: 15,
+                                                        color: Colors.black),
+                                                  )),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  staggeredTileBuilder: (index) =>
+                                      StaggeredTile.fit(1),
+                                ),
+                              ),
+                            ),
+                    ],
+                  )
+                ],
+              ),
+            ),
+
+            isLoading
+                ? Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : Container(
+                    height: 300,
+                    color: Colors.white,
+                    child: Stack(
+                      children: [
+                        Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 20, left: 15, right: 15),
+                              child: Text(
+                                'Recent Products',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            Spacer(),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(top: 20, right: 10),
+                              child: TextButton(
+                                  onPressed: () {
+                                    _recentProducts();
+                                    // Navigator.push(
+                                    //     context,
+                                    //     MaterialPageRoute(
+                                    //         builder: (context) =>
+                                    //             FeaturedProductsScreen()));
+                                  },
+                                  child: Text(
+                                    'View All ➜',
+                                    style: TextStyle(
+                                        color: Colors.red,
+                                        fontWeight: FontWeight.bold),
+                                  )),
+                            )
+                          ],
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 80, left: 10),
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            shrinkWrap: true,
+                            itemCount: recentProductsList.length,
                             itemBuilder: (context, index) {
                               return InkWell(
-                                onTap: (() {
+                                onTap: () {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
                                               ProductDetailsScreen()));
-                                }),
+                                },
                                 child: Card(
-                                  elevation: 1,
                                   shape: RoundedRectangleBorder(),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8),
-                                    child: Column(
-                                      children: [
-                                        Stack(
-                                          children: [
-                                            Container(
-                                              margin:
-                                                  EdgeInsets.only(left: 125),
-                                              child: IconButton(
-                                                  onPressed: () {
-                                                    showDialog(
-                                                      context: context,
-                                                      builder: (context) =>
-                                                          AlertDialog(
-                                                        title: Text(
-                                                          "Item Added to wishlist",
-                                                          style: TextStyle(),
-                                                        ),
-                                                        actions: [
-                                                          ElevatedButton(
-                                                              onPressed: () {
-                                                                Navigator.pop(
-                                                                    context);
-                                                              },
-                                                              child: Text('Ok'))
-                                                        ],
-                                                      ),
-                                                    );
-                                                  },
-                                                  icon: Icon(
-                                                    Icons.favorite,
-                                                    color: Color(0xff70726f),
-                                                  )),
-                                            ),
-                                            Container(
-                                              height: 150,
-                                              width: double.infinity,
-                                              clipBehavior: Clip.antiAlias,
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(0),
-                                              ),
-                                              child: Image(
-                                                image: AssetImage(
-                                                    "assets/images/lens.png"),
-                                              ),
-                                            ),
-                                          ],
+                                  elevation: 3,
+                                  child: Column(
+                                    children: [
+                                      Stack(children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 30, top: 10),
+                                          child: Image(
+                                            image: AssetImage(
+                                                "assets/images/lens.png"),
+                                            height: 100,
+                                            width: 100,
+                                          ),
                                         ),
-                                        const SizedBox(height: 10),
-                                        Text(
-                                          'CANON EF 16-35 MM F/4L IS USM',
-                                          maxLines: 2,
-                                          style: const TextStyle(fontSize: 12),
-                                          overflow: TextOverflow.ellipsis,
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 120),
+                                          child: IconButton(
+                                              onPressed: () {
+                                                showDialog(
+                                                  context: context,
+                                                  builder: (context) =>
+                                                      AlertDialog(
+                                                    title: Text(
+                                                      "Item Added to wishlist",
+                                                      style: TextStyle(),
+                                                    ),
+                                                    actions: [
+                                                      ElevatedButton(
+                                                          onPressed: () {
+                                                            Navigator.pop(
+                                                                context);
+                                                          },
+                                                          child: Text('Ok'))
+                                                    ],
+                                                  ),
+                                                );
+                                              },
+                                              icon: Icon(
+                                                Icons.favorite,
+                                                color: Color(0xff70726f),
+                                              )),
                                         ),
-                                        const SizedBox(height: 5),
-                                        Text(
-                                          'QAR 120.00',
-                                          style: const TextStyle(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.grey),
-                                        ),
-                                        const SizedBox(height: 5),
-                                        Container(
-                                          width: 160,
-                                          height: 30,
+                                      ]),
+                                      Spacer(),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 10, right: 10),
+                                        child: Align(
+                                            alignment: Alignment.center,
+                                            child: Text(
+                                              recentProductsList[index]
+                                                      .prName ??
+                                                  '',
+
+                                              // "CANON EF 16-35 MM F/4L IS USM ",
+                                              style: TextStyle(
+                                                  fontSize: 10,
+                                                  fontWeight: FontWeight.w400),
+                                              maxLines: 2,
+                                              textAlign: TextAlign.center,
+                                            )),
+                                      ),
+                                      Text(
+                                          "QAR${recentProductsList[index].unitPrice.toString()}",
+                                          // "QAR 39999.00",
+                                          style: TextStyle(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.w600)),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 10, right: 10),
+                                        child: Container(
+                                          width: 150,
                                           child: ElevatedButton(
                                             style: ElevatedButton.styleFrom(
                                               elevation: 0,
@@ -593,171 +844,16 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                                             )),
                                           ),
                                         ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               );
                             },
-                            staggeredTileBuilder: (index) =>
-                                StaggeredTile.fit(1),
                           ),
-                        ),
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            ),
-
-            Container(
-                height: 300,
-                color: Colors.white,
-                child: Stack(
-                  children: [
-                    Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              top: 20, left: 15, right: 15),
-                          child: Text(
-                            'Recent Products',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        Spacer(),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 20, right: 10),
-                          child: TextButton(
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            FeaturedProductsScreen()));
-                              },
-                              child: Text(
-                                'View All ➜',
-                                style: TextStyle(
-                                    color: Colors.red,
-                                    fontWeight: FontWeight.bold),
-                              )),
                         )
                       ],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 80, left: 10),
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        shrinkWrap: true,
-                        itemCount: 6,
-                        itemBuilder: (context, index) {
-                          return InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          ProductDetailsScreen()));
-                            },
-                            child: Card(
-                              shape: RoundedRectangleBorder(),
-                              elevation: 3,
-                              child: Column(
-                                children: [
-                                  Stack(children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 30, top: 10),
-                                      child: Image(
-                                        image: AssetImage(
-                                            "assets/images/lens.png"),
-                                        height: 100,
-                                        width: 100,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 120),
-                                      child: IconButton(
-                                          onPressed: () {
-                                            showDialog(
-                                              context: context,
-                                              builder: (context) => AlertDialog(
-                                                title: Text(
-                                                  "Item Added to wishlist",
-                                                  style: TextStyle(),
-                                                ),
-                                                actions: [
-                                                  ElevatedButton(
-                                                      onPressed: () {
-                                                        Navigator.pop(context);
-                                                      },
-                                                      child: Text('Ok'))
-                                                ],
-                                              ),
-                                            );
-                                          },
-                                          icon: Icon(
-                                            Icons.favorite,
-                                            color: Color(0xff70726f),
-                                          )),
-                                    ),
-                                  ]),
-                                  Spacer(),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 10, right: 10),
-                                    child: Align(
-                                        alignment: Alignment.center,
-                                        child: Text(
-                                          "CANON EF 16-35 MM F/4L IS USM ",
-                                          style: TextStyle(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w400),
-                                          maxLines: 2,
-                                          textAlign: TextAlign.center,
-                                        )),
-                                  ),
-                                  Text("QAR 39999.00",
-                                      style: TextStyle(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w600)),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 10, right: 10),
-                                    child: Container(
-                                      width: 150,
-                                      child: ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                          elevation: 0,
-                                          backgroundColor: Colors.yellow,
-                                        ),
-                                        onPressed: () {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      CartScreen()));
-                                        },
-                                        child: Center(
-                                            child: Text(
-                                          "ADD",
-                                          style: TextStyle(
-                                              fontSize: 15,
-                                              color: Colors.black),
-                                        )),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    )
-                  ],
-                )),
+                    )),
             SizedBox(
               height: 20,
             ),
@@ -885,7 +981,6 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
           ],
         ),
       ),
-
-      );
+    );
   }
 }

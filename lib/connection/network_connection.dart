@@ -1,9 +1,12 @@
 import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/company_policy.dart';
 import 'package:lenzcamera/model/featured_products.dart';
+import 'package:lenzcamera/model/get_wishlist.dart';
+import 'package:lenzcamera/model/home_details.dart';
 import 'package:lenzcamera/model/login_customer.dart';
 import 'package:lenzcamera/model/new_register.dart';
-import 'package:lenzcamera/model/search_products.dart';
+import 'package:lenzcamera/model/popular_products.dart';
+import 'package:lenzcamera/model/recent_products.dart';
 import 'package:lenzcamera/model/search_products_response.dart';
 import 'package:lenzcamera/model/top_categories.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
@@ -33,79 +36,81 @@ abstract class NetworkConnection {
   @FormUrlEncoded()
   @POST("/Account/Login")
   Future<BaseResponse<LoginCustomer>> userLogin(
-   @Body() Map<String, dynamic> map);
-
-
-     @FormUrlEncoded()
-  @GET("/Customer/ForgotPassword")
-  Future<BaseResponse> forgotPasswordOTPSend(
-    @Body() Map<String, dynamic> map,
-    );
-
-
-     @FormUrlEncoded()
-  @GET("/Customer/VerifyOTP")
-  Future<BaseResponse> verifyForgotPasswordOtp(
-     @Query("OTP")  int otp,
-      @Query("OtpUrlKey") String otpurlkey);
-    
-
-      @FormUrlEncoded()
-  @GET("/Customer/ResetPassword?OtpUrlKey=8KUPP8MS4Y&password=123456")
-  Future<BaseResponse> resetPassword(
-    @Body() Map<String, dynamic> map);
-
-
-    @FormUrlEncoded()
-  @GET("/Customer/ResetPassword")
-  Future<BaseResponse> changeForgotPassword(
-    @Body() Map<String, dynamic> map,
-      );
-
-      @FormUrlEncoded()
-    @POST("/Support")
-    Future<BaseResponse> supportMessageSend(
-      @Body()Map<String, dynamic>map
-    );
-    
-     @POST("/Product/Search")
-  Future<BaseResponse<SearchProductsResponse>>searchProducts(
       @Body() Map<String, dynamic> map);
-     
-     
-    @FormUrlEncoded()
-    @GET('CompanyPolicy')
-    Future<BaseResponse<List<CompanyPolicy>>> getCompanyPolicy();
+
+  @FormUrlEncoded()
+  @GET("/Customer/ForgotPassword?email=sreejith@intertoons.com&mobileNumber=")
+  Future<BaseResponse> forgotPasswordOTPSend(@Body() Map<String, dynamic> map);
+
+  @FormUrlEncoded()
+  @GET("/Customer/VerifyOTP?OTP=34727&OtpUrlKey=O16G665VHN")
+  Future<BaseResponse> verifyForgotPasswordOtp(
+      @Body() Map<String, dynamic> map);
+
+  @FormUrlEncoded()
+  @GET("/Customer/ResetPassword?OtpUrlKey=8KUPP8MS4Y&password=123456")
+  Future<BaseResponse> resetPassword(@Body() Map<String, dynamic> map);
 
     @FormUrlEncoded()
-    @POST("Customer/Register")
-    Future<BaseResponse<NewRegister>> newRegister(
-      @Body()Map<String, dynamic>map
-    );
+  @POST("/Product/Search")
+  Future<BaseResponse<SearchProductsResponse>>searchProducts(@Body() Map<String, dynamic> map);
 
-    @FormUrlEncoded()
-    @POST("NewAddress")
-    Future<BaseResponse> addAddress(@Body() Map<String, dynamic> map);
+  @FormUrlEncoded()
+  @GET('CompanyPolicy')
+  Future<BaseResponse<List<CompanyPolicy>>> getCompanyPolicy();
 
-    @FormUrlEncoded()
-    @GET("Customer/RegisterVerifyOTP")
-    Future<BaseResponse>verifyOtp(
-      @Query("OTP")  int otp,
-      @Query("OtpUrlKey") String otpurlkey,
-    );
+  @FormUrlEncoded()
+  @POST("Customer/Register")
+  Future<BaseResponse<NewRegister>> newRegister(
+      @Body() Map<String, dynamic> map);
 
-      @FormUrlEncoded()
+  @FormUrlEncoded()
+  @POST("NewAddress")
+  Future<BaseResponse> addAddress(@Body() Map<String, dynamic> map);
+
+  @FormUrlEncoded()
+  @GET("Customer/RegisterVerifyOTP")
+  Future<BaseResponse> verifyOtp(
+    @Query("OTP") int otp,
+    @Query("OtpUrlKey") String otpurlkey,
+  );
+
+  @FormUrlEncoded()
   @GET('FeaturedProduct')
   Future<BaseResponse<List<FeaturedProducts>>> featuredProducts(
     @Query("custId") int custId,
     @Query("guestId") int gustId,
   );
 
-  //     @FormUrlEncoded()
-  // @GET('Products/HomeProducts')
-  // Future<BaseResponse<List<FeaturedProducts>>> homeDetails(
-  //   @Query("custId") int custId,
-  //   @Query("guestId") int gustId,
-  // );
+  @FormUrlEncoded()
+  @GET('PopularProduct')
+  Future<BaseResponse<List<PopularProducts>>> popularProducts(
+    @Query("custId") int custId,
+    @Query("guestId") int gustId,
+  );
 
+  @FormUrlEncoded()
+  @GET('RecentProducts')
+  Future<BaseResponse<List<RecentProducts>>> recentProducts(
+    @Query("custId") int custId,
+    @Query("guestId") int gustId,
+  );
+
+  @FormUrlEncoded()
+  @GET('Products/HomeProducts')
+  Future<BaseResponse<List<HomeDetails>>> homeDetails(
+    @Query("custId") int custId,
+    @Query("guestId") int gustId,
+  );
+
+  @FormUrlEncoded()
+  @GET('Order/WishLists')
+  Future<BaseResponse<List<WishList>>> getWishList(
+    @Query("custId") int custId,
+    @Query("guestId") int gustId,
+  );
+
+  @FormUrlEncoded()
+  @POST('Order/InsertWishLists')
+  Future<BaseResponse> addToWishlist(@Body() Map<String, dynamic> map);
 }
