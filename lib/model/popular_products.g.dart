@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'featured_products.dart';
+part of 'popular_products.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-FeaturedProducts _$FeaturedProductsFromJson(Map<String, dynamic> json) =>
-    FeaturedProducts(
+PopularProducts _$PopularProductsFromJson(Map<String, dynamic> json) =>
+    PopularProducts(
       catName: json['catName'] as String?,
       imageUrl: json['imageUrl'] as String?,
       parentId: json['parentId'] as int?,
@@ -69,7 +69,7 @@ FeaturedProducts _$FeaturedProductsFromJson(Map<String, dynamic> json) =>
       vendorid: json['vendorid'] as int?,
     );
 
-Map<String, dynamic> _$FeaturedProductsToJson(FeaturedProducts instance) =>
+Map<String, dynamic> _$PopularProductsToJson(PopularProducts instance) =>
     <String, dynamic>{
       'venderName': instance.venderName,
       'catName': instance.catName,

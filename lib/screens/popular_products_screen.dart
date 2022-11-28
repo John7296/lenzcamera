@@ -4,39 +4,41 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
-import 'package:lenzcamera/model/featured_products.dart';
+import 'package:lenzcamera/model/get_wishlist.dart';
+import 'package:lenzcamera/model/popular_products.dart';
+import 'package:lenzcamera/screens/wishlist_screen.dart';
 
-class FeaturedProductsScreen extends StatefulWidget {
-  const FeaturedProductsScreen({super.key});
+class PopularProductsScreen extends StatefulWidget {
+  const PopularProductsScreen({super.key});
 
   @override
-  State<FeaturedProductsScreen> createState() => _FeaturedProductsScreenState();
+  State<PopularProductsScreen> createState() => _PopularProductsScreenState();
 }
 
-class _FeaturedProductsScreenState extends State<FeaturedProductsScreen> {
-  List<FeaturedProducts> featuredList = [];
+class _PopularProductsScreenState extends State<PopularProductsScreen> {
+  List<PopularProducts> popularProductsList = [];
   bool isLoading = true;
 
   @override
   void initState() {
     super.initState();
-    _featuredProducts();
+    _popularProducts();
   }
 
-  void _featuredProducts() {
+  void _popularProducts() {
     setState(() {
-      isLoading = true;
+    isLoading = true;
     });
 
     NetworkManager.shared
-        .featuredProducts()
-        .then((BaseResponse<List<FeaturedProducts>> response) {
-      print(response.data);
+        .popularProducts()
+        .then((BaseResponse<List<PopularProducts>> response) {
+      // print(response.data);
       setState(() {
         isLoading = false;
-        featuredList.clear();
-        featuredList.addAll(response.data!);
-        print(response.data!.first.catId);
+        popularProductsList.clear();
+        popularProductsList.addAll(response.data!);
+        // print(response.data!.first.catId);
       });
     }).catchError((e) {
       print(e.toString());
@@ -49,7 +51,7 @@ class _FeaturedProductsScreenState extends State<FeaturedProductsScreen> {
       appBar: AppBar(
         title: Padding(
           padding: const EdgeInsets.only(left: 50),
-          child: Text('Featured Products'),
+          child: Text('Popular Products'),
         ),
         actions: [
           IconButton(
@@ -70,15 +72,14 @@ class _FeaturedProductsScreenState extends State<FeaturedProductsScreen> {
         ),
       ),
       backgroundColor: Colors.grey.shade100,
-      body: isLoading?Center(child: CircularProgressIndicator()):
-      Container(
+      body: isLoading?Center(child: CircularProgressIndicator()):Container(
           height: 900,
           color: Colors.white,
           child: Padding(
             padding: const EdgeInsets.only(top: 10),
             child: GridView.builder(
               // physics: NeverScrollableScrollPhysics(),
-              itemCount: featuredList.length,
+              itemCount: popularProductsList.length,
               gridDelegate:
                   SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
               itemBuilder: (BuildContext context, int index) {
@@ -89,13 +90,23 @@ class _FeaturedProductsScreenState extends State<FeaturedProductsScreen> {
                       children: [
                         Stack(children: [
                           Center(
-                              child: CachedNetworkImage(
-                                  imageUrl:
-                                      "https://dev.lenzcamera.com/webadmin/${featuredList[index].imageUrl}")),
+                              child: Container(
+                                height: 100,
+                                width: 100,
+                                child: CachedNetworkImage(
+                                    imageUrl:
+                                        "https://dev.lenzcamera.com/webadmin/${popularProductsList[index].imageUrl}"),
+                              )),
                           Padding(
                             padding: const EdgeInsets.only(left: 120),
                             child: IconButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                   Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => WishlistScreen(
+                                      )));
+                                },
                                 icon: Icon(
                                   Icons.favorite,
                                   color: Color(0xff70726f),
@@ -109,14 +120,14 @@ class _FeaturedProductsScreenState extends State<FeaturedProductsScreen> {
                               alignment: Alignment.center,
                               child: Text(
                                 // "CANON EF 16-35 MM F/4L IS USM ",
-                                featuredList[index].prName ?? '',
+                                popularProductsList[index].prName ?? '',
                                 style: TextStyle(
                                     fontSize: 10, fontWeight: FontWeight.w400),
                                 maxLines: 2,
                                 textAlign: TextAlign.center,
                               )),
                         ),
-                        Text("QAR${featuredList[index].unitPrice ?? ''}",
+                        Text("QAR${popularProductsList[index].unitPrice ?? ''}",
                             style: TextStyle(
                                 fontSize: 15, fontWeight: FontWeight.w600)),
                         ElevatedButton(

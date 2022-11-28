@@ -4,8 +4,12 @@ import 'package:lenzcamera/connection/network_connection.dart';
 import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/company_policy.dart';
 import 'package:lenzcamera/model/featured_products.dart';
+import 'package:lenzcamera/model/get_wishlist.dart';
+import 'package:lenzcamera/model/home_details.dart';
 import 'package:lenzcamera/model/login_customer.dart';
 import 'package:lenzcamera/model/new_register.dart';
+import 'package:lenzcamera/model/popular_products.dart';
+import 'package:lenzcamera/model/recent_products.dart';
 import 'package:lenzcamera/model/top_categories.dart';
 import 'package:lenzcamera/screens/featured_products_screen.dart';
 import 'package:lenzcamera/utils/sessions_manager.dart';
@@ -52,10 +56,7 @@ class NetworkManager {
   }
 
   Future<BaseResponse<NewRegister>> newRegister(Map<String, dynamic> map) {
-    return call(networkConnection.newRegister(map)).then((value) {
-      debugPrint("2222");
-      return value;
-    });
+    return call(networkConnection.newRegister(map));
   }
 
   Future<BaseResponse> addAddress(Map<String, dynamic> map) {
@@ -80,13 +81,27 @@ class NetworkManager {
   }
 
   Future<BaseResponse<List<FeaturedProducts>>> featuredProducts() {
-    debugPrint("22223333");
-    // int custId;
-    return call(networkConnection.featuredProducts(int.parse("386"),0))
-        .then((value) {
-      debugPrint("2222");
-      return value;
-    });
+    return call(networkConnection.featuredProducts(int.parse("386"), 0));
+  }
+
+  Future<BaseResponse<List<PopularProducts>>> popularProducts() {
+    return call(networkConnection.popularProducts(int.parse("386"), 0));
+  }
+
+  Future<BaseResponse<List<RecentProducts>>> recentProducts() {
+    return call(networkConnection.recentProducts(int.parse("386"), 0));
+  }
+
+  Future<BaseResponse<List<HomeDetails>>> homeDetails() {
+    return call(networkConnection.homeDetails(int.parse("386"), 0));
+  }
+
+  Future<BaseResponse<List<WishList>>> getWishList() {
+    return call(networkConnection.getWishList(int.parse("386"), 0));
+  }
+
+  Future<BaseResponse> addToWishlist(Map<String, dynamic> map) {
+    return call(networkConnection.addToWishlist(map));
   }
 
   Future<T> call<T>(Future<T> call) async {

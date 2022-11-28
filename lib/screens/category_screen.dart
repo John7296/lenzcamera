@@ -1,7 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:lenzcamera/connection/network_manager.dart';
+import 'package:lenzcamera/model/base_response.dart';
+import 'package:lenzcamera/model/top_categories.dart';
 import 'package:lenzcamera/screens/cart_screen.dart';
 import 'package:lenzcamera/screens/home_screen.dart';
 import 'package:lenzcamera/screens/product_details_screen.dart';
@@ -16,7 +20,37 @@ class CategoryScreen extends StatefulWidget {
 class _CategoryScreenState extends State<CategoryScreen> {
   int selectedIndex = 0;
   PageController _pageController = PageController();
+  List<TopCategories> categoryList = [];
   int pageCount = 10;
+    bool isLoading = true;
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _getCategories();
+  }
+
+  void _getCategories() {
+    setState(() {
+      isLoading = true;
+    });
+
+    NetworkManager.shared
+        .getTopCategories()
+        .then((BaseResponse<List<TopCategories>> response) {
+      print(response.data);
+      setState(() {
+        isLoading = false;
+        categoryList.clear();
+        categoryList.addAll(response.data!);
+        // print(response.data);
+      });
+    }).catchError((e) {
+      print(e.toString());
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,14 +100,14 @@ class _CategoryScreenState extends State<CategoryScreen> {
                           child: Row(
                             children: [
                               AnimatedContainer(
-                                duration: Duration(milliseconds: 500),
+                                duration: Duration(milliseconds: 0),
                                 color: Colors.grey.shade800,
                                 height: (selectedIndex == index) ? 120 : 0,
                                 width: 5,
                               ),
                               Expanded(
                                   child: AnimatedContainer(
-                                duration: Duration(milliseconds: 500),
+                                duration: Duration(milliseconds: 0),
                                 alignment: Alignment.center,
                                 height: 120,
                                 color: (selectedIndex == index)
@@ -83,7 +117,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                   padding: const EdgeInsets.symmetric(
                                       vertical: 10, horizontal: 5),
                                   child: Container(
-                                    height: 100,
+                                    height: 120,
                                     width: 100,
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.all(
@@ -92,13 +126,17 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                     // color: Colors.white,
                                     child: Column(
                                       children: [
-                                        Image(
-                                          image: AssetImage(
-                                              "assets/images/lens.png"),
-                                          height: 80,
-                                          width: 80,
-                                        ),
-                                        Text('CANON EF'),
+                                         Container(
+                                          height: 60,
+                                          width: 60,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(2),
+                                            child: CachedNetworkImage(
+                                                imageUrl:
+                                                    "https://dev.lenzcamera.com/webadmin/${categoryList[index].imageUrl}"),
+                                          )
+                                          ),
+                                        Text(categoryList[index].catName,maxLines: 2,),
                                       ],
                                     ),
                                   ),
@@ -115,7 +153,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                         color: Colors.grey.shade800,
                       );
                     },
-                    itemCount: 10),
+                    itemCount: categoryList.length),
               ),
               Expanded(
                   child: PageView(

@@ -30,35 +30,6 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
     super.initState();
   }
 
-  void addAddress() {
-    // if (!_form.currentState!.validate()) {
-    //   return;
-    // }
-
-    // dismissKeyboard();
-    // showLoader();
-
-    Map<String, dynamic> map = {
-      'firstName': _firstNameController.text,
-      'lastName': _secondNameController.text,
-      'addLine1': _addressL1Controller.text,
-      'addLine2': _addressL2Controller.text,
-      'phone': _phoneController.text,
-      'landmark': _landmarkController.text,
-      'pincode': _pinCodeController,
-    };
-
-    NetworkManager.shared.addAddress(map).then((BaseResponse response) {
-      // hideLoader();
-
-      // showFlashMsg(response.message!);
-      // goBack();
-    }).catchError((e) {
-      // hideLoader();
-      // showFlashMsg(obj.toString());
-      print(e.toString());
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -361,7 +332,6 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                           height: 50,
                           child: ElevatedButton(
                             onPressed: () {
-                              addAddress();
                             },
                             child: Text(
                               'Save',
