@@ -1,3 +1,4 @@
+
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:lenzcamera/connection/network_connection.dart';
@@ -6,6 +7,8 @@ import 'package:lenzcamera/model/company_policy.dart';
 import 'package:lenzcamera/model/featured_products.dart';
 import 'package:lenzcamera/model/login_customer.dart';
 import 'package:lenzcamera/model/new_register.dart';
+import 'package:lenzcamera/model/search_products.dart';
+import 'package:lenzcamera/model/search_products_response.dart';
 import 'package:lenzcamera/model/top_categories.dart';
 import 'package:lenzcamera/screens/featured_products_screen.dart';
 import 'package:lenzcamera/utils/sessions_manager.dart';
@@ -63,15 +66,37 @@ class NetworkManager {
   }
 
   Future<BaseResponse> forgotPasswordOTPSend(Map<String, dynamic> map) {
-    return call(networkConnection.forgotPasswordOTPSend(map));
+    return call(networkConnection.forgotPasswordOTPSend(map)).then((value){
+      print("bcccccccccc");
+      return value;
+    });
   }
 
   Future<BaseResponse> verifyForgotPasswordOtp(Map<String, dynamic> map) {
-    return call(networkConnection.verifyForgotPasswordOtp(map));
+    return call(networkConnection.verifyForgotPasswordOtp(int.parse(map['OTP']), map['OtpUrlKey']));
   }
 
-  Future<BaseResponse> restPassword(Map<String, dynamic> map) {
+  Future<BaseResponse> resetPassword(Map<String, dynamic> map) {
     return call(networkConnection.resetPassword(map));
+  }
+
+   Future<BaseResponse> changeForgotPassword(Map<String, dynamic> map) {
+    return call(networkConnection.changeForgotPassword(map));
+  }
+
+
+  Future<BaseResponse> supportMessageSend(Map<String, dynamic> map) {
+    return call(networkConnection.supportMessageSend(map));
+  }
+
+
+  Future<BaseResponse<SearchProductsResponse>> searchProducts(Map<String, dynamic> map) {
+    // debugPrint("======================================================================================================================================================");
+    return call(networkConnection.searchProducts(map)).then((value){
+          // debugPrint("======================================================================================================================================================");
+
+      return value;
+    });
   }
 
   Future<BaseResponse> verifyOtp(Map<String, dynamic> map) {

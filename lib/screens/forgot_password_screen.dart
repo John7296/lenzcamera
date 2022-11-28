@@ -5,6 +5,7 @@ import 'package:lenzcamera/manager/data_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/screens/home_screen.dart';
 import 'package:lenzcamera/screens/otp_screen.dart';
+import 'package:lenzcamera/screens/verify_forgot_pwd_otp_screen.dart';
 import 'package:lenzcamera/utils/helper.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
@@ -22,33 +23,26 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
 
    void forgotPasswordOTPSend() {
-    // if (!_form.currentState!.validate()) {
-    //   return;
-    // }
 
-    // dismissKeyboard();
-    // showLoader();
+     Map<String, dynamic> map = {
+      'email': _emailController.text,
+      'mobile': ""
+    };
+   
+    NetworkManager.shared.forgotPasswordOTPSend(map).then((BaseResponse response) {
 
-    NetworkManager.shared.forgotPasswordOTPSend(<String, dynamic>{
-       "userName": _emailController.text
-    }).then((BaseResponse response) {
+      debugPrint("Reshma Sathyan");
       // hideLoader();
       setState(() {
         emailSent = true;
       });
-
-      print("------------------------");
-
-        print(_emailController.text);
-      //  Navigator.push(
-      //                 context,
-      //                 MaterialPageRoute(
-      //                 builder: (context) =>
-      //                 OtpScreen()));
-      // showFlashMsg(response.message!);
+       Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                      builder: (context) =>
+                      verifyForgotPwddOtpScreen()));
+     
     }).catchError((Object obj) {
-      // hideLoader();
-      // showFlashMsg(obj.toString());
     });
   }
 

@@ -7,6 +7,38 @@ class ContactUsScreen extends StatefulWidget{
 }
 
 class _ContactUsScreenState extends State<ContactUsScreen> {
+
+final _emailController = TextEditingController();
+  final _phoneController = TextEditingController();
+  final _titleController = TextEditingController();
+  final _messageController = TextEditingController();
+
+// void onSendButtonTapped() {
+  
+//    String  email = _emailController.text;
+//     String  phone = _phoneController.text;
+//      String  title = _titleController.text;
+//       String message = _messageController.text;
+
+  
+
+//     NetworkManager.shared.enquiry(map).then((BaseResponse response) {
+//       hideLoader();
+
+//       _firstNameController.text = "";
+//       _lastNameController.text = "";
+//       _mobileController.text = "";
+//       _emailController.text = "";
+//       _enuiryController.text = "";
+
+//       showFlashMsg(response.message!);
+//       goBack();
+//     }).catchError((Object obj) {
+//       hideLoader();
+//       showFlashMsg(obj.toString());
+//     });
+//   }
+
   @override
   Widget build(BuildContext context) {
    return  Scaffold(
@@ -236,7 +268,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                       ),
                       SizedBox(height: 12),
                       Container(
-                        height: 40,
+                        height: 90,
                         child: TextFormField(
                             decoration: InputDecoration(
                                contentPadding: const EdgeInsets.symmetric(vertical: 60.0),
@@ -246,7 +278,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                           labelText: " ",
                         )),
                       ),
-                    SizedBox(height: 200),
+                    SizedBox(height: 150),
                ],),
              ),
            ),

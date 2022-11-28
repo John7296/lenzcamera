@@ -1,55 +1,34 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
-import 'package:lenzcamera/screens/change_password_screen.dart';
 import 'package:lenzcamera/screens/home_screen.dart';
-import 'package:lenzcamera/screens/login_screen.dart';
-import 'package:lenzcamera/screens/reset_password_screen.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-class OtpScreen extends StatefulWidget {
-  OtpScreen(this.otpUrlKey, {super.key});
-  String? otpUrlKey;
-
+class verifyForgotPwddOtpScreen extends StatefulWidget{
   @override
-  State<OtpScreen> createState() => _OtpScreenState();
+  State<verifyForgotPwddOtpScreen> createState() => _verifyForgotPwddOtpScreenState();
 }
 
-class _OtpScreenState extends State<OtpScreen> {
-  bool emailSent = false;
+class _verifyForgotPwddOtpScreenState extends State<verifyForgotPwddOtpScreen> {
 
-  final _otpController = TextEditingController();
+    final _otpController = TextEditingController();
+     bool emailSent = false;
 
-  void verifyRegisterOtp() {
-    NetworkManager.shared.verifyOtp(<String, dynamic>{
+    
+  void verifyForgotPasswordOtp() {
+    NetworkManager.shared.verifyForgotPasswordOtp(<String, dynamic>{
       "OTP": _otpController.text,
-      "OtpUrlKey":  widget.otpUrlKey
+      "OtpUrlKey":"",
     }).then((BaseResponse response) {
-      // print("-----------------");
-      // print(_otpController.text);
+      print("-----------------");
+      print(_otpController.text);
       Navigator.push(context,
           MaterialPageRoute(builder: (context) => HomeScreen()));
     }).catchError((Object obj) {});
   }
-
-
-
-  // void verifyForgotPasswordOtp() {
-  //   NetworkManager.shared.verifyForgotPasswordOtp(<String, dynamic>{
-  //     "OTP": _otpController.text,
-  //     "OtpUrlKey":"",
-  //   }).then((BaseResponse response) {
-  //     print("-----------------");
-  //     print(_otpController.text);
-  //     Navigator.push(context,
-  //         MaterialPageRoute(builder: (context) => HomeScreen()));
-  //   }).catchError((Object obj) {});
-  // }
-
   @override
-  Widget build(BuildContext context) {
+ Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -126,8 +105,8 @@ class _OtpScreenState extends State<OtpScreen> {
                       backgroundColor: Color(0xffec3436),
                     ),
                     onPressed: () {
-                      verifyRegisterOtp();
-                      //verifyForgotPasswordOtp();
+                      
+                      verifyForgotPasswordOtp();
 
                       //            Navigator.pushReplacement(
                       // context, MaterialPageRoute(builder: (context)=>ResetPasswordScreen()));
