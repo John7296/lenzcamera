@@ -7,6 +7,7 @@ import 'package:lenzcamera/model/login_customer.dart';
 import 'package:lenzcamera/model/new_register.dart';
 import 'package:lenzcamera/model/popular_products.dart';
 import 'package:lenzcamera/model/recent_products.dart';
+import 'package:lenzcamera/model/search_products.dart';
 import 'package:lenzcamera/model/search_products_response.dart';
 import 'package:lenzcamera/model/top_categories.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
@@ -34,26 +35,40 @@ abstract class NetworkConnection {
   Future<BaseResponse<List<TopCategories>>> getTopCategories();
 
   @FormUrlEncoded()
-  @POST("/Account/Login")
+  @POST("Account/Login")
   Future<BaseResponse<LoginCustomer>> userLogin(
       @Body() Map<String, dynamic> map);
 
   @FormUrlEncoded()
-  @GET("/Customer/ForgotPassword?email=sreejith@intertoons.com&mobileNumber=")
-  Future<BaseResponse> forgotPasswordOTPSend(@Body() Map<String, dynamic> map);
+  @GET("Customer/ForgotPassword")
+  Future<BaseResponse>forgotPasswordOTPSend(
+     @Query("email") String emailId,
+    );
 
   @FormUrlEncoded()
-  @GET("/Customer/VerifyOTP?OTP=34727&OtpUrlKey=O16G665VHN")
+  @GET("Customer/VerifyOTP")
   Future<BaseResponse> verifyForgotPasswordOtp(
       @Body() Map<String, dynamic> map);
 
   @FormUrlEncoded()
-  @GET("/Customer/ResetPassword?OtpUrlKey=8KUPP8MS4Y&password=123456")
+  @GET("Customer/ResetPassword")
   Future<BaseResponse> resetPassword(@Body() Map<String, dynamic> map);
 
     @FormUrlEncoded()
-  @POST("/Product/Search")
-  Future<BaseResponse<SearchProductsResponse>>searchProducts(@Body() Map<String, dynamic> map);
+  @POST("Product/Search")
+  Future<BaseResponse<SearchProductsResponse>>searchProducts(
+     @Body() Map<String, dynamic> map,
+  );
+
+  //  @FormUrlEncoded()
+  // @GET("/Support")
+  // Future<BaseResponse> supportMessageSend(@Body() Map<String, dynamic> map);
+
+  //  @FormUrlEncoded()
+  // @GET("/CustomerDetails")
+  // Future<BaseResponse<CustomerResponse>> customerDetails(@Body() Map<String, dynamic> map,
+  //  @Query("custId") int custId,
+  // );
 
   @FormUrlEncoded()
   @GET('CompanyPolicy')

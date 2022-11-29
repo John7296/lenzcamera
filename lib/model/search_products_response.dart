@@ -5,7 +5,11 @@ part 'search_products_response.g.dart';
 
 @JsonSerializable()
 class SearchProductsResponse {
-  List<SearchProducts>? products;
+
+  
+  @JsonKey(name: 'List')
+    List<SearchProducts>? products;
+   
 
   SearchProductsResponse();
 

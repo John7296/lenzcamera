@@ -14,23 +14,23 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   final _newPasswordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
 
-  void onChangeButtonTapped() {
-    String password = _passwordController.text;
-    String newPassword = _newPasswordController.text;
+  // void onChangeButtonTapped() {
+  //   String password = _passwordController.text;
+  //   String newPassword = _newPasswordController.text;
 
-    NetworkManager.shared
-        .changeForgotPassword(<String, dynamic>{
-          'current_password': password,
-          'new_password': newPassword
-        })
-        .then((BaseResponse response) {
+  //   NetworkManager.shared
+  //       .changeForgotPassword(<String, dynamic>{
+  //         'current_password': password,
+  //         'new_password': newPassword
+  //       })
+  //       .then((BaseResponse response) {
 
-        print("================");
-        print("password");
-          print(newPassword);
-        })
-        .catchError((Object obj) {});
-  }
+  //       print("================");
+  //       print("password");
+  //         print(newPassword);
+  //       })
+  //       .catchError((Object obj) {});
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -216,7 +216,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     backgroundColor: Color(0xffec3436),
                   ),
                   onPressed: () {
-                    onChangeButtonTapped();
+                   // onChangeButtonTapped();
                     // Navigator.push(context,
                     //     MaterialPageRoute(builder: (context) => LoginScreen()));
                   },

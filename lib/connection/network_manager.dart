@@ -11,6 +11,7 @@ import 'package:lenzcamera/model/login_customer.dart';
 import 'package:lenzcamera/model/new_register.dart';
 import 'package:lenzcamera/model/popular_products.dart';
 import 'package:lenzcamera/model/recent_products.dart';
+import 'package:lenzcamera/model/search_products.dart';
 import 'package:lenzcamera/model/search_products_response.dart';
 import 'package:lenzcamera/model/top_categories.dart';
 import 'package:lenzcamera/screens/featured_products_screen.dart';
@@ -65,11 +66,8 @@ class NetworkManager {
     return call(networkConnection.addAddress(map));
   }
 
-  Future<BaseResponse> forgotPasswordOTPSend(Map<String, dynamic> map) {
-    return call(networkConnection.forgotPasswordOTPSend(map)).then((value){
-      print("bcccccccccc");
-      return value;
-    });
+  Future<BaseResponse> forgotPasswordOTPSend(String email){
+    return call(networkConnection.forgotPasswordOTPSend(email));
   }
 
   Future<BaseResponse> verifyForgotPasswordOtp(Map<String, dynamic> map) {
@@ -90,13 +88,16 @@ class NetworkManager {
   // }
 
 
-  Future<BaseResponse<SearchProductsResponse>> searchProducts(Map<String, dynamic> map) {
-    // debugPrint("======================================================================================================================================================");
-    return call(networkConnection.searchProducts(map)).then((value){
-          // debugPrint("======================================================================================================================================================");
+  //  Future<BaseResponse<CustomerResponse>>customerDetails(Map<String, dynamic> map) {
+  //   S
+  //   return call(networkConnection.customerDetails(map, custId));
+  // }
 
-      return value;
-    });
+
+
+  Future<BaseResponse<SearchProductsResponse>> searchProducts(Map<String, dynamic> map) {
+    debugPrint("=====================================================================");
+    return call(networkConnection.searchProducts(map));
   }
 
   Future<BaseResponse> verifyOtp(Map<String, dynamic> map) {

@@ -14,10 +14,10 @@ SearchProducts _$SearchProductsFromJson(Map<String, dynamic> json) =>
       imageUrl: json['imageUrl'] as String?,
       vendorsName: json['vendorsName'] as String?,
       roleId: json['roleId'] as int?,
-      productId: json['productId'] as String?,
+      productId: json['productId'] as int?,
       prName: json['prName'] as String?,
-      unitPrice: json['unitPrice'] as int?,
-      rc: json['rc'] as String?,
+      unitPrice: (json['unitPrice'] as num?)?.toDouble(),
+      rc: json['rc'] as int?,
     );
 
 Map<String, dynamic> _$SearchProductsToJson(SearchProducts instance) =>

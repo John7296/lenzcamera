@@ -27,17 +27,17 @@ class SearchProducts {
    int? roleId;
 
    @JsonKey(name: 'rc')
-   String? rc;
+   int? rc;
 
 
  @JsonKey(name: 'productId')
- String? productId;
+ int? productId;
 
   @JsonKey(name: 'prName')
   String? prName;
 
     @JsonKey(name: 'unitPrice')
-  int? unitPrice;
+  double? unitPrice;
 
 
   SearchProducts({

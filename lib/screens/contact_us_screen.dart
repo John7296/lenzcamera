@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lenzcamera/connection/network_manager.dart';
+import 'package:lenzcamera/model/base_response.dart';
 
 class ContactUsScreen extends StatefulWidget{
   @override
@@ -13,6 +15,21 @@ final _emailController = TextEditingController();
   final _titleController = TextEditingController();
   final _messageController = TextEditingController();
 
+
+
+  //  void _fetchCustomer() {
+  //   NetworkManager.shared
+  //       ._fetchCustomer()
+  //       .then((BaseResponse<CustomerResponse> response) {
+  //     var thisUser = response.data!.customer!;
+
+  //     _firstNameController.text = thisUser.firstName ?? "";
+  //     _lastNameController.text = thisUser.lastName ?? "";
+  //     _mobileController.text = thisUser.phone ?? "";
+  //     _emailController.text = thisUser.email ?? "";
+  //   }).catchError((Object obj) {});
+  // }
+
 // void onSendButtonTapped() {
   
 //    String  email = _emailController.text;
@@ -20,22 +37,15 @@ final _emailController = TextEditingController();
 //      String  title = _titleController.text;
 //       String message = _messageController.text;
 
+//     NetworkManager.shared.supportMessageSend(map).then((BaseResponse response) {
   
-
-//     NetworkManager.shared.enquiry(map).then((BaseResponse response) {
-//       hideLoader();
-
 //       _firstNameController.text = "";
 //       _lastNameController.text = "";
 //       _mobileController.text = "";
 //       _emailController.text = "";
 //       _enuiryController.text = "";
-
-//       showFlashMsg(response.message!);
-//       goBack();
 //     }).catchError((Object obj) {
-//       hideLoader();
-//       showFlashMsg(obj.toString());
+     
 //     });
 //   }
 

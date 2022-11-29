@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/manager/data_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
+import 'package:lenzcamera/model/login_customer.dart';
 import 'package:lenzcamera/screens/home_screen.dart';
 import 'package:lenzcamera/screens/otp_screen.dart';
 import 'package:lenzcamera/screens/verify_forgot_pwd_otp_screen.dart';
@@ -23,15 +24,12 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
 
    void forgotPasswordOTPSend() {
+    NetworkManager.shared.forgotPasswordOTPSend(_emailController.text).then((BaseResponse response) {
 
-     Map<String, dynamic> map = {
-      'email': _emailController.text,
-      'mobile': ""
-    };
-   
-    NetworkManager.shared.forgotPasswordOTPSend(map).then((BaseResponse response) {
+
 
       debugPrint("Reshma Sathyan");
+      print(_emailController.text);
       // hideLoader();
       setState(() {
         emailSent = true;
@@ -45,6 +43,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     }).catchError((Object obj) {
     });
   }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -111,11 +110,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                                       }
 
                                       return null;
-                                    }
-                  
-                  
-                  
-                  
+                                    }               
                   ),
                 ),
                 SizedBox(height: 25),

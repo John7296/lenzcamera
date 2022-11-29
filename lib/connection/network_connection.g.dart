@@ -66,7 +66,7 @@ class _NetworkConnection implements NetworkConnection {
     )
             .compose(
               _dio.options,
-              '/Account/Login',
+              'Account/Login',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -79,7 +79,34 @@ class _NetworkConnection implements NetworkConnection {
   }
 
   @override
-  Future<BaseResponse<dynamic>> forgotPasswordOTPSend(map) async {
+  Future<BaseResponse<dynamic>> forgotPasswordOTPSend(emailId) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'email': emailId};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<BaseResponse<dynamic>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+      contentType: 'application/x-www-form-urlencoded',
+    )
+            .compose(
+              _dio.options,
+              'Customer/ForgotPassword',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = BaseResponse<dynamic>.fromJson(
+      _result.data!,
+      (json) => json as dynamic,
+    );
+    return value;
+  }
+
+  @override
+  Future<BaseResponse<dynamic>> verifyForgotPasswordOtp(map) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -94,40 +121,7 @@ class _NetworkConnection implements NetworkConnection {
     )
             .compose(
               _dio.options,
-              '/Customer/ForgotPassword',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = BaseResponse<dynamic>.fromJson(
-      _result.data!,
-      (json) => json as dynamic,
-    );
-    return value;
-  }
-
-  @override
-  Future<BaseResponse<dynamic>> verifyForgotPasswordOtp(
-    otp,
-    otpurlkey,
-  ) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{
-      r'OTP': otp,
-      r'OtpUrlKey': otpurlkey,
-    };
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<BaseResponse<dynamic>>(Options(
-      method: 'GET',
-      headers: _headers,
-      extra: _extra,
-      contentType: 'application/x-www-form-urlencoded',
-    )
-            .compose(
-              _dio.options,
-              '/Customer/VerifyOTP',
+              'Customer/VerifyOTP',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -155,63 +149,7 @@ class _NetworkConnection implements NetworkConnection {
     )
             .compose(
               _dio.options,
-              '/Customer/ResetPassword?OtpUrlKey=8KUPP8MS4Y&password=123456',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = BaseResponse<dynamic>.fromJson(
-      _result.data!,
-      (json) => json as dynamic,
-    );
-    return value;
-  }
-
-  @override
-  Future<BaseResponse<dynamic>> changeForgotPassword(map) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(map);
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<BaseResponse<dynamic>>(Options(
-      method: 'GET',
-      headers: _headers,
-      extra: _extra,
-      contentType: 'application/x-www-form-urlencoded',
-    )
-            .compose(
-              _dio.options,
-              '/Customer/ResetPassword',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = BaseResponse<dynamic>.fromJson(
-      _result.data!,
-      (json) => json as dynamic,
-    );
-    return value;
-  }
-
-  @override
-  Future<BaseResponse<dynamic>> supportMessageSend(map) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(map);
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<BaseResponse<dynamic>>(Options(
-      method: 'POST',
-      headers: _headers,
-      extra: _extra,
-      contentType: 'application/x-www-form-urlencoded',
-    )
-            .compose(
-              _dio.options,
-              '/Support',
+              'Customer/ResetPassword',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -235,10 +173,11 @@ class _NetworkConnection implements NetworkConnection {
       method: 'POST',
       headers: _headers,
       extra: _extra,
+      contentType: 'application/x-www-form-urlencoded',
     )
             .compose(
               _dio.options,
-              '/Product/Search',
+              'Product/Search',
               queryParameters: queryParameters,
               data: _data,
             )

@@ -8,10 +8,11 @@ import 'package:lenzcamera/screens/cart_screen.dart';
 import 'package:lenzcamera/screens/filter_screen.dart';
 
 class SearchScreen extends StatefulWidget {
-   SearchProducts? product;
+  //  final SearchProducts? product;
 
-  SearchScreen({Key? key,
-   this.product
+  SearchScreen({
+    Key? key,
+  //  this.product
   }):super(key: key);
   @override
   State<SearchScreen> createState() => _SearchScreenState();
@@ -26,6 +27,12 @@ class _SearchScreenState extends State<SearchScreen> {
   int currentPage = 1;
 
    List<SearchProducts> _products = [];
+
+   @override
+  void initState() {
+    super.initState();
+    searchProducts();
+  }
  
 
    void searchProducts(){
@@ -37,9 +44,13 @@ class _SearchScreenState extends State<SearchScreen> {
     isSearchStarted = true;
 
     NetworkManager.shared.searchProducts(<String, dynamic>{
-      "pagesize": "20",
+      "pagesize": 20,
+     "custId" :386,
+
+
       "currentpage": currentPage,
       "filtervalues": "", 
+
       "guestId": "", 
       "maxPrice": "1000000", 
       "minPrice": "0",
@@ -50,17 +61,12 @@ class _SearchScreenState extends State<SearchScreen> {
       "sortorder": {"field": "prName", "direction": "default"},
       "searchstring": _searchString,
     }).then((BaseResponse<SearchProductsResponse>response) {
-    //  print("//////////////////////////");
-    //   print(response.data);
-      setState(() {
-        // isLoading = false;
-        //         currentPage++;
-
-        
-         _products.addAll(response.data!.products!);
-         print("//////////////////////////");
-          print(response.data?.products?.first.prName);
-       
+        print("hhhhhhhhhhhhhhhhhh");
+  
+       setState(() {
+            isLoading= false;
+            _products.clear();
+            _products.addAll(response.data!.products!);     
       });
     }).catchError((e) {
     print(e.toString());
@@ -260,7 +266,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                                         const EdgeInsets.only(
                                                             top: 20),
                                                     child: Text(
-                                                          widget.product?.prName??'',
+                                                          _products[index].prName.toString(),
                                                         // "CANON EF 16-35MM F/2.8L  III USM",
                                                         style: TextStyle(
                                                             fontSize: 17,
