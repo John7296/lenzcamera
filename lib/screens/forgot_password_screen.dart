@@ -26,8 +26,6 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
    void forgotPasswordOTPSend() {
     NetworkManager.shared.forgotPasswordOTPSend(_emailController.text).then((BaseResponse response) {
 
-
-
       debugPrint("Reshma Sathyan");
       print(_emailController.text);
       // hideLoader();
