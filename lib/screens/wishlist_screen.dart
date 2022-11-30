@@ -4,7 +4,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
-import 'package:lenzcamera/model/get_wishlist.dart';
+import 'package:lenzcamera/model/product.dart';
 import 'package:lenzcamera/screens/home_screen.dart';
 import 'package:lenzcamera/widgets/wishlist_item_widget.dart';
 
@@ -16,7 +16,7 @@ class WishlistScreen extends StatefulWidget {
 }
 
 class _WishlistScreenState extends State<WishlistScreen> {
-  List<WishList> wishListItems = [];
+  List<Product> wishListItems = [];
   bool isLoading = true;
 
   @override
@@ -32,7 +32,7 @@ class _WishlistScreenState extends State<WishlistScreen> {
 
     NetworkManager.shared
         .getWishList()
-        .then((BaseResponse<List<WishList>> response) {
+        .then((BaseResponse<List<Product>> response) {
       // print(response.data);
       setState(() {
         isLoading = false;
@@ -45,7 +45,7 @@ class _WishlistScreenState extends State<WishlistScreen> {
     });
   }
 
-  void removeFromWishList(WishList wishList) {
+  void removeFromWishList(Product wishList) {
     // if (!_form.currentState!.validate()) {
     //   return;
     // }

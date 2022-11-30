@@ -1,15 +1,16 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:lenzcamera/model/cart_details.dart';
+import 'package:lenzcamera/model/product.dart';
 part 'cart.g.dart';
 
 @JsonSerializable(genericArgumentFactories: true)
-class Cart {
+class CartResponse {
   @JsonKey(name: "cartList")
-  List<CartDetails>? cartItems;
+  List<Product>? cartItems;
 
-  Cart();
+  CartResponse();
 
-  factory Cart.fromJson(Map<String, dynamic> json) =>
-      _$CartFromJson(json);
-  Map<String, dynamic> toJson() => _$CartToJson(this);
+  factory CartResponse.fromJson(Map<String, dynamic> json) =>
+      _$CartResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$CartResponseToJson(this);
 }

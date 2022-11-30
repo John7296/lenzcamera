@@ -4,8 +4,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
-import 'package:lenzcamera/model/get_wishlist.dart';
-import 'package:lenzcamera/model/popular_products.dart';
+import 'package:lenzcamera/model/product.dart';
 import 'package:lenzcamera/screens/wishlist_screen.dart';
 
 class PopularProductsScreen extends StatefulWidget {
@@ -16,7 +15,7 @@ class PopularProductsScreen extends StatefulWidget {
 }
 
 class _PopularProductsScreenState extends State<PopularProductsScreen> {
-  List<PopularProducts> popularProductsList = [];
+  List<Product> popularProductsList = [];
   bool isLoading = true;
 
   @override
@@ -32,7 +31,7 @@ class _PopularProductsScreenState extends State<PopularProductsScreen> {
 
     NetworkManager.shared
         .popularProducts()
-        .then((BaseResponse<List<PopularProducts>> response) {
+        .then((BaseResponse<List<Product>> response) {
       // print(response.data);
       setState(() {
         isLoading = false;

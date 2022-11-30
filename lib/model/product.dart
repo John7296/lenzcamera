@@ -1,9 +1,11 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:lenzcamera/manager/data_manager.dart';
+import 'package:lenzcamera/model/cart_details.dart';
 
-part 'popular_products.g.dart';
+part 'product.g.dart';
 
 @JsonSerializable()
-class PopularProducts {
+class Product {
   @JsonKey(name: 'venderName')
   String? venderName;
 
@@ -119,7 +121,7 @@ class PopularProducts {
   double? maxQtyInOrders;
 
   @JsonKey(name: 'soldQty')
-  double? casoldQtytId;
+  double? soldQty;
 
   @JsonKey(name: 'stockAvailability')
   String? stockAvailability;
@@ -134,7 +136,7 @@ class PopularProducts {
   double? roq;
 
   @JsonKey(name: 'specialPrice')
-  int? specialPrice;
+  double? specialPrice;
 
   @JsonKey(name: 'attributeSetId')
   int? attributeSetId;
@@ -181,15 +183,13 @@ class PopularProducts {
   @JsonKey(name: 'bvValue')
   int? bvValue;
 
-    @JsonKey(ignore: true)
-  bool? isWhishlisted=false;
+  @JsonKey(ignore: true)
+  bool? isWhishlisted = false;
 
-    @JsonKey(ignore: true)
-  bool? isAddedtoCart=false;
+  @JsonKey(name: 'qty')
+  double? qty;
 
-
-
-  PopularProducts(
+  Product(
       {this.catName,
       this.imageUrl,
       this.parentId,
@@ -209,7 +209,7 @@ class PopularProducts {
       this.avgRating,
       this.backOrders,
       this.bvValue,
-      this.casoldQtytId,
+      this.soldQty,
       this.catStatus,
       this.catUrlKey,
       this.cessAmount,
@@ -248,9 +248,16 @@ class PopularProducts {
       this.variationJson,
       this.venderDetails,
       this.vendorUrlKey,
+      this.qty,
       this.vendorid});
 
-  factory PopularProducts.fromJson(Map<String, dynamic> json) =>
-      _$PopularProductsFromJson(json);
-  Map<String, dynamic> toJson() => _$PopularProductsToJson(this);
+  bool isAddedtoCart() {
+    qty = DataManager.shared.getItemQuantity(this);
+
+    return ((qty ?? 0) > 0);
+  }
+
+  factory Product.fromJson(Map<String, dynamic> json) =>
+      _$ProductFromJson(json);
+  Map<String, dynamic> toJson() => _$ProductToJson(this);
 }

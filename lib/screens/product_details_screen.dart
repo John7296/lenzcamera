@@ -1,14 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:lenzcamera/model/featured_products.dart';
-import 'package:lenzcamera/model/popular_products.dart';
+import 'package:lenzcamera/model/product.dart';
 import 'package:lenzcamera/screens/cart_screen.dart';
 import 'package:lenzcamera/screens/wishlist_screen.dart';
 import 'package:lenzcamera/screens/write_review_screen.dart';
 
   class ProductDetailsScreen extends StatefulWidget {
-   PopularProducts? popularproducts;
+   Product? popularproducts;
 
      ProductDetailsScreen(@required this.popularproducts);
 

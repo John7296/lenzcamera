@@ -9,7 +9,7 @@ part of 'filter_response.dart';
 FilterResponse _$FilterResponseFromJson(Map<String, dynamic> json) =>
     FilterResponse()
       ..filterproducts = (json['categoryList"'] as List<dynamic>?)
-          ?.map((e) => FilterProducts.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => Product.fromJson(e as Map<String, dynamic>))
           .toList()
       ..filterattributes = (json['attributes'] as List<dynamic>?)
           ?.map((e) => Attributes.fromJson(e as Map<String, dynamic>))

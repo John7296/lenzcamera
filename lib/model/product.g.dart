@@ -1,13 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'popular_products.dart';
+part of 'product.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-PopularProducts _$PopularProductsFromJson(Map<String, dynamic> json) =>
-    PopularProducts(
+Product _$ProductFromJson(Map<String, dynamic> json) => Product(
       catName: json['catName'] as String?,
       imageUrl: json['imageUrl'] as String?,
       parentId: json['parentId'] as int?,
@@ -27,7 +26,7 @@ PopularProducts _$PopularProductsFromJson(Map<String, dynamic> json) =>
       avgRating: json['avgRating'] as int?,
       backOrders: json['backOrders'] as bool?,
       bvValue: json['bvValue'] as int?,
-      casoldQtytId: (json['soldQty'] as num?)?.toDouble(),
+      soldQty: (json['soldQty'] as num?)?.toDouble(),
       catStatus: json['catStatus'] as bool?,
       catUrlKey: json['catUrlKey'] as String?,
       cessAmount: json['cessAmount'] as int?,
@@ -56,7 +55,7 @@ PopularProducts _$PopularProductsFromJson(Map<String, dynamic> json) =>
       roq: (json['roq'] as num?)?.toDouble(),
       shortDescription: json['shortDescription'] as String?,
       sku: json['sku'] as String?,
-      specialPrice: json['specialPrice'] as int?,
+      specialPrice: json['specialPrice'] as double?,
       status: json['status'] as bool?,
       stockAvailability: json['stockAvailability'] as String?,
       suspendedDate: json['suspendedDate'] as String?,
@@ -66,11 +65,11 @@ PopularProducts _$PopularProductsFromJson(Map<String, dynamic> json) =>
       variationJson: json['variationJson'] as int?,
       venderDetails: json['venderDetails'] as String?,
       vendorUrlKey: json['vendorUrlKey'] as String?,
+      qty: (json['qty'] as num?)?.toDouble(),
       vendorid: json['vendorid'] as int?,
     );
 
-Map<String, dynamic> _$PopularProductsToJson(PopularProducts instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$ProductToJson(Product instance) => <String, dynamic>{
       'venderName': instance.venderName,
       'catName': instance.catName,
       'catId': instance.catId,
@@ -109,7 +108,7 @@ Map<String, dynamic> _$PopularProductsToJson(PopularProducts instance) =>
       'newDate': instance.newDate,
       'delDate': instance.delDate,
       'maxQtyInOrders': instance.maxQtyInOrders,
-      'soldQty': instance.casoldQtytId,
+      'soldQty': instance.soldQty,
       'stockAvailability': instance.stockAvailability,
       'backOrders': instance.backOrders,
       'rol': instance.rol,
@@ -130,4 +129,5 @@ Map<String, dynamic> _$PopularProductsToJson(PopularProducts instance) =>
       'productType': instance.productType,
       'minOrderQty': instance.minOrderQty,
       'bvValue': instance.bvValue,
+      'qty': instance.qty,
     };

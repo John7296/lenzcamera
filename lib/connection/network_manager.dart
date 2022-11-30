@@ -1,4 +1,3 @@
-
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:lenzcamera/connection/network_connection.dart';
@@ -6,17 +5,15 @@ import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/cart.dart';
 import 'package:lenzcamera/model/company_policy.dart';
 import 'package:lenzcamera/model/customer.dart';
-import 'package:lenzcamera/model/featured_products.dart';
+import 'package:lenzcamera/model/product.dart';
 import 'package:lenzcamera/model/profile.dart';
 import 'package:lenzcamera/model/filter_response.dart';
-import 'package:lenzcamera/model/get_wishlist.dart';
+
 import 'package:lenzcamera/model/home_details.dart';
 import 'package:lenzcamera/model/login_customer.dart';
 import 'package:lenzcamera/model/new_register.dart';
-import 'package:lenzcamera/model/popular_products.dart';
 import 'package:lenzcamera/model/profile.dart';
-import 'package:lenzcamera/model/recent_products.dart';
-import 'package:lenzcamera/model/search_products.dart';
+
 import 'package:lenzcamera/model/search_products_response.dart';
 import 'package:lenzcamera/model/top_categories.dart';
 import 'package:lenzcamera/screens/featured_products_screen.dart';
@@ -36,8 +33,8 @@ class NetworkManager {
   Dio? dio;
   late NetworkConnection networkConnection;
   late String userKey;
-   late String otp;
-   late String otpurlkey;
+  late String otp;
+  late String otpurlkey;
 
   init() {
     dio = Dio();
@@ -71,14 +68,14 @@ class NetworkManager {
     return call(networkConnection.addAddress(map));
   }
 
-   Future<BaseResponse> forgotPasswordOTPSend(String email, String mobileNumber) {
+  Future<BaseResponse> forgotPasswordOTPSend(
+      String email, String mobileNumber) {
     return call(networkConnection.forgotPasswordOTPSend(email, mobileNumber));
   }
 
-
   Future<BaseResponse> verifyForgotPasswordOTP(Map<String, dynamic> map) {
-    return call(networkConnection.verifyForgotPasswordOTP( map['OTP'],map['OtpUrlKey']));
-    
+    return call(networkConnection.verifyForgotPasswordOTP(
+        map['OTP'], map['OtpUrlKey']));
   }
 
   Future<BaseResponse> resetPassword(Map<String, dynamic> map) {
@@ -89,19 +86,16 @@ class NetworkManager {
   //   return call(networkConnection.changeForgotPassword(map));
   // }
 
-
   Future<BaseResponse> supportMessageSend(Map<String, dynamic> map) {
     return call(networkConnection.supportMessageSend(map));
   }
 
-
-   Future<BaseResponse<Customer>>customerDetails() {
+  Future<BaseResponse<Customer>> customerDetails() {
     return call(networkConnection.customerDetails());
   }
 
-
-
-  Future<BaseResponse<SearchProductsResponse>> searchProducts(Map<String, dynamic> map) {
+  Future<BaseResponse<SearchProductsResponse>> searchProducts(
+      Map<String, dynamic> map) {
     return call(networkConnection.searchProducts(map));
   }
 
@@ -114,15 +108,15 @@ class NetworkManager {
         networkConnection.verifyOtp(int.parse(map['OTP']), map['OtpUrlKey']));
   }
 
-  Future<BaseResponse<List<FeaturedProducts>>> featuredProducts() {
+  Future<BaseResponse<List<Product>>> featuredProducts() {
     return call(networkConnection.featuredProducts(int.parse("386"), 0));
   }
 
-  Future<BaseResponse<List<PopularProducts>>> popularProducts() {
+  Future<BaseResponse<List<Product>>> popularProducts() {
     return call(networkConnection.popularProducts(int.parse("386"), 0));
   }
 
-  Future<BaseResponse<List<RecentProducts>>> recentProducts() {
+  Future<BaseResponse<List<Product>>> recentProducts() {
     return call(networkConnection.recentProducts(int.parse("386"), 0));
   }
 
@@ -130,7 +124,7 @@ class NetworkManager {
     return call(networkConnection.homeDetails(int.parse("386"), 0));
   }
 
-  Future<BaseResponse<List<WishList>>> getWishList() {
+  Future<BaseResponse<List<Product>>> getWishList() {
     return call(networkConnection.getWishList(int.parse("386"), 0));
   }
 
@@ -151,16 +145,16 @@ class NetworkManager {
     return call(networkConnection.updateProfile(map));
   }
 
-  Future<BaseResponse<Cart>> getCart(Map<String, dynamic> map) {
+  Future<BaseResponse<CartResponse>> getCart(Map<String, dynamic> map) {
     return call(networkConnection.getCart(
-        map["custId"], map["guestId"], map["pincode"]));
+        map["cusId"], map["guestId"], map["pincode"]));
   }
 
   Future<BaseResponse> addToCart(Map<String, dynamic> map) {
     return call(networkConnection.addToCart(map));
   }
 
-    Future<BaseResponse> removeFromCart(Map<String, dynamic> map) {
+  Future<BaseResponse> removeFromCart(Map<String, dynamic> map) {
     return call(networkConnection.removeFromCart(map));
   }
 

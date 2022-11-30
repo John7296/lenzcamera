@@ -1,4 +1,4 @@
-import 'package:lenzcamera/model/search_products.dart';
+import 'package:lenzcamera/model/product.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'search_products_response.g.dart';
@@ -8,7 +8,7 @@ class SearchProductsResponse {
 
   
   @JsonKey(name: 'List')
-    List<SearchProducts>? products;
+    List<Product>? products;
    
 
   SearchProductsResponse();

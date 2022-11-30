@@ -1,7 +1,7 @@
 
 import 'package:json_annotation/json_annotation.dart';
 import 'package:lenzcamera/model/attributes.dart';
-import 'package:lenzcamera/model/filter_products.dart';
+import 'package:lenzcamera/model/product.dart';
 
 part 'filter_response.g.dart';
 
@@ -9,7 +9,7 @@ part 'filter_response.g.dart';
 class FilterResponse{
 
     @JsonKey(name: 'categoryList"')
-    List<FilterProducts>? filterproducts;
+    List<Product>? filterproducts;
 
       @JsonKey(name: 'attributes')
     List<Attributes>? filterattributes;

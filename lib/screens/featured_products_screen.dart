@@ -4,7 +4,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
-import 'package:lenzcamera/model/featured_products.dart';
+import 'package:lenzcamera/model/product.dart';
 
 class FeaturedProductsScreen extends StatefulWidget {
   const FeaturedProductsScreen({super.key});
@@ -14,7 +14,7 @@ class FeaturedProductsScreen extends StatefulWidget {
 }
 
 class _FeaturedProductsScreenState extends State<FeaturedProductsScreen> {
-  List<FeaturedProducts> featuredList = [];
+  List<Product> featuredList = [];
   bool isLoading = true;
 
   @override
@@ -30,7 +30,7 @@ class _FeaturedProductsScreenState extends State<FeaturedProductsScreen> {
 
     NetworkManager.shared
         .featuredProducts()
-        .then((BaseResponse<List<FeaturedProducts>> response) {
+        .then((BaseResponse<List<Product>> response) {
       print(response.data);
       setState(() {
         isLoading = false;

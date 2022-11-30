@@ -403,7 +403,7 @@ class _NetworkConnection implements NetworkConnection {
   }
 
   @override
-  Future<BaseResponse<List<FeaturedProducts>>> featuredProducts(
+  Future<BaseResponse<List<Product>>> featuredProducts(
     custId,
     gustId,
   ) async {
@@ -415,7 +415,7 @@ class _NetworkConnection implements NetworkConnection {
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<BaseResponse<List<FeaturedProducts>>>(Options(
+        _setStreamType<BaseResponse<List<Product>>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -428,18 +428,17 @@ class _NetworkConnection implements NetworkConnection {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = BaseResponse<List<FeaturedProducts>>.fromJson(
+    final value = BaseResponse<List<Product>>.fromJson(
       _result.data!,
       (json) => (json as List<dynamic>)
-          .map<FeaturedProducts>(
-              (i) => FeaturedProducts.fromJson(i as Map<String, dynamic>))
+          .map<Product>((i) => Product.fromJson(i as Map<String, dynamic>))
           .toList(),
     );
     return value;
   }
 
   @override
-  Future<BaseResponse<List<PopularProducts>>> popularProducts(
+  Future<BaseResponse<List<Product>>> popularProducts(
     custId,
     gustId,
   ) async {
@@ -451,7 +450,7 @@ class _NetworkConnection implements NetworkConnection {
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<BaseResponse<List<PopularProducts>>>(Options(
+        _setStreamType<BaseResponse<List<Product>>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -464,18 +463,17 @@ class _NetworkConnection implements NetworkConnection {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = BaseResponse<List<PopularProducts>>.fromJson(
+    final value = BaseResponse<List<Product>>.fromJson(
       _result.data!,
       (json) => (json as List<dynamic>)
-          .map<PopularProducts>(
-              (i) => PopularProducts.fromJson(i as Map<String, dynamic>))
+          .map<Product>((i) => Product.fromJson(i as Map<String, dynamic>))
           .toList(),
     );
     return value;
   }
 
   @override
-  Future<BaseResponse<List<RecentProducts>>> recentProducts(
+  Future<BaseResponse<List<Product>>> recentProducts(
     custId,
     gustId,
   ) async {
@@ -487,7 +485,7 @@ class _NetworkConnection implements NetworkConnection {
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<BaseResponse<List<RecentProducts>>>(Options(
+        _setStreamType<BaseResponse<List<Product>>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -500,11 +498,10 @@ class _NetworkConnection implements NetworkConnection {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = BaseResponse<List<RecentProducts>>.fromJson(
+    final value = BaseResponse<List<Product>>.fromJson(
       _result.data!,
       (json) => (json as List<dynamic>)
-          .map<RecentProducts>(
-              (i) => RecentProducts.fromJson(i as Map<String, dynamic>))
+          .map<Product>((i) => Product.fromJson(i as Map<String, dynamic>))
           .toList(),
     );
     return value;
@@ -547,7 +544,7 @@ class _NetworkConnection implements NetworkConnection {
   }
 
   @override
-  Future<BaseResponse<List<WishList>>> getWishList(
+  Future<BaseResponse<List<Product>>> getWishList(
     custId,
     gustId,
   ) async {
@@ -559,7 +556,7 @@ class _NetworkConnection implements NetworkConnection {
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<BaseResponse<List<WishList>>>(Options(
+        _setStreamType<BaseResponse<List<Product>>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -572,10 +569,10 @@ class _NetworkConnection implements NetworkConnection {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = BaseResponse<List<WishList>>.fromJson(
+    final value = BaseResponse<List<Product>>.fromJson(
       _result.data!,
       (json) => (json as List<dynamic>)
-          .map<WishList>((i) => WishList.fromJson(i as Map<String, dynamic>))
+          .map<Product>((i) => Product.fromJson(i as Map<String, dynamic>))
           .toList(),
     );
     return value;
@@ -699,21 +696,21 @@ class _NetworkConnection implements NetworkConnection {
   }
 
   @override
-  Future<BaseResponse<Cart>> getCart(
+  Future<BaseResponse<CartResponse>> getCart(
     custId,
     gustId,
     pincode,
   ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
-      r'custId': custId,
+      r'cusId': custId,
       r'guestId': gustId,
       r'pincode': pincode,
     };
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<BaseResponse<Cart>>(Options(
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<BaseResponse<CartResponse>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -726,9 +723,9 @@ class _NetworkConnection implements NetworkConnection {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = BaseResponse<Cart>.fromJson(
+    final value = BaseResponse<CartResponse>.fromJson(
       _result.data!,
-      (json) => Cart.fromJson(json as Map<String, dynamic>),
+      (json) => CartResponse.fromJson(json as Map<String, dynamic>),
     );
     return value;
   }

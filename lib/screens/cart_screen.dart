@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/cart.dart';
+import 'package:lenzcamera/model/product.dart';
 import 'package:lenzcamera/screens/checkout_screen.dart';
 import 'package:lenzcamera/screens/order_screen.dart';
 
@@ -12,7 +13,7 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
-  List<Cart> cartItemsList = [];
+  List<Product> cartItemsList = [];
   bool isLoading = true;
 
   @override
@@ -30,7 +31,7 @@ class _CartScreenState extends State<CartScreen> {
       "guestId": "",
       "pincode": 8,
       "productQty": 1,
-    }).then((BaseResponse<Cart> response) {
+    }).then((BaseResponse<CartResponse> response) {
       print(response.data?.cartItems);
       setState(() {
         // isLoading = false;
@@ -81,7 +82,7 @@ class _CartScreenState extends State<CartScreen> {
                       //color: Colors.green,
                       child: ListView.builder(
                           physics: NeverScrollableScrollPhysics(),
-                          itemCount: cartItemsList.length,
+                          itemCount: 2,
                           itemBuilder: (BuildContext context, int index) {
                             return Column(
                               children: [
@@ -233,6 +234,7 @@ class _CartScreenState extends State<CartScreen> {
                                                             )),
                                                       ],
                                                     ),
+                                                  
                                                   ],
                                                 ),
                                               ],

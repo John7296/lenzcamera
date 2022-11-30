@@ -3,7 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
-import 'package:lenzcamera/model/search_products.dart';
+import 'package:lenzcamera/model/product.dart';
+
 import 'package:lenzcamera/model/search_products_response.dart';
 import 'package:lenzcamera/screens/cart_screen.dart';
 import 'package:lenzcamera/screens/filter_screen.dart';
@@ -27,7 +28,7 @@ class _SearchScreenState extends State<SearchScreen> {
   bool isSearchStarted = false;
   int currentPage = 1;
 
-   List<SearchProducts> _products = [];
+   List<Product> _products = [];
 
    @override
   void initState() {

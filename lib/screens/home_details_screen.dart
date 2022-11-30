@@ -10,10 +10,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
+import 'package:lenzcamera/manager/data_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
-import 'package:lenzcamera/model/featured_products.dart';
-import 'package:lenzcamera/model/popular_products.dart';
-import 'package:lenzcamera/model/recent_products.dart';
+import 'package:lenzcamera/model/product.dart';
 import 'package:lenzcamera/model/top_categories.dart';
 import 'package:lenzcamera/screens/address_screen.dart';
 import 'package:lenzcamera/screens/cart_screen.dart';
@@ -39,12 +38,12 @@ class HomeDetailsScreen extends StatefulWidget {
 
 class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
   List<TopCategories> categoryList = [];
-  List<FeaturedProducts> featuredList = [];
-  List<PopularProducts> popularProductsList = [];
-  List<RecentProducts> recentProductsList = [];
+  List<Product> featuredList = [];
+  List<Product> popularProductsList = [];
+  List<Product> recentProductsList = [];
   bool isLoading = true;
 
-  FeaturedProducts? featuredProducts;
+  Product? featuredProducts;
 
   @override
   void initState() {
@@ -81,7 +80,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
 
     NetworkManager.shared
         .featuredProducts()
-        .then((BaseResponse<List<FeaturedProducts>> response) {
+        .then((BaseResponse<List<Product>> response) {
       // print(response.data);
       setState(() {
         isLoading = false;
@@ -101,7 +100,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
 
     NetworkManager.shared
         .popularProducts()
-        .then((BaseResponse<List<PopularProducts>> response) {
+        .then((BaseResponse<List<Product>> response) {
       // print(response.data);
       setState(() {
         isLoading = false;
@@ -121,7 +120,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
 
     NetworkManager.shared
         .recentProducts()
-        .then((BaseResponse<List<RecentProducts>> response) {
+        .then((BaseResponse<List<Product>> response) {
       // print(response.data);
       setState(() {
         isLoading = false;
@@ -134,7 +133,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
     });
   }
 
-  void addToWishlist(PopularProducts product) {
+  void addToWishlist(Product product) {
     // if (!_form.currentState!.validate()) {
     //   return;
     // }
@@ -152,7 +151,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
     // print(value.toString());
   }
 
-  void removeFromWishlist(PopularProducts product) {
+  void removeFromWishlist(Product product) {
     // if (!_form.currentState!.validate()) {
     //   return;
     // }
@@ -167,38 +166,6 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
         .catchError((e) {
           print(e.toString());
         });
-  }
-
-  void addToCart(PopularProducts product) {
-  
-
-    NetworkManager.shared
-        .addToCart(<String, dynamic>{
-          "urlKey": product.urlKey,
-          "custId": 386,
-          "guestId": "",
-          "productQty": 1,
-        })
-        .then((BaseResponse response) {})
-        .catchError((e) {
-          print(e.toString());
-        });
-    
-  }
-
-    void removeFromCart(PopularProducts product) {
-   
-    NetworkManager.shared
-        .removeFromCart(<String, dynamic>{
-          "urlKey": product.urlKey,
-          "custId": 386,
-          "guestId": "",
-        })
-        .then((BaseResponse response) {})
-        .catchError((e) {
-          print(e.toString());
-        });
-    
   }
 
   @override
@@ -666,7 +633,9 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    ProductDetailsScreen(popularProductsList[index])));
+                                                    ProductDetailsScreen(
+                                                        popularProductsList[
+                                                            index])));
                                       }),
                                       child: Card(
                                         elevation: 1,
@@ -766,336 +735,111 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                                                     color: Colors.grey),
                                               ),
                                               const SizedBox(height: 5),
-                                //               Align(
-                                //   alignment: Alignment.bottomCenter,
-                                //   child: SizedBox(
-                                //     width: 100,
-                                //     child: (int.parse(
-                                //                 widget.product?.quantity ??
-                                //                     '0') >
-                                //             0)
-                                //         ? Row(
-                                //             mainAxisAlignment:
-                                //                 MainAxisAlignment.start,
-                                //             children: [
-                                //               if (int.parse(widget
-                                //                       .product!.quantity!) >
-                                //                   0)
-                                //                 Padding(
-                                //                   padding:
-                                //                       const EdgeInsets.only(
-                                //                           bottom: 5),
-                                //                   child: Container(
-                                //                     width: 100,
-                                //                     decoration: BoxDecoration(
-                                //                         boxShadow: [
-                                //                           BoxShadow(
-                                //                             color: Colors.grey,
-                                //                             offset: Offset(1.0,
-                                //                                 1.0), //(x,y)
-                                //                             blurRadius: 2,
-                                //                           ),
-                                //                         ],
-                                //                         borderRadius:
-                                //                             BorderRadius.all(
-                                //                           Radius.circular(10),
-                                //                         ),
-                                //                         color: Colors.white),
-                                //                     child: Padding(
-                                //                       padding:
-                                //                           const EdgeInsets.only(
-                                //                               right: 2.5,
-                                //                               left: 2.5),
-                                //                       child:
-                                //                           QuantityControlWidget(
-                                //                         inProgress: widget
-                                //                             .product!
-                                //                             .isQuantityChangeInProgress,
-                                //                         qty: cartQuantity,
-                                //                         onQtyDecreased: () {
-                                //                           int quantityInt =
-                                //                               int.parse(widget
-                                //                                       .product!
-                                //                                       .quantity ??
-                                //                                   "0");
-                                //                           int oldQty =
-                                //                               int.parse(widget
-                                //                                       .product!
-                                //                                       .quantity ??
-                                //                                   "0");
-
-                                //                           quantityInt =
-                                //                               quantityInt == 0
-                                //                                   ? 0
-                                //                                   : quantityInt -
-                                //                                       1;
-                                //                           widget.product!
-                                //                                   .quantity =
-                                //                               quantityInt
-                                //                                   .toString();
-
-                                //                           DataManager.shared
-                                //                               .updateItemToCart(
-                                //                                   context,
-                                //                                   widget
-                                //                                       .product,
-                                //                                   (value) {
-                                //                             // if (!value) {
-                                //                             //   int quantityInt =
-                                //                             //       int.parse(widget.product!.quantity ?? "0");
-
-                                //                             //   quantityInt++;
-                                //                             //   widget.product!.quantity = quantityInt.toString();
-                                //                             // }
-
-                                //                             setState(() {
-                                //                               widget.product!
-                                //                                       .isQuantityChangeInProgress =
-                                //                                   false;
-                                //                             });
-                                //                           });
-                                //                           setState(() {
-                                //                             // widget.product!.isQuantityChangeInProgress = true;
-                                //                           });
-                                //                         },
-                                //                         onQtyIncreased: () {
-                                //                           int quantityInt =
-                                //                               int.parse(widget
-                                //                                       .product!
-                                //                                       .quantity ??
-                                //                                   "0");
-                                //                           int oldQty =
-                                //                               int.parse(widget
-                                //                                       .product!
-                                //                                       .quantity ??
-                                //                                   "0");
-
-                                //                           quantityInt++;
-                                //                           widget.product!
-                                //                                   .quantity =
-                                //                               quantityInt
-                                //                                   .toString();
-
-                                //                           DataManager.shared
-                                //                               .updateItemToCart(
-                                //                                   context,
-                                //                                   widget
-                                //                                       .product,
-                                //                                   (value) {
-                                //                             // if (!value) {
-                                //                             //   int quantityInt =
-                                //                             //       int.parse(widget.product!.quantity ?? "0");
-
-                                //                             //   quantityInt--;
-                                //                             //   widget.product!.quantity = quantityInt.toString();
-                                //                             // }
-
-                                //                             setState(() {
-                                //                               widget.product!
-                                //                                       .isQuantityChangeInProgress =
-                                //                                   false;
-                                //                             });
-                                //                           });
-
-                                //                           setState(() {
-                                //                             // widget.product!.isQuantityChangeInProgress = true;
-                                //                           });
-                                //                         },
-                                //                       ),
-                                //                     ),
-                                //                   ),
-                                //                 ),
-                                //             ],
-                                //           )
-                                //         : ElevatedButton(
-                                //             onPressed: () {
-                                //               if (!(widget
-                                //                       .product?.isAvailable ??
-                                //                   false)) {
-                                //                 showFlashMsg(
-                                //                     "Product not available");
-                                //                 return;
-                                //               }
-
-                                //               if (!DataManager.shared
-                                //                   .checkisLoggedIn()) {
-                                //                 gotToScreen(Routes.login);
-                                //                 return;
-                                //               }
-
-                                //               if (widget.product!.customization!
-                                //                   .isNotEmpty) {
-                                //                 if (!(widget.product
-                                //                         ?.checkAllRequiredOptionsSelected() ??
-                                //                     false)) {
-                                //                   showFlashMsg(
-                                //                       "Please select required option.");
-                                //                   return;
-                                //                 }
-                                //               }
-
-                                //               var thisProduct = widget.product;
-
-                                //               if (widget.product!
-                                //                   .isQuantityChangeInProgress!) {
-                                //                 return;
-                                //               }
-
-                                //               // if (int.parse(widget
-                                //               //         .product!.quantity!) >
-                                //               //     0)
-                                //             //  if (widget.product!.customization!.isNotEmpty)
-                                //                    {
-                                //                 Navigator.push(
-                                //                   context,
-                                //                   MaterialPageRoute(
-                                //                     builder: (context) =>
-                                //                     ProductDetailsScreen(
-                                //                       // product: widget.product
-                                //                     )
-                                //                     //     CartScreen(
-                                //                     //   enableBack: true,
-                                //                     // ),
-                                //                   ),
-                                //                 ).then((val) {
-                                //                   setState(() {});
-                                //                 });
-                                //                 return;
-                                //               }
-
-                                //               // thisProduct!.quantity = "1";
-                                //               // thisProduct.instruction =
-                                //               //     _instructionController.text;
-
-                                //               // DataManager.shared
-                                //                   // .updateItemToCart(
-                                //                       // context, thisProduct,
-                                //                       // (value) {
-                                //                 // widget.product!
-                                //                         // .isQuantityChangeInProgress =
-                                //                     // false;
-                                //                 // setState(() {});
-                                              
-
-                                //               // setState(() {
-                                //               //   widget.product!
-                                //               //           .isQuantityChangeInProgress =
-                                //               //       true;
-                                //               // });
-                                            
-                                //             style: ElevatedButton.styleFrom(
-                                //               primary: Colors.white
-
-                                //             );
-                                //             // ButtonStyle(
-                                //             //   backgroundColor:
-                                //             //       MaterialStateProperty.all<
-                                //             //           Color>((widget.product
-                                //             //                   ?.isAvailable ??
-                                //             //               false)
-                                //             //           ? kRatingProgressMainColor
-                                //             //           : Colors.grey),
-                                //             //   shape: MaterialStateProperty.all<
-                                //             //           RoundedRectangleBorder>(
-                                //             //       RoundedRectangleBorder(
-                                //             //     borderRadius:
-                                //             //         BorderRadius.circular(15.0),
-                                //             //   )),
-                                //             // ),
-                                //             child: Row(
-                                //               children: [
-                                //                 Padding(
-                                //                   padding:
-                                //                       const EdgeInsets.only(left: 15),
-                                //                   child: Text(
-                                //                     // (widget.product?.isAvailable ??
-                                //                     //             false) &&
-                                //                     //         (widget.product!
-                                //                     //                 .quantity !=
-                                //                     //             null)
-                                //                     //     ? ((int.parse(widget
-                                //                     //                 .product!
-                                //                     //                 .quantity!) ==
-                                //                     //             null)
-                                //                     //         ? ''
-                                //                     //         : 'ADD')
-                                //                     //     : 'ADD',
-                                //                     // style: TextStyle(
-                                //                     //   fontWeight:
-                                //                     //       FontWeight.bold,
-                                //                     //   fontSize: 15,
-                                //                     //   color:Colors.purple,
-                                //                     // ),
-                                                  
-                                //                   ""),
-                                //                 ),
-                                //                 Spacer(),
-                                //                 // if (widget.product!
-                                //                 //     .isQuantityChangeInProgress!)
-                                //                   SizedBox(
-                                //                     child:
-                                //                         CircularProgressIndicator(
-                                //                       strokeWidth: 1.5,
-                                //                       color:Colors.purple,
-                                //                     ),
-                                //                     height: 12,
-                                //                     width: 12,
-                                //                   )
-                                //               ],
-                                //             ),
-                                //           ),
-                                //   ),
-                                // ),
                                               Container(
                                                 width: 160,
                                                 height: 30,
-                                                child: ElevatedButton(
-                                                  style:
-                                                      ElevatedButton.styleFrom(
-                                                    elevation: 0,
-                                                    backgroundColor:
-                                                        Colors.yellow,
-                                                  ),
-                                                  onPressed: () {
-                                                    addToCart(
-                                                        popularProductsList[
-                                                            index]);
-                                                    // Navigator.push(
-                                                    //     context,
-                                                    //     MaterialPageRoute(
-                                                    //         builder: (context) =>
-                                                    //             CartScreen()));
-                                                    setState(() {
-                                                            if (popularProductsList[
-                                                                        index]
-                                                                    .isWhishlisted ==
-                                                                true) {
-                                                              removeFromCart(
+                                                child:
+                                                    popularProductsList[index]
+                                                            .isAddedtoCart()
+                                                        ? Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Container(
+                                                                width: 30,
+                                                                height: 30,
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                        color: Color(
+                                                                            0xff70726f),
+                                                                        borderRadius:
+                                                                            BorderRadius.only(
+                                                                          topLeft:
+                                                                              Radius.circular(5),
+                                                                          bottomLeft:
+                                                                              Radius.circular(5),
+                                                                        )),
+                                                                child: Center(
+                                                                    child: Icon(
+                                                                  Icons.remove,
+                                                                  color: Colors
+                                                                      .white,
+                                                                  size: 12,
+                                                                )),
+                                                              ),
+                                                              Container(
+                                                                width: 30,
+                                                                height: 30,
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  color: Color(
+                                                                      0xffe3e3e3),
+                                                                ),
+                                                                child: Center(
+                                                                    child: Text(
+                                                                  "1",
+                                                                  style: TextStyle(
+                                                                      color: Colors
+                                                                          .black),
+                                                                )),
+                                                              ),
+                                                              Container(
+                                                                  width: 30,
+                                                                  height: 30,
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                          color: Color(
+                                                                              0xffe83031),
+                                                                          borderRadius:
+                                                                              BorderRadius.only(
+                                                                            topRight:
+                                                                                Radius.circular(5),
+                                                                            bottomRight:
+                                                                                Radius.circular(5),
+                                                                          )),
+                                                                  child: Icon(
+                                                                    Icons.add,
+                                                                    color: Colors
+                                                                        .white,
+                                                                    size: 12,
+                                                                  )),
+                                                            ],
+                                                          )
+                                                        : ElevatedButton(
+                                                            style:
+                                                                ElevatedButton
+                                                                    .styleFrom(
+                                                              elevation: 0,
+                                                              backgroundColor:
+                                                                  Colors.yellow,
+                                                            ),
+                                                            onPressed: () {
+                                                              // print(popularProductsList[
+                                                              //         index]
+                                                              //     .urlKey);
+                                                              DataManager.shared.addToCart(
                                                                   popularProductsList[
-                                                                      index]);
-                                                              popularProductsList[
-                                                                          index]
-                                                                      .isAddedtoCart =
-                                                                  false;
-                                                            } else {
-                                                              addToCart(
-                                                                  popularProductsList[
-                                                                      index]);
-                                                              popularProductsList[
-                                                                          index]
-                                                                      .isAddedtoCart =
-                                                                  true;
-                                                            }
-                                                          });
-                                                  },
-                                                  child: Center(
-                                                      child: Text(
-                                                    "ADD",
-                                                    style: TextStyle(
-                                                        fontSize: 15,
-                                                        color: Colors.black),
-                                                  )),
-                                                ),
+                                                                      index], () {
+                                                                        setState(() {
+
+                                                                        });
+                                                                      });
+                                                              // Navigator.push(
+                                                              //     context,
+                                                              //     MaterialPageRoute(
+                                                              //         builder: (context) =>
+                                                              //             CartScreen()));
+                                                            },
+                                                            child: Center(
+                                                                child: Text(
+                                                              "ADD",
+                                                              style: TextStyle(
+                                                                  fontSize: 15,
+                                                                  color: Colors
+                                                                      .black),
+                                                            )),
+                                                          ),
                                               ),
                                             ],
                                           ),
