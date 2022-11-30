@@ -2,6 +2,10 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lenzcamera/connection/network_manager.dart';
+import 'package:lenzcamera/model/base_response.dart';
+import 'package:lenzcamera/model/profile.dart';
+import 'package:lenzcamera/model/profile.dart';
 import 'package:lenzcamera/screens/address_screen.dart';
 import 'package:lenzcamera/screens/cart_screen.dart';
 import 'package:lenzcamera/screens/change_password_screen.dart';
@@ -18,6 +22,30 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  Profile? userProfile;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  void _getProfile() {
+    setState(() {
+      // isLoading = true;
+    });
+
+    NetworkManager.shared
+        .getProfile()
+        .then((BaseResponse<Profile> response) {
+      setState(() {
+        userProfile = response.data;
+      });
+    }).catchError((e) {
+      print(e.toString());
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -70,9 +98,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ),
                 ),
-                Text('qwerty'),
+                Text(userProfile?.custName ?? ''),
                 Text(
-                  'qwerty@gmail.com',
+                  userProfile?.emailId ?? '',
                   style: TextStyle(color: Colors.red),
                 ),
                 SizedBox(height: 10),
@@ -109,7 +137,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   color: Colors.grey),
                             ),
                             trailing: IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                _getProfile();
+                              },
                               icon: Icon(Icons.arrow_forward_ios),
                             ),
                           ),

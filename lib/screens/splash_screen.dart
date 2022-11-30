@@ -13,87 +13,68 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
-   
   @override
   void initState() {
-
-    
-    Timer(Duration(seconds: 3), ()=>{
+    Timer(
+      Duration(seconds: 3),
+      () => {
         _checkTokenAndNavigate(),
-  
-    Navigator.push(
-            context, MaterialPageRoute(builder: (context)=>LoginScreen())) 
-
-    },
-        
-     );
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => LoginScreen()))
+      },
+    );
     super.initState();
-
-
-     
-    
   }
 
-
-
   void _checkTokenAndNavigate() {
-      //     SessionsManager.getUserToken().then((utoken) {
-      //      utoken = (utoken ?? "");
-      //       NetworkManager.shared.userKey =
-      //           utoken.isEmpty ? "" : "Bearer $utoken";
-      //       Timer(const Duration( seconds:2 ), () {
-      //     //        Navigator.push(
-      //     //   context, MaterialPageRoute(builder: (context)=>HomeScreen()));  
-            
-        
+    //     SessionsManager.getUserToken().then((utoken) {
+    //      utoken = (utoken ?? "");
+    //       NetworkManager.shared.userKey =
+    //           utoken.isEmpty ? "" : "Bearer $utoken";
+    //       Timer(const Duration( seconds:2 ), () {
+    //     //        Navigator.push(
+    //     //   context, MaterialPageRoute(builder: (context)=>HomeScreen()));
 
-      //  // print(SessionsManager.userToken);
+    //  // print(SessionsManager.userToken);
 
+    SessionsManager.getUserToken().then((value) {
+      print("///////");
+      print(value);
 
-             SessionsManager.getUserToken().then((value)  {
+      if ((value ?? "").isNotEmpty) {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => HomeScreen()));
+      } else {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => LoginScreen()));
+      }
+    });
 
-                print("///////");
-                print(value);
+    // if(SessionsManager.userToken.isNotEmpty){
 
-                
-               if((value??"").isNotEmpty){
-                 Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context)=>HomeScreen()));
-               }
-               else{
-                 Navigator.push(
-              context, MaterialPageRoute(builder: (context)=>LoginScreen()));
-               }
+    //    Navigator.push(
+    //   context, MaterialPageRoute(builder: (context)=>HomeScreen()));
+    // }
 
-             });
+    // else{
+    //  Navigator.push(
+    //   context, MaterialPageRoute(builder: (context)=>LoginScreen()));
 
-            // if(SessionsManager.userToken.isNotEmpty){
-              
-            //    Navigator.push(
-            //   context, MaterialPageRoute(builder: (context)=>HomeScreen()));
-            // }
+    // }
+    // SessionsManager.isLoggedIn().then((value) {
+    //   if (value) {
+    //      Navigator.push(
+    //        context, MaterialPageRoute(builder: (context)=>HomeScreen()));
 
-            // else{
-            //  Navigator.push(
-            //   context, MaterialPageRoute(builder: (context)=>LoginScreen()));
+    //   } else {
+    //     Navigator.push(
+    //       context, MaterialPageRoute(builder: (context)=>HomeScreen()));
+    //   }
 
-            // }
-        // SessionsManager.isLoggedIn().then((value) {
-      //   if (value) {
-      //      Navigator.push(
-      //        context, MaterialPageRoute(builder: (context)=>HomeScreen()));
-        
-      //   } else {
-      //     Navigator.push(
-      //       context, MaterialPageRoute(builder: (context)=>HomeScreen()));
-      //   }
-                   
-      // });
-      // });
-      //       });
-   }
-          
+    // });
+    // });
+    //       });
+  }
 
   @override
   Widget build(BuildContext context) {

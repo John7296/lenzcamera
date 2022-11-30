@@ -2,13 +2,16 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:lenzcamera/connection/network_connection.dart';
 import 'package:lenzcamera/model/base_response.dart';
+import 'package:lenzcamera/model/cart.dart';
 import 'package:lenzcamera/model/company_policy.dart';
 import 'package:lenzcamera/model/featured_products.dart';
+import 'package:lenzcamera/model/profile.dart';
 import 'package:lenzcamera/model/get_wishlist.dart';
 import 'package:lenzcamera/model/home_details.dart';
 import 'package:lenzcamera/model/login_customer.dart';
 import 'package:lenzcamera/model/new_register.dart';
 import 'package:lenzcamera/model/popular_products.dart';
+import 'package:lenzcamera/model/profile.dart';
 import 'package:lenzcamera/model/recent_products.dart';
 import 'package:lenzcamera/model/top_categories.dart';
 import 'package:lenzcamera/screens/featured_products_screen.dart';
@@ -102,6 +105,32 @@ class NetworkManager {
 
   Future<BaseResponse> addToWishlist(Map<String, dynamic> map) {
     return call(networkConnection.addToWishlist(map));
+  }
+
+  Future<BaseResponse> removeFromWishlist(Map<String, dynamic> map) {
+    return call(networkConnection.removeFromWishlist(
+        map["custId"], map["guestId"], map["urlKey"]));
+  }
+
+  Future<BaseResponse<Profile>> getProfile() {
+    return call(networkConnection.getProfile(int.parse("386")));
+  }
+
+  Future<BaseResponse> updateProfile(Map<String, dynamic> map) {
+    return call(networkConnection.updateProfile(map));
+  }
+
+  Future<BaseResponse<Cart>> getCart(Map<String, dynamic> map) {
+    return call(networkConnection.getCart(
+        map["custId"], map["guestId"], map["pincode"]));
+  }
+
+  Future<BaseResponse> addToCart(Map<String, dynamic> map) {
+    return call(networkConnection.addToCart(map));
+  }
+
+    Future<BaseResponse> removeFromCart(Map<String, dynamic> map) {
+    return call(networkConnection.removeFromCart(map));
   }
 
   Future<T> call<T>(Future<T> call) async {

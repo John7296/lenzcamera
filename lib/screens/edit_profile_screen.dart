@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lenzcamera/connection/network_manager.dart';
+import 'package:lenzcamera/model/base_response.dart';
+import 'package:lenzcamera/model/profile.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({Key? key}) : super(key: key);
@@ -9,6 +12,44 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreen extends State<EditProfileScreen> {
+  final _userNameController = TextEditingController();
+  final _emailIdController = TextEditingController();
+  final _mobileController = TextEditingController();
+
+  Profile? userProfile;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _getProfile();
+  }
+
+  void _getProfile() {
+    NetworkManager.shared.getProfile().then((BaseResponse<Profile> response) {
+      userProfile = response.data;
+      _userNameController.text = userProfile?.custName ?? '';
+      _emailIdController.text = userProfile?.emailId ?? '';
+      _mobileController.text = userProfile?.phoneNo ?? '';
+    }).catchError((e) {
+      print(e.toString());
+    });
+  }
+
+  void onUpdateButtonTapped() {
+    NetworkManager.shared
+        .updateProfile({
+          "custId": 386,
+          "custName": _userNameController.text,
+          "phoneNo": _mobileController.text,
+          "emailId": _emailIdController.text,
+        })
+        .then((BaseResponse response) {})
+        .catchError((e) {
+          print(e.toString());
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -59,9 +100,10 @@ class _EditProfileScreen extends State<EditProfileScreen> {
                           child: TextFormField(
                             decoration: InputDecoration(
                               border: OutlineInputBorder(),
-                              contentPadding: EdgeInsets.all(5)
+                              contentPadding: EdgeInsets.all(5),
                               // labelText: 'Customer Name'
                             ),
+                            controller: _userNameController,
                           ),
                         ),
                         SizedBox(height: 20),
@@ -77,10 +119,11 @@ class _EditProfileScreen extends State<EditProfileScreen> {
                           height: 40,
                           child: TextFormField(
                             decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              contentPadding: EdgeInsets.all(5)
-                              // labelText: 'Email ID'
-                            ),
+                                border: OutlineInputBorder(),
+                                contentPadding: EdgeInsets.all(5)
+                                // labelText: 'Email ID'
+                                ),
+                            controller: _emailIdController,
                           ),
                         ),
                         SizedBox(height: 20),
@@ -96,10 +139,11 @@ class _EditProfileScreen extends State<EditProfileScreen> {
                           height: 40,
                           child: TextFormField(
                             decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              contentPadding: EdgeInsets.all(5)
-                              // labelText: 'Mobile'
-                            ),
+                                border: OutlineInputBorder(),
+                                contentPadding: EdgeInsets.all(5)
+                                // labelText: 'Mobile'
+                                ),
+                            controller: _mobileController,
                           ),
                         ),
                         SizedBox(height: 100),
@@ -107,10 +151,13 @@ class _EditProfileScreen extends State<EditProfileScreen> {
                           width: 400,
                           height: 50,
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              onUpdateButtonTapped();
+                            },
                             child: Text(
                               'Update',
-                              style: TextStyle(fontSize: 20,fontFamily: 'Intro'),
+                              style:
+                                  TextStyle(fontSize: 20, fontFamily: 'Intro'),
                             ),
                             style: ButtonStyle(
                               backgroundColor:

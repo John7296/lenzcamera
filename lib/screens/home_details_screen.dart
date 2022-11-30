@@ -31,8 +31,7 @@ import 'package:lenzcamera/screens/search_screen.dart';
 import 'package:lenzcamera/screens/wishlist_screen.dart';
 
 class HomeDetailsScreen extends StatefulWidget {
-  final TopCategories? topCategories;
-  const HomeDetailsScreen({Key? key, this.topCategories}) : super(key: key);
+  const HomeDetailsScreen({Key? key}) : super(key: key);
 
   @override
   State<HomeDetailsScreen> createState() => _HomeDetailsScreenState();
@@ -61,7 +60,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
     NetworkManager.shared
         .getTopCategories()
         .then((BaseResponse<List<TopCategories>> response) {
-      print(response.data);
+      // print(response.data);
       setState(() {
         isLoading = false;
         categoryList.clear();
@@ -131,6 +130,73 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
     }).catchError((e) {
       print(e.toString());
     });
+  }
+
+  void addToWishlist(PopularProducts product) {
+    // if (!_form.currentState!.validate()) {
+    //   return;
+    // }
+
+    NetworkManager.shared
+        .addToWishlist(<String, dynamic>{
+          "urlKey": product.urlKey,
+          "custId": 386,
+          "guestId": "",
+        })
+        .then((BaseResponse response) {})
+        .catchError((e) {
+          print(e.toString());
+        });
+    // print(value.toString());
+  }
+
+  void removeFromWishlist(PopularProducts product) {
+    // if (!_form.currentState!.validate()) {
+    //   return;
+    // }
+
+    NetworkManager.shared
+        .removeFromWishlist(<String, dynamic>{
+          "urlKey": product.urlKey,
+          "custId": 386,
+          "guestId": "",
+        })
+        .then((BaseResponse response) {})
+        .catchError((e) {
+          print(e.toString());
+        });
+  }
+
+  void addToCart(PopularProducts product) {
+  
+
+    NetworkManager.shared
+        .addToCart(<String, dynamic>{
+          "urlKey": product.urlKey,
+          "custId": 386,
+          "guestId": "",
+          "productQty": 1,
+        })
+        .then((BaseResponse response) {})
+        .catchError((e) {
+          print(e.toString());
+        });
+    
+  }
+
+    void removeFromCart(PopularProducts product) {
+   
+    NetworkManager.shared
+        .removeFromCart(<String, dynamic>{
+          "urlKey": product.urlKey,
+          "custId": 386,
+          "guestId": "",
+        })
+        .then((BaseResponse response) {})
+        .catchError((e) {
+          print(e.toString());
+        });
+    
   }
 
   @override
@@ -302,8 +368,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                                           width: 80,
                                           child: CachedNetworkImage(
                                               imageUrl:
-                                                  "https://dev.lenzcamera.com/webadmin/${categoryList[index].imageUrl}")
-                                          ),
+                                                  "https://dev.lenzcamera.com/webadmin/${categoryList[index].imageUrl}")),
                                       Padding(
                                         padding: const EdgeInsets.all(5),
                                         child: Text(
@@ -393,36 +458,61 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                                                 children: [
                                                   Container(
                                                     margin: EdgeInsets.only(
-                                                        left: 75),
+                                                        left: 80),
                                                     child: IconButton(
                                                         onPressed: () {
-                                                          showDialog(
-                                                            context: context,
-                                                            builder:
-                                                                (context) =>
-                                                                    AlertDialog(
-                                                              title: Text(
-                                                                "Item Added to wishlist",
-                                                                style:
-                                                                    TextStyle(),
-                                                              ),
-                                                              actions: [
-                                                                ElevatedButton(
-                                                                    onPressed:
-                                                                        () {
-                                                                      Navigator.pop(
-                                                                          context);
-                                                                    },
-                                                                    child: Text(
-                                                                        'Ok'))
-                                                              ],
-                                                            ),
-                                                          );
+                                                          setState(() {
+                                                            if (popularProductsList[
+                                                                        index]
+                                                                    .isWhishlisted ==
+                                                                true) {
+                                                              removeFromWishlist(
+                                                                  popularProductsList[
+                                                                      index]);
+                                                              popularProductsList[
+                                                                          index]
+                                                                      .isWhishlisted =
+                                                                  false;
+                                                            } else {
+                                                              addToWishlist(
+                                                                  popularProductsList[
+                                                                      index]);
+                                                              popularProductsList[
+                                                                          index]
+                                                                      .isWhishlisted =
+                                                                  true;
+                                                            }
+                                                          });
+                                                          // showDialog(
+                                                          //   context: context,
+                                                          //   builder:
+                                                          //       (context) =>
+                                                          //           AlertDialog(
+                                                          //     title: Text(
+                                                          //       "Item Added to wishlist",
+                                                          //       style:
+                                                          //           TextStyle(),
+                                                          //     ),
+                                                          //     actions: [
+                                                          //       ElevatedButton(
+                                                          //           onPressed:
+                                                          //               () {
+                                                          //             Navigator.pop(
+                                                          //                 context);
+                                                          //           },
+                                                          //           child: Text(
+                                                          //               'Ok'))
+                                                          //     ],
+                                                          //   ),
+                                                          // );
                                                         },
                                                         icon: Icon(
                                                           Icons.favorite,
-                                                          color:
-                                                              Color(0xff70726f),
+                                                          color: popularProductsList[
+                                                                      index]
+                                                                  .isWhishlisted!
+                                                              ? Colors.red
+                                                              : Colors.grey,
                                                         )),
                                                   ),
                                                   Container(
@@ -590,33 +680,59 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                                                         left: 125),
                                                     child: IconButton(
                                                         onPressed: () {
-                                                          showDialog(
-                                                            context: context,
-                                                            builder:
-                                                                (context) =>
-                                                                    AlertDialog(
-                                                              title: Text(
-                                                                "Item Added to wishlist",
-                                                                style:
-                                                                    TextStyle(),
-                                                              ),
-                                                              actions: [
-                                                                ElevatedButton(
-                                                                    onPressed:
-                                                                        () {
-                                                                      Navigator.pop(
-                                                                          context);
-                                                                    },
-                                                                    child: Text(
-                                                                        'Ok'))
-                                                              ],
-                                                            ),
-                                                          );
+                                                          setState(() {
+                                                            if (popularProductsList[
+                                                                        index]
+                                                                    .isWhishlisted ==
+                                                                true) {
+                                                              removeFromWishlist(
+                                                                  popularProductsList[
+                                                                      index]);
+                                                              popularProductsList[
+                                                                          index]
+                                                                      .isWhishlisted =
+                                                                  false;
+                                                            } else {
+                                                              addToWishlist(
+                                                                  popularProductsList[
+                                                                      index]);
+                                                              popularProductsList[
+                                                                          index]
+                                                                      .isWhishlisted =
+                                                                  true;
+                                                            }
+                                                          });
+
+                                                          // showDialog(
+                                                          //   context: context,
+                                                          //   builder:
+                                                          //       (context) =>
+                                                          //           AlertDialog(
+                                                          //     title: Text(
+                                                          //       "Item Added to wishlist",
+                                                          //       style:
+                                                          //           TextStyle(),
+                                                          //     ),
+                                                          //     actions: [
+                                                          //       ElevatedButton(
+                                                          //           onPressed:
+                                                          //               () {
+                                                          //             Navigator.pop(
+                                                          //                 context);
+                                                          //           },
+                                                          //           child: Text(
+                                                          //               'Ok'))
+                                                          //     ],
+                                                          //   ),
+                                                          // );
                                                         },
                                                         icon: Icon(
                                                           Icons.favorite,
-                                                          color:
-                                                              Color(0xff70726f),
+                                                          color: popularProductsList[
+                                                                      index]
+                                                                  .isWhishlisted!
+                                                              ? Colors.red
+                                                              : Colors.grey,
                                                         )),
                                                   ),
                                                   Container(
@@ -648,6 +764,286 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                                                     color: Colors.grey),
                                               ),
                                               const SizedBox(height: 5),
+                                //               Align(
+                                //   alignment: Alignment.bottomCenter,
+                                //   child: SizedBox(
+                                //     width: 100,
+                                //     child: (int.parse(
+                                //                 widget.product?.quantity ??
+                                //                     '0') >
+                                //             0)
+                                //         ? Row(
+                                //             mainAxisAlignment:
+                                //                 MainAxisAlignment.start,
+                                //             children: [
+                                //               if (int.parse(widget
+                                //                       .product!.quantity!) >
+                                //                   0)
+                                //                 Padding(
+                                //                   padding:
+                                //                       const EdgeInsets.only(
+                                //                           bottom: 5),
+                                //                   child: Container(
+                                //                     width: 100,
+                                //                     decoration: BoxDecoration(
+                                //                         boxShadow: [
+                                //                           BoxShadow(
+                                //                             color: Colors.grey,
+                                //                             offset: Offset(1.0,
+                                //                                 1.0), //(x,y)
+                                //                             blurRadius: 2,
+                                //                           ),
+                                //                         ],
+                                //                         borderRadius:
+                                //                             BorderRadius.all(
+                                //                           Radius.circular(10),
+                                //                         ),
+                                //                         color: Colors.white),
+                                //                     child: Padding(
+                                //                       padding:
+                                //                           const EdgeInsets.only(
+                                //                               right: 2.5,
+                                //                               left: 2.5),
+                                //                       child:
+                                //                           QuantityControlWidget(
+                                //                         inProgress: widget
+                                //                             .product!
+                                //                             .isQuantityChangeInProgress,
+                                //                         qty: cartQuantity,
+                                //                         onQtyDecreased: () {
+                                //                           int quantityInt =
+                                //                               int.parse(widget
+                                //                                       .product!
+                                //                                       .quantity ??
+                                //                                   "0");
+                                //                           int oldQty =
+                                //                               int.parse(widget
+                                //                                       .product!
+                                //                                       .quantity ??
+                                //                                   "0");
+
+                                //                           quantityInt =
+                                //                               quantityInt == 0
+                                //                                   ? 0
+                                //                                   : quantityInt -
+                                //                                       1;
+                                //                           widget.product!
+                                //                                   .quantity =
+                                //                               quantityInt
+                                //                                   .toString();
+
+                                //                           DataManager.shared
+                                //                               .updateItemToCart(
+                                //                                   context,
+                                //                                   widget
+                                //                                       .product,
+                                //                                   (value) {
+                                //                             // if (!value) {
+                                //                             //   int quantityInt =
+                                //                             //       int.parse(widget.product!.quantity ?? "0");
+
+                                //                             //   quantityInt++;
+                                //                             //   widget.product!.quantity = quantityInt.toString();
+                                //                             // }
+
+                                //                             setState(() {
+                                //                               widget.product!
+                                //                                       .isQuantityChangeInProgress =
+                                //                                   false;
+                                //                             });
+                                //                           });
+                                //                           setState(() {
+                                //                             // widget.product!.isQuantityChangeInProgress = true;
+                                //                           });
+                                //                         },
+                                //                         onQtyIncreased: () {
+                                //                           int quantityInt =
+                                //                               int.parse(widget
+                                //                                       .product!
+                                //                                       .quantity ??
+                                //                                   "0");
+                                //                           int oldQty =
+                                //                               int.parse(widget
+                                //                                       .product!
+                                //                                       .quantity ??
+                                //                                   "0");
+
+                                //                           quantityInt++;
+                                //                           widget.product!
+                                //                                   .quantity =
+                                //                               quantityInt
+                                //                                   .toString();
+
+                                //                           DataManager.shared
+                                //                               .updateItemToCart(
+                                //                                   context,
+                                //                                   widget
+                                //                                       .product,
+                                //                                   (value) {
+                                //                             // if (!value) {
+                                //                             //   int quantityInt =
+                                //                             //       int.parse(widget.product!.quantity ?? "0");
+
+                                //                             //   quantityInt--;
+                                //                             //   widget.product!.quantity = quantityInt.toString();
+                                //                             // }
+
+                                //                             setState(() {
+                                //                               widget.product!
+                                //                                       .isQuantityChangeInProgress =
+                                //                                   false;
+                                //                             });
+                                //                           });
+
+                                //                           setState(() {
+                                //                             // widget.product!.isQuantityChangeInProgress = true;
+                                //                           });
+                                //                         },
+                                //                       ),
+                                //                     ),
+                                //                   ),
+                                //                 ),
+                                //             ],
+                                //           )
+                                //         : ElevatedButton(
+                                //             onPressed: () {
+                                //               if (!(widget
+                                //                       .product?.isAvailable ??
+                                //                   false)) {
+                                //                 showFlashMsg(
+                                //                     "Product not available");
+                                //                 return;
+                                //               }
+
+                                //               if (!DataManager.shared
+                                //                   .checkisLoggedIn()) {
+                                //                 gotToScreen(Routes.login);
+                                //                 return;
+                                //               }
+
+                                //               if (widget.product!.customization!
+                                //                   .isNotEmpty) {
+                                //                 if (!(widget.product
+                                //                         ?.checkAllRequiredOptionsSelected() ??
+                                //                     false)) {
+                                //                   showFlashMsg(
+                                //                       "Please select required option.");
+                                //                   return;
+                                //                 }
+                                //               }
+
+                                //               var thisProduct = widget.product;
+
+                                //               if (widget.product!
+                                //                   .isQuantityChangeInProgress!) {
+                                //                 return;
+                                //               }
+
+                                //               // if (int.parse(widget
+                                //               //         .product!.quantity!) >
+                                //               //     0)
+                                //             //  if (widget.product!.customization!.isNotEmpty)
+                                //                    {
+                                //                 Navigator.push(
+                                //                   context,
+                                //                   MaterialPageRoute(
+                                //                     builder: (context) =>
+                                //                     ProductDetailsScreen(
+                                //                       // product: widget.product
+                                //                     )
+                                //                     //     CartScreen(
+                                //                     //   enableBack: true,
+                                //                     // ),
+                                //                   ),
+                                //                 ).then((val) {
+                                //                   setState(() {});
+                                //                 });
+                                //                 return;
+                                //               }
+
+                                //               // thisProduct!.quantity = "1";
+                                //               // thisProduct.instruction =
+                                //               //     _instructionController.text;
+
+                                //               // DataManager.shared
+                                //                   // .updateItemToCart(
+                                //                       // context, thisProduct,
+                                //                       // (value) {
+                                //                 // widget.product!
+                                //                         // .isQuantityChangeInProgress =
+                                //                     // false;
+                                //                 // setState(() {});
+                                              
+
+                                //               // setState(() {
+                                //               //   widget.product!
+                                //               //           .isQuantityChangeInProgress =
+                                //               //       true;
+                                //               // });
+                                            
+                                //             style: ElevatedButton.styleFrom(
+                                //               primary: Colors.white
+
+                                //             );
+                                //             // ButtonStyle(
+                                //             //   backgroundColor:
+                                //             //       MaterialStateProperty.all<
+                                //             //           Color>((widget.product
+                                //             //                   ?.isAvailable ??
+                                //             //               false)
+                                //             //           ? kRatingProgressMainColor
+                                //             //           : Colors.grey),
+                                //             //   shape: MaterialStateProperty.all<
+                                //             //           RoundedRectangleBorder>(
+                                //             //       RoundedRectangleBorder(
+                                //             //     borderRadius:
+                                //             //         BorderRadius.circular(15.0),
+                                //             //   )),
+                                //             // ),
+                                //             child: Row(
+                                //               children: [
+                                //                 Padding(
+                                //                   padding:
+                                //                       const EdgeInsets.only(left: 15),
+                                //                   child: Text(
+                                //                     // (widget.product?.isAvailable ??
+                                //                     //             false) &&
+                                //                     //         (widget.product!
+                                //                     //                 .quantity !=
+                                //                     //             null)
+                                //                     //     ? ((int.parse(widget
+                                //                     //                 .product!
+                                //                     //                 .quantity!) ==
+                                //                     //             null)
+                                //                     //         ? ''
+                                //                     //         : 'ADD')
+                                //                     //     : 'ADD',
+                                //                     // style: TextStyle(
+                                //                     //   fontWeight:
+                                //                     //       FontWeight.bold,
+                                //                     //   fontSize: 15,
+                                //                     //   color:Colors.purple,
+                                //                     // ),
+                                                  
+                                //                   ""),
+                                //                 ),
+                                //                 Spacer(),
+                                //                 // if (widget.product!
+                                //                 //     .isQuantityChangeInProgress!)
+                                //                   SizedBox(
+                                //                     child:
+                                //                         CircularProgressIndicator(
+                                //                       strokeWidth: 1.5,
+                                //                       color:Colors.purple,
+                                //                     ),
+                                //                     height: 12,
+                                //                     width: 12,
+                                //                   )
+                                //               ],
+                                //             ),
+                                //           ),
+                                //   ),
+                                // ),
                                               Container(
                                                 width: 160,
                                                 height: 30,
@@ -659,11 +1055,36 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                                                         Colors.yellow,
                                                   ),
                                                   onPressed: () {
-                                                    Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                CartScreen()));
+                                                    addToCart(
+                                                        popularProductsList[
+                                                            index]);
+                                                    // Navigator.push(
+                                                    //     context,
+                                                    //     MaterialPageRoute(
+                                                    //         builder: (context) =>
+                                                    //             CartScreen()));
+                                                    setState(() {
+                                                            if (popularProductsList[
+                                                                        index]
+                                                                    .isWhishlisted ==
+                                                                true) {
+                                                              removeFromCart(
+                                                                  popularProductsList[
+                                                                      index]);
+                                                              popularProductsList[
+                                                                          index]
+                                                                      .isAddedtoCart =
+                                                                  false;
+                                                            } else {
+                                                              addToCart(
+                                                                  popularProductsList[
+                                                                      index]);
+                                                              popularProductsList[
+                                                                          index]
+                                                                      .isAddedtoCart =
+                                                                  true;
+                                                            }
+                                                          });
                                                   },
                                                   child: Center(
                                                       child: Text(
@@ -693,7 +1114,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
 
             isLoading
                 ? Center(
-                    child: CircularProgressIndicator(),
+                    child: LinearProgressIndicator(),
                   )
                 : Container(
                     height: 300,
@@ -768,24 +1189,41 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                                               const EdgeInsets.only(left: 120),
                                           child: IconButton(
                                               onPressed: () {
-                                                showDialog(
-                                                  context: context,
-                                                  builder: (context) =>
-                                                      AlertDialog(
-                                                    title: Text(
-                                                      "Item Added to wishlist",
-                                                      style: TextStyle(),
-                                                    ),
-                                                    actions: [
-                                                      ElevatedButton(
-                                                          onPressed: () {
-                                                            Navigator.pop(
-                                                                context);
-                                                          },
-                                                          child: Text('Ok'))
-                                                    ],
-                                                  ),
-                                                );
+                                                setState(() {
+                                                  if (popularProductsList[index]
+                                                          .isWhishlisted ==
+                                                      true) {
+                                                    removeFromWishlist(
+                                                        popularProductsList[
+                                                            index]);
+                                                    popularProductsList[index]
+                                                        .isWhishlisted = false;
+                                                  } else {
+                                                    addToWishlist(
+                                                        popularProductsList[
+                                                            index]);
+                                                    popularProductsList[index]
+                                                        .isWhishlisted = true;
+                                                  }
+                                                });
+                                                // showDialog(
+                                                //   context: context,
+                                                //   builder: (context) =>
+                                                //       AlertDialog(
+                                                //     title: Text(
+                                                //       "Item Added to wishlist",
+                                                //       style: TextStyle(),
+                                                //     ),
+                                                //     actions: [
+                                                //       ElevatedButton(
+                                                //           onPressed: () {
+                                                //             Navigator.pop(
+                                                //                 context);
+                                                //           },
+                                                //           child: Text('Ok'))
+                                                //     ],
+                                                //   ),
+                                                // );
                                               },
                                               icon: Icon(
                                                 Icons.favorite,

@@ -181,6 +181,14 @@ class PopularProducts {
   @JsonKey(name: 'bvValue')
   int? bvValue;
 
+    @JsonKey(ignore: true)
+  bool? isWhishlisted=false;
+
+    @JsonKey(ignore: true)
+  bool? isAddedtoCart=false;
+
+
+
   PopularProducts(
       {this.catName,
       this.imageUrl,

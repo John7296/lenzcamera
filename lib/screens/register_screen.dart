@@ -55,7 +55,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
       // });
     }).catchError((Object e) {
-      print("error ");
+      print("error detected: ");
       print(e.toString());
     });
     // print(value.toString());
@@ -100,7 +100,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         Align(
                             alignment: Alignment.topLeft,
                             child: Padding(
-                              padding: const EdgeInsets.only(bottom: 10),
+                              padding: const EdgeInsets.only(bottom:10),
                               child: Text(
                                 'Customer Name*',
                                 style: TextStyle(color: Colors.grey.shade600),

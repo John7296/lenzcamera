@@ -89,9 +89,11 @@ class _FeaturedProductsScreenState extends State<FeaturedProductsScreen> {
                       children: [
                         Stack(children: [
                           Center(
-                              child: CachedNetworkImage(
+                              child: 
+                              CachedNetworkImage(
                                   imageUrl:
-                                      "https://dev.lenzcamera.com/webadmin/${featuredList[index].imageUrl}")),
+                                      "https://dev.lenzcamera.com/webadmin/${featuredList[index].imageUrl}")
+                                      ),
                           Padding(
                             padding: const EdgeInsets.only(left: 120),
                             child: IconButton(

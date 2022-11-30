@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class SessionsManager{
 
  static const String userKey = "userKey";
+ 
 
 static void saveUserToken(String data) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();

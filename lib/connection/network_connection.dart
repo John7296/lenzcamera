@@ -1,11 +1,14 @@
 import 'package:lenzcamera/model/base_response.dart';
+import 'package:lenzcamera/model/cart.dart';
 import 'package:lenzcamera/model/company_policy.dart';
 import 'package:lenzcamera/model/featured_products.dart';
+import 'package:lenzcamera/model/profile.dart';
 import 'package:lenzcamera/model/get_wishlist.dart';
 import 'package:lenzcamera/model/home_details.dart';
 import 'package:lenzcamera/model/login_customer.dart';
 import 'package:lenzcamera/model/new_register.dart';
 import 'package:lenzcamera/model/popular_products.dart';
+import 'package:lenzcamera/model/profile.dart';
 import 'package:lenzcamera/model/recent_products.dart';
 import 'package:lenzcamera/model/top_categories.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
@@ -108,4 +111,39 @@ abstract class NetworkConnection {
   @FormUrlEncoded()
   @POST('Order/InsertWishLists')
   Future<BaseResponse> addToWishlist(@Body() Map<String, dynamic> map);
+
+  @POST('Order/InsertWishListsDel')
+  Future<BaseResponse> removeFromWishlist(
+    @Query("custId") int custId,
+    @Query("guestId") String gustId,
+    @Query("urlKey") String urlKey,
+  );
+
+  @FormUrlEncoded()
+  @GET('CustomerDetails')
+  Future<BaseResponse<Profile>> getProfile(
+    @Query("custId") int custId,
+  );
+
+  @FormUrlEncoded()
+  @POST("ProfileUpdate")
+  Future<BaseResponse> updateProfile(
+    @Body() Map<String, dynamic> map);
+
+  @FormUrlEncoded()
+  @GET('Order/CartList')
+  Future<BaseResponse<Cart>> getCart(
+    // @Body() Map<String, dynamic> map,
+    @Query("custId") int custId,
+    @Query("guestId") String gustId,
+    @Query("pincode") int pincode,
+  );
+
+  @FormUrlEncoded()
+  @POST('Order/AddToCart')
+  Future<BaseResponse> addToCart(@Body() Map<String, dynamic> map);
+
+    @FormUrlEncoded()
+  @POST('Order/RemoveCartItemByUrlkey')
+  Future<BaseResponse> removeFromCart(@Body() Map<String, dynamic> map);
 }

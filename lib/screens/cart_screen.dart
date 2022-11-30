@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lenzcamera/connection/network_manager.dart';
+import 'package:lenzcamera/model/base_response.dart';
+import 'package:lenzcamera/model/cart.dart';
 import 'package:lenzcamera/screens/checkout_screen.dart';
 import 'package:lenzcamera/screens/order_screen.dart';
 
@@ -9,6 +12,37 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
+  List<Cart> cartItemsList = [];
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  void _getCart() {
+    setState(() {
+      isLoading = true;
+    });
+
+    NetworkManager.shared.getCart(<String, dynamic>{
+      "custId": 386,
+      "guestId": "",
+      "pincode": 8,
+      "productQty": 1,
+    }).then((BaseResponse<Cart> response) {
+      print(response.data?.cartItems);
+      setState(() {
+        // isLoading = false;
+        // cartItemsList.clear();
+        // cartItemsList.addAll(response.data!.cartItems!);
+        
+      });
+    }).catchError((e) {
+      print(e.toString());
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,7 +71,7 @@ class _CartScreenState extends State<CartScreen> {
               child: SingleChildScrollView(
                 child: Column(children: [
                   Padding(
-                    padding: const EdgeInsets.only(left:10, right:10),
+                    padding: const EdgeInsets.only(left: 10, right: 10),
                     child: Container(
                       height: 110,
                       decoration: BoxDecoration(
@@ -46,17 +80,17 @@ class _CartScreenState extends State<CartScreen> {
                       ),
                       //color: Colors.green,
                       child: ListView.builder(
-                        physics: NeverScrollableScrollPhysics(),
-                          itemCount: 10,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: cartItemsList.length,
                           itemBuilder: (BuildContext context, int index) {
                             return Column(
                               children: [
                                 Container(
-                          
                                   height: 120,
                                   child: Card(
                                     shape: RoundedRectangleBorder(
-                                   borderRadius: BorderRadius.circular(10.0),),
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
                                     child: Column(
                                       children: [
                                         Row(
@@ -75,22 +109,21 @@ class _CartScreenState extends State<CartScreen> {
                                               ],
                                             ),
                                             Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                               children: [
                                                 Row(
-                                                 
                                                   children: [
                                                     Stack(children: [
                                                       Padding(
                                                         padding:
                                                             const EdgeInsets
-                                                                    .only(
-                                                                top: 10),
+                                                                .only(top: 10),
                                                         child: Container(
                                                           width: 200,
                                                           child: Expanded(
                                                             child: Text(
-                                                                "CANON LP-E6NH BATTERY(OG)",
+                                                                "",
                                                                 style: TextStyle(
                                                                     fontSize:
                                                                         13,
@@ -102,106 +135,106 @@ class _CartScreenState extends State<CartScreen> {
                                                         ),
                                                       ),
                                                       Padding(
-                                                        padding: const EdgeInsets.only(left:220),
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .only(
+                                                                left: 220),
                                                         child: IconButton(
                                                             onPressed: () {},
                                                             icon: Icon(
                                                               Icons
                                                                   .delete_outlined,
-                                                              color:
-                                                                  Colors.red,
+                                                              color: Colors.red,
                                                             )),
                                                       ),
                                                     ]),
                                                     // SizedBox(width: 20),
                                                   ],
                                                 ),
-
-                                                 Row(
-
-                                                   children: [
-                                                     Text("QAR 549.00",
-                                                         style: TextStyle(
-                                                             fontSize: 13,
-                                                             fontWeight:
-                                                                 FontWeight
-                                                                     .w600),
-                                                         maxLines: 2),
-                                                     SizedBox(
-                                                       width: 90,
-                                                     ),
-                                                     Row(
-                                                       mainAxisAlignment:
-                                                           MainAxisAlignment
-                                                               .center,
-                                                       children: [
-                                                         Container(
-                                                           width: 30,
-                                                           height: 30,
-                                                           decoration:
-                                                               BoxDecoration(
-                                                                   color: Color(
-                                                                       0xff70726f),
-                                                                   borderRadius:
-                                                                       BorderRadius
-                                                                           .only(
-                                                                     topLeft: Radius
-                                                                         .circular(
-                                                                             5),
-                                                                     bottomLeft:
-                                                                         Radius.circular(
-                                                                             5),
-                                                                   )),
-                                                           child: Center(
-                                                               child: Icon(
-                                                             Icons.remove,
-                                                             color: Colors.white,
-                                                             size: 12,
-                                                           )),
-                                                         ),
-                                                         Container(
-                                                           width: 30,
-                                                           height: 30,
-                                                           decoration:
-                                                               BoxDecoration(
-                                                             color: Color(
-                                                                 0xffe3e3e3),
-                                                           ),
-                                                           child: Center(
-                                                               child: Text(
-                                                             "1",
-                                                             style: TextStyle(
-                                                                 color: Colors
-                                                                     .black),
-                                                           )),
-                                                         ),
-                                                         Container(
-                                                             width: 30,
-                                                             height: 30,
-                                                             decoration:
-                                                                 BoxDecoration(
-                                                                     color: Color(
-                                                                         0xffe83031),
-                                                                     borderRadius:
-                                                                         BorderRadius
-                                                                             .only(
-                                                                       topRight:
-                                                                           Radius.circular(
-                                                                               5),
-                                                                       bottomRight:
-                                                                           Radius.circular(
-                                                                               5),
-                                                                     )),
-                                                             child: Icon(
-                                                               Icons.add,
-                                                               color:
-                                                                   Colors.white,
-                                                               size: 12,
-                                                             )),
-                                                       ],
-                                                     ),
-                                                   ],
-                                                 ),
+                                                Row(
+                                                  children: [
+                                                    Text("QAR 549.00",
+                                                        style: TextStyle(
+                                                            fontSize: 13,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w600),
+                                                        maxLines: 2),
+                                                    SizedBox(
+                                                      width: 90,
+                                                    ),
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Container(
+                                                          width: 30,
+                                                          height: 30,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                                  color: Color(
+                                                                      0xff70726f),
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .only(
+                                                                    topLeft: Radius
+                                                                        .circular(
+                                                                            5),
+                                                                    bottomLeft:
+                                                                        Radius.circular(
+                                                                            5),
+                                                                  )),
+                                                          child: Center(
+                                                              child: Icon(
+                                                            Icons.remove,
+                                                            color: Colors.white,
+                                                            size: 12,
+                                                          )),
+                                                        ),
+                                                        Container(
+                                                          width: 30,
+                                                          height: 30,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Color(
+                                                                0xffe3e3e3),
+                                                          ),
+                                                          child: Center(
+                                                              child: Text(
+                                                            "1",
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .black),
+                                                          )),
+                                                        ),
+                                                        Container(
+                                                            width: 30,
+                                                            height: 30,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                                    color: Color(
+                                                                        0xffe83031),
+                                                                    borderRadius:
+                                                                        BorderRadius
+                                                                            .only(
+                                                                      topRight:
+                                                                          Radius.circular(
+                                                                              5),
+                                                                      bottomRight:
+                                                                          Radius.circular(
+                                                                              5),
+                                                                    )),
+                                                            child: Icon(
+                                                              Icons.add,
+                                                              color:
+                                                                  Colors.white,
+                                                              size: 12,
+                                                            )),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
                                               ],
                                             )
                                           ],
@@ -328,10 +361,11 @@ class _CartScreenState extends State<CartScreen> {
                       backgroundColor: Color(0xff444444),
                     ),
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => CheckoutScreen()));
+                      // Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //         builder: (context) => CheckoutScreen()));
+                      _getCart();
                     },
                     child: Center(
                         child: Text(

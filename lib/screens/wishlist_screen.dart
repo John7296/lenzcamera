@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -9,7 +10,6 @@ import 'package:lenzcamera/widgets/wishlist_item_widget.dart';
 
 class WishlistScreen extends StatefulWidget {
   const WishlistScreen({super.key});
-  
 
   @override
   State<WishlistScreen> createState() => _WishlistScreenState();
@@ -27,7 +27,7 @@ class _WishlistScreenState extends State<WishlistScreen> {
 
   void _wishListProducts() {
     setState(() {
-    isLoading = true;
+      isLoading = true;
     });
 
     NetworkManager.shared
@@ -43,6 +43,23 @@ class _WishlistScreenState extends State<WishlistScreen> {
     }).catchError((e) {
       print(e.toString());
     });
+  }
+
+  void removeFromWishList(WishList wishList) {
+    // if (!_form.currentState!.validate()) {
+    //   return;
+    // }
+
+    NetworkManager.shared.removeFromWishlist(<String, dynamic>{
+      "urlKey": wishList.urlKey,
+      "custId": 386,
+      "guestId": "",
+    }).then((BaseResponse response) {
+      debugPrint("==========================================");
+    }).catchError((e) {
+      print(e.toString());
+    });
+    // print(value.toString());
   }
 
   @override
@@ -108,13 +125,14 @@ class _WishlistScreenState extends State<WishlistScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Image(
-                            image: AssetImage("assets/images/lens.png"),
-                            height: 80,
-                            width: 80,
-                          ),
-                        ),
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              height: 80,
+                              width: 80,
+                              child: CachedNetworkImage(
+                                  imageUrl:
+                                      "https://dev.lenzcamera.com/webadmin/${wishListItems[index].imageUrl}"),
+                            )),
                       ],
                     ),
                     Column(
@@ -122,17 +140,22 @@ class _WishlistScreenState extends State<WishlistScreen> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(top: 15),
-                          child: Text(
-                            // 'CANON EF 16-35 MM F/4L IS USM',
-                            wishListItems.first.prName ?? '',
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                          child: Container(
+                            height: 30,
+                            width: 220,
+                            child: Text(
+                              // 'CANON EF 16-35 MM F/4L IS USM',
+                              wishListItems[index].prName ?? '',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                              maxLines: 2,
+                            ),
                           ),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 15),
                           child: Text(
                             // 'QAR 8600.00',
-                            "QAR${wishListItems.first.unitPrice}",
+                            "QAR${wishListItems[index].unitPrice}",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.grey.shade700),
@@ -143,7 +166,11 @@ class _WishlistScreenState extends State<WishlistScreen> {
                     Column(
                       children: [
                         IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            setState(() {
+                            });
+                            removeFromWishList(wishListItems[index]);
+                          },
                           icon: Icon(Icons.delete_outline, color: Colors.red),
                         ),
                         IconButton(
