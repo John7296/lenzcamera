@@ -174,11 +174,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
                         itemBuilder: (context, index) {
                           return InkWell(
                             onTap: (() {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          ProductDetailsScreen()));
+                              // Navigator.push(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //         builder: (context) =>
+                              //             ProductDetailsScreen()));
                             }),
                             child: Card(
                               elevation: 2,

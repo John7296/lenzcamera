@@ -1,55 +1,42 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
-import 'package:lenzcamera/screens/change_password_screen.dart';
 import 'package:lenzcamera/screens/home_screen.dart';
-import 'package:lenzcamera/screens/login_screen.dart';
 import 'package:lenzcamera/screens/reset_password_screen.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-class OtpScreen extends StatefulWidget {
-  OtpScreen(this.otpUrlKey, {super.key});
-  String? otpUrlKey;
+class VerifyForgotPwddOtpScreen extends StatefulWidget{
+
+// BaseResponse? response;
+//  verifyForgotPwddOtpScreen(this.response);
+VerifyForgotPwddOtpScreen(this.data);
+String data;
 
   @override
-  State<OtpScreen> createState() => _OtpScreenState();
+  State<VerifyForgotPwddOtpScreen> createState() => _VerifyForgotPwddOtpScreenState();
 }
 
-class _OtpScreenState extends State<OtpScreen> {
-  bool emailSent = false;
+class _VerifyForgotPwddOtpScreenState extends State<VerifyForgotPwddOtpScreen> {
 
-  final _otpController = TextEditingController();
+    final _otpController = TextEditingController();
+     bool emailSent = false;
+     
 
-  void verifyRegisterOtp() {
-    NetworkManager.shared.verifyOtp(<String, dynamic>{
+    
+  void verifyForgotPasswordOtp() {
+    NetworkManager.shared.verifyForgotPasswordOTP(<String, dynamic>{
       "OTP": _otpController.text,
-      "OtpUrlKey":  widget.otpUrlKey
+      "OtpUrlKey":widget.data,
     }).then((BaseResponse response) {
-      // print("-----------------");
-      // print(_otpController.text);
+      print("-----------------");
+      print(_otpController.text);
       Navigator.push(context,
-          MaterialPageRoute(builder: (context) => HomeScreen()));
+          MaterialPageRoute(builder: (context) => ResetPasswordScreen()));
     }).catchError((Object obj) {});
   }
-
-
-
-  // void verifyForgotPasswordOtp() {
-  //   NetworkManager.shared.verifyForgotPasswordOtp(<String, dynamic>{
-  //     "OTP": _otpController.text,
-  //     "OtpUrlKey":"",
-  //   }).then((BaseResponse response) {
-  //     print("-----------------");
-  //     print(_otpController.text);
-  //     Navigator.push(context,
-  //         MaterialPageRoute(builder: (context) => HomeScreen()));
-  //   }).catchError((Object obj) {});
-  // }
-
   @override
-  Widget build(BuildContext context) {
+ Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -126,8 +113,10 @@ class _OtpScreenState extends State<OtpScreen> {
                       backgroundColor: Color(0xffec3436),
                     ),
                     onPressed: () {
-                      verifyRegisterOtp();
-                      //verifyForgotPasswordOtp();
+                      
+                      verifyForgotPasswordOtp();
+
+                      print("hhhhhhhhhhhhhhhhhhh");
 
                       //            Navigator.pushReplacement(
                       // context, MaterialPageRoute(builder: (context)=>ResetPasswordScreen()));

@@ -1,11 +1,14 @@
+
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:lenzcamera/connection/network_connection.dart';
 import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/cart.dart';
 import 'package:lenzcamera/model/company_policy.dart';
+import 'package:lenzcamera/model/customer.dart';
 import 'package:lenzcamera/model/featured_products.dart';
 import 'package:lenzcamera/model/profile.dart';
+import 'package:lenzcamera/model/filter_response.dart';
 import 'package:lenzcamera/model/get_wishlist.dart';
 import 'package:lenzcamera/model/home_details.dart';
 import 'package:lenzcamera/model/login_customer.dart';
@@ -13,6 +16,8 @@ import 'package:lenzcamera/model/new_register.dart';
 import 'package:lenzcamera/model/popular_products.dart';
 import 'package:lenzcamera/model/profile.dart';
 import 'package:lenzcamera/model/recent_products.dart';
+import 'package:lenzcamera/model/search_products.dart';
+import 'package:lenzcamera/model/search_products_response.dart';
 import 'package:lenzcamera/model/top_categories.dart';
 import 'package:lenzcamera/screens/featured_products_screen.dart';
 import 'package:lenzcamera/utils/sessions_manager.dart';
@@ -31,8 +36,8 @@ class NetworkManager {
   Dio? dio;
   late NetworkConnection networkConnection;
   late String userKey;
-  late String otp;
-  late String otpurlkey;
+   late String otp;
+   late String otpurlkey;
 
   init() {
     dio = Dio();
@@ -66,16 +71,42 @@ class NetworkManager {
     return call(networkConnection.addAddress(map));
   }
 
-  Future<BaseResponse> forgotPasswordOTPSend(Map<String, dynamic> map) {
-    return call(networkConnection.forgotPasswordOTPSend(map));
+   Future<BaseResponse> forgotPasswordOTPSend(String email, String mobileNumber) {
+    return call(networkConnection.forgotPasswordOTPSend(email, mobileNumber));
   }
 
-  Future<BaseResponse> verifyForgotPasswordOtp(Map<String, dynamic> map) {
-    return call(networkConnection.verifyForgotPasswordOtp(map));
+
+  Future<BaseResponse> verifyForgotPasswordOTP(Map<String, dynamic> map) {
+    return call(networkConnection.verifyForgotPasswordOTP( map['OTP'],map['OtpUrlKey']));
+    
   }
 
-  Future<BaseResponse> restPassword(Map<String, dynamic> map) {
+  Future<BaseResponse> resetPassword(Map<String, dynamic> map) {
     return call(networkConnection.resetPassword(map));
+  }
+
+  //  Future<BaseResponse> changeForgotPassword(Map<String, dynamic> map) {
+  //   return call(networkConnection.changeForgotPassword(map));
+  // }
+
+
+  Future<BaseResponse> supportMessageSend(Map<String, dynamic> map) {
+    return call(networkConnection.supportMessageSend(map));
+  }
+
+
+   Future<BaseResponse<Customer>>customerDetails() {
+    return call(networkConnection.customerDetails());
+  }
+
+
+
+  Future<BaseResponse<SearchProductsResponse>> searchProducts(Map<String, dynamic> map) {
+    return call(networkConnection.searchProducts(map));
+  }
+
+  Future<BaseResponse<FilterResponse>> searchFilter(Map<String, dynamic> map) {
+    return call(networkConnection.searchFilter(map));
   }
 
   Future<BaseResponse> verifyOtp(Map<String, dynamic> map) {

@@ -3,11 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/manager/data_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
+import 'package:lenzcamera/model/login_customer.dart';
 import 'package:lenzcamera/screens/home_screen.dart';
 import 'package:lenzcamera/screens/otp_screen.dart';
+import 'package:lenzcamera/screens/verify_forgot_pwd_otp_screen.dart';
 import 'package:lenzcamera/utils/helper.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
+
+  BaseResponse? response;
+  ForgotPasswordScreen(this.response);
   @override
   State<ForgotPasswordScreen> createState() => _ForgotPasswordScreenState();
 }
@@ -19,38 +24,29 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
    bool emailSent = false;
   bool isMobileNumber = false;
 
-
+@override
+  void initState() {
+    super.initState();
+  }
 
    void forgotPasswordOTPSend() {
-    // if (!_form.currentState!.validate()) {
-    //   return;
-    // }
 
-    // dismissKeyboard();
-    // showLoader();
-
-    NetworkManager.shared.forgotPasswordOTPSend(<String, dynamic>{
-       "userName": _emailController.text
-    }).then((BaseResponse response) {
-      // hideLoader();
+    
+    NetworkManager.shared.forgotPasswordOTPSend(_emailController.text, "").then((BaseResponse response) {
+      print(_emailController.text);
       setState(() {
         emailSent = true;
       });
-
-      print("------------------------");
-
-        print(_emailController.text);
-      //  Navigator.push(
-      //                 context,
-      //                 MaterialPageRoute(
-      //                 builder: (context) =>
-      //                 OtpScreen()));
-      // showFlashMsg(response.message!);
+       Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                      builder: (context) =>
+                      VerifyForgotPwddOtpScreen(response.data)));
+     
     }).catchError((Object obj) {
-      // hideLoader();
-      // showFlashMsg(obj.toString());
     });
   }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -117,11 +113,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                                       }
 
                                       return null;
-                                    }
-                  
-                  
-                  
-                  
+                                    }               
                   ),
                 ),
                 SizedBox(height: 25),
@@ -134,9 +126,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     ),
                     onPressed: () {
 
-                      //  if (emailSent) {
+                        
                           forgotPasswordOTPSend();
-                      //  }
+                        
                       // Navigator.push(
                       // context,
                       // MaterialPageRoute(

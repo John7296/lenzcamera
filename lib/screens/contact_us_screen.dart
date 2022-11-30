@@ -1,5 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lenzcamera/connection/network_manager.dart';
+import 'package:lenzcamera/model/base_response.dart';
+import 'package:lenzcamera/model/customer.dart';
+import 'package:lenzcamera/model/customer_details.dart';
+import 'package:lenzcamera/model/login_customer.dart';
 
 class ContactUsScreen extends StatefulWidget{
   @override
@@ -7,6 +12,50 @@ class ContactUsScreen extends StatefulWidget{
 }
 
 class _ContactUsScreenState extends State<ContactUsScreen> {
+
+final _emailController = TextEditingController();
+  final _phoneController = TextEditingController();
+  final _titleController = TextEditingController();
+  final _messageController = TextEditingController();
+  LoginCustomer? user;
+
+
+
+   void customerDetails() {
+    NetworkManager.shared
+        .customerDetails()
+        .then((BaseResponse<Customer> response) {
+      var thisUser = response.data!.data;
+
+
+      _emailController.text = thisUser?.emailId ?? "";
+      _phoneController.text = thisUser?.phoneNo ?? "";
+     
+    }).catchError((Object obj) {});
+  }
+
+void onSendButtonTapped() {
+
+  Map<String, dynamic> map = {
+      
+      "custId": "",
+     'email' : _emailController.text,
+     'phone' : _phoneController.text,
+     ' title' : _titleController.text,
+      'message' :_messageController.text,
+  };
+    NetworkManager.shared.supportMessageSend(map).then((BaseResponse response) {
+  
+       _emailController.text = "";
+      _phoneController.text  = "";
+      _titleController.text = "";
+      _messageController.text = "";
+      
+    }).catchError((Object obj) {
+     
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
    return  Scaffold(
@@ -174,7 +223,13 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                             borderSide: BorderSide(color: Color(0xffb0b0b0)),
                           ),
                           labelText: " ",
-                        )),
+                        ),
+                        controller: _emailController,
+                        validator: (val) {
+                                    if (val!.isEmpty)
+                                      return "Enter your first name";
+                                    return null;
+                                  }),
                       ),
              
                       SizedBox(
@@ -197,7 +252,17 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                             borderSide: BorderSide(color: Color(0xffb0b0b0)),
                           ),
                           labelText: " ",
-                        )),
+                        ),
+                        
+                        controller: _phoneController,
+                        validator: (val) {
+                                    if (val!.isEmpty)
+                                      return "Enter your phoneNo";
+                                    return null;
+                                  }
+                        
+                        
+                        ),
                       ),
              
                        SizedBox(
@@ -220,7 +285,16 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                             borderSide: BorderSide(color: Color(0xffb0b0b0)),
                           ),
                           labelText: " ",
-                        )),
+                        ),
+                        controller: _titleController,
+                        validator: (val) {
+                                    if (val!.isEmpty)
+                                      return "Enter title";
+                                    return null;
+                                  }
+                        
+                        
+                        ),
                       ),
              
                       SizedBox(
@@ -236,7 +310,7 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                       ),
                       SizedBox(height: 12),
                       Container(
-                        height: 40,
+                        height: 90,
                         child: TextFormField(
                             decoration: InputDecoration(
                                contentPadding: const EdgeInsets.symmetric(vertical: 60.0),
@@ -244,9 +318,17 @@ class _ContactUsScreenState extends State<ContactUsScreen> {
                             borderSide: BorderSide(color: Color(0xffb0b0b0)),
                           ),
                           labelText: " ",
-                        )),
+                        ),
+                        controller: _messageController,
+                        validator: (val) {
+                                    if (val!.isEmpty)
+                                      return "Enter your message";
+                                    return null;
+                                  }
+                        
+                        ),
                       ),
-                    SizedBox(height: 200),
+                    SizedBox(height: 150),
                ],),
              ),
            ),
