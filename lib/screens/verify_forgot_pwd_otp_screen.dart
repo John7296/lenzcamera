@@ -3,28 +3,36 @@ import 'package:flutter/material.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/screens/home_screen.dart';
+import 'package:lenzcamera/screens/reset_password_screen.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-class verifyForgotPwddOtpScreen extends StatefulWidget{
+class VerifyForgotPwddOtpScreen extends StatefulWidget{
+
+// BaseResponse? response;
+//  verifyForgotPwddOtpScreen(this.response);
+VerifyForgotPwddOtpScreen(this.data);
+String data;
+
   @override
-  State<verifyForgotPwddOtpScreen> createState() => _verifyForgotPwddOtpScreenState();
+  State<VerifyForgotPwddOtpScreen> createState() => _VerifyForgotPwddOtpScreenState();
 }
 
-class _verifyForgotPwddOtpScreenState extends State<verifyForgotPwddOtpScreen> {
+class _VerifyForgotPwddOtpScreenState extends State<VerifyForgotPwddOtpScreen> {
 
     final _otpController = TextEditingController();
      bool emailSent = false;
+     
 
     
   void verifyForgotPasswordOtp() {
-    NetworkManager.shared.verifyForgotPasswordOtp(<String, dynamic>{
+    NetworkManager.shared.verifyForgotPasswordOTP(<String, dynamic>{
       "OTP": _otpController.text,
-      "OtpUrlKey":"",
+      "OtpUrlKey":widget.data,
     }).then((BaseResponse response) {
       print("-----------------");
       print(_otpController.text);
       Navigator.push(context,
-          MaterialPageRoute(builder: (context) => HomeScreen()));
+          MaterialPageRoute(builder: (context) => ResetPasswordScreen()));
     }).catchError((Object obj) {});
   }
   @override
@@ -107,6 +115,8 @@ class _verifyForgotPwddOtpScreenState extends State<verifyForgotPwddOtpScreen> {
                     onPressed: () {
                       
                       verifyForgotPasswordOtp();
+
+                      print("hhhhhhhhhhhhhhhhhhh");
 
                       //            Navigator.pushReplacement(
                       // context, MaterialPageRoute(builder: (context)=>ResetPasswordScreen()));

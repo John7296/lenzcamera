@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
@@ -61,8 +62,6 @@ class _SearchScreenState extends State<SearchScreen> {
       "sortorder": {"field": "prName", "direction": "default"},
       "searchstring": _searchString,
     }).then((BaseResponse<SearchProductsResponse>response) {
-        print("hhhhhhhhhhhhhhhhhh");
-  
        setState(() {
             isLoading= false;
             _products.clear();
@@ -231,8 +230,6 @@ class _SearchScreenState extends State<SearchScreen> {
                   child: ListView.builder(
                     itemCount:_products.length,
                       itemBuilder: (BuildContext context, int index) {
-                        print("//////////////////////////");
-                         print(_products[index].prName);
                     return Column(
                       children: [
                         Row(
@@ -248,11 +245,14 @@ class _SearchScreenState extends State<SearchScreen> {
                                   children: [
                                     Row(
                                       children: [
-                                        Image(
-                                          image: AssetImage(
-                                              "assets/images/lens.png"),
-                                          height: 100,
-                                        ),
+
+                                        CachedNetworkImage(imageUrl: 
+                                        "https://dev.lenzcamera.com/webadmin/${_products[index].imageUrl}", height: 100),
+                                        // Image(
+                                        //   image: AssetImage(
+                                        //       "assets/images/lens.png"),
+                                        //   height: 100,
+                                        // ),
                                         Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
@@ -266,7 +266,8 @@ class _SearchScreenState extends State<SearchScreen> {
                                                         const EdgeInsets.only(
                                                             top: 20),
                                                     child: Text(
-                                                          _products[index].prName.toString(),
+                                                      
+                                                        _products[index].prName.toString(),
                                                         // "CANON EF 16-35MM F/2.8L  III USM",
                                                         style: TextStyle(
                                                             fontSize: 17,
@@ -295,7 +296,8 @@ class _SearchScreenState extends State<SearchScreen> {
                                             ),
                                             Row(
                                               children: [
-                                                Text("QAR 549.00",
+                                                Text("QAR ${_products[index].unitPrice.toString()}",
+                                                  // "QAR 549.00",
                                                     style: TextStyle(
                                                         fontSize: 15,
                                                         fontWeight:

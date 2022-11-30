@@ -2,6 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
+import 'package:lenzcamera/model/customer.dart';
+import 'package:lenzcamera/model/customer_details.dart';
+import 'package:lenzcamera/model/login_customer.dart';
 
 class ContactUsScreen extends StatefulWidget{
   @override
@@ -14,40 +17,44 @@ final _emailController = TextEditingController();
   final _phoneController = TextEditingController();
   final _titleController = TextEditingController();
   final _messageController = TextEditingController();
+  LoginCustomer? user;
 
 
 
-  //  void _fetchCustomer() {
-  //   NetworkManager.shared
-  //       ._fetchCustomer()
-  //       .then((BaseResponse<CustomerResponse> response) {
-  //     var thisUser = response.data!.customer!;
+   void customerDetails() {
+    NetworkManager.shared
+        .customerDetails()
+        .then((BaseResponse<Customer> response) {
+      var thisUser = response.data!.data;
 
-  //     _firstNameController.text = thisUser.firstName ?? "";
-  //     _lastNameController.text = thisUser.lastName ?? "";
-  //     _mobileController.text = thisUser.phone ?? "";
-  //     _emailController.text = thisUser.email ?? "";
-  //   }).catchError((Object obj) {});
-  // }
 
-// void onSendButtonTapped() {
-  
-//    String  email = _emailController.text;
-//     String  phone = _phoneController.text;
-//      String  title = _titleController.text;
-//       String message = _messageController.text;
-
-//     NetworkManager.shared.supportMessageSend(map).then((BaseResponse response) {
-  
-//       _firstNameController.text = "";
-//       _lastNameController.text = "";
-//       _mobileController.text = "";
-//       _emailController.text = "";
-//       _enuiryController.text = "";
-//     }).catchError((Object obj) {
+      _emailController.text = thisUser?.emailId ?? "";
+      _phoneController.text = thisUser?.phoneNo ?? "";
      
-//     });
-//   }
+    }).catchError((Object obj) {});
+  }
+
+void onSendButtonTapped() {
+
+  Map<String, dynamic> map = {
+      
+      "custId": "",
+     'email' : _emailController.text,
+     'phone' : _phoneController.text,
+     ' title' : _titleController.text,
+      'message' :_messageController.text,
+  };
+    NetworkManager.shared.supportMessageSend(map).then((BaseResponse response) {
+  
+       _emailController.text = "";
+      _phoneController.text  = "";
+      _titleController.text = "";
+      _messageController.text = "";
+      
+    }).catchError((Object obj) {
+     
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -216,7 +223,13 @@ final _emailController = TextEditingController();
                             borderSide: BorderSide(color: Color(0xffb0b0b0)),
                           ),
                           labelText: " ",
-                        )),
+                        ),
+                        controller: _emailController,
+                        validator: (val) {
+                                    if (val!.isEmpty)
+                                      return "Enter your first name";
+                                    return null;
+                                  }),
                       ),
              
                       SizedBox(
@@ -239,7 +252,17 @@ final _emailController = TextEditingController();
                             borderSide: BorderSide(color: Color(0xffb0b0b0)),
                           ),
                           labelText: " ",
-                        )),
+                        ),
+                        
+                        controller: _phoneController,
+                        validator: (val) {
+                                    if (val!.isEmpty)
+                                      return "Enter your phoneNo";
+                                    return null;
+                                  }
+                        
+                        
+                        ),
                       ),
              
                        SizedBox(
@@ -262,7 +285,16 @@ final _emailController = TextEditingController();
                             borderSide: BorderSide(color: Color(0xffb0b0b0)),
                           ),
                           labelText: " ",
-                        )),
+                        ),
+                        controller: _titleController,
+                        validator: (val) {
+                                    if (val!.isEmpty)
+                                      return "Enter title";
+                                    return null;
+                                  }
+                        
+                        
+                        ),
                       ),
              
                       SizedBox(
@@ -286,7 +318,15 @@ final _emailController = TextEditingController();
                             borderSide: BorderSide(color: Color(0xffb0b0b0)),
                           ),
                           labelText: " ",
-                        )),
+                        ),
+                        controller: _messageController,
+                        validator: (val) {
+                                    if (val!.isEmpty)
+                                      return "Enter your message";
+                                    return null;
+                                  }
+                        
+                        ),
                       ),
                     SizedBox(height: 150),
                ],),

@@ -1,6 +1,8 @@
 import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/company_policy.dart';
+import 'package:lenzcamera/model/customer.dart';
 import 'package:lenzcamera/model/featured_products.dart';
+import 'package:lenzcamera/model/filter_response.dart';
 import 'package:lenzcamera/model/get_wishlist.dart';
 import 'package:lenzcamera/model/home_details.dart';
 import 'package:lenzcamera/model/login_customer.dart';
@@ -43,16 +45,21 @@ abstract class NetworkConnection {
   @GET("Customer/ForgotPassword")
   Future<BaseResponse>forgotPasswordOTPSend(
      @Query("email") String emailId,
+      @Query("mobileNumber") String mobileNumber,
+    );
+
+    @FormUrlEncoded()
+  @GET("Customer/VerifyOTP")
+  Future<BaseResponse>verifyForgotPasswordOTP(
+     @Query("OTP") String otp,
+      @Query("OtpUrlKey") String otpurlkey,
     );
 
   @FormUrlEncoded()
-  @GET("Customer/VerifyOTP")
-  Future<BaseResponse> verifyForgotPasswordOtp(
-      @Body() Map<String, dynamic> map);
-
-  @FormUrlEncoded()
   @GET("Customer/ResetPassword")
-  Future<BaseResponse> resetPassword(@Body() Map<String, dynamic> map);
+  Future<BaseResponse> resetPassword(
+    @Body() Map<String, dynamic> map,
+  );
 
     @FormUrlEncoded()
   @POST("Product/Search")
@@ -60,15 +67,23 @@ abstract class NetworkConnection {
      @Body() Map<String, dynamic> map,
   );
 
-  //  @FormUrlEncoded()
-  // @GET("/Support")
-  // Future<BaseResponse> supportMessageSend(@Body() Map<String, dynamic> map);
+   @FormUrlEncoded()
+  @POST("Product/SearchFilter")
+  Future<BaseResponse<FilterResponse>>searchFilter(
+     @Body() Map<String, dynamic> map,
+  );
 
-  //  @FormUrlEncoded()
-  // @GET("/CustomerDetails")
-  // Future<BaseResponse<CustomerResponse>> customerDetails(@Body() Map<String, dynamic> map,
-  //  @Query("custId") int custId,
-  // );
+
+   @FormUrlEncoded()
+  @GET("/Support")
+  Future<BaseResponse> supportMessageSend(
+    @Body() Map<String, dynamic> map,
+  );
+
+   @FormUrlEncoded()
+  @GET("/CustomerDetails")
+  Future<BaseResponse<Customer>> customerDetails(
+  );
 
   @FormUrlEncoded()
   @GET('CompanyPolicy')

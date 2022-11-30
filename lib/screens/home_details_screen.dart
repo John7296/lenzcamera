@@ -45,6 +45,8 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
   List<RecentProducts> recentProductsList = [];
   bool isLoading = true;
 
+  FeaturedProducts? featuredProducts;
+
   @override
   void initState() {
     super.initState();
@@ -376,11 +378,11 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                                   itemBuilder: (context, index) {
                                     return InkWell(
                                       onTap: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    ProductDetailsScreen()));
+                                        // Navigator.push(
+                                        //     context,
+                                        //     MaterialPageRoute(
+                                        //         builder: (context) =>
+                                        //             ProductDetailsScreen(featuredList[index])));
                                       },
                                       child: Card(
                                         shape: RoundedRectangleBorder(),
@@ -574,7 +576,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    ProductDetailsScreen()));
+                                                    ProductDetailsScreen(popularProductsList[index])));
                                       }),
                                       child: Card(
                                         elevation: 1,
@@ -741,11 +743,11 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                             itemBuilder: (context, index) {
                               return InkWell(
                                 onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              ProductDetailsScreen()));
+                                  // Navigator.push(
+                                  //     context,
+                                  //     MaterialPageRoute(
+                                  //         builder: (context) =>
+                                  //             ProductDetailsScreen()));
                                 },
                                 child: Card(
                                   shape: RoundedRectangleBorder(),

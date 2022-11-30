@@ -24,6 +24,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
    final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
+  BaseResponse? response;
 
 
    @override
@@ -54,6 +55,7 @@ class _LoginScreenState extends State<LoginScreen> {
       BaseResponse<LoginCustomer> 
       response) {
          SessionsManager.saveUserToken(response.data?.token??'');
+        //  SessionsManager.saveUserId(response.data?.customerId??0);
          NetworkManager.shared.userKey = "Bearer " + (response.data?.token?? "");
            NetworkManager.shared.refreshTokens();
         Navigator.push(
@@ -190,7 +192,7 @@ class _LoginScreenState extends State<LoginScreen> {
               TextButton(
                   onPressed: () {
                     Navigator.push(
-                      context, MaterialPageRoute(builder: (context)=>ForgotPasswordScreen()));
+                      context, MaterialPageRoute(builder: (context)=>ForgotPasswordScreen(response?.data)));
                   },
                   child: Center(
                       child: Text(

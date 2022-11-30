@@ -1,15 +1,24 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lenzcamera/model/featured_products.dart';
+import 'package:lenzcamera/model/popular_products.dart';
 import 'package:lenzcamera/screens/cart_screen.dart';
 import 'package:lenzcamera/screens/wishlist_screen.dart';
 import 'package:lenzcamera/screens/write_review_screen.dart';
 
-class ProductDetailsScreen extends StatefulWidget {
+  class ProductDetailsScreen extends StatefulWidget {
+   PopularProducts? popularproducts;
+
+     ProductDetailsScreen(@required this.popularproducts);
+
   @override
   State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
 }
 
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
+  
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -61,9 +70,13 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       Center(
                           child: Container(
                         width: 250,
-                        child: Image(
-                          image: AssetImage("assets/images/lens.png"),
-                        ),
+                        child: CachedNetworkImage(imageUrl: 
+                                        "https://dev.lenzcamera.com/webadmin/${widget.popularproducts?.imageUrl}"),
+                        //
+                        //
+                        // Image(
+                        //   image: AssetImage("assets/images/lens.png"),
+                        // ),
                       )),
                       Divider(
                         thickness: 5,
@@ -76,7 +89,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           children: [
                             Expanded(
                                 child: Text(
-                              "CANON EF 16-35MM F/2.8L III USM  ",
+                                  widget.popularproducts!.prName.toString(),
+                              // "CANON EF 16-35MM F/2.8L III USM  ",
                               style: TextStyle(
                                   color: Color(0xff6e706d),
                                   fontSize: 20,
@@ -112,7 +126,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             Align(
                                 alignment: Alignment.topLeft,
                                 child: Text(
-                                  "Canon EF 16-35mm f/2.8L III USM Lens  ",
+                                  widget.popularproducts?.shortDescription??'',
+                                  // "Canon EF 16-35mm f/2.8L III USM Lens  ",
                                   style: TextStyle(
                                       color: Color(0xff6e706d),
                                       fontSize: 12,
@@ -123,7 +138,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             Align(
                                 alignment: Alignment.topLeft,
                                 child: Text(
-                                  "DSLR Lenses",
+                                  widget.popularproducts?.catName??'',
+                                  // "DSLR Lenses",
                                   style: TextStyle(
                                       color: Color(0xff5aa567),
                                       fontSize: 12,
@@ -140,7 +156,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                 )),
                             Align(
                                 alignment: Alignment.topLeft,
-                                child: Text("QAR 6899.00",
+                                child: Text("QAR ${widget.popularproducts?.unitPrice}",
+                                  
+                                  // "QAR 6899.00",
                                     style: TextStyle(
                                         color: Color(0xff6e706d),
                                         fontSize: 17,
@@ -208,7 +226,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               padding: const EdgeInsets.only(left: 12),
                               child: Row(
                                 children: [
-                                  Text("Key Features",
+                                  Text(widget.popularproducts?.description??"",
+                                    // "Key Features",
                                       style: TextStyle(
                                           color: Color(0xff6e706d),
                                           fontSize: 13,
@@ -216,67 +235,67 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                 ],
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 20, top: 30),
-                              child: Row(
-                                children: [
-                                  Text(". EF Mount Lens/ Full Frame Format",
-                                      style: TextStyle(
-                                          color: Color(0xff6e706d),
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.w300)),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 20, top: 5),
-                              child: Row(
-                                children: [
-                                  Text(". EF Mount Lens/ Full Frame Format",
-                                      style: TextStyle(
-                                          color: Color(0xff6e706d),
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.w300)),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 20, top: 5),
-                              child: Row(
-                                children: [
-                                  Text(". EF Mount Lens/ Full Frame Format",
-                                      style: TextStyle(
-                                          color: Color(0xff6e706d),
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.w300)),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 20, top: 5),
-                              child: Row(
-                                children: [
-                                  Text(". EF Mount Lens/ Full Frame Format",
-                                      style: TextStyle(
-                                          color: Color(0xff6e706d),
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.w300)),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 20, top: 5, bottom: 5),
-                              child: Row(
-                                children: [
-                                  Text(". EF Mount Lens/ Full Frame Format",
-                                      style: TextStyle(
-                                          color: Color(0xff6e706d),
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.w300)),
-                                ],
-                              ),
-                            ),
+                            // Padding(
+                            //   padding: const EdgeInsets.only(left: 20, top: 30),
+                            //   child: Row(
+                            //     children: [
+                            //       Text(". EF Mount Lens/ Full Frame Format",
+                            //           style: TextStyle(
+                            //               color: Color(0xff6e706d),
+                            //               fontSize: 13,
+                            //               fontWeight: FontWeight.w300)),
+                            //     ],
+                            //   ),
+                            // ),
+                            // Padding(
+                            //   padding: const EdgeInsets.only(left: 20, top: 5),
+                            //   child: Row(
+                            //     children: [
+                            //       Text(". EF Mount Lens/ Full Frame Format",
+                            //           style: TextStyle(
+                            //               color: Color(0xff6e706d),
+                            //               fontSize: 13,
+                            //               fontWeight: FontWeight.w300)),
+                            //     ],
+                            //   ),
+                            // ),
+                            // Padding(
+                            //   padding: const EdgeInsets.only(left: 20, top: 5),
+                            //   child: Row(
+                            //     children: [
+                            //       Text(". EF Mount Lens/ Full Frame Format",
+                            //           style: TextStyle(
+                            //               color: Color(0xff6e706d),
+                            //               fontSize: 13,
+                            //               fontWeight: FontWeight.w300)),
+                            //     ],
+                            //   ),
+                            // ),
+                            // Padding(
+                            //   padding: const EdgeInsets.only(left: 20, top: 5),
+                            //   child: Row(
+                            //     children: [
+                            //       Text(". EF Mount Lens/ Full Frame Format",
+                            //           style: TextStyle(
+                            //               color: Color(0xff6e706d),
+                            //               fontSize: 13,
+                            //               fontWeight: FontWeight.w300)),
+                            //     ],
+                            //   ),
+                            // ),
+                            // Padding(
+                            //   padding: const EdgeInsets.only(
+                            //       left: 20, top: 5, bottom: 5),
+                            //   child: Row(
+                            //     children: [
+                            //       Text(". EF Mount Lens/ Full Frame Format",
+                            //           style: TextStyle(
+                            //               color: Color(0xff6e706d),
+                            //               fontSize: 13,
+                            //               fontWeight: FontWeight.w300)),
+                            //     ],
+                            //   ),
+                            // ),
                           ],
                         ),
                       ),

@@ -16,14 +16,10 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   
   void resetPassword(){
    
-   NetworkManager.shared.verifyForgotPasswordOtp(<String, dynamic>{
+   NetworkManager.shared.verifyForgotPasswordOTP(<String, dynamic>{
        }).then((BaseResponse response) {
 
-
-   print("-----------------");
-   print(_passwordController.text);
-    print(_confirmpwdController.text);
-
+         
       Navigator.push(
                       context,
                       MaterialPageRoute(

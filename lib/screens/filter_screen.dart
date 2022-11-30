@@ -1,5 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lenzcamera/connection/network_manager.dart';
+import 'package:lenzcamera/model/base_response.dart';
+import 'package:lenzcamera/model/filter_products.dart';
+import 'package:lenzcamera/model/filter_response.dart';
 
 List<String> _categories = <String>['Canon', 'Nikon', 'Sigma', 'Tamron'];
 
@@ -15,6 +19,47 @@ class _FilterScreenState extends State<FilterScreen> {
   double _endValue = 8200;
 
   String? dropdownValue;
+
+
+   bool isLoading = false;
+  int currentPage = 1;
+
+   List<FilterProducts> _products = [];
+
+   @override
+  void initState() {
+    super.initState();
+  
+  }
+ 
+
+   void searchFilter(){
+    setState(() {
+      isLoading = true;
+   
+    });
+
+    NetworkManager.shared.searchFilter(<String, dynamic>{
+      "currentpage": 1,
+       "custId": 386, 
+       "filter": {"category": "dslr-lenses"}, 
+       "filtervalues": null, 
+       "guestId": null, 
+       "maxPrice": "1000000", 
+       "minPrice": "0", 
+       "pagesize": 20,
+        "searchstring": "",
+         "sortorder": {"direction": "default", "field": "prName"},
+          "status": false, 
+          "vendorUrlKey": 8
+    }).then((BaseResponse<FilterResponse>response) {
+       setState(() {
+            isLoading= false;    
+      });
+    }).catchError((e) {
+    print(e.toString());
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +105,7 @@ class _FilterScreenState extends State<FilterScreen> {
                           value: dropdownValue,
                           icon: const Icon(Icons.arrow_drop_down_outlined, color: Colors.black,),
                           onChanged: (String? value) {
+                            searchFilter();
                             // This is called when the user selects an item.
                             setState(() {
                               dropdownValue = value;
