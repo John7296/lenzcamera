@@ -11,6 +11,7 @@ import 'package:lenzcamera/screens/cart_screen.dart';
 import 'package:lenzcamera/screens/change_password_screen.dart';
 import 'package:lenzcamera/screens/contact_us_screen.dart';
 import 'package:lenzcamera/screens/edit_profile_screen.dart';
+import 'package:lenzcamera/screens/home_screen.dart';
 import 'package:lenzcamera/screens/order_screen.dart';
 import 'package:lenzcamera/screens/wishlist_screen.dart';
 
@@ -72,7 +73,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
           backgroundColor: Colors.grey,
           leading: IconButton(
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => HomeScreen()));
             },
             icon: Icon(Icons.arrow_back_ios),
           ),

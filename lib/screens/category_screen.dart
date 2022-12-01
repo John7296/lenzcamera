@@ -76,7 +76,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
           backgroundColor: Colors.grey.shade700,
           leading: IconButton(
             onPressed: () {
-              Navigator.pop(context);
+                Navigator.push(
+                context, MaterialPageRoute(builder: (context) => HomeScreen()));
             },
             icon: Icon(Icons.arrow_back_ios),
           ),
