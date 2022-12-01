@@ -5,6 +5,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/product.dart';
+import 'package:lenzcamera/screens/wishlist_screen.dart';
 
 class FeaturedProductsScreen extends StatefulWidget {
   const FeaturedProductsScreen({super.key});
@@ -43,6 +44,32 @@ class _FeaturedProductsScreenState extends State<FeaturedProductsScreen> {
     });
   }
 
+  void addToWishlist(Product product) {
+    NetworkManager.shared
+        .addToWishlist(<String, dynamic>{
+          "urlKey": product.urlKey,
+          "custId": 386,
+          "guestId": "",
+        })
+        .then((BaseResponse response) {})
+        .catchError((e) {
+          print(e.toString());
+        });
+  }
+
+  void removeFromWishlist(Product product) {
+    NetworkManager.shared
+        .removeFromWishlist(<String, dynamic>{
+          "urlKey": product.urlKey,
+          "custId": 386,
+          "guestId": "",
+        })
+        .then((BaseResponse response) {})
+        .catchError((e) {
+          print(e.toString());
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,7 +80,10 @@ class _FeaturedProductsScreenState extends State<FeaturedProductsScreen> {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => WishlistScreen()));
+            },
             icon: Icon(Icons.favorite_border),
           ),
           IconButton(
@@ -70,76 +100,94 @@ class _FeaturedProductsScreenState extends State<FeaturedProductsScreen> {
         ),
       ),
       backgroundColor: Colors.grey.shade100,
-      body: isLoading?Center(child: CircularProgressIndicator()):
-      Container(
-          height: 900,
-          color: Colors.white,
-          child: Padding(
-            padding: const EdgeInsets.only(top: 10),
-            child: GridView.builder(
-              // physics: NeverScrollableScrollPhysics(),
-              itemCount: featuredList.length,
-              gridDelegate:
-                  SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-              itemBuilder: (BuildContext context, int index) {
-                return Container(
-                  height: 600,
-                  child: Card(
-                    child: Column(
-                      children: [
-                        Stack(children: [
-                          Center(
-                              child: 
-                              CachedNetworkImage(
-                                  imageUrl:
-                                      "https://dev.lenzcamera.com/webadmin/${featuredList[index].imageUrl}")
-                                      ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 120),
-                            child: IconButton(
-                                onPressed: () {},
-                                icon: Icon(
-                                  Icons.favorite,
-                                  color: Color(0xff70726f),
-                                )),
-                          ),
-                        ]),
-                        Spacer(),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 10, right: 10),
-                          child: Align(
-                              alignment: Alignment.center,
-                              child: Text(
-                                // "CANON EF 16-35 MM F/4L IS USM ",
-                                featuredList[index].prName ?? '',
+      body: isLoading
+          ? Center(child: CircularProgressIndicator())
+          : Container(
+              height: 900,
+              color: Colors.white,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: GridView.builder(
+                  // physics: NeverScrollableScrollPhysics(),
+                  itemCount: featuredList.length,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2),
+                  itemBuilder: (BuildContext context, int index) {
+                    return Container(
+                      height: 600,
+                      child: Card(
+                        child: Column(
+                          children: [
+                            Stack(children: [
+                              Center(
+                                  child: CachedNetworkImage(
+                                      imageUrl:
+                                          "https://dev.lenzcamera.com/webadmin/${featuredList[index].imageUrl}")),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 120),
+                                child: IconButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        if (featuredList[index].isWhishlisted ==
+                                            true) {
+                                          removeFromWishlist(
+                                              featuredList[index]);
+                                          featuredList[index].isWhishlisted =
+                                              false;
+                                        } else {
+                                          addToWishlist(featuredList[index]);
+                                          featuredList[index].isWhishlisted =
+                                              true;
+                                        }
+                                      });
+                                    },
+                                    icon: Icon(
+                                      Icons.favorite,
+                                      color: featuredList[index].isWhishlisted!
+                                          ? Colors.red
+                                          : Colors.grey,
+                                    )),
+                              ),
+                            ]),
+                            Spacer(),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 10, right: 10),
+                              child: Align(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    // "CANON EF 16-35 MM F/4L IS USM ",
+                                    featuredList[index].prName ?? '',
+                                    style: TextStyle(
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.w400),
+                                    maxLines: 1,
+                                    textAlign: TextAlign.center,
+                                  )),
+                            ),
+                            Text("QAR${featuredList[index].unitPrice ?? ''}",
                                 style: TextStyle(
-                                    fontSize: 10, fontWeight: FontWeight.w400),
-                                maxLines: 2,
-                                textAlign: TextAlign.center,
+                                    fontSize: 15, fontWeight: FontWeight.w600)),
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.yellowAccent,
+                                elevation: 0,
+                              ),
+                              onPressed: () {},
+                              child: Center(
+                                  child: Text(
+                                "ADD",
+                                style: TextStyle(
+                                    fontSize: 15, color: Colors.black),
                               )),
+                            ),
+                          ],
                         ),
-                        Text("QAR${featuredList[index].unitPrice ?? ''}",
-                            style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.w600)),
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.yellowAccent,
-                            elevation: 0,
-                          ),
-                          onPressed: () {},
-                          child: Center(
-                              child: Text(
-                            "ADD",
-                            style: TextStyle(fontSize: 15, color: Colors.black),
-                          )),
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              },
-            ),
-          )),
+                      ),
+                    );
+                  },
+                ),
+              )),
 
       // SizedBox(height: 50),
     );

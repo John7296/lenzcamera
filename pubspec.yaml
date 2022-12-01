@@ -38,6 +38,7 @@ dependencies:
   pretty_dio_logger: ^1.2.0-beta-1
   cached_network_image: ^3.2.2
   pin_code_fields: ^7.4.0
+  fluttertoast: ^8.1.1
   
 
 

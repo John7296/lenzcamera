@@ -175,4 +175,6 @@ abstract class NetworkConnection {
   @FormUrlEncoded()
   @POST('Order/RemoveCartItemByUrlkey')
   Future<BaseResponse> removeFromCart(@Body() Map<String, dynamic> map);
+
+
 }
