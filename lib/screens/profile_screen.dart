@@ -185,7 +185,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   color: Colors.grey),
                             ),
                             trailing: IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ChangePasswordScreen()));
+
+                              },
                               icon: Icon(Icons.arrow_forward_ios),
                             ),
                           ),

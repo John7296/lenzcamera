@@ -18,10 +18,10 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   final _newPasswordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
 
-  NewRegister? user;
+  LoginCustomer? user;
 
   void onChangeButtonTapped() {
-    String password = _passwordController.text;
+     String password = _passwordController.text;
     String newPassword = _newPasswordController.text;
 
 
@@ -31,7 +31,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
           'oldPassword': password,
           'newPassword': newPassword
         })
-        .then((BaseResponse response) {
+        .then((BaseResponse<LoginCustomer> response) {
 
         print("================");
         print("password");

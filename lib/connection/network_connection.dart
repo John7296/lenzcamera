@@ -64,7 +64,7 @@ abstract class NetworkConnection {
 
     @FormUrlEncoded()
   @POST("customer/ChangePassword")
-  Future<BaseResponse> changePassword(@Body() Map<String, dynamic> map);
+  Future<BaseResponse<LoginCustomer>> changePassword(@Body() Map<String, dynamic> map);
 
   @FormUrlEncoded()
   @POST("Product/Search")

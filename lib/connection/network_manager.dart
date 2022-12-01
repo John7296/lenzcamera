@@ -82,7 +82,7 @@ class NetworkManager {
     return call(networkConnection.resetPassword(map['OtpUrlKey'], map['password']));
   }
 
-   Future<BaseResponse> changePassword(Map<String, dynamic> map) {
+   Future<BaseResponse<LoginCustomer>> changePassword(Map<String, dynamic> map) {
     return call(networkConnection.changePassword(map));
   }
 
