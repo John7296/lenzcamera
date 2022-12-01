@@ -74,7 +74,7 @@ class _CartScreenState extends State<CartScreen> {
                   Padding(
                     padding: const EdgeInsets.only(left: 10, right: 10),
                     child: Container(
-                      height: 110,
+                       height: 600,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         // color: Colors.green,
@@ -82,7 +82,7 @@ class _CartScreenState extends State<CartScreen> {
                       //color: Colors.green,
                       child: ListView.builder(
                           physics: NeverScrollableScrollPhysics(),
-                          itemCount: 2,
+                          itemCount: 6,
                           itemBuilder: (BuildContext context, int index) {
                             return Column(
                               children: [

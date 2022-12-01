@@ -79,19 +79,19 @@ class NetworkManager {
   }
 
   Future<BaseResponse> resetPassword(Map<String, dynamic> map) {
-    return call(networkConnection.resetPassword(map));
+    return call(networkConnection.resetPassword(map['OtpUrlKey'], map['password']));
   }
 
-  //  Future<BaseResponse> changeForgotPassword(Map<String, dynamic> map) {
-  //   return call(networkConnection.changeForgotPassword(map));
-  // }
+   Future<BaseResponse> changePassword(Map<String, dynamic> map) {
+    return call(networkConnection.changePassword(map));
+  }
 
   Future<BaseResponse> supportMessageSend(Map<String, dynamic> map) {
     return call(networkConnection.supportMessageSend(map));
   }
 
-  Future<BaseResponse<Customer>> customerDetails() {
-    return call(networkConnection.customerDetails());
+  Future<BaseResponse<LoginCustomer>> customerDetails(int custId) {
+    return call(networkConnection.customerDetails(custId));
   }
 
   Future<BaseResponse<SearchProductsResponse>> searchProducts(

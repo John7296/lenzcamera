@@ -4,6 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
+import 'package:lenzcamera/model/login_customer.dart';
+import 'package:lenzcamera/model/new_register.dart';
 import 'package:lenzcamera/model/profile.dart';
 import 'package:lenzcamera/model/profile.dart';
 import 'package:lenzcamera/screens/address_screen.dart';
@@ -23,6 +25,7 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   Profile? userProfile;
+  LoginCustomer? user;
 
   @override
   void initState() {
@@ -151,10 +154,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     InkWell(
                       onTap: (() {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ChangePasswordScreen()));
+
+                       print( user?.customerId);
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) => ChangePasswordScreen(user.customerId)));
                       }),
                       child: Padding(
                         padding: const EdgeInsets.only(left: 20, right: 20),

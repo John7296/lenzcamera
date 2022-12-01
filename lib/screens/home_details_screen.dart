@@ -41,6 +41,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
   List<Product> featuredList = [];
   List<Product> popularProductsList = [];
   List<Product> recentProductsList = [];
+  List<Product> relatedProductsList = [];
   bool isLoading = true;
 
   Product? featuredProducts;
@@ -410,11 +411,11 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                                   itemBuilder: (context, index) {
                                     return InkWell(
                                       onTap: () {
-                                        // Navigator.push(
-                                        //     context,
-                                        //     MaterialPageRoute(
-                                        //         builder: (context) =>
-                                        //             ProductDetailsScreen(featuredList[index])));
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ProductDetailsScreen(featuredList[index])));
                                       },
                                       child: Card(
                                         shape: RoundedRectangleBorder(),
@@ -908,11 +909,11 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                             itemBuilder: (context, index) {
                               return InkWell(
                                 onTap: () {
-                                  // Navigator.push(
-                                  //     context,
-                                  //     MaterialPageRoute(
-                                  //         builder: (context) =>
-                                  //             ProductDetailsScreen()));
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              ProductDetailsScreen(recentProductsList[index])));
                                 },
                                 child: Card(
                                   shape: RoundedRectangleBorder(),

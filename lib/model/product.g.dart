@@ -55,7 +55,7 @@ Product _$ProductFromJson(Map<String, dynamic> json) => Product(
       roq: (json['roq'] as num?)?.toDouble(),
       shortDescription: json['shortDescription'] as String?,
       sku: json['sku'] as String?,
-      specialPrice: json['specialPrice'] as double?,
+      specialPrice: (json['specialPrice'] as num?)?.toDouble(),
       status: json['status'] as bool?,
       stockAvailability: json['stockAvailability'] as String?,
       suspendedDate: json['suspendedDate'] as String?,

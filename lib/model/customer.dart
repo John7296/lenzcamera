@@ -6,7 +6,7 @@ part 'customer.g.dart';
 
 @JsonSerializable()
 class Customer{
-   CustomerDetails? data;
+   LoginCustomer? data;
 
  Customer();
 

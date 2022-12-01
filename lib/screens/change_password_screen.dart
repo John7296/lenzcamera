@@ -2,9 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
+import 'package:lenzcamera/model/login_customer.dart';
+import 'package:lenzcamera/model/new_register.dart';
 import 'package:lenzcamera/screens/login_screen.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
+  // NewRegister? user;
+  // ChangePasswordScreen(this.user);
   @override
   State<ChangePasswordScreen> createState() => _ChangePasswordScreenState();
 }
@@ -14,23 +18,27 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   final _newPasswordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
 
-  // void onChangeButtonTapped() {
-  //   String password = _passwordController.text;
-  //   String newPassword = _newPasswordController.text;
+  NewRegister? user;
 
-  //   NetworkManager.shared
-  //       .changeForgotPassword(<String, dynamic>{
-  //         'current_password': password,
-  //         'new_password': newPassword
-  //       })
-  //       .then((BaseResponse response) {
+  void onChangeButtonTapped() {
+    String password = _passwordController.text;
+    String newPassword = _newPasswordController.text;
 
-  //       print("================");
-  //       print("password");
-  //         print(newPassword);
-  //       })
-  //       .catchError((Object obj) {});
-  // }
+
+    NetworkManager.shared
+        .changePassword(<String, dynamic>{
+         "custId": 386,
+          'oldPassword': password,
+          'newPassword': newPassword
+        })
+        .then((BaseResponse response) {
+
+        print("================");
+        print("password");
+          print(newPassword);
+        })
+        .catchError((Object obj) {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -216,7 +224,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     backgroundColor: Color(0xffec3436),
                   ),
                   onPressed: () {
-                   // onChangeButtonTapped();
+                    onChangeButtonTapped();
                     // Navigator.push(context,
                     //     MaterialPageRoute(builder: (context) => LoginScreen()));
                   },

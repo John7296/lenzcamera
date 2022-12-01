@@ -237,110 +237,131 @@ class _SearchScreenState extends State<SearchScreen> {
                           children: [
                             Expanded(
                               child: Container(
-                                height: 150,
+                                height: 160,
                                 decoration: BoxDecoration(
                                     //color: Colors.grey,
                                     borderRadius: BorderRadius.circular(15)),
                                 child: Card(
-                                    child: Column(
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(left:5),
+                                      child: Row(
                                   children: [
-                                    Row(
-                                      children: [
+                                         Column(
+                                           children: [
+                                             Padding(
+                                               padding: const EdgeInsets.only(top:20),
+                                               child: Container(
+                                                 
+                                                 child: CachedNetworkImage(imageUrl: 
+                                                 "https://dev.lenzcamera.com/webadmin/${_products[index].imageUrl}", height: 100),
+                                               ),
+                                             ),
+                                           ],
+                                         ),
+                                         // Image(
+                                         //   image: AssetImage(
+                                         //       "assets/images/lens.png"),
+                                         //   height: 100,
+                                         // ),
+                                         Expanded(
+                                           child: Padding(
+                                             padding: const EdgeInsets.only(left:5, right:10, top:20),
+                                             child: Column(
+                                               crossAxisAlignment:
+                                                   CrossAxisAlignment.start,
+                                                 
+                                               children: [
+                                                 Container(
+                                                   width:200,
+                                                   child: Text(
+                                                     
+                                                       _products[index].prName.toString(),
+                                                       // "CANON EF 16-35MM F/2.8L  III USM",
+                                                       style: TextStyle(
+                                                           fontSize: 17,
+                                                           fontWeight:
+                                                               FontWeight
+                                                                   .w600),
+                                                       maxLines: 2),
+                                                 ),
 
-                                        CachedNetworkImage(imageUrl: 
-                                        "https://dev.lenzcamera.com/webadmin/${_products[index].imageUrl}", height: 100),
-                                        // Image(
-                                        //   image: AssetImage(
-                                        //       "assets/images/lens.png"),
-                                        //   height: 100,
-                                        // ),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Row(children: [
-                                              Stack(children: [
-                                                Container(
-                                                  width: 200,
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            top: 20),
-                                                    child: Text(
-                                                      
-                                                        _products[index].prName.toString(),
-                                                        // "CANON EF 16-35MM F/2.8L  III USM",
-                                                        style: TextStyle(
-                                                            fontSize: 17,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .w600),
-                                                        maxLines: 2),
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 220, top: 10),
-                                                  child: IconButton(
-                                                      onPressed: () {},
-                                                      icon: Icon(
-                                                        Icons.favorite_outlined,
-                                                        color:
-                                                            Color(0xff70726f),
-                                                      )),
-                                                ),
-                                              ]),
-                                            ]),
-                                            SizedBox(
-                                              height: 10,
-                                            ),
-                                            Row(
-                                              children: [
-                                                Text("QAR ${_products[index].unitPrice.toString()}",
-                                                  // "QAR 549.00",
-                                                    style: TextStyle(
-                                                        fontSize: 15,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        color:
-                                                            Color(0xffdf1715)),
-                                                    maxLines: 2),
-                                              ],
-                                            ),
-                                            SizedBox(height: 10),
-                                            Container(
-                                              margin:
-                                                  EdgeInsets.only(left: 135),
-                                              height: 30,
-                                              width: 120,
-                                              child: ElevatedButton(
-                                                style: ElevatedButton.styleFrom(
-                                                  backgroundColor:
-                                                      Color(0xfffce303),
-                                                ),
-                                                onPressed: () {
-                                                  Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              CartScreen()));
-                                                },
-                                                child: Center(
-                                                    child: Text(
-                                                  "ADD",
-                                                  style: TextStyle(
-                                                      fontSize: 15,
-                                                      color: Colors.black),
-                                                )),
-                                              ),
-                                            ),
-                                          ],
-                                        )
-                                      ],
-                                    ),
+                                    
+                                                 SizedBox(
+                                                   height: 20,
+                                                 ),
+
+                                                 Text("QAR ${_products[index].unitPrice.toString()}",
+                                                       // "QAR 549.00",
+                                                         style: TextStyle(
+                                                             fontSize: 15,
+                                                             fontWeight:
+                                                                 FontWeight.w600,
+                                                             color:
+                                                                 Color(0xffdf1715)),
+                                                         maxLines: 2),
+
+                                                         ],
+                                                    ),
+                                           )), 
+                                                 // Row(
+                                                 //   children: [
+                                                 //     // Text("QAR ${_products[index].unitPrice.toString()}",
+                                                 //     //   // "QAR 549.00",
+                                                 //     //     style: TextStyle(
+                                                 //     //         fontSize: 15,
+                                                 //     //         fontWeight:
+                                                 //     //             FontWeight.w600,
+                                                 //     //         color:
+                                                 //     //             Color(0xffdf1715)),
+                                                 //     //     maxLines: 2),
+                                                 //   ],
+                                                 // ),
+                                                 SizedBox(height: 10),
+                                                 Padding(
+                                                   padding: const EdgeInsets.only(right:15),
+                                                   child: Column(
+                                                     crossAxisAlignment: CrossAxisAlignment.end,
+                                                     children: [
+
+                                                       IconButton(onPressed: (){}, icon:
+                                                       
+                                                       Icon(Icons.favorite ), color: Color(
+                                                                 0xff70726f)),
+
+                                                       SizedBox(height: 50),
+                                                       Container(
+                                                         // margin:
+                                                         //     EdgeInsets.only(left: 135),
+                                                         height: 30,
+                                                         width: 110,
+                                                         child: ElevatedButton(
+                                                           style: ElevatedButton.styleFrom(
+                                                             backgroundColor:
+                                                                 Color(0xfffce303),
+                                                           ),
+                                                           onPressed: () {
+                                                             Navigator.push(
+                                                                 context,
+                                                                 MaterialPageRoute(
+                                                                     builder: (context) =>
+                                                                         CartScreen()));
+                                                           },
+                                                           child: Center(
+                                                               child: Text(
+                                                             "ADD",
+                                                             style: TextStyle(
+                                                                 fontSize: 15,
+                                                                 color: Colors.black),
+                                                           )),
+                                                         ),
+                                                       ),
+                                                     ],
+                                                   ),
+                                                 ),
+                                      
                                   ],
-                                )),
+                                ),
+                                    )),
                               ),
                             ),
                           ],

@@ -23,9 +23,9 @@ final _emailController = TextEditingController();
 
    void customerDetails() {
     NetworkManager.shared
-        .customerDetails()
-        .then((BaseResponse<Customer> response) {
-      var thisUser = response.data!.data;
+        .customerDetails(user!.customerId!)
+        .then((BaseResponse<LoginCustomer> response) {
+      var thisUser = response.data!;
 
 
       _emailController.text = thisUser?.emailId ?? "";
@@ -38,7 +38,7 @@ void onSendButtonTapped() {
 
   Map<String, dynamic> map = {
       
-      "custId": "",
+      "custId": user?.customerId,
      'email' : _emailController.text,
      'phone' : _phoneController.text,
      ' title' : _titleController.text,
@@ -345,6 +345,8 @@ void onSendButtonTapped() {
                         backgroundColor: Color(0xffec3436),
                       ),
                       onPressed: () {
+
+                        onSendButtonTapped();
                         // Navigator.push(
                         //     context,
                         //     MaterialPageRoute(

@@ -2,22 +2,28 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lenzcamera/model/product.dart';
+import 'package:lenzcamera/model/related_products.dart';
 import 'package:lenzcamera/screens/cart_screen.dart';
 import 'package:lenzcamera/screens/wishlist_screen.dart';
 import 'package:lenzcamera/screens/write_review_screen.dart';
 
   class ProductDetailsScreen extends StatefulWidget {
    Product? popularproducts;
+  //  Product? relatedproducts;
 
-     ProductDetailsScreen(@required this.popularproducts);
+     ProductDetailsScreen(@required this.popularproducts, 
+    //  this.relatedproducts
+    );
 
   @override
   State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
 }
 
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
-  
 
+  Product? products;
+
+   
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -173,11 +179,12 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       Padding(
                         padding: const EdgeInsets.only(bottom: 5, right: 24),
                         child: Row(
+                        
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Container(
                               //height: 27,
-                              width: 75,
+                              width: 80,
                               child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Color(0xffec3436),
@@ -223,16 +230,12 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             SizedBox(height: 10),
                             Padding(
                               padding: const EdgeInsets.only(left: 12),
-                              child: Row(
-                                children: [
-                                  Text(widget.popularproducts?.description??"",
-                                    // "Key Features",
-                                      style: TextStyle(
-                                          color: Color(0xff6e706d),
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.w300)),
-                                ],
-                              ),
+                              child: Text(widget.popularproducts?.description??"",
+                                // "Key Features",
+                                  style: TextStyle(
+                                      color: Color(0xff6e706d),
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w300)),
                             ),
                             // Padding(
                             //   padding: const EdgeInsets.only(left: 20, top: 30),
@@ -333,7 +336,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                         //color: Colors.green,
                                         child: ListView.builder(
                                             scrollDirection: Axis.horizontal,
-                                            itemCount: 10,
+                                            itemCount: 6,
                                             itemBuilder: (BuildContext context,
                                                 int index) {
                                               return Card(
@@ -381,6 +384,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                                             alignment: Alignment
                                                                 .center,
                                                             child: Text(
+                                                              
                                                               "CANON EF 16-35 MM F/4L IS USM ",
                                                               style: TextStyle(
                                                                   fontSize: 15,
@@ -402,6 +406,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                                                         .only(
                                                                     top: 7),
                                                             child: Text(
+                                                            //  widget.popularproducts.
                                                                 "QAR 39999.00",
                                                                 style: TextStyle(
                                                                     fontSize:
@@ -421,7 +426,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                                         child: Container(
                                                           height: 35,
                                                           width: 200,
-                                                          child: ElevatedButton(
+                                                          child:
+                                                          
+                                                           ElevatedButton(
                                                             style:
                                                                 ElevatedButton
                                                                     .styleFrom(
@@ -430,6 +437,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                                                       .yellowAccent,
                                                             ),
                                                             onPressed: () {
+                                                             
                                                               Navigator.push(
                                                                   context,
                                                                   MaterialPageRoute(
@@ -474,21 +482,64 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     const EdgeInsets.only(bottom: 10.0, left: 24, right: 24),
                 child: Container(
                   height: 40,
-                  child: ElevatedButton(
+                  child: 
+                  
+                  ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xffec3436),
                     ),
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => CartScreen()));
+                      
+                      // Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //         builder: (context) => CartScreen()));
                     },
-                    child: Center(
-                        child: Text(
-                      "Add To Cart",
-                      style: TextStyle(fontSize: 20, color: Colors.white),
-                    )),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        if(widget.popularproducts?.isAddedtoCart()==false)
+                       Text("Add to Cart",
+                            // widget.popularproducts?.isAddedtoCart() ?? false? "Add to Cart":"View Cart",
+                            // ? ((int.parse(widget.popularproducts!.qty.toString()) > 0)
+                            //     ? 'Add to Cart'
+                            //     : 'Go to Cart'),
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.white,
+                        ),
+                      ),
+                        if(widget.popularproducts?.isAddedtoCart()==true)
+                         Text("Go to Cart",
+                            // widget.popularproducts?.isAddedtoCart() ?? false? "Add to Cart":"View Cart",
+                            // ? ((int.parse(widget.popularproducts!.qty.toString()) > 0)
+                            //     ? 'Add to Cart'
+                            //     : 'Go to Cart'),
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.white,
+                        ),
+                      ),
+                      
+                                          // if (widget.popularproducts!.isAddedtoCart() ==false)
+                        // Padding(
+                        //   padding: const EdgeInsets.only(left: 10.0),
+                        //   child: SizedBox(
+                        //     child: CircularProgressIndicator(
+                        //       strokeWidth: 2,
+                        //       color: Colors.white,
+                        //     ),
+                        //     height: 12,
+                        //     width: 12,
+                        //   ),
+                        // ),
+          
+                    //     Text(
+                    //   "Add To Cart",
+                    //   style: TextStyle(fontSize: 20, color: Colors.white),
+                    // ),
+                      ],
+                    ),
                   ),
                 ),
               ),
