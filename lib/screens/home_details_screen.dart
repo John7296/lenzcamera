@@ -25,6 +25,7 @@ import 'package:lenzcamera/screens/popular_products_screen.dart';
 import 'package:lenzcamera/screens/privacy_policy_screen.dart';
 import 'package:lenzcamera/screens/product_details_screen.dart';
 import 'package:lenzcamera/screens/profile_screen.dart';
+import 'package:lenzcamera/screens/recent_product_screen.dart';
 import 'package:lenzcamera/screens/return_policy_screen.dart';
 import 'package:lenzcamera/screens/search_screen.dart';
 import 'package:lenzcamera/screens/wishlist_screen.dart';
@@ -52,6 +53,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
     _getTopCategories();
     _featuredProducts();
     _popularProducts();
+    _recentProducts();
   }
 
   void _getTopCategories() {
@@ -135,10 +137,6 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
   }
 
   void addToWishlist(Product product) {
-    // if (!_form.currentState!.validate()) {
-    //   return;
-    // }
-
     NetworkManager.shared
         .addToWishlist(<String, dynamic>{
           "urlKey": product.urlKey,
@@ -149,14 +147,9 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
         .catchError((e) {
           print(e.toString());
         });
-    // print(value.toString());
   }
 
   void removeFromWishlist(Product product) {
-    // if (!_form.currentState!.validate()) {
-    //   return;
-    // }
-
     NetworkManager.shared
         .removeFromWishlist(<String, dynamic>{
           "urlKey": product.urlKey,
@@ -396,7 +389,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                   Column(
                     children: [
                       isLoading
-                          ? Center(child: CircularProgressIndicator())
+                          ? Center(child: LinearProgressIndicator())
                           : Container(
                               height: 630,
                               child: Padding(
@@ -615,7 +608,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                   Column(
                     children: [
                       isLoading
-                          ? Center(child: CircularProgressIndicator())
+                          ? Center(child: LinearProgressIndicator())
                           : Container(
                               height: 800,
                               child: Padding(
@@ -631,12 +624,13 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                                     return InkWell(
                                       onTap: (() {
                                         Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    ProductDetailsScreen(
-                                                        popularProductsList[
-                                                            index])));
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                ProductDetailsScreen(
+                                                    popularProductsList[index]),
+                                          ),
+                                        );
                                       }),
                                       child: Card(
                                         elevation: 1,
@@ -651,65 +645,66 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                                                     margin: EdgeInsets.only(
                                                         left: 125),
                                                     child: IconButton(
-                                                        onPressed: () {
-                                                          setState(() {
-                                                            if (popularProductsList[
-                                                                        index]
-                                                                    .isWhishlisted ==
-                                                                true) {
-                                                              removeFromWishlist(
-                                                                  popularProductsList[
-                                                                      index]);
-                                                              popularProductsList[
-                                                                          index]
-                                                                      .isWhishlisted =
-                                                                  false;
-                                                            } else {
-                                                              addToWishlist(
-                                                                  popularProductsList[
-                                                                      index]);
-                                                              popularProductsList[
-                                                                          index]
-                                                                      .isWhishlisted =
-                                                                  true;
-                                                            }
-                                                          });
-
-                                                          // showDialog(
-                                                          //   context: context,
-                                                          //   builder:
-                                                          //       (context) =>
-                                                          //           AlertDialog(
-                                                          //     title: Text(
-                                                          //       "Item Added to wishlist",
-                                                          //       style:
-                                                          //           TextStyle(),
-                                                          //     ),
-                                                          //     actions: [
-                                                          //       ElevatedButton(
-                                                          //           onPressed:
-                                                          //               () {
-                                                          //             Navigator.pop(
-                                                          //                 context);
-                                                          //           },
-                                                          //           child: Text(
-                                                          //               'Ok'))
-                                                          //     ],
-                                                          //   ),
-                                                          // );
-                                                        },
-                                                        icon: Icon(
-                                                          Icons.favorite,
-                                                          color: popularProductsList[
+                                                      onPressed: () {
+                                                        setState(() {
+                                                          if (popularProductsList[
                                                                       index]
-                                                                  .isWhishlisted!
-                                                              ? Colors.red
-                                                              : Colors.grey,
-                                                        )),
+                                                                  .isWhishlisted ==
+                                                              true) {
+                                                            removeFromWishlist(
+                                                                popularProductsList[
+                                                                    index]);
+                                                            popularProductsList[
+                                                                        index]
+                                                                    .isWhishlisted =
+                                                                false;
+                                                          } else {
+                                                            addToWishlist(
+                                                                popularProductsList[
+                                                                    index]);
+                                                            popularProductsList[
+                                                                        index]
+                                                                    .isWhishlisted =
+                                                                true;
+                                                          }
+                                                        });
+
+                                                        // showDialog(
+                                                        //   context: context,
+                                                        //   builder:
+                                                        //       (context) =>
+                                                        //           AlertDialog(
+                                                        //     title: Text(
+                                                        //       "Item Added to wishlist",
+                                                        //       style:
+                                                        //           TextStyle(),
+                                                        //     ),
+                                                        //     actions: [
+                                                        //       ElevatedButton(
+                                                        //           onPressed:
+                                                        //               () {
+                                                        //             Navigator.pop(
+                                                        //                 context);
+                                                        //           },
+                                                        //           child: Text(
+                                                        //               'Ok'))
+                                                        //     ],
+                                                        //   ),
+                                                        // );
+                                                      },
+                                                      icon: Icon(
+                                                        Icons.favorite,
+                                                        color: popularProductsList[
+                                                                    index]
+                                                                .isWhishlisted!
+                                                            ? Colors.red
+                                                            : Colors.grey,
+                                                      ),
+                                                    ),
                                                   ),
                                                   Container(
-                                                      height: 150,
-                                                      width: 120,
+                                                      height: 145,
+                                                      width: 110,
                                                       child: CachedNetworkImage(
                                                           imageUrl:
                                                               "https://dev.lenzcamera.com/webadmin/${popularProductsList[index].imageUrl}")),
@@ -819,13 +814,13 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                                                               // print(popularProductsList[
                                                               //         index]
                                                               //     .urlKey);
-                                                              DataManager.shared.addToCart(
-                                                                  popularProductsList[
-                                                                      index], () {
-                                                                        setState(() {
-
-                                                                        });
-                                                                      });
+                                                              DataManager.shared
+                                                                  .addToCart(
+                                                                      popularProductsList[
+                                                                          index],
+                                                                      () {
+                                                                setState(() {});
+                                                              });
                                                               // Navigator.push(
                                                               //     context,
                                                               //     MaterialPageRoute(
@@ -884,12 +879,12 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                                   const EdgeInsets.only(top: 20, right: 10),
                               child: TextButton(
                                   onPressed: () {
-                                    _recentProducts();
-                                    // Navigator.push(
-                                    //     context,
-                                    //     MaterialPageRoute(
-                                    //         builder: (context) =>
-                                    //             FeaturedProductsScreen()));
+                                    // _recentProducts();
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                RecentProductsScreen()));
                                   },
                                   child: Text(
                                     'View All ➜',
@@ -924,12 +919,9 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                                         Padding(
                                           padding: const EdgeInsets.only(
                                               left: 30, top: 10),
-                                          child: Image(
-                                            image: AssetImage(
-                                                "assets/images/lens.png"),
-                                            height: 100,
-                                            width: 100,
-                                          ),
+                                          child: CachedNetworkImage(
+                                              imageUrl:
+                                                  "https://dev.lenzcamera.com/webadmin/${popularProductsList[index].imageUrl}"),
                                         ),
                                         Padding(
                                           padding:
@@ -937,19 +929,19 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                                           child: IconButton(
                                               onPressed: () {
                                                 setState(() {
-                                                  if (popularProductsList[index]
+                                                  if (recentProductsList[index]
                                                           .isWhishlisted ==
                                                       true) {
                                                     removeFromWishlist(
-                                                        popularProductsList[
+                                                        recentProductsList[
                                                             index]);
-                                                    popularProductsList[index]
+                                                    recentProductsList[index]
                                                         .isWhishlisted = false;
                                                   } else {
                                                     addToWishlist(
-                                                        popularProductsList[
+                                                        recentProductsList[
                                                             index]);
-                                                    popularProductsList[index]
+                                                    recentProductsList[index]
                                                         .isWhishlisted = true;
                                                   }
                                                 });

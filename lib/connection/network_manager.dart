@@ -120,6 +120,10 @@ class NetworkManager {
     return call(networkConnection.recentProducts(int.parse("386"), 0));
   }
 
+  // Future<BaseResponse<List<Product>>> recentProducts(Map<String, dynamic> map) {
+  //   return call(networkConnection.recentProducts(map["custId"], map["guestId"]));
+  // }
+
   Future<BaseResponse<List<HomeDetails>>> homeDetails() {
     return call(networkConnection.homeDetails(int.parse("386"), 0));
   }

@@ -31,16 +31,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
+    getProfile();
   }
 
-  void _getProfile() {
+  void getProfile() {
     setState(() {
       // isLoading = true;
     });
 
-    NetworkManager.shared
-        .getProfile()
-        .then((BaseResponse<Profile> response) {
+    NetworkManager.shared.getProfile().then((BaseResponse<Profile> response) {
       setState(() {
         userProfile = response.data;
       });
@@ -140,9 +140,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   color: Colors.grey),
                             ),
                             trailing: IconButton(
-                              onPressed: () {
-                                _getProfile();
-                              },
+                              onPressed: () {},
                               icon: Icon(Icons.arrow_forward_ios),
                             ),
                           ),

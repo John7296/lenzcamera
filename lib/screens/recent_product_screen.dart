@@ -7,37 +7,37 @@ import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/product.dart';
 import 'package:lenzcamera/screens/wishlist_screen.dart';
 
-class PopularProductsScreen extends StatefulWidget {
-  const PopularProductsScreen({super.key});
+class RecentProductsScreen extends StatefulWidget {
+  const RecentProductsScreen({super.key});
 
   @override
-  State<PopularProductsScreen> createState() => _PopularProductsScreenState();
+  State<RecentProductsScreen> createState() => _RecentProductsScreenState();
 }
 
-class _PopularProductsScreenState extends State<PopularProductsScreen> {
-  List<Product> popularProductsList = [];
+class _RecentProductsScreenState extends State<RecentProductsScreen> {
+  List<Product> recentProductsList = [];
   bool isLoading = true;
 
   @override
   void initState() {
     super.initState();
-    _popularProducts();
+    _recentProducts();
   }
 
-  void _popularProducts() {
+  void _recentProducts() {
     setState(() {
       isLoading = true;
     });
 
     NetworkManager.shared
-        .popularProducts()
+        .recentProducts()
         .then((BaseResponse<List<Product>> response) {
-      // print(response.data);
+      print(response.data);
       setState(() {
         isLoading = false;
-        popularProductsList.clear();
-        popularProductsList.addAll(response.data!);
-        // print(response.data!.first.catId);
+        recentProductsList.clear();
+        recentProductsList.addAll(response.data!);
+        print(response.data!.first.catId);
       });
     }).catchError((e) {
       print(e.toString());
@@ -76,16 +76,13 @@ class _PopularProductsScreenState extends State<PopularProductsScreen> {
       appBar: AppBar(
         title: Padding(
           padding: const EdgeInsets.only(left: 50),
-          child: Text('Popular Products'),
+          child: Text('Recent Products'),
         ),
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => WishlistScreen(),
-                  ));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => WishlistScreen()));
             },
             icon: Icon(Icons.favorite_border),
           ),
@@ -112,7 +109,7 @@ class _PopularProductsScreenState extends State<PopularProductsScreen> {
                 padding: const EdgeInsets.only(top: 10),
                 child: GridView.builder(
                   // physics: NeverScrollableScrollPhysics(),
-                  itemCount: popularProductsList.length,
+                  itemCount: recentProductsList.length,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2),
                   itemBuilder: (BuildContext context, int index) {
@@ -123,57 +120,56 @@ class _PopularProductsScreenState extends State<PopularProductsScreen> {
                           children: [
                             Stack(children: [
                               Center(
-                                  child: Container(
-                                height: 100,
-                                width: 100,
-                                child: CachedNetworkImage(
-                                    imageUrl:
-                                        "https://dev.lenzcamera.com/webadmin/${popularProductsList[index].imageUrl}"),
-                              )),
+                                  child: CachedNetworkImage(
+                                      imageUrl:
+                                          "https://dev.lenzcamera.com/webadmin/${recentProductsList[index].imageUrl}")),
                               Padding(
                                 padding: const EdgeInsets.only(left: 120),
                                 child: IconButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      if (popularProductsList[index]
-                                              .isWhishlisted ==
-                                          true) {
-                                        removeFromWishlist(
-                                            popularProductsList[index]);
-                                        popularProductsList[index]
-                                            .isWhishlisted = false;
-                                      } else {
-                                        addToWishlist(
-                                            popularProductsList[index]);
-                                        popularProductsList[index]
-                                            .isWhishlisted = true;
-                                      }
-                                    });
-                                  },
-                                  icon: Icon(
-                                    Icons.favorite,
-                                    color: popularProductsList[index]
-                                            .isWhishlisted!
-                                        ? Colors.red
-                                        : Colors.grey,
-                                  ),
-                                ),
+                                    onPressed: () {
+                                      setState(() {
+                                        if (recentProductsList[index]
+                                                .isWhishlisted ==
+                                            true) {
+                                          removeFromWishlist(
+                                              recentProductsList[index]);
+                                          recentProductsList[index]
+                                              .isWhishlisted = false;
+                                        } else {
+                                          addToWishlist(
+                                              recentProductsList[index]);
+                                          recentProductsList[index]
+                                              .isWhishlisted = true;
+                                        }
+                                      });
+                                    },
+                                    icon: Icon(
+                                      Icons.favorite,
+                                      color: recentProductsList[index]
+                                              .isWhishlisted!
+                                          ? Colors.red
+                                          : Colors.grey,
+                                    )),
                               ),
                             ]),
                             Spacer(),
-                            Align(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  // "CANON EF 16-35 MM F/4L IS USM ",
-                                  popularProductsList[index].prName ?? '',
-                                  style: TextStyle(
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.w400),
-                                  maxLines: 1,
-                                  textAlign: TextAlign.center,
-                                )),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 10, right: 10),
+                              child: Align(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    // "CANON EF 16-35 MM F/4L IS USM ",
+                                    recentProductsList[index].prName ?? '',
+                                    style: TextStyle(
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.w400),
+                                    maxLines: 1,
+                                    textAlign: TextAlign.center,
+                                  )),
+                            ),
                             Text(
-                                "QAR${popularProductsList[index].unitPrice ?? ''}",
+                                "QAR${recentProductsList[index].unitPrice ?? ''}",
                                 style: TextStyle(
                                     fontSize: 15, fontWeight: FontWeight.w600)),
                             ElevatedButton(
