@@ -71,8 +71,6 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // print("hhhhhhhhhhhhhhhhhh");
-    // print(_products.first.prName);
 
     return Scaffold(
       appBar: AppBar(
@@ -214,284 +212,288 @@ class _SearchScreenState extends State<SearchScreen> {
         Expanded(
           child: Container(
             height: 600,
-            color: Colors.white,
+            color: Colors.grey.shade100,
             child: ListView.builder(
                 itemCount: _products.length,
                 itemBuilder: (BuildContext context, int index) {
                   return Column(
                     children: [
-                      Container(
-                                  height: 100,
-                                  width: 400,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(5)),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey,
-                                        offset: Offset(0.0, 1.0), //(x,y)
-                                        blurRadius: 6.0,
-                                      ),
-                                    ],
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      Column(
-                                        // mainAxisAlignment: MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Padding(
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10,right: 10),
+                        child: Container(
+                                    height: 120,
+                                    width: 400,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(5)),
+                                      // boxShadow: [
+                                      //   BoxShadow(
+                                      //     color: Colors.grey,
+                                      //     offset: Offset(0.0, 1.0), //(x,y)
+                                      //     blurRadius: 6.0,
+                                      //   ),
+                                      // ],
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        Column(
+                                          // mainAxisAlignment: MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Container(
+                                                  height: 100,
+                                                  width: 100,
+                                                  child: CachedNetworkImage(
+                                                      imageUrl:
+                                                          "https://dev.lenzcamera.com/webadmin/${_products[index].imageUrl}"),
+                                                )),
+                                          ],
+                                        ),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Padding(
                                               padding:
-                                                  const EdgeInsets.all(8.0),
+                                                  const EdgeInsets.only(top: 15),
                                               child: Container(
-                                                height: 80,
-                                                width: 80,
-                                                child: CachedNetworkImage(
-                                                    imageUrl:
-                                                        "https://dev.lenzcamera.com/webadmin/${_products[index].imageUrl}"),
-                                              )),
-                                        ],
-                                      ),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                const EdgeInsets.only(top: 15),
-                                            child: Container(
-                                              height: 30,
-                                              width: 180,
-                                              child: Text(
-                                                // 'CANON EF 16-35 MM F/4L IS USM',
-                                                _products[index].prName ??
-                                                    '',
-                                                style: TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                                maxLines: 2,
+                                                // height: 30,
+                                                width: 160,
+                                                child: Text(
+                                                  // 'CANON EF 16-35 MM F/4L IS USM',
+                                                  _products[index].prName ??
+                                                      '',
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                  maxLines: 2,
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                          Padding(
-                                            padding:
-                                                const EdgeInsets.only(top: 15),
-                                            child: Text(
-                                              // 'QAR 8600.00',
-                                              "QAR${_products[index].unitPrice}",
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.grey.shade700),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.only(top: 15),
+                                              child: Text(
+                                                // 'QAR 8600.00',
+                                                "QAR${_products[index].unitPrice}",
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.red),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                        Column(
+                                          children: [
+                                            IconButton(
+                                              onPressed: () {
+                                                setState(() {
+                                                  DataManager.shared
+                                                      .removeFromCart(
+                                                          _products[index]);
+                                                });
+                                              },
+                                              icon: Icon(Icons.favorite,
+                                                  color: Colors.grey),
                                             ),
-                                          )
-                                        ],
-                                      ),
-                                      Column(
-                                        children: [
-                                          IconButton(
-                                            onPressed: () {
-                                              setState(() {
-                                                DataManager.shared
-                                                    .removeFromCart(
-                                                        _products[index]);
-                                              });
-                                            },
-                                            icon: Icon(Icons.favorite,
-                                                color: Colors.grey),
-                                          ),
+                                            SizedBox(height: 20),
 
-                                          Container(
-                                                width: 80,
-                                                height: 30,
-                                                child:
-                                                    _products[index]
-                                                            .isAddedtoCart()
-                                                        ? Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            children: [
-                                                              InkWell(
-                                                                onTap: () {
-                                                                  print(
-                                                                      'Quantity Decreased');
-                                                                },
-                                                                child:
-                                                                    Container(
-                                                                  width: 30,
-                                                                  height: 30,
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                          color: Color(
-                                                                              0xff70726f),
-                                                                          borderRadius:
-                                                                              BorderRadius.only(
-                                                                            topLeft:
-                                                                                Radius.circular(5),
-                                                                            bottomLeft:
-                                                                                Radius.circular(5),
-                                                                          )),
-                                                                  child: Center(
-                                                                      child:
-                                                                          Icon(
-                                                                    Icons
-                                                                        .remove,
-                                                                    color: Colors
-                                                                        .white,
-                                                                    size: 12,
-                                                                  )),
-                                                                ),
-                                                              ),
-                                                              Container(
-                                                                width: 30,
-                                                                height: 30,
-                                                                decoration:
-                                                                    BoxDecoration(
-                                                                  color: Color(
-                                                                      0xffe3e3e3),
-                                                                ),
-                                                                child: Center(
-                                                                    child: Text(
-                                                                  "1",
-                                                                  style: TextStyle(
-                                                                      color: Colors
-                                                                          .black),
-                                                                )),
-                                                              ),
-                                                              InkWell(
-                                                                onTap: () {
-                                                                  print(
-                                                                      'Quantity Increased');
-                                                                },
-                                                                child: Container(
+                                            Container(
+                                                  // width: 90,
+                                                  height: 30,
+                                                  child:
+                                                      _products[index]
+                                                              .isAddedtoCart()
+                                                          ? Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .center,
+                                                              children: [
+                                                                InkWell(
+                                                                  onTap: () {
+                                                                    print(
+                                                                        'Quantity Decreased');
+                                                                  },
+                                                                  child:
+                                                                      Container(
                                                                     width: 30,
                                                                     height: 30,
-                                                                    decoration: BoxDecoration(
-                                                                        color: Color(0xffe83031),
-                                                                        borderRadius: BorderRadius.only(
-                                                                          topRight:
-                                                                              Radius.circular(5),
-                                                                          bottomRight:
-                                                                              Radius.circular(5),
-                                                                        )),
-                                                                    child: Icon(
-                                                                      Icons.add,
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                            color: Color(
+                                                                                0xff70726f),
+                                                                            borderRadius:
+                                                                                BorderRadius.only(
+                                                                              topLeft:
+                                                                                  Radius.circular(5),
+                                                                              bottomLeft:
+                                                                                  Radius.circular(5),
+                                                                            )),
+                                                                    child: Center(
+                                                                        child:
+                                                                            Icon(
+                                                                      Icons
+                                                                          .remove,
                                                                       color: Colors
                                                                           .white,
                                                                       size: 12,
                                                                     )),
+                                                                  ),
+                                                                ),
+                                                                Container(
+                                                                  width: 30,
+                                                                  height: 30,
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    color: Color(
+                                                                        0xffe3e3e3),
+                                                                  ),
+                                                                  child: Center(
+                                                                      child: Text(
+                                                                    "1",
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .black),
+                                                                  )),
+                                                                ),
+                                                                InkWell(
+                                                                  onTap: () {
+                                                                    print(
+                                                                        'Quantity Increased');
+                                                                  },
+                                                                  child: Container(
+                                                                      width: 30,
+                                                                      height: 30,
+                                                                      decoration: BoxDecoration(
+                                                                          color: Color(0xffe83031),
+                                                                          borderRadius: BorderRadius.only(
+                                                                            topRight:
+                                                                                Radius.circular(5),
+                                                                            bottomRight:
+                                                                                Radius.circular(5),
+                                                                          )),
+                                                                      child: Icon(
+                                                                        Icons.add,
+                                                                        color: Colors
+                                                                            .white,
+                                                                        size: 12,
+                                                                      )),
+                                                                ),
+                                                              ],
+                                                            )
+                                                          : ElevatedButton(
+                                                              style:
+                                                                  ElevatedButton
+                                                                      .styleFrom(
+                                                                elevation: 0,
+                                                                backgroundColor:
+                                                                    Colors.yellow,
                                                               ),
-                                                            ],
-                                                          )
-                                                        : ElevatedButton(
-                                                            style:
-                                                                ElevatedButton
-                                                                    .styleFrom(
-                                                              elevation: 0,
-                                                              backgroundColor:
-                                                                  Colors.yellow,
+                                                              onPressed: () {
+                                                                // print(popularProductsList[
+                                                                //         index]
+                                                                //     .urlKey);
+                                                                DataManager.shared
+                                                                    .addToCart(
+                                                                        _products[
+                                                                            index],
+                                                                        () {
+                                                                  setState(() {});
+                                                                });
+                                                                // Navigator.push(
+                                                                //     context,
+                                                                //     MaterialPageRoute(
+                                                                //         builder: (context) =>
+                                                                //             CartScreen()));
+                                                              },
+                                                              child: Center(
+                                                                  child: Text(
+                                                                "ADD",
+                                                                style: TextStyle(
+                                                                    fontSize: 15,
+                                                                    color: Colors
+                                                                        .black),
+                                                              )),
                                                             ),
-                                                            onPressed: () {
-                                                              // print(popularProductsList[
-                                                              //         index]
-                                                              //     .urlKey);
-                                                              DataManager.shared
-                                                                  .addToCart(
-                                                                      _products[
-                                                                          index],
-                                                                      () {
-                                                                setState(() {});
-                                                              });
-                                                              // Navigator.push(
-                                                              //     context,
-                                                              //     MaterialPageRoute(
-                                                              //         builder: (context) =>
-                                                              //             CartScreen()));
-                                                            },
-                                                            child: Center(
-                                                                child: Text(
-                                                              "ADD",
-                                                              style: TextStyle(
-                                                                  fontSize: 15,
-                                                                  color: Colors
-                                                                      .black),
-                                                            )),
-                                                          ),
-                                              ),
-                                            
-                                          // Row(
-                                          //   children: [
-                                          //     Row(
-                                          //       mainAxisAlignment:
-                                          //           MainAxisAlignment.center,
-                                          //       children: [
-                                          //         Container(
-                                          //           width: 30,
-                                          //           height: 30,
-                                          //           decoration: BoxDecoration(
-                                          //               color:
-                                          //                   Color(0xff70726f),
-                                          //               borderRadius:
-                                          //                   BorderRadius.only(
-                                          //                 topLeft:
-                                          //                     Radius.circular(
-                                          //                         5),
-                                          //                 bottomLeft:
-                                          //                     Radius.circular(
-                                          //                         5),
-                                          //               )),
-                                          //           child: Center(
-                                          //               child: Icon(
-                                          //             Icons.remove,
-                                          //             color: Colors.white,
-                                          //             size: 12,
-                                          //           )),
-                                          //         ),
-                                          //         Container(
-                                          //           width: 30,
-                                          //           height: 30,
-                                          //           decoration: BoxDecoration(
-                                          //             color: Color(0xffe3e3e3),
-                                          //           ),
-                                          //           child: Center(
-                                          //               child: Text(
-                                          //             "1",
-                                          //             style: TextStyle(
-                                          //                 color: Colors.black),
-                                          //           )),
-                                          //         ),
-                                          //         Container(
-                                          //             width: 30,
-                                          //             height: 30,
-                                          //             decoration: BoxDecoration(
-                                          //                 color:
-                                          //                     Color(0xffe83031),
-                                          //                 borderRadius:
-                                          //                     BorderRadius.only(
-                                          //                   topRight:
-                                          //                       Radius.circular(
-                                          //                           5),
-                                          //                   bottomRight:
-                                          //                       Radius.circular(
-                                          //                           5),
-                                          //                 )),
-                                          //             child: Icon(
-                                          //               Icons.add,
-                                          //               color: Colors.white,
-                                          //               size: 12,
-                                          //             )),
-                                          //       ],
-                                          //     ),
-                                          //   ],
-                                          // ),
-                                        
-                                        ],
-                                      )
-                                    ],
+                                                ),
+                                              
+                                            // Row(
+                                            //   children: [
+                                            //     Row(
+                                            //       mainAxisAlignment:
+                                            //           MainAxisAlignment.center,
+                                            //       children: [
+                                            //         Container(
+                                            //           width: 30,
+                                            //           height: 30,
+                                            //           decoration: BoxDecoration(
+                                            //               color:
+                                            //                   Color(0xff70726f),
+                                            //               borderRadius:
+                                            //                   BorderRadius.only(
+                                            //                 topLeft:
+                                            //                     Radius.circular(
+                                            //                         5),
+                                            //                 bottomLeft:
+                                            //                     Radius.circular(
+                                            //                         5),
+                                            //               )),
+                                            //           child: Center(
+                                            //               child: Icon(
+                                            //             Icons.remove,
+                                            //             color: Colors.white,
+                                            //             size: 12,
+                                            //           )),
+                                            //         ),
+                                            //         Container(
+                                            //           width: 30,
+                                            //           height: 30,
+                                            //           decoration: BoxDecoration(
+                                            //             color: Color(0xffe3e3e3),
+                                            //           ),
+                                            //           child: Center(
+                                            //               child: Text(
+                                            //             "1",
+                                            //             style: TextStyle(
+                                            //                 color: Colors.black),
+                                            //           )),
+                                            //         ),
+                                            //         Container(
+                                            //             width: 30,
+                                            //             height: 30,
+                                            //             decoration: BoxDecoration(
+                                            //                 color:
+                                            //                     Color(0xffe83031),
+                                            //                 borderRadius:
+                                            //                     BorderRadius.only(
+                                            //                   topRight:
+                                            //                       Radius.circular(
+                                            //                           5),
+                                            //                   bottomRight:
+                                            //                       Radius.circular(
+                                            //                           5),
+                                            //                 )),
+                                            //             child: Icon(
+                                            //               Icons.add,
+                                            //               color: Colors.white,
+                                            //               size: 12,
+                                            //             )),
+                                            //       ],
+                                            //     ),
+                                            //   ],
+                                            // ),
+                                          
+                                          ],
+                                        )
+                                      ],
+                                    ),
                                   ),
-                                ),
+                      ),
                                 
                       SizedBox(height: 10),
                     ],
