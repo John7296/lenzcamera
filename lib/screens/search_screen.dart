@@ -113,7 +113,7 @@ class _SearchScreenState extends State<SearchScreen> {
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           
           Padding(
-            padding: const EdgeInsets.only(left: 10, right: 10, top: 20),
+            padding: const EdgeInsets.only(left: 15, right: 15, top: 20),
             child: Container(
               height: 50,
               padding: const EdgeInsets.only(left: 10, right: 10),
@@ -223,7 +223,7 @@ class _SearchScreenState extends State<SearchScreen> {
             height: 20,
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 10, right: 10),
+            padding: const EdgeInsets.only(left: 15, right: 15),
             child: Expanded(
               child: SingleChildScrollView(
                 child: Container(
@@ -251,9 +251,15 @@ class _SearchScreenState extends State<SearchScreen> {
                                              Padding(
                                                padding: const EdgeInsets.only(top:20),
                                                child: Container(
+                                                 height:90,
+                                                 width: 70,
+                                                 child: FadeInImage.assetNetwork(
+                                                  placeholder: "assets/images/lens.png",
+                                                 image: _products[index].imageUrl.toString(),
+                                                 ),
                                                  
-                                                 child: CachedNetworkImage(imageUrl: 
-                                                 "https://dev.lenzcamera.com/webadmin/${_products[index].imageUrl}", height: 100),
+                                                //  CachedNetworkImage(imageUrl: 
+                                                //  "https://dev.lenzcamera.com/webadmin/${_products[index].imageUrl}"),
                                                ),
                                              ),
                                            ],
@@ -265,14 +271,14 @@ class _SearchScreenState extends State<SearchScreen> {
                                          // ),
                                          Expanded(
                                            child: Padding(
-                                             padding: const EdgeInsets.only(left:5, right:10, top:20),
+                                             padding: const EdgeInsets.only(left:10, right:10, top:20),
                                              child: Column(
                                                crossAxisAlignment:
                                                    CrossAxisAlignment.start,
                                                  
                                                children: [
                                                  Container(
-                                                   width:200,
+                                                   width:180,
                                                    child: Text(
                                                      
                                                        _products[index].prName.toString(),
@@ -284,12 +290,12 @@ class _SearchScreenState extends State<SearchScreen> {
                                                                    .w600),
                                                        maxLines: 2),
                                                  ),
-
+                                
                                     
                                                  SizedBox(
                                                    height: 20,
                                                  ),
-
+                                
                                                  Text("QAR ${_products[index].unitPrice.toString()}",
                                                        // "QAR 549.00",
                                                          style: TextStyle(
@@ -299,7 +305,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                                              color:
                                                                  Color(0xffdf1715)),
                                                          maxLines: 2),
-
+                                
                                                          ],
                                                     ),
                                            )), 
@@ -316,18 +322,18 @@ class _SearchScreenState extends State<SearchScreen> {
                                                  //     //     maxLines: 2),
                                                  //   ],
                                                  // ),
-                                                 SizedBox(height: 10),
+                                                 SizedBox(height: 20),
                                                  Padding(
-                                                   padding: const EdgeInsets.only(right:15),
+                                                   padding: const EdgeInsets.only(right:20),
                                                    child: Column(
                                                      crossAxisAlignment: CrossAxisAlignment.end,
                                                      children: [
-
+                                
                                                        IconButton(onPressed: (){}, icon:
                                                        
                                                        Icon(Icons.favorite ), color: Color(
                                                                  0xff70726f)),
-
+                                
                                                        SizedBox(height: 50),
                                                        Container(
                                                          // margin:

@@ -74,9 +74,13 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     children: [
                       Center(
                           child: Container(
-                        width: 250,
-                        child: CachedNetworkImage(imageUrl: 
-                                        "https://dev.lenzcamera.com/webadmin/${widget.popularproducts?.imageUrl}"),
+                        width: 200,
+                        height: 160,
+                        child: FadeInImage.assetNetwork(placeholder: "assets/images/lens.png", 
+                        image: "https://dev.lenzcamera.com/webadmin/${widget.popularproducts?.imageUrl}"),
+                        
+                        // CachedNetworkImage(imageUrl: 
+                        //                 "https://dev.lenzcamera.com/webadmin/${widget.popularproducts?.imageUrl}"),
                         //
                         //
                         // Image(
