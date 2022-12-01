@@ -742,27 +742,36 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                                                                 MainAxisAlignment
                                                                     .center,
                                                             children: [
-                                                              Container(
-                                                                width: 30,
-                                                                height: 30,
-                                                                decoration:
-                                                                    BoxDecoration(
-                                                                        color: Color(
-                                                                            0xff70726f),
-                                                                        borderRadius:
-                                                                            BorderRadius.only(
-                                                                          topLeft:
-                                                                              Radius.circular(5),
-                                                                          bottomLeft:
-                                                                              Radius.circular(5),
-                                                                        )),
-                                                                child: Center(
-                                                                    child: Icon(
-                                                                  Icons.remove,
-                                                                  color: Colors
-                                                                      .white,
-                                                                  size: 12,
-                                                                )),
+                                                              InkWell(
+                                                                onTap: () {
+                                                                  print(
+                                                                      'Quantity Decreased');
+                                                                },
+                                                                child:
+                                                                    Container(
+                                                                  width: 30,
+                                                                  height: 30,
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                          color: Color(
+                                                                              0xff70726f),
+                                                                          borderRadius:
+                                                                              BorderRadius.only(
+                                                                            topLeft:
+                                                                                Radius.circular(5),
+                                                                            bottomLeft:
+                                                                                Radius.circular(5),
+                                                                          )),
+                                                                  child: Center(
+                                                                      child:
+                                                                          Icon(
+                                                                    Icons
+                                                                        .remove,
+                                                                    color: Colors
+                                                                        .white,
+                                                                    size: 12,
+                                                                  )),
+                                                                ),
                                                               ),
                                                               Container(
                                                                 width: 30,
@@ -780,26 +789,29 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                                                                           .black),
                                                                 )),
                                                               ),
-                                                              Container(
-                                                                  width: 30,
-                                                                  height: 30,
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                          color: Color(
-                                                                              0xffe83031),
-                                                                          borderRadius:
-                                                                              BorderRadius.only(
-                                                                            topRight:
-                                                                                Radius.circular(5),
-                                                                            bottomRight:
-                                                                                Radius.circular(5),
-                                                                          )),
-                                                                  child: Icon(
-                                                                    Icons.add,
-                                                                    color: Colors
-                                                                        .white,
-                                                                    size: 12,
-                                                                  )),
+                                                              InkWell(
+                                                                onTap: () {
+                                                                  print(
+                                                                      'Quantity Increased');
+                                                                },
+                                                                child: Container(
+                                                                    width: 30,
+                                                                    height: 30,
+                                                                    decoration: BoxDecoration(
+                                                                        color: Color(0xffe83031),
+                                                                        borderRadius: BorderRadius.only(
+                                                                          topRight:
+                                                                              Radius.circular(5),
+                                                                          bottomRight:
+                                                                              Radius.circular(5),
+                                                                        )),
+                                                                    child: Icon(
+                                                                      Icons.add,
+                                                                      color: Colors
+                                                                          .white,
+                                                                      size: 12,
+                                                                    )),
+                                                              ),
                                                             ],
                                                           )
                                                         : ElevatedButton(
@@ -837,6 +849,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                                                             )),
                                                           ),
                                               ),
+                                            
                                             ],
                                           ),
                                         ),

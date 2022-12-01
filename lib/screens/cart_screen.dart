@@ -7,6 +7,7 @@ import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/cart.dart';
 import 'package:lenzcamera/model/product.dart';
 import 'package:lenzcamera/screens/checkout_screen.dart';
+import 'package:lenzcamera/screens/home_screen.dart';
 import 'package:lenzcamera/screens/order_screen.dart';
 
 class CartScreen extends StatefulWidget {
@@ -25,7 +26,6 @@ class _CartScreenState extends State<CartScreen> {
   }
 
   void getCart() {
-  
     NetworkManager.shared.getCart(<String, dynamic>{
       "cusId": 386,
       "guestId": "",
@@ -54,7 +54,8 @@ class _CartScreenState extends State<CartScreen> {
             color: Colors.white,
           ),
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => HomeScreen()));
           },
         ),
         backgroundColor: Colors.black,
@@ -155,10 +156,10 @@ class _CartScreenState extends State<CartScreen> {
                                           IconButton(
                                             onPressed: () {
                                               setState(() {
-                                                DataManager.shared.removeFromCart(
-                                                  cartItemsList[index]);
+                                                DataManager.shared
+                                                    .removeFromCart(
+                                                        cartItemsList[index]);
                                               });
-                                              
                                             },
                                             icon: Icon(Icons.delete_outline,
                                                 color: Colors.red),
@@ -233,6 +234,7 @@ class _CartScreenState extends State<CartScreen> {
                                     ],
                                   ),
                                 ),
+                                
                                 SizedBox(height: 10),
                               ],
                             );

@@ -17,6 +17,7 @@ class DataManager {
   //     addToCart(product);
   //   } else {}
   // }
+
   double getItemQuantity(Product product) {
     for (Product element in cartItemsList) {
       if (element.productId == product.productId) {
