@@ -79,7 +79,7 @@ abstract class NetworkConnection {
   );
 
   @FormUrlEncoded()
-  @GET("/Support")
+  @POST("/Support")
   Future<BaseResponse> supportMessageSend(
     @Body() Map<String, dynamic> map,
   );
