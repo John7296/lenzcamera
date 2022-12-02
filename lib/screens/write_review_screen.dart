@@ -1,14 +1,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:lenzcamera/model/product.dart';
 import 'package:lenzcamera/screens/review_screen.dart';
 
 class WriteReviewScreen extends StatefulWidget{
+
+  // Product? products;
+
+  // WriteReviewScreen(this.products);
   @override
   State<WriteReviewScreen> createState() => _WriteReviewScreenState();
 }
 
 class _WriteReviewScreenState extends State<WriteReviewScreen> {
+
+    double selectedRating = 5;
+     final _reviewController = TextEditingController();
+     final _reviewtitleController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
    return Scaffold(
@@ -45,6 +55,7 @@ class _WriteReviewScreenState extends State<WriteReviewScreen> {
                  Padding(
                    padding: const EdgeInsets.only(left:24),
                    child: Text(
+                   // widget.products?.prName??'',
                      "GoPro Volta Battery Grip for HERO",
                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                      maxLines: 2,
@@ -70,16 +81,32 @@ class _WriteReviewScreenState extends State<WriteReviewScreen> {
                padding: const EdgeInsets.only(left: 24, top: 15),
                child: Row(
                         children: [
-                          RatingBarIndicator(
-                            rating: 5,
-                            itemBuilder: (context, index) => Icon(
-                              Icons.star,
-                              color: Colors.grey,
-                            ),
-                            itemCount: 5,
-                            itemSize: 30.0,
-                            direction: Axis.horizontal,
-                          ),
+                           RatingBar.builder(
+                    itemSize: 35,
+                    initialRating: selectedRating,
+                   // minRating: 1,
+                    direction: Axis.horizontal,
+                    itemCount: 5,
+                    unratedColor: Color(0xffbec3c7),
+                    itemPadding: const EdgeInsets.symmetric(horizontal: 0.0),
+                    itemBuilder: (context, _) => const Icon(
+                      Icons.star,
+                      color: Color(0xfff3f30d),
+                    ),
+                    onRatingUpdate: (rating) {
+                      selectedRating = rating;
+                    },
+                  ),
+                          // RatingBarIndicator(
+                          //   rating: 5,
+                          //   itemBuilder: (context, index) => Icon(
+                          //     Icons.star,
+                          //     color: Colors.grey,
+                          //   ),
+                          //   itemCount: 5,
+                          //   itemSize: 30.0,
+                          //   direction: Axis.horizontal,
+                          // ),
                           
                         ],
                       ),
@@ -101,6 +128,7 @@ class _WriteReviewScreenState extends State<WriteReviewScreen> {
                           
                         ),
                       ),
+                      controller: _reviewtitleController,
                       ),
                 ),
               ),
@@ -120,6 +148,7 @@ class _WriteReviewScreenState extends State<WriteReviewScreen> {
                         // 
                           
                         ),
+                        controller: _reviewController,
                       ),
                 ),
                 ),

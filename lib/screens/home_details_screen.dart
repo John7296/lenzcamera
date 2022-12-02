@@ -11,8 +11,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/manager/data_manager.dart';
+import 'package:lenzcamera/model/add_address.dart';
 import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/product.dart';
+import 'package:lenzcamera/model/search_products_response.dart';
 import 'package:lenzcamera/model/top_categories.dart';
 import 'package:lenzcamera/screens/address_screen.dart';
 import 'package:lenzcamera/screens/cart_screen.dart';
@@ -45,9 +47,17 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
   List<Product> relatedProductsList = [];
   bool isLoading = true;
 
+
+
   Product? featuredProducts;
 
   @override
+
+
+
+
+
+
   void initState() {
     super.initState();
     _getTopCategories();
@@ -371,6 +381,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                         Spacer(),
                         TextButton(
                             onPressed: () {
+                              
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(

@@ -1,29 +1,71 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lenzcamera/connection/network_manager.dart';
+import 'package:lenzcamera/model/add_address.dart';
+import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/product.dart';
+import 'package:lenzcamera/model/product_detail.dart';
 import 'package:lenzcamera/model/related_products.dart';
 import 'package:lenzcamera/screens/cart_screen.dart';
 import 'package:lenzcamera/screens/wishlist_screen.dart';
 import 'package:lenzcamera/screens/write_review_screen.dart';
 
-  class ProductDetailsScreen extends StatefulWidget {
-   Product? popularproducts;
+class ProductDetailsScreen extends StatefulWidget {
+  Product? popularproducts;
   //  Product? relatedproducts;
 
-     ProductDetailsScreen(@required this.popularproducts, 
+  ProductDetailsScreen(
+    @required this.popularproducts,
     //  this.relatedproducts
-    );
+  );
 
   @override
   State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
 }
 
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
+  
+  List<Product> relatedproducts = [];
 
-  Product? products;
+  bool isLoading = true;
 
-   
+
+    @override
+  void initState() {
+    super.initState();
+   getSingleProductDetails();
+  }
+  void getSingleProductDetails() {
+    setState(() {
+      isLoading = true;
+    });
+
+    // Map<String, dynamic> map = {
+    //   "custId": 386,
+    //   'guestId': 0,
+    //   'urlKey': 'canon-lpe6nh-battery-og',
+    //   ' pincode': 8,
+    // };
+
+    NetworkManager.shared
+        .getSingleProductDetails(<String, dynamic>{
+          "custId": 386,
+        'guestId': 0,
+        'urlKey': 'canon-lpe6nh-battery-og',
+       ' pincode': 8,
+  })
+        .then((BaseResponse<ProductDetail> response) {
+      setState(() {
+        relatedproducts.clear();
+        relatedproducts.addAll(response.data!.products!);
+      });
+    }).catchError((e) {
+      print(e.toString());
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -46,6 +88,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           actions: [
             IconButton(
                 onPressed: () {
+               
                   Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -72,21 +115,45 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   padding: const EdgeInsets.only(bottom: 65),
                   child: Column(
                     children: [
-                      Center(
-                          child: Container(
-                        width: 200,
-                        height: 160,
-                        child: FadeInImage.assetNetwork(placeholder: "assets/images/lens.png", 
-                        image: "https://dev.lenzcamera.com/webadmin/${widget.popularproducts?.imageUrl}"),
-                        
-                        // CachedNetworkImage(imageUrl: 
-                        //                 "https://dev.lenzcamera.com/webadmin/${widget.popularproducts?.imageUrl}"),
-                        //
-                        //
-                        // Image(
-                        //   image: AssetImage("assets/images/lens.png"),
-                        // ),
-                      )),
+                      CarouselSlider.builder(
+                        options: CarouselOptions(
+                          height: 150.0,
+                          autoPlay: false,
+                        ),
+                        itemCount: 2,
+                        itemBuilder: (context, itemIndex, realIndex) {
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: CachedNetworkImage(
+                                imageUrl:
+                                    "https://dev.lenzcamera.com/webadmin/${widget.popularproducts?.imageUrl}"),
+                            // FadeInImage.assetNetwork(
+                            //   placeholder: 'assets/images/placeholder.jpg',
+                            //   image: "https://dev.lenzcamera.com/webadmin/${widget.popularproducts?.imageUrl??''}",
+                            //   fit: BoxFit.cover),
+                            //     Image(
+                            //   image: AssetImage("assets/images/camerabanner.png"),
+                            //   fit: BoxFit.fill,
+                            //   width: MediaQuery.of(context).size.width,
+                            // ),
+                          );
+                        },
+                      ),
+                      // Center(
+                      //     child: Container(
+                      //   width: 200,
+                      //   height: 160,
+                      //   child: FadeInImage.assetNetwork(placeholder: "assets/images/lens.png",
+                      //   image: "https://dev.lenzcamera.com/webadmin/${widget.popularproducts?.imageUrl}"),
+
+                      //   // CachedNetworkImage(imageUrl:
+                      //   //                 "https://dev.lenzcamera.com/webadmin/${widget.popularproducts?.imageUrl}"),
+                      //   //
+                      //   //
+                      //   // Image(
+                      //   //   image: AssetImage("assets/images/lens.png"),
+                      //   // ),
+                      // )),
                       Divider(
                         thickness: 5,
                         color: Color(0xffe3e3e3),
@@ -98,7 +165,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           children: [
                             Expanded(
                                 child: Text(
-                                  widget.popularproducts!.prName.toString(),
+                              widget.popularproducts!.prName.toString(),
                               // "CANON EF 16-35MM F/2.8L III USM  ",
                               style: TextStyle(
                                   color: Color(0xff6e706d),
@@ -109,12 +176,12 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             // SizedBox(width:50),
                             IconButton(
                                 onPressed: () {
-
+                                
                                   Navigator.push(
-                     context,
-                     MaterialPageRoute(
-                     builder: (context) =>
-                    WishlistScreen()));
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              WishlistScreen()));
                                 },
                                 icon: Icon(
                                   Icons.favorite,
@@ -135,19 +202,20 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             Align(
                                 alignment: Alignment.topLeft,
                                 child: Text(
-                                  widget.popularproducts?.shortDescription??'',
+                                  widget.popularproducts?.shortDescription ??
+                                      '',
                                   // "Canon EF 16-35mm f/2.8L III USM Lens  ",
                                   style: TextStyle(
                                       color: Color(0xff6e706d),
                                       fontSize: 12,
                                       fontWeight: FontWeight.w500),
-                                  maxLines: 1,
+                                  maxLines: 8,
                                 )),
                             SizedBox(height: 7),
                             Align(
                                 alignment: Alignment.topLeft,
                                 child: Text(
-                                  widget.popularproducts?.catName??'',
+                                  widget.popularproducts?.catName ?? '',
                                   // "DSLR Lenses",
                                   style: TextStyle(
                                       color: Color(0xff5aa567),
@@ -157,7 +225,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             Align(
                                 alignment: Alignment.centerRight,
                                 child: IconButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                   print("hhhhhhhhhhhhhhh");
+                                    // print(widget.popularproducts.);
+                                  },
                                   icon: Icon(
                                     Icons.share,
                                     color: Color(0xff70726f),
@@ -165,9 +236,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                 )),
                             Align(
                                 alignment: Alignment.topLeft,
-                                child: Text("QAR ${widget.popularproducts?.unitPrice}",
-                                  
-                                  // "QAR 6899.00",
+                                child: Text(
+                                    "QAR ${widget.popularproducts?.unitPrice}",
+
+                                    // "QAR 6899.00",
                                     style: TextStyle(
                                         color: Color(0xff6e706d),
                                         fontSize: 17,
@@ -183,7 +255,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       Padding(
                         padding: const EdgeInsets.only(bottom: 5, right: 24),
                         child: Row(
-                        
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Container(
@@ -231,11 +302,27 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                         fontWeight: FontWeight.w600)),
                               ],
                             ),
+                            // SizedBox(height: 10),
+
+                            // Padding(
+                            //   padding: const EdgeInsets.only(left: 12),
+                            //   child: Row(
+                            //     children: [
+                            //       Text("Key Features",
+                            //           style: TextStyle(
+                            //               color: Color(0xff6e706d),
+                            //               fontSize: 13,
+                            //               fontWeight: FontWeight.w300)),
+                            //     ],
+                            //   ),
+                            // ),
+
                             SizedBox(height: 10),
                             Padding(
                               padding: const EdgeInsets.only(left: 12),
-                              child: Text(widget.popularproducts?.description??"",
-                                // "Key Features",
+                              child: Text(
+                                  widget.popularproducts?.description ?? "",
+                                  // "Key Features",
                                   style: TextStyle(
                                       color: Color(0xff6e706d),
                                       fontSize: 13,
@@ -324,153 +411,152 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           ],
                         ),
                       ),
+
                       Padding(
                         padding:
                             const EdgeInsets.only(left: 24, right: 24, top: 5),
                         child: Expanded(
-                          child: SingleChildScrollView(
-                            child: Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    Expanded(
-                                      child: Container(
-                                        height: 280,
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: Container(
+                                      height: 280,
 
-                                        //color: Colors.green,
-                                        child: ListView.builder(
-                                            scrollDirection: Axis.horizontal,
-                                            itemCount: 6,
-                                            itemBuilder: (BuildContext context,
-                                                int index) {
-                                              return Card(
-                                                child: Container(
-                                                  width: 200,
-                                                  child: Column(
-                                                    children: [
-                                                      Stack(children: [
-                                                        Center(
-                                                          child: Container(
-                                                            width: 150,
-                                                            child: Image(
-                                                                image: AssetImage(
-                                                                    "assets/images/lens.png")),
-                                                          ),
-                                                        ),
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                      .only(
-                                                                  left: 140),
-                                                          child: IconButton(
-                                                              onPressed: () {
-                                                                Navigator.push(
-                                                                    context,
-                                                                    MaterialPageRoute(
-                                                                        builder:
-                                                                            (context) =>
-                                                                                WishlistScreen()));
-                                                              },
-                                                              icon: Icon(
-                                                                Icons.favorite,
-                                                                color: Color(
-                                                                    0xff70726f),
-                                                              )),
-                                                        ),
-                                                      ]),
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .only(
-                                                                left: 10,
-                                                                right: 10),
-                                                        child: Align(
-                                                            alignment: Alignment
-                                                                .center,
-                                                            child: Text(
-                                                              
-                                                              "CANON EF 16-35 MM F/4L IS USM ",
-                                                              style: TextStyle(
-                                                                  fontSize: 15,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w400),
-                                                              maxLines: 2,
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                            )),
-                                                      ),
-                                                      Align(
-                                                          alignment:
-                                                              Alignment.center,
-                                                          child: Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                        .only(
-                                                                    top: 7),
-                                                            child: Text(
-                                                            //  widget.popularproducts.
-                                                                "QAR 39999.00",
-                                                                style: TextStyle(
-                                                                    fontSize:
-                                                                        15,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w600)),
-                                                          )),
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .only(
-                                                                left: 10,
-                                                                right: 10,
-                                                                top: 5,
-                                                                bottom: 5),
+                                      //color: Colors.green,
+                                      child: ListView.builder(
+                                          scrollDirection: Axis.horizontal,
+                                          itemCount: relatedproducts.length,
+                                          itemBuilder: (BuildContext context,
+                                              int index) {
+                                            return Card(
+                                              child: Container(
+                                                width: 200,
+                                                child: Column(
+                                                  children: [
+                                                    Stack(children: [
+                                                      Center(
                                                         child: Container(
-                                                          height: 35,
-                                                          width: 200,
-                                                          child:
-                                                          
-                                                           ElevatedButton(
-                                                            style:
-                                                                ElevatedButton
-                                                                    .styleFrom(
-                                                              backgroundColor:
-                                                                  Colors
-                                                                      .yellowAccent,
+                                                            width: 150,
+                                                            child: 
+                                                            CachedNetworkImage(
+                                                                imageUrl:
+                                                                    "https://dev.lenzcamera.com/webadmin/${relatedproducts[index].imageUrl}")
+
+                                                            // Image(
+                                                            //     image: AssetImage(
+                                                            //         "assets/images/lens.png")),
                                                             ),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .only(
+                                                                left: 140),
+                                                        child: IconButton(
                                                             onPressed: () {
-                                                             
                                                               Navigator.push(
                                                                   context,
                                                                   MaterialPageRoute(
                                                                       builder:
                                                                           (context) =>
-                                                                              CartScreen()));
+                                                                              WishlistScreen()));
                                                             },
-                                                            child: Center(
-                                                                child: Text(
-                                                              "ADD",
-                                                              style: TextStyle(
-                                                                  fontSize: 18,
-                                                                  color: Colors
-                                                                      .black),
+                                                            icon: Icon(
+                                                              Icons.favorite,
+                                                              color: Color(
+                                                                  0xff70726f),
                                                             )),
+                                                      ),
+                                                    ]),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              left: 10,
+                                                              right: 10),
+                                                      child: Align(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          child: Text(
+                                                             relatedproducts[index].prName??'',
+
+                                                           // "CANON EF 16-35 MM F/4L IS USM ",
+                                                            style: TextStyle(
+                                                                fontSize: 15,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w400),
+                                                            maxLines: 2,
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                          )),
+                                                    ),
+                                                    Align(
+                                                        alignment:
+                                                            Alignment.center,
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .only(top: 7),
+                                                          child: 
+                                                          Text(
+                                                             "QAR ${ relatedproducts[
+                                                                      index]
+                                                                  .unitPrice}",
+                                                              //  "QAR 39999.00",
+                                                              style: TextStyle(
+                                                                  fontSize: 15,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600)),
+                                                        )),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              left: 10,
+                                                              right: 10,
+                                                              top: 5,
+                                                              bottom: 5),
+                                                      child: Container(
+                                                        height: 35,
+                                                        width: 200,
+                                                        child: ElevatedButton(
+                                                          style: ElevatedButton
+                                                              .styleFrom(
+                                                            backgroundColor:
+                                                                Colors
+                                                                    .yellowAccent,
                                                           ),
+                                                          onPressed: () {
+                                                            Navigator.push(
+                                                                context,
+                                                                MaterialPageRoute(
+                                                                    builder:
+                                                                        (context) =>
+                                                                            CartScreen()));
+                                                          },
+                                                          child: Center(
+                                                              child: Text(
+                                                            "ADD",
+                                                            style: TextStyle(
+                                                                fontSize: 18,
+                                                                color: Colors
+                                                                    .black),
+                                                          )),
                                                         ),
                                                       ),
-                                                    ],
-                                                  ),
+                                                    ),
+                                                  ],
                                                 ),
-                                              );
-                                            }),
-                                      ),
+                                              ),
+                                            );
+                                          }),
                                     ),
-                                  ],
-                                ),
-                              ],
-                            ),
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
                         ),
                       ),
@@ -486,14 +572,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     const EdgeInsets.only(bottom: 10.0, left: 24, right: 24),
                 child: Container(
                   height: 40,
-                  child: 
-                  
-                  ElevatedButton(
+                  child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xffec3436),
                     ),
                     onPressed: () {
-                      
                       // Navigator.push(
                       //     context,
                       //     MaterialPageRoute(
@@ -502,30 +585,32 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        if(widget.popularproducts?.isAddedtoCart()==false)
-                       Text("Add to Cart",
+                        if (widget.popularproducts?.isAddedtoCart() == false)
+                          Text(
+                            "Add to Cart",
                             // widget.popularproducts?.isAddedtoCart() ?? false? "Add to Cart":"View Cart",
                             // ? ((int.parse(widget.popularproducts!.qty.toString()) > 0)
                             //     ? 'Add to Cart'
                             //     : 'Go to Cart'),
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.white,
-                        ),
-                      ),
-                        if(widget.popularproducts?.isAddedtoCart()==true)
-                         Text("Go to Cart",
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.white,
+                            ),
+                          ),
+                        if (widget.popularproducts?.isAddedtoCart() == true)
+                          Text(
+                            "Go to Cart",
                             // widget.popularproducts?.isAddedtoCart() ?? false? "Add to Cart":"View Cart",
                             // ? ((int.parse(widget.popularproducts!.qty.toString()) > 0)
                             //     ? 'Add to Cart'
                             //     : 'Go to Cart'),
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.white,
-                        ),
-                      ),
-                      
-                                          // if (widget.popularproducts!.isAddedtoCart() ==false)
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.white,
+                            ),
+                          ),
+
+                        // if (widget.popularproducts!.isAddedtoCart() ==false)
                         // Padding(
                         //   padding: const EdgeInsets.only(left: 10.0),
                         //   child: SizedBox(
@@ -537,11 +622,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         //     width: 12,
                         //   ),
                         // ),
-          
-                    //     Text(
-                    //   "Add To Cart",
-                    //   style: TextStyle(fontSize: 20, color: Colors.white),
-                    // ),
+
+                        //     Text(
+                        //   "Add To Cart",
+                        //   style: TextStyle(fontSize: 20, color: Colors.white),
+                        // ),
                       ],
                     ),
                   ),

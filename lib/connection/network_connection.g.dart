@@ -290,6 +290,43 @@ class _NetworkConnection implements NetworkConnection {
   }
 
   @override
+  Future<BaseResponse<ProductDetail>> getSingleProductDetails(
+    urlKey,
+    custId,
+    guestId,
+    pincode,
+  ) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'urlKey': urlKey,
+      r'custId': custId,
+      r'guestId': guestId,
+      r'pincode': pincode,
+    };
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<BaseResponse<ProductDetail>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+      contentType: 'application/x-www-form-urlencoded',
+    )
+            .compose(
+              _dio.options,
+              '/ProductDetails',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = BaseResponse<ProductDetail>.fromJson(
+      _result.data!,
+      (json) => ProductDetail.fromJson(json as Map<String, dynamic>),
+    );
+    return value;
+  }
+
+  @override
   Future<BaseResponse<LoginCustomer>> customerDetails(custId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'custId': custId};
