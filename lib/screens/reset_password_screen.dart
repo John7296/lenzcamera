@@ -5,6 +5,9 @@ import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/screens/login_screen.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
+
+  ResetPasswordScreen(this.OtpUrlKey);
+  String OtpUrlKey;
   @override
   State<ResetPasswordScreen> createState() => _ResetPasswordScreenState();
 }
@@ -16,12 +19,16 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   
   void resetPassword(){
    
-   NetworkManager.shared.verifyForgotPasswordOTP(<String, dynamic>{
+   NetworkManager.shared.resetPassword(<String, dynamic>{
+        "OtpUrlKey" : widget.OtpUrlKey,
+        "password" : _passwordController.text
        }).then((BaseResponse response) {
 
-         
-      Navigator.push(
-                      context,
+         print("---------------------");
+
+        print( widget.OtpUrlKey);
+     Navigator.push(
+                    context,
                       MaterialPageRoute(
                       builder: (context) =>
                       LoginScreen()));
@@ -148,6 +155,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   backgroundColor: Color(0xffec3436),
                 ),
                 onPressed: () {
+
+                  print("hhhhhhhhhhhhhhhh");
+                  resetPassword();
                   // Navigator.push(context,
                   //     MaterialPageRoute(builder: (context) => LoginScreen()));
                 },

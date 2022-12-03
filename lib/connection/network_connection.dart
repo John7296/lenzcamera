@@ -6,12 +6,14 @@ import 'package:lenzcamera/model/company_policy.dart';
 import 'package:lenzcamera/model/customer.dart';
 import 'package:lenzcamera/model/order_list.dart';
 import 'package:lenzcamera/model/product.dart';
+import 'package:lenzcamera/model/product_detail.dart';
 import 'package:lenzcamera/model/profile.dart';
 import 'package:lenzcamera/model/filter_response.dart';
 import 'package:lenzcamera/model/home_details.dart';
 import 'package:lenzcamera/model/login_customer.dart';
 import 'package:lenzcamera/model/new_register.dart';
 import 'package:lenzcamera/model/profile.dart';
+import 'package:lenzcamera/model/related_products.dart';
 
 import 'package:lenzcamera/model/search_products_response.dart';
 import 'package:lenzcamera/model/state_list.dart';
@@ -62,8 +64,13 @@ abstract class NetworkConnection {
   @FormUrlEncoded()
   @GET("Customer/ResetPassword")
   Future<BaseResponse> resetPassword(
-    @Body() Map<String, dynamic> map,
+     @Query("OtpUrlKey") String otp,
+    @Query("password") String password,
   );
+
+    @FormUrlEncoded()
+  @POST("customer/ChangePassword")
+  Future<BaseResponse<LoginCustomer>> changePassword(@Body() Map<String, dynamic> map);
 
   @FormUrlEncoded()
   @POST("Product/Search")
@@ -78,14 +85,25 @@ abstract class NetworkConnection {
   );
 
   @FormUrlEncoded()
-  @GET("/Support")
+  @POST("/Support")
   Future<BaseResponse> supportMessageSend(
     @Body() Map<String, dynamic> map,
   );
 
   @FormUrlEncoded()
+  @GET("/ProductDetails")
+  Future<BaseResponse<ProductDetail>>getSingleProductDetails(
+     @Query("urlKey") String urlKey,
+      @Query("custId") int custId,
+       @Query("guestId") int guestId,
+        @Query("pincode") int pincode
+  );
+
+  @FormUrlEncoded()
   @GET("/CustomerDetails")
-  Future<BaseResponse<Customer>> customerDetails();
+  Future<BaseResponse<LoginCustomer>> customerDetails(
+       @Query("custId") int custId,
+  );
 
   @FormUrlEncoded()
   @GET('CompanyPolicy')

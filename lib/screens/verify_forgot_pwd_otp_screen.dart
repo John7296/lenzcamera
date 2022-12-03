@@ -32,7 +32,7 @@ class _VerifyForgotPwddOtpScreenState extends State<VerifyForgotPwddOtpScreen> {
       print("-----------------");
       print(_otpController.text);
       Navigator.push(context,
-          MaterialPageRoute(builder: (context) => ResetPasswordScreen()));
+          MaterialPageRoute(builder: (context) => ResetPasswordScreen(response.data!)));
     }).catchError((Object obj) {});
   }
   @override

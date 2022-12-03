@@ -145,12 +145,17 @@ class _NetworkConnection implements NetworkConnection {
   }
 
   @override
-  Future<BaseResponse<dynamic>> resetPassword(map) async {
+  Future<BaseResponse<dynamic>> resetPassword(
+    otp,
+    password,
+  ) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'OtpUrlKey': otp,
+      r'password': password,
+    };
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(map);
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseResponse<dynamic>>(Options(
       method: 'GET',
@@ -168,6 +173,34 @@ class _NetworkConnection implements NetworkConnection {
     final value = BaseResponse<dynamic>.fromJson(
       _result.data!,
       (json) => json as dynamic,
+    );
+    return value;
+  }
+
+  @override
+  Future<BaseResponse<LoginCustomer>> changePassword(map) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(map);
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<BaseResponse<LoginCustomer>>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+      contentType: 'application/x-www-form-urlencoded',
+    )
+            .compose(
+              _dio.options,
+              'customer/ChangePassword',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = BaseResponse<LoginCustomer>.fromJson(
+      _result.data!,
+      (json) => LoginCustomer.fromJson(json as Map<String, dynamic>),
     );
     return value;
   }
@@ -237,7 +270,7 @@ class _NetworkConnection implements NetworkConnection {
     _data.addAll(map);
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseResponse<dynamic>>(Options(
-      method: 'GET',
+      method: 'POST',
       headers: _headers,
       extra: _extra,
       contentType: 'application/x-www-form-urlencoded',
@@ -257,13 +290,50 @@ class _NetworkConnection implements NetworkConnection {
   }
 
   @override
-  Future<BaseResponse<Customer>> customerDetails() async {
+  Future<BaseResponse<ProductDetail>> getSingleProductDetails(
+    urlKey,
+    custId,
+    guestId,
+    pincode,
+  ) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'urlKey': urlKey,
+      r'custId': custId,
+      r'guestId': guestId,
+      r'pincode': pincode,
+    };
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<BaseResponse<Customer>>(Options(
+        _setStreamType<BaseResponse<ProductDetail>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+      contentType: 'application/x-www-form-urlencoded',
+    )
+            .compose(
+              _dio.options,
+              '/ProductDetails',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = BaseResponse<ProductDetail>.fromJson(
+      _result.data!,
+      (json) => ProductDetail.fromJson(json as Map<String, dynamic>),
+    );
+    return value;
+  }
+
+  @override
+  Future<BaseResponse<LoginCustomer>> customerDetails(custId) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'custId': custId};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<BaseResponse<LoginCustomer>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -276,9 +346,9 @@ class _NetworkConnection implements NetworkConnection {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = BaseResponse<Customer>.fromJson(
+    final value = BaseResponse<LoginCustomer>.fromJson(
       _result.data!,
-      (json) => Customer.fromJson(json as Map<String, dynamic>),
+      (json) => LoginCustomer.fromJson(json as Map<String, dynamic>),
     );
     return value;
   }

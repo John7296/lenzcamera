@@ -9,6 +9,7 @@ class SearchProductsResponse {
   
   @JsonKey(name: 'List')
     List<Product>? products;
+    
    
 
   SearchProductsResponse();
