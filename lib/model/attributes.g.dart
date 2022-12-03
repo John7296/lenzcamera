@@ -15,6 +15,8 @@ Attributes _$AttributesFromJson(Map<String, dynamic> json) => Attributes(
       ProductCount: json['ProductCount'] as int?,
       imageUrl: json['imageUrl'] as String?,
       imageIcon: json['imageIcon'] as String?,
+      ShowInHome: json['ShowInHome'] as String?,
+      brandDetailId: json['brandDetailId'] as int?,
     );
 
 Map<String, dynamic> _$AttributesToJson(Attributes instance) =>
@@ -27,4 +29,6 @@ Map<String, dynamic> _$AttributesToJson(Attributes instance) =>
       'ProductCount': instance.ProductCount,
       'imageUrl': instance.imageUrl,
       'imageIcon': instance.imageIcon,
+      'ShowInHome': instance.ShowInHome,
+      'brandDetailId': instance.brandDetailId,
     };

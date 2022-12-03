@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
-import 'package:lenzcamera/model/filter_response.dart';
 import 'package:lenzcamera/model/product.dart';
+import 'package:lenzcamera/model/search_filter_response.dart';
 
 List<String> _categories = <String>['Canon', 'Nikon', 'Sigma', 'Tamron'];
 
@@ -24,7 +24,8 @@ class _FilterScreenState extends State<FilterScreen> {
    bool isLoading = false;
   int currentPage = 1;
 
-   List<Product> _products = [];
+  List<SearchFilterResponse>_categoryList =[];
+    List<SearchFilterResponse>_attributeList =[];
 
    @override
   void initState() {
@@ -52,9 +53,11 @@ class _FilterScreenState extends State<FilterScreen> {
          "sortorder": {"direction": "default", "field": "prName"},
           "status": false, 
           "vendorUrlKey": 8
-    }).then((BaseResponse<FilterResponse>response) {
+    }).then((BaseResponse<SearchFilterResponse>response) {
        setState(() {
-            isLoading= false;    
+            isLoading= false;  
+             _categoryList.clear();
+       // _categoryList.addAll(response.data.categoryList);  
       });
     }).catchError((e) {
     print(e.toString());

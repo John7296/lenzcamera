@@ -30,6 +30,13 @@ class Attributes{
    @JsonKey(name: "imageIcon")
   final String? imageIcon;
 
+   @JsonKey(name: "ShowInHome")
+  final String? ShowInHome;
+
+ @JsonKey(name: "brandDetailId")
+  final int? brandDetailId;
+
+
 
   Attributes({
 
@@ -40,7 +47,9 @@ class Attributes{
     this.attrValueId,
     this.ProductCount,
     this.imageUrl,
-    this.imageIcon
+    this.imageIcon,
+    this.ShowInHome,
+    this.brandDetailId
   });
 
    factory Attributes.fromJson(Map<String, dynamic> json) =>
