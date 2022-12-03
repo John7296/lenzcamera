@@ -27,26 +27,10 @@ class _OtpScreenState extends State<OtpScreen> {
       "OTP": _otpController.text,
       "OtpUrlKey":  widget.otpUrlKey
     }).then((BaseResponse response) {
-      // print("-----------------");
-      // print(_otpController.text);
       Navigator.push(context,
           MaterialPageRoute(builder: (context) => HomeScreen()));
     }).catchError((Object obj) {});
   }
-
-
-
-  // void verifyForgotPasswordOtp() {
-  //   NetworkManager.shared.verifyForgotPasswordOtp(<String, dynamic>{
-  //     "OTP": _otpController.text,
-  //     "OtpUrlKey":"",
-  //   }).then((BaseResponse response) {
-  //     print("-----------------");
-  //     print(_otpController.text);
-  //     Navigator.push(context,
-  //         MaterialPageRoute(builder: (context) => HomeScreen()));
-  //   }).catchError((Object obj) {});
-  // }
 
   @override
   Widget build(BuildContext context) {

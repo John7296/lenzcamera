@@ -101,7 +101,8 @@ class _SearchScreenState extends State<SearchScreen> {
           SizedBox(width: 20),
         ],
       ),
-      body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      body: 
+      Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Padding(
           padding: const EdgeInsets.only(left: 10, right: 10, top: 20),
           child: Container(
@@ -152,60 +153,6 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
           ),
         ),
-
-        // Row(
-        //   children: [
-        //     Expanded(
-        //       child: Container(
-        //         height: 50,
-        //         decoration: BoxDecoration(
-        //           borderRadius: BorderRadius.circular(12),
-        //           color: Color(0xffe3e3e3),
-        //         ),
-        //         child: Padding(
-        //           padding: const EdgeInsets.only(left: 30),
-        //           child: Row(
-        //             children: [
-        //               //  Container(
-        //               // margin: EdgeInsets.only(left: 40),
-        //               Icon(Icons.search_rounded,
-        //                   size: 30, color: Colors.grey.shade600),
-        //               //  ),
-        //               SizedBox(width: 24),
-        //               SizedBox(
-        //                 child: Expanded(
-        //                   child: TextField(
-
-        //                     style: TextStyle(
-        //                         fontWeight: FontWeight.w700,
-        //                         fontSize: 16,
-        //                         color: Colors.grey.shade600),
-        //                   ),
-        //                 ),
-        //               ),
-
-        //               SizedBox(width: 90),
-
-        //               Container(
-        //                   height: 20,
-        //                   child: InkWell(
-        //                       onTap: () {
-        //                         Navigator.pushReplacement(
-        //                             context,
-        //                             MaterialPageRoute(
-        //                                 builder: (context) =>
-        //                                     FilterScreen()));
-        //                       },
-        //                       child: Image.asset(
-        //                           "assets/images/filter_icon.png"))),
-        //             ],
-        //           ),
-        //         ),
-        //       ),
-        //     ),
-        //   ],
-        // ),
-        // if(_searchString!.isNotEmpty)
         SizedBox(
           height: 20,
         ),
@@ -421,73 +368,6 @@ class _SearchScreenState extends State<SearchScreen> {
                                                               )),
                                                             ),
                                                 ),
-                                              
-                                            // Row(
-                                            //   children: [
-                                            //     Row(
-                                            //       mainAxisAlignment:
-                                            //           MainAxisAlignment.center,
-                                            //       children: [
-                                            //         Container(
-                                            //           width: 30,
-                                            //           height: 30,
-                                            //           decoration: BoxDecoration(
-                                            //               color:
-                                            //                   Color(0xff70726f),
-                                            //               borderRadius:
-                                            //                   BorderRadius.only(
-                                            //                 topLeft:
-                                            //                     Radius.circular(
-                                            //                         5),
-                                            //                 bottomLeft:
-                                            //                     Radius.circular(
-                                            //                         5),
-                                            //               )),
-                                            //           child: Center(
-                                            //               child: Icon(
-                                            //             Icons.remove,
-                                            //             color: Colors.white,
-                                            //             size: 12,
-                                            //           )),
-                                            //         ),
-                                            //         Container(
-                                            //           width: 30,
-                                            //           height: 30,
-                                            //           decoration: BoxDecoration(
-                                            //             color: Color(0xffe3e3e3),
-                                            //           ),
-                                            //           child: Center(
-                                            //               child: Text(
-                                            //             "1",
-                                            //             style: TextStyle(
-                                            //                 color: Colors.black),
-                                            //           )),
-                                            //         ),
-                                            //         Container(
-                                            //             width: 30,
-                                            //             height: 30,
-                                            //             decoration: BoxDecoration(
-                                            //                 color:
-                                            //                     Color(0xffe83031),
-                                            //                 borderRadius:
-                                            //                     BorderRadius.only(
-                                            //                   topRight:
-                                            //                       Radius.circular(
-                                            //                           5),
-                                            //                   bottomRight:
-                                            //                       Radius.circular(
-                                            //                           5),
-                                            //                 )),
-                                            //             child: Icon(
-                                            //               Icons.add,
-                                            //               color: Colors.white,
-                                            //               size: 12,
-                                            //             )),
-                                            //       ],
-                                            //     ),
-                                            //   ],
-                                            // ),
-                                          
                                           ],
                                         )
                                       ],
@@ -498,130 +378,11 @@ class _SearchScreenState extends State<SearchScreen> {
                       SizedBox(height: 10),
                     ],
                   );
-                  
-//==========================================================================================================
-
-                  // Column(
-                  //   children: [
-                  //     Row(
-                  //       children: [
-                  //         Expanded(
-                  //           child: Container(
-                  //             height: 150,
-                  //             decoration: BoxDecoration(
-                  //                 //color: Colors.grey,
-                  //                 borderRadius: BorderRadius.circular(15)),
-                  //             child: Card(
-                  //                 child: Column(
-                  //               children: [
-                  //                 Row(
-                  //                   children: [
-
-                  //                     CachedNetworkImage(imageUrl:
-                  //                     "https://dev.lenzcamera.com/webadmin/${_products[index].imageUrl}", height: 100),
-                                      
-                  //                     // Image(
-                  //                     //   image: AssetImage(
-                  //                     //       "assets/images/lens.png"),
-                  //                     //   height: 100,
-                  //                     // ),
-                  //                     Column(
-                  //                       crossAxisAlignment:
-                  //                           CrossAxisAlignment.start,
-                  //                       children: [
-                  //                         Row(children: [
-                  //                           Stack(children: [
-                  //                             Container(
-                  //                               width: 200,
-                  //                               child: Padding(
-                  //                                 padding:
-                  //                                     const EdgeInsets.only(
-                  //                                         top: 20),
-                  //                                 child: Text(
-
-                  //                                     _products[index].prName.toString(),
-                  //                                     // "CANON EF 16-35MM F/2.8L  III USM",
-                  //                                     style: TextStyle(
-                  //                                         fontSize: 17,
-                  //                                         fontWeight:
-                  //                                             FontWeight
-                  //                                                 .w600),
-                  //                                     maxLines: 2),
-                  //                               ),
-                  //                             ),
-                  //                             Padding(
-                  //                               padding:
-                  //                                   const EdgeInsets.only(
-                  //                                       left: 220, top: 10),
-                  //                               child: IconButton(
-                  //                                   onPressed: () {},
-                  //                                   icon: Icon(
-                  //                                     Icons.favorite_outlined,
-                  //                                     color:
-                  //                                         Color(0xff70726f),
-                  //                                   )),
-                  //                             ),
-                  //                           ]),
-                  //                         ]),
-                  //                         SizedBox(
-                  //                           height: 10,
-                  //                         ),
-                  //                         Row(
-                  //                           children: [
-                  //                             Text("QAR ${_products[index].unitPrice.toString()}",
-                  //                               // "QAR 549.00",
-                  //                                 style: TextStyle(
-                  //                                     fontSize: 15,
-                  //                                     fontWeight:
-                  //                                         FontWeight.w600,
-                  //                                     color:
-                  //                                         Color(0xffdf1715)),
-                  //                                 maxLines: 2),
-                  //                           ],
-                  //                         ),
-                  //                         SizedBox(height: 10),
-                  //                         Container(
-                  //                           margin:
-                  //                               EdgeInsets.only(left: 135),
-                  //                           height: 30,
-                  //                           width: 120,
-                  //                           child: ElevatedButton(
-                  //                             style: ElevatedButton.styleFrom(
-                  //                               backgroundColor:
-                  //                                   Color(0xfffce303),
-                  //                             ),
-                  //                             onPressed: () {
-                  //                               Navigator.push(
-                  //                                   context,
-                  //                                   MaterialPageRoute(
-                  //                                       builder: (context) =>
-                  //                                           CartScreen()));
-                  //                             },
-                  //                             child: Center(
-                  //                                 child: Text(
-                  //                               "ADD",
-                  //                               style: TextStyle(
-                  //                                   fontSize: 15,
-                  //                                   color: Colors.black),
-                  //                             )),
-                  //                           ),
-                  //                         ),
-                  //                       ],
-                  //                     )
-                  //                   ],
-                  //                 ),
-                  //               ],
-                  //             )),
-                  //           ),
-                  //         ),
-                  //       ],
-                  //     )
-                  //   ],
-                  // );
                 }),
           ),
         )
       ]),
+    
     );
   }
 }

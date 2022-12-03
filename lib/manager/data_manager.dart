@@ -32,7 +32,6 @@ class DataManager {
       "cusId": 386,
       "guestId": "",
       "pincode": 8,
-      
     }).then((BaseResponse<CartResponse> response) {
       cartItemsList.clear();
       cartItemsList.addAll(response.data!.cartItems!);
@@ -67,6 +66,28 @@ class DataManager {
         .then((BaseResponse response) {})
         .catchError((e) {
           print(e.toString());
+        });
+  }
+
+  void decreaseCartQty(Product product, VoidCallback updatedCart) {
+    NetworkManager.shared
+        .subCartQty(<String, dynamic>{
+          "urlKey": product.urlKey,
+          "custId": 386,
+          "guestId": "",
+        })
+        .then((BaseResponse response) {})
+        .catchError((e) {
+          print(e.toString());
+        });
+  }
+
+  void increaseCartQty(Product product, VoidCallback updatedCart) {
+    NetworkManager.shared
+        .addCartQty()
+        .then((BaseResponse response) {})
+        .catchError((e) {
+          // print(e.toString());
         });
   }
 }

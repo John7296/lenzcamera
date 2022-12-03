@@ -1,10 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:lenzcamera/connection/network_connection.dart';
+import 'package:lenzcamera/model/address_list.dart';
 import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/cart.dart';
 import 'package:lenzcamera/model/company_policy.dart';
 import 'package:lenzcamera/model/customer.dart';
+import 'package:lenzcamera/model/order_list.dart';
 import 'package:lenzcamera/model/product.dart';
 import 'package:lenzcamera/model/product_detail.dart';
 import 'package:lenzcamera/model/profile.dart';
@@ -65,8 +67,16 @@ class NetworkManager {
     return call(networkConnection.newRegister(map));
   }
 
-  Future<BaseResponse> addAddress(Map<String, dynamic> map) {
-    return call(networkConnection.addAddress(map));
+  Future<BaseResponse<List<AddressList>>> getAddressList() {
+    return call(networkConnection.getAddressList(int.parse("386")));
+  }
+
+  Future<BaseResponse> updateAddress(Map<String, dynamic> map) {
+    return call(networkConnection.updateAddress(map));
+  }
+
+  Future<BaseResponse> deleteAddress(Map<String, dynamic> map) {
+    return call(networkConnection.deleteAddress(map));
   }
 
   Future<BaseResponse> forgotPasswordOTPSend(
@@ -167,6 +177,18 @@ class NetworkManager {
 
   Future<BaseResponse> removeFromCart(Map<String, dynamic> map) {
     return call(networkConnection.removeFromCart(map));
+  }
+
+  Future<BaseResponse> subCartQty(Map<String, dynamic> map) {
+    return call(networkConnection.subCartQty(map));
+  }
+
+  Future<BaseResponse> addCartQty() {
+    return call(networkConnection.addCartQty(int.parse("2268")));
+  }
+
+  Future<BaseResponse<List<OrderList>>> getOrderList() {
+    return call(networkConnection.getOrderList(int.parse("386")));
   }
 
   Future<T> call<T>(Future<T> call) async {

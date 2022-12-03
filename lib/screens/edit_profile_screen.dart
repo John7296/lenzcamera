@@ -22,10 +22,10 @@ class _EditProfileScreen extends State<EditProfileScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _getProfile();
+    getProfile();
   }
 
-  void _getProfile() {
+  void getProfile() {
     NetworkManager.shared.getProfile().then((BaseResponse<Profile> response) {
       userProfile = response.data;
       _userNameController.text = userProfile?.custName ?? '';
