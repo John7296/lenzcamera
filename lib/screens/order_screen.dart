@@ -1,8 +1,13 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:lenzcamera/connection/network_manager.dart';
+import 'package:lenzcamera/model/base_response.dart';
+import 'package:lenzcamera/model/order_list.dart';
 import 'package:lenzcamera/screens/cart_screen.dart';
 import 'package:lenzcamera/screens/order_details_screen.dart';
+import 'package:lenzcamera/screens/wishlist_screen.dart';
 
 class OrderScreen extends StatefulWidget {
   const OrderScreen({super.key});
@@ -12,6 +17,35 @@ class OrderScreen extends StatefulWidget {
 }
 
 class _OrderScreenState extends State<OrderScreen> {
+  List<OrderList> orderList = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    cusOrderList();
+  }
+
+  void cusOrderList() {
+    setState(() {
+      // isLoading = true;
+    });
+
+    NetworkManager.shared
+        .getOrderList()
+        .then((BaseResponse<List<OrderList>> response) {
+      // print(response.data);
+      setState(() {
+        // isLoading = false;
+        orderList.clear();
+        orderList.addAll(response.data!);
+        // print(response.data!.first.catId);
+      });
+    }).catchError((e) {
+      print(e.toString());
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,10 +55,11 @@ class _OrderScreenState extends State<OrderScreen> {
           child: Text('My Orders'),
         ),
         actions: [
-          // IconButton(
-          //   onPressed: () {},
-          //   icon: Icon(Icons.favorite_border),
-          // ),
+          IconButton(
+            onPressed: () {Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => WishlistScreen()));},
+            icon: Icon(Icons.favorite_border),
+          ),
           IconButton(
             onPressed: () {
               Navigator.push(context,
@@ -42,109 +77,174 @@ class _OrderScreenState extends State<OrderScreen> {
         ),
       ),
       backgroundColor: Colors.grey.shade100,
-      body:       Column(
-      children: [
-        InkWell(
-          onTap: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => OrderDetailScreen()));
-          },
-          child: Padding(
-            padding: const EdgeInsets.all(10),
-            child: Container(
-              height: 100,
-              width: 400,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(Radius.circular(5)),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey,
-                    offset: Offset(0.0, 1.0), //(x,y)
-                    blurRadius: 6.0,
-                  ),
-                ],
-              ),
-              child: Row(
-                children: [
-                  Column(
-                    // mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Stack(
-                          children: [
-                            
-                            Padding(
-                              padding: const EdgeInsets.only(top: 20,left: 5),
-                              child: Image(
-                          image: AssetImage("assets/images/lens.png"),
-                          height: 50,
-                          width: 50,
+      body: ListView.builder(
+        itemCount: orderList.length,
+        itemBuilder: (BuildContext context, int index) {
+          return Column(
+            children: [
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => OrderDetailScreen()));
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Container(
+                    height: 100,
+                    width: 400,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey,
+                          offset: Offset(0.0, 1.0), //(x,y)
+                          blurRadius: 6.0,
                         ),
-                            ),
-                        Container(
-                              height: 16,
-                              width: 60,
-                              decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(5)),color: Colors.red),
-                              child: Center(child: Text('Cancelled',style: TextStyle(color: Colors.white,fontSize: 8,fontWeight: FontWeight.bold),)),
-                            ),
-                          ],
-                        )
-                      ),
-                    ],
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top:15),
-                        child: Text('CANON EF 16-35 MM F/4L IS USM',style: TextStyle(fontWeight: FontWeight.bold),),
-                      ),
-                           Padding(
-                        padding: const EdgeInsets.only(top:15),
-                        child: Text('1 Item(s)',style: TextStyle(fontWeight: FontWeight.bold),),
-                      ),
-                        Row(
+                      ],
+                    ),
+                    child: Row(
+                      children: [
+                        Column(
+                          // mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
-                            padding: const EdgeInsets.only(top:15),
-                            child: Text('26-10-2022',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12,color: Colors.grey),),
-                      ),
-                       Padding(
-                         padding: const EdgeInsets.only(left: 120,top: 15),
-                         child: Text("QAR 452",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14,color: Colors.grey.shade600)),
-                       )
+                                padding: const EdgeInsets.all(8.0),
+                                child: Stack(
+                                  children: [
+                                    Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 20, left: 5),
+                                        child: Container(
+                                          height: 50,
+                                          width: 50,
+                                          child: CachedNetworkImage(
+                                              imageUrl:
+                                                  "https://dev.lenzcamera.com/webadmin/${orderList[index].ProductImgUrl}"),
+                                        )),
+                                    Container(
+                                      height: 16,
+                                      width: 60,
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(5)),
+                                          color: (orderList[index]
+                                                      .IsCanCancelOrder ==
+                                                  false)
+                                              ? Colors.red
+                                              : Colors.grey.shade800),
+                                      child: Center(
+                                        child: (orderList[index]
+                                                    .IsCanCancelOrder ==
+                                                false)
+                                            ? Text(
+                                                'Cancelled',
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 8,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              )
+                                            : Text(
+                                                'Placed',
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 8,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                      ),
+                                    ),
+                                  ],
+                                )),
+                          ],
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 5),
+                              child: Container(
+                                width: 200,
+                                child: Text(
+                                  // 'CANON EF 16-35 MM F/4L IS USM',
+                                  orderList[index].orderNumber ?? '',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  maxLines: 2,
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 5),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    orderList[index].ProductCount ?? '',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(
+                                    ' Item(s)',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 25),
+                                  child: Text(
+                                    orderList[index].orderDate ?? '',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 12,
+                                        color: Colors.grey),
+                                  ),
+                                ),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.only(left: 25, top: 25),
+                                  child: Text(
+                                      "QAR${orderList[index].orderAmount.toString()}",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 14,
+                                          color: Colors.grey.shade600)),
+                                )
+                              ],
+                            )
+                          ],
+                        ),
+                        SizedBox(width: 20),
+                        Column(
+                          children: [
+                            SizedBox(
+                              height: 25,
+                            ),
+                            IconButton(
+                              onPressed: () {
+                                // Navigator.push(context,
+                                //     MaterialPageRoute(builder: (context) => OrderDetailScreen()));
+                              },
+                              icon:
+                                  Icon(Icons.arrow_forward, color: Colors.grey),
+                            ),
                           ],
                         )
-                    ],
+                      ],
+                    ),
                   ),
-                  SizedBox(width: 20),
-                  Column(
-                    children: [
-                      SizedBox(
-                        height: 30,
-                      ),
-                      IconButton(
-              onPressed: () {
-                // Navigator.push(context,
-                //     MaterialPageRoute(builder: (context) => OrderDetailScreen()));
-              },
-              icon: Icon(Icons.arrow_forward,color: Colors.grey),
-              
-            ),
-                 
-                    ],
-                  )
-                ],
+                ),
               ),
-            ),
-          ),
-        ),
-        SizedBox(height: 10)
-      ],
-    ),
+            ],
+          );
+        },
+      ),
     );
   }
 }

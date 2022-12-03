@@ -155,11 +155,35 @@ class _CartScreenState extends State<CartScreen> {
                                         children: [
                                           IconButton(
                                             onPressed: () {
-                                              setState(() {
-                                                DataManager.shared
-                                                    .removeFromCart(
-                                                        cartItemsList[index]);
-                                              });
+                                              setState(() {});
+
+                                              showDialog(
+                                                context: context,
+                                                builder: (context) =>
+                                                    AlertDialog(
+                                                  title: Text(
+                                                    "Would you like to delete this item",
+                                                    style:
+                                                        TextStyle(fontSize: 15),
+                                                  ),
+                                                  actions: [
+                                                    ElevatedButton(
+                                                        onPressed: () {
+                                                          Navigator.pop(
+                                                              context);
+                                                        },
+                                                        child: InkWell(
+                                                          onTap: (() {
+                                                            DataManager.shared
+                                                                .removeFromCart(
+                                                                    cartItemsList[
+                                                                        index]);
+                                                          }),
+                                                          child: Text('Ok'),
+                                                        ))
+                                                  ],
+                                                ),
+                                              );
                                             },
                                             icon: Icon(Icons.delete_outline,
                                                 color: Colors.red),
@@ -170,27 +194,37 @@ class _CartScreenState extends State<CartScreen> {
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,
                                                 children: [
-                                                  Container(
-                                                    width: 30,
-                                                    height: 30,
-                                                    decoration: BoxDecoration(
-                                                        color:
-                                                            Color(0xff70726f),
-                                                        borderRadius:
-                                                            BorderRadius.only(
-                                                          topLeft:
-                                                              Radius.circular(
-                                                                  5),
-                                                          bottomLeft:
-                                                              Radius.circular(
-                                                                  5),
-                                                        )),
-                                                    child: Center(
-                                                        child: Icon(
-                                                      Icons.remove,
-                                                      color: Colors.white,
-                                                      size: 12,
-                                                    )),
+                                                  InkWell(
+                                                    onTap: () {
+                                                      DataManager.shared
+                                                          .decreaseCartQty(
+                                                              cartItemsList[
+                                                                  index], () {
+                                                        setState(() {});
+                                                      });
+                                                    },
+                                                    child: Container(
+                                                      width: 30,
+                                                      height: 30,
+                                                      decoration: BoxDecoration(
+                                                          color:
+                                                              Color(0xff70726f),
+                                                          borderRadius:
+                                                              BorderRadius.only(
+                                                            topLeft:
+                                                                Radius.circular(
+                                                                    5),
+                                                            bottomLeft:
+                                                                Radius.circular(
+                                                                    5),
+                                                          )),
+                                                      child: Center(
+                                                          child: Icon(
+                                                        Icons.remove,
+                                                        color: Colors.white,
+                                                        size: 12,
+                                                      )),
+                                                    ),
                                                   ),
                                                   Container(
                                                     width: 30,
@@ -200,31 +234,45 @@ class _CartScreenState extends State<CartScreen> {
                                                     ),
                                                     child: Center(
                                                         child: Text(
-                                                      "1",
+                                                      cartItemsList[index]
+                                                          .qty
+                                                          .toString(),
                                                       style: TextStyle(
                                                           color: Colors.black),
                                                     )),
                                                   ),
-                                                  Container(
-                                                      width: 30,
-                                                      height: 30,
-                                                      decoration: BoxDecoration(
-                                                          color:
-                                                              Color(0xffe83031),
-                                                          borderRadius:
-                                                              BorderRadius.only(
-                                                            topRight:
-                                                                Radius.circular(
-                                                                    5),
-                                                            bottomRight:
-                                                                Radius.circular(
-                                                                    5),
-                                                          )),
-                                                      child: Icon(
-                                                        Icons.add,
-                                                        color: Colors.white,
-                                                        size: 12,
-                                                      )),
+                                                  InkWell(
+                                                    onTap: () {
+                                                      DataManager.shared
+                                                          .increaseCartQty(
+                                                              cartItemsList[
+                                                                  index], () {
+                                                        setState(() {});
+                                                      });
+                                                    },
+                                                    child: Container(
+                                                        width: 30,
+                                                        height: 30,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                                color: Color(
+                                                                    0xffe83031),
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .only(
+                                                                  topRight: Radius
+                                                                      .circular(
+                                                                          5),
+                                                                  bottomRight: Radius
+                                                                      .circular(
+                                                                          5),
+                                                                )),
+                                                        child: Icon(
+                                                          Icons.add,
+                                                          color: Colors.white,
+                                                          size: 12,
+                                                        )),
+                                                  ),
                                                 ],
                                               ),
                                             ],
@@ -234,7 +282,6 @@ class _CartScreenState extends State<CartScreen> {
                                     ],
                                   ),
                                 ),
-                                
                                 SizedBox(height: 10),
                               ],
                             );

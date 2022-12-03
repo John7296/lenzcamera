@@ -142,7 +142,7 @@ class _WishlistScreenState extends State<WishlistScreen> {
                           padding: const EdgeInsets.only(top: 15),
                           child: Container(
                             height: 30,
-                            width: 220,
+                            width: 200,
                             child: Text(
                               // 'CANON EF 16-35 MM F/4L IS USM',
                               wishListItems[index].prName ?? '',
@@ -167,8 +167,7 @@ class _WishlistScreenState extends State<WishlistScreen> {
                       children: [
                         IconButton(
                           onPressed: () {
-                            setState(() {
-                            });
+                            setState(() {});
                             removeFromWishList(wishListItems[index]);
                           },
                           icon: Icon(Icons.delete_outline, color: Colors.red),
@@ -182,7 +181,6 @@ class _WishlistScreenState extends State<WishlistScreen> {
                   ],
                 ),
               ),
-              
               SizedBox(height: 10)
             ],
           );

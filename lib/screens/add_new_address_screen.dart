@@ -17,7 +17,7 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
   bool isCheckedBA = false;
 
   final _firstNameController = TextEditingController();
-  final _secondNameController = TextEditingController();
+  final _lastNameController = TextEditingController();
   final _addressL1Controller = TextEditingController();
   final _addressL2Controller = TextEditingController();
   final _phoneController = TextEditingController();
@@ -30,6 +30,36 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
     super.initState();
   }
 
+  // void stateList(){
+  //   NetworkManager.shared.
+  // }
+
+  void onSaveButtonTapped() {
+    NetworkManager.shared
+        .updateAddress({
+          "addLine1": _addressL1Controller.text,
+          "addLine2": _addressL2Controller.text,
+          "addressType": "",
+          "country": "QATAR",
+          "custAdressId": 418,
+          "custId": 386,
+          "district": "ad-Dawhah",
+          "firstName": _firstNameController.text,
+          "isDefaultBillingAddress": isCheckedBA,
+          "isDefaultShippingAddress": isCheckedSA,
+          "landmark": _landmarkController.text,
+          "lastName": _lastNameController.text,
+          "latitude": 10.0224066,
+          "longitude": 76.3041375,
+          "phone": _phoneController.text,
+          "pincode": _pinCodeController.text,
+          "state": "ad-Dawhah",
+        })
+        .then((BaseResponse response) {})
+        .catchError((e) {
+          print(e.toString());
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -99,7 +129,7 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                                 contentPadding: EdgeInsets.all(5)
                                 // labelText: 'Email ID'
                                 ),
-                            controller: _secondNameController,
+                            controller: _lastNameController,
                           ),
                         ),
                         SizedBox(height: 20),
@@ -163,7 +193,7 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                                 contentPadding: EdgeInsets.all(5)
                                 // labelText: 'Mobile'
                                 ),
-                                controller: _phoneController,
+                            controller: _phoneController,
                           ),
                         ),
                         SizedBox(height: 20),
@@ -322,9 +352,8 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                                 contentPadding: EdgeInsets.all(5)
                                 // labelText: 'Mobile'
                                 ),
-                          controller: _landmarkController,
+                            controller: _landmarkController,
                           ),
-                          
                         ),
                         SizedBox(height: 30),
                         Container(
@@ -332,6 +361,7 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                           height: 50,
                           child: ElevatedButton(
                             onPressed: () {
+                              onSaveButtonTapped();
                             },
                             child: Text(
                               'Save',

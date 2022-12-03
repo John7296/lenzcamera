@@ -1,7 +1,10 @@
+import 'package:lenzcamera/model/address_list.dart';
 import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/cart.dart';
+import 'package:lenzcamera/model/city_list.dart';
 import 'package:lenzcamera/model/company_policy.dart';
 import 'package:lenzcamera/model/customer.dart';
+import 'package:lenzcamera/model/order_list.dart';
 import 'package:lenzcamera/model/product.dart';
 import 'package:lenzcamera/model/profile.dart';
 import 'package:lenzcamera/model/filter_response.dart';
@@ -11,6 +14,7 @@ import 'package:lenzcamera/model/new_register.dart';
 import 'package:lenzcamera/model/profile.dart';
 
 import 'package:lenzcamera/model/search_products_response.dart';
+import 'package:lenzcamera/model/state_list.dart';
 import 'package:lenzcamera/model/top_categories.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:retrofit/retrofit.dart';
@@ -93,8 +97,30 @@ abstract class NetworkConnection {
       @Body() Map<String, dynamic> map);
 
   @FormUrlEncoded()
-  @POST("NewAddress")
-  Future<BaseResponse> addAddress(@Body() Map<String, dynamic> map);
+  @GET('Order/CusAddressList')
+  Future<BaseResponse<List<AddressList>>> getAddressList(
+    @Query("cusId") int cusId,
+  );
+
+  @FormUrlEncoded()
+  @POST("Customer/UpdateAddress")
+  Future<BaseResponse> updateAddress(@Body() Map<String, dynamic> map);
+
+  @FormUrlEncoded()
+  @GET("Customer/DelAddress/210")
+  Future<BaseResponse> deleteAddress(@Body() Map<String, dynamic> map);
+
+  @FormUrlEncoded()
+  @GET("StateList")
+  Future<BaseResponse<List<StateList>>> stateListAddress(
+    @Query("CountryId") int CountryId,
+  );
+
+  @FormUrlEncoded()
+  @GET("CityList")
+  Future<BaseResponse<List<CityList>>> cityListAddress(
+    @Query("stateId") int stateId,
+  );
 
   @FormUrlEncoded()
   @GET("Customer/RegisterVerifyOTP")
@@ -176,5 +202,22 @@ abstract class NetworkConnection {
   @POST('Order/RemoveCartItemByUrlkey')
   Future<BaseResponse> removeFromCart(@Body() Map<String, dynamic> map);
 
+  @FormUrlEncoded()
+  @POST('Order/CartItemSubQtyByUrlKey')
+  Future<BaseResponse> subCartQty(@Body() Map<String, dynamic> map);
 
+  @FormUrlEncoded()
+  @GET("Order/CartItemAddQtyP")
+  Future<BaseResponse> addCartQty(
+    @Query("cartItemId") int cartItemId,
+  );
+
+  @FormUrlEncoded()
+  @GET('Order/CustOrderList')
+  Future<BaseResponse<List<OrderList>>> getOrderList(
+    @Query("cusId") int cusId,
+    // @Query("year") int year,
+    // @Query("addressid") int addressid,
+    // @Query("guestId") int guestId,
+  );
 }

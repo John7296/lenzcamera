@@ -43,6 +43,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
   List<Product> popularProductsList = [];
   List<Product> recentProductsList = [];
   bool isLoading = true;
+  String? cartItemId;
 
   Product? featuredProducts;
 
@@ -668,28 +669,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                                                           }
                                                         });
 
-                                                        // showDialog(
-                                                        //   context: context,
-                                                        //   builder:
-                                                        //       (context) =>
-                                                        //           AlertDialog(
-                                                        //     title: Text(
-                                                        //       "Item Added to wishlist",
-                                                        //       style:
-                                                        //           TextStyle(),
-                                                        //     ),
-                                                        //     actions: [
-                                                        //       ElevatedButton(
-                                                        //           onPressed:
-                                                        //               () {
-                                                        //             Navigator.pop(
-                                                        //                 context);
-                                                        //           },
-                                                        //           child: Text(
-                                                        //               'Ok'))
-                                                        //     ],
-                                                        //   ),
-                                                        // );
+                                                
                                                       },
                                                       icon: Icon(
                                                         Icons.favorite,
@@ -743,8 +723,15 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                                                             children: [
                                                               InkWell(
                                                                 onTap: () {
-                                                                  print(
-                                                                      'Quantity Decreased');
+                                                                  DataManager
+                                                                      .shared
+                                                                      .decreaseCartQty(
+                                                                          popularProductsList[
+                                                                              index],(){
+                                                                                setState(() {
+                                                                                  
+                                                                                });
+                                                                              });
                                                                 },
                                                                 child:
                                                                     Container(
@@ -790,8 +777,14 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                                                               ),
                                                               InkWell(
                                                                 onTap: () {
-                                                                  print(
-                                                                      'Quantity Increased');
+                                                                  DataManager
+                                                                      .shared
+                                                                      .increaseCartQty(
+                                                                          popularProductsList[
+                                                                              index],(){
+                                                                                setState(() {
+                                                                                });
+                                                                              });
                                                                 },
                                                                 child: Container(
                                                                     width: 30,
@@ -848,7 +841,6 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                                                             )),
                                                           ),
                                               ),
-                                            
                                             ],
                                           ),
                                         ),
