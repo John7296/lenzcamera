@@ -8,7 +8,7 @@ part 'search_filter_response.g.dart';
 
 class SearchFilterResponse{
 
-    @JsonKey(name: "categoryList")
+ @JsonKey(name: "categoryList")
  List<CategoryList>? categoryList;
 
   @JsonKey(name: "attributes")

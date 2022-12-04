@@ -11,7 +11,7 @@ CategoryList _$CategoryListFromJson(Map<String, dynamic> json) => CategoryList(
       json['catName'] as String?,
       json['image'] as String?,
       json['parentId'] as int?,
-      json['code'] as int?,
+      json['code'] as String?,
       json['description'] as String?,
       json['urlKey'] as String?,
       json['metaTitle'] as String?,

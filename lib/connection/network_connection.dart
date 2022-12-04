@@ -78,7 +78,7 @@ abstract class NetworkConnection {
     @Body() Map<String, dynamic> map,
   );
 
-  @FormUrlEncoded()
+ @FormUrlEncoded()
   @POST("/Support")
   Future<BaseResponse> supportMessageSend(
     @Body() Map<String, dynamic> map,
@@ -93,16 +93,17 @@ abstract class NetworkConnection {
         @Query("pincode") int pincode
   );
 
-  @FormUrlEncoded()
+@FormUrlEncoded()
   @GET("/CustomerDetails")
   Future<BaseResponse<LoginCustomer>> customerDetails(
        @Query("custId") int custId,
   );
 
 
+
   @FormUrlEncoded()
   @POST("Product/SearchFilter")
-  Future<BaseResponse<SearchFilterResponse>> searchFilter(
+  Future<BaseResponse<SearchFilterResponse>>searchFilter(
     @Body() Map<String, dynamic> map,
   );
 

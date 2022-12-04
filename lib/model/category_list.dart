@@ -7,61 +7,61 @@ part 'category_list.g.dart';
 @JsonSerializable()
 class CategoryList{
 
-   @JsonKey(name: 'catId')
+   @JsonKey(name: "catId")
   int? catId;
 
-  @JsonKey(name: 'catName')
+  @JsonKey(name: "catName")
   String? catName;
 
-  @JsonKey(name: 'image')
+  @JsonKey(name: "image")
   String? image;
 
-  @JsonKey(name: 'parentId')
+  @JsonKey(name: "parentId")
   int? parentId;
 
-  @JsonKey(name: 'code')
-  int? code;
+  @JsonKey(name: "code")
+  String? code;
 
-  @JsonKey(name: 'description')
+  @JsonKey(name: "description")
   String? description;
 
-  @JsonKey(name: 'urlKey')
+  @JsonKey(name: "urlKey")
   String? UrlKey;
 
-  @JsonKey(name: 'metaTitle')
+  @JsonKey(name: "metaTitle")
   String? metaTitle;
 
-    @JsonKey(name: 'metaKeywords')
+  @JsonKey(name: "metaKeywords")
   String? metaKeywords;
 
-  @JsonKey(name: 'metaDescription')
+  @JsonKey(name: "metaDescription")
   String? metaDescription;
 
-  @JsonKey(name: 'delDate')
+  @JsonKey(name: "delDate")
   String? delDate;
 
   @JsonKey(name: 'status')
   String? status;
 
-  @JsonKey(name: 'catUrlKey')
+  @JsonKey(name: "catUrlKey")
   String? catUrlKey;
 
-  @JsonKey(name: 'imageUrl')
+  @JsonKey(name: "imageUrl")
   String? imageUrl;
 
-   @JsonKey(name: 'position')
+   @JsonKey(name: "position")
   String? position;
 
   @JsonKey(name: 'ShowInOfferZone')
   String? ShowInOfferZone;
 
-  @JsonKey(name: 'showInHomePage')
+  @JsonKey(name: "showInHomePage")
   String? showInHomePage;
 
-  @JsonKey(name: 'bannerImgUrl')
+  @JsonKey(name: "bannerImgUrl")
   String? bannerImgUrl;
 
-  @JsonKey(name: 'MobBannerImgUrl')
+  @JsonKey(name: "MobBannerImgUrl")
   String? MobBannerImgUrl;
 
 

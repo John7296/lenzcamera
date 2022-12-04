@@ -105,6 +105,7 @@ class NetworkManager {
     return call(networkConnection.customerDetails(custId));
   }
 
+
   Future<BaseResponse<SearchProductsResponse>> searchProducts(
       Map<String, dynamic> map) {
     return call(networkConnection.searchProducts(map));

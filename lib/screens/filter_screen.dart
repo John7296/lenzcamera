@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
+import 'package:lenzcamera/model/attributes.dart';
 import 'package:lenzcamera/model/base_response.dart';
+import 'package:lenzcamera/model/category_list.dart';
 import 'package:lenzcamera/model/product.dart';
 import 'package:lenzcamera/model/search_filter_response.dart';
 
-List<String> _categories = <String>['Canon', 'Nikon', 'Sigma', 'Tamron'];
+ List<String> _categories = <String>['Canon', 'Nikon', 'Sigma', 'Tamron'];
 
 class FilterScreen extends StatefulWidget {
   @override
@@ -24,13 +26,13 @@ class _FilterScreenState extends State<FilterScreen> {
    bool isLoading = false;
   int currentPage = 1;
 
-  List<SearchFilterResponse>_categoryList =[];
-    List<SearchFilterResponse>_attributeList =[];
+  List<CategoryList>_categoryList =[];
+  List<Attributes>_attributeList =[];
 
    @override
   void initState() {
     super.initState();
-  
+  // searchFilter();
   }
  
 
@@ -41,7 +43,7 @@ class _FilterScreenState extends State<FilterScreen> {
     });
 
     NetworkManager.shared.searchFilter(<String, dynamic>{
-      "currentpage": 1,
+        "currentpage": 1,
        "custId": 386, 
        "filter": {"category": "dslr-lenses"}, 
        "filtervalues": null, 
@@ -53,11 +55,16 @@ class _FilterScreenState extends State<FilterScreen> {
          "sortorder": {"direction": "default", "field": "prName"},
           "status": false, 
           "vendorUrlKey": 8
+      
     }).then((BaseResponse<SearchFilterResponse>response) {
        setState(() {
             isLoading= false;  
              _categoryList.clear();
-       // _categoryList.addAll(response.data.categoryList);  
+             _attributeList.clear();
+        _categoryList.addAll(response.data!.categoryList!);  
+        _attributeList.addAll(response.data!.attributes!);  
+      //  print("//////////////////////");
+      //  print(response.data?.categoryList);
       });
     }).catchError((e) {
     print(e.toString());
@@ -108,14 +115,14 @@ class _FilterScreenState extends State<FilterScreen> {
                           value: dropdownValue,
                           icon: const Icon(Icons.arrow_drop_down_outlined, color: Colors.black,),
                           onChanged: (String? value) {
-                            searchFilter();
+                            
                             // This is called when the user selects an item.
                             setState(() {
                               dropdownValue = value;
                             });
                           },
                           items:
-                              _categories.map<DropdownMenuItem<String>>((String value) {
+                              _categoryList.map<DropdownMenuItem<String>>((String value) {
                             return DropdownMenuItem<String>(
                               value: value,
                               child: 
@@ -338,7 +345,8 @@ class _FilterScreenState extends State<FilterScreen> {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Color(0xff70726f),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                        },
                         child: Text(
                           "CLEAR",
                           style: TextStyle(fontSize: 20),
@@ -355,7 +363,9 @@ class _FilterScreenState extends State<FilterScreen> {
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Color(0xffec3436),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            searchFilter();
+                          },
                           child: Text(
                             "APPLY",
                             style: TextStyle(fontSize: 20),
