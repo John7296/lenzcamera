@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
+import 'package:lenzcamera/manager/data_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/product.dart';
+import 'package:lenzcamera/screens/cart_screen.dart';
 import 'package:lenzcamera/screens/home_screen.dart';
+import 'package:lenzcamera/screens/search_screen.dart';
 import 'package:lenzcamera/widgets/wishlist_item_widget.dart';
 
 class WishlistScreen extends StatefulWidget {
@@ -22,10 +25,11 @@ class _WishlistScreenState extends State<WishlistScreen> {
   @override
   void initState() {
     super.initState();
-    _wishListProducts();
+    //DataManager.shared.wishListProducts();
+    wishListProducts();
   }
 
-  void _wishListProducts() {
+  void wishListProducts() {
     setState(() {
       isLoading = true;
     });
@@ -45,22 +49,22 @@ class _WishlistScreenState extends State<WishlistScreen> {
     });
   }
 
-  void removeFromWishList(Product wishList) {
-    // if (!_form.currentState!.validate()) {
-    //   return;
-    // }
+  // void removeFromWishList(Product wishList) {
+  //   // if (!_form.currentState!.validate()) {
+  //   //   return;
+  //   // }
 
-    NetworkManager.shared.removeFromWishlist(<String, dynamic>{
-      "urlKey": wishList.urlKey,
-      "custId": 386,
-      "guestId": "",
-    }).then((BaseResponse response) {
-      debugPrint("==========================================");
-    }).catchError((e) {
-      print(e.toString());
-    });
-    // print(value.toString());
-  }
+  //   NetworkManager.shared.removeFromWishlist(<String, dynamic>{
+  //     "urlKey": wishList.urlKey,
+  //     "custId": 386,
+  //     "guestId": "",
+  //   }).then((BaseResponse response) {
+  //     debugPrint("==========================================");
+  //   }).catchError((e) {
+  //     print(e.toString());
+  //   });
+  //   // print(value.toString());
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -77,13 +81,14 @@ class _WishlistScreenState extends State<WishlistScreen> {
           IconButton(
             onPressed: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => HomeScreen()));
+                  MaterialPageRoute(builder: (context) => SearchScreen()));
             },
             icon: Icon(Icons.search_sharp),
           ),
           IconButton(
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => CartScreen()));
             },
             icon: Icon(Icons.shopping_cart),
           ),
@@ -168,7 +173,8 @@ class _WishlistScreenState extends State<WishlistScreen> {
                         IconButton(
                           onPressed: () {
                             setState(() {});
-                            removeFromWishList(wishListItems[index]);
+                            DataManager.shared
+                                .removeFromWishlist(wishListItems[index]);
                           },
                           icon: Icon(Icons.delete_outline, color: Colors.red),
                         ),

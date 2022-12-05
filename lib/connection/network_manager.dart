@@ -91,10 +91,11 @@ class NetworkManager {
   }
 
   Future<BaseResponse> resetPassword(Map<String, dynamic> map) {
-    return call(networkConnection.resetPassword(map['OtpUrlKey'], map['password']));
+    return call(
+        networkConnection.resetPassword(map['OtpUrlKey'], map['password']));
   }
 
-   Future<BaseResponse<LoginCustomer>> changePassword(Map<String, dynamic> map) {
+  Future<BaseResponse<LoginCustomer>> changePassword(Map<String, dynamic> map) {
     return call(networkConnection.changePassword(map));
   }
 
@@ -111,11 +112,11 @@ class NetworkManager {
     return call(networkConnection.searchProducts(map));
   }
 
-  Future<BaseResponse<ProductDetail>>getSingleProductDetails(Map<String, dynamic> map
-   ) {
-    return call(networkConnection.getSingleProductDetails("canon-lpe6nh-battery-og", int.parse("386"), 0, int.parse("8")));
+  Future<BaseResponse<ProductDetail>> getSingleProductDetails(
+      Map<String, dynamic> map) {
+    return call(networkConnection.getSingleProductDetails(
+        "canon-lpe6nh-battery-og", int.parse("386"), 0, int.parse("8")));
   }
-
 
   Future<BaseResponse<FilterResponse>> searchFilter(Map<String, dynamic> map) {
     return call(networkConnection.searchFilter(map));
@@ -184,12 +185,16 @@ class NetworkManager {
     return call(networkConnection.subCartQty(map));
   }
 
-  Future<BaseResponse> addCartQty() {
-    return call(networkConnection.addCartQty(int.parse("2268")));
+  Future<BaseResponse> addCartQty(int cartItemId) {
+    return call(networkConnection.addCartQty(cartItemId));
   }
 
   Future<BaseResponse<List<OrderList>>> getOrderList() {
     return call(networkConnection.getOrderList(int.parse("386")));
+  }
+
+    Future<BaseResponse> placeOrder(Map<String, dynamic> map) {
+    return call(networkConnection.placeOrder(map));
   }
 
   Future<T> call<T>(Future<T> call) async {

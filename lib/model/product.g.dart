@@ -67,6 +67,12 @@ Product _$ProductFromJson(Map<String, dynamic> json) => Product(
       vendorUrlKey: json['vendorUrlKey'] as String?,
       qty: (json['qty'] as num?)?.toDouble(),
       vendorid: json['vendorid'] as int?,
+      cartItemsId: json['cartItemsId'] as int?,
+      grandTotal: (json['grandTotal'] as num?)?.toDouble(),
+      itemTotal: (json['itemTotal'] as num?)?.toDouble(),
+      subTotal: (json['subTotal'] as num?)?.toDouble(),
+      deliveryAmount: (json['deliveryAmount'] as num?)?.toDouble(),
+      totalDiscount: (json['totalDiscount'] as num?)?.toDouble(),
     );
 
 Map<String, dynamic> _$ProductToJson(Product instance) => <String, dynamic>{
@@ -130,4 +136,10 @@ Map<String, dynamic> _$ProductToJson(Product instance) => <String, dynamic>{
       'minOrderQty': instance.minOrderQty,
       'bvValue': instance.bvValue,
       'qty': instance.qty,
+      'cartItemsId': instance.cartItemsId,
+      'grandTotal': instance.grandTotal,
+      'subTotal': instance.subTotal,
+      'itemTotal': instance.itemTotal,
+      'deliveryAmount': instance.deliveryAmount,
+      'totalDiscount': instance.totalDiscount,
     };

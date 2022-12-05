@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
+import 'package:lenzcamera/manager/data_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/product.dart';
 import 'package:lenzcamera/screens/wishlist_screen.dart';
@@ -44,31 +45,31 @@ class _RecentProductsScreenState extends State<RecentProductsScreen> {
     });
   }
 
-  void addToWishlist(Product product) {
-    NetworkManager.shared
-        .addToWishlist(<String, dynamic>{
-          "urlKey": product.urlKey,
-          "custId": 386,
-          "guestId": "",
-        })
-        .then((BaseResponse response) {})
-        .catchError((e) {
-          print(e.toString());
-        });
-  }
+  // void addToWishlist(Product product) {
+  //   NetworkManager.shared
+  //       .addToWishlist(<String, dynamic>{
+  //         "urlKey": product.urlKey,
+  //         "custId": 386,
+  //         "guestId": "",
+  //       })
+  //       .then((BaseResponse response) {})
+  //       .catchError((e) {
+  //         print(e.toString());
+  //       });
+  // }
 
-  void removeFromWishlist(Product product) {
-    NetworkManager.shared
-        .removeFromWishlist(<String, dynamic>{
-          "urlKey": product.urlKey,
-          "custId": 386,
-          "guestId": "",
-        })
-        .then((BaseResponse response) {})
-        .catchError((e) {
-          print(e.toString());
-        });
-  }
+  // void removeFromWishlist(Product product) {
+  //   NetworkManager.shared
+  //       .removeFromWishlist(<String, dynamic>{
+  //         "urlKey": product.urlKey,
+  //         "custId": 386,
+  //         "guestId": "",
+  //       })
+  //       .then((BaseResponse response) {})
+  //       .catchError((e) {
+  //         print(e.toString());
+  //       });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -131,12 +132,12 @@ class _RecentProductsScreenState extends State<RecentProductsScreen> {
                                         if (recentProductsList[index]
                                                 .isWhishlisted ==
                                             true) {
-                                          removeFromWishlist(
+                                        DataManager.shared. removeFromWishlist(
                                               recentProductsList[index]);
                                           recentProductsList[index]
                                               .isWhishlisted = false;
                                         } else {
-                                          addToWishlist(
+                                         DataManager.shared.addToWishlist(
                                               recentProductsList[index]);
                                           recentProductsList[index]
                                               .isWhishlisted = true;

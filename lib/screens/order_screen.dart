@@ -87,7 +87,11 @@ class _OrderScreenState extends State<OrderScreen> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => OrderDetailScreen()));
+                          builder: (context) => OrderDetailScreen(  orderList[index].ProductImgUrl?? '',
+                                          orderList[index].orderNumber.toString(),
+                                          orderList[index].status?? '',
+                                          orderList[index].orderDate??'',
+                                          context)));
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(10),
@@ -228,8 +232,14 @@ class _OrderScreenState extends State<OrderScreen> {
                             ),
                             IconButton(
                               onPressed: () {
-                                // Navigator.push(context,
-                                //     MaterialPageRoute(builder: (context) => OrderDetailScreen()));
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) => OrderDetailScreen(
+                                       orderList[index].ProductImgUrl?? '',
+                                          orderList[index].orderId.toString(),
+                                          orderList[index].status?? '',
+                                          orderList[index].orderDate??"",
+                                          context
+                                    )));
                               },
                               icon:
                                   Icon(Icons.arrow_forward, color: Colors.grey),

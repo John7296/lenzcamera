@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
+import 'package:lenzcamera/manager/data_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/product.dart';
 import 'package:lenzcamera/screens/wishlist_screen.dart';
@@ -44,31 +45,31 @@ class _PopularProductsScreenState extends State<PopularProductsScreen> {
     });
   }
 
-  void addToWishlist(Product product) {
-    NetworkManager.shared
-        .addToWishlist(<String, dynamic>{
-          "urlKey": product.urlKey,
-          "custId": 386,
-          "guestId": "",
-        })
-        .then((BaseResponse response) {})
-        .catchError((e) {
-          print(e.toString());
-        });
-  }
+  // void addToWishlist(Product product) {
+  //   NetworkManager.shared
+  //       .addToWishlist(<String, dynamic>{
+  //         "urlKey": product.urlKey,
+  //         "custId": 386,
+  //         "guestId": "",
+  //       })
+  //       .then((BaseResponse response) {})
+  //       .catchError((e) {
+  //         print(e.toString());
+  //       });
+  // }
 
-  void removeFromWishlist(Product product) {
-    NetworkManager.shared
-        .removeFromWishlist(<String, dynamic>{
-          "urlKey": product.urlKey,
-          "custId": 386,
-          "guestId": "",
-        })
-        .then((BaseResponse response) {})
-        .catchError((e) {
-          print(e.toString());
-        });
-  }
+  // void removeFromWishlist(Product product) {
+  //   NetworkManager.shared
+  //       .removeFromWishlist(<String, dynamic>{
+  //         "urlKey": product.urlKey,
+  //         "custId": 386,
+  //         "guestId": "",
+  //       })
+  //       .then((BaseResponse response) {})
+  //       .catchError((e) {
+  //         print(e.toString());
+  //       });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -124,8 +125,8 @@ class _PopularProductsScreenState extends State<PopularProductsScreen> {
                             Stack(children: [
                               Center(
                                   child: Container(
-                                height: 100,
-                                width: 100,
+                                height: 80,
+                                width: 80,
                                 child: CachedNetworkImage(
                                     imageUrl:
                                         "https://dev.lenzcamera.com/webadmin/${popularProductsList[index].imageUrl}"),
@@ -138,12 +139,12 @@ class _PopularProductsScreenState extends State<PopularProductsScreen> {
                                       if (popularProductsList[index]
                                               .isWhishlisted ==
                                           true) {
-                                        removeFromWishlist(
+                                       DataManager.shared.removeFromWishlist(
                                             popularProductsList[index]);
                                         popularProductsList[index]
                                             .isWhishlisted = false;
                                       } else {
-                                        addToWishlist(
+                                       DataManager.shared.addToWishlist(
                                             popularProductsList[index]);
                                         popularProductsList[index]
                                             .isWhishlisted = true;
@@ -176,18 +177,117 @@ class _PopularProductsScreenState extends State<PopularProductsScreen> {
                                 "QAR${popularProductsList[index].unitPrice ?? ''}",
                                 style: TextStyle(
                                     fontSize: 15, fontWeight: FontWeight.w600)),
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.yellowAccent,
-                                elevation: 0,
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 10, right: 10, bottom: 10),
+                              child: Container(
+                                // width: 160,
+                                height: 30,
+                                child: popularProductsList[index]
+                                        .isAddedtoCart()
+                                    ? Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          InkWell(
+                                            onTap: () {
+                                              DataManager.shared
+                                                  .updateItemToCart(
+                                                      popularProductsList[
+                                                          index],
+                                                      4, onUpdate: () {
+                                                setState(() {});
+                                              }, onUpdateStarted: () {
+                                                setState(() {});
+                                              });
+                                            },
+                                            child: Container(
+                                              width: 30,
+                                              height: 30,
+                                              decoration: BoxDecoration(
+                                                  color: Color(0xff70726f),
+                                                  borderRadius:
+                                                      BorderRadius.only(
+                                                    topLeft: Radius.circular(5),
+                                                    bottomLeft:
+                                                        Radius.circular(5),
+                                                  )),
+                                              child: Center(
+                                                  child: Icon(
+                                                Icons.remove,
+                                                color: Colors.white,
+                                                size: 12,
+                                              )),
+                                            ),
+                                          ),
+                                          Container(
+                                            width: 30,
+                                            height: 30,
+                                            decoration: BoxDecoration(
+                                              color: Color(0xffe3e3e3),
+                                            ),
+                                            child: Center(
+                                                child: Text(
+                                              "1",
+                                              style: TextStyle(
+                                                  color: Colors.black),
+                                            )),
+                                          ),
+                                          InkWell(
+                                            onTap: () {
+                                              DataManager.shared
+                                                  .updateItemToCart(
+                                                      popularProductsList[
+                                                          index],
+                                                      3, onUpdate: () {
+                                                setState(() {});
+                                              }, onUpdateStarted: () {
+                                                setState(() {});
+                                              });
+                                            },
+                                            child: Container(
+                                                width: 30,
+                                                height: 30,
+                                                decoration: BoxDecoration(
+                                                    color: Color(0xffe83031),
+                                                    borderRadius:
+                                                        BorderRadius.only(
+                                                      topRight:
+                                                          Radius.circular(5),
+                                                      bottomRight:
+                                                          Radius.circular(5),
+                                                    )),
+                                                child: Icon(
+                                                  Icons.add,
+                                                  color: Colors.white,
+                                                  size: 12,
+                                                )),
+                                          ),
+                                        ],
+                                      )
+                                    : ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          elevation: 0,
+                                          backgroundColor: Colors.yellow,
+                                        ),
+                                        onPressed: () {
+                                          DataManager.shared.updateItemToCart(
+                                              popularProductsList[index], 1,
+                                              onUpdate: () {
+                                            setState(() {});
+                                          }, onUpdateStarted: () {
+                                            setState(() {});
+                                          });
+                                        },
+                                        child: Center(
+                                            child: Text(
+                                          "ADD",
+                                          style: TextStyle(
+                                              fontSize: 15,
+                                              color: Colors.black),
+                                        )),
+                                      ),
                               ),
-                              onPressed: () {},
-                              child: Center(
-                                  child: Text(
-                                "ADD",
-                                style: TextStyle(
-                                    fontSize: 15, color: Colors.black),
-                              )),
                             ),
                           ],
                         ),
@@ -201,3 +301,9 @@ class _PopularProductsScreenState extends State<PopularProductsScreen> {
     );
   }
 }
+
+
+
+
+
+

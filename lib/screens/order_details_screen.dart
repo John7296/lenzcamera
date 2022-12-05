@@ -6,7 +6,14 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:lenzcamera/screens/home_screen.dart';
 
 class OrderDetailScreen extends StatefulWidget {
-  const OrderDetailScreen({super.key});
+  const OrderDetailScreen(
+      this.ProductImgUrl, this.orderNumber, this.status,this.orderDate, this.context);
+
+  final String? orderNumber;
+  final String? status;
+  final String? ProductImgUrl;
+  final String? orderDate;
+  final BuildContext? context;
 
   @override
   State<OrderDetailScreen> createState() => _OrderDetailScreenState();
@@ -88,10 +95,10 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('#ORD6195845655'),
+                          Text(widget.orderNumber ?? ''),
                           Spacer(),
                           Text(
-                            'Status:Order Placed',
+                            widget.status ?? '',
                             style: TextStyle(color: Colors.red),
                           ),
                         ],
@@ -132,7 +139,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                           ),
                           Text('Delivery to', style: TextStyle(fontSize: 12)),
                           Spacer(),
-                          Text('Ordered on:26-10-2022'),
+                          Text(widget.orderDate??''),
                         ],
                       ),
                     ),

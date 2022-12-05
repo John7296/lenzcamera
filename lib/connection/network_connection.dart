@@ -225,7 +225,7 @@ abstract class NetworkConnection {
   Future<BaseResponse> subCartQty(@Body() Map<String, dynamic> map);
 
   @FormUrlEncoded()
-  @GET("Order/CartItemAddQtyP")
+  @GET("Order/CartItemAddQty")
   Future<BaseResponse> addCartQty(
     @Query("cartItemId") int cartItemId,
   );
@@ -238,4 +238,10 @@ abstract class NetworkConnection {
     // @Query("addressid") int addressid,
     // @Query("guestId") int guestId,
   );
+
+  @FormUrlEncoded()
+  @POST('Order')
+  Future<BaseResponse> placeOrder(@Body() Map<String, dynamic> map);
+
+
 }

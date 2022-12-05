@@ -189,6 +189,27 @@ class Product {
   @JsonKey(name: 'qty')
   double? qty;
 
+  @JsonKey(name: 'cartItemsId')
+  int? cartItemsId;
+
+  @JsonKey(ignore: true)
+  bool? isCartUpdateProgress = false;
+
+  @JsonKey(name: 'grandTotal')
+  double? grandTotal;
+
+  @JsonKey(name: 'subTotal')
+  double? subTotal;
+
+  @JsonKey(name: 'itemTotal')
+  double? itemTotal;
+
+  @JsonKey(name: 'deliveryAmount')
+  double? deliveryAmount;
+
+  @JsonKey(name: 'totalDiscount')
+  double? totalDiscount;
+
   Product(
       {this.catName,
       this.imageUrl,
@@ -249,7 +270,13 @@ class Product {
       this.venderDetails,
       this.vendorUrlKey,
       this.qty,
-      this.vendorid});
+      this.vendorid,
+      this.cartItemsId,
+      this.grandTotal,
+      this.itemTotal,
+      this.subTotal,
+      this.deliveryAmount,
+      this.totalDiscount});
 
   bool isAddedtoCart() {
     qty = DataManager.shared.getItemQuantity(this);

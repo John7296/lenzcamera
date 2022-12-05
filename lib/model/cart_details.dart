@@ -100,6 +100,9 @@ class CartDetails {
   @JsonKey(name: 'status')
   bool? status;
 
+
+
+
   CartDetails(
       {this.catName,
       this.imageUrl,
