@@ -107,6 +107,12 @@ abstract class NetworkConnection {
     @Body() Map<String, dynamic> map,
   );
 
+  @FormUrlEncoded()
+  @POST("Product/ProductReviewSubmit")
+  Future<BaseResponse>addReview(
+    @Body() Map<String, dynamic> map,
+  );
+
 
   @FormUrlEncoded()
   @GET('CompanyPolicy')

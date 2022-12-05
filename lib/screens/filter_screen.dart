@@ -7,11 +7,12 @@ import 'package:lenzcamera/model/attribute.dart';
 
 import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/category.dart';
+import 'package:lenzcamera/model/filter_data.dart';
 
 import 'package:lenzcamera/model/product.dart';
 import 'package:lenzcamera/model/search_filter_response.dart';
 
- List<String> _categories = <String>['Canon', 'Nikon', 'Sigma', 'Tamron'];
+ //List<String> _categories = <String>['Canon', 'Nikon', 'Sigma', 'Tamron'];
 
 class FilterScreen extends StatefulWidget {
   @override
@@ -26,7 +27,11 @@ class _FilterScreenState extends State<FilterScreen> {
 
   Category? selectedCategory;
    Attribute? selectedAttribute;
+     Attribute? selectedBrand;
+         Attribute? selectedManufacturer;
+          Attribute? selectedLens;
 
+      SearchFilterResponse? price;
 
    bool isLoading = false;
   int currentPage = 1;
@@ -34,7 +39,7 @@ class _FilterScreenState extends State<FilterScreen> {
   List<Category>_categoryList =[];
   List<Attribute>_attributeList =[];
 
-  List<Attribute> attributeValues = [];
+
 
    @override
   void initState() {
@@ -64,17 +69,12 @@ class _FilterScreenState extends State<FilterScreen> {
           "vendorUrlKey": 8
       
     }).then((BaseResponse<SearchFilterResponse>response) {
-
-        print("//////////////////////");
-       print(response.data?.categoryList);
        setState(() {
             isLoading= false;  
              _categoryList.clear();
              _attributeList.clear();
         _categoryList.addAll(response.data!.categoryList!);  
         _attributeList.addAll(response.data!.attributes!);  
-      print("//////////////////////");
-       print(response.data?.categoryList);
       });
     }).catchError((e) {
     print(e.toString());
@@ -83,13 +83,17 @@ class _FilterScreenState extends State<FilterScreen> {
 
 
   List<Attribute> searchAttribute(String attName){
+
+  List<Attribute> attributeValues = [];
+
      for (Attribute element in _attributeList){
-      if(element.attrId==attName){
-       // attributeValues.addAll(element);
+      if(element.attrName==attName){
+         attributeValues.add(element);
       }
-      return attributeValues;
+        
      }
-    return (_attributeList);
+     return attributeValues;
+    
   }
 
   @override
@@ -210,18 +214,18 @@ class _FilterScreenState extends State<FilterScreen> {
                           borderRadius: BorderRadius.circular(10)),
                       child: Padding(
                         padding: const EdgeInsets.only(left:10, right:10),
-                        child: DropdownButton(
+                        child: DropdownButton<Attribute>(
                           hint: Text("Brand"),
                           isExpanded: true,
                           underline: Container(color: Colors.transparent),
                           dropdownColor: Color(0xffadadad),
                           elevation: 5,
-                          value: selectedAttribute,
+                          value: selectedBrand,
                           icon: const Icon(Icons.arrow_drop_down_outlined, color: Colors.black,),
                           onChanged: (Attribute? value) {
                             // This is called when the user selects an item.
                             setState(() {
-                              selectedAttribute = value;
+                              selectedBrand = value;
                             });
                           },
                           items:
@@ -230,7 +234,7 @@ class _FilterScreenState extends State<FilterScreen> {
                               value: value,
                               child: 
                               
-                              Text(value.attrName??''),
+                              Text(value.attrValue??''),
                             );
                           }).toList(),
                         ),
@@ -245,18 +249,18 @@ class _FilterScreenState extends State<FilterScreen> {
                           borderRadius: BorderRadius.circular(10)),
                       child: Padding(
                         padding: const EdgeInsets.only(left:10, right:10),
-                        child: DropdownButton(
+                        child: DropdownButton<Attribute>(
                           hint: Text("Manufacturer"),
                           isExpanded: true,
                           dropdownColor: Color(0xffadadad),
                           elevation: 5,
-                          value: selectedAttribute,
+                          value: selectedManufacturer,
                         underline: Container(color: Colors.transparent),
                           icon: const Icon(Icons.arrow_drop_down_outlined, color: Colors.black,),
                           onChanged: (Attribute? value) {
                             // This is called when the user selects an item.
                             setState(() {
-                              selectedAttribute = value;
+                              selectedManufacturer = value;
                             });
                           },
                           items:
@@ -265,7 +269,7 @@ class _FilterScreenState extends State<FilterScreen> {
                               value: value,
                               child: 
                               
-                              Text(value.attrName??''),
+                              Text(value.attrValue??''),
                             );
                           }).toList(),
                         ),
@@ -281,18 +285,18 @@ class _FilterScreenState extends State<FilterScreen> {
                           borderRadius: BorderRadius.circular(10)),
                       child: Padding(
                         padding: const EdgeInsets.only(left:10, right:10),
-                        child: DropdownButton(
+                        child: DropdownButton<Attribute>(
                           hint: Text("Lens Mount"),
                           isExpanded: true,
                           underline: Container(color: Colors.transparent),
                           dropdownColor: Color(0xffadadad),
                           elevation: 5,
-                          value: selectedAttribute,
+                          value: selectedLens,
                           icon: const Icon(Icons.arrow_drop_down_outlined, color: Colors.black,),
                           onChanged: (Attribute? value) {
                             // This is called when the user selects an item.
                             setState(() {
-                              selectedAttribute = value;
+                              selectedLens = value;
                             });
                           },
                           items:
@@ -301,7 +305,7 @@ class _FilterScreenState extends State<FilterScreen> {
                               value: value,
                               child: 
                               
-                              Text(value.attrName??''),
+                              Text(value.attrValue??''),
                             );
                           }).toList(),
                         ),
@@ -349,7 +353,15 @@ class _FilterScreenState extends State<FilterScreen> {
                             backgroundColor: Color(0xffec3436),
                           ),
                           onPressed: () {
-                           searchFilter();
+                           FilterData? filterData= FilterData();
+                           filterData.maxPrice=_endValue;
+                           filterData.minPrice = _startValue;
+                           filterData.category=selectedCategory;
+                           filterData.brand= selectedBrand;
+                           filterData.manufacturer=selectedManufacturer;
+                           filterData.lensMount=selectedLens;
+                           
+                           
                           },
                           child: Text(
                             "APPLY",

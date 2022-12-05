@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:lenzcamera/connection/network_manager.dart';
+import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/product.dart';
 import 'package:lenzcamera/screens/review_screen.dart';
 
@@ -8,7 +10,7 @@ class WriteReviewScreen extends StatefulWidget{
 
   // Product? products;
 
-  // WriteReviewScreen(this.products);
+  //  WriteReviewScreen(this.products);
   @override
   State<WriteReviewScreen> createState() => _WriteReviewScreenState();
 }
@@ -18,6 +20,30 @@ class _WriteReviewScreenState extends State<WriteReviewScreen> {
     double selectedRating = 5;
      final _reviewController = TextEditingController();
      final _reviewtitleController = TextEditingController();
+
+
+
+     void addReview(){
+
+     NetworkManager.shared.addReview(<String, dynamic>{
+       "cusId": 386,
+        "rating": selectedRating, 
+        "review": _reviewController,
+         "reviewtitle": _reviewtitleController.text, 
+         "urlKey": "nikon-d850-dslr-cameraB305B4E"
+       }).then((BaseResponse response) {
+
+    
+     Navigator.push(
+                    context,
+                      MaterialPageRoute(
+                      builder: (context) =>
+                      ReviewScreen()));
+    }).catchError((Object obj) {
+    });
+
+
+     }
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +81,7 @@ class _WriteReviewScreenState extends State<WriteReviewScreen> {
                  Padding(
                    padding: const EdgeInsets.only(left:24),
                    child: Text(
-                   // widget.products?.prName??'',
+                    // widget.products?.prName??'',
                      "GoPro Volta Battery Grip for HERO",
                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                      maxLines: 2,
@@ -171,11 +197,13 @@ class _WriteReviewScreenState extends State<WriteReviewScreen> {
                         backgroundColor: Color(0xffec3436),
                       ),
                       onPressed: () {
-                        Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                        builder: (context) =>
-                        ReviewScreen()));
+
+                        addReview();
+                        // Navigator.push(
+                        // context,
+                        // MaterialPageRoute(
+                        // builder: (context) =>
+                        // ReviewScreen()));
           
                       },
                       child: Center(
