@@ -403,41 +403,44 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                                                   Container(
                                                     margin: EdgeInsets.only(
                                                         left: 80),
-                                                    child: IconButton(
-                                                        onPressed: () {
-                                                          setState(() {
-                                                            if (featuredList[
-                                                                        index]
-                                                                    .isWhishlisted ==
-                                                                true) {
-                                                              DataManager.shared
-                                                                  .removeFromWishlist(
-                                                                      featuredList[
-                                                                          index]);
-                                                              featuredList[
-                                                                          index]
-                                                                      .isWhishlisted =
-                                                                  false;
-                                                            } else {
-                                                              DataManager.shared
-                                                                  .addToWishlist(
-                                                                      featuredList[
-                                                                          index]);
-                                                              featuredList[
-                                                                          index]
-                                                                      .isWhishlisted =
-                                                                  true;
-                                                            }
-                                                          });
-                                                        },
-                                                        icon: Icon(
-                                                          Icons.favorite,
-                                                          color: featuredList[
+                                                    child:IconButton(
+                                                      onPressed: () {
+                                                        setState(() {
+                                                          if (featuredList[
                                                                       index]
-                                                                  .isWhishlisted!
-                                                              ? Colors.red
-                                                              : Colors.grey,
-                                                        )),
+                                                                  .isWhishlisted ==
+                                                              true) {
+                                                            DataManager.shared
+                                                                .removeFromWishlist(
+                                                                    featuredList[
+                                                                        index]);
+                                                            featuredList[
+                                                                        index]
+                                                                    .isWhishlisted =
+                                                                false;
+                                                          } else {
+                                                            DataManager.shared
+                                                                .addToWishlist(
+                                                                    featuredList[
+                                                                        index]);
+                                                            featuredList[
+                                                                        index]
+                                                                    .isWhishlisted =
+                                                                true;
+                                                          }
+                                                        });
+                                                      },
+                                                      icon: Icon(
+                                                        Icons.favorite,
+                                                        color: DataManager
+                                                                .shared
+                                                                .iswishListed(
+                                                                    featuredList[
+                                                                        index])
+                                                            ? Colors.red
+                                                            : Colors.grey,
+                                                      ),
+                                                    ),
                                                   ),
                                                   Container(
                                                       height: 100,

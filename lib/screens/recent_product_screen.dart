@@ -127,30 +127,31 @@ class _RecentProductsScreenState extends State<RecentProductsScreen> {
                               Padding(
                                 padding: const EdgeInsets.only(left: 120),
                                 child: IconButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        if (recentProductsList[index]
-                                                .isWhishlisted ==
-                                            true) {
-                                        DataManager.shared. removeFromWishlist(
-                                              recentProductsList[index]);
-                                          recentProductsList[index]
-                                              .isWhishlisted = false;
-                                        } else {
-                                         DataManager.shared.addToWishlist(
-                                              recentProductsList[index]);
-                                          recentProductsList[index]
-                                              .isWhishlisted = true;
-                                        }
-                                      });
-                                    },
-                                    icon: Icon(
-                                      Icons.favorite,
-                                      color: recentProductsList[index]
-                                              .isWhishlisted!
-                                          ? Colors.red
-                                          : Colors.grey,
-                                    )),
+                                  onPressed: () {
+                                    setState(() {
+                                      if (recentProductsList[index]
+                                              .isWhishlisted ==
+                                          true) {
+                                        DataManager.shared.removeFromWishlist(
+                                            recentProductsList[index]);
+                                        recentProductsList[index]
+                                            .isWhishlisted = false;
+                                      } else {
+                                        DataManager.shared.addToWishlist(
+                                            recentProductsList[index]);
+                                        recentProductsList[index]
+                                            .isWhishlisted = true;
+                                      }
+                                    });
+                                  },
+                                  icon: Icon(
+                                    Icons.favorite,
+                                    color: DataManager.shared.iswishListed(
+                                            recentProductsList[index])
+                                        ? Colors.red
+                                        : Colors.grey,
+                                  ),
+                                ),
                               ),
                             ]),
                             Spacer(),

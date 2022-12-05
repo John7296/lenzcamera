@@ -127,27 +127,30 @@ class _FeaturedProductsScreenState extends State<FeaturedProductsScreen> {
                               Padding(
                                 padding: const EdgeInsets.only(left: 120),
                                 child: IconButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        if (featuredList[index].isWhishlisted ==
-                                            true) {
-                                         DataManager.shared.removeFromWishlist(
-                                              featuredList[index]);
-                                          featuredList[index].isWhishlisted =
-                                              false;
-                                        } else {
-                                          DataManager.shared.addToWishlist(featuredList[index]);
-                                          featuredList[index].isWhishlisted =
-                                              true;
-                                        }
-                                      });
-                                    },
-                                    icon: Icon(
-                                      Icons.favorite,
-                                      color: featuredList[index].isWhishlisted!
-                                          ? Colors.red
-                                          : Colors.grey,
-                                    )),
+                                  onPressed: () {
+                                    setState(() {
+                                      if (featuredList[index].isWhishlisted ==
+                                          true) {
+                                        DataManager.shared.removeFromWishlist(
+                                            featuredList[index]);
+                                        featuredList[index].isWhishlisted =
+                                            false;
+                                      } else {
+                                        DataManager.shared
+                                            .addToWishlist(featuredList[index]);
+                                        featuredList[index].isWhishlisted =
+                                            true;
+                                      }
+                                    });
+                                  },
+                                  icon: Icon(
+                                    Icons.favorite,
+                                    color: DataManager.shared
+                                            .iswishListed(featuredList[index])
+                                        ? Colors.red
+                                        : Colors.grey,
+                                  ),
+                                ),
                               ),
                             ]),
                             Spacer(),

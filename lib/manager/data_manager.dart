@@ -166,9 +166,5 @@ class DataManager {
       }
     }
     return false;
-    // if(product!.isWhishlisted==false){
-    //   return false;
-    // }
-    // return true;
   }
 }

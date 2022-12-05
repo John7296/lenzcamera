@@ -139,12 +139,12 @@ class _PopularProductsScreenState extends State<PopularProductsScreen> {
                                       if (popularProductsList[index]
                                               .isWhishlisted ==
                                           true) {
-                                       DataManager.shared.removeFromWishlist(
+                                        DataManager.shared.removeFromWishlist(
                                             popularProductsList[index]);
                                         popularProductsList[index]
                                             .isWhishlisted = false;
                                       } else {
-                                       DataManager.shared.addToWishlist(
+                                        DataManager.shared.addToWishlist(
                                             popularProductsList[index]);
                                         popularProductsList[index]
                                             .isWhishlisted = true;
@@ -153,8 +153,8 @@ class _PopularProductsScreenState extends State<PopularProductsScreen> {
                                   },
                                   icon: Icon(
                                     Icons.favorite,
-                                    color: popularProductsList[index]
-                                            .isWhishlisted!
+                                    color: DataManager.shared.iswishListed(
+                                            popularProductsList[index])
                                         ? Colors.red
                                         : Colors.grey,
                                   ),
@@ -301,9 +301,3 @@ class _PopularProductsScreenState extends State<PopularProductsScreen> {
     );
   }
 }
-
-
-
-
-
-
