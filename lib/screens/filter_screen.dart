@@ -1,11 +1,17 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
-import 'package:lenzcamera/model/base_response.dart';
-import 'package:lenzcamera/model/filter_response.dart';
-import 'package:lenzcamera/model/product.dart';
+import 'package:lenzcamera/model/attribute.dart';
 
-List<String> _categories = <String>['Canon', 'Nikon', 'Sigma', 'Tamron'];
+import 'package:lenzcamera/model/base_response.dart';
+import 'package:lenzcamera/model/category.dart';
+
+import 'package:lenzcamera/model/product.dart';
+import 'package:lenzcamera/model/search_filter_response.dart';
+
+ List<String> _categories = <String>['Canon', 'Nikon', 'Sigma', 'Tamron'];
 
 class FilterScreen extends StatefulWidget {
   @override
@@ -16,20 +22,24 @@ class _FilterScreenState extends State<FilterScreen> {
   bool? isExpanded;
 
   double _startValue = 499;
-  double _endValue = 8200;
+  double _endValue = 7999;
 
-  String? dropdownValue;
+  Category? selectedCategory;
+   Attribute? selectedAttribute;
 
 
    bool isLoading = false;
   int currentPage = 1;
 
-   List<Product> _products = [];
+  List<Category>_categoryList =[];
+  List<Attribute>_attributeList =[];
+
+  List<Attribute> attributeValues = [];
 
    @override
   void initState() {
     super.initState();
-  
+    searchFilter();
   }
  
 
@@ -40,7 +50,7 @@ class _FilterScreenState extends State<FilterScreen> {
     });
 
     NetworkManager.shared.searchFilter(<String, dynamic>{
-      "currentpage": 1,
+        "currentpage": 1,
        "custId": 386, 
        "filter": {"category": "dslr-lenses"}, 
        "filtervalues": null, 
@@ -52,13 +62,34 @@ class _FilterScreenState extends State<FilterScreen> {
          "sortorder": {"direction": "default", "field": "prName"},
           "status": false, 
           "vendorUrlKey": 8
-    }).then((BaseResponse<FilterResponse>response) {
+      
+    }).then((BaseResponse<SearchFilterResponse>response) {
+
+        print("//////////////////////");
+       print(response.data?.categoryList);
        setState(() {
-            isLoading= false;    
+            isLoading= false;  
+             _categoryList.clear();
+             _attributeList.clear();
+        _categoryList.addAll(response.data!.categoryList!);  
+        _attributeList.addAll(response.data!.attributes!);  
+      print("//////////////////////");
+       print(response.data?.categoryList);
       });
     }).catchError((e) {
     print(e.toString());
     });
+  }
+
+
+  List<Attribute> searchAttribute(String attName){
+     for (Attribute element in _attributeList){
+      if(element.attrId==attName){
+       // attributeValues.addAll(element);
+      }
+      return attributeValues;
+     }
+    return (_attributeList);
   }
 
   @override
@@ -96,68 +127,32 @@ class _FilterScreenState extends State<FilterScreen> {
                           borderRadius: BorderRadius.circular(10)),
                       child: Padding(
                         padding: const EdgeInsets.only(left:10, right:10),
-                        child: DropdownButton(
+                        child: DropdownButton<Category>(
                           hint: Text("Categories"),
                           underline: Container(color: Colors.transparent),
                           isExpanded: true,
                           dropdownColor: Color(0xffadadad),
                           elevation: 5,
-                          value: dropdownValue,
+                          value: selectedCategory,
                           icon: const Icon(Icons.arrow_drop_down_outlined, color: Colors.black,),
-                          onChanged: (String? value) {
-                            searchFilter();
+                          onChanged: (Category? value) {
+                            
                             // This is called when the user selects an item.
                             setState(() {
-                              dropdownValue = value;
+                              selectedCategory= value;
                             });
                           },
                           items:
-                              _categories.map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
+                              _categoryList.map<DropdownMenuItem<Category>>((Category value) {
+                            return DropdownMenuItem<Category>(
                               value: value,
-                              child: 
-                              
-                              Text(value),
+                              child: Text(value.catName??''),
                             );
                           }).toList(),
                         ),
                       ),
                     ),
 
-                    //  ExpansionTile(
-
-                    //            title: Text('Categories'),
-                    //           // collapsedBackgroundColor: Color(0xffadadad),
-                    //            backgroundColor: Color(0xffadadad),
-                    //            collapsedTextColor: Colors.black,
-
-                    //            // Contents
-                    //            children: [
-                    //              ListTile(
-                    //                shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(
-                    //    bottomLeft: Radius.circular(5),
-                    //                bottomRight: Radius.circular(5))),
-                    //              tileColor:Color(0xffe3e3e3),
-                    //               // Color(0xffe3e3e3),
-                    //  title: Padding(
-                    //    padding: const EdgeInsets.only(left:15),
-                    //    child: Text( "Lenses", style: TextStyle(color: Color(0xffec3436)),),
-                    //  ),),
-
-                    //              ListTile(
-                    //                shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(
-                    //    bottomLeft: Radius.circular(5),
-                    //                bottomRight: Radius.circular(5))),
-                    //              tileColor:Color(0xffe3e3e3),
-                    //               // Color(0xffe3e3e3),
-                    //  title: Padding(
-                    //    padding: const EdgeInsets.only(left:20),
-                    //    child: Text( "DSLR Lenses", style: TextStyle(color: Color(0xffec3436)),),
-                    //  ),),
-
-                    //            ],
-                    //  ),
-                    //),
 
                     SizedBox(height: 13),
                     Container(
@@ -221,21 +216,21 @@ class _FilterScreenState extends State<FilterScreen> {
                           underline: Container(color: Colors.transparent),
                           dropdownColor: Color(0xffadadad),
                           elevation: 5,
-                          value: dropdownValue,
+                          value: selectedAttribute,
                           icon: const Icon(Icons.arrow_drop_down_outlined, color: Colors.black,),
-                          onChanged: (String? value) {
+                          onChanged: (Attribute? value) {
                             // This is called when the user selects an item.
                             setState(() {
-                              dropdownValue = value;
+                              selectedAttribute = value;
                             });
                           },
                           items:
-                              _categories.map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
+                              searchAttribute("Brand").map<DropdownMenuItem<Attribute>>((Attribute value) {
+                            return DropdownMenuItem<Attribute>(
                               value: value,
                               child: 
                               
-                              Text(value),
+                              Text(value.attrName??''),
                             );
                           }).toList(),
                         ),
@@ -255,22 +250,22 @@ class _FilterScreenState extends State<FilterScreen> {
                           isExpanded: true,
                           dropdownColor: Color(0xffadadad),
                           elevation: 5,
-                          value: dropdownValue,
+                          value: selectedAttribute,
                         underline: Container(color: Colors.transparent),
                           icon: const Icon(Icons.arrow_drop_down_outlined, color: Colors.black,),
-                          onChanged: (String? value) {
+                          onChanged: (Attribute? value) {
                             // This is called when the user selects an item.
                             setState(() {
-                              dropdownValue = value;
+                              selectedAttribute = value;
                             });
                           },
                           items:
-                              _categories.map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
+                              searchAttribute("Manufacturer").map<DropdownMenuItem<Attribute>>((Attribute value) {
+                            return DropdownMenuItem<Attribute>(
                               value: value,
                               child: 
                               
-                              Text(value),
+                              Text(value.attrName??''),
                             );
                           }).toList(),
                         ),
@@ -292,21 +287,21 @@ class _FilterScreenState extends State<FilterScreen> {
                           underline: Container(color: Colors.transparent),
                           dropdownColor: Color(0xffadadad),
                           elevation: 5,
-                          value: dropdownValue,
+                          value: selectedAttribute,
                           icon: const Icon(Icons.arrow_drop_down_outlined, color: Colors.black,),
-                          onChanged: (String? value) {
+                          onChanged: (Attribute? value) {
                             // This is called when the user selects an item.
                             setState(() {
-                              dropdownValue = value;
+                              selectedAttribute = value;
                             });
                           },
                           items:
-                              _categories.map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
+                              searchAttribute("Lens Mount").map<DropdownMenuItem<Attribute>>((Attribute value) {
+                            return DropdownMenuItem<Attribute>(
                               value: value,
                               child: 
                               
-                              Text(value),
+                              Text(value.attrName??''),
                             );
                           }).toList(),
                         ),
@@ -335,7 +330,8 @@ class _FilterScreenState extends State<FilterScreen> {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Color(0xff70726f),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                        },
                         child: Text(
                           "CLEAR",
                           style: TextStyle(fontSize: 20),
@@ -352,7 +348,9 @@ class _FilterScreenState extends State<FilterScreen> {
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Color(0xffec3436),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                           searchFilter();
+                          },
                           child: Text(
                             "APPLY",
                             style: TextStyle(fontSize: 20),

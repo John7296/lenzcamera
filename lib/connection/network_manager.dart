@@ -10,13 +10,12 @@ import 'package:lenzcamera/model/order_list.dart';
 import 'package:lenzcamera/model/product.dart';
 import 'package:lenzcamera/model/product_detail.dart';
 import 'package:lenzcamera/model/profile.dart';
-import 'package:lenzcamera/model/filter_response.dart';
-
 import 'package:lenzcamera/model/home_details.dart';
 import 'package:lenzcamera/model/login_customer.dart';
 import 'package:lenzcamera/model/new_register.dart';
 import 'package:lenzcamera/model/profile.dart';
 import 'package:lenzcamera/model/related_products.dart';
+import 'package:lenzcamera/model/search_filter_response.dart';
 
 import 'package:lenzcamera/model/search_products_response.dart';
 import 'package:lenzcamera/model/top_categories.dart';
@@ -107,6 +106,7 @@ class NetworkManager {
     return call(networkConnection.customerDetails(custId));
   }
 
+
   Future<BaseResponse<SearchProductsResponse>> searchProducts(
       Map<String, dynamic> map) {
     return call(networkConnection.searchProducts(map));
@@ -118,7 +118,8 @@ class NetworkManager {
         "canon-lpe6nh-battery-og", int.parse("386"), 0, int.parse("8")));
   }
 
-  Future<BaseResponse<FilterResponse>> searchFilter(Map<String, dynamic> map) {
+
+  Future<BaseResponse<SearchFilterResponse>> searchFilter(Map<String, dynamic> map) {
     return call(networkConnection.searchFilter(map));
   }
 

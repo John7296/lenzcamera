@@ -8,12 +8,12 @@ import 'package:lenzcamera/model/order_list.dart';
 import 'package:lenzcamera/model/product.dart';
 import 'package:lenzcamera/model/product_detail.dart';
 import 'package:lenzcamera/model/profile.dart';
-import 'package:lenzcamera/model/filter_response.dart';
 import 'package:lenzcamera/model/home_details.dart';
 import 'package:lenzcamera/model/login_customer.dart';
 import 'package:lenzcamera/model/new_register.dart';
 import 'package:lenzcamera/model/profile.dart';
 import 'package:lenzcamera/model/related_products.dart';
+import 'package:lenzcamera/model/search_filter_response.dart';
 
 import 'package:lenzcamera/model/search_products_response.dart';
 import 'package:lenzcamera/model/state_list.dart';
@@ -78,13 +78,7 @@ abstract class NetworkConnection {
     @Body() Map<String, dynamic> map,
   );
 
-  @FormUrlEncoded()
-  @POST("Product/SearchFilter")
-  Future<BaseResponse<FilterResponse>> searchFilter(
-    @Body() Map<String, dynamic> map,
-  );
-
-  @FormUrlEncoded()
+ @FormUrlEncoded()
   @POST("/Support")
   Future<BaseResponse> supportMessageSend(
     @Body() Map<String, dynamic> map,
@@ -99,11 +93,20 @@ abstract class NetworkConnection {
         @Query("pincode") int pincode
   );
 
-  @FormUrlEncoded()
+@FormUrlEncoded()
   @GET("/CustomerDetails")
   Future<BaseResponse<LoginCustomer>> customerDetails(
        @Query("custId") int custId,
   );
+
+
+
+  @FormUrlEncoded()
+  @POST("Product/SearchFilter")
+  Future<BaseResponse<SearchFilterResponse>>searchFilter(
+    @Body() Map<String, dynamic> map,
+  );
+
 
   @FormUrlEncoded()
   @GET('CompanyPolicy')

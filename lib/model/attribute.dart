@@ -1,10 +1,10 @@
 
 import 'package:json_annotation/json_annotation.dart';
 
-part 'attributes.g.dart';
+part 'attribute.g.dart';
 
 @JsonSerializable()
-class Attributes{
+class Attribute{
 
     @JsonKey(name: "attrValue")
   final String? attrValue;
@@ -22,7 +22,7 @@ class Attributes{
   final int? attrValueId;
 
     @JsonKey(name: "ProductCount")
-  final int? ProductCount;
+  final int? productCount;
 
     @JsonKey(name: "imageUrl")
   final String? imageUrl;
@@ -30,21 +30,30 @@ class Attributes{
    @JsonKey(name: "imageIcon")
   final String? imageIcon;
 
+   @JsonKey(name: "ShowInHome")
+  final bool? showInHome;
 
-  Attributes({
+ @JsonKey(name: "brandDetailId")
+  final int? brandDetailId;
+
+
+
+  Attribute({
 
     this.attrValue,
     this.attrName,
     this.brandName,
     this.attrId,
     this.attrValueId,
-    this.ProductCount,
+    this.productCount,
     this.imageUrl,
-    this.imageIcon
+    this.imageIcon,
+    this.showInHome,
+    this.brandDetailId
   });
 
-   factory Attributes.fromJson(Map<String, dynamic> json) =>
-      _$AttributesFromJson(json);
-  Map<String, dynamic> toJson() => _$AttributesToJson(this);
+   factory Attribute.fromJson(Map<String, dynamic> json) =>
+      _$AttributeFromJson(json);
+  Map<String, dynamic> toJson() => _$AttributeToJson(this);
 
 }
