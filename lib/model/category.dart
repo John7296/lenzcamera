@@ -2,10 +2,10 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:lenzcamera/manager/data_manager.dart';
 
 
-part 'category_list.g.dart';
+part 'category.g.dart';
 
 @JsonSerializable()
-class CategoryList{
+class Category{
 
    @JsonKey(name: "catId")
   int? catId;
@@ -65,7 +65,7 @@ class CategoryList{
   String? MobBannerImgUrl;
 
 
- CategoryList(
+ Category(
 
   this.catId,
   this.catName,
@@ -88,8 +88,8 @@ class CategoryList{
   this.MobBannerImgUrl
  );
 
-     factory  CategoryList.fromJson(Map<String, dynamic> json) =>
-      _$CategoryListFromJson(json);
-  Map<String, dynamic> toJson() => _$CategoryListToJson(this);
+     factory  Category.fromJson(Map<String, dynamic> json) =>
+      _$CategoryFromJson(json);
+  Map<String, dynamic> toJson() => _$CategoryToJson(this);
 
 }

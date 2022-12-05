@@ -1,12 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'category_list.dart';
+part of 'category.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-CategoryList _$CategoryListFromJson(Map<String, dynamic> json) => CategoryList(
+Category _$CategoryFromJson(Map<String, dynamic> json) => Category(
       json['catId'] as int?,
       json['catName'] as String?,
       json['image'] as String?,
@@ -28,8 +28,7 @@ CategoryList _$CategoryListFromJson(Map<String, dynamic> json) => CategoryList(
       json['MobBannerImgUrl'] as String?,
     );
 
-Map<String, dynamic> _$CategoryListToJson(CategoryList instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$CategoryToJson(Category instance) => <String, dynamic>{
       'catId': instance.catId,
       'catName': instance.catName,
       'image': instance.image,

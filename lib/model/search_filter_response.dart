@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:lenzcamera/model/attributes.dart';
-import 'package:lenzcamera/model/category_list.dart';
+import 'package:lenzcamera/model/attribute.dart';
+import 'package:lenzcamera/model/category.dart';
 
 part 'search_filter_response.g.dart';
 
@@ -9,10 +9,16 @@ part 'search_filter_response.g.dart';
 class SearchFilterResponse{
 
  @JsonKey(name: "categoryList")
- List<CategoryList>? categoryList;
+ List<Category>? categoryList;
 
   @JsonKey(name: "attributes")
- List<Attributes>? attributes;
+ List<Attribute>? attributes;
+
+ @JsonKey(name: "minPrize")
+ double? minPrize;
+
+ @JsonKey(name: "maxPrize")
+ double? maxPrize;
 
 
 SearchFilterResponse();
