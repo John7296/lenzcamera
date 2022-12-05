@@ -9,65 +9,49 @@ import 'package:lenzcamera/screens/home_screen.dart';
 import 'package:lenzcamera/screens/register_screen.dart';
 import 'package:lenzcamera/utils/sessions_manager.dart';
 
-
-
-
 class LoginScreen extends StatefulWidget {
-
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final GlobalKey<FormState> _form = GlobalKey<FormState>();
 
-    final GlobalKey<FormState> _form = GlobalKey<FormState>();
-
-   final _usernameController = TextEditingController();
+  final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
   BaseResponse? response;
 
-
-   @override
+  @override
   void initState() {
     super.initState();
-    
   }
 
-  void onLoginButtonTapped(){
-
+  void onLoginButtonTapped() {
     if (!_form.currentState!.validate()) {
       return;
     }
 
-     String username = _usernameController.text;
+    String username = _usernameController.text;
     String password = _passwordController.text;
 
     print('/////////////');
 
-     print(username);
-     print(password);
-     
+    print(username);
+    print(password);
 
-       NetworkManager.shared.userLogin(<String, dynamic>{
+    NetworkManager.shared.userLogin(<String, dynamic>{
       "userName": username,
       "password": password
-    }).then((
-      BaseResponse<LoginCustomer> 
-      response) {
-         SessionsManager.saveUserToken(response.data?.token??'');
-        //  SessionsManager.saveUserId(response.data?.customerId??0);
-         NetworkManager.shared.userKey = "Bearer " + (response.data?.token?? "");
-           NetworkManager.shared.refreshTokens();
-        Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                        builder: (context) =>
-                       HomeScreen()));
-  }).catchError((e){
-
-    print(e);
-
-  });
+    }).then((BaseResponse<LoginCustomer> response) {
+      SessionsManager.saveUserToken(response.data?.token ?? '');
+      //  SessionsManager.saveUserId(response.data?.customerId??0);
+      NetworkManager.shared.userKey = "Bearer " + (response.data?.token ?? "");
+      NetworkManager.shared.refreshTokens();
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => HomeScreen()));
+    }).catchError((e) {
+      print(e);
+    });
   }
 
   @override
@@ -97,72 +81,71 @@ class _LoginScreenState extends State<LoginScreen> {
               Form(
                 key: _form,
                 child: Column(children: [
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    "Email Or Mobile Number",
-                    style: TextStyle(
-                        color: Color(0xff747474), fontWeight: FontWeight.w600, fontSize: 12),
-                  ),
-                ),
-                SizedBox(height: 12),
-                Container(
-                  height: 40,
-                  child: TextFormField(
-                    controller: _usernameController,
-                    validator: (val) {
-                    if (val!.isEmpty)
-                    return "Enter Mobile/Email";
-                         return null;
-                           },
-                      decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(color: Color(0xffb0b0b0)),
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      "Email Or Mobile Number",
+                      style: TextStyle(
+                          color: Color(0xff747474),
+                          fontWeight: FontWeight.w600,
+                          fontSize: 12),
                     ),
-                    labelText: " ",
-                  )),
-                ),
-                SizedBox(height: 30),
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    "Password",
-                    style: TextStyle(
-                        color: Color(0xff747474), fontWeight: FontWeight.w600, fontSize: 12),
                   ),
-                ),
-                SizedBox(height: 12),
-                Container(
-                  height: 40,
-                  child: TextFormField(
-                      decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(color: Color(0xffb0b0b0)),
+                  SizedBox(height: 12),
+                  Container(
+                    height: 40,
+                    child: TextFormField(
+                        controller: _usernameController,
+                        validator: (val) {
+                          if (val!.isEmpty) return "Enter Mobile/Email";
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Color(0xffb0b0b0)),
+                          ),
+                          labelText: " ",
+                        )),
+                  ),
+                  SizedBox(height: 30),
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      "Password",
+                      style: TextStyle(
+                          color: Color(0xff747474),
+                          fontWeight: FontWeight.w600,
+                          fontSize: 12),
                     ),
-                    labelText: " ",
-                      
-                    suffixIcon: Padding(
-                      padding: const EdgeInsets.only(right: 20),
-                      child: IconButton(
-                        icon: Icon(
-                          Icons.visibility,
-                          color: Color(0xff6e6e6c),
+                  ),
+                  SizedBox(height: 12),
+                  Container(
+                    height: 40,
+                    child: TextFormField(
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Color(0xffb0b0b0)),
+                          ),
+                          labelText: " ",
+                          suffixIcon: Padding(
+                            padding: const EdgeInsets.only(right: 20),
+                            child: IconButton(
+                              icon: Icon(
+                                Icons.visibility,
+                                color: Color(0xff6e6e6c),
+                              ),
+                              onPressed: () {},
+                            ),
+                          ),
                         ),
-                        onPressed: () {},
-                      ),
-                    ),
+                        obscureText: true,
+                        controller: _passwordController,
+                        validator: (val) {
+                          if (val!.isEmpty) return "Enter your password";
+                          return null;
+                        }),
                   ),
-                  obscureText: true,
-                   controller: _passwordController,
-                    validator: (val) {
-                    if (val!.isEmpty)
-                    return "Enter your password";
-                         return null;
-                           }
-                  ),
-                ),
-                ]
-                ),
+                ]),
               ),
               SizedBox(height: 30),
               Container(
@@ -172,14 +155,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     backgroundColor: Color(0xffec3436),
                   ),
                   onPressed: () {
-
                     onLoginButtonTapped();
                     // Navigator.push(
                     //     context,
                     //     MaterialPageRoute(
                     //     builder: (context) =>
                     //    HomeScreen()));
-          
                   },
                   child: Center(
                       child: Text(
@@ -192,7 +173,10 @@ class _LoginScreenState extends State<LoginScreen> {
               TextButton(
                   onPressed: () {
                     Navigator.push(
-                      context, MaterialPageRoute(builder: (context)=>ForgotPasswordScreen(response?.data)));
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                ForgotPasswordScreen(response?.data)));
                   },
                   child: Center(
                       child: Text(
@@ -203,7 +187,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         fontSize: 14),
                   ))),
               Row(
-                 mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     "Dont't have an account? ",
@@ -212,13 +196,17 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(),
                   TextButton(
                     onPressed: () {
-                        Navigator.push(
-                    context, MaterialPageRoute(builder: (context)=>RegisterScreen()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => RegisterScreen()));
                     },
-                    child: Text("Register Now",
+                    child: Text(
+                      "Register Now",
                       style: TextStyle(
                           decoration: TextDecoration.underline,
-                          fontSize: 16, fontWeight: FontWeight.normal,
+                          fontSize: 16,
+                          fontWeight: FontWeight.normal,
                           color: Color(0xffc5484c)),
                     ),
                   ),
@@ -244,31 +232,31 @@ class _LoginScreenState extends State<LoginScreen> {
         //       ),
         //       label: "Home",
         //     ),
-    
+
         //     BottomNavigationBarItem(
         //         icon: Icon(Icons.category_outlined,
         //             size: 25),
         //         label: "Categories"),
-    
+
         //     BottomNavigationBarItem(
         //       icon: Icon(Icons.shopping_cart_outlined,
         //           size: 30),
         //       label: "Cart",
         //     ),
-    
+
         //     BottomNavigationBarItem(
         //       icon: Icon(Icons.search,
         //           size: 30),
         //       label: "Search",
         //     ),
-    
+
         //     BottomNavigationBarItem(
         //       icon: Icon(Icons.person_outline,
         //           size: 30),
         //       label: "Profile",
         //     ),
         //   ],
-    
+
         // ),
       ),
     );

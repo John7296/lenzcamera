@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
+import 'package:lenzcamera/manager/data_manager.dart';
 import 'package:lenzcamera/model/attribute.dart';
 
 import 'package:lenzcamera/model/base_response.dart';
@@ -116,11 +117,11 @@ class _FilterScreenState extends State<FilterScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.only(left: 24, right: 24),
-        child: Stack(
+        child: Column(
           children: [
-            Container(
-              margin: EdgeInsets.only(bottom: 75),
-              child: SingleChildScrollView(
+            Expanded(
+              child: Container(
+                margin: EdgeInsets.only(bottom: 75),
                 child: Column(
                   children: [
                     SizedBox(height: 15),
@@ -156,24 +157,19 @@ class _FilterScreenState extends State<FilterScreen> {
                         ),
                       ),
                     ),
-
-
+            
+            
                     SizedBox(height: 13),
                     Container(
                       height: 40,
+                      width: double.infinity,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         color: Color(0xff6f7270),
                       ),
-                      child: Expanded(
-                        child: Row(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(left: 15),
-                              child: Text("Price Range"),
-                            ),
-                          ],
-                        ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(12),
+                        child: Text("Price Range"),
                       ),
                     ),
                     SizedBox(
@@ -241,7 +237,7 @@ class _FilterScreenState extends State<FilterScreen> {
                       ),
                     ),
                     SizedBox(height: 13),
-
+            
                    Container(
                       height: 40,
                       decoration: BoxDecoration(
@@ -275,9 +271,9 @@ class _FilterScreenState extends State<FilterScreen> {
                         ),
                       ),
                     ),
-
+            
                     SizedBox(height: 13),
-
+            
                     Container(
                       height: 40,
                       decoration: BoxDecoration(
@@ -311,67 +307,64 @@ class _FilterScreenState extends State<FilterScreen> {
                         ),
                       ),
                     ),
-
-                    SizedBox(
-                      height: 200,
-                    ),
+            
+                  
                   ],
                 ),
               ),
             ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                height: 75,
+            Container(
+              height: 75,
 
-                //color: Color(0xfff2f2f2),
-                child: Row(
-                  children: [
-                    Container(
+              //color: Color(0xfff2f2f2),
+              child: Row(
+                children: [
+                  Container(
+                    height: 40,
+                    width: 100,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color(0xff70726f),
+                      ),
+                      onPressed: () {
+                      },
+                      child: Text(
+                        "CLEAR",
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Expanded(
+                    child: Container(
                       height: 40,
-                      width: 100,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xff70726f),
+                          backgroundColor: Color(0xffec3436),
                         ),
                         onPressed: () {
+                         FilterData? filterData= FilterData();
+                         filterData.maxPrice=_endValue;
+                         filterData.minPrice = _startValue;
+                         filterData.category=selectedCategory;
+                         filterData.brand= selectedBrand;
+                         filterData.manufacturer=selectedManufacturer;
+                         filterData.lensMount=selectedLens;
+
+                         DataManager.shared.filterData=filterData;
+                         
+                         Navigator.pop(context);
                         },
                         child: Text(
-                          "CLEAR",
+                          "APPLY",
                           style: TextStyle(fontSize: 20),
                         ),
                       ),
                     ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Expanded(
-                      child: Container(
-                        height: 40,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Color(0xffec3436),
-                          ),
-                          onPressed: () {
-                           FilterData? filterData= FilterData();
-                           filterData.maxPrice=_endValue;
-                           filterData.minPrice = _startValue;
-                           filterData.category=selectedCategory;
-                           filterData.brand= selectedBrand;
-                           filterData.manufacturer=selectedManufacturer;
-                           filterData.lensMount=selectedLens;
-                           
-                           
-                          },
-                          child: Text(
-                            "APPLY",
-                            style: TextStyle(fontSize: 20),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ],

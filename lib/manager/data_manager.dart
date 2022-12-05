@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/cart.dart';
+import 'package:lenzcamera/model/filter_data.dart';
 import 'package:lenzcamera/model/product.dart';
 
 class DataManager {
@@ -11,6 +12,8 @@ class DataManager {
 
   List<Product> cartItemsList = [];
   VoidCallback? onCartUpdated;
+
+  FilterData? filterData;
 
   // void updateItemToCart(Product product) {
   //   if (product.qty == 0) {

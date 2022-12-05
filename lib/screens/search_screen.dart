@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/manager/data_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
+import 'package:lenzcamera/model/filter_data.dart';
 import 'package:lenzcamera/model/product.dart';
 
 import 'package:lenzcamera/model/search_products_response.dart';
@@ -48,13 +49,17 @@ class _SearchScreenState extends State<SearchScreen> {
       "pagesize": 20,
       "custId": 386,
       "currentpage": currentPage,
-      "filtervalues": "",
+        
+            
+      "filtervalues":(DataManager.shared.filterData?.brand!=null||DataManager.shared.filterData?.manufacturer!=null||DataManager.shared.filterData?.lensMount!=null)?"${ DataManager.shared.filterData?.brand?.attrId??''}, ${ DataManager.shared.filterData?.manufacturer?.attrId??''},  ${ DataManager.shared.filterData?.lensMount?.attrId??""}":"",
+                
+                        
       "guestId": "",
-      "maxPrice": "1000000",
-      "minPrice": "0",
+      "maxPrice": DataManager.shared.filterData?.maxPrice?? 1000000,
+      "minPrice": DataManager.shared.filterData?.minPrice??0,
       "pincode": 8,
       "filter": {
-        "category": "",
+        "category":  DataManager.shared.filterData?.category?.catId??'',
       },
       "sortorder": {"field": "prName", "direction": "default"},
       "searchstring": _searchString,
@@ -142,10 +147,12 @@ class _SearchScreenState extends State<SearchScreen> {
                       height: 20,
                       child: InkWell(
                           onTap: () {
-                            Navigator.pushReplacement(
+                            Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => FilterScreen()));
+                                    builder: (context) => FilterScreen())).then((value) {
+                                      searchProducts();
+                                    },);
                           },
                           child: Image.asset("assets/images/filter_icon.png"))),
                 ),
