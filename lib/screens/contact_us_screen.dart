@@ -1,4 +1,5 @@
 
+import 'package:flash/flash.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
@@ -21,6 +22,36 @@ final _emailController = TextEditingController();
   // LoginCustomer? user;
 
 
+
+
+
+
+void showFlashMsg(String msg, {Color color = const Color(0xFF272532)}) {
+    showFlash(
+      context: context,
+      duration: const Duration(seconds: 4),
+      builder: (context, controller) {
+        return Flash(
+          controller: controller,
+          behavior: FlashBehavior.floating,
+          position: FlashPosition.bottom,
+          boxShadows: kElevationToShadow[2],
+         // backgroundColor: Colors.grey,
+          reverseAnimationCurve: Curves.easeInCirc,
+          forwardAnimationCurve: Curves.easeInOutBack,
+          margin: const EdgeInsets.all(8.0),
+          borderRadius: BorderRadius.circular(6.0),    
+          horizontalDismissDirection: HorizontalDismissDirection.horizontal,
+          child: FlashBar(
+            content: Text(
+              msg,
+              style: const TextStyle(fontSize: 15.0, color: Colors.black),
+            ),
+          ),
+        );
+      },
+    );
+  }
 
    void customerDetails() {
     NetworkManager.shared
@@ -51,6 +82,8 @@ void onSendButtonTapped() {
       _phoneController.text  = "";
       _titleController.text = "";
       _messageController.text = "";
+
+      showFlashMsg(response.message!);
       
     }).catchError((Object obj) {
      

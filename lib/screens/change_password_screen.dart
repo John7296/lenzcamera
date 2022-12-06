@@ -7,6 +7,7 @@ import 'package:lenzcamera/model/login_customer.dart';
 import 'package:lenzcamera/model/new_register.dart';
 import 'package:lenzcamera/screens/login_screen.dart';
 import 'package:lenzcamera/screens/profile_screen.dart';
+import 'package:lenzcamera/utils/sessions_manager.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
   // NewRegister? user;
@@ -20,7 +21,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   final _newPasswordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
 
-  LoginCustomer? user;
+  LoginCustomer? user = LoginCustomer();
 
   bool _obscureText = true;
    bool _obscureText1 = true;
@@ -61,7 +62,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
 
     NetworkManager.shared
         .changePassword(<String, dynamic>{
-         "custId": 386,
+         "custId":386,
           'oldPassword': password,
           'newPassword': newPassword
         })
@@ -280,6 +281,9 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   ),
                   onPressed: () {
                     onChangeButtonTapped();
+
+                    print("hhhhhhhhhhh");
+                    print(user?.customerName??'');
                     // Navigator.push(context,
                     //     MaterialPageRoute(builder: (context) => LoginScreen()));
                   },
