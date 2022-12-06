@@ -79,6 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
       NetworkManager.shared.userKey = "Bearer " + (response.data?.token ?? "");
       
       NetworkManager.shared.refreshTokens();
+      showFlashMsg(response.message!);
       Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
     }).catchError((e) {
       print(e);
