@@ -68,7 +68,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
     NetworkManager.shared
         .getTopCategories()
         .then((BaseResponse<List<TopCategories>> response) {
-      // print(response.data);
+      print("1${response.data}");
       setState(() {
         isLoading = false;
         categoryList.clear();
@@ -431,7 +431,9 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                                                           }
                                                         });
                                                       },
-                                                      icon: Icon(
+                                                      icon: 
+                                                      Icon(
+                                                        
                                                         Icons.favorite,
                                                         color: DataManager
                                                                 .shared

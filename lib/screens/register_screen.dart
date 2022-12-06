@@ -219,7 +219,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               controller: _passwordController,
                               validator: (value) {
                                 if (value!.isEmpty)
-                                  return "Enter your Password";
+                                  return "Minimum 6 charaters required";
                                 return null;
                               },
                             ),

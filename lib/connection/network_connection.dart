@@ -28,16 +28,15 @@ part 'network_connection.g.dart';
 @RestApi(baseUrl: 'https://dev.lenzcamera.com/api/api/v2/')
 abstract class NetworkConnection {
   factory NetworkConnection(Dio dio, {String? baseUrl}) {
-
-    if(kDedebug){
-    dio.interceptors.add(PrettyDioLogger(
-        requestHeader: true,
-        requestBody: true,
-        responseBody: true,
-        responseHeader: false,
-        error: true,
-        compact: true,
-        maxWidth: 90));
+    if (kDedebug) {
+      dio.interceptors.add(PrettyDioLogger(
+          requestHeader: true,
+          requestBody: true,
+          responseBody: true,
+          responseHeader: false,
+          error: true,
+          compact: true,
+          maxWidth: 90));
     }
     return _NetworkConnection(dio);
   }
@@ -67,13 +66,14 @@ abstract class NetworkConnection {
   @FormUrlEncoded()
   @GET("Customer/ResetPassword")
   Future<BaseResponse> resetPassword(
-     @Query("OtpUrlKey") String otp,
+    @Query("OtpUrlKey") String otp,
     @Query("password") String password,
   );
 
-    @FormUrlEncoded()
+  @FormUrlEncoded()
   @POST("customer/ChangePassword")
-  Future<BaseResponse<LoginCustomer>> changePassword(@Body() Map<String, dynamic> map);
+  Future<BaseResponse<LoginCustomer>> changePassword(
+      @Body() Map<String, dynamic> map);
 
   @FormUrlEncoded()
   @POST("Product/Search")
@@ -81,7 +81,7 @@ abstract class NetworkConnection {
     @Body() Map<String, dynamic> map,
   );
 
- @FormUrlEncoded()
+  @FormUrlEncoded()
   @POST("/Support")
   Future<BaseResponse> supportMessageSend(
     @Body() Map<String, dynamic> map,
@@ -89,33 +89,29 @@ abstract class NetworkConnection {
 
   @FormUrlEncoded()
   @GET("/ProductDetails")
-  Future<BaseResponse<ProductDetail>>getSingleProductDetails(
-     @Query("urlKey") String urlKey,
-      @Query("custId") int custId,
-       @Query("guestId") int guestId,
-        @Query("pincode") int pincode
-  );
+  Future<BaseResponse<ProductDetail>> getSingleProductDetails(
+      @Query("urlKey") String urlKey,
+      @Query("custId") int userId,
+      @Query("guestId") int guestId,
+      @Query("pincode") int pincode);
 
-@FormUrlEncoded()
+  @FormUrlEncoded()
   @GET("/CustomerDetails")
   Future<BaseResponse<LoginCustomer>> customerDetails(
-       @Query("custId") int custId,
+    @Query("custId") int userId,
   );
-
-
 
   @FormUrlEncoded()
   @POST("Product/SearchFilter")
-  Future<BaseResponse<SearchFilterResponse>>searchFilter(
+  Future<BaseResponse<SearchFilterResponse>> searchFilter(
     @Body() Map<String, dynamic> map,
   );
 
   @FormUrlEncoded()
   @POST("Product/ProductReviewSubmit")
-  Future<BaseResponse>addReview(
+  Future<BaseResponse> addReview(
     @Body() Map<String, dynamic> map,
   );
-
 
   @FormUrlEncoded()
   @GET('CompanyPolicy')
@@ -162,35 +158,35 @@ abstract class NetworkConnection {
   @FormUrlEncoded()
   @GET('FeaturedProduct')
   Future<BaseResponse<List<Product>>> featuredProducts(
-    @Query("custId") int custId,
+    @Query("custId") int userId,
     @Query("guestId") int gustId,
   );
 
   @FormUrlEncoded()
   @GET('PopularProduct')
   Future<BaseResponse<List<Product>>> popularProducts(
-    @Query("custId") int custId,
+    @Query("custId") int userId,
     @Query("guestId") int gustId,
   );
 
   @FormUrlEncoded()
   @GET('RecentProducts')
   Future<BaseResponse<List<Product>>> recentProducts(
-    @Query("custId") int custId,
+    @Query("custId") int userId,
     @Query("guestId") int gustId,
   );
 
   @FormUrlEncoded()
   @GET('Products/HomeProducts')
   Future<BaseResponse<List<HomeDetails>>> homeDetails(
-    @Query("custId") int custId,
+    @Query("custId") int userId,
     @Query("guestId") int gustId,
   );
 
   @FormUrlEncoded()
   @GET('Order/WishLists')
   Future<BaseResponse<List<Product>>> getWishList(
-    @Query("custId") int custId,
+    @Query("custId") int userId,
     @Query("guestId") int gustId,
   );
 
@@ -200,7 +196,7 @@ abstract class NetworkConnection {
 
   @POST('Order/InsertWishListsDel')
   Future<BaseResponse> removeFromWishlist(
-    @Query("custId") int custId,
+    @Query("custId") int userId,
     @Query("guestId") String gustId,
     @Query("urlKey") String urlKey,
   );
@@ -208,7 +204,7 @@ abstract class NetworkConnection {
   @FormUrlEncoded()
   @GET('CustomerDetails')
   Future<BaseResponse<Profile>> getProfile(
-    @Query("custId") int custId,
+    @Query("custId") int userId,
   );
 
   @FormUrlEncoded()
@@ -219,7 +215,7 @@ abstract class NetworkConnection {
   @GET('Order/CartList')
   Future<BaseResponse<CartResponse>> getCart(
     // @Body() Map<String, dynamic> map,
-    @Query("cusId") int cusId,
+    @Query("cusId") int userId,
     @Query("guestId") int guestId,
     @Query("pincode") int pincode,
   );
@@ -245,7 +241,7 @@ abstract class NetworkConnection {
   @FormUrlEncoded()
   @GET('Order/CustOrderList')
   Future<BaseResponse<List<OrderList>>> getOrderList(
-    @Query("cusId") int cusId,
+    @Query("cusId") int userId,
     // @Query("year") int year,
     // @Query("addressid") int addressid,
     // @Query("guestId") int guestId,
@@ -254,6 +250,4 @@ abstract class NetworkConnection {
   @FormUrlEncoded()
   @POST('Order')
   Future<BaseResponse> placeOrder(@Body() Map<String, dynamic> map);
-
-
 }

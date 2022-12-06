@@ -11,15 +11,18 @@ class DataManager {
   DataManager._internal();
   static DataManager get shared => _singleton;
 
-  String? customerId;
+  int? customerId;
   List<Product> cartItemsList = [];
   List<Product> wishListItems = [];
   VoidCallback? onCartUpdated;
   FilterData? filterData;
 
-  void regCustomerId() {
-    NetworkManager.shared.refreshTokens();
-  }
+  // void regCustomerId() {
+  //   SessionsManager.getUserId().then((value) {
+  //     customerId = value;
+  //     print('Customer ID:${customerId}');
+  //   });
+  // }
 
   void updateItemToCart(Product product, int type,
       {VoidCallback? onUpdate, VoidCallback? onUpdateStarted}) {
@@ -162,7 +165,7 @@ class DataManager {
   }
 
   bool iswishListed(Product? product) {
-    print('Wishlisted items 2- ${wishListItems.first.productId}');
+    // print('Wishlisted items 2- ${wishListItems.first.productId}');
     if (wishListItems != null) {
       for (Product element in wishListItems) {
         if (element.productId == product!.productId) {

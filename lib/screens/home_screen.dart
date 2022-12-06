@@ -21,6 +21,7 @@ import 'package:lenzcamera/screens/profile_screen.dart';
 import 'package:lenzcamera/screens/return_policy_screen.dart';
 import 'package:lenzcamera/screens/search_screen.dart';
 import 'package:lenzcamera/screens/wishlist_screen.dart';
+import 'package:lenzcamera/utils/sessions_manager.dart';
 
 class HomeScreen extends StatefulWidget {
   final TopCategories? topCategories;
@@ -211,11 +212,12 @@ class _HomeScreenState extends State<HomeScreen> {
               leading: const Icon(Icons.logout),
               title: const Text('LogOut'),
               onTap: () {
-                Navigator.push(
+                Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => LoginScreen(),
+                    builder: (BuildContext context) => LoginScreen(),
                   ),
+                  (route) => false,
                 );
               },
             ),

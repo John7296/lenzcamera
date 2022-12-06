@@ -94,7 +94,6 @@ class _FilterScreenState extends State<FilterScreen> {
         
      }
      return attributeValues;
-    
   }
 
   @override
