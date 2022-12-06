@@ -26,7 +26,7 @@ class _WriteReviewScreenState extends State<WriteReviewScreen> {
      void addReview(){
 
      NetworkManager.shared.addReview(<String, dynamic>{
-       "cusId": 386,
+       "cusId": NetworkManager.shared.userId,
         "rating": selectedRating, 
         "review": _reviewController,
          "reviewtitle": _reviewtitleController.text, 

@@ -7,6 +7,7 @@ import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/customer.dart';
 import 'package:lenzcamera/model/customer_details.dart';
 import 'package:lenzcamera/model/login_customer.dart';
+import 'package:lenzcamera/utils/sessions_manager.dart';
 
 class ContactUsScreen extends StatefulWidget{
   @override
@@ -70,7 +71,7 @@ void onSendButtonTapped() {
 
   Map<String, dynamic> map = {
       
-      "custId": 386,
+      "custId": NetworkManager.shared.userId,
      'email' : _emailController.text,
      'phone' : _phoneController.text,
      ' title' : _titleController.text,
@@ -380,7 +381,10 @@ void onSendButtonTapped() {
                       ),
                       onPressed: () {
 
-                        onSendButtonTapped();
+                       //onSendButtonTapped();
+                        print("/////////////////");
+
+                        print(SessionsManager.userId);
                         // Navigator.push(
                         //     context,
                         //     MaterialPageRoute(

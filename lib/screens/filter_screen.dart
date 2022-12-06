@@ -327,6 +327,8 @@ class _FilterScreenState extends State<FilterScreen> {
                         backgroundColor: Color(0xff70726f),
                       ),
                       onPressed: () {
+
+                        
                       },
                       child: Text(
                         "CLEAR",

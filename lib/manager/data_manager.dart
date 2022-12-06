@@ -174,4 +174,12 @@ class DataManager {
     }
     return false;
   }
+
+
+
+  void clearSession() {
+    NetworkManager.shared.userKey = "";
+    SessionsManager.clearSession();
+    
+  }
 }

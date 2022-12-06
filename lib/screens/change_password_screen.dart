@@ -62,7 +62,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
 
     NetworkManager.shared
         .changePassword(<String, dynamic>{
-         "custId":386,
+         "custId":NetworkManager.shared.userId,
           'oldPassword': password,
           'newPassword': newPassword
         })
@@ -91,7 +91,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
               color: Colors.white,
             ),
             onPressed: () {
-              Navigator.pushReplacement(context,
+              Navigator.push(context,
                          MaterialPageRoute(builder: (context) => ProfileScreen()));
             },
           ),
@@ -283,7 +283,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     onChangeButtonTapped();
 
                     print("hhhhhhhhhhh");
-                    print(user?.customerName??'');
+                  print(NetworkManager.shared.userId);
                     // Navigator.push(context,
                     //     MaterialPageRoute(builder: (context) => LoginScreen()));
                   },

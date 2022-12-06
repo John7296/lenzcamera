@@ -31,4 +31,10 @@ class SessionsManager {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.containsKey(userKey);
   }
+
+
+   static void clearSession() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove(userKey);
+  }
 }
