@@ -1,4 +1,5 @@
 
+import 'package:flash/flash.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
@@ -6,6 +7,7 @@ import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/customer.dart';
 import 'package:lenzcamera/model/customer_details.dart';
 import 'package:lenzcamera/model/login_customer.dart';
+import 'package:lenzcamera/utils/sessions_manager.dart';
 
 class ContactUsScreen extends StatefulWidget{
   @override
@@ -21,6 +23,36 @@ final _emailController = TextEditingController();
   // LoginCustomer? user;
 
 
+
+
+
+
+void showFlashMsg(String msg, {Color color = const Color(0xFF272532)}) {
+    showFlash(
+      context: context,
+      duration: const Duration(seconds: 4),
+      builder: (context, controller) {
+        return Flash(
+          controller: controller,
+          behavior: FlashBehavior.floating,
+          position: FlashPosition.bottom,
+          boxShadows: kElevationToShadow[2],
+         // backgroundColor: Colors.grey,
+          reverseAnimationCurve: Curves.easeInCirc,
+          forwardAnimationCurve: Curves.easeInOutBack,
+          margin: const EdgeInsets.all(8.0),
+          borderRadius: BorderRadius.circular(6.0),    
+          horizontalDismissDirection: HorizontalDismissDirection.horizontal,
+          child: FlashBar(
+            content: Text(
+              msg,
+              style: const TextStyle(fontSize: 15.0, color: Colors.black),
+            ),
+          ),
+        );
+      },
+    );
+  }
 
    void customerDetails() {
     NetworkManager.shared
@@ -39,7 +71,7 @@ void onSendButtonTapped() {
 
   Map<String, dynamic> map = {
       
-      "custId": 386,
+      "custId": NetworkManager.shared.userId,
      'email' : _emailController.text,
      'phone' : _phoneController.text,
      ' title' : _titleController.text,
@@ -51,6 +83,8 @@ void onSendButtonTapped() {
       _phoneController.text  = "";
       _titleController.text = "";
       _messageController.text = "";
+
+      showFlashMsg(response.message!);
       
     }).catchError((Object obj) {
      
@@ -347,7 +381,10 @@ void onSendButtonTapped() {
                       ),
                       onPressed: () {
 
-                        onSendButtonTapped();
+                       //onSendButtonTapped();
+                        print("/////////////////");
+
+                        print(SessionsManager.userId);
                         // Navigator.push(
                         //     context,
                         //     MaterialPageRoute(

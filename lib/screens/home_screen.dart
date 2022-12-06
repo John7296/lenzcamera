@@ -4,8 +4,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
+import 'package:lenzcamera/manager/data_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/top_categories.dart';
 import 'package:lenzcamera/screens/address_screen.dart';
@@ -69,6 +71,16 @@ class _HomeScreenState extends State<HomeScreen> {
     }).catchError((e) {
       print(e.toString());
     });
+  }
+
+
+   void goBack() {
+    if (Navigator.canPop(context)) {
+      Navigator.pop(context);
+    } 
+    else {
+      SystemNavigator.pop();
+    }
   }
 
   @override

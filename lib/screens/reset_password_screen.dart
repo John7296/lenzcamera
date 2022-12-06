@@ -57,7 +57,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
        }).then((BaseResponse response) {
 
         showFlashMsg(response.message!);
-     Navigator.push(
+     Navigator.pushReplacement(
                     context,
                       MaterialPageRoute(
                       builder: (context) =>
