@@ -1,3 +1,4 @@
+import 'package:flash/flash.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
@@ -30,7 +31,32 @@ class _RegisterScreenState extends State<RegisterScreen> {
     // register();
   }
 
-  
+  void showFlashMsg(String msg, {Color color = Colors.grey}) {
+    showFlash(
+      context: context,
+      duration: const Duration(seconds: 10),
+      builder: (context, controller) {
+        return Flash(
+          controller: controller,
+          behavior: FlashBehavior.floating,
+          position: FlashPosition.bottom,
+          boxShadows: kElevationToShadow[2],
+          backgroundColor: Colors.grey,
+          reverseAnimationCurve: Curves.easeInCirc,
+          forwardAnimationCurve: Curves.easeInOutBack,
+          margin: const EdgeInsets.all(8.0),
+          borderRadius: BorderRadius.circular(6.0),
+          horizontalDismissDirection: HorizontalDismissDirection.horizontal,
+          child: FlashBar(
+            content: Text(
+              msg,
+              style: const TextStyle(fontSize: 15, color: Colors.redAccent),
+            ),
+          ),
+        );
+      },
+    );
+  }
 
   void register() {
     if (!_form.currentState!.validate()) {
@@ -47,6 +73,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     NetworkManager.shared
         .newRegister(map)
         .then((BaseResponse<NewRegister> response) {
+      showFlashMsg(response.message!);
       SessionsManager.saveUserId(response.data?.custId ?? 0);
 
       print("Customer--Id: ${SessionsManager.userId}");
@@ -55,6 +82,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           MaterialPageRoute(
               builder: (context) => OtpScreen(response.data?.otpUrlKey)));
     }).catchError((e) {
+      // showFlashMsg(e.toString());
       print(e.toString());
     });
   }

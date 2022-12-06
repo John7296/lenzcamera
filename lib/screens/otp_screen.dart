@@ -1,3 +1,4 @@
+import 'package:flash/flash.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
@@ -21,11 +22,39 @@ class _OtpScreenState extends State<OtpScreen> {
   bool emailSent = false;
   final _otpController = TextEditingController();
 
+  void showFlashMsg(String msg, {Color color = Colors.grey}) {
+    showFlash(
+      context: context,
+      duration: const Duration(seconds: 10),
+      builder: (context, controller) {
+        return Flash(
+          controller: controller,
+          behavior: FlashBehavior.floating,
+          position: FlashPosition.bottom,
+          boxShadows: kElevationToShadow[2],
+          backgroundColor: Colors.grey,
+          reverseAnimationCurve: Curves.easeInCirc,
+          forwardAnimationCurve: Curves.easeInOutBack,
+          margin: const EdgeInsets.all(8.0),
+          borderRadius: BorderRadius.circular(6.0),
+          horizontalDismissDirection: HorizontalDismissDirection.horizontal,
+          child: FlashBar(
+            content: Text(
+              msg,
+              style: const TextStyle(fontSize: 15, color: Colors.redAccent),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   void verifyRegisterOtp() {
     NetworkManager.shared.verifyOtp(<String, dynamic>{
       "OTP": _otpController.text,
       "OtpUrlKey": widget.otpUrlKey
     }).then((BaseResponse response) {
+      showFlashMsg(response.message!);
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => HomeScreen()));
     }).catchError((e) {});
