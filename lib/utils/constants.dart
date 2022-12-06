@@ -1,6 +1,7 @@
 
 
-const bool kDedebug = true;
+const bool kDedebug = false;
+
 
 
 //Base Url

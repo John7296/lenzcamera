@@ -164,16 +164,23 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               left: 24, right: 24, top: 5, bottom: 5),
                           child: Row(
                             children: [
-                              Text(
-                                widget.popularproducts!.prName.toString(),
-                                // "CANON EF 16-35MM F/2.8L III USM  ",
-                                style: TextStyle(
-                                color: Color(0xff6e706d),
-                                fontSize: 20,
-                                fontWeight: FontWeight.w600),
-                                maxLines: 2,
+                              Container(
+                                width:300,
+                                child: Text(
+                                  widget.popularproducts!.prName.toString(),
+                                  // "CANON EF 16-35MM F/2.8L III USM  ",
+                                  style: TextStyle(
+                                  color: Color(0xff6e706d),
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600),
+                                  maxLines: 2,
+                                ),
                               ),
-                               SizedBox(width:10),
+
+                              SizedBox(
+                                width: 20,
+                              ),
+                               
                               IconButton(
                                   onPressed: () {
                                   
@@ -219,7 +226,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                     style: TextStyle(
                                         color: Color(0xff5aa567),
                                         fontSize: 12,
-                                        fontWeight: FontWeight.w500),
+                                        fontWeight: FontWeight.w500), 
                                   )),
                               Align(
                                   alignment: Alignment.centerRight,
