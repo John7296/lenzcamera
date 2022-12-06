@@ -17,6 +17,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+
   final GlobalKey<FormState> _form = GlobalKey<FormState>();
 
   final _usernameController = TextEditingController();
@@ -138,7 +139,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     SizedBox(height: 12),
                     Container(
-                      height: 40,
+                     // height: 40,
                       child: TextFormField(
     
                           controller: _usernameController,
@@ -147,6 +148,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             return null;
                           },
                           decoration: InputDecoration(
+                             contentPadding:
+                             EdgeInsets.symmetric(vertical: 2.0, horizontal: 2.0),
                             border: OutlineInputBorder(
                               borderSide: BorderSide(color: Color(0xffb0b0b0)),
                             ),
@@ -166,9 +169,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     SizedBox(height: 12),
                     Container(
-                      height: 40,
+                     // height: 40,
                       child: TextFormField(
                           decoration: InputDecoration(
+                             contentPadding:
+                     EdgeInsets.symmetric(vertical: 2.0, horizontal: 2.0),
                             border: OutlineInputBorder(
                               borderSide: BorderSide(color: Color(0xffb0b0b0)),
                             ),
