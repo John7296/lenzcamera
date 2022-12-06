@@ -53,7 +53,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         .getSingleProductDetails(<String, dynamic>{
           "custId": 386,
         'guestId': 0,
-        'urlKey': 'canon-lpe6nh-battery-og',
+        'urlKey': widget.popularproducts?.urlKey,
        ' pincode': 8,
   })
         .then((BaseResponse<ProductDetail> response) {
@@ -118,7 +118,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       children: [
                         CarouselSlider.builder(
                           options: CarouselOptions(
-                            height: 150.0,
+                            height: 200.0,
                             autoPlay: false,
                           ),
                           itemCount: 2,
@@ -177,23 +177,23 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                 ),
                               ),
 
-                              SizedBox(
-                                width: 20,
-                              ),
+                             SizedBox(width:40),
                                
-                              IconButton(
-                                  onPressed: () {
-                                  
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                WishlistScreen()));
-                                  },
-                                  icon: Icon(
-                                    Icons.favorite,
-                                    color: Color(0xff70726f),
-                                  )),
+                              Expanded(
+                                child: IconButton(
+                                    onPressed: () {
+                                    
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  WishlistScreen()));
+                                    },
+                                    icon: Icon(
+                                      Icons.favorite,
+                                      color: Color(0xff70726f),
+                                    )),
+                              ),
                             ],
                           ),
                         ),
@@ -232,8 +232,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                   alignment: Alignment.centerRight,
                                   child: IconButton(
                                     onPressed: () {
-                                     print("hhhhhhhhhhhhhhh");
-                                      // print(widget.popularproducts.);
+                                   
                                     },
                                     icon: Icon(
                                       Icons.share,
@@ -260,34 +259,32 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         SizedBox(height: 5),
                         Padding(
                           padding: const EdgeInsets.only(bottom: 5, right: 24),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Container(
-                                //height: 27,
-                                width: 80,
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Color(0xffec3436),
-                                  ),
-                                  onPressed: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                WriteReviewScreen()));
-                                  },
-                                  child: Text(
-                                    "Reviews",
-                                    style: TextStyle(
-                                        fontSize: 13,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w500),
-                                    maxLines: 1,
-                                  ),
+                          child: Align(
+                            alignment: Alignment.centerRight,
+                            child: Container(
+                              //height: 27,
+                              width: 85,
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Color(0xffec3436),
+                                ),
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              WriteReviewScreen()));
+                                },
+                                child: Text(
+                                  "Reviews",
+                                  style: TextStyle(
+                                      fontSize: 13,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w500),
+                                  maxLines: 1,
                                 ),
                               ),
-                            ],
+                            ),
                           ),
                         ),
                         Divider(
@@ -428,7 +425,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                   children: [
                                     Expanded(
                                       child: Container(
-                                        height: 280,
+                                        height: 290,
             
                                         //color: Colors.green,
                                         child: ListView.builder(
@@ -493,7 +490,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w400),
-                                                              maxLines: 2,
+                                                              maxLines: 3,
                                                               textAlign: TextAlign
                                                                   .center,
                                                             )),

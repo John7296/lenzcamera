@@ -1,3 +1,4 @@
+import 'package:flash/flash.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
@@ -16,6 +17,37 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
 
   final _passwordController = TextEditingController();
   final _confirmpwdController = TextEditingController();
+
+  bool _obscureText= true;
+  bool  _obscureText1= true;
+
+
+   void showFlashMsg(String msg, {Color color = const Color(0xFF272532)}) {
+    showFlash(
+      context: context,
+      duration: const Duration(seconds: 4),
+      builder: (context, controller) {
+        return Flash(
+          controller: controller,
+          behavior: FlashBehavior.floating,
+          position: FlashPosition.bottom,
+          boxShadows: kElevationToShadow[2],
+         // backgroundColor: Colors.grey,
+          reverseAnimationCurve: Curves.easeInCirc,
+          forwardAnimationCurve: Curves.easeInOutBack,
+          margin: const EdgeInsets.all(8.0),
+          borderRadius: BorderRadius.circular(6.0),    
+          horizontalDismissDirection: HorizontalDismissDirection.horizontal,
+          child: FlashBar(
+            content: Text(
+              msg,
+              style: const TextStyle(fontSize: 15.0, color: Colors.black),
+            ),
+          ),
+        );
+      },
+    );
+  }
   
   void resetPassword(){
    
@@ -24,9 +56,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
         "password" : _passwordController.text
        }).then((BaseResponse response) {
 
-         print("---------------------");
-
-        print( widget.OtpUrlKey);
+        showFlashMsg(response.message!);
      Navigator.push(
                     context,
                       MaterialPageRoute(
@@ -84,15 +114,21 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                     suffixIcon: Padding(
                       padding: const EdgeInsets.only(right: 20),
                       child: IconButton(
-                        icon: Icon(
-                          Icons.visibility,
+                       icon: Icon(
+                                _obscureText?
+                                Icons.visibility
+                            : Icons.visibility_off,
                           color: Color(0xff6e6e6c),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          setState(() {
+                            _obscureText = !_obscureText;
+                          });
+                        },
                       ),
                     ),
                   ),
-                  obscureText: true,
+                  obscureText:_obscureText,
                   controller: _passwordController,
                   validator: (val) {
                     if (val!.isEmpty) {
@@ -124,15 +160,21 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                     suffixIcon: Padding(
                       padding: const EdgeInsets.only(right: 20),
                       child: IconButton(
-                        icon: Icon(
-                          Icons.visibility,
+                          icon: Icon(
+                                _obscureText1?
+                                Icons.visibility
+                            : Icons.visibility_off,
                           color: Color(0xff6e6e6c),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          setState(() {
+                            _obscureText1=!_obscureText1;
+                          });
+                        },
                       ),
                     ),
                   ),
-                  obscureText: true,
+                  obscureText: _obscureText1,
                   controller: _confirmpwdController,
                   validator: (val) {
                     if (val!.isEmpty) {

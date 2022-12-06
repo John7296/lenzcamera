@@ -1,3 +1,4 @@
+import 'package:flash/flash.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
@@ -5,6 +6,7 @@ import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/login_customer.dart';
 import 'package:lenzcamera/model/new_register.dart';
 import 'package:lenzcamera/screens/login_screen.dart';
+import 'package:lenzcamera/screens/profile_screen.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
   // NewRegister? user;
@@ -20,6 +22,38 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
 
   LoginCustomer? user;
 
+  bool _obscureText = true;
+   bool _obscureText1 = true;
+    bool _obscureText2 = true;
+
+
+   void showFlashMsg(String msg, {Color color = const Color(0xFF272532)}) {
+    showFlash(
+      context: context,
+      duration: const Duration(seconds: 4),
+      builder: (context, controller) {
+        return Flash(
+          controller: controller,
+          behavior: FlashBehavior.floating,
+          position: FlashPosition.bottom,
+          boxShadows: kElevationToShadow[2],
+         // backgroundColor: Colors.grey,
+          reverseAnimationCurve: Curves.easeInCirc,
+          forwardAnimationCurve: Curves.easeInOutBack,
+          margin: const EdgeInsets.all(8.0),
+          borderRadius: BorderRadius.circular(6.0),    
+          horizontalDismissDirection: HorizontalDismissDirection.horizontal,
+          child: FlashBar(
+            content: Text(
+              msg,
+              style: const TextStyle(fontSize: 15.0, color: Colors.black),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   void onChangeButtonTapped() {
      String password = _passwordController.text;
     String newPassword = _newPasswordController.text;
@@ -32,6 +66,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
           'newPassword': newPassword
         })
         .then((BaseResponse<LoginCustomer> response) {
+          showFlashMsg(response.message!);
 
         print("================");
         print("password");
@@ -55,7 +90,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
               color: Colors.white,
             ),
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.pushReplacement(context,
+                         MaterialPageRoute(builder: (context) => ProfileScreen()));
             },
           ),
           backgroundColor: Colors.black,
@@ -88,14 +124,21 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                         padding: const EdgeInsets.only(right: 20),
                         child: IconButton(
                           icon: Icon(
-                            Icons.visibility,
+                           
+                                _obscureText?
+                                Icons.visibility
+                            : Icons.visibility_off,
                             color: Color(0xff6e6e6c),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            setState(() {
+                              _obscureText = !_obscureText;
+                            });
+                          },
                         ),
                       ),
                     ),
-                    obscureText: true,
+                    obscureText: _obscureText,
                     controller: _passwordController,
                     validator: (val) {
                       if (val!.isEmpty)
@@ -138,14 +181,20 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                         padding: const EdgeInsets.only(right: 20),
                         child: IconButton(
                           icon: Icon(
-                            Icons.visibility,
+                                _obscureText1?
+                                Icons.visibility
+                            : Icons.visibility_off,
                             color: Color(0xff6e6e6c),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            setState(() {
+                              _obscureText1 = !_obscureText1;
+                            });
+                          },
                         ),
                       ),
                     ),
-                    obscureText: true,
+                    obscureText: _obscureText1,
                     controller: _newPasswordController,
                     validator: (val) {
                       if (val!.isEmpty) return "Please enter a new password";
@@ -187,14 +236,20 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                         padding: const EdgeInsets.only(right: 20),
                         child: IconButton(
                           icon: Icon(
-                            Icons.visibility,
+                                _obscureText2?
+                                Icons.visibility
+                            : Icons.visibility_off,
                             color: Color(0xff6e6e6c),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            setState(() {
+                              _obscureText2 = !_obscureText2;
+                            });
+                          },
                         ),
                       ),
                     ),
-                    obscureText: true,
+                    obscureText: _obscureText2,
                     controller: _confirmPasswordController,
                     validator: (val) {
                       if (val!.isEmpty) return "Retype the password";
