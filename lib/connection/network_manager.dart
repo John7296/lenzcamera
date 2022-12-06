@@ -55,7 +55,7 @@ class NetworkManager {
 
     SessionsManager.getUserId().then((value) {
       userId = value!;
-      print('RegisteredId ${userId}');
+      print("UserIdNM${userId}");
     });
   }
 
@@ -138,11 +138,9 @@ class NetworkManager {
     return call(networkConnection.searchFilter(map));
   }
 
-
-   Future<BaseResponse> addReview(Map<String, dynamic> map) {
+  Future<BaseResponse> addReview(Map<String, dynamic> map) {
     return call(networkConnection.addReview(map));
   }
-
 
   Future<BaseResponse> verifyOtp(Map<String, dynamic> map) {
     return call(
@@ -191,9 +189,6 @@ class NetworkManager {
   }
 
   Future<BaseResponse<CartResponse>> getCart(Map<String, dynamic> map) {
-    debugPrint(map[0]);
-    debugPrint(map[1]);
-    debugPrint(map[2]);
     return call(networkConnection.getCart(
         map["cusId"], map["guestId"], map["pincode"]));
   }

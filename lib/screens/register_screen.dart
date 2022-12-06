@@ -1,3 +1,4 @@
+import 'package:flash/flash.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
@@ -6,6 +7,7 @@ import 'package:lenzcamera/model/new_register.dart';
 import 'package:lenzcamera/screens/login_screen.dart';
 import 'package:lenzcamera/screens/otp_screen.dart';
 import 'package:lenzcamera/screens/privacy_policy_screen.dart';
+import 'package:lenzcamera/utils/sessions_manager.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -29,7 +31,37 @@ class _RegisterScreenState extends State<RegisterScreen> {
     // register();
   }
 
+  void showFlashMsg(String msg, {Color color = Colors.grey}) {
+    showFlash(
+      context: context,
+      duration: const Duration(seconds: 10),
+      builder: (context, controller) {
+        return Flash(
+          controller: controller,
+          behavior: FlashBehavior.floating,
+          position: FlashPosition.bottom,
+          boxShadows: kElevationToShadow[2],
+          backgroundColor: Colors.grey,
+          reverseAnimationCurve: Curves.easeInCirc,
+          forwardAnimationCurve: Curves.easeInOutBack,
+          margin: const EdgeInsets.all(8.0),
+          borderRadius: BorderRadius.circular(6.0),
+          horizontalDismissDirection: HorizontalDismissDirection.horizontal,
+          child: FlashBar(
+            content: Text(
+              msg,
+              style: const TextStyle(fontSize: 15, color: Colors.redAccent),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   void register() {
+    if (!_form.currentState!.validate()) {
+      return;
+    }
 
     Map<String, dynamic> map = {
       'email': _emailController.text,
@@ -41,14 +73,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
     NetworkManager.shared
         .newRegister(map)
         .then((BaseResponse<NewRegister> response) {
-      
+      showFlashMsg(response.message!);
+      SessionsManager.saveUserId(response.data?.custId ?? 0);
 
+      print("Customer--Id: ${SessionsManager.userId}");
       Navigator.push(
           context,
           MaterialPageRoute(
               builder: (context) => OtpScreen(response.data?.otpUrlKey)));
-              
     }).catchError((e) {
+      // showFlashMsg(e.toString());
       print(e.toString());
     });
   }
@@ -79,182 +113,203 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       child: Image.asset('assets/images/logo_lenzcamera.png')),
                   Container(
                     margin: EdgeInsets.all(25),
-                    child: Column(
-                      children: [
-                        Align(
+                    child: Form(
+                      key: _form,
+                      child: Column(
+                        children: [
+                          Align(
+                              alignment: Alignment.topLeft,
+                              child: Text(
+                                'Create New Account to access thousands of products',
+                                style: TextStyle(
+                                    fontSize: 14, fontWeight: FontWeight.bold),
+                              )),
+                          SizedBox(height: 20),
+                          Align(
                             alignment: Alignment.topLeft,
-                            child: Text(
-                              'Create New Account to access thousands of products',
-                              style: TextStyle(
-                                  fontSize: 14, fontWeight: FontWeight.bold),
-                            )),
-                        SizedBox(height: 20),
-                        Align(
-                          alignment: Alignment.topLeft,
-                          child: Padding(
-                            padding: const EdgeInsets.only(bottom: 10),
-                            child: Text(
-                              'Customer Name*',
-                              style: TextStyle(color: Colors.grey.shade600),
+                            child: Padding(
+                              padding: const EdgeInsets.only(bottom: 10),
+                              child: Text(
+                                'Customer Name*',
+                                style: TextStyle(color: Colors.grey.shade600),
+                              ),
                             ),
                           ),
-                        ),
-                        Container(
-                          height: 35,
-                          child: TextFormField(
+                          SizedBox(
+                            height: 60,
+                            child: TextFormField(
                               decoration: InputDecoration(
                                 border: OutlineInputBorder(),
                                 // labelText:
+                                isDense: true,
                               ),
                               controller: _customerNameController,
                               validator: (value) {
-                                if (value!.isEmpty)
-                                  return "Enter your first name";
+                                if (value!.isEmpty) return "Enter your Name";
                                 return null;
-                              },),
-                        ),
-                        SizedBox(height: 20),
-                        Align(
-                            alignment: Alignment.topLeft,
-                            child: Padding(
-                              padding: const EdgeInsets.only(bottom: 10),
-                              child: Text('Email ID',
-                                  style:
-                                      TextStyle(color: Colors.grey.shade600)),
-                            )),
-                        Container(
-                          height: 35,
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              // labelText: 'Email ID'
-                            ),
-                            controller: _emailController,
-                          ),
-                        ),
-                        SizedBox(height: 20),
-                        Align(
-                            alignment: Alignment.topLeft,
-                            child: Padding(
-                              padding: const EdgeInsets.only(bottom: 10),
-                              child: Text('Mobile',
-                                  style:
-                                      TextStyle(color: Colors.grey.shade600)),
-                            )),
-                        Container(
-                          height: 35,
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              // labelText: 'Mobile'
-                            ),
-                            controller: _mobileController,
-                          ),
-                        ),
-                        SizedBox(height: 20),
-                        Align(
-                            alignment: Alignment.topLeft,
-                            child: Padding(
-                              padding: const EdgeInsets.only(bottom: 10),
-                              child: Text('Password',
-                                  style:
-                                      TextStyle(color: Colors.grey.shade600)),
-                            )),
-                        Container(
-                          height: 35,
-                          child: TextFormField(
-                            obscureText: true,
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              // labelText: 'Password'
-                            ),
-                            controller: _passwordController,
-                          ),
-                        ),
-                        SizedBox(height: 5),
-                        Row(
-                          children: [
-                            Checkbox(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15)),
-                              value: isChecked,
-                              onChanged: (value) {
-                                setState(() => isChecked = value!);
                               },
-                              activeColor: Colors.red,
-                              checkColor: Colors.white,
-                            ),
-                            Text(
-                              'I Read and agree to',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 12),
-                            ),
-                            TextButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              PrivacyPolicyScreen()));
-                                },
-                                child: Text(
-                                  'Terms & conditions',
-                                  style: TextStyle(
-                                      color: Colors.red,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold,
-                                      decoration: TextDecoration.underline),
-                                )),
-                          ],
-                        ),
-                        Container(
-                          width: 400,
-                          height: 50,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              register();
-                            },
-                            child: Text(
-                              'Sign Up',
-                              style: TextStyle(fontSize: 20),
-                            ),
-                            style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStateProperty.all(Colors.red),
-                              shape: MaterialStateProperty.all(
-                                  RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(5),
-                              )),
                             ),
                           ),
-                        ),
-                        SizedBox(height: 35),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Already Have an Account',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 12),
+                          SizedBox(height: 20),
+                          Align(
+                              alignment: Alignment.topLeft,
+                              child: Padding(
+                                padding: const EdgeInsets.only(bottom: 10),
+                                child: Text('Email ID',
+                                    style:
+                                        TextStyle(color: Colors.grey.shade600)),
+                              )),
+                          SizedBox(
+                            height: 60,
+                            child: TextFormField(
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                // labelText: 'Email ID'
+                              ),
+                              controller: _emailController,
+                              validator: (value) {
+                                if (value!.isEmpty)
+                                  return "Enter your Email ID";
+                                return null;
+                              },
                             ),
-                            TextButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => LoginScreen()));
+                          ),
+                          SizedBox(height: 20),
+                          Align(
+                              alignment: Alignment.topLeft,
+                              child: Padding(
+                                padding: const EdgeInsets.only(bottom: 10),
+                                child: Text('Mobile',
+                                    style:
+                                        TextStyle(color: Colors.grey.shade600)),
+                              )),
+                          SizedBox(
+                            height: 60,
+                            child: TextFormField(
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                // labelText: 'Mobile'
+                              ),
+                              controller: _mobileController,
+                              validator: (value) {
+                                if (value!.isEmpty)
+                                  return "Enter your Mobile Number";
+                                return null;
+                              },
+                            ),
+                          ),
+                          SizedBox(height: 20),
+                          Align(
+                              alignment: Alignment.topLeft,
+                              child: Padding(
+                                padding: const EdgeInsets.only(bottom: 10),
+                                child: Text('Password',
+                                    style:
+                                        TextStyle(color: Colors.grey.shade600)),
+                              )),
+                          SizedBox(
+                            height: 60,
+                            child: TextFormField(
+                              obscureText: true,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                // labelText: 'Password'
+                                isCollapsed: false,
+                              ),
+                              controller: _passwordController,
+                              validator: (value) {
+                                if (value!.isEmpty)
+                                  return "Enter your Password";
+                                return null;
+                              },
+                            ),
+                          ),
+                          SizedBox(height: 5),
+                          Row(
+                            children: [
+                              Checkbox(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15)),
+                                value: isChecked,
+                                onChanged: (value) {
+                                  setState(() => isChecked = value!);
                                 },
-                                child: Text(
-                                  'Login',
-                                  style: TextStyle(
-                                      color: Colors.red,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold,
-                                      decoration: TextDecoration.underline),
+                                activeColor: Colors.red,
+                                checkColor: Colors.white,
+                              ),
+                              Text(
+                                'I Read and agree to',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 12),
+                              ),
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                PrivacyPolicyScreen()));
+                                  },
+                                  child: Text(
+                                    'Terms & conditions',
+                                    style: TextStyle(
+                                        color: Colors.red,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold,
+                                        decoration: TextDecoration.underline),
+                                  )),
+                            ],
+                          ),
+                          Container(
+                            width: 400,
+                            height: 50,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                register();
+                              },
+                              child: Text(
+                                'Sign Up',
+                                style: TextStyle(fontSize: 20),
+                              ),
+                              style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all(Colors.red),
+                                shape: MaterialStateProperty.all(
+                                    RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5),
                                 )),
-                          ],
-                        )
-                      ],
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 35),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Already Have an Account',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 12),
+                              ),
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                LoginScreen()));
+                                  },
+                                  child: Text(
+                                    'Login',
+                                    style: TextStyle(
+                                        color: Colors.red,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold,
+                                        decoration: TextDecoration.underline),
+                                  )),
+                            ],
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ],

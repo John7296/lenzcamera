@@ -73,8 +73,6 @@ class _LoginScreenState extends State<LoginScreen> {
       "password": password
     }).then((BaseResponse<LoginCustomer> response) {
       SessionsManager.saveUserToken(response.data?.token ?? '');
-      
-      SessionsManager.saveUserId(response.data?.customerId ??0);
 
       NetworkManager.shared.userKey = "Bearer " + (response.data?.token ?? "");
       
@@ -127,6 +125,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Container(
                     height: 40,
                     child: TextFormField(
+
                         controller: _usernameController,
                         validator: (val) {
                           if (val!.isEmpty) return "Enter Mobile/Email";
@@ -186,6 +185,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ]),
               ),
+              
               SizedBox(height: 30),
               Container(
                 height: 40,

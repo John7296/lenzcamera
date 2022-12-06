@@ -144,6 +144,9 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    
+    print("UserIdHome${NetworkManager.shared.userId}");
+
     return Scaffold(
       appBar: AppBar(
         title: Container(
