@@ -1,3 +1,4 @@
+import 'package:flash/flash.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
@@ -22,7 +23,32 @@ class _VerifyForgotPwddOtpScreenState extends State<VerifyForgotPwddOtpScreen> {
     final _otpController = TextEditingController();
      bool emailSent = false;
      
-
+ void showFlashMsg(String msg, {Color color = const Color(0xFF272532)}) {
+    showFlash(
+      context: context,
+      duration: const Duration(seconds: 4),
+      builder: (context, controller) {
+        return Flash(
+          controller: controller,
+          behavior: FlashBehavior.floating,
+          position: FlashPosition.bottom,
+          boxShadows: kElevationToShadow[2],
+         // backgroundColor: Colors.grey,
+          reverseAnimationCurve: Curves.easeInCirc,
+          forwardAnimationCurve: Curves.easeInOutBack,
+          margin: const EdgeInsets.all(8.0),
+          borderRadius: BorderRadius.circular(6.0),    
+          horizontalDismissDirection: HorizontalDismissDirection.horizontal,
+          child: FlashBar(
+            content: Text(
+              msg,
+              style: const TextStyle(fontSize: 15.0, color: Colors.black),
+            ),
+          ),
+        );
+      },
+    );
+  }
     
   void verifyForgotPasswordOtp() {
     NetworkManager.shared.verifyForgotPasswordOTP(<String, dynamic>{
@@ -31,7 +57,8 @@ class _VerifyForgotPwddOtpScreenState extends State<VerifyForgotPwddOtpScreen> {
     }).then((BaseResponse response) {
       print("-----------------");
       print(_otpController.text);
-      Navigator.push(context,
+      showFlashMsg(response.message!);
+      Navigator.pushReplacement(context,
           MaterialPageRoute(builder: (context) => ResetPasswordScreen(response.data!)));
     }).catchError((Object obj) {});
   }

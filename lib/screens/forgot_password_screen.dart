@@ -38,7 +38,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
       setState(() {
         emailSent = true;
       });
-       Navigator.push(
+       Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                       builder: (context) =>
