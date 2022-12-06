@@ -4,6 +4,7 @@ import 'package:lenzcamera/connection/network_connection.dart';
 import 'package:lenzcamera/model/address_list.dart';
 import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/cart.dart';
+import 'package:lenzcamera/model/city_list.dart';
 import 'package:lenzcamera/model/company_policy.dart';
 import 'package:lenzcamera/model/customer.dart';
 import 'package:lenzcamera/model/order_list.dart';
@@ -18,6 +19,7 @@ import 'package:lenzcamera/model/related_products.dart';
 import 'package:lenzcamera/model/search_filter_response.dart';
 
 import 'package:lenzcamera/model/search_products_response.dart';
+import 'package:lenzcamera/model/state_list.dart';
 import 'package:lenzcamera/model/top_categories.dart';
 import 'package:lenzcamera/screens/featured_products_screen.dart';
 import 'package:lenzcamera/utils/sessions_manager.dart';
@@ -38,6 +40,7 @@ class NetworkManager {
   late String userKey;
   late String otp;
   late String otpurlkey;
+  late int userId;
 
   init() {
     dio = Dio();
@@ -48,6 +51,11 @@ class NetworkManager {
     SessionsManager.getUserToken().then((token) {
       token = (token ?? "");
       userKey = token.isEmpty ? "" : "Bearer $token";
+    });
+
+    SessionsManager.getUserId().then((value) {
+      userId = value!;
+      print('RegisteredId ${userId}');
     });
   }
 
@@ -68,7 +76,15 @@ class NetworkManager {
   }
 
   Future<BaseResponse<List<AddressList>>> getAddressList() {
-    return call(networkConnection.getAddressList(int.parse("386")));
+    return call(networkConnection.getAddressList(userId));
+  }
+
+  Future<BaseResponse<List<CityList>>> cityListAddress() {
+    return call(networkConnection.cityListAddress(int.parse("2920")));
+  }
+
+  Future<BaseResponse<List<StateList>>> stateListAddress() {
+    return call(networkConnection.stateListAddress(int.parse("178")));
   }
 
   Future<BaseResponse> updateAddress(Map<String, dynamic> map) {
@@ -90,10 +106,11 @@ class NetworkManager {
   }
 
   Future<BaseResponse> resetPassword(Map<String, dynamic> map) {
-    return call(networkConnection.resetPassword(map['OtpUrlKey'], map['password']));
+    return call(
+        networkConnection.resetPassword(map['OtpUrlKey'], map['password']));
   }
 
-   Future<BaseResponse<LoginCustomer>> changePassword(Map<String, dynamic> map) {
+  Future<BaseResponse<LoginCustomer>> changePassword(Map<String, dynamic> map) {
     return call(networkConnection.changePassword(map));
   }
 
@@ -105,19 +122,19 @@ class NetworkManager {
     return call(networkConnection.customerDetails(custId));
   }
 
-
   Future<BaseResponse<SearchProductsResponse>> searchProducts(
       Map<String, dynamic> map) {
     return call(networkConnection.searchProducts(map));
   }
 
-  Future<BaseResponse<ProductDetail>>getSingleProductDetails(Map<String, dynamic> map
-   ) {
-    return call(networkConnection.getSingleProductDetails("canon-lpe6nh-battery-og", int.parse("386"), 0, int.parse("8")));
+  Future<BaseResponse<ProductDetail>> getSingleProductDetails(
+      Map<String, dynamic> map) {
+    return call(networkConnection.getSingleProductDetails(
+        "canon-lpe6nh-battery-og", userId, 0, int.parse("8")));
   }
 
-
-  Future<BaseResponse<SearchFilterResponse>> searchFilter(Map<String, dynamic> map) {
+  Future<BaseResponse<SearchFilterResponse>> searchFilter(
+      Map<String, dynamic> map) {
     return call(networkConnection.searchFilter(map));
   }
 
@@ -133,15 +150,15 @@ class NetworkManager {
   }
 
   Future<BaseResponse<List<Product>>> featuredProducts() {
-    return call(networkConnection.featuredProducts(int.parse("386"), 0));
+    return call(networkConnection.featuredProducts(userId, 0));
   }
 
   Future<BaseResponse<List<Product>>> popularProducts() {
-    return call(networkConnection.popularProducts(int.parse("386"), 0));
+    return call(networkConnection.popularProducts(userId, 0));
   }
 
   Future<BaseResponse<List<Product>>> recentProducts() {
-    return call(networkConnection.recentProducts(int.parse("386"), 0));
+    return call(networkConnection.recentProducts(userId, 0));
   }
 
   // Future<BaseResponse<List<Product>>> recentProducts(Map<String, dynamic> map) {
@@ -149,11 +166,11 @@ class NetworkManager {
   // }
 
   Future<BaseResponse<List<HomeDetails>>> homeDetails() {
-    return call(networkConnection.homeDetails(int.parse("386"), 0));
+    return call(networkConnection.homeDetails(userId, 0));
   }
 
   Future<BaseResponse<List<Product>>> getWishList() {
-    return call(networkConnection.getWishList(int.parse("386"), 0));
+    return call(networkConnection.getWishList(userId, 0));
   }
 
   Future<BaseResponse> addToWishlist(Map<String, dynamic> map) {
@@ -162,11 +179,11 @@ class NetworkManager {
 
   Future<BaseResponse> removeFromWishlist(Map<String, dynamic> map) {
     return call(networkConnection.removeFromWishlist(
-        map["custId"], map["guestId"], map["urlKey"]));
+        map[userId], map["guestId"], map["urlKey"]));
   }
 
   Future<BaseResponse<Profile>> getProfile() {
-    return call(networkConnection.getProfile(int.parse("386")));
+    return call(networkConnection.getProfile(userId));
   }
 
   Future<BaseResponse> updateProfile(Map<String, dynamic> map) {
@@ -174,6 +191,9 @@ class NetworkManager {
   }
 
   Future<BaseResponse<CartResponse>> getCart(Map<String, dynamic> map) {
+    debugPrint(map[0]);
+    debugPrint(map[1]);
+    debugPrint(map[2]);
     return call(networkConnection.getCart(
         map["cusId"], map["guestId"], map["pincode"]));
   }
@@ -190,12 +210,16 @@ class NetworkManager {
     return call(networkConnection.subCartQty(map));
   }
 
-  Future<BaseResponse> addCartQty() {
-    return call(networkConnection.addCartQty(int.parse("2268")));
+  Future<BaseResponse> addCartQty(int cartItemId) {
+    return call(networkConnection.addCartQty(cartItemId));
   }
 
   Future<BaseResponse<List<OrderList>>> getOrderList() {
-    return call(networkConnection.getOrderList(int.parse("386")));
+    return call(networkConnection.getOrderList(userId));
+  }
+
+  Future<BaseResponse> placeOrder(Map<String, dynamic> map) {
+    return call(networkConnection.placeOrder(map));
   }
 
   Future<T> call<T>(Future<T> call) async {

@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
+import 'package:lenzcamera/model/city_list.dart';
+import 'package:lenzcamera/model/state_list.dart';
 
 class AddNewAddressScreen extends StatefulWidget {
   const AddNewAddressScreen({Key? key}) : super(key: key);
@@ -11,10 +13,12 @@ class AddNewAddressScreen extends StatefulWidget {
 }
 
 class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
-  List<String> items = ['One', 'Two', 'Three', 'Four', 'Five'];
-  String? selectedItem;
+  String? selectedCity;
+  String? selectedState;
   bool isCheckedSA = false;
   bool isCheckedBA = false;
+  List<CityList> cityList = [];
+  List<StateList> stateList = [];
 
   final _firstNameController = TextEditingController();
   final _lastNameController = TextEditingController();
@@ -28,11 +32,8 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    cityNames();
   }
-
-  // void stateList(){
-  //   NetworkManager.shared.
-  // }
 
   void onSaveButtonTapped() {
     NetworkManager.shared
@@ -42,7 +43,7 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
           "addressType": "",
           "country": "QATAR",
           "custAdressId": 418,
-          "custId": 386,
+          "custId": NetworkManager.shared.userId,
           "district": "ad-Dawhah",
           "firstName": _firstNameController.text,
           "isDefaultBillingAddress": isCheckedBA,
@@ -59,6 +60,32 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
         .catchError((e) {
           print(e.toString());
         });
+  }
+
+  void cityNames() {
+    NetworkManager.shared
+        .cityListAddress()
+        .then((BaseResponse<List<CityList>> response) {
+      setState(() {
+        cityList.clear();
+        cityList.addAll(response.data!);
+      });
+    }).catchError((e) {
+      print(e.toString());
+    });
+  }
+
+  void stateNames() {
+    NetworkManager.shared
+        .stateListAddress()
+        .then((BaseResponse<List<StateList>> response) {
+      setState(() {
+        stateList.clear();
+        stateList.addAll(response.data!);
+      });
+    }).catchError((e) {
+      print(e.toString());
+    });
   }
 
   @override
@@ -166,7 +193,6 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                         Container(
                           height: 40,
                           child: TextFormField(
-                            obscureText: true,
                             decoration: InputDecoration(
                                 border: OutlineInputBorder(),
                                 contentPadding: EdgeInsets.all(5)
@@ -253,22 +279,15 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                                   BorderRadius.all(Radius.circular(0)),
                             ),
                             child: DropdownButton(
-                              items: items
-                                  .map((item) => DropdownMenuItem<String>(
-                                        value: item,
-                                        child: Text(item),
+                              items: stateList
+                                  .map((StateList) => DropdownMenuItem<String>(
+                                        value: stateList.toString(),
+                                        child: Text(stateList.first.name ?? ''),
                                       ))
                                   .toList(),
-                              onChanged: (item) => setState(
-                                  () => selectedItem = item.toString()),
-                            )
-                            // TextFormField(
-                            //   decoration: InputDecoration(
-                            //     border: OutlineInputBorder(),
-                            //     // labelText: 'Mobile'
-                            //   ),
-                            // ),
-                            ),
+                              onChanged: (StateList) => setState(
+                                  () => selectedState = StateList.toString()),
+                            )),
                         SizedBox(height: 30),
                         Container(
                             height: 40,
@@ -280,22 +299,28 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                                   BorderRadius.all(Radius.circular(0)),
                             ),
                             child: DropdownButton(
-                              items: items
-                                  .map((item) => DropdownMenuItem<String>(
-                                        value: item,
-                                        child: Text(item),
-                                      ))
+                              items: cityList
+                                  .map(
+                                    (CityList) => DropdownMenuItem<String>(
+                                        value: cityList.toString(),
+                                        child: Text(cityList.first.name ?? '')
+                                        // ListView.builder(
+                                        //   itemCount: cityList.length,
+                                        //   itemBuilder:
+                                        //       (BuildContext context, int index) {
+                                        //     return Container(
+                                        //       child: Text(cityList[index]
+                                        //           .name
+                                        //           .toString()),
+                                        //     );
+                                        //   },
+                                        // ),
+                                        ),
+                                  )
                                   .toList(),
-                              onChanged: (item) => setState(
-                                  () => selectedItem = item.toString()),
-                            )
-                            // TextFormField(
-                            //   decoration: InputDecoration(
-                            //     border: OutlineInputBorder(),
-                            //     // labelText: 'Mobile'
-                            //   ),
-                            // ),
-                            ),
+                              onChanged: (CityList) => setState(
+                                  () => selectedCity = cityList.toString()),
+                            )),
                         SizedBox(height: 5),
                         Row(
                           children: [
@@ -361,7 +386,9 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                           height: 50,
                           child: ElevatedButton(
                             onPressed: () {
-                              onSaveButtonTapped();
+                              // onSaveButtonTapped();
+                              cityNames();
+                              stateNames();
                             },
                             child: Text(
                               'Save',

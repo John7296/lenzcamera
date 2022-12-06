@@ -6,7 +6,14 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:lenzcamera/screens/home_screen.dart';
 
 class OrderDetailScreen extends StatefulWidget {
-  const OrderDetailScreen({super.key});
+  const OrderDetailScreen(
+      this.ProductImgUrl, this.orderNumber, this.status,this.orderDate, this.context);
+
+  final String? orderNumber;
+  final String? status;
+  final String? ProductImgUrl;
+  final String? orderDate;
+  final BuildContext? context;
 
   @override
   State<OrderDetailScreen> createState() => _OrderDetailScreenState();
@@ -88,10 +95,10 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('#ORD6195845655'),
+                          Text(widget.orderNumber ?? ''),
                           Spacer(),
                           Text(
-                            'Status:Order Placed',
+                            widget.status ?? '',
                             style: TextStyle(color: Colors.red),
                           ),
                         ],
@@ -132,7 +139,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                           ),
                           Text('Delivery to', style: TextStyle(fontSize: 12)),
                           Spacer(),
-                          Text('Ordered on:26-10-2022'),
+                          Text(widget.orderDate??''),
                         ],
                       ),
                     ),
@@ -172,51 +179,60 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
             ),
           ),
           Container(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                height: 80,
-                width: 400,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(5)),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey,
-                      offset: Offset(0.0, 1.0), //(x,y)
-                      blurRadius: 1.0,
-                    ),
-                  ],
-                ),
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // Text('ORDER DETAILS',style: TextStyle(color: Colors.red),),
-                          //       Spacer(),
-                          //       Text('Status:Order Placed'),
-                        ],
+            height: 200,
+            child: ListView.builder(
+              itemCount: 3,
+              itemBuilder:(BuildContext, context){
+              return Container(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  height: 80,
+                  width: 400,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(5)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey,
+                        offset: Offset(0.0, 1.0), //(x,y)
+                        blurRadius: 1.0,
                       ),
-                    ),
-                    Spacer(),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // Text('#ORD6195845655'),
-                          //       Spacer(),
-                          //       Text('Status:Order Placed',style: TextStyle(color: Colors.red),),
-                        ],
+                    ],
+                  ),
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // Text('ORDER DETAILS',style: TextStyle(color: Colors.red),),
+                            //       Spacer(),
+                            //       Text('Status:Order Placed'),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                      Spacer(),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // Text('#ORD6195845655'),
+                            //       Spacer(),
+                            //       Text('Status:Order Placed',style: TextStyle(color: Colors.red),),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
+            );
+            
+
+            }),
           ),
           Container(
             child: Padding(

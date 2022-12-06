@@ -15,6 +15,8 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
+    NetworkManager.shared.refreshTokens();
+
     Timer(
       Duration(seconds: 3),
       () => {
@@ -38,7 +40,7 @@ class _SplashScreenState extends State<SplashScreen> {
     //  // print(SessionsManager.userToken);
 
     SessionsManager.getUserToken().then((value) {
-      print("///////");
+      // print("///////");
       print(value);
 
       if ((value ?? "").isNotEmpty) {

@@ -51,7 +51,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
     NetworkManager.shared
         .getSingleProductDetails(<String, dynamic>{
-          "custId": 386,
+          "custId": NetworkManager.shared.userId,
         'guestId': 0,
         'urlKey': widget.popularproducts?.urlKey,
        ' pincode': 8,

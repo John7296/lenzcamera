@@ -219,8 +219,8 @@ abstract class NetworkConnection {
   @GET('Order/CartList')
   Future<BaseResponse<CartResponse>> getCart(
     // @Body() Map<String, dynamic> map,
-    @Query("cusId") int custId,
-    @Query("guestId") String gustId,
+    @Query("cusId") int cusId,
+    @Query("guestId") int guestId,
     @Query("pincode") int pincode,
   );
 
@@ -237,7 +237,7 @@ abstract class NetworkConnection {
   Future<BaseResponse> subCartQty(@Body() Map<String, dynamic> map);
 
   @FormUrlEncoded()
-  @GET("Order/CartItemAddQtyP")
+  @GET("Order/CartItemAddQty")
   Future<BaseResponse> addCartQty(
     @Query("cartItemId") int cartItemId,
   );
@@ -250,4 +250,10 @@ abstract class NetworkConnection {
     // @Query("addressid") int addressid,
     // @Query("guestId") int guestId,
   );
+
+  @FormUrlEncoded()
+  @POST('Order')
+  Future<BaseResponse> placeOrder(@Body() Map<String, dynamic> map);
+
+
 }

@@ -68,22 +68,18 @@ class _LoginScreenState extends State<LoginScreen> {
     String username = _usernameController.text;
     String password = _passwordController.text;
 
-    print('/////////////');
-
-    print(username);
-    print(password);
-
     NetworkManager.shared.userLogin(<String, dynamic>{
       "userName": username,
       "password": password
     }).then((BaseResponse<LoginCustomer> response) {
       SessionsManager.saveUserToken(response.data?.token ?? '');
-      //  SessionsManager.saveUserId(response.data?.customerId??0);
+      
+      SessionsManager.saveUserId(response.data?.customerId ??0);
+
       NetworkManager.shared.userKey = "Bearer " + (response.data?.token ?? "");
+      
       NetworkManager.shared.refreshTokens();
-      showFlashMsg(response.message!);
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => HomeScreen()));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
     }).catchError((e) {
       print(e);
     });

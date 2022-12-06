@@ -48,8 +48,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
- 
-   
   }
 
   void _getCategories() {
@@ -105,12 +103,9 @@ class _HomeScreenState extends State<HomeScreen> {
       //   //   icon: Icon(Icons.arrow_back_ios),
       //   // ),
       // ),
-      
+
       backgroundColor: Colors.grey.shade100,
-      body:
-          IndexedStack(
-             index: selesctedindex,
-              children: pages),
+      body: IndexedStack(index: selesctedindex, children: pages),
       drawer: Drawer(
         backgroundColor: Colors.white,
         child: ListView(

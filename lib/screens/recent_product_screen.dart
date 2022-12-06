@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
+import 'package:lenzcamera/manager/data_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/product.dart';
 import 'package:lenzcamera/screens/wishlist_screen.dart';
@@ -45,31 +46,31 @@ class _RecentProductsScreenState extends State<RecentProductsScreen> {
     });
   }
 
-  void addToWishlist(Product product) {
-    NetworkManager.shared
-        .addToWishlist(<String, dynamic>{
-          "urlKey": product.urlKey,
-          "custId": 386,
-          "guestId": "",
-        })
-        .then((BaseResponse response) {})
-        .catchError((e) {
-          print(e.toString());
-        });
-  }
+  // void addToWishlist(Product product) {
+  //   NetworkManager.shared
+  //       .addToWishlist(<String, dynamic>{
+  //         "urlKey": product.urlKey,
+  //         "custId": 386,
+  //         "guestId": 1,
+  //       })
+  //       .then((BaseResponse response) {})
+  //       .catchError((e) {
+  //         print(e.toString());
+  //       });
+  // }
 
-  void removeFromWishlist(Product product) {
-    NetworkManager.shared
-        .removeFromWishlist(<String, dynamic>{
-          "urlKey": product.urlKey,
-          "custId": 386,
-          "guestId": "",
-        })
-        .then((BaseResponse response) {})
-        .catchError((e) {
-          print(e.toString());
-        });
-  }
+  // void removeFromWishlist(Product product) {
+  //   NetworkManager.shared
+  //       .removeFromWishlist(<String, dynamic>{
+  //         "urlKey": product.urlKey,
+  //         "custId": 386,
+  //         "guestId": 1,
+  //       })
+  //       .then((BaseResponse response) {})
+  //       .catchError((e) {
+  //         print(e.toString());
+  //       });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -121,36 +122,41 @@ class _RecentProductsScreenState extends State<RecentProductsScreen> {
                           children: [
                             Stack(children: [
                               Center(
-                                  child: CachedNetworkImage(
-                                      imageUrl:
-                                          "https://dev.lenzcamera.com/webadmin/${recentProductsList[index].imageUrl}")),
+                                  child: Container(
+                                child: CachedNetworkImage(
+                                    height: 100,
+                                    width: 100,
+                                    imageUrl:
+                                        "https://dev.lenzcamera.com/webadmin/${recentProductsList[index].imageUrl}"),
+                              )),
                               Padding(
                                 padding: const EdgeInsets.only(left: 120),
                                 child: IconButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        if (recentProductsList[index]
-                                                .isWhishlisted ==
-                                            true) {
-                                          removeFromWishlist(
-                                              recentProductsList[index]);
-                                          recentProductsList[index]
-                                              .isWhishlisted = false;
-                                        } else {
-                                          addToWishlist(
-                                              recentProductsList[index]);
-                                          recentProductsList[index]
-                                              .isWhishlisted = true;
-                                        }
-                                      });
-                                    },
-                                    icon: Icon(
-                                      Icons.favorite,
-                                      color: recentProductsList[index]
-                                              .isWhishlisted!
-                                          ? Colors.red
-                                          : Colors.grey,
-                                    )),
+                                  onPressed: () {
+                                    setState(() {
+                                      if (recentProductsList[index]
+                                              .isWhishlisted ==
+                                          true) {
+                                        DataManager.shared.removeFromWishlist(
+                                            recentProductsList[index]);
+                                        recentProductsList[index]
+                                            .isWhishlisted = false;
+                                      } else {
+                                        DataManager.shared.addToWishlist(
+                                            recentProductsList[index]);
+                                        recentProductsList[index]
+                                            .isWhishlisted = true;
+                                      }
+                                    });
+                                  },
+                                  icon: Icon(
+                                    Icons.favorite,
+                                    color: DataManager.shared.iswishListed(
+                                            recentProductsList[index])
+                                        ? Colors.red
+                                        : Colors.grey,
+                                  ),
+                                ),
                               ),
                             ]),
                             Spacer(),
@@ -175,7 +181,7 @@ class _RecentProductsScreenState extends State<RecentProductsScreen> {
                                     fontSize: 15, fontWeight: FontWeight.w600)),
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.yellowAccent,
+                                backgroundColor: Colors.yellow,
                                 elevation: 0,
                               ),
                               onPressed: () {},
