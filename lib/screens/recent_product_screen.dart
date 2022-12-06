@@ -19,6 +19,7 @@ class _RecentProductsScreenState extends State<RecentProductsScreen> {
   List<Product> recentProductsList = [];
   bool isLoading = true;
 
+
   @override
   void initState() {
     super.initState();

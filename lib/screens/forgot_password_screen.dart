@@ -5,6 +5,7 @@ import 'package:lenzcamera/manager/data_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/login_customer.dart';
 import 'package:lenzcamera/screens/home_screen.dart';
+import 'package:lenzcamera/screens/login_screen.dart';
 import 'package:lenzcamera/screens/otp_screen.dart';
 import 'package:lenzcamera/screens/verify_forgot_pwd_otp_screen.dart';
 import 'package:lenzcamera/utils/helper.dart';
@@ -63,7 +64,12 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               color: Colors.white,
             ),
             onPressed: () {
-                Navigator.pop(context);
+                Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                      builder: (context) =>
+                   LoginScreen()));
+
             },
           ),
           backgroundColor: Colors.black,

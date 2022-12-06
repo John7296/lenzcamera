@@ -1,5 +1,7 @@
+import 'package:flash/flash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:lenzcamera/connection/network_connection.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
@@ -21,10 +23,42 @@ class _LoginScreenState extends State<LoginScreen> {
   final _passwordController = TextEditingController();
   BaseResponse? response;
 
+  bool _obscureText = true;
+
   @override
   void initState() {
     super.initState();
   }
+
+
+  void showFlashMsg(String msg, {Color color = const Color(0xFF272532)}) {
+    showFlash(
+      context: context,
+      duration: const Duration(seconds: 4),
+      builder: (context, controller) {
+        return Flash(
+          controller: controller,
+          behavior: FlashBehavior.floating,
+          position: FlashPosition.bottom,
+          boxShadows: kElevationToShadow[2],
+         // backgroundColor: Colors.grey,
+          reverseAnimationCurve: Curves.easeInCirc,
+          forwardAnimationCurve: Curves.easeInOutBack,
+          margin: const EdgeInsets.all(8.0),
+          borderRadius: BorderRadius.circular(6.0),    
+          horizontalDismissDirection: HorizontalDismissDirection.horizontal,
+          child: FlashBar(
+            content: Text(
+              msg,
+              style: const TextStyle(fontSize: 15.0, color: Colors.black),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+    
 
   void onLoginButtonTapped() {
     if (!_form.currentState!.validate()) {
@@ -43,6 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
       NetworkManager.shared.userKey = "Bearer " + (response.data?.token ?? "");
       
       NetworkManager.shared.refreshTokens();
+      showFlashMsg(response.message!);
       Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
     }).catchError((e) {
       print(e);
@@ -127,14 +162,21 @@ class _LoginScreenState extends State<LoginScreen> {
                             padding: const EdgeInsets.only(right: 20),
                             child: IconButton(
                               icon: Icon(
-                                Icons.visibility,
+                                _obscureText?
+                                Icons.visibility
+                            : Icons.visibility_off,
                                 color: Color(0xff6e6e6c),
                               ),
-                              onPressed: () {},
+                              onPressed: () {
+
+                                setState(() {
+                                  _obscureText = !_obscureText;
+                                });
+                              },
                             ),
                           ),
                         ),
-                        obscureText: true,
+                        obscureText: _obscureText,
                         controller: _passwordController,
                         validator: (val) {
                           if (val!.isEmpty) return "Enter your password";
@@ -153,11 +195,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   onPressed: () {
                     onLoginButtonTapped();
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //     builder: (context) =>
-                    //    HomeScreen()));
+                   
+                    
                   },
                   child: Center(
                       child: Text(

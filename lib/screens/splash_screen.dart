@@ -21,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
       Duration(seconds: 3),
       () => {
         _checkTokenAndNavigate(),
-        Navigator.push(
+        Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => LoginScreen()))
       },
     );
@@ -44,10 +44,10 @@ class _SplashScreenState extends State<SplashScreen> {
       print(value);
 
       if ((value ?? "").isNotEmpty) {
-        Navigator.push(
+        Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => HomeScreen()));
       } else {
-        Navigator.push(
+        Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => LoginScreen()));
       }
     });
