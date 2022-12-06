@@ -30,6 +30,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     // register();
   }
 
+  
+
   void register() {
     if (!_form.currentState!.validate()) {
       return;
