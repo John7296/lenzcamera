@@ -29,8 +29,8 @@ class _CartScreenState extends State<CartScreen> {
 
   void getCart() {
     NetworkManager.shared.getCart(<String, dynamic>{
-      "cusId": 386,
-      "guestId": "",
+      "cusId": NetworkManager.shared.userId,
+      "guestId": 1,
       "pincode": 8,
     }).then((BaseResponse<CartResponse> response) {
       setState(() {
@@ -303,7 +303,6 @@ class _CartScreenState extends State<CartScreen> {
                         style: TextStyle(
                             fontSize: 14, fontWeight: FontWeight.w500),
                       ),
-                      
                     ],
                   ),
                 ),
@@ -390,10 +389,14 @@ class _CartScreenState extends State<CartScreen> {
                 backgroundColor: Color(0xff444444),
               ),
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => CheckoutScreen(cartItemsList.first.grandTotal,cartItemsList.first.subTotal,context)));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => CheckoutScreen(
+                            cartItemsList.first.grandTotal,
+                            cartItemsList.first.subTotal,
+                            context)));
                 // getCart();
-
               },
               child: Center(
                   child: Text(

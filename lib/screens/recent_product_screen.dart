@@ -50,7 +50,7 @@ class _RecentProductsScreenState extends State<RecentProductsScreen> {
   //       .addToWishlist(<String, dynamic>{
   //         "urlKey": product.urlKey,
   //         "custId": 386,
-  //         "guestId": "",
+  //         "guestId": 1,
   //       })
   //       .then((BaseResponse response) {})
   //       .catchError((e) {
@@ -63,7 +63,7 @@ class _RecentProductsScreenState extends State<RecentProductsScreen> {
   //       .removeFromWishlist(<String, dynamic>{
   //         "urlKey": product.urlKey,
   //         "custId": 386,
-  //         "guestId": "",
+  //         "guestId": 1,
   //       })
   //       .then((BaseResponse response) {})
   //       .catchError((e) {
@@ -121,9 +121,13 @@ class _RecentProductsScreenState extends State<RecentProductsScreen> {
                           children: [
                             Stack(children: [
                               Center(
-                                  child: CachedNetworkImage(
-                                      imageUrl:
-                                          "https://dev.lenzcamera.com/webadmin/${recentProductsList[index].imageUrl}")),
+                                  child: Container(
+                                child: CachedNetworkImage(
+                                    height: 100,
+                                    width: 100,
+                                    imageUrl:
+                                        "https://dev.lenzcamera.com/webadmin/${recentProductsList[index].imageUrl}"),
+                              )),
                               Padding(
                                 padding: const EdgeInsets.only(left: 120),
                                 child: IconButton(
@@ -176,7 +180,7 @@ class _RecentProductsScreenState extends State<RecentProductsScreen> {
                                     fontSize: 15, fontWeight: FontWeight.w600)),
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.yellowAccent,
+                                backgroundColor: Colors.yellow,
                                 elevation: 0,
                               ),
                               onPressed: () {},

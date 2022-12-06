@@ -19,17 +19,16 @@ class OtpScreen extends StatefulWidget {
 
 class _OtpScreenState extends State<OtpScreen> {
   bool emailSent = false;
-
   final _otpController = TextEditingController();
 
   void verifyRegisterOtp() {
     NetworkManager.shared.verifyOtp(<String, dynamic>{
       "OTP": _otpController.text,
-      "OtpUrlKey":  widget.otpUrlKey
+      "OtpUrlKey": widget.otpUrlKey
     }).then((BaseResponse response) {
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => HomeScreen()));
-    }).catchError((Object obj) {});
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => HomeScreen()));
+    }).catchError((e) {});
   }
 
   @override
@@ -111,6 +110,8 @@ class _OtpScreenState extends State<OtpScreen> {
                     ),
                     onPressed: () {
                       verifyRegisterOtp();
+                      // ScaffoldMessenger.of(context).showSnackBar();
+
                       //verifyForgotPasswordOtp();
 
                       //            Navigator.pushReplacement(

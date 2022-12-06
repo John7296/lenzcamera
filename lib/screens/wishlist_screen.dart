@@ -57,7 +57,7 @@ class _WishlistScreenState extends State<WishlistScreen> {
   //   NetworkManager.shared.removeFromWishlist(<String, dynamic>{
   //     "urlKey": wishList.urlKey,
   //     "custId": 386,
-  //     "guestId": "",
+  //     "guestId": 1,
   //   }).then((BaseResponse response) {
   //     debugPrint("==========================================");
   //   }).catchError((e) {

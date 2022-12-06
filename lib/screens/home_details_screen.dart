@@ -53,14 +53,14 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
   @override
   void initState() {
     super.initState();
-    _getTopCategories();
+    getTopCategories();
     _featuredProducts();
-    _popularProducts();
-    DataManager.shared.wishListProducts();
-    _recentProducts();
+    popularProducts();
+    DataManager.shared.getWishList();
+    recentProducts();
   }
 
-  void _getTopCategories() {
+  void getTopCategories() {
     setState(() {
       isLoading = true;
     });
@@ -100,7 +100,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
     });
   }
 
-  void _popularProducts() {
+  void popularProducts() {
     setState(() {
       isLoading = true;
     });
@@ -122,7 +122,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
     });
   }
 
-  void _recentProducts() {
+  void recentProducts() {
     setState(() {
       isLoading = true;
     });
@@ -403,7 +403,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                                                   Container(
                                                     margin: EdgeInsets.only(
                                                         left: 80),
-                                                    child:IconButton(
+                                                    child: IconButton(
                                                       onPressed: () {
                                                         setState(() {
                                                           if (featuredList[
@@ -414,8 +414,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                                                                 .removeFromWishlist(
                                                                     featuredList[
                                                                         index]);
-                                                            featuredList[
-                                                                        index]
+                                                            featuredList[index]
                                                                     .isWhishlisted =
                                                                 false;
                                                           } else {
@@ -423,8 +422,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                                                                 .addToWishlist(
                                                                     featuredList[
                                                                         index]);
-                                                            featuredList[
-                                                                        index]
+                                                            featuredList[index]
                                                                     .isWhishlisted =
                                                                 true;
                                                           }

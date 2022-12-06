@@ -24,13 +24,13 @@ final _emailController = TextEditingController();
 
    void customerDetails() {
     NetworkManager.shared
-        .customerDetails(386)
+        .customerDetails(NetworkManager.shared.userId)
         .then((BaseResponse<LoginCustomer> response) {
       var thisUser = response.data!;
 
 
-      _emailController.text = thisUser?.emailId ?? "";
-      _phoneController.text = thisUser?.phoneNo ?? "";
+      _emailController.text = thisUser.emailId ?? "";
+      _phoneController.text = thisUser.phoneNo ?? "";
      
     }).catchError((Object obj) {});
   }

@@ -50,7 +50,7 @@ class _PopularProductsScreenState extends State<PopularProductsScreen> {
   //       .addToWishlist(<String, dynamic>{
   //         "urlKey": product.urlKey,
   //         "custId": 386,
-  //         "guestId": "",
+  //         "guestId": 1,
   //       })
   //       .then((BaseResponse response) {})
   //       .catchError((e) {
@@ -63,7 +63,7 @@ class _PopularProductsScreenState extends State<PopularProductsScreen> {
   //       .removeFromWishlist(<String, dynamic>{
   //         "urlKey": product.urlKey,
   //         "custId": 386,
-  //         "guestId": "",
+  //         "guestId": 1,
   //       })
   //       .then((BaseResponse response) {})
   //       .catchError((e) {
@@ -177,10 +177,18 @@ class _PopularProductsScreenState extends State<PopularProductsScreen> {
                                 "QAR${popularProductsList[index].unitPrice ?? ''}",
                                 style: TextStyle(
                                     fontSize: 15, fontWeight: FontWeight.w600)),
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 10, right: 10, bottom: 10),
-                              child: Container(
+                            if (popularProductsList[index]
+                                .isCartUpdateProgress!)
+                              SizedBox(
+                                  height: 10,
+                                  width: 10,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2,
+                                  )),
+                            if (popularProductsList[index]
+                                    .isCartUpdateProgress ==
+                                false)
+                              Container(
                                 // width: 160,
                                 height: 30,
                                 child: popularProductsList[index]
@@ -288,7 +296,6 @@ class _PopularProductsScreenState extends State<PopularProductsScreen> {
                                         )),
                                       ),
                               ),
-                            ),
                           ],
                         ),
                       ),

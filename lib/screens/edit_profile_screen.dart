@@ -39,7 +39,7 @@ class _EditProfileScreen extends State<EditProfileScreen> {
   void onUpdateButtonTapped() {
     NetworkManager.shared
         .updateProfile({
-          "custId": 386,
+          "custId": NetworkManager.shared.userId,
           "custName": _userNameController.text,
           "phoneNo": _mobileController.text,
           "emailId": _emailIdController.text,

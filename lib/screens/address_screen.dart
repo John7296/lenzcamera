@@ -72,7 +72,8 @@ class _AddressScreenState extends State<AddressScreen> {
         ),
       ),
       backgroundColor: Colors.grey.shade100,
-      body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      body: 
+      Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Row(
           children: [
             Padding(
@@ -161,6 +162,7 @@ class _AddressScreenState extends State<AddressScreen> {
         )
       
       ]),
+    
     );
   }
 }

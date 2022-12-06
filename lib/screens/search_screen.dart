@@ -49,7 +49,7 @@ class _SearchScreenState extends State<SearchScreen> {
       "custId": 386,
       "currentpage": currentPage,
       "filtervalues": "",
-      "guestId": "",
+      "guestId": 1,
       "maxPrice": "1000000",
       "minPrice": "0",
       "pincode": 8,
@@ -238,153 +238,136 @@ class _SearchScreenState extends State<SearchScreen> {
                                         color: Colors.grey),
                                   ),
                                   SizedBox(height: 20),
-                                  if (_products[index]
-                                          .isCartUpdateProgress!)
-                                        SizedBox(
-                                            height: 10,
-                                            width: 10,
-                                            child: CircularProgressIndicator(
-                                              strokeWidth: 2,
-                                            )),
-                                      if (_products[index]
-                                              .isCartUpdateProgress ==
-                                          false)
-                                        Container(
-                                          width: 80,
-                                          height: 30,
-                                          child: _products[index]
-                                                  .isAddedtoCart()
-                                              ? Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    InkWell(
-                                                      onTap: () {
-                                                        DataManager.shared
-                                                            .updateItemToCart(
-                                                                _products[
-                                                                    index],
-                                                                4,
-                                                                onUpdate: () {
-                                                          setState(() {});
-                                                        }, onUpdateStarted: () {
-                                                          setState(() {});
-                                                        });
-                                                      },
-                                                      child: Container(
-                                                        width: 25,
-                                                        height: 30,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                                color: Color(
-                                                                    0xff70726f),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .only(
-                                                                  topLeft: Radius
-                                                                      .circular(
-                                                                          5),
-                                                                  bottomLeft: Radius
-                                                                      .circular(
-                                                                          5),
-                                                                )),
-                                                        child: Center(
-                                                            child: Icon(
-                                                          Icons.remove,
-                                                          color: Colors.white,
-                                                          size: 12,
-                                                        )),
-                                                      ),
-                                                    ),
-                                                    Container(
-                                                      width: 25,
-                                                      height: 30,
-                                                      decoration: BoxDecoration(
-                                                        color:
-                                                            Color(0xffe3e3e3),
-                                                      ),
-                                                      child: Center(
-                                                          child: Text(
-                                                        "1",
-                                                        style: TextStyle(
-                                                            color:
-                                                                Colors.black),
-                                                      )),
-                                                    ),
-                                                    InkWell(
-                                                      onTap: () {
-                                                        DataManager.shared
-                                                            .updateItemToCart(
-                                                                _products[
-                                                                    index],
-                                                                3,
-                                                                onUpdate: () {
-                                                          setState(() {});
-                                                        }, onUpdateStarted: () {
-                                                          setState(() {});
-                                                        });
-                                                      },
-                                                      child: Container(
-                                                          width: 25,
-                                                          height: 30,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                                  color: Color(
-                                                                      0xffe83031),
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .only(
-                                                                    topRight: Radius
-                                                                        .circular(
-                                                                            5),
-                                                                    bottomRight:
-                                                                        Radius.circular(
-                                                                            5),
-                                                                  )),
-                                                          child: Icon(
-                                                            Icons.add,
-                                                            color: Colors.white,
-                                                            size: 12,
-                                                          )),
-                                                    ),
-                                                  ],
-                                                )
-                                              : ElevatedButton(
-                                                  style:
-                                                      ElevatedButton.styleFrom(
-                                                    elevation: 0,
-                                                    backgroundColor:
-                                                        Colors.yellow,
-                                                  ),
-                                                  onPressed: () {
-                                                    // print(popularProductsList[
-                                                    //         index]
-                                                    //     .urlKey);
+                                  if (_products[index].isCartUpdateProgress!)
+                                    SizedBox(
+                                        height: 10,
+                                        width: 10,
+                                        child: CircularProgressIndicator(
+                                          strokeWidth: 2,
+                                        )),
+                                  if (_products[index].isCartUpdateProgress ==
+                                      false)
+                                    Container(
+                                      width: 80,
+                                      height: 30,
+                                      child: _products[index].isAddedtoCart()
+                                          ? Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                InkWell(
+                                                  onTap: () {
                                                     DataManager.shared
                                                         .updateItemToCart(
-                                                            _products[
-                                                                index],
-                                                            1, onUpdate: () {
+                                                            _products[index], 4,
+                                                            onUpdate: () {
                                                       setState(() {});
                                                     }, onUpdateStarted: () {
                                                       setState(() {});
                                                     });
-                                                    // Navigator.push(
-                                                    //     context,
-                                                    //     MaterialPageRoute(
-                                                    //         builder: (context) =>
-                                                    //             CartScreen()));
                                                   },
+                                                  child: Container(
+                                                    width: 25,
+                                                    height: 30,
+                                                    decoration: BoxDecoration(
+                                                        color:
+                                                            Color(0xff70726f),
+                                                        borderRadius:
+                                                            BorderRadius.only(
+                                                          topLeft:
+                                                              Radius.circular(
+                                                                  5),
+                                                          bottomLeft:
+                                                              Radius.circular(
+                                                                  5),
+                                                        )),
+                                                    child: Center(
+                                                        child: Icon(
+                                                      Icons.remove,
+                                                      color: Colors.white,
+                                                      size: 12,
+                                                    )),
+                                                  ),
+                                                ),
+                                                Container(
+                                                  width: 25,
+                                                  height: 30,
+                                                  decoration: BoxDecoration(
+                                                    color: Color(0xffe3e3e3),
+                                                  ),
                                                   child: Center(
                                                       child: Text(
-                                                    "ADD",
+                                                    "1",
                                                     style: TextStyle(
-                                                        fontSize: 15,
                                                         color: Colors.black),
                                                   )),
                                                 ),
-                                        ),
-                                    
+                                                InkWell(
+                                                  onTap: () {
+                                                    DataManager.shared
+                                                        .updateItemToCart(
+                                                            _products[index], 3,
+                                                            onUpdate: () {
+                                                      setState(() {});
+                                                    }, onUpdateStarted: () {
+                                                      setState(() {});
+                                                    });
+                                                  },
+                                                  child: Container(
+                                                      width: 25,
+                                                      height: 30,
+                                                      decoration: BoxDecoration(
+                                                          color:
+                                                              Color(0xffe83031),
+                                                          borderRadius:
+                                                              BorderRadius.only(
+                                                            topRight:
+                                                                Radius.circular(
+                                                                    5),
+                                                            bottomRight:
+                                                                Radius.circular(
+                                                                    5),
+                                                          )),
+                                                      child: Icon(
+                                                        Icons.add,
+                                                        color: Colors.white,
+                                                        size: 12,
+                                                      )),
+                                                ),
+                                              ],
+                                            )
+                                          : ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                elevation: 0,
+                                                backgroundColor: Colors.yellow,
+                                              ),
+                                              onPressed: () {
+                                                // print(popularProductsList[
+                                                //         index]
+                                                //     .urlKey);
+                                                DataManager.shared
+                                                    .updateItemToCart(
+                                                        _products[index], 1,
+                                                        onUpdate: () {
+                                                  setState(() {});
+                                                }, onUpdateStarted: () {
+                                                  setState(() {});
+                                                });
+                                                // Navigator.push(
+                                                //     context,
+                                                //     MaterialPageRoute(
+                                                //         builder: (context) =>
+                                                //             CartScreen()));
+                                              },
+                                              child: Center(
+                                                  child: Text(
+                                                "ADD",
+                                                style: TextStyle(
+                                                    fontSize: 15,
+                                                    color: Colors.black),
+                                              )),
+                                            ),
+                                    ),
                                 ],
                               )
                             ],

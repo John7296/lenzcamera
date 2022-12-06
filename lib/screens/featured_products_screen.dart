@@ -22,10 +22,10 @@ class _FeaturedProductsScreenState extends State<FeaturedProductsScreen> {
   @override
   void initState() {
     super.initState();
-    _featuredProducts();
+    featuredProducts();
   }
 
-  void _featuredProducts() {
+  void featuredProducts() {
     setState(() {
       isLoading = true;
     });
@@ -50,7 +50,7 @@ class _FeaturedProductsScreenState extends State<FeaturedProductsScreen> {
   //       .addToWishlist(<String, dynamic>{
   //         "urlKey": product.urlKey,
   //         "custId": 386,
-  //         "guestId": "",
+  //         "guestId": 1,
   //       })
   //       .then((BaseResponse response) {})
   //       .catchError((e) {
@@ -63,7 +63,7 @@ class _FeaturedProductsScreenState extends State<FeaturedProductsScreen> {
   //       .removeFromWishlist(<String, dynamic>{
   //         "urlKey": product.urlKey,
   //         "custId": 386,
-  //         "guestId": "",
+  //         "guestId": 1,
   //       })
   //       .then((BaseResponse response) {})
   //       .catchError((e) {

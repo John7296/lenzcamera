@@ -210,8 +210,8 @@ abstract class NetworkConnection {
   @GET('Order/CartList')
   Future<BaseResponse<CartResponse>> getCart(
     // @Body() Map<String, dynamic> map,
-    @Query("cusId") int custId,
-    @Query("guestId") String gustId,
+    @Query("cusId") int cusId,
+    @Query("guestId") int guestId,
     @Query("pincode") int pincode,
   );
 

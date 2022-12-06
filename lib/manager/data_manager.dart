@@ -3,15 +3,21 @@ import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/cart.dart';
 import 'package:lenzcamera/model/product.dart';
+import 'package:lenzcamera/utils/sessions_manager.dart';
 
 class DataManager {
   static final DataManager _singleton = DataManager._internal();
   DataManager._internal();
   static DataManager get shared => _singleton;
 
+  String? customerId;
   List<Product> cartItemsList = [];
   List<Product> wishListItems = [];
   VoidCallback? onCartUpdated;
+
+  void regCustomerId() {
+    NetworkManager.shared.refreshTokens();
+  }
 
   void updateItemToCart(Product product, int type,
       {VoidCallback? onUpdate, VoidCallback? onUpdateStarted}) {
@@ -46,13 +52,12 @@ class DataManager {
 
   void getCart({Product? product}) {
     NetworkManager.shared.getCart(<String, dynamic>{
-      "cusId": 386,
-      "guestId": "",
+      "cusId": NetworkManager.shared.userId,
+      "guestId": 1,
       "pincode": 8,
     }).then((BaseResponse<CartResponse> response) {
       cartItemsList.clear();
       cartItemsList.addAll(response.data!.cartItems!);
-      print('cartItemsList items - ${cartItemsList[0].cartItemsId}');
       product?.isCartUpdateProgress = false;
       onCartUpdated!();
     }).catchError((e) {
@@ -63,8 +68,8 @@ class DataManager {
   void addToCart(Product product) {
     NetworkManager.shared.addToCart(<String, dynamic>{
       "urlKey": product.urlKey,
-      "cusId": 386,
-      "guestId": "",
+      "cusId": NetworkManager.shared.userId,
+      "guestId": 1,
       "productQty": 1,
     }).then((BaseResponse response) {
       getCart(product: product);
@@ -76,8 +81,8 @@ class DataManager {
   void removeFromCart(Product product) {
     NetworkManager.shared.removeFromCart(<String, dynamic>{
       "urlKey": product.urlKey,
-      "custId": 386,
-      "guestId": "",
+      "custId": NetworkManager.shared.userId,
+      "guestId": 1,
     }).then((BaseResponse response) {
       getCart(product: product);
     }).catchError((e) {
@@ -88,8 +93,8 @@ class DataManager {
   void decreaseCartQty(Product product) {
     NetworkManager.shared.subCartQty(<String, dynamic>{
       "urlKey": product.urlKey,
-      "custId": 386,
-      "guestId": "",
+      "custId": NetworkManager.shared.userId,
+      "guestId": 1,
     }).then((BaseResponse response) {
       getCart(product: product);
     }).catchError((e) {
@@ -116,12 +121,24 @@ class DataManager {
     return 0;
   }
 
+  void getWishList() {
+    NetworkManager.shared
+        .getWishList()
+        .then((BaseResponse<List<Product>> response) {
+      wishListItems.clear();
+      wishListItems.addAll(response.data!);
+      print('Wishlisted items 1- ${wishListItems.first.productId}');
+    }).catchError((e) {
+      print(e.toString());
+    });
+  }
+
   void addToWishlist(Product product) {
     NetworkManager.shared
         .addToWishlist(<String, dynamic>{
           "urlKey": product.urlKey,
-          "custId": 386,
-          "guestId": "",
+          "custId": NetworkManager.shared.userId,
+          "guestId": 1,
         })
         .then((BaseResponse response) {})
         .catchError((e) {
@@ -133,8 +150,8 @@ class DataManager {
     NetworkManager.shared
         .removeFromWishlist(<String, dynamic>{
           "urlKey": product.urlKey,
-          "custId": 386,
-          "guestId": "",
+          "custId": NetworkManager.shared.userId,
+          "guestId": 1,
         })
         .then((BaseResponse response) {})
         .catchError((e) {
@@ -142,25 +159,13 @@ class DataManager {
         });
   }
 
-  void wishListProducts() {
-    NetworkManager.shared
-        .getWishList()
-        .then((BaseResponse<List<Product>> response) {
-      wishListItems.clear();
-      wishListItems.addAll(response.data!);
-      print('Wishlisted items 1- ${wishListItems.first.productId}');
-      // print(response.data!.first.catId);
-    }).catchError((e) {
-      print(e.toString());
-    });
-  }
-
   bool iswishListed(Product? product) {
     print('Wishlisted items 2- ${wishListItems.first.productId}');
     if (wishListItems != null) {
       for (Product element in wishListItems) {
         if (element.productId == product!.productId) {
-          print('Wishlisted items 3- ${wishListItems[0].productId}');
+          print('Wishlisted items 3- ${wishListItems.first.productId}');
+          print('ElementID ${element.productId}');
           return true;
         }
       }

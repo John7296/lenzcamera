@@ -7,7 +7,6 @@ import 'package:lenzcamera/screens/login_screen.dart';
 import 'package:lenzcamera/screens/otp_screen.dart';
 import 'package:lenzcamera/screens/privacy_policy_screen.dart';
 
-
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
 
@@ -31,9 +30,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   void register() {
-    // if (!_form.currentState!.validate()) {
-    //   return;
-    // }
 
     Map<String, dynamic> map = {
       'email': _emailController.text,
@@ -45,20 +41,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
     NetworkManager.shared
         .newRegister(map)
         .then((BaseResponse<NewRegister> response) {
-      debugPrint("respones regi");
-      // print((response.data!.otpUrlKey));
+      
+
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => OtpScreen(response.data?.otpUrlKey)));
-
-      // showFlashMsg(response.message!);
-      // Future.delayed(const Duration(milliseconds: 500), () {
-
-      // });
-    }).catchError((Object e) {
-      print("error detected: ");
+          context,
+          MaterialPageRoute(
+              builder: (context) => OtpScreen(response.data?.otpUrlKey)));
+              
+    }).catchError((e) {
       print(e.toString());
     });
-    // print(value.toString());
   }
 
   @override
@@ -81,10 +73,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                   ),
                   Container(
-                      height: 80,
-                      width: 150,
+                      height: 100,
+                      width: 250,
                       // color: Colors.red,
-                      child: Image.asset('assets/Logo.png')),
+                      child: Image.asset('assets/images/logo_lenzcamera.png')),
                   Container(
                     margin: EdgeInsets.all(25),
                     child: Column(
@@ -98,23 +90,28 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             )),
                         SizedBox(height: 20),
                         Align(
-                            alignment: Alignment.topLeft,
-                            child: Padding(
-                              padding: const EdgeInsets.only(bottom:10),
-                              child: Text(
-                                'Customer Name*',
-                                style: TextStyle(color: Colors.grey.shade600),
-                              ),
-                            )),
+                          alignment: Alignment.topLeft,
+                          child: Padding(
+                            padding: const EdgeInsets.only(bottom: 10),
+                            child: Text(
+                              'Customer Name*',
+                              style: TextStyle(color: Colors.grey.shade600),
+                            ),
+                          ),
+                        ),
                         Container(
                           height: 35,
                           child: TextFormField(
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              // labelText: 'Customer Name'
-                            ),
-                            controller: _customerNameController,
-                          ),
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                // labelText:
+                              ),
+                              controller: _customerNameController,
+                              validator: (value) {
+                                if (value!.isEmpty)
+                                  return "Enter your first name";
+                                return null;
+                              },),
                         ),
                         SizedBox(height: 20),
                         Align(

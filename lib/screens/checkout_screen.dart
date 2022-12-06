@@ -9,9 +9,7 @@ import 'package:lenzcamera/screens/address_screen.dart';
 import 'package:lenzcamera/screens/order_screen.dart';
 
 class CheckoutScreen extends StatefulWidget {
-  CheckoutScreen(
-    this.grandTotal, this.subTotal, this.context
-    );
+  CheckoutScreen(this.grandTotal, this.subTotal, this.context);
   final double? grandTotal;
   final double? subTotal;
   final BuildContext? context;
@@ -120,89 +118,212 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                         showModalBottomSheet(
                                             context: context,
                                             builder: (BuildContext context) {
-                                              return ListView.builder(
-                                                  itemCount: addressList.length,
-                                                  itemBuilder:
-                                                      (BuildContext context,
-                                                          int index) {
-                                                    return Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              8.0),
-                                                      child: InkWell(
-                                                        onTap: () {
-                                                          selectedAddress =
-                                                              addressList[
-                                                                  index];
-                                                          Navigator.pop(
-                                                              context);
-                                                        },
-                                                        child: Container(
-                                                          height: 100,
-                                                          width: 400,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: Colors.white,
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .all(Radius
-                                                                        .circular(
-                                                                            5)),
-                                                          ),
-                                                          child: Row(
-                                                            children: [
-                                                              Padding(
+                                              return Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Row(
+                                                      children: [
+                                                        Padding(
+                                                          padding: EdgeInsets
+                                                              .symmetric(
+                                                                  horizontal:
+                                                                      20.0),
+                                                          child: TextButton(
+                                                              onPressed: () {
+                                                                Navigator.push(
+                                                                    context,
+                                                                    MaterialPageRoute(
+                                                                        builder:
+                                                                            (context) =>
+                                                                                AddNewAddressScreen()));
+                                                              },
+                                                              child: Text(
+                                                                "+Add New Address",
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .red,
+                                                                    fontSize:
+                                                                        14),
+                                                              )),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 10,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    Divider(
+                                                      thickness: 2,
+                                                      indent: 10,
+                                                      endIndent: 10,
+                                                    ),
+                                                    Expanded(
+                                                      child: Container(
+                                                        height: 600,
+                                                        color: Colors
+                                                            .grey.shade100,
+                                                        child: ListView.builder(
+                                                            itemCount:
+                                                                addressList
+                                                                    .length,
+                                                            itemBuilder:
+                                                                (BuildContext
+                                                                        context,
+                                                                    int index) {
+                                                              return Padding(
                                                                 padding:
                                                                     const EdgeInsets
-                                                                        .all(10),
-                                                                child: Column(
-                                                                  crossAxisAlignment:
-                                                                      CrossAxisAlignment
-                                                                          .start,
-                                                                  children: [
-                                                                    Text(addressList[index]
-                                                                            .firstName ??
-                                                                        ''),
-                                                                    Text(addressList[index]
-                                                                            .lastName ??
-                                                                        ''),
-                                                                    Text(addressList[index]
-                                                                            .addLine1 ??
-                                                                        ''),
-                                                                    Text(addressList[index]
-                                                                            .addLine2 ??
-                                                                        ''),
-                                                                    Text(addressList[index]
-                                                                            .country ??
-                                                                        ''),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                              Spacer(),
-                                                              Column(
-                                                                children: [
-                                                                  IconButton(
-                                                                    onPressed:
-                                                                        () {
-                                                                      Navigator.push(
-                                                                          context,
-                                                                          MaterialPageRoute(
-                                                                              builder: (context) => AddNewAddressScreen()));
-                                                                    },
-                                                                    icon: Icon(
-                                                                        Icons
-                                                                            .draw,
-                                                                        color: Colors
-                                                                            .grey),
+                                                                            .all(
+                                                                        8.0),
+                                                                child: InkWell(
+                                                                  onTap: () {
+                                                                    selectedAddress =
+                                                                        addressList[
+                                                                            index];
+                                                                    Navigator.pop(
+                                                                        context);
+                                                                  },
+                                                                  child:
+                                                                      Container(
+                                                                    height: 100,
+                                                                    width: 400,
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      color: Colors
+                                                                          .white,
+                                                                      borderRadius:
+                                                                          BorderRadius.all(
+                                                                              Radius.circular(5)),
+                                                                    ),
+                                                                    child: Row(
+                                                                      children: [
+                                                                        Padding(
+                                                                          padding:
+                                                                              const EdgeInsets.all(10),
+                                                                          child:
+                                                                              Column(
+                                                                            crossAxisAlignment:
+                                                                                CrossAxisAlignment.start,
+                                                                            children: [
+                                                                              Text(addressList[index].firstName ?? ''),
+                                                                              Text(addressList[index].lastName ?? ''),
+                                                                              Text(addressList[index].addLine1 ?? ''),
+                                                                              Text(addressList[index].addLine2 ?? ''),
+                                                                              Text(addressList[index].country ?? ''),
+                                                                              
+                                                                            ],
+                                                                          ),
+                                                                        ),
+                                                                        Spacer(),
+                                                                        Column(
+                                                                          children: [
+                                                                            IconButton(
+                                                                              onPressed: () {
+                                                                                Navigator.push(context, MaterialPageRoute(builder: (context) => AddNewAddressScreen()));
+                                                                              },
+                                                                              icon: Icon(Icons.draw, color: Colors.grey),
+                                                                            ),
+                                                                            IconButton(
+                                                                              onPressed: () {
+                                                                                // deleteAddress(addressList[index]);
+                                                                              },
+                                                                              icon: Icon(Icons.delete_outline, color: Colors.red),
+                                                                            ),
+                                                                          ],
+                                                                        )
+                                                                      ],
+                                                                    ),
                                                                   ),
-                                                                ],
-                                                              )
-                                                            ],
-                                                          ),
-                                                        ),
+                                                                ),
+                                                              );
+                                                            }),
                                                       ),
-                                                    );
-                                                  });
+                                                    )
+                                                  ]);
+
+                                              // ListView.builder(
+                                              //     itemCount: addressList.length,
+                                              //     itemBuilder:
+                                              //         (BuildContext context,
+                                              //             int index) {
+                                              //       return Padding(
+                                              //         padding:
+                                              //             const EdgeInsets.all(
+                                              //                 8.0),
+                                              //         child: InkWell(
+                                              //           onTap: () {
+                                              //             selectedAddress =
+                                              //                 addressList[
+                                              //                     index];
+                                              //             Navigator.pop(
+                                              //                 context);
+                                              //           },
+                                              //           child: Container(
+                                              //             height: 100,
+                                              //             width: 400,
+                                              //             decoration:
+                                              //                 BoxDecoration(
+                                              //               color: Colors.white,
+                                              //               borderRadius:
+                                              //                   BorderRadius
+                                              //                       .all(Radius
+                                              //                           .circular(
+                                              //                               5)),
+                                              //             ),
+                                              //             child: Row(
+                                              //               children: [
+                                              //                 Padding(
+                                              //                   padding:
+                                              //                       const EdgeInsets
+                                              //                           .all(10),
+                                              //                   child: Column(
+                                              //                     crossAxisAlignment:
+                                              //                         CrossAxisAlignment
+                                              //                             .start,
+                                              //                     children: [
+                                              //                       Text(addressList[index]
+                                              //                               .firstName ??
+                                              //                           ''),
+                                              //                       Text(addressList[index]
+                                              //                               .lastName ??
+                                              //                           ''),
+                                              //                       Text(addressList[index]
+                                              //                               .addLine1 ??
+                                              //                           ''),
+                                              //                       Text(addressList[index]
+                                              //                               .addLine2 ??
+                                              //                           ''),
+                                              //                       Text(addressList[index]
+                                              //                               .country ??
+                                              //                           ''),
+                                              //                     ],
+                                              //                   ),
+                                              //                 ),
+                                              //                 Spacer(),
+                                              //                 Column(
+                                              //                   children: [
+                                              //                     IconButton(
+                                              //                       onPressed:
+                                              //                           () {
+                                              //                         Navigator.push(
+                                              //                             context,
+                                              //                             MaterialPageRoute(
+                                              //                                 builder: (context) => AddNewAddressScreen()));
+                                              //                       },
+                                              //                       icon: Icon(
+                                              //                           Icons
+                                              //                               .draw,
+                                              //                           color: Colors
+                                              //                               .grey),
+                                              //                     ),
+                                              //                   ],
+                                              //                 )
+                                              //               ],
+                                              //             ),
+                                              //           ),
+                                              //         ),
+                                              //       );
+                                              //     });
                                             }).then((value) {
                                           setState(() {});
                                         });
@@ -653,8 +774,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     backgroundColor: Color(0xffec3436),
                   ),
                   onPressed: () {
-                    // Navigator.push(context,
-                    //     MaterialPageRoute(builder: (context) => OrderScreen()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => OrderScreen()));
                     placeOrder();
                   },
                   child: Center(

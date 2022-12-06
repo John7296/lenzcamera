@@ -51,7 +51,7 @@ class _FilterScreenState extends State<FilterScreen> {
 
     NetworkManager.shared.searchFilter(<String, dynamic>{
         "currentpage": 1,
-       "custId": 386, 
+       "custId": NetworkManager.shared.userId, 
        "filter": {"category": "dslr-lenses"}, 
        "filtervalues": null, 
        "guestId": null, 
