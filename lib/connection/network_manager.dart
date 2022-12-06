@@ -138,6 +138,12 @@ class NetworkManager {
     return call(networkConnection.searchFilter(map));
   }
 
+
+   Future<BaseResponse> addReview(Map<String, dynamic> map) {
+    return call(networkConnection.addReview(map));
+  }
+
+
   Future<BaseResponse> verifyOtp(Map<String, dynamic> map) {
     return call(
         networkConnection.verifyOtp(int.parse(map['OTP']), map['OtpUrlKey']));

@@ -18,6 +18,7 @@ import 'package:lenzcamera/model/search_filter_response.dart';
 import 'package:lenzcamera/model/search_products_response.dart';
 import 'package:lenzcamera/model/state_list.dart';
 import 'package:lenzcamera/model/top_categories.dart';
+import 'package:lenzcamera/utils/constants.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
@@ -27,6 +28,8 @@ part 'network_connection.g.dart';
 @RestApi(baseUrl: 'https://dev.lenzcamera.com/api/api/v2/')
 abstract class NetworkConnection {
   factory NetworkConnection(Dio dio, {String? baseUrl}) {
+
+    if(kDedebug){
     dio.interceptors.add(PrettyDioLogger(
         requestHeader: true,
         requestBody: true,
@@ -35,7 +38,7 @@ abstract class NetworkConnection {
         error: true,
         compact: true,
         maxWidth: 90));
-
+    }
     return _NetworkConnection(dio);
   }
   @FormUrlEncoded()
@@ -104,6 +107,12 @@ abstract class NetworkConnection {
   @FormUrlEncoded()
   @POST("Product/SearchFilter")
   Future<BaseResponse<SearchFilterResponse>>searchFilter(
+    @Body() Map<String, dynamic> map,
+  );
+
+  @FormUrlEncoded()
+  @POST("Product/ProductReviewSubmit")
+  Future<BaseResponse>addReview(
     @Body() Map<String, dynamic> map,
   );
 

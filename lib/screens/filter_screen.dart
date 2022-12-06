@@ -3,15 +3,17 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
+import 'package:lenzcamera/manager/data_manager.dart';
 import 'package:lenzcamera/model/attribute.dart';
 
 import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/category.dart';
+import 'package:lenzcamera/model/filter_data.dart';
 
 import 'package:lenzcamera/model/product.dart';
 import 'package:lenzcamera/model/search_filter_response.dart';
 
- List<String> _categories = <String>['Canon', 'Nikon', 'Sigma', 'Tamron'];
+ //List<String> _categories = <String>['Canon', 'Nikon', 'Sigma', 'Tamron'];
 
 class FilterScreen extends StatefulWidget {
   @override
@@ -26,7 +28,11 @@ class _FilterScreenState extends State<FilterScreen> {
 
   Category? selectedCategory;
    Attribute? selectedAttribute;
+     Attribute? selectedBrand;
+         Attribute? selectedManufacturer;
+          Attribute? selectedLens;
 
+      SearchFilterResponse? price;
 
    bool isLoading = false;
   int currentPage = 1;
@@ -34,7 +40,7 @@ class _FilterScreenState extends State<FilterScreen> {
   List<Category>_categoryList =[];
   List<Attribute>_attributeList =[];
 
-  List<Attribute> attributeValues = [];
+
 
    @override
   void initState() {
@@ -64,17 +70,12 @@ class _FilterScreenState extends State<FilterScreen> {
           "vendorUrlKey": 8
       
     }).then((BaseResponse<SearchFilterResponse>response) {
-
-        print("//////////////////////");
-       print(response.data?.categoryList);
        setState(() {
             isLoading= false;  
              _categoryList.clear();
              _attributeList.clear();
         _categoryList.addAll(response.data!.categoryList!);  
         _attributeList.addAll(response.data!.attributes!);  
-      print("//////////////////////");
-       print(response.data?.categoryList);
       });
     }).catchError((e) {
     print(e.toString());
@@ -83,13 +84,17 @@ class _FilterScreenState extends State<FilterScreen> {
 
 
   List<Attribute> searchAttribute(String attName){
+
+  List<Attribute> attributeValues = [];
+
      for (Attribute element in _attributeList){
-      if(element.attrId==attName){
-       // attributeValues.addAll(element);
+      if(element.attrName==attName){
+         attributeValues.add(element);
       }
-      return attributeValues;
+        
      }
-    return (_attributeList);
+     return attributeValues;
+    
   }
 
   @override
@@ -112,11 +117,11 @@ class _FilterScreenState extends State<FilterScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.only(left: 24, right: 24),
-        child: Stack(
+        child: Column(
           children: [
-            Container(
-              margin: EdgeInsets.only(bottom: 75),
-              child: SingleChildScrollView(
+            Expanded(
+              child: Container(
+                margin: EdgeInsets.only(bottom: 75),
                 child: Column(
                   children: [
                     SizedBox(height: 15),
@@ -152,24 +157,19 @@ class _FilterScreenState extends State<FilterScreen> {
                         ),
                       ),
                     ),
-
-
+            
+            
                     SizedBox(height: 13),
                     Container(
                       height: 40,
+                      width: double.infinity,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         color: Color(0xff6f7270),
                       ),
-                      child: Expanded(
-                        child: Row(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(left: 15),
-                              child: Text("Price Range"),
-                            ),
-                          ],
-                        ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(12),
+                        child: Text("Price Range"),
                       ),
                     ),
                     SizedBox(
@@ -210,18 +210,18 @@ class _FilterScreenState extends State<FilterScreen> {
                           borderRadius: BorderRadius.circular(10)),
                       child: Padding(
                         padding: const EdgeInsets.only(left:10, right:10),
-                        child: DropdownButton(
+                        child: DropdownButton<Attribute>(
                           hint: Text("Brand"),
                           isExpanded: true,
                           underline: Container(color: Colors.transparent),
                           dropdownColor: Color(0xffadadad),
                           elevation: 5,
-                          value: selectedAttribute,
+                          value: selectedBrand,
                           icon: const Icon(Icons.arrow_drop_down_outlined, color: Colors.black,),
                           onChanged: (Attribute? value) {
                             // This is called when the user selects an item.
                             setState(() {
-                              selectedAttribute = value;
+                              selectedBrand = value;
                             });
                           },
                           items:
@@ -230,14 +230,14 @@ class _FilterScreenState extends State<FilterScreen> {
                               value: value,
                               child: 
                               
-                              Text(value.attrName??''),
+                              Text(value.attrValue??''),
                             );
                           }).toList(),
                         ),
                       ),
                     ),
                     SizedBox(height: 13),
-
+            
                    Container(
                       height: 40,
                       decoration: BoxDecoration(
@@ -245,18 +245,18 @@ class _FilterScreenState extends State<FilterScreen> {
                           borderRadius: BorderRadius.circular(10)),
                       child: Padding(
                         padding: const EdgeInsets.only(left:10, right:10),
-                        child: DropdownButton(
+                        child: DropdownButton<Attribute>(
                           hint: Text("Manufacturer"),
                           isExpanded: true,
                           dropdownColor: Color(0xffadadad),
                           elevation: 5,
-                          value: selectedAttribute,
+                          value: selectedManufacturer,
                         underline: Container(color: Colors.transparent),
                           icon: const Icon(Icons.arrow_drop_down_outlined, color: Colors.black,),
                           onChanged: (Attribute? value) {
                             // This is called when the user selects an item.
                             setState(() {
-                              selectedAttribute = value;
+                              selectedManufacturer = value;
                             });
                           },
                           items:
@@ -265,15 +265,15 @@ class _FilterScreenState extends State<FilterScreen> {
                               value: value,
                               child: 
                               
-                              Text(value.attrName??''),
+                              Text(value.attrValue??''),
                             );
                           }).toList(),
                         ),
                       ),
                     ),
-
+            
                     SizedBox(height: 13),
-
+            
                     Container(
                       height: 40,
                       decoration: BoxDecoration(
@@ -281,18 +281,18 @@ class _FilterScreenState extends State<FilterScreen> {
                           borderRadius: BorderRadius.circular(10)),
                       child: Padding(
                         padding: const EdgeInsets.only(left:10, right:10),
-                        child: DropdownButton(
+                        child: DropdownButton<Attribute>(
                           hint: Text("Lens Mount"),
                           isExpanded: true,
                           underline: Container(color: Colors.transparent),
                           dropdownColor: Color(0xffadadad),
                           elevation: 5,
-                          value: selectedAttribute,
+                          value: selectedLens,
                           icon: const Icon(Icons.arrow_drop_down_outlined, color: Colors.black,),
                           onChanged: (Attribute? value) {
                             // This is called when the user selects an item.
                             setState(() {
-                              selectedAttribute = value;
+                              selectedLens = value;
                             });
                           },
                           items:
@@ -301,65 +301,70 @@ class _FilterScreenState extends State<FilterScreen> {
                               value: value,
                               child: 
                               
-                              Text(value.attrName??''),
+                              Text(value.attrValue??''),
                             );
                           }).toList(),
                         ),
                       ),
                     ),
-
-                    SizedBox(
-                      height: 200,
-                    ),
+            
+                  
                   ],
                 ),
               ),
             ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                height: 75,
+            Container(
+              height: 75,
 
-                //color: Color(0xfff2f2f2),
-                child: Row(
-                  children: [
-                    Container(
+              //color: Color(0xfff2f2f2),
+              child: Row(
+                children: [
+                  Container(
+                    height: 40,
+                    width: 100,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color(0xff70726f),
+                      ),
+                      onPressed: () {
+                      },
+                      child: Text(
+                        "CLEAR",
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Expanded(
+                    child: Container(
                       height: 40,
-                      width: 100,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xff70726f),
+                          backgroundColor: Color(0xffec3436),
                         ),
                         onPressed: () {
+                         FilterData? filterData= FilterData();
+                         filterData.maxPrice=_endValue;
+                         filterData.minPrice = _startValue;
+                         filterData.category=selectedCategory;
+                         filterData.brand= selectedBrand;
+                         filterData.manufacturer=selectedManufacturer;
+                         filterData.lensMount=selectedLens;
+
+                         DataManager.shared.filterData=filterData;
+                         
+                         Navigator.pop(context);
                         },
                         child: Text(
-                          "CLEAR",
+                          "APPLY",
                           style: TextStyle(fontSize: 20),
                         ),
                       ),
                     ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Expanded(
-                      child: Container(
-                        height: 40,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Color(0xffec3436),
-                          ),
-                          onPressed: () {
-                           searchFilter();
-                          },
-                          child: Text(
-                            "APPLY",
-                            style: TextStyle(fontSize: 20),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ],
