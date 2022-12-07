@@ -9,6 +9,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:lenzcamera/base/base_stateful_state.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/manager/data_manager.dart';
 import 'package:lenzcamera/model/add_address.dart';
@@ -41,42 +42,41 @@ class HomeDetailsScreen extends StatefulWidget {
   State<HomeDetailsScreen> createState() => _HomeDetailsScreenState();
 }
 
-class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
+class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
   List<TopCategories> categoryList = [];
   List<Product> featuredList = [];
   List<Product> popularProductsList = [];
   List<Product> recentProductsList = [];
   List<Product> relatedProductsList = [];
-  List<MainBanner> bannerList = [];
-  bool isLoading = true;
+  List<Banners> bannerList = [];
   String? cartItemId;
 
   Product? featuredProducts;
 
   @override
   void initState() {
+
     super.initState();
-    getTopCategories();
-    _featuredProducts();
-    popularProducts();
+ Future.delayed(const Duration(milliseconds: 500), () {
+getTopCategories();
+_featuredProducts();
+      // _updateDeviceToken();
+    });    
+    
+    
     DataManager.shared.getWishList();
-    recentProducts();
+   
   }
 
   void getTopCategories() {
-    setState(() {
-      isLoading = true;
-    });
-
+    showLoader();
     NetworkManager.shared
         .getTopCategories()
         .then((BaseResponse<List<TopCategories>> response) {
-      print("1${response.data}");
+      
       setState(() {
-        isLoading = false;
         categoryList.clear();
         categoryList.addAll(response.data!);
-        // print(response.data);
       });
     }).catchError((e) {
       print(e.toString());
@@ -84,29 +84,26 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
   }
 
   void _featuredProducts() {
-    setState(() {
-      isLoading = true;
-    });
+   
 
     NetworkManager.shared
         .featuredProducts()
         .then((BaseResponse<List<Product>> response) {
-      // print(response.data);
+          hideLoader();
       setState(() {
-        isLoading = false;
         featuredList.clear();
         featuredList.addAll(response.data!);
-        // print(response.data!.first.catId);
       });
+      popularProducts();
+       recentProducts();
     }).catchError((e) {
+      hideLoader();
       print(e.toString());
     });
   }
 
   void popularProducts() {
-    setState(() {
-      isLoading = true;
-    });
+    
 
     NetworkManager.shared
         .popularProducts()
@@ -114,7 +111,6 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
       DataManager.shared.getCart();
       // print(response.data);
       setState(() {
-        isLoading = false;
         popularProductsList.clear();
         popularProductsList.addAll(response.data!);
 
@@ -126,16 +122,13 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
   }
 
   void recentProducts() {
-    setState(() {
-      isLoading = true;
-    });
+ 
 
     NetworkManager.shared
         .recentProducts()
         .then((BaseResponse<List<Product>> response) {
       // print(response.data);
       setState(() {
-        isLoading = false;
         recentProductsList.clear();
         recentProductsList.addAll(response.data!);
         // print(response.data!.first.catId);
@@ -146,17 +139,15 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
   }
 
   void getBanners() {
-    setState(() {
-      isLoading = true;
-    });
+   
     NetworkManager.shared.getBanner(<String, dynamic>{
       "custId": NetworkManager.shared.userId,
-      "guestId": "",
+      "guestId": 0,
       "pincode": 8,
     }).then((BaseResponse<MainBanner> response) {
       setState(() {
         bannerList.clear();
-        // bannerList.addAll(response.data.MainBanners);
+        bannerList.addAll(response.data!.MainBanners!);
       });
     }).catchError((e) {
       print(e.toString());
@@ -179,9 +170,9 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
         actions: [
           IconButton(
             onPressed: () {
-              // Navigator.push(context,
-              //     MaterialPageRoute(builder: (context) => WishlistScreen()));
-              getBanners();
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => WishlistScreen()));
+              // getBanners();
             },
             icon: Icon(Icons.favorite_border),
           ),
@@ -299,9 +290,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
               padding: const EdgeInsets.only(left: 8, right: 10),
               child: SizedBox(
                 height: 160,
-                child: isLoading
-                    ? Center(child: LinearProgressIndicator())
-                    : ListView.builder(
+                child:  ListView.builder(
                         scrollDirection: Axis.horizontal,
                         shrinkWrap: true,
                         itemCount: categoryList.length,
@@ -313,7 +302,6 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                                 padding: const EdgeInsets.all(5),
                                 child: Container(
                                   width: 125,
-
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.all(
                                       Radius.circular(5),
@@ -327,15 +315,16 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                                       ),
                                     ],
                                   ),
-                                  // height: 150,
+                                  height: 150,
                                   child: Column(
                                     children: [
                                       Container(
-                                          height: 100,
-                                          width: 80,
-                                          child: CachedNetworkImage(
-                                              imageUrl:
-                                                  "https://dev.lenzcamera.com/webadmin/${categoryList[index].imageUrl}")),
+                                        height: 100,
+                                        width: 80,
+                                        child: CachedNetworkImage(
+                                            imageUrl:
+                                                "https://dev.lenzcamera.com/webadmin/${categoryList[index].imageUrl}"),
+                                      ),
                                       Padding(
                                         padding: const EdgeInsets.all(5),
                                         child: Text(
@@ -392,9 +381,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                   ),
                   Column(
                     children: [
-                      isLoading
-                          ? Center(child: LinearProgressIndicator())
-                          : Container(
+                    Container(
                               height: 630,
                               child: Padding(
                                 padding:
@@ -617,7 +604,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                                                           : ElevatedButton(
                                                               style: ElevatedButton.styleFrom(
                                                                   elevation: 0,
-                                                                  backgroundColor: (popularProductsList[index]
+                                                                  backgroundColor: (featuredList[index]
                                                                               .stockAvailability!
                                                                               .length ==
                                                                           12)
@@ -746,9 +733,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                   ),
                   Column(
                     children: [
-                      isLoading
-                          ? Center(child: LinearProgressIndicator())
-                          : Container(
+                    Container(
                               height: 800,
                               child: Padding(
                                 padding:
@@ -1045,11 +1030,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
               ),
             ),
 
-            isLoading
-                ? Center(
-                    child: LinearProgressIndicator(),
-                  )
-                : Container(
+             Container(
                     height: 300,
                     color: Colors.white,
                     child: Stack(
@@ -1463,5 +1444,11 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
         ),
       ),
     );
+  }
+
+  @override
+  bool isAuthenticationRequired() {
+    // TODO: implement isAuthenticationRequired
+    throw UnimplementedError();
   }
 }

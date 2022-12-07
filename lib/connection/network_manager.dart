@@ -37,7 +37,7 @@ class NetworkManager {
 
   Dio? dio;
   late NetworkConnection networkConnection;
-  late String userKey;
+  late String userToken;
   late String otp;
   late String otpurlkey;
   late int userId;
@@ -50,11 +50,11 @@ class NetworkManager {
   void refreshTokens() {
     SessionsManager.getUserToken().then((token) {
       token = (token ?? "");
-      userKey = token.isEmpty ? "" : "Bearer $token";
+      userToken = token.isEmpty ? "" : token;
     });
 
     SessionsManager.getUserId().then((value) {
-      userId = value!;
+      userId = value??0;
       print("UserIdNM${userId}");
     });
   }
@@ -164,7 +164,7 @@ class NetworkManager {
   // }
 
   Future<BaseResponse<MainBanner>> getBanner(Map<String, dynamic> map) {
-    return call(networkConnection.getBanner(userId, 0,8));
+    return call(networkConnection.getBanner(map["userId"],map["guestId"],map[""]));
   }
 
   Future<BaseResponse<List<Product>>> getWishList() {
@@ -188,9 +188,9 @@ class NetworkManager {
     return call(networkConnection.updateProfile(map));
   }
 
-  Future<BaseResponse<CartResponse>> getCart(Map<String, dynamic> map) {
+  Future<BaseResponse<CartResponse>> getCart(int cusId, int guestId, int pincode) {
     return call(networkConnection.getCart(
-        map["cusId"], map["guestId"], map["pincode"]));
+        cusId, guestId, pincode));
   }
 
   Future<BaseResponse> addToCart(Map<String, dynamic> map) {
@@ -244,9 +244,24 @@ class NetworkManager {
             _errorMessage = "Receive timeout in connection";
             break;
           case DioErrorType.response:
-            if (error.response?.statusCode == 401) {
-              _errorMessage = "Session timeout";
-              // DataManager.shared.onTokenExpired!();
+            // if (error.response?.statusCode == 401) {
+            //   _errorMessage = "Session timeout";
+            //   // DataManager.shared.onTokenExpired!();
+            //   throw (_errorMessage);
+            // }
+
+            if (error.response?.statusCode == 401 ||
+                error.response?.statusCode == 400) {
+              if (error.response!.data["Data"] is Iterable) {
+                for (Map m in error.response!.data["Data"]) {
+                  _errorMessage = _errorMessage + m["Message"] + "\n";
+                }
+              } else {
+                _errorMessage = "${error.response!.data["Message"] ?? ""}";
+              }
+              _errorMessage = _errorMessage.trim() == ""
+                  ? "Unknown error"
+                  : _errorMessage.trim();
               throw (_errorMessage);
             }
 

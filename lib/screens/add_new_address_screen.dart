@@ -35,6 +35,7 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
     // TODO: implement initState
     super.initState();
     cityNames();
+     stateNames();
   }
 
   List<StateList>? showCityList(String name) {
@@ -82,6 +83,7 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
         })
         .then((BaseResponse response) {})
         .catchError((e) {
+          
           print(e.toString());
         });
   }
@@ -430,8 +432,6 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                           child: ElevatedButton(
                             onPressed: () {
                               // onSaveButtonTapped();
-                              cityNames();
-                              stateNames();
                             },
                             child: Text(
                               'Save',
