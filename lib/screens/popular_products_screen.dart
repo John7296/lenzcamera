@@ -276,7 +276,7 @@ class _PopularProductsScreenState extends State<PopularProductsScreen> {
                                     : ElevatedButton(
                                         style: ElevatedButton.styleFrom(
                                           elevation: 0,
-                                          backgroundColor: Colors.yellow,
+                                          backgroundColor:(popularProductsList[index].stockAvailability!.length==12)? Colors.grey:Colors.yellow
                                         ),
                                         onPressed: () {
                                           DataManager.shared.updateItemToCart(
@@ -288,12 +288,21 @@ class _PopularProductsScreenState extends State<PopularProductsScreen> {
                                           });
                                         },
                                         child: Center(
-                                            child: Text(
-                                          "ADD",
-                                          style: TextStyle(
-                                              fontSize: 15,
-                                              color: Colors.black),
-                                        )),
+                                          child: (popularProductsList[index]
+                                                      .stockAvailability!.length==12)
+                                              ? Text(
+                                                  "Out of Stock",
+                                                  style: TextStyle(
+                                                      fontSize: 15,
+                                                      color: Colors.black),
+                                                )
+                                              : Text(
+                                                  "ADD",
+                                                  style: TextStyle(
+                                                      fontSize: 15,
+                                                      color: Colors.black),
+                                                ),
+                                        ),
                                       ),
                               ),
                           ],

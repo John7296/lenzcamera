@@ -48,7 +48,7 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
     return newStateList;
   }
 
-   List<CityList>? showStateList(String name, StateList stateList) {
+  List<CityList>? showStateList(String name, StateList stateList) {
     List<CityList> newCityList = [];
 
     for (CityList element in cityList) {
@@ -59,7 +59,6 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
     return newCityList;
   }
 
-
   void onSaveButtonTapped() {
     NetworkManager.shared
         .updateAddress({
@@ -69,7 +68,7 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
           "country": "QATAR",
           "custAdressId": 418,
           "custId": NetworkManager.shared.userId,
-          "district": "ad-Dawhah",
+          "district": selectedCity,
           "firstName": _firstNameController.text,
           "isDefaultBillingAddress": isCheckedBA,
           "isDefaultShippingAddress": isCheckedSA,
@@ -79,7 +78,7 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
           "longitude": 76.3041375,
           "phone": _phoneController.text,
           "pincode": _pinCodeController.text,
-          "state": "ad-Dawhah",
+          "state": selectedState,
         })
         .then((BaseResponse response) {})
         .catchError((e) {
@@ -314,10 +313,12 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                               color: Colors.black,
                             ),
                             onChanged: (StateList? value) {
+                              
                               // This is called when the user selects an item.
                               setState(() {
                                 showSelectedState = value;
                               });
+                              print(showSelectedState!.id);
                             },
                             items: stateList.map<DropdownMenuItem<StateList>>(
                                 (StateList value) {

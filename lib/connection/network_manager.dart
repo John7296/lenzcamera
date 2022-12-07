@@ -7,6 +7,7 @@ import 'package:lenzcamera/model/cart.dart';
 import 'package:lenzcamera/model/city_list.dart';
 import 'package:lenzcamera/model/company_policy.dart';
 import 'package:lenzcamera/model/customer.dart';
+import 'package:lenzcamera/model/main_banners.dart';
 import 'package:lenzcamera/model/order_list.dart';
 import 'package:lenzcamera/model/product.dart';
 import 'package:lenzcamera/model/product_detail.dart';
@@ -163,7 +164,7 @@ class NetworkManager {
   //   return call(networkConnection.recentProducts(map["custId"], map["guestId"]));
   // }
 
-  Future<BaseResponse<List<HomeDetails>>> homeDetails() {
+  Future<BaseResponse<List<Banners>>> homeDetails() {
     return call(networkConnection.homeDetails(userId, 0));
   }
 

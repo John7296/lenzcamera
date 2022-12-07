@@ -100,9 +100,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
               height: 50,
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => HomeScreen()));
-                  
+                  Navigator.pop(context);
                 },
                 child: Text(
                   'Back',

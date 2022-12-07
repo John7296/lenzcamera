@@ -722,7 +722,7 @@ class _NetworkConnection implements NetworkConnection {
   }
 
   @override
-  Future<BaseResponse<List<HomeDetails>>> homeDetails(
+  Future<BaseResponse<List<Banners>>> homeDetails(
     userId,
     gustId,
   ) async {
@@ -734,7 +734,7 @@ class _NetworkConnection implements NetworkConnection {
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<BaseResponse<List<HomeDetails>>>(Options(
+        _setStreamType<BaseResponse<List<Banners>>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -747,11 +747,10 @@ class _NetworkConnection implements NetworkConnection {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = BaseResponse<List<HomeDetails>>.fromJson(
+    final value = BaseResponse<List<Banners>>.fromJson(
       _result.data!,
       (json) => (json as List<dynamic>)
-          .map<HomeDetails>(
-              (i) => HomeDetails.fromJson(i as Map<String, dynamic>))
+          .map<Banners>((i) => Banners.fromJson(i as Map<String, dynamic>))
           .toList(),
     );
     return value;

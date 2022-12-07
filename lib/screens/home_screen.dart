@@ -9,6 +9,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/manager/data_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
+import 'package:lenzcamera/model/home_details.dart';
 import 'package:lenzcamera/model/top_categories.dart';
 import 'package:lenzcamera/screens/address_screen.dart';
 import 'package:lenzcamera/screens/cart_screen.dart';
@@ -53,32 +54,10 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
 
-  void _getCategories() {
-    setState(() {
-      isLoading = true;
-    });
-
-    NetworkManager.shared
-        .getTopCategories()
-        .then((BaseResponse<List<TopCategories>> response) {
-      print(response.data);
-      setState(() {
-        isLoading = false;
-        categoryList.clear();
-        categoryList.addAll(response.data!);
-        // print(response.data);
-      });
-    }).catchError((e) {
-      print(e.toString());
-    });
-  }
-
-
-   void goBack() {
+  void goBack() {
     if (Navigator.canPop(context)) {
       Navigator.pop(context);
-    } 
-    else {
+    } else {
       SystemNavigator.pop();
     }
   }
@@ -127,7 +106,7 @@ class _HomeScreenState extends State<HomeScreen> {
             const DrawerHeader(
               decoration: BoxDecoration(
                 color: Colors.grey,
-              ), //BoxDecoration
+              ),
               child: UserAccountsDrawerHeader(
                 decoration: BoxDecoration(
                   color: Colors.grey,
@@ -146,8 +125,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 //     style: TextStyle(fontSize: 30.0, color: Colors.black),
                 //   ), //Text
                 // ), //circleAvatar
-              ), //UserAccountDrawerHeader
-            ), //DrawerHeader
+              ), 
+            ), 
             ListTile(
               leading: const Icon(Icons.home_outlined),
               title: const Text("Home"),
