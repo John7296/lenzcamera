@@ -12,8 +12,8 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/manager/data_manager.dart';
 import 'package:lenzcamera/model/add_address.dart';
+import 'package:lenzcamera/model/banners.dart';
 import 'package:lenzcamera/model/base_response.dart';
-import 'package:lenzcamera/model/home_details.dart';
 import 'package:lenzcamera/model/main_banners.dart';
 import 'package:lenzcamera/model/product.dart';
 import 'package:lenzcamera/model/search_products_response.dart';
@@ -47,7 +47,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
   List<Product> popularProductsList = [];
   List<Product> recentProductsList = [];
   List<Product> relatedProductsList = [];
-  List<Banners> bannerList = [];
+  List<MainBanner> bannerList = [];
   bool isLoading = true;
   String? cartItemId;
 
@@ -145,20 +145,18 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
     });
   }
 
-  void banner() {
+  void getBanners() {
     setState(() {
       isLoading = true;
     });
-
-    NetworkManager.shared
-        .homeDetails()
-        .then((BaseResponse<List<Banners>> response) {
-      print(response.data);
+    NetworkManager.shared.getBanner(<String, dynamic>{
+      "custId": NetworkManager.shared.userId,
+      "guestId": "",
+      "pincode": 8,
+    }).then((BaseResponse<MainBanner> response) {
       setState(() {
-        isLoading = false;
         bannerList.clear();
-        bannerList.addAll(response.data!);
-        print(response.data!);
+        // bannerList.addAll(response.data.MainBanners);
       });
     }).catchError((e) {
       print(e.toString());
@@ -183,7 +181,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
             onPressed: () {
               // Navigator.push(context,
               //     MaterialPageRoute(builder: (context) => WishlistScreen()));
-              banner();
+              getBanners();
             },
             icon: Icon(Icons.favorite_border),
           ),
@@ -411,13 +409,11 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                                     return InkWell(
                                       onTap: () {
                                         Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                ProductDetailsScreen(
-                                                    featuredList[index]),
-                                          ),
-                                        );
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ProductDetailsScreen(
+                                                        featuredList[index])));
                                       },
                                       child: Card(
                                         shape: RoundedRectangleBorder(),
@@ -701,14 +697,18 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                 height: 150.0,
                 autoPlay: true,
               ),
-              itemCount: bannerList.length,
+              itemCount: 4,
+              // bannerList.length,
               itemBuilder: (BuildContext context, itemIndex, realIndex) {
                 return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: CachedNetworkImage(
-                      imageUrl:
-                          "https://dev.lenzcamera.com/webadmin/${bannerList[itemIndex].imageUrl}"),
-                );
+                    padding: const EdgeInsets.all(8.0),
+                    child: Image(
+                      image: AssetImage("assets/images/logo_lenzcamera.png"),
+                    )
+                    // CachedNetworkImage(
+                    // imageUrl:
+                    //     "https://dev.lenzcamera.com/webadmin/${bannerList[itemIndex].MainBanners[index].imageUrl}"),
+                    );
               },
             ),
             SizedBox(height: 10),

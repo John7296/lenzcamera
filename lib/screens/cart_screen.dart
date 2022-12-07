@@ -33,7 +33,7 @@ class _CartScreenState extends State<CartScreen> {
     });
     NetworkManager.shared.getCart(<String, dynamic>{
       "cusId": NetworkManager.shared.userId,
-      "guestId": 1,
+      "guestId": "",
       "pincode": 8,
     }).then((BaseResponse<CartResponse> response) {
       setState(() {

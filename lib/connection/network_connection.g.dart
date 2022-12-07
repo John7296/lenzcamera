@@ -722,19 +722,21 @@ class _NetworkConnection implements NetworkConnection {
   }
 
   @override
-  Future<BaseResponse<List<Banners>>> homeDetails(
+  Future<BaseResponse<MainBanner>> getBanner(
     userId,
-    gustId,
+    guestId,
+    pincode,
   ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'custId': userId,
-      r'guestId': gustId,
+      r'guestId': guestId,
+      r'pincode': pincode,
     };
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<BaseResponse<List<Banners>>>(Options(
+        _setStreamType<BaseResponse<MainBanner>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -747,11 +749,9 @@ class _NetworkConnection implements NetworkConnection {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = BaseResponse<List<Banners>>.fromJson(
+    final value = BaseResponse<MainBanner>.fromJson(
       _result.data!,
-      (json) => (json as List<dynamic>)
-          .map<Banners>((i) => Banners.fromJson(i as Map<String, dynamic>))
-          .toList(),
+      (json) => MainBanner.fromJson(json as Map<String, dynamic>),
     );
     return value;
   }

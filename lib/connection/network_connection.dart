@@ -9,7 +9,6 @@ import 'package:lenzcamera/model/order_list.dart';
 import 'package:lenzcamera/model/product.dart';
 import 'package:lenzcamera/model/product_detail.dart';
 import 'package:lenzcamera/model/profile.dart';
-import 'package:lenzcamera/model/home_details.dart';
 import 'package:lenzcamera/model/login_customer.dart';
 import 'package:lenzcamera/model/new_register.dart';
 import 'package:lenzcamera/model/profile.dart';
@@ -179,9 +178,10 @@ abstract class NetworkConnection {
 
   @FormUrlEncoded()
   @GET('Products/HomeProducts')
-  Future<BaseResponse<List<Banners>>> homeDetails(
+  Future<BaseResponse<MainBanner>> getBanner(
     @Query("custId") int userId,
-    @Query("guestId") int gustId,
+    @Query("guestId") int guestId,
+    @Query("pincode") int pincode,
   );
 
   @FormUrlEncoded()

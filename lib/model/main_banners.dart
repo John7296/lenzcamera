@@ -1,48 +1,15 @@
 import 'package:json_annotation/json_annotation.dart';
-
+import 'package:lenzcamera/model/banners.dart';
 part 'main_banners.g.dart';
 
-@JsonSerializable()
-class Banners {
-  @JsonKey(name: 'teId')
-  final int? teId;
+@JsonSerializable(genericArgumentFactories: true)
+class MainBanner {
+  @JsonKey(name: "MainBanners")
+  List<Banners>? MainBanners;
 
-  @JsonKey(name: 'elementName')
-  final String? elementName;
+  MainBanner();
 
-  @JsonKey(name: 'imageUrl')
-  final String? imageUrl;
-
-  @JsonKey(name: 'position')
-  final int? position;
-
-  @JsonKey(name: 'status')
-  final bool? status;
-
-  @JsonKey(name: 'delDate')
-  final String? delDate;
-
-  @JsonKey(name: 'Link')
-  final String? Link;
-
-  @JsonKey(name: 'mob_urlKey')
-  final String? mob_urlKey;
-
-  @JsonKey(name: 'mob_type')
-  final String? mob_type;
-
-  Banners(
-      {this.Link,
-      this.delDate,
-      this.elementName,
-      this.imageUrl,
-      this.mob_type,
-      this.mob_urlKey,
-      this.position,
-      this.status,
-      this.teId});
-
-  factory Banners.fromJson(Map<String, dynamic> json) =>
-      _$BannersFromJson(json);
-  Map<String, dynamic> toJson() => _$BannersToJson(this);
+  factory MainBanner.fromJson(Map<String, dynamic> json) =>
+      _$MainBannerFromJson(json);
+  Map<String, dynamic> toJson() => _$MainBannerToJson(this);
 }
