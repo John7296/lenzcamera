@@ -207,20 +207,21 @@ class _FeaturedProductsScreenState extends State<FeaturedProductsScreen> {
                                                 width: 30,
                                                 height: 30,
                                                 decoration: BoxDecoration(
-                                                    color: Color(0xff70726f),
-                                                    borderRadius:
-                                                        BorderRadius.only(
-                                                      topLeft:
-                                                          Radius.circular(5),
-                                                      bottomLeft:
-                                                          Radius.circular(5),
-                                                    )),
+                                                  color: Color(0xff70726f),
+                                                  borderRadius:
+                                                      BorderRadius.only(
+                                                    topLeft: Radius.circular(5),
+                                                    bottomLeft:
+                                                        Radius.circular(5),
+                                                  ),
+                                                ),
                                                 child: Center(
-                                                    child: Icon(
-                                                  Icons.remove,
-                                                  color: Colors.white,
-                                                  size: 12,
-                                                )),
+                                                  child: Icon(
+                                                    Icons.remove,
+                                                    color: Colors.white,
+                                                    size: 12,
+                                                  ),
+                                                ),
                                               ),
                                             ),
                                             Container(
@@ -251,14 +252,15 @@ class _FeaturedProductsScreenState extends State<FeaturedProductsScreen> {
                                                   width: 30,
                                                   height: 30,
                                                   decoration: BoxDecoration(
-                                                      color: Color(0xffe83031),
-                                                      borderRadius:
-                                                          BorderRadius.only(
-                                                        topRight:
-                                                            Radius.circular(5),
-                                                        bottomRight:
-                                                            Radius.circular(5),
-                                                      )),
+                                                    color: Color(0xffe83031),
+                                                    borderRadius:
+                                                        BorderRadius.only(
+                                                      topRight:
+                                                          Radius.circular(5),
+                                                      bottomRight:
+                                                          Radius.circular(5),
+                                                    ),
+                                                  ),
                                                   child: Icon(
                                                     Icons.add,
                                                     color: Colors.white,
@@ -269,9 +271,13 @@ class _FeaturedProductsScreenState extends State<FeaturedProductsScreen> {
                                         )
                                       : ElevatedButton(
                                           style: ElevatedButton.styleFrom(
-                                            elevation: 0,
-                                            backgroundColor: Colors.yellow,
-                                          ),
+                                              elevation: 0,
+                                              backgroundColor: (featuredList[
+                                                              index]
+                                                          .stockAvailability ==
+                                                      12)
+                                                  ? Colors.grey
+                                                  : Colors.yellow),
                                           onPressed: () {
                                             DataManager.shared.updateItemToCart(
                                                 featuredList[index], 1,
@@ -282,12 +288,22 @@ class _FeaturedProductsScreenState extends State<FeaturedProductsScreen> {
                                             });
                                           },
                                           child: Center(
-                                              child: Text(
-                                            "ADD",
-                                            style: TextStyle(
-                                                fontSize: 15,
-                                                color: Colors.black),
-                                          )),
+                                            child: (featuredList[index]
+                                                        .stockAvailability ==
+                                                    12)
+                                                ? Text(
+                                                    "Out of Stocks",
+                                                    style: TextStyle(
+                                                        fontSize: 12,
+                                                        color: Colors.black),
+                                                  )
+                                                : Text(
+                                                    "ADD",
+                                                    style: TextStyle(
+                                                        fontSize: 15,
+                                                        color: Colors.black),
+                                                  ),
+                                          ),
                                         ),
                                 ),
                               ),

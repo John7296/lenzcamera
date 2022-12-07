@@ -7,11 +7,11 @@ import 'package:lenzcamera/model/cart.dart';
 import 'package:lenzcamera/model/city_list.dart';
 import 'package:lenzcamera/model/company_policy.dart';
 import 'package:lenzcamera/model/customer.dart';
+import 'package:lenzcamera/model/main_banners.dart';
 import 'package:lenzcamera/model/order_list.dart';
 import 'package:lenzcamera/model/product.dart';
 import 'package:lenzcamera/model/product_detail.dart';
 import 'package:lenzcamera/model/profile.dart';
-import 'package:lenzcamera/model/home_details.dart';
 import 'package:lenzcamera/model/login_customer.dart';
 import 'package:lenzcamera/model/new_register.dart';
 import 'package:lenzcamera/model/profile.dart';
@@ -163,8 +163,8 @@ class NetworkManager {
   //   return call(networkConnection.recentProducts(map["custId"], map["guestId"]));
   // }
 
-  Future<BaseResponse<List<HomeDetails>>> homeDetails() {
-    return call(networkConnection.homeDetails(userId, 0));
+  Future<BaseResponse<MainBanner>> getBanner(Map<String, dynamic> map) {
+    return call(networkConnection.getBanner(userId, 0,8));
   }
 
   Future<BaseResponse<List<Product>>> getWishList() {

@@ -12,7 +12,9 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/manager/data_manager.dart';
 import 'package:lenzcamera/model/add_address.dart';
+import 'package:lenzcamera/model/banners.dart';
 import 'package:lenzcamera/model/base_response.dart';
+import 'package:lenzcamera/model/main_banners.dart';
 import 'package:lenzcamera/model/product.dart';
 import 'package:lenzcamera/model/search_products_response.dart';
 import 'package:lenzcamera/model/top_categories.dart';
@@ -45,6 +47,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
   List<Product> popularProductsList = [];
   List<Product> recentProductsList = [];
   List<Product> relatedProductsList = [];
+  List<MainBanner> bannerList = [];
   bool isLoading = true;
   String? cartItemId;
 
@@ -68,7 +71,7 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
     NetworkManager.shared
         .getTopCategories()
         .then((BaseResponse<List<TopCategories>> response) {
-      // print(response.data);
+      print("1${response.data}");
       setState(() {
         isLoading = false;
         categoryList.clear();
@@ -142,9 +145,26 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
     });
   }
 
+  void getBanners() {
+    setState(() {
+      isLoading = true;
+    });
+    NetworkManager.shared.getBanner(<String, dynamic>{
+      "custId": NetworkManager.shared.userId,
+      "guestId": "",
+      "pincode": 8,
+    }).then((BaseResponse<MainBanner> response) {
+      setState(() {
+        bannerList.clear();
+        // bannerList.addAll(response.data.MainBanners);
+      });
+    }).catchError((e) {
+      print(e.toString());
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    
     print("UserIdHome${NetworkManager.shared.userId}");
 
     return Scaffold(
@@ -159,8 +179,9 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => WishlistScreen()));
+              // Navigator.push(context,
+              //     MaterialPageRoute(builder: (context) => WishlistScreen()));
+              getBanners();
             },
             icon: Icon(Icons.favorite_border),
           ),
@@ -492,78 +513,129 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                                                 Container(
                                                   // width: 160,
                                                   height: 30,
-                                                  child: featuredList[index]
-                                                          .isAddedtoCart()
-                                                      ? Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
-                                                          children: [
-                                                            InkWell(
-                                                              onTap: () {
-                                                                DataManager
-                                                                    .shared
-                                                                    .updateItemToCart(
+                                                  child:
+                                                      featuredList[index]
+                                                              .isAddedtoCart()
+                                                          ? Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .center,
+                                                              children: [
+                                                                InkWell(
+                                                                  onTap: () {
+                                                                    DataManager.shared.updateItemToCart(
                                                                         featuredList[
                                                                             index],
                                                                         4,
                                                                         onUpdate:
                                                                             () {
-                                                                  setState(
-                                                                      () {});
-                                                                }, onUpdateStarted:
+                                                                      setState(
+                                                                          () {});
+                                                                    }, onUpdateStarted:
                                                                             () {
-                                                                  setState(
-                                                                      () {});
-                                                                });
-                                                              },
-                                                              child: Container(
-                                                                width: 30,
-                                                                height: 30,
-                                                                decoration:
-                                                                    BoxDecoration(
-                                                                        color: Color(
-                                                                            0xff70726f),
-                                                                        borderRadius:
-                                                                            BorderRadius.only(
-                                                                          topLeft:
-                                                                              Radius.circular(5),
-                                                                          bottomLeft:
-                                                                              Radius.circular(5),
-                                                                        )),
-                                                                child: Center(
+                                                                      setState(
+                                                                          () {});
+                                                                    });
+                                                                  },
+                                                                  child:
+                                                                      Container(
+                                                                    width: 30,
+                                                                    height: 30,
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                            color:
+                                                                                Color(0xff70726f),
+                                                                            borderRadius: BorderRadius.only(
+                                                                              topLeft: Radius.circular(5),
+                                                                              bottomLeft: Radius.circular(5),
+                                                                            )),
+                                                                    child: Center(
+                                                                        child: Icon(
+                                                                      Icons
+                                                                          .remove,
+                                                                      color: Colors
+                                                                          .white,
+                                                                      size: 12,
+                                                                    )),
+                                                                  ),
+                                                                ),
+                                                                Container(
+                                                                  width: 30,
+                                                                  height: 30,
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    color: Color(
+                                                                        0xffe3e3e3),
+                                                                  ),
+                                                                  child: Center(
+                                                                      child:
+                                                                          Text(
+                                                                    "1",
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .black),
+                                                                  )),
+                                                                ),
+                                                                InkWell(
+                                                                  onTap: () {
+                                                                    DataManager.shared.updateItemToCart(
+                                                                        featuredList[
+                                                                            index],
+                                                                        3,
+                                                                        onUpdate:
+                                                                            () {
+                                                                      setState(
+                                                                          () {});
+                                                                    }, onUpdateStarted:
+                                                                            () {
+                                                                      setState(
+                                                                          () {});
+                                                                    });
+                                                                  },
+                                                                  child:
+                                                                      Container(
+                                                                    width: 30,
+                                                                    height: 30,
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                            color:
+                                                                                Color(0xffe83031),
+                                                                            borderRadius: BorderRadius.only(
+                                                                              topRight: Radius.circular(5),
+                                                                              bottomRight: Radius.circular(5),
+                                                                            )),
                                                                     child: Icon(
-                                                                  Icons.remove,
-                                                                  color: Colors
-                                                                      .white,
-                                                                  size: 12,
-                                                                )),
-                                                              ),
-                                                            ),
-                                                            Container(
-                                                              width: 30,
-                                                              height: 30,
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                color: Color(
-                                                                    0xffe3e3e3),
-                                                              ),
-                                                              child: Center(
-                                                                  child: Text(
-                                                                "1",
-                                                                style: TextStyle(
-                                                                    color: Colors
-                                                                        .black),
-                                                              )),
-                                                            ),
-                                                            InkWell(
-                                                              onTap: () {
+                                                                      Icons.add,
+                                                                      color: Colors
+                                                                          .white,
+                                                                      size: 12,
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            )
+                                                          : ElevatedButton(
+                                                              style: ElevatedButton.styleFrom(
+                                                                  elevation: 0,
+                                                                  backgroundColor: (popularProductsList[index]
+                                                                              .stockAvailability!
+                                                                              .length ==
+                                                                          12)
+                                                                      ? Colors
+                                                                          .grey
+                                                                      : Colors
+                                                                          .yellow),
+                                                              onPressed: () {
+                                                                // print(popularProductsList[
+                                                                //         index]
+                                                                //     .urlKey);
+
                                                                 DataManager
                                                                     .shared
                                                                     .updateItemToCart(
                                                                         featuredList[
                                                                             index],
-                                                                        3,
+                                                                        1,
                                                                         onUpdate:
                                                                             () {
                                                                   setState(
@@ -573,67 +645,34 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                                                                   setState(
                                                                       () {});
                                                                 });
+                                                                // Navigator.push(
+                                                                //     context,
+                                                                //     MaterialPageRoute(
+                                                                //         builder: (context) =>
+                                                                //             CartScreen()));
                                                               },
-                                                              child: Container(
-                                                                  width: 30,
-                                                                  height: 30,
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                          color: Color(
-                                                                              0xffe83031),
-                                                                          borderRadius:
-                                                                              BorderRadius.only(
-                                                                            topRight:
-                                                                                Radius.circular(5),
-                                                                            bottomRight:
-                                                                                Radius.circular(5),
-                                                                          )),
-                                                                  child: Icon(
-                                                                    Icons.add,
-                                                                    color: Colors
-                                                                        .white,
-                                                                    size: 12,
-                                                                  )),
+                                                              child: Center(
+                                                                child: (featuredList[index]
+                                                                            .stockAvailability ==
+                                                                        12)
+                                                                    ? Text(
+                                                                        "Out of stock",
+                                                                        style: TextStyle(
+                                                                            fontSize:
+                                                                                12,
+                                                                            color:
+                                                                                Colors.black),
+                                                                      )
+                                                                    : Text(
+                                                                        "ADD",
+                                                                        style: TextStyle(
+                                                                            fontSize:
+                                                                                12,
+                                                                            color:
+                                                                                Colors.black),
+                                                                      ),
+                                                              ),
                                                             ),
-                                                          ],
-                                                        )
-                                                      : ElevatedButton(
-                                                          style: ElevatedButton
-                                                              .styleFrom(
-                                                            elevation: 0,
-                                                            backgroundColor:
-                                                                Colors.yellow,
-                                                          ),
-                                                          onPressed: () {
-                                                            // print(popularProductsList[
-                                                            //         index]
-                                                            //     .urlKey);
-                                                            DataManager.shared
-                                                                .updateItemToCart(
-                                                                    featuredList[
-                                                                        index],
-                                                                    1, onUpdate:
-                                                                        () {
-                                                              setState(() {});
-                                                            }, onUpdateStarted:
-                                                                        () {
-                                                              setState(() {});
-                                                            });
-                                                            // Navigator.push(
-                                                            //     context,
-                                                            //     MaterialPageRoute(
-                                                            //         builder: (context) =>
-                                                            //             CartScreen()));
-                                                          },
-                                                          child: Center(
-                                                              child: Text(
-                                                            "ADD",
-                                                            style: TextStyle(
-                                                                fontSize: 15,
-                                                                color: Colors
-                                                                    .black),
-                                                          )),
-                                                        ),
                                                 ),
                                             ],
                                           ),
@@ -658,21 +697,18 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                 height: 150.0,
                 autoPlay: true,
               ),
-              itemCount: categoryList.length,
-              itemBuilder: (context, itemIndex, realIndex) {
+              itemCount: 4,
+              // bannerList.length,
+              itemBuilder: (BuildContext context, itemIndex, realIndex) {
                 return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child:
-                      // FadeInImage.assetNetwork(
-                      //   placeholder: 'assets/images/placeholder.jpg',
-                      //   image: categoryList.first.image,
-                      //   fit: BoxFit.cover),
-                      Image(
-                    image: AssetImage("assets/images/camerabanner.png"),
-                    fit: BoxFit.fill,
-                    // width: MediaQuery.of(context).size.width,
-                  ),
-                );
+                    padding: const EdgeInsets.all(8.0),
+                    child: Image(
+                      image: AssetImage("assets/images/logo_lenzcamera.png"),
+                    )
+                    // CachedNetworkImage(
+                    // imageUrl:
+                    //     "https://dev.lenzcamera.com/webadmin/${bannerList[itemIndex].MainBanners[index].imageUrl}"),
+                    );
               },
             ),
             SizedBox(height: 10),
@@ -787,11 +823,12 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                                                     ),
                                                   ),
                                                   Container(
-                                                      height: 145,
-                                                      width: 110,
-                                                      child: CachedNetworkImage(
-                                                          imageUrl:
-                                                              "https://dev.lenzcamera.com/webadmin/${popularProductsList[index].imageUrl}")),
+                                                    height: 145,
+                                                    width: 110,
+                                                    child: CachedNetworkImage(
+                                                        imageUrl:
+                                                            "https://dev.lenzcamera.com/webadmin/${popularProductsList[index].imageUrl}"),
+                                                  ),
                                                 ],
                                               ),
                                               const SizedBox(height: 10),
@@ -932,14 +969,16 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                                                               ],
                                                             )
                                                           : ElevatedButton(
-                                                              style:
-                                                                  ElevatedButton
-                                                                      .styleFrom(
-                                                                elevation: 0,
-                                                                backgroundColor:
-                                                                    Colors
-                                                                        .yellow,
-                                                              ),
+                                                              style: ElevatedButton.styleFrom(
+                                                                  elevation: 0,
+                                                                  backgroundColor: (popularProductsList[index]
+                                                                              .stockAvailability!
+                                                                              .length ==
+                                                                          12)
+                                                                      ? Colors
+                                                                          .grey
+                                                                      : Colors
+                                                                          .yellow),
                                                               onPressed: () {
                                                                 // print(popularProductsList[
                                                                 //         index]
@@ -966,14 +1005,27 @@ class _HomeDetailsScreenState extends State<HomeDetailsScreen> {
                                                                 //             CartScreen()));
                                                               },
                                                               child: Center(
-                                                                  child: Text(
-                                                                "ADD",
-                                                                style: TextStyle(
-                                                                    fontSize:
-                                                                        15,
-                                                                    color: Colors
-                                                                        .black),
-                                                              )),
+                                                                child: (popularProductsList[index]
+                                                                            .stockAvailability!
+                                                                            .length ==
+                                                                        12)
+                                                                    ? Text(
+                                                                        "Out Of Stock",
+                                                                        style: TextStyle(
+                                                                            fontSize:
+                                                                                15,
+                                                                            color:
+                                                                                Colors.black),
+                                                                      )
+                                                                    : Text(
+                                                                        "ADD",
+                                                                        style: TextStyle(
+                                                                            fontSize:
+                                                                                12,
+                                                                            color:
+                                                                                Colors.black),
+                                                                      ),
+                                                              ),
                                                             ),
                                                 ),
                                             ],

@@ -264,14 +264,14 @@ class _NetworkConnection implements NetworkConnection {
   @override
   Future<BaseResponse<ProductDetail>> getSingleProductDetails(
     urlKey,
-    custId,
+    userId,
     guestId,
     pincode,
   ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'urlKey': urlKey,
-      r'custId': custId,
+      r'custId': userId,
       r'guestId': guestId,
       r'pincode': pincode,
     };
@@ -299,9 +299,9 @@ class _NetworkConnection implements NetworkConnection {
   }
 
   @override
-  Future<BaseResponse<LoginCustomer>> customerDetails(custId) async {
+  Future<BaseResponse<LoginCustomer>> customerDetails(userId) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'custId': custId};
+    final queryParameters = <String, dynamic>{r'custId': userId};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
@@ -618,12 +618,12 @@ class _NetworkConnection implements NetworkConnection {
 
   @override
   Future<BaseResponse<List<Product>>> featuredProducts(
-    custId,
+    userId,
     gustId,
   ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
-      r'custId': custId,
+      r'custId': userId,
       r'guestId': gustId,
     };
     final _headers = <String, dynamic>{};
@@ -653,12 +653,12 @@ class _NetworkConnection implements NetworkConnection {
 
   @override
   Future<BaseResponse<List<Product>>> popularProducts(
-    custId,
+    userId,
     gustId,
   ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
-      r'custId': custId,
+      r'custId': userId,
       r'guestId': gustId,
     };
     final _headers = <String, dynamic>{};
@@ -688,12 +688,12 @@ class _NetworkConnection implements NetworkConnection {
 
   @override
   Future<BaseResponse<List<Product>>> recentProducts(
-    custId,
+    userId,
     gustId,
   ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
-      r'custId': custId,
+      r'custId': userId,
       r'guestId': gustId,
     };
     final _headers = <String, dynamic>{};
@@ -722,19 +722,21 @@ class _NetworkConnection implements NetworkConnection {
   }
 
   @override
-  Future<BaseResponse<List<HomeDetails>>> homeDetails(
-    custId,
-    gustId,
+  Future<BaseResponse<MainBanner>> getBanner(
+    userId,
+    guestId,
+    pincode,
   ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
-      r'custId': custId,
-      r'guestId': gustId,
+      r'custId': userId,
+      r'guestId': guestId,
+      r'pincode': pincode,
     };
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<BaseResponse<List<HomeDetails>>>(Options(
+        _setStreamType<BaseResponse<MainBanner>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -747,24 +749,21 @@ class _NetworkConnection implements NetworkConnection {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = BaseResponse<List<HomeDetails>>.fromJson(
+    final value = BaseResponse<MainBanner>.fromJson(
       _result.data!,
-      (json) => (json as List<dynamic>)
-          .map<HomeDetails>(
-              (i) => HomeDetails.fromJson(i as Map<String, dynamic>))
-          .toList(),
+      (json) => MainBanner.fromJson(json as Map<String, dynamic>),
     );
     return value;
   }
 
   @override
   Future<BaseResponse<List<Product>>> getWishList(
-    custId,
+    userId,
     gustId,
   ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
-      r'custId': custId,
+      r'custId': userId,
       r'guestId': gustId,
     };
     final _headers = <String, dynamic>{};
@@ -822,13 +821,13 @@ class _NetworkConnection implements NetworkConnection {
 
   @override
   Future<BaseResponse<dynamic>> removeFromWishlist(
-    custId,
+    userId,
     gustId,
     urlKey,
   ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
-      r'custId': custId,
+      r'custId': userId,
       r'guestId': gustId,
       r'urlKey': urlKey,
     };
@@ -855,9 +854,9 @@ class _NetworkConnection implements NetworkConnection {
   }
 
   @override
-  Future<BaseResponse<Profile>> getProfile(custId) async {
+  Future<BaseResponse<Profile>> getProfile(userId) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'custId': custId};
+    final queryParameters = <String, dynamic>{r'custId': userId};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
@@ -911,14 +910,14 @@ class _NetworkConnection implements NetworkConnection {
 
   @override
   Future<BaseResponse<CartResponse>> getCart(
-    custId,
-    gustId,
+    userId,
+    guestId,
     pincode,
   ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
-      r'cusId': custId,
-      r'guestId': gustId,
+      r'cusId': userId,
+      r'guestId': guestId,
       r'pincode': pincode,
     };
     final _headers = <String, dynamic>{};
@@ -1056,9 +1055,9 @@ class _NetworkConnection implements NetworkConnection {
   }
 
   @override
-  Future<BaseResponse<List<OrderList>>> getOrderList(cusId) async {
+  Future<BaseResponse<List<OrderList>>> getOrderList(userId) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'cusId': cusId};
+    final queryParameters = <String, dynamic>{r'cusId': userId};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(

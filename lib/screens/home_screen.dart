@@ -23,6 +23,7 @@ import 'package:lenzcamera/screens/profile_screen.dart';
 import 'package:lenzcamera/screens/return_policy_screen.dart';
 import 'package:lenzcamera/screens/search_screen.dart';
 import 'package:lenzcamera/screens/wishlist_screen.dart';
+import 'package:lenzcamera/utils/sessions_manager.dart';
 
 class HomeScreen extends StatefulWidget {
   final TopCategories? topCategories;
@@ -52,32 +53,10 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
 
-  void _getCategories() {
-    setState(() {
-      isLoading = true;
-    });
-
-    NetworkManager.shared
-        .getTopCategories()
-        .then((BaseResponse<List<TopCategories>> response) {
-      print(response.data);
-      setState(() {
-        isLoading = false;
-        categoryList.clear();
-        categoryList.addAll(response.data!);
-        // print(response.data);
-      });
-    }).catchError((e) {
-      print(e.toString());
-    });
-  }
-
-
-   void goBack() {
+  void goBack() {
     if (Navigator.canPop(context)) {
       Navigator.pop(context);
-    } 
-    else {
+    } else {
       SystemNavigator.pop();
     }
   }
@@ -126,7 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
             const DrawerHeader(
               decoration: BoxDecoration(
                 color: Colors.grey,
-              ), //BoxDecoration
+              ),
               child: UserAccountsDrawerHeader(
                 decoration: BoxDecoration(
                   color: Colors.grey,
@@ -145,8 +124,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 //     style: TextStyle(fontSize: 30.0, color: Colors.black),
                 //   ), //Text
                 // ), //circleAvatar
-              ), //UserAccountDrawerHeader
-            ), //DrawerHeader
+              ), 
+            ), 
             ListTile(
               leading: const Icon(Icons.home_outlined),
               title: const Text("Home"),
@@ -223,13 +202,12 @@ class _HomeScreenState extends State<HomeScreen> {
               leading: const Icon(Icons.logout),
               title: const Text('LogOut'),
               onTap: () {
-                //   goBack();
-                //  DataManager.shared.clearSession();
-                Navigator.pushReplacement(
+                Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => LoginScreen(),
+                    builder: (BuildContext context) => LoginScreen(),
                   ),
+                  (route) => false,
                 );
               },
             ),

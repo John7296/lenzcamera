@@ -19,6 +19,8 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
   bool isCheckedBA = false;
   List<CityList> cityList = [];
   List<StateList> stateList = [];
+  StateList? showSelectedState;
+  CityList? showSelectedCity;
 
   final _firstNameController = TextEditingController();
   final _lastNameController = TextEditingController();
@@ -35,6 +37,28 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
     cityNames();
   }
 
+  List<StateList>? showCityList(String name) {
+    List<StateList> newStateList = [];
+
+    for (StateList element in stateList) {
+      if (element.name == name) {
+        newStateList.add(element);
+      }
+    }
+    return newStateList;
+  }
+
+  List<CityList>? showStateList(String name, StateList stateList) {
+    List<CityList> newCityList = [];
+
+    for (CityList element in cityList) {
+      if (element.id == stateList.id) {
+        newCityList.add(element);
+      }
+    }
+    return newCityList;
+  }
+
   void onSaveButtonTapped() {
     NetworkManager.shared
         .updateAddress({
@@ -44,7 +68,7 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
           "country": "QATAR",
           "custAdressId": 418,
           "custId": NetworkManager.shared.userId,
-          "district": "ad-Dawhah",
+          "district": selectedCity,
           "firstName": _firstNameController.text,
           "isDefaultBillingAddress": isCheckedBA,
           "isDefaultShippingAddress": isCheckedSA,
@@ -54,7 +78,7 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
           "longitude": 76.3041375,
           "phone": _phoneController.text,
           "pincode": _pinCodeController.text,
-          "state": "ad-Dawhah",
+          "state": selectedState,
         })
         .then((BaseResponse response) {})
         .catchError((e) {
@@ -270,57 +294,76 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                                       TextStyle(color: Colors.grey.shade600)),
                             )),
                         Container(
-                            height: 40,
-                            width: 400,
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                  width: 1, color: Colors.grey.shade400),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(0)),
+                          height: 40,
+                          width: 400,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                                width: 1, color: Colors.grey.shade400),
+                            borderRadius: BorderRadius.all(Radius.circular(0)),
+                          ),
+                          child: DropdownButton<StateList>(
+                            hint: Text("Select State"),
+                            isExpanded: true,
+                            dropdownColor: Color(0xffadadad),
+                            elevation: 5,
+                            value: showSelectedState,
+                            underline: Container(color: Colors.transparent),
+                            icon: const Icon(
+                              Icons.arrow_drop_down_outlined,
+                              color: Colors.black,
                             ),
-                            child: DropdownButton(
-                              items: stateList
-                                  .map((StateList) => DropdownMenuItem<String>(
-                                        value: stateList.toString(),
-                                        child: Text(stateList.first.name ?? ''),
-                                      ))
-                                  .toList(),
-                              onChanged: (StateList) => setState(
-                                  () => selectedState = StateList.toString()),
-                            )),
+                            onChanged: (StateList? value) {
+                              
+                              // This is called when the user selects an item.
+                              setState(() {
+                                showSelectedState = value;
+                              });
+                              print(showSelectedState!.id);
+                            },
+                            items: stateList.map<DropdownMenuItem<StateList>>(
+                                (StateList value) {
+                              return DropdownMenuItem<StateList>(
+                                value: value,
+                                child: Text(value.name ?? ''),
+                              );
+                            }).toList(),
+                          ),
+                        ),
                         SizedBox(height: 30),
                         Container(
-                            height: 40,
-                            width: 400,
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                  width: 1, color: Colors.grey.shade400),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(0)),
+                          height: 40,
+                          width: 400,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                                width: 1, color: Colors.grey.shade400),
+                            borderRadius: BorderRadius.all(Radius.circular(0)),
+                          ),
+                          child: DropdownButton<CityList>(
+                            hint: Text("Select City"),
+                            isExpanded: true,
+                            dropdownColor: Color(0xffadadad),
+                            elevation: 5,
+                            value: showSelectedCity,
+                            underline: Container(color: Colors.transparent),
+                            icon: const Icon(
+                              Icons.arrow_drop_down_outlined,
+                              color: Colors.black,
                             ),
-                            child: DropdownButton(
-                              items: cityList
-                                  .map(
-                                    (CityList) => DropdownMenuItem<String>(
-                                        value: cityList.toString(),
-                                        child: Text(cityList.first.name ?? '')
-                                        // ListView.builder(
-                                        //   itemCount: cityList.length,
-                                        //   itemBuilder:
-                                        //       (BuildContext context, int index) {
-                                        //     return Container(
-                                        //       child: Text(cityList[index]
-                                        //           .name
-                                        //           .toString()),
-                                        //     );
-                                        //   },
-                                        // ),
-                                        ),
-                                  )
-                                  .toList(),
-                              onChanged: (CityList) => setState(
-                                  () => selectedCity = cityList.toString()),
-                            )),
+                            onChanged: (CityList? value) {
+                              // This is called when the user selects an item.
+                              setState(() {
+                                showSelectedCity = value;
+                              });
+                            },
+                            items: cityList.map<DropdownMenuItem<CityList>>(
+                                (CityList value) {
+                              return DropdownMenuItem<CityList>(
+                                value: value,
+                                child: Text(value.name ?? ''),
+                              );
+                            }).toList(),
+                          ),
+                        ),
                         SizedBox(height: 5),
                         Row(
                           children: [

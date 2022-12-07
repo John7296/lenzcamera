@@ -28,9 +28,12 @@ class _CartScreenState extends State<CartScreen> {
   }
 
   void getCart() {
+    setState(() {
+      isLoading = true;
+    });
     NetworkManager.shared.getCart(<String, dynamic>{
       "cusId": NetworkManager.shared.userId,
-      "guestId": 1,
+      "guestId": "",
       "pincode": 8,
     }).then((BaseResponse<CartResponse> response) {
       setState(() {
@@ -62,7 +65,7 @@ class _CartScreenState extends State<CartScreen> {
         ),
         backgroundColor: Colors.black,
       ),
-      body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      body: isLoading? Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Expanded(
           child: Container(
             height: 600,
@@ -299,7 +302,8 @@ class _CartScreenState extends State<CartScreen> {
                       //   width: 220,
                       // ),
                       Text(
-                        "QAR ${cartItemsList.first.subTotal.toString()}",
+                        "",
+                        // "QAR ${cartItemsList.first.subTotal.toString()}",
                         style: TextStyle(
                             fontSize: 14, fontWeight: FontWeight.w500),
                       ),
@@ -320,7 +324,8 @@ class _CartScreenState extends State<CartScreen> {
                       //           width: 240,
                       //         ),
                       Text(
-                        "QAR ${cartItemsList.first.deliveryAmount.toString()}",
+                        "",
+                        // "QAR ${cartItemsList.first.deliveryAmount.toString()}",
                         style: TextStyle(
                             fontSize: 12, fontWeight: FontWeight.w500),
                       ),
@@ -372,7 +377,8 @@ class _CartScreenState extends State<CartScreen> {
                   style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
                 )),
                 Text(
-                  "QAR ${cartItemsList.first.grandTotal.toString()}",
+                  "",
+                  // "QAR ${cartItemsList.first.grandTotal.toString()}",
                   style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
                 ),
               ]),
@@ -409,7 +415,7 @@ class _CartScreenState extends State<CartScreen> {
             ),
           ),
         ),
-      ]),
+      ]):Text("No Items added to wishlist")
     );
   }
 }
