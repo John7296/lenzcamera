@@ -41,7 +41,6 @@ class _FilterScreenState extends State<FilterScreen> {
   List<Attribute>_attributeList =[];
 
 
-
    @override
   void initState() {
     super.initState();
@@ -327,8 +326,8 @@ class _FilterScreenState extends State<FilterScreen> {
                         backgroundColor: Color(0xff70726f),
                       ),
                       onPressed: () {
-
-                        
+                       
+                      
                       },
                       child: Text(
                         "CLEAR",

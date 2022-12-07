@@ -17,6 +17,7 @@ class DataManager {
   VoidCallback? onCartUpdated;
   FilterData? filterData;
 
+
   void regCustomerId() {
     NetworkManager.shared.refreshTokens();
   }
@@ -182,4 +183,6 @@ class DataManager {
     SessionsManager.clearSession();
     
   }
+
+  
 }

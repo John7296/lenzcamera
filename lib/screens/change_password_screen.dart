@@ -127,7 +127,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   child: TextFormField(
                       decoration: InputDecoration(
                         contentPadding:
-                     EdgeInsets.symmetric(vertical: 2.0, horizontal: 2.0),
+                     EdgeInsets.only(left:10, top:5, bottom:5),
                         border: OutlineInputBorder(
                           borderSide: BorderSide(color: Color(0xffb0b0b0)),
                         ),
@@ -186,7 +186,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   child: TextFormField(
                       decoration: InputDecoration(
                         contentPadding:
-                     EdgeInsets.symmetric(vertical: 2.0, horizontal: 2.0),
+                     EdgeInsets.only(left:10, top:5, bottom:5),
                         border: OutlineInputBorder(
                           borderSide: BorderSide(color: Color(0xffb0b0b0)),
                         ),
@@ -243,7 +243,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   child: TextFormField(
                       decoration: InputDecoration(
                          contentPadding:
-                     EdgeInsets.symmetric(vertical: 2.0, horizontal: 2.0),
+                     EdgeInsets.only(left:10, top:5, bottom:5),
                         border: OutlineInputBorder(
                           borderSide: BorderSide(color: Color(0xffb0b0b0)),
                         ),
@@ -284,7 +284,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                 //     style: TextStyle(
                 //         color: Color(0xffb2232b),
                 //         fontWeight: FontWeight.w600,
-                //         fontSize: 10),
+                //         fontSize: 10),re
                 //   ),
                 // ),
                 SizedBox(height: 80),
@@ -296,9 +296,6 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     ),
                     onPressed: () {
                       onChangeButtonTapped();
-            
-                      print("hhhhhhhhhhh");
-                    print(NetworkManager.shared.userId);
                       // Navigator.push(context,
                       //     MaterialPageRoute(builder: (context) => LoginScreen()));
                     },

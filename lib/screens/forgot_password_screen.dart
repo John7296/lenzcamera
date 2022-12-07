@@ -109,7 +109,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                        enabled: !emailSent,
                         decoration: InputDecoration(
                            contentPadding:
-                       EdgeInsets.symmetric(vertical: 2.0, horizontal: 2.0),
+                       EdgeInsets.only(left:10, top:5, bottom:5),
                       border: OutlineInputBorder(
                         borderSide: BorderSide(color: Color(0xffb0b0b0)),
                       ),

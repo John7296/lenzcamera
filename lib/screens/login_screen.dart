@@ -5,13 +5,16 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:lenzcamera/connection/network_connection.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
+import 'package:lenzcamera/model/customer.dart';
 import 'package:lenzcamera/model/login_customer.dart';
+import 'package:lenzcamera/screens/filter_screen.dart';
 import 'package:lenzcamera/screens/forgot_password_screen.dart';
 import 'package:lenzcamera/screens/home_screen.dart';
 import 'package:lenzcamera/screens/register_screen.dart';
 import 'package:lenzcamera/utils/sessions_manager.dart';
 
 class LoginScreen extends StatefulWidget {
+
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
@@ -83,7 +86,9 @@ class _LoginScreenState extends State<LoginScreen> {
       showFlashMsg(response.message!);
       Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
     }).catchError((e) {
+      print("login error");
       print(e);
+      showFlashMsg(e.Message!);
     });
   }
 
@@ -149,7 +154,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           },
                           decoration: InputDecoration(
                              contentPadding:
-                             EdgeInsets.symmetric(vertical: 2.0, horizontal: 2.0),
+                             EdgeInsets.only(left:10, top:5, bottom:5),
+                            // symmetric(vertical: 2.0, horizontal: 2.0),
                             border: OutlineInputBorder(
                               borderSide: BorderSide(color: Color(0xffb0b0b0)),
                             ),
@@ -173,7 +179,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: TextFormField(
                           decoration: InputDecoration(
                              contentPadding:
-                     EdgeInsets.symmetric(vertical: 2.0, horizontal: 2.0),
+                     EdgeInsets.only(left:10, top:5, bottom:5),
                             border: OutlineInputBorder(
                               borderSide: BorderSide(color: Color(0xffb0b0b0)),
                             ),
@@ -201,6 +207,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           validator: (val) {
                             if (val!.isEmpty) return "Enter your password";
                             return null;
+
+                            
                           }),
                     ),
                   ]),
@@ -214,9 +222,14 @@ class _LoginScreenState extends State<LoginScreen> {
                       backgroundColor: Color(0xffec3436),
                     ),
                     onPressed: () {
-                      onLoginButtonTapped();
+                    
+                     // onLoginButtonTapped();
     
-                      
+                       Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  FilterScreen()));
                      
                       
                     },
