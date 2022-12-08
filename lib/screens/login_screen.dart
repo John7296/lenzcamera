@@ -36,11 +36,6 @@ class _LoginScreenState extends BaseStatefulState<LoginScreen> {
     super.initState();
   }
 
-
-
-
-    
-
   void onLoginButtonTapped() {
     if (!_form.currentState!.validate()) {
       return;
