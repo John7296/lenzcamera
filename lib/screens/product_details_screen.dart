@@ -490,19 +490,14 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                                                         .isWhishlisted = true;
                                                                   }
                                                                 });
-                                                                // Navigator.push(
-                                                                //     context,
-                                                                //     MaterialPageRoute(
-                                                                //         builder:
-                                                                //             (context) =>
-                                                                //                 WishlistScreen()));
+                             
                                                               },
                                                               icon: Icon(
                                                                 Icons.favorite,
                                                                 color: DataManager
                                                                         .shared
-                                                                        .iswishListed(widget
-                                                                            .popularproducts)
+                                                                        .iswishListed(
+                                                                            relatedproducts[index])
                                                                     ? Colors.red
                                                                     : Colors
                                                                         .grey,
@@ -555,8 +550,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                                                             .w600)),
                                                           )),
 
-                                                      if (relatedproducts[index]
-                                                          .isCartUpdateProgress!)
+                                                      if (relatedproducts[index].isCartUpdateProgress!
+                                                         )
                                                         SizedBox(
                                                             height: 10,
                                                             width: 10,
@@ -770,7 +765,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               child: Padding(
                 padding:
                     const EdgeInsets.only(bottom: 10.0, left: 24, right: 24),
-                child: Container(
+                child: 
+                Container(
                   height: 40,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
@@ -785,17 +781,13 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                          Text(
-                             (widget.popularproducts?.IsCarted ?? false)?
-                              ((int.parse(widget.popularproducts!.qty.toString()) > 0)
-                                ? 'Go To Cart'
-                                : 'Add to Cart')
-                                : "Out of Stock",
-                           // "Add to Cart",
-                            // widget.popularproducts?.isAddedtoCart() ?? false? "Add to Cart":"View Cart",
-                            // ? ((int.parse(widget.popularproducts!.qty.toString()) > 0)
-                            //     ? 'Add to Cart'
-                            //     : 'Go to Cart'),
+                          Text("Add to Cart",
+                            //  (widget.popularproducts?.IsCarted ?? false)?
+                            //   ((int.parse(widget.popularproducts!.qty.toString()) > 0)
+                            //     ? 'Go To Cart'
+                            //     : 'Add to Cart')
+                            //     : "Out of Stock",
+                        
                             style: TextStyle(
                               fontSize: 16,
                               color: Colors.white,
@@ -814,36 +806,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             width: 12,
                           ),
                         ),
-                        if (widget.popularproducts?.isAddedtoCart() == true)
-                          Text(
-                            "Go to Cart",
-                            // widget.popularproducts?.isAddedtoCart() ?? false? "Add to Cart":"View Cart",
-                            // ? ((int.parse(widget.popularproducts!.qty.toString()) > 0)
-                            //     ? 'Add to Cart'
-                            //     : 'Go to Cart'),
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: Colors.white,
-                            ),
-                          ),
-
-                        // if (widget.popularproducts!.isAddedtoCart() ==false)
-                        // Padding(
-                        //   padding: const EdgeInsets.only(left: 10.0),
-                        //   child: SizedBox(
-                        //     child: CircularProgressIndicator(
-                        //       strokeWidth: 2,
-                        //       color: Colors.white,
-                        //     ),
-                        //     height: 12,
-                        //     width: 12,
-                        //   ),
-                        // ),
-
-                        //     Text(
-                        //   "Add To Cart",
-                        //   style: TextStyle(fontSize: 20, color: Colors.white),
-                        // ),
+                       
                       ],
                     ),
                   ),

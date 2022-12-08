@@ -223,13 +223,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     onPressed: () {
                     
-                     // onLoginButtonTapped();
+                     onLoginButtonTapped();
     
-                       Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  FilterScreen()));
+                    
                      
                       
                     },
