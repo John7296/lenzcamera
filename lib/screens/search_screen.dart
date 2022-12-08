@@ -50,12 +50,8 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
       "pagesize": 20,
       "custId": NetworkManager.shared.userId,
       "currentpage": currentPage,
-      "filtervalues": (DataManager.shared.filterData?.brand != null ||
-              DataManager.shared.filterData?.manufacturer != null ||
-              DataManager.shared.filterData?.lensMount != null)
-          ? "${DataManager.shared.filterData?.brand?.attrId ?? ''}, ${DataManager.shared.filterData?.manufacturer?.attrId ?? ''},  ${DataManager.shared.filterData?.lensMount?.attrId ?? ""}"
-          : "",
-      "guestId": "",
+      "filtervalues": (DataManager.shared.filterData?.brand != null ||DataManager.shared.filterData?.manufacturer != null ||DataManager.shared.filterData?.lensMount != null) ? "${DataManager.shared.filterData?.brand?.attrId}, ${DataManager.shared.filterData?.manufacturer?.attrId},  ${DataManager.shared.filterData?.lensMount?.attrId??''}": "",
+       "guestId": "",
       "maxPrice": DataManager.shared.filterData?.maxPrice ?? 1000000,
       "minPrice": DataManager.shared.filterData?.minPrice ?? 0,
       "pincode": 8,

@@ -1,6 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:lenzcamera/manager/data_manager.dart';
 import 'package:lenzcamera/model/cart_details.dart';
+import 'package:lenzcamera/model/product_images.dart';
 
 part 'product.g.dart';
 
@@ -210,6 +211,9 @@ class Product {
   @JsonKey(name: 'totalDiscount')
   double? totalDiscount;
 
+     @JsonKey(name: "ProdImages")
+ List<ProductImages>? productImages;
+
   Product(
       {this.catName,
       this.imageUrl,
@@ -276,7 +280,8 @@ class Product {
       this.itemTotal,
       this.subTotal,
       this.deliveryAmount,
-      this.totalDiscount});
+      this.totalDiscount,
+      });
 
   bool isAddedtoCart() {
     qty = DataManager.shared.getItemQuantity(this);
