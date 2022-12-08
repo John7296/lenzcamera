@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:lenzcamera/base/base_stateful_state.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/top_categories.dart';
@@ -17,30 +18,27 @@ class CategoryScreen extends StatefulWidget {
   State<CategoryScreen> createState() => _CategoryScreenState();
 }
 
-class _CategoryScreenState extends State<CategoryScreen> {
+class _CategoryScreenState extends BaseStatefulState<CategoryScreen> {
   int selectedIndex = 0;
   PageController _pageController = PageController();
   List<TopCategories> categoryList = [];
   int pageCount = 10;
-    bool isLoading = true;
-
+  bool isLoading = true;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    _getCategories();
+    Future.delayed(Duration(milliseconds: 500), () {
+      _getCategories();
+    });
   }
 
   void _getCategories() {
-    setState(() {
-      isLoading = true;
-    });
-
+    showLoader();
     NetworkManager.shared
         .getTopCategories()
         .then((BaseResponse<List<TopCategories>> response) {
-      print(response.data);
+      hideLoader();
       setState(() {
         isLoading = false;
         categoryList.clear();
@@ -48,6 +46,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
         // print(response.data);
       });
     }).catchError((e) {
+      showFlashMsg(e.toString());
+      hideLoader();
       print(e.toString());
     });
   }
@@ -76,8 +76,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
           backgroundColor: Colors.grey.shade700,
           leading: IconButton(
             onPressed: () {
-                Navigator.push(
-                context, MaterialPageRoute(builder: (context) => HomeScreen()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => HomeScreen()));
             },
             icon: Icon(Icons.arrow_back_ios),
           ),
@@ -127,17 +127,19 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                     // color: Colors.white,
                                     child: Column(
                                       children: [
-                                         Container(
-                                          height: 60,
-                                          width: 60,
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(2),
-                                            child: CachedNetworkImage(
-                                                imageUrl:
-                                                    "https://dev.lenzcamera.com/webadmin/${categoryList[index].imageUrl}"),
-                                          )
-                                          ),
-                                        Text(categoryList[index].catName,maxLines: 2,),
+                                        Container(
+                                            height: 60,
+                                            width: 60,
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(2),
+                                              child: CachedNetworkImage(
+                                                  imageUrl:
+                                                      "https://dev.lenzcamera.com/webadmin/${categoryList[index].imageUrl}"),
+                                            )),
+                                        Text(
+                                          categoryList[index].catName,
+                                          maxLines: 2,
+                                        ),
                                       ],
                                     ),
                                   ),
@@ -329,42 +331,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
           ),
         ));
   }
+
+  @override
+  bool isAuthenticationRequired() {
+    // TODO: implement isAuthenticationRequired
+    throw UnimplementedError();
+  }
 }
-// SingleChildScrollView(
-//         child: ListView.builder(
-//           physics: NeverScrollableScrollPhysics(),
-//           shrinkWrap: true,
-//           itemCount: 8,
-//           itemBuilder: (context, index) {
-//             return Padding(
-//               padding: const EdgeInsets.all(4.0),
-//               child: Column(
-//                 crossAxisAlignment: CrossAxisAlignment.start,
-//                 children: [
-      //             InkWell(
-      //               onTap: () {
-                      
-      //               },
-      //               child: Container(
-      //                 height: 120,
-      //                 width: 100,
-      //                 color: Colors.white,
-      //                 child: Column(
-      //                   children: [
-      //                     Image(
-      //                       image: AssetImage("assets/images/lens.png"),
-      //                       height: 100,
-      //                       width: 100,
-      //                     ),
-      //                     Text('CANON EF'),
-      //                   ],
-      //                 ),
-      //               ),
-      //             ),
-      //           ],
-      //         ),
-      //       );
-      //     },
-      //   ),
-      // ),
     

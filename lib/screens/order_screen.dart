@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:lenzcamera/base/base_stateful_state.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/order_list.dart';
@@ -16,24 +17,24 @@ class OrderScreen extends StatefulWidget {
   State<OrderScreen> createState() => _OrderScreenState();
 }
 
-class _OrderScreenState extends State<OrderScreen> {
+class _OrderScreenState extends BaseStatefulState<OrderScreen> {
   List<OrderList> orderList = [];
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    cusOrderList();
+    Future.delayed(Duration(milliseconds: 500), () {
+      cusOrderList();
+    });
   }
 
   void cusOrderList() {
-    setState(() {
-      // isLoading = true;
-    });
-
+    showLoader();
     NetworkManager.shared
         .getOrderList()
         .then((BaseResponse<List<OrderList>> response) {
+      hideLoader();
       // print(response.data);
       setState(() {
         // isLoading = false;
@@ -42,6 +43,8 @@ class _OrderScreenState extends State<OrderScreen> {
         // print(response.data!.first.catId);
       });
     }).catchError((e) {
+      hideLoader();
+      showFlashMsg(e.toString());
       print(e.toString());
     });
   }
@@ -56,8 +59,10 @@ class _OrderScreenState extends State<OrderScreen> {
         ),
         actions: [
           IconButton(
-            onPressed: () {Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => WishlistScreen()));},
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => WishlistScreen()));
+            },
             icon: Icon(Icons.favorite_border),
           ),
           IconButton(
@@ -87,11 +92,12 @@ class _OrderScreenState extends State<OrderScreen> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => OrderDetailScreen(  orderList[index].ProductImgUrl?? '',
-                                          orderList[index].orderNumber.toString(),
-                                          orderList[index].status?? '',
-                                          orderList[index].orderDate??'',
-                                          context)));
+                          builder: (context) => OrderDetailScreen(
+                              orderList[index].ProductImgUrl ?? '',
+                              orderList[index].orderNumber.toString(),
+                              orderList[index].status ?? '',
+                              orderList[index].orderDate ?? '',
+                              context)));
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(10),
@@ -232,14 +238,16 @@ class _OrderScreenState extends State<OrderScreen> {
                             ),
                             IconButton(
                               onPressed: () {
-                                Navigator.push(context,
-                                    MaterialPageRoute(builder: (context) => OrderDetailScreen(
-                                       orderList[index].ProductImgUrl?? '',
-                                          orderList[index].orderId.toString(),
-                                          orderList[index].status?? '',
-                                          orderList[index].orderDate??"",
-                                          context
-                                    )));
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => OrderDetailScreen(
+                                            orderList[index].ProductImgUrl ??
+                                                '',
+                                            orderList[index].orderId.toString(),
+                                            orderList[index].status ?? '',
+                                            orderList[index].orderDate ?? "",
+                                            context)));
                               },
                               icon:
                                   Icon(Icons.arrow_forward, color: Colors.grey),
@@ -256,5 +264,11 @@ class _OrderScreenState extends State<OrderScreen> {
         },
       ),
     );
+  }
+
+  @override
+  bool isAuthenticationRequired() {
+    // TODO: implement isAuthenticationRequired
+    throw UnimplementedError();
   }
 }

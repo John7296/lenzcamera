@@ -2,6 +2,7 @@ import 'package:flash/flash.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
+import 'package:lenzcamera/base/base_stateful_state.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/screens/change_password_screen.dart';
@@ -18,46 +19,24 @@ class OtpScreen extends StatefulWidget {
   State<OtpScreen> createState() => _OtpScreenState();
 }
 
-class _OtpScreenState extends State<OtpScreen> {
+class _OtpScreenState extends BaseStatefulState<OtpScreen> {
   bool emailSent = false;
   final _otpController = TextEditingController();
 
-  void showFlashMsg(String msg, {Color color = Colors.grey}) {
-    showFlash(
-      context: context,
-      duration: const Duration(seconds: 10),
-      builder: (context, controller) {
-        return Flash(
-          controller: controller,
-          behavior: FlashBehavior.floating,
-          position: FlashPosition.bottom,
-          boxShadows: kElevationToShadow[2],
-          backgroundColor: Colors.grey,
-          reverseAnimationCurve: Curves.easeInCirc,
-          forwardAnimationCurve: Curves.easeInOutBack,
-          margin: const EdgeInsets.all(8.0),
-          borderRadius: BorderRadius.circular(6.0),
-          horizontalDismissDirection: HorizontalDismissDirection.horizontal,
-          child: FlashBar(
-            content: Text(
-              msg,
-              style: const TextStyle(fontSize: 15, color: Colors.redAccent),
-            ),
-          ),
-        );
-      },
-    );
-  }
-
   void verifyRegisterOtp() {
+    // showLoader();
     NetworkManager.shared.verifyOtp(<String, dynamic>{
       "OTP": _otpController.text,
       "OtpUrlKey": widget.otpUrlKey
     }).then((BaseResponse response) {
+      // hideLoader();
       showFlashMsg(response.message!);
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => HomeScreen()));
-    }).catchError((e) {});
+    }).catchError((e) {
+      // showLoader();
+      showFlashMsg(e.toString());
+    });
   }
 
   @override
@@ -159,5 +138,11 @@ class _OtpScreenState extends State<OtpScreen> {
         ),
       ),
     );
+  }
+
+  @override
+  bool isAuthenticationRequired() {
+    // TODO: implement isAuthenticationRequired
+    throw UnimplementedError();
   }
 }

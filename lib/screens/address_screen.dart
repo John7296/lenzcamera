@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:lenzcamera/base/base_stateful_state.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/model/address_list.dart';
 import 'package:lenzcamera/model/base_response.dart';
@@ -13,25 +14,32 @@ class AddressScreen extends StatefulWidget {
   State<AddressScreen> createState() => _AddressScreenState();
 }
 
-class _AddressScreenState extends State<AddressScreen> {
+class _AddressScreenState extends BaseStatefulState<AddressScreen> {
   List<AddressList> addressList = [];
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    address();
+    Future.delayed(Duration(milliseconds: 500), () {
+      address();
+    });
   }
 
   void address() {
+    showLoader();
     NetworkManager.shared
         .getAddressList()
         .then((BaseResponse<List<AddressList>> response) {
+      showFlashMsg(response.message!);
+      hideLoader();
       setState(() {
         addressList.clear();
         addressList.addAll(response.data!);
       });
     }).catchError((e) {
+      hideLoader();
+      showFlashMsg(e.toString());
       print(e.toString());
     });
   }
@@ -41,6 +49,7 @@ class _AddressScreenState extends State<AddressScreen> {
         .deleteAddress(<String, dynamic>{})
         .then((BaseResponse response) {})
         .catchError((e) {
+          showFlashMsg(e.toString());
           print(e.toString());
         });
   }
@@ -72,8 +81,7 @@ class _AddressScreenState extends State<AddressScreen> {
         ),
       ),
       backgroundColor: Colors.grey.shade100,
-      body: 
-      Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Row(
           children: [
             Padding(
@@ -160,9 +168,13 @@ class _AddressScreenState extends State<AddressScreen> {
                 }),
           ),
         )
-      
       ]),
-    
     );
+  }
+
+  @override
+  bool isAuthenticationRequired() {
+    // TODO: implement isAuthenticationRequired
+    throw UnimplementedError();
   }
 }

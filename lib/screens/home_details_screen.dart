@@ -55,17 +55,15 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
 
   @override
   void initState() {
-
     super.initState();
- Future.delayed(const Duration(milliseconds: 500), () {
-getTopCategories();
-_featuredProducts();
+    Future.delayed(const Duration(milliseconds: 500), () {
+      getTopCategories();
+      _featuredProducts();
+      
       // _updateDeviceToken();
-    });    
-    
-    
+    });
+
     DataManager.shared.getWishList();
-   
   }
 
   void getTopCategories() {
@@ -73,7 +71,6 @@ _featuredProducts();
     NetworkManager.shared
         .getTopCategories()
         .then((BaseResponse<List<TopCategories>> response) {
-      
       setState(() {
         categoryList.clear();
         categoryList.addAll(response.data!);
@@ -84,18 +81,16 @@ _featuredProducts();
   }
 
   void _featuredProducts() {
-   
-
     NetworkManager.shared
         .featuredProducts()
         .then((BaseResponse<List<Product>> response) {
-          hideLoader();
+      hideLoader();
       setState(() {
         featuredList.clear();
         featuredList.addAll(response.data!);
       });
       popularProducts();
-       recentProducts();
+      recentProducts();
     }).catchError((e) {
       hideLoader();
       print(e.toString());
@@ -103,18 +98,16 @@ _featuredProducts();
   }
 
   void popularProducts() {
-    
-
     NetworkManager.shared
         .popularProducts()
         .then((BaseResponse<List<Product>> response) {
       DataManager.shared.getCart();
-      // print(response.data);
+      
       setState(() {
         popularProductsList.clear();
         popularProductsList.addAll(response.data!);
 
-        // print(response.data!.first.catId);
+        
       });
     }).catchError((e) {
       print(e.toString());
@@ -122,8 +115,6 @@ _featuredProducts();
   }
 
   void recentProducts() {
- 
-
     NetworkManager.shared
         .recentProducts()
         .then((BaseResponse<List<Product>> response) {
@@ -139,7 +130,6 @@ _featuredProducts();
   }
 
   void getBanners() {
-   
     NetworkManager.shared.getBanner(<String, dynamic>{
       "custId": NetworkManager.shared.userId,
       "guestId": 0,
@@ -290,60 +280,60 @@ _featuredProducts();
               padding: const EdgeInsets.only(left: 8, right: 10),
               child: SizedBox(
                 height: 160,
-                child:  ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        shrinkWrap: true,
-                        itemCount: categoryList.length,
-                        itemBuilder: (context, index) {
-                          return Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(5),
-                                child: Container(
-                                  width: 125,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(5),
-                                    ),
-                                    color: Colors.white,
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey,
-                                        offset: Offset(0.0, 1.0), //(x,y)
-                                        blurRadius: 3.0,
-                                      ),
-                                    ],
-                                  ),
-                                  height: 150,
-                                  child: Column(
-                                    children: [
-                                      Container(
-                                        height: 100,
-                                        width: 80,
-                                        child: CachedNetworkImage(
-                                            imageUrl:
-                                                "https://dev.lenzcamera.com/webadmin/${categoryList[index].imageUrl}"),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(5),
-                                        child: Text(
-                                          categoryList[index].catName ?? '',
-                                          style: TextStyle(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w400),
-                                          maxLines: 1,
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      ),
-                                    ],
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  shrinkWrap: true,
+                  itemCount: categoryList.length,
+                  itemBuilder: (context, index) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(5),
+                          child: Container(
+                            width: 125,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(5),
+                              ),
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey,
+                                  offset: Offset(0.0, 1.0), //(x,y)
+                                  blurRadius: 3.0,
+                                ),
+                              ],
+                            ),
+                            height: 150,
+                            child: Column(
+                              children: [
+                                Container(
+                                  height: 100,
+                                  width: 80,
+                                  child: CachedNetworkImage(
+                                      imageUrl:
+                                          "https://dev.lenzcamera.com/webadmin/${categoryList[index].imageUrl}"),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(5),
+                                  child: Text(
+                                    categoryList[index].catName ?? '',
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w400),
+                                    maxLines: 1,
+                                    textAlign: TextAlign.center,
                                   ),
                                 ),
-                              ),
-                            ],
-                          );
-                        },
-                      ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                ),
               ),
             ),
 
@@ -381,297 +371,281 @@ _featuredProducts();
                   ),
                   Column(
                     children: [
-                    Container(
-                              height: 630,
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 10, right: 10),
-                                child: StaggeredGridView.countBuilder(
-                                  physics: NeverScrollableScrollPhysics(),
-                                  crossAxisCount: 3,
-                                  itemCount: featuredList.length,
-                                  crossAxisSpacing: 3,
-                                  mainAxisSpacing: 3,
-                                  itemBuilder: (context, index) {
-                                    return InkWell(
-                                      onTap: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    ProductDetailsScreen(
-                                                        featuredList[index])));
-                                      },
-                                      child: Card(
-                                        shape: RoundedRectangleBorder(),
-                                        elevation: 3,
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8),
-                                          child: Column(
-                                            children: [
-                                              Stack(
-                                                children: [
-                                                  Container(
-                                                    margin: EdgeInsets.only(
-                                                        left: 80),
-                                                    child: IconButton(
-                                                      onPressed: () {
-                                                        setState(() {
-                                                          if (featuredList[
-                                                                      index]
-                                                                  .isWhishlisted ==
-                                                              true) {
-                                                            DataManager.shared
-                                                                .removeFromWishlist(
-                                                                    featuredList[
-                                                                        index]);
-                                                            featuredList[index]
-                                                                    .isWhishlisted =
-                                                                false;
-                                                          } else {
-                                                            DataManager.shared
-                                                                .addToWishlist(
-                                                                    featuredList[
-                                                                        index]);
-                                                            featuredList[index]
-                                                                    .isWhishlisted =
-                                                                true;
-                                                          }
-                                                        });
-                                                      },
-                                                      icon: Icon(
-                                                        Icons.favorite,
-                                                        color: DataManager
-                                                                .shared
-                                                                .iswishListed(
-                                                                    featuredList[
-                                                                        index])
-                                                            ? Colors.red
-                                                            : Colors.grey,
+                      Container(
+                        height: 630,
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 10, right: 10),
+                          child: StaggeredGridView.countBuilder(
+                            physics: NeverScrollableScrollPhysics(),
+                            crossAxisCount: 3,
+                            itemCount: featuredList.length,
+                            crossAxisSpacing: 3,
+                            mainAxisSpacing: 3,
+                            itemBuilder: (context, index) {
+                              return InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              ProductDetailsScreen(
+                                                  featuredList[index])));
+                                },
+                                child: Card(
+                                  shape: RoundedRectangleBorder(),
+                                  elevation: 3,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8),
+                                    child: Column(
+                                      children: [
+                                        Stack(
+                                          children: [
+                                            Container(
+                                              margin: EdgeInsets.only(left: 80),
+                                              child: IconButton(
+                                                onPressed: () {
+                                                  setState(() {
+                                                    if (featuredList[index]
+                                                            .isWhishlisted ==
+                                                        true) {
+                                                      DataManager.shared
+                                                          .removeFromWishlist(
+                                                              featuredList[
+                                                                  index]);
+                                                      featuredList[index]
+                                                              .isWhishlisted =
+                                                          false;
+                                                    } else {
+                                                      DataManager.shared
+                                                          .addToWishlist(
+                                                              featuredList[
+                                                                  index]);
+                                                      featuredList[index]
+                                                          .isWhishlisted = true;
+                                                    }
+                                                  });
+                                                },
+                                                icon: Icon(
+                                                  Icons.favorite,
+                                                  color: DataManager.shared
+                                                          .iswishListed(
+                                                              featuredList[
+                                                                  index])
+                                                      ? Colors.red
+                                                      : Colors.grey,
+                                                ),
+                                              ),
+                                            ),
+                                            Container(
+                                                height: 100,
+                                                width: double.infinity,
+                                                clipBehavior: Clip.antiAlias,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(0),
+                                                ),
+                                                child: CachedNetworkImage(
+                                                    imageUrl:
+                                                        "https://dev.lenzcamera.com/webadmin/${featuredList[index].imageUrl}")),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 10),
+                                        Text(
+                                          // 'CANON EF 16-35 MM F/4L IS USM',
+                                          featuredList[index].prName ?? '',
+                                          maxLines: 2,
+                                          style: const TextStyle(fontSize: 12),
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                        const SizedBox(height: 5),
+                                        Text(
+                                          "QAR${featuredList[index].unitPrice}",
+                                          style: const TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.grey),
+                                        ),
+                                        const SizedBox(height: 5),
+                                        if (featuredList[index]
+                                            .isCartUpdateProgress!)
+                                          SizedBox(
+                                              height: 10,
+                                              width: 10,
+                                              child: CircularProgressIndicator(
+                                                strokeWidth: 2,
+                                              )),
+                                        if (featuredList[index]
+                                                .isCartUpdateProgress ==
+                                            false)
+                                          Container(
+                                            // width: 160,
+                                            height: 30,
+                                            child: featuredList[index]
+                                                    .isAddedtoCart()
+                                                ? Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      InkWell(
+                                                        onTap: () {
+                                                          DataManager.shared
+                                                              .updateItemToCart(
+                                                                  featuredList[
+                                                                      index],
+                                                                  4,
+                                                                  onUpdate: () {
+                                                            setState(() {});
+                                                          }, onUpdateStarted:
+                                                                      () {
+                                                            setState(() {});
+                                                          });
+                                                        },
+                                                        child: Container(
+                                                          width: 30,
+                                                          height: 30,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                                  color: Color(
+                                                                      0xff70726f),
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .only(
+                                                                    topLeft: Radius
+                                                                        .circular(
+                                                                            5),
+                                                                    bottomLeft:
+                                                                        Radius.circular(
+                                                                            5),
+                                                                  )),
+                                                          child: Center(
+                                                              child: Icon(
+                                                            Icons.remove,
+                                                            color: Colors.white,
+                                                            size: 12,
+                                                          )),
+                                                        ),
                                                       ),
+                                                      Container(
+                                                        width: 30,
+                                                        height: 30,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color:
+                                                              Color(0xffe3e3e3),
+                                                        ),
+                                                        child: Center(
+                                                            child: Text(
+                                                          featuredList[index].qty.toString(),
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.black),
+                                                        )),
+                                                      ),
+                                                      InkWell(
+                                                        onTap: () {
+                                                          DataManager.shared
+                                                              .updateItemToCart(
+                                                                  featuredList[
+                                                                      index],
+                                                                  3,
+                                                                  onUpdate: () {
+                                                            setState(() {});
+                                                          }, onUpdateStarted:
+                                                                      () {
+                                                            setState(() {});
+                                                          });
+                                                        },
+                                                        child: Container(
+                                                          width: 30,
+                                                          height: 30,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                                  color: Color(
+                                                                      0xffe83031),
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .only(
+                                                                    topRight: Radius
+                                                                        .circular(
+                                                                            5),
+                                                                    bottomRight:
+                                                                        Radius.circular(
+                                                                            5),
+                                                                  )),
+                                                          child: Icon(
+                                                            Icons.add,
+                                                            color: Colors.white,
+                                                            size: 12,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  )
+                                                : ElevatedButton(
+                                                    style: ElevatedButton.styleFrom(
+                                                        elevation: 0,
+                                                        backgroundColor:
+                                                            (featuredList[index]
+                                                                        .stockAvailability!
+                                                                        .length ==
+                                                                    12)
+                                                                ? Colors.grey
+                                                                : Colors
+                                                                    .yellow),
+                                                    onPressed: () {
+                                                      // print(popularProductsList[
+                                                      //         index]
+                                                      //     .urlKey);
+
+                                                      DataManager.shared
+                                                          .updateItemToCart(
+                                                              featuredList[
+                                                                  index],
+                                                              1, onUpdate: () {
+                                                        setState(() {});
+                                                      }, onUpdateStarted: () {
+                                                        setState(() {});
+                                                      });
+                                                      // Navigator.push(
+                                                      //     context,
+                                                      //     MaterialPageRoute(
+                                                      //         builder: (context) =>
+                                                      //             CartScreen()));
+                                                    },
+                                                    child: Center(
+                                                      child: (featuredList[
+                                                                      index]
+                                                                  .stockAvailability ==
+                                                              12)
+                                                          ? Text(
+                                                              "Out of stock",
+                                                              style: TextStyle(
+                                                                  fontSize: 12,
+                                                                  color: Colors
+                                                                      .black),
+                                                            )
+                                                          : Text(
+                                                              "ADD",
+                                                              style: TextStyle(
+                                                                  fontSize: 12,
+                                                                  color: Colors
+                                                                      .black),
+                                                            ),
                                                     ),
                                                   ),
-                                                  Container(
-                                                      height: 100,
-                                                      width: double.infinity,
-                                                      clipBehavior:
-                                                          Clip.antiAlias,
-                                                      decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(0),
-                                                      ),
-                                                      child: CachedNetworkImage(
-                                                          imageUrl:
-                                                              "https://dev.lenzcamera.com/webadmin/${featuredList[index].imageUrl}")),
-                                                ],
-                                              ),
-                                              const SizedBox(height: 10),
-                                              Text(
-                                                // 'CANON EF 16-35 MM F/4L IS USM',
-                                                featuredList[index].prName ??
-                                                    '',
-                                                maxLines: 2,
-                                                style: const TextStyle(
-                                                    fontSize: 12),
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                              const SizedBox(height: 5),
-                                              Text(
-                                                "QAR${featuredList[index].unitPrice}",
-                                                style: const TextStyle(
-                                                    fontSize: 12,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.grey),
-                                              ),
-                                              const SizedBox(height: 5),
-                                              if (featuredList[index]
-                                                  .isCartUpdateProgress!)
-                                                SizedBox(
-                                                    height: 10,
-                                                    width: 10,
-                                                    child:
-                                                        CircularProgressIndicator(
-                                                      strokeWidth: 2,
-                                                    )),
-                                              if (featuredList[index]
-                                                      .isCartUpdateProgress ==
-                                                  false)
-                                                Container(
-                                                  // width: 160,
-                                                  height: 30,
-                                                  child:
-                                                      featuredList[index]
-                                                              .isAddedtoCart()
-                                                          ? Row(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .center,
-                                                              children: [
-                                                                InkWell(
-                                                                  onTap: () {
-                                                                    DataManager.shared.updateItemToCart(
-                                                                        featuredList[
-                                                                            index],
-                                                                        4,
-                                                                        onUpdate:
-                                                                            () {
-                                                                      setState(
-                                                                          () {});
-                                                                    }, onUpdateStarted:
-                                                                            () {
-                                                                      setState(
-                                                                          () {});
-                                                                    });
-                                                                  },
-                                                                  child:
-                                                                      Container(
-                                                                    width: 30,
-                                                                    height: 30,
-                                                                    decoration:
-                                                                        BoxDecoration(
-                                                                            color:
-                                                                                Color(0xff70726f),
-                                                                            borderRadius: BorderRadius.only(
-                                                                              topLeft: Radius.circular(5),
-                                                                              bottomLeft: Radius.circular(5),
-                                                                            )),
-                                                                    child: Center(
-                                                                        child: Icon(
-                                                                      Icons
-                                                                          .remove,
-                                                                      color: Colors
-                                                                          .white,
-                                                                      size: 12,
-                                                                    )),
-                                                                  ),
-                                                                ),
-                                                                Container(
-                                                                  width: 30,
-                                                                  height: 30,
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    color: Color(
-                                                                        0xffe3e3e3),
-                                                                  ),
-                                                                  child: Center(
-                                                                      child:
-                                                                          Text(
-                                                                    "1",
-                                                                    style: TextStyle(
-                                                                        color: Colors
-                                                                            .black),
-                                                                  )),
-                                                                ),
-                                                                InkWell(
-                                                                  onTap: () {
-                                                                    DataManager.shared.updateItemToCart(
-                                                                        featuredList[
-                                                                            index],
-                                                                        3,
-                                                                        onUpdate:
-                                                                            () {
-                                                                      setState(
-                                                                          () {});
-                                                                    }, onUpdateStarted:
-                                                                            () {
-                                                                      setState(
-                                                                          () {});
-                                                                    });
-                                                                  },
-                                                                  child:
-                                                                      Container(
-                                                                    width: 30,
-                                                                    height: 30,
-                                                                    decoration:
-                                                                        BoxDecoration(
-                                                                            color:
-                                                                                Color(0xffe83031),
-                                                                            borderRadius: BorderRadius.only(
-                                                                              topRight: Radius.circular(5),
-                                                                              bottomRight: Radius.circular(5),
-                                                                            )),
-                                                                    child: Icon(
-                                                                      Icons.add,
-                                                                      color: Colors
-                                                                          .white,
-                                                                      size: 12,
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            )
-                                                          : ElevatedButton(
-                                                              style: ElevatedButton.styleFrom(
-                                                                  elevation: 0,
-                                                                  backgroundColor: (featuredList[index]
-                                                                              .stockAvailability!
-                                                                              .length ==
-                                                                          12)
-                                                                      ? Colors
-                                                                          .grey
-                                                                      : Colors
-                                                                          .yellow),
-                                                              onPressed: () {
-                                                                // print(popularProductsList[
-                                                                //         index]
-                                                                //     .urlKey);
-
-                                                                DataManager
-                                                                    .shared
-                                                                    .updateItemToCart(
-                                                                        featuredList[
-                                                                            index],
-                                                                        1,
-                                                                        onUpdate:
-                                                                            () {
-                                                                  setState(
-                                                                      () {});
-                                                                }, onUpdateStarted:
-                                                                            () {
-                                                                  setState(
-                                                                      () {});
-                                                                });
-                                                                // Navigator.push(
-                                                                //     context,
-                                                                //     MaterialPageRoute(
-                                                                //         builder: (context) =>
-                                                                //             CartScreen()));
-                                                              },
-                                                              child: Center(
-                                                                child: (featuredList[index]
-                                                                            .stockAvailability ==
-                                                                        12)
-                                                                    ? Text(
-                                                                        "Out of stock",
-                                                                        style: TextStyle(
-                                                                            fontSize:
-                                                                                12,
-                                                                            color:
-                                                                                Colors.black),
-                                                                      )
-                                                                    : Text(
-                                                                        "ADD",
-                                                                        style: TextStyle(
-                                                                            fontSize:
-                                                                                12,
-                                                                            color:
-                                                                                Colors.black),
-                                                                      ),
-                                                              ),
-                                                            ),
-                                                ),
-                                            ],
                                           ),
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                  staggeredTileBuilder: (index) =>
-                                      StaggeredTile.fit(1),
+                                      ],
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ),
+                              );
+                            },
+                            staggeredTileBuilder: (index) =>
+                                StaggeredTile.fit(1),
+                          ),
+                        ),
+                      ),
                     ],
                   )
                 ],
@@ -733,589 +707,566 @@ _featuredProducts();
                   ),
                   Column(
                     children: [
-                    Container(
-                              height: 800,
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 10, right: 10),
-                                child: StaggeredGridView.countBuilder(
-                                  physics: NeverScrollableScrollPhysics(),
-                                  crossAxisCount: 2,
-                                  itemCount: popularProductsList.length,
-                                  crossAxisSpacing: 0,
-                                  mainAxisSpacing: 0,
-                                  itemBuilder: (context, index) {
-                                    return InkWell(
-                                      onTap: (() {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                ProductDetailsScreen(
-                                                    popularProductsList[index]),
-                                          ),
-                                        );
-                                      }),
-                                      child: Card(
-                                        elevation: 1,
-                                        shape: RoundedRectangleBorder(),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8),
-                                          child: Column(
-                                            children: [
-                                              Stack(
-                                                children: [
-                                                  Container(
-                                                    margin: EdgeInsets.only(
-                                                        left: 125),
-                                                    child: IconButton(
-                                                      onPressed: () {
-                                                        setState(() {
-                                                          if (popularProductsList[
-                                                                      index]
-                                                                  .isWhishlisted ==
-                                                              true) {
-                                                            DataManager.shared
-                                                                .removeFromWishlist(
-                                                                    popularProductsList[
-                                                                        index]);
-                                                            popularProductsList[
-                                                                        index]
-                                                                    .isWhishlisted =
-                                                                false;
-                                                          } else {
-                                                            DataManager.shared
-                                                                .addToWishlist(
-                                                                    popularProductsList[
-                                                                        index]);
-                                                            popularProductsList[
-                                                                        index]
-                                                                    .isWhishlisted =
-                                                                true;
-                                                          }
-                                                        });
-                                                      },
-                                                      icon: Icon(
-                                                        Icons.favorite,
-                                                        color: DataManager
-                                                                .shared
-                                                                .iswishListed(
-                                                                    popularProductsList[
-                                                                        index])
-                                                            ? Colors.red
-                                                            : Colors.grey,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Container(
-                                                    height: 145,
-                                                    width: 110,
-                                                    child: CachedNetworkImage(
-                                                        imageUrl:
-                                                            "https://dev.lenzcamera.com/webadmin/${popularProductsList[index].imageUrl}"),
-                                                  ),
-                                                ],
-                                              ),
-                                              const SizedBox(height: 10),
-                                              Text(
-                                                // 'CANON EF 16-35 MM F/4L IS USM',
-                                                popularProductsList[index]
-                                                        .prName ??
-                                                    '',
-                                                maxLines: 2,
-                                                style: const TextStyle(
-                                                    fontSize: 12),
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                              const SizedBox(height: 5),
-                                              Text(
-                                                // 'QAR 120.00',
-                                                "QAR${popularProductsList[index].unitPrice.toString()}",
-                                                style: const TextStyle(
-                                                    fontSize: 12,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.grey),
-                                              ),
-                                              const SizedBox(height: 5),
-                                              if (popularProductsList[index]
-                                                  .isCartUpdateProgress!)
-                                                SizedBox(
-                                                    height: 10,
-                                                    width: 10,
-                                                    child:
-                                                        CircularProgressIndicator(
-                                                      strokeWidth: 2,
-                                                    )),
-                                              if (popularProductsList[index]
-                                                      .isCartUpdateProgress ==
-                                                  false)
-                                                Container(
-                                                  width: 160,
-                                                  height: 30,
-                                                  child:
+                      Container(
+                        height: 800,
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 10, right: 10),
+                          child: StaggeredGridView.countBuilder(
+                            physics: NeverScrollableScrollPhysics(),
+                            crossAxisCount: 2,
+                            itemCount: popularProductsList.length,
+                            crossAxisSpacing: 0,
+                            mainAxisSpacing: 0,
+                            itemBuilder: (context, index) {
+                              return InkWell(
+                                onTap: (() {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          ProductDetailsScreen(
+                                              popularProductsList[index]),
+                                    ),
+                                  );
+                                }),
+                                child: Card(
+                                  elevation: 1,
+                                  shape: RoundedRectangleBorder(),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8),
+                                    child: Column(
+                                      children: [
+                                        Stack(
+                                          children: [
+                                            Container(
+                                              margin:
+                                                  EdgeInsets.only(left: 125),
+                                              child: IconButton(
+                                                onPressed: () {
+                                                  setState(() {
+                                                    if (popularProductsList[
+                                                                index]
+                                                            .isWhishlisted ==
+                                                        true) {
+                                                      DataManager.shared
+                                                          .removeFromWishlist(
+                                                              popularProductsList[
+                                                                  index]);
                                                       popularProductsList[index]
-                                                              .isAddedtoCart()
-                                                          ? Row(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .center,
-                                                              children: [
-                                                                InkWell(
-                                                                  onTap: () {
-                                                                    DataManager.shared.updateItemToCart(
-                                                                        popularProductsList[
-                                                                            index],
-                                                                        4,
-                                                                        onUpdate:
-                                                                            () {
-                                                                      setState(
-                                                                          () {});
-                                                                    }, onUpdateStarted:
-                                                                            () {
-                                                                      setState(
-                                                                          () {});
-                                                                    });
-                                                                  },
-                                                                  child:
-                                                                      Container(
-                                                                    width: 30,
-                                                                    height: 30,
-                                                                    decoration:
-                                                                        BoxDecoration(
-                                                                            color:
-                                                                                Color(0xff70726f),
-                                                                            borderRadius: BorderRadius.only(
-                                                                              topLeft: Radius.circular(5),
-                                                                              bottomLeft: Radius.circular(5),
-                                                                            )),
-                                                                    child: Center(
-                                                                        child: Icon(
-                                                                      Icons
-                                                                          .remove,
-                                                                      color: Colors
-                                                                          .white,
-                                                                      size: 12,
-                                                                    )),
-                                                                  ),
-                                                                ),
-                                                                Container(
-                                                                  width: 30,
-                                                                  height: 30,
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    color: Color(
-                                                                        0xffe3e3e3),
-                                                                  ),
-                                                                  child: Center(
-                                                                      child:
-                                                                          Text(
-                                                                    "1",
-                                                                    style: TextStyle(
-                                                                        color: Colors
-                                                                            .black),
-                                                                  )),
-                                                                ),
-                                                                InkWell(
-                                                                  onTap: () {
-                                                                    DataManager.shared.updateItemToCart(
-                                                                        popularProductsList[
-                                                                            index],
-                                                                        3,
-                                                                        onUpdate:
-                                                                            () {
-                                                                      setState(
-                                                                          () {});
-                                                                    }, onUpdateStarted:
-                                                                            () {
-                                                                      setState(
-                                                                          () {});
-                                                                    });
-                                                                  },
-                                                                  child: Container(
-                                                                      width: 30,
-                                                                      height: 30,
-                                                                      decoration: BoxDecoration(
-                                                                          color: Color(0xffe83031),
-                                                                          borderRadius: BorderRadius.only(
-                                                                            topRight:
-                                                                                Radius.circular(5),
-                                                                            bottomRight:
-                                                                                Radius.circular(5),
-                                                                          )),
-                                                                      child: Icon(
-                                                                        Icons
-                                                                            .add,
-                                                                        color: Colors
-                                                                            .white,
-                                                                        size:
-                                                                            12,
+                                                              .isWhishlisted =
+                                                          false;
+                                                    } else {
+                                                      DataManager.shared
+                                                          .addToWishlist(
+                                                              popularProductsList[
+                                                                  index]);
+                                                      popularProductsList[index]
+                                                          .isWhishlisted = true;
+                                                    }
+                                                  });
+                                                },
+                                                icon: Icon(
+                                                  Icons.favorite,
+                                                  color: DataManager.shared
+                                                          .iswishListed(
+                                                              popularProductsList[
+                                                                  index])
+                                                      ? Colors.red
+                                                      : Colors.grey,
+                                                ),
+                                              ),
+                                            ),
+                                            Container(
+                                              height: 145,
+                                              width: 110,
+                                              child: CachedNetworkImage(
+                                                  imageUrl:
+                                                      "https://dev.lenzcamera.com/webadmin/${popularProductsList[index].imageUrl}"),
+                                            ),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 10),
+                                        Text(
+                                          // 'CANON EF 16-35 MM F/4L IS USM',
+                                          popularProductsList[index].prName ??
+                                              '',
+                                          maxLines: 2,
+                                          style: const TextStyle(fontSize: 12),
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                        const SizedBox(height: 5),
+                                        Text(
+                                          // 'QAR 120.00',
+                                          "QAR${popularProductsList[index].unitPrice.toString()}",
+                                          style: const TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.grey),
+                                        ),
+                                        const SizedBox(height: 5),
+                                        if (popularProductsList[index]
+                                            .isCartUpdateProgress!)
+                                          SizedBox(
+                                              height: 10,
+                                              width: 10,
+                                              child: CircularProgressIndicator(
+                                                strokeWidth: 2,
+                                              )),
+                                        if (popularProductsList[index]
+                                                .isCartUpdateProgress ==
+                                            false)
+                                          Container(
+                                            width: 160,
+                                            height: 30,
+                                            child:
+                                                popularProductsList[index]
+                                                        .isAddedtoCart()
+                                                    ? Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          InkWell(
+                                                            onTap: () {
+                                                              DataManager.shared
+                                                                  .updateItemToCart(
+                                                                      popularProductsList[
+                                                                          index],
+                                                                      4,
+                                                                      onUpdate:
+                                                                          () {
+                                                                setState(() {});
+                                                              }, onUpdateStarted:
+                                                                          () {
+                                                                setState(() {});
+                                                              });
+                                                            },
+                                                            child: Container(
+                                                              width: 30,
+                                                              height: 30,
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                      color: Color(
+                                                                          0xff70726f),
+                                                                      borderRadius:
+                                                                          BorderRadius
+                                                                              .only(
+                                                                        topLeft:
+                                                                            Radius.circular(5),
+                                                                        bottomLeft:
+                                                                            Radius.circular(5),
                                                                       )),
-                                                                ),
-                                                              ],
-                                                            )
-                                                          : ElevatedButton(
-                                                              style: ElevatedButton.styleFrom(
-                                                                  elevation: 0,
-                                                                  backgroundColor: (popularProductsList[index]
-                                                                              .stockAvailability!
-                                                                              .length ==
-                                                                          12)
-                                                                      ? Colors
-                                                                          .grey
-                                                                      : Colors
-                                                                          .yellow),
-                                                              onPressed: () {
-                                                                // print(popularProductsList[
-                                                                //         index]
-                                                                //     .urlKey);
-                                                                DataManager
-                                                                    .shared
-                                                                    .updateItemToCart(
-                                                                        popularProductsList[
-                                                                            index],
-                                                                        1,
-                                                                        onUpdate:
-                                                                            () {
-                                                                  setState(
-                                                                      () {});
-                                                                }, onUpdateStarted:
-                                                                            () {
-                                                                  setState(
-                                                                      () {});
-                                                                });
-                                                                // Navigator.push(
-                                                                //     context,
-                                                                //     MaterialPageRoute(
-                                                                //         builder: (context) =>
-                                                                //             CartScreen()));
-                                                              },
                                                               child: Center(
-                                                                child: (popularProductsList[index]
+                                                                  child: Icon(
+                                                                Icons.remove,
+                                                                color: Colors
+                                                                    .white,
+                                                                size: 12,
+                                                              )),
+                                                            ),
+                                                          ),
+                                                          Container(
+                                                            width: 30,
+                                                            height: 30,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color: Color(
+                                                                  0xffe3e3e3),
+                                                            ),
+                                                            child: Center(
+                                                                child: Text(
+                                                              popularProductsList[index].qty.toString(),
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .black),
+                                                            )),
+                                                          ),
+                                                          InkWell(
+                                                            onTap: () {
+                                                              DataManager.shared
+                                                                  .updateItemToCart(
+                                                                      popularProductsList[
+                                                                          index],
+                                                                      3,
+                                                                      onUpdate:
+                                                                          () {
+                                                                setState(() {});
+                                                              }, onUpdateStarted:
+                                                                          () {
+                                                                setState(() {});
+                                                              });
+                                                            },
+                                                            child: Container(
+                                                                width: 30,
+                                                                height: 30,
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                        color: Color(
+                                                                            0xffe83031),
+                                                                        borderRadius:
+                                                                            BorderRadius.only(
+                                                                          topRight:
+                                                                              Radius.circular(5),
+                                                                          bottomRight:
+                                                                              Radius.circular(5),
+                                                                        )),
+                                                                child: Icon(
+                                                                  Icons.add,
+                                                                  color: Colors
+                                                                      .white,
+                                                                  size: 12,
+                                                                )),
+                                                          ),
+                                                        ],
+                                                      )
+                                                    : ElevatedButton(
+                                                        style: ElevatedButton.styleFrom(
+                                                            elevation: 0,
+                                                            backgroundColor:
+                                                                (popularProductsList[index]
                                                                             .stockAvailability!
                                                                             .length ==
                                                                         12)
-                                                                    ? Text(
-                                                                        "Out Of Stock",
-                                                                        style: TextStyle(
-                                                                            fontSize:
-                                                                                15,
-                                                                            color:
-                                                                                Colors.black),
-                                                                      )
-                                                                    : Text(
-                                                                        "ADD",
-                                                                        style: TextStyle(
-                                                                            fontSize:
-                                                                                12,
-                                                                            color:
-                                                                                Colors.black),
-                                                                      ),
-                                                              ),
-                                                            ),
-                                                ),
-                                            ],
+                                                                    ? Colors
+                                                                        .grey
+                                                                    : Colors
+                                                                        .yellow),
+                                                        onPressed: () {
+                                                          // print(popularProductsList[
+                                                          //         index]
+                                                          //     .urlKey);
+                                                          DataManager.shared
+                                                              .updateItemToCart(
+                                                                  popularProductsList[
+                                                                      index],
+                                                                  1,
+                                                                  onUpdate: () {
+                                                            setState(() {});
+                                                          }, onUpdateStarted:
+                                                                      () {
+                                                            setState(() {});
+                                                          });
+                                                          // Navigator.push(
+                                                          //     context,
+                                                          //     MaterialPageRoute(
+                                                          //         builder: (context) =>
+                                                          //             CartScreen()));
+                                                        },
+                                                        child: Center(
+                                                          child: (popularProductsList[
+                                                                          index]
+                                                                      .stockAvailability!
+                                                                      .length ==
+                                                                  12)
+                                                              ? Text(
+                                                                  "Out Of Stock",
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          15,
+                                                                      color: Colors
+                                                                          .black),
+                                                                )
+                                                              : Text(
+                                                                  "ADD",
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          12,
+                                                                      color: Colors
+                                                                          .black),
+                                                                ),
+                                                        ),
+                                                      ),
                                           ),
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                  staggeredTileBuilder: (index) =>
-                                      StaggeredTile.fit(1),
+                                      ],
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ),
+                              );
+                            },
+                            staggeredTileBuilder: (index) =>
+                                StaggeredTile.fit(1),
+                          ),
+                        ),
+                      ),
                     ],
                   )
                 ],
               ),
             ),
 
-             Container(
-                    height: 300,
-                    color: Colors.white,
-                    child: Stack(
+            Container(
+                height: 300,
+                color: Colors.white,
+                child: Stack(
+                  children: [
+                    Row(
                       children: [
-                        Row(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  top: 20, left: 15, right: 15),
-                              child: Text(
-                                'Recent Products',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                            Spacer(),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(top: 20, right: 10),
-                              child: TextButton(
-                                  onPressed: () {
-                                    // _recentProducts();
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                RecentProductsScreen()));
-                                  },
-                                  child: Text(
-                                    'View All ➜',
-                                    style: TextStyle(
-                                        color: Colors.red,
-                                        fontWeight: FontWeight.bold),
-                                  )),
-                            )
-                          ],
-                        ),
                         Padding(
-                          padding: const EdgeInsets.only(top: 80, left: 10),
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            shrinkWrap: true,
-                            itemCount: recentProductsList.length,
-                            itemBuilder: (context, index) {
-                              return InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              ProductDetailsScreen(
-                                                  recentProductsList[index])));
-                                },
-                                child: Card(
-                                  shape: RoundedRectangleBorder(),
-                                  elevation: 3,
-                                  child: Column(
-                                    children: [
-                                      Stack(children: [
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 30, top: 10),
-                                          child: Container(
-                                            width: 100,
-                                            height: 100,
-                                            child: CachedNetworkImage(
-                                                imageUrl:
-                                                    "https://dev.lenzcamera.com/webadmin/${recentProductsList[index].imageUrl}"),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 120),
-                                          child: IconButton(
-                                              onPressed: () {
-                                                setState(() {
-                                                  if (recentProductsList[index]
-                                                          .isWhishlisted ==
-                                                      true) {
-                                                    DataManager.shared
-                                                        .removeFromWishlist(
-                                                            recentProductsList[
-                                                                index]);
-                                                    recentProductsList[index]
-                                                        .isWhishlisted = false;
-                                                  } else {
-                                                    DataManager.shared
-                                                        .addToWishlist(
-                                                            recentProductsList[
-                                                                index]);
-                                                    recentProductsList[index]
-                                                        .isWhishlisted = true;
-                                                  }
-                                                });
-                                              },
-                                              icon: Icon(
-                                                Icons.favorite,
-                                                color: (DataManager.shared
-                                                        .iswishListed(
-                                                            recentProductsList[
-                                                                index]))
-                                                    ? Colors.red
-                                                    : Colors.grey,
-                                              )),
-                                        ),
-                                      ]),
-                                      Spacer(),
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 10, right: 10),
-                                        child: Align(
-                                            alignment: Alignment.center,
-                                            child: Text(
-                                              recentProductsList[index]
-                                                      .prName ??
-                                                  '',
-
-                                              // "CANON EF 16-35 MM F/4L IS USM ",
-                                              style: TextStyle(
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.w400),
-                                              maxLines: 2,
-                                              textAlign: TextAlign.center,
-                                            )),
+                          padding: const EdgeInsets.only(
+                              top: 20, left: 15, right: 15),
+                          child: Text(
+                            'Recent Products',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Spacer(),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 20, right: 10),
+                          child: TextButton(
+                              onPressed: () {
+                                // _recentProducts();
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            RecentProductsScreen()));
+                              },
+                              child: Text(
+                                'View All ➜',
+                                style: TextStyle(
+                                    color: Colors.red,
+                                    fontWeight: FontWeight.bold),
+                              )),
+                        )
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 80, left: 10),
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        shrinkWrap: true,
+                        itemCount: recentProductsList.length,
+                        itemBuilder: (context, index) {
+                          return InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          ProductDetailsScreen(
+                                              recentProductsList[index])));
+                            },
+                            child: Card(
+                              shape: RoundedRectangleBorder(),
+                              elevation: 3,
+                              child: Column(
+                                children: [
+                                  Stack(children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 30, top: 10),
+                                      child: Container(
+                                        width: 100,
+                                        height: 100,
+                                        child: CachedNetworkImage(
+                                            imageUrl:
+                                                "https://dev.lenzcamera.com/webadmin/${recentProductsList[index].imageUrl}"),
                                       ),
-                                      Text(
-                                          "QAR${recentProductsList[index].unitPrice.toString()}",
-                                          // "QAR 39999.00",
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 120),
+                                      child: IconButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              if (recentProductsList[index]
+                                                      .isWhishlisted ==
+                                                  true) {
+                                                DataManager.shared
+                                                    .removeFromWishlist(
+                                                        recentProductsList[
+                                                            index]);
+                                                recentProductsList[index]
+                                                    .isWhishlisted = false;
+                                              } else {
+                                                DataManager.shared
+                                                    .addToWishlist(
+                                                        recentProductsList[
+                                                            index]);
+                                                recentProductsList[index]
+                                                    .isWhishlisted = true;
+                                              }
+                                            });
+                                          },
+                                          icon: Icon(
+                                            Icons.favorite,
+                                            color: (DataManager.shared
+                                                    .iswishListed(
+                                                        recentProductsList[
+                                                            index]))
+                                                ? Colors.red
+                                                : Colors.grey,
+                                          )),
+                                    ),
+                                  ]),
+                                  Spacer(),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 10, right: 10),
+                                    child: Align(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          recentProductsList[index].prName ??
+                                              '',
+
+                                          // "CANON EF 16-35 MM F/4L IS USM ",
                                           style: TextStyle(
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.w600)),
-                                      if (recentProductsList[index]
-                                          .isCartUpdateProgress!)
-                                        SizedBox(
-                                            height: 10,
-                                            width: 10,
-                                            child: CircularProgressIndicator(
-                                              strokeWidth: 2,
-                                            )),
-                                      if (recentProductsList[index]
-                                              .isCartUpdateProgress ==
-                                          false)
-                                        Container(
-                                          width: 160,
-                                          height: 30,
-                                          child: recentProductsList[index]
-                                                  .isAddedtoCart()
-                                              ? Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    InkWell(
-                                                      onTap: () {
-                                                        DataManager.shared
-                                                            .updateItemToCart(
-                                                                recentProductsList[
-                                                                    index],
-                                                                4,
-                                                                onUpdate: () {
-                                                          setState(() {});
-                                                        }, onUpdateStarted: () {
-                                                          setState(() {});
-                                                        });
-                                                      },
-                                                      child: Container(
-                                                        width: 30,
-                                                        height: 30,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                                color: Color(
-                                                                    0xff70726f),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .only(
-                                                                  topLeft: Radius
-                                                                      .circular(
-                                                                          5),
-                                                                  bottomLeft: Radius
-                                                                      .circular(
-                                                                          5),
-                                                                )),
-                                                        child: Center(
-                                                            child: Icon(
-                                                          Icons.remove,
-                                                          color: Colors.white,
-                                                          size: 12,
-                                                        )),
-                                                      ),
-                                                    ),
-                                                    Container(
-                                                      width: 30,
-                                                      height: 30,
-                                                      decoration: BoxDecoration(
-                                                        color:
-                                                            Color(0xffe3e3e3),
-                                                      ),
-                                                      child: Center(
-                                                          child: Text(
-                                                        "1",
-                                                        style: TextStyle(
-                                                            color:
-                                                                Colors.black),
-                                                      )),
-                                                    ),
-                                                    InkWell(
-                                                      onTap: () {
-                                                        DataManager.shared
-                                                            .updateItemToCart(
-                                                                recentProductsList[
-                                                                    index],
-                                                                3,
-                                                                onUpdate: () {
-                                                          setState(() {});
-                                                        }, onUpdateStarted: () {
-                                                          setState(() {});
-                                                        });
-                                                      },
-                                                      child: Container(
-                                                          width: 30,
-                                                          height: 30,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                                  color: Color(
-                                                                      0xffe83031),
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .only(
-                                                                    topRight: Radius
-                                                                        .circular(
-                                                                            5),
-                                                                    bottomRight:
-                                                                        Radius.circular(
-                                                                            5),
-                                                                  )),
-                                                          child: Icon(
-                                                            Icons.add,
-                                                            color: Colors.white,
-                                                            size: 12,
-                                                          )),
-                                                    ),
-                                                  ],
-                                                )
-                                              : ElevatedButton(
-                                                  style:
-                                                      ElevatedButton.styleFrom(
-                                                    elevation: 0,
-                                                    backgroundColor:
-                                                        Colors.yellow,
-                                                  ),
-                                                  onPressed: () {
-                                                    // print(popularProductsList[
-                                                    //         index]
-                                                    //     .urlKey);
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.w400),
+                                          maxLines: 2,
+                                          textAlign: TextAlign.center,
+                                        )),
+                                  ),
+                                  Text(
+                                      "QAR${recentProductsList[index].unitPrice.toString()}",
+                                      // "QAR 39999.00",
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w600)),
+                                  if (recentProductsList[index]
+                                      .isCartUpdateProgress!)
+                                    SizedBox(
+                                        height: 10,
+                                        width: 10,
+                                        child: CircularProgressIndicator(
+                                          strokeWidth: 2,
+                                        )),
+                                  if (recentProductsList[index]
+                                          .isCartUpdateProgress ==
+                                      false)
+                                    Container(
+                                      width: 160,
+                                      height: 30,
+                                      child: recentProductsList[index]
+                                              .isAddedtoCart()
+                                          ? Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                InkWell(
+                                                  onTap: () {
                                                     DataManager.shared
                                                         .updateItemToCart(
                                                             recentProductsList[
                                                                 index],
-                                                            1, onUpdate: () {
+                                                            4, onUpdate: () {
                                                       setState(() {});
                                                     }, onUpdateStarted: () {
                                                       setState(() {});
                                                     });
-                                                    // Navigator.push(
-                                                    //     context,
-                                                    //     MaterialPageRoute(
-                                                    //         builder: (context) =>
-                                                    //             CartScreen()));
                                                   },
+                                                  child: Container(
+                                                    width: 30,
+                                                    height: 30,
+                                                    decoration: BoxDecoration(
+                                                        color:
+                                                            Color(0xff70726f),
+                                                        borderRadius:
+                                                            BorderRadius.only(
+                                                          topLeft:
+                                                              Radius.circular(
+                                                                  5),
+                                                          bottomLeft:
+                                                              Radius.circular(
+                                                                  5),
+                                                        )),
+                                                    child: Center(
+                                                        child: Icon(
+                                                      Icons.remove,
+                                                      color: Colors.white,
+                                                      size: 12,
+                                                    )),
+                                                  ),
+                                                ),
+                                                Container(
+                                                  width: 30,
+                                                  height: 30,
+                                                  decoration: BoxDecoration(
+                                                    color: Color(0xffe3e3e3),
+                                                  ),
                                                   child: Center(
                                                       child: Text(
-                                                    "ADD",
+                                                    recentProductsList[index].qty.toString(),
                                                     style: TextStyle(
-                                                        fontSize: 15,
                                                         color: Colors.black),
                                                   )),
                                                 ),
-                                        ),
-                                    ],
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                        )
-                      ],
-                    )),
+                                                InkWell(
+                                                  onTap: () {
+                                                    DataManager.shared
+                                                        .updateItemToCart(
+                                                            recentProductsList[
+                                                                index],
+                                                            3, onUpdate: () {
+                                                      setState(() {});
+                                                    }, onUpdateStarted: () {
+                                                      setState(() {});
+                                                    });
+                                                  },
+                                                  child: Container(
+                                                      width: 30,
+                                                      height: 30,
+                                                      decoration: BoxDecoration(
+                                                          color:
+                                                              Color(0xffe83031),
+                                                          borderRadius:
+                                                              BorderRadius.only(
+                                                            topRight:
+                                                                Radius.circular(
+                                                                    5),
+                                                            bottomRight:
+                                                                Radius.circular(
+                                                                    5),
+                                                          )),
+                                                      child: Icon(
+                                                        Icons.add,
+                                                        color: Colors.white,
+                                                        size: 12,
+                                                      )),
+                                                ),
+                                              ],
+                                            )
+                                          : ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                elevation: 0,
+                                                backgroundColor: Colors.yellow,
+                                              ),
+                                              onPressed: () {
+                                                // print(popularProductsList[
+                                                //         index]
+                                                //     .urlKey);
+                                                DataManager.shared
+                                                    .updateItemToCart(
+                                                        recentProductsList[
+                                                            index],
+                                                        1, onUpdate: () {
+                                                  setState(() {});
+                                                }, onUpdateStarted: () {
+                                                  setState(() {});
+                                                });
+                                                // Navigator.push(
+                                                //     context,
+                                                //     MaterialPageRoute(
+                                                //         builder: (context) =>
+                                                //             CartScreen()));
+                                              },
+                                              child: Center(
+                                                  child: Text(
+                                                "ADD",
+                                                style: TextStyle(
+                                                    fontSize: 15,
+                                                    color: Colors.black),
+                                              )),
+                                            ),
+                                    ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    )
+                  ],
+                )),
             SizedBox(
               height: 20,
             ),
