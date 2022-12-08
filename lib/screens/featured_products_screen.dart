@@ -225,7 +225,7 @@ class _FeaturedProductsScreenState
                                           ),
                                           child: Center(
                                               child: Text(
-                                            "1",
+                                            featuredList[index].qty.toString(),
                                             style:
                                                 TextStyle(color: Colors.black),
                                           )),
@@ -268,13 +268,17 @@ class _FeaturedProductsScreenState
                                               ? Colors.grey
                                               : Colors.yellow),
                                       onPressed: () {
-                                        DataManager.shared.updateItemToCart(
-                                            featuredList[index], 1,
-                                            onUpdate: () {
-                                          setState(() {});
-                                        }, onUpdateStarted: () {
-                                          setState(() {});
-                                        });
+                                        if (featuredList[index]
+                                                .stockAvailability!
+                                                .length !=
+                                            12)
+                                          DataManager.shared.updateItemToCart(
+                                              featuredList[index], 1,
+                                              onUpdate: () {
+                                            setState(() {});
+                                          }, onUpdateStarted: () {
+                                            setState(() {});
+                                          });
                                       },
                                       child: Center(
                                         child: (featuredList[index]

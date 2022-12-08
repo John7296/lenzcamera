@@ -59,7 +59,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
     Future.delayed(const Duration(milliseconds: 500), () {
       getTopCategories();
       _featuredProducts();
-      
+
       // _updateDeviceToken();
     });
 
@@ -102,12 +102,10 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
         .popularProducts()
         .then((BaseResponse<List<Product>> response) {
       DataManager.shared.getCart();
-      
+
       setState(() {
         popularProductsList.clear();
         popularProductsList.addAll(response.data!);
-
-        
       });
     }).catchError((e) {
       print(e.toString());
@@ -536,7 +534,9 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                         ),
                                                         child: Center(
                                                             child: Text(
-                                                          featuredList[index].qty.toString(),
+                                                          featuredList[index]
+                                                              .qty
+                                                              .toString(),
                                                           style: TextStyle(
                                                               color:
                                                                   Colors.black),
@@ -594,6 +594,9 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                                 : Colors
                                                                     .yellow),
                                                     onPressed: () {
+                                                      if (featuredList[
+                                                                      index]
+                                                                  .stockAvailability!.length==12) 
                                                       // print(popularProductsList[
                                                       //         index]
                                                       //     .urlKey);
@@ -616,7 +619,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                     child: Center(
                                                       child: (featuredList[
                                                                       index]
-                                                                  .stockAvailability ==
+                                                                  .stockAvailability!.length ==
                                                               12)
                                                           ? Text(
                                                               "Out of stock",
@@ -875,7 +878,10 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                             ),
                                                             child: Center(
                                                                 child: Text(
-                                                              popularProductsList[index].qty.toString(),
+                                                              popularProductsList[
+                                                                      index]
+                                                                  .qty
+                                                                  .toString(),
                                                               style: TextStyle(
                                                                   color: Colors
                                                                       .black),
@@ -932,6 +938,9 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                                     : Colors
                                                                         .yellow),
                                                         onPressed: () {
+                                                          if (popularProductsList[
+                                                                      index]
+                                                                  .stockAvailability!.length==12) 
                                                           // print(popularProductsList[
                                                           //         index]
                                                           //     .urlKey);
@@ -1185,7 +1194,9 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                   ),
                                                   child: Center(
                                                       child: Text(
-                                                    recentProductsList[index].qty.toString(),
+                                                    recentProductsList[index]
+                                                        .qty
+                                                        .toString(),
                                                     style: TextStyle(
                                                         color: Colors.black),
                                                   )),
@@ -1231,9 +1242,10 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                 backgroundColor: Colors.yellow,
                                               ),
                                               onPressed: () {
-                                                // print(popularProductsList[
-                                                //         index]
-                                                //     .urlKey);
+                                                 if (recentProductsList[
+                                                                      index]
+                                                                  .stockAvailability!.length !=
+                                                              12) 
                                                 DataManager.shared
                                                     .updateItemToCart(
                                                         recentProductsList[

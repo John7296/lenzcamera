@@ -781,6 +781,7 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                     backgroundColor: Color(0xffec3436),
                   ),
                   onPressed: () {
+                    if(cartItemsList!=null)
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => OrderScreen()));
                     placeOrder();

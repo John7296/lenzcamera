@@ -29,14 +29,18 @@ class _PopularProductsScreenState
   }
 
   void _popularProducts() {
+    showLoader();
     NetworkManager.shared
         .popularProducts()
         .then((BaseResponse<List<Product>> response) {
+      hideLoader();
       setState(() {
         popularProductsList.clear();
         popularProductsList.addAll(response.data!);
       });
     }).catchError((e) {
+      hideLoader();
+      showFlashMsg(e.toString());
       print(e.toString());
     });
   }
@@ -265,13 +269,17 @@ class _PopularProductsScreenState
                                                 ? Colors.grey
                                                 : Colors.yellow),
                                     onPressed: () {
-                                      DataManager.shared.updateItemToCart(
-                                          popularProductsList[index], 1,
-                                          onUpdate: () {
-                                        setState(() {});
-                                      }, onUpdateStarted: () {
-                                        setState(() {});
-                                      });
+                                      if (popularProductsList[index]
+                                              .stockAvailability!
+                                              .length !=
+                                          12)
+                                        DataManager.shared.updateItemToCart(
+                                            popularProductsList[index], 1,
+                                            onUpdate: () {
+                                          setState(() {});
+                                        }, onUpdateStarted: () {
+                                          setState(() {});
+                                        });
                                     },
                                     child: Center(
                                       child: (popularProductsList[index]

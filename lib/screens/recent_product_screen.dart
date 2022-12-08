@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:lenzcamera/base/base_stateful_state.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/manager/data_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
@@ -15,33 +16,31 @@ class RecentProductsScreen extends StatefulWidget {
   State<RecentProductsScreen> createState() => _RecentProductsScreenState();
 }
 
-class _RecentProductsScreenState extends State<RecentProductsScreen> {
+class _RecentProductsScreenState
+    extends BaseStatefulState<RecentProductsScreen> {
   List<Product> recentProductsList = [];
-  bool isLoading = true;
-
 
   @override
   void initState() {
     super.initState();
-    _recentProducts();
+    Future.delayed(Duration(milliseconds: 500), () {
+      _recentProducts();
+    });
   }
 
   void _recentProducts() {
-    setState(() {
-      isLoading = true;
-    });
-
+    showLoader();
     NetworkManager.shared
         .recentProducts()
         .then((BaseResponse<List<Product>> response) {
-      print(response.data);
+      hideLoader();
       setState(() {
-        isLoading = false;
         recentProductsList.clear();
         recentProductsList.addAll(response.data!);
         print(response.data!.first.catId);
       });
     }).catchError((e) {
+      hideLoader();
       print(e.toString());
     });
   }
@@ -102,105 +101,130 @@ class _RecentProductsScreenState extends State<RecentProductsScreen> {
         ),
       ),
       backgroundColor: Colors.grey.shade100,
-      body: isLoading
-          ? Center(child: CircularProgressIndicator())
-          : Container(
-              height: 900,
-              color: Colors.white,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 10),
-                child: GridView.builder(
-                  // physics: NeverScrollableScrollPhysics(),
-                  itemCount: recentProductsList.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2),
-                  itemBuilder: (BuildContext context, int index) {
-                    return Container(
-                      height: 600,
-                      child: Card(
-                        child: Column(
-                          children: [
-                            Stack(children: [
-                              Center(
-                                  child: Container(
-                                child: CachedNetworkImage(
-                                    height: 100,
-                                    width: 100,
-                                    imageUrl:
-                                        "https://dev.lenzcamera.com/webadmin/${recentProductsList[index].imageUrl}"),
-                              )),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 120),
-                                child: IconButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      if (recentProductsList[index]
-                                              .isWhishlisted ==
-                                          true) {
-                                        DataManager.shared.removeFromWishlist(
-                                            recentProductsList[index]);
-                                        recentProductsList[index]
-                                            .isWhishlisted = false;
-                                      } else {
-                                        DataManager.shared.addToWishlist(
-                                            recentProductsList[index]);
-                                        recentProductsList[index]
-                                            .isWhishlisted = true;
-                                      }
-                                    });
-                                  },
-                                  icon: Icon(
-                                    Icons.favorite,
-                                    color: DataManager.shared.iswishListed(
-                                            recentProductsList[index])
-                                        ? Colors.red
-                                        : Colors.grey,
-                                  ),
-                                ),
+      body: Container(
+          height: 900,
+          color: Colors.white,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 10),
+            child: GridView.builder(
+              // physics: NeverScrollableScrollPhysics(),
+              itemCount: recentProductsList.length,
+              gridDelegate:
+                  SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+              itemBuilder: (BuildContext context, int index) {
+                return Container(
+                  height: 600,
+                  child: Card(
+                    child: Column(
+                      children: [
+                        Stack(children: [
+                          Center(
+                              child: Container(
+                            child: CachedNetworkImage(
+                                height: 100,
+                                width: 100,
+                                imageUrl:
+                                    "https://dev.lenzcamera.com/webadmin/${recentProductsList[index].imageUrl}"),
+                          )),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 120),
+                            child: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  if (recentProductsList[index].isWhishlisted ==
+                                      true) {
+                                    DataManager.shared.removeFromWishlist(
+                                        recentProductsList[index]);
+                                    recentProductsList[index].isWhishlisted =
+                                        false;
+                                  } else {
+                                    DataManager.shared.addToWishlist(
+                                        recentProductsList[index]);
+                                    recentProductsList[index].isWhishlisted =
+                                        true;
+                                  }
+                                });
+                              },
+                              icon: Icon(
+                                Icons.favorite,
+                                color: DataManager.shared
+                                        .iswishListed(recentProductsList[index])
+                                    ? Colors.red
+                                    : Colors.grey,
                               ),
-                            ]),
-                            Spacer(),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 10, right: 10),
-                              child: Align(
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    // "CANON EF 16-35 MM F/4L IS USM ",
-                                    recentProductsList[index].prName ?? '',
-                                    style: TextStyle(
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w400),
-                                    maxLines: 1,
-                                    textAlign: TextAlign.center,
-                                  )),
                             ),
-                            Text(
-                                "QAR${recentProductsList[index].unitPrice ?? ''}",
+                          ),
+                        ]),
+                        Spacer(),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10, right: 10),
+                          child: Align(
+                              alignment: Alignment.center,
+                              child: Text(
+                                // "CANON EF 16-35 MM F/4L IS USM ",
+                                recentProductsList[index].prName ?? '',
                                 style: TextStyle(
-                                    fontSize: 15, fontWeight: FontWeight.w600)),
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.yellow,
-                                elevation: 0,
-                              ),
-                              onPressed: () {},
-                              child: Center(
-                                  child: Text(
-                                "ADD",
-                                style: TextStyle(
-                                    fontSize: 15, color: Colors.black),
+                                    fontSize: 10, fontWeight: FontWeight.w400),
+                                maxLines: 1,
+                                textAlign: TextAlign.center,
                               )),
-                            ),
-                          ],
                         ),
-                      ),
-                    );
-                  },
-                ),
-              )),
+                        Text("QAR${recentProductsList[index].unitPrice ?? ''}",
+                            style: TextStyle(
+                                fontSize: 15, fontWeight: FontWeight.w600)),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              elevation: 0,
+                              backgroundColor: (recentProductsList[index]
+                                          .stockAvailability!
+                                          .length ==
+                                      12)
+                                  ? Colors.grey
+                                  : Colors.yellow),
+                          onPressed: () {
+                            if (recentProductsList[index]
+                                    .stockAvailability!
+                                    .length !=
+                                12)
+                              DataManager.shared.updateItemToCart(
+                                  recentProductsList[index], 1, onUpdate: () {
+                                setState(() {});
+                              }, onUpdateStarted: () {
+                                setState(() {});
+                              });
+                          },
+                          child: Center(
+                            child: (recentProductsList[index]
+                                        .stockAvailability!
+                                        .length ==
+                                    12)
+                                ? Text(
+                                    "Out of Stock",
+                                    style: TextStyle(
+                                        fontSize: 15, color: Colors.black),
+                                  )
+                                : Text(
+                                    "ADD",
+                                    style: TextStyle(
+                                        fontSize: 15, color: Colors.black),
+                                  ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ),
+          )),
 
       // SizedBox(height: 50),
     );
+  }
+
+  @override
+  bool isAuthenticationRequired() {
+    // TODO: implement isAuthenticationRequired
+    throw UnimplementedError();
   }
 }
