@@ -1,6 +1,7 @@
 import 'package:flash/flash.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lenzcamera/base/base_stateful_state.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/login_customer.dart';
@@ -17,7 +18,7 @@ class RegisterScreen extends StatefulWidget {
   State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
+class _RegisterScreenState extends BaseStatefulState<RegisterScreen> {
   final GlobalKey<FormState> _form = GlobalKey<FormState>();
   final _customerNameController = TextEditingController();
   final _emailController = TextEditingController();
@@ -34,32 +35,32 @@ class _RegisterScreenState extends State<RegisterScreen> {
     // register();
   }
 
-  void showFlashMsg(String msg, {Color color = Colors.grey}) {
-    showFlash(
-      context: context,
-      duration: const Duration(seconds: 10),
-      builder: (context, controller) {
-        return Flash(
-          controller: controller,
-          behavior: FlashBehavior.floating,
-          position: FlashPosition.bottom,
-          boxShadows: kElevationToShadow[2],
-          backgroundColor: Colors.grey,
-          reverseAnimationCurve: Curves.easeInCirc,
-          forwardAnimationCurve: Curves.easeInOutBack,
-          margin: const EdgeInsets.all(8.0),
-          borderRadius: BorderRadius.circular(6.0),
-          horizontalDismissDirection: HorizontalDismissDirection.horizontal,
-          child: FlashBar(
-            content: Text(
-              msg,
-              style: const TextStyle(fontSize: 15, color: Colors.redAccent),
-            ),
-          ),
-        );
-      },
-    );
-  }
+  // void showFlashMsg(String msg, {Color color = Colors.grey}) {
+  //   showFlash(
+  //     context: context,
+  //     duration: const Duration(seconds: 10),
+  //     builder: (context, controller) {
+  //       return Flash(
+  //         controller: controller,
+  //         behavior: FlashBehavior.floating,
+  //         position: FlashPosition.bottom,
+  //         boxShadows: kElevationToShadow[2],
+  //         backgroundColor: Colors.grey,
+  //         reverseAnimationCurve: Curves.easeInCirc,
+  //         forwardAnimationCurve: Curves.easeInOutBack,
+  //         margin: const EdgeInsets.all(8.0),
+  //         borderRadius: BorderRadius.circular(6.0),
+  //         horizontalDismissDirection: HorizontalDismissDirection.horizontal,
+  //         child: FlashBar(
+  //           content: Text(
+  //             msg,
+  //             style: const TextStyle(fontSize: 15, color: Colors.redAccent),
+  //           ),
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
 
   void register() {
     if (!_form.currentState!.validate()) {
@@ -84,8 +85,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
           context,
           MaterialPageRoute(
               builder: (context) => OtpScreen(response.data?.otpUrlKey),),);
-    }).catchError((Object obj) {
-      showFlashMsg(obj.toString());
+    }).catchError((e) {
+      showFlashMsg(e.toString());
     });
   }
 
@@ -322,5 +323,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
         ),
       ),
     );
+  }
+  
+  @override
+  bool isAuthenticationRequired() {
+    // TODO: implement isAuthenticationRequired
+    throw UnimplementedError();
   }
 }

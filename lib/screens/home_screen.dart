@@ -38,10 +38,6 @@ class _HomeScreenState extends State<HomeScreen> {
   List<TopCategories> categoryList = [];
   bool isLoading = false;
 
-  // List<Widget> pages = [
-
-  // ];
-
   int selectedindex = 0;
   PageController pageController = PageController(
     initialPage: 0,
@@ -64,50 +60,20 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Container(
-      //     height: 100,
-      //     width: 200,
-      //     child: Image(
-      //       image: AssetImage("assets/images/logo_lenzcamera.png"),
-      //     ),
-      //   ),
-      //   actions: [
-      //     IconButton(
-      //       onPressed: () {
-      //         Navigator.push(context,
-      //             MaterialPageRoute(builder: (context) => WishlistScreen()));
-      //       },
-      //       icon: Icon(Icons.favorite_border),
-      //     ),
-      //     IconButton(
-      //       onPressed: () {
-      //         Navigator.push(context,
-      //             MaterialPageRoute(builder: (context) => CartScreen()));
-      //       },
-      //       icon: Icon(Icons.shopping_cart),
-      //     ),
-      //   ],
-      //   backgroundColor: Colors.grey.shade700,
-      //   // leading: IconButton(
-      //   //   onPressed: () {},
-      //   //   icon: Icon(Icons.arrow_back_ios),
-      //   // ),
-      // ),
-
       backgroundColor: Colors.grey.shade100,
       body: SafeArea(
         child: PageView(
+          physics: NeverScrollableScrollPhysics(),
           controller: pageController,
           onPageChanged: (index) {
             setState(() {
-              selectedindex=index;
+              selectedindex = index;
             });
             // pageChanged(index);
           },
           children: <Widget>[
             HomeDetailsScreen(),
-             CategoryScreen(),
+            CategoryScreen(),
             CartScreen(),
             SearchScreen(),
             ProfileScreen(),
@@ -219,6 +185,7 @@ class _HomeScreenState extends State<HomeScreen> {
               leading: const Icon(Icons.logout),
               title: const Text('LogOut'),
               onTap: () {
+                DataManager.shared.clearSession();
                 Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(

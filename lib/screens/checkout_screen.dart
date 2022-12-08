@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lenzcamera/base/base_stateful_state.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/model/address_list.dart';
 import 'package:lenzcamera/model/base_response.dart';
@@ -17,7 +18,7 @@ class CheckoutScreen extends StatefulWidget {
   State<CheckoutScreen> createState() => _CheckoutScreenState();
 }
 
-class _CheckoutScreenState extends State<CheckoutScreen> {
+class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
   List<Product> cartItemsList = [];
   List<AddressList> addressList = [];
   bool umw = false;
@@ -28,18 +29,25 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    address();
+    Future.delayed(Duration(milliseconds: 500), () {
+      address();
+    });
   }
 
   void address() {
+    showLoader();
     NetworkManager.shared
         .getAddressList()
         .then((BaseResponse<List<AddressList>> response) {
+      showFlashMsg(response.message!);
+      hideLoader();
       setState(() {
         addressList.clear();
         addressList.addAll(response.data!);
       });
     }).catchError((e) {
+      showFlashMsg(e.toString());
+      hideLoader();
       print(e.toString());
     });
   }
@@ -47,7 +55,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   void placeOrder() {
     NetworkManager.shared.placeOrder(<String, dynamic>{
       "custBillAdressId": 295,
-      "custId": 386,
+      "custId": NetworkManager.shared.userId,
       "custShipAdressId": 295,
       "orderNote": "Test",
       "payMethod": "COD",
@@ -210,7 +218,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                                                               Text(addressList[index].addLine1 ?? ''),
                                                                               Text(addressList[index].addLine2 ?? ''),
                                                                               Text(addressList[index].country ?? ''),
-                                                                              
                                                                             ],
                                                                           ),
                                                                         ),
@@ -790,5 +797,11 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
         ]),
       ),
     );
+  }
+
+  @override
+  bool isAuthenticationRequired() {
+    // TODO: implement isAuthenticationRequired
+    throw UnimplementedError();
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lenzcamera/base/base_stateful_state.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/profile.dart';
@@ -11,7 +12,7 @@ class EditProfileScreen extends StatefulWidget {
   State<EditProfileScreen> createState() => _EditProfileScreen();
 }
 
-class _EditProfileScreen extends State<EditProfileScreen> {
+class _EditProfileScreen extends BaseStatefulState<EditProfileScreen> {
   final _userNameController = TextEditingController();
   final _emailIdController = TextEditingController();
   final _mobileController = TextEditingController();
@@ -22,16 +23,22 @@ class _EditProfileScreen extends State<EditProfileScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    getProfile();
+    Future.delayed(Duration(milliseconds: 500), () {
+      getProfile();
+    });
   }
 
   void getProfile() {
+    showLoader();
     NetworkManager.shared.getProfile().then((BaseResponse<Profile> response) {
+      hideLoader();
+
       userProfile = response.data;
       _userNameController.text = userProfile?.custName ?? '';
       _emailIdController.text = userProfile?.emailId ?? '';
       _mobileController.text = userProfile?.phoneNo ?? '';
     }).catchError((e) {
+      hideLoader();
       print(e.toString());
     });
   }
@@ -46,6 +53,7 @@ class _EditProfileScreen extends State<EditProfileScreen> {
         })
         .then((BaseResponse response) {})
         .catchError((e) {
+          showFlashMsg(e.toString());
           print(e.toString());
         });
   }
@@ -177,5 +185,11 @@ class _EditProfileScreen extends State<EditProfileScreen> {
             ),
           )),
     );
+  }
+
+  @override
+  bool isAuthenticationRequired() {
+    // TODO: implement isAuthenticationRequired
+    throw UnimplementedError();
   }
 }

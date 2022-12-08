@@ -56,11 +56,13 @@ class DataManager {
   }
 
   void getCart({Product? product}) {
-    NetworkManager.shared.getCart(
+    NetworkManager.shared
+        .getCart(
       NetworkManager.shared.userId,
       1,
       8,
-    ).then((BaseResponse<CartResponse> response) {
+    )
+        .then((BaseResponse<CartResponse> response) {
       cartItemsList.clear();
       cartItemsList.addAll(response.data!.cartItems!);
       product?.isCartUpdateProgress = false;
@@ -178,12 +180,10 @@ class DataManager {
     return false;
   }
 
-
-
   void clearSession() {
     NetworkManager.shared.userToken = "";
+    NetworkManager.shared.userId = 0;
     SessionsManager.clearSession();
-    
   }
 
   

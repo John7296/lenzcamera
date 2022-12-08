@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:lenzcamera/base/base_stateful_state.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/manager/data_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
@@ -18,33 +19,33 @@ class WishlistScreen extends StatefulWidget {
   State<WishlistScreen> createState() => _WishlistScreenState();
 }
 
-class _WishlistScreenState extends State<WishlistScreen> {
+class _WishlistScreenState extends BaseStatefulState<WishlistScreen> {
   List<Product> wishListItems = [];
-  bool isLoading = true;
 
   @override
   void initState() {
     super.initState();
     //DataManager.shared.wishListProducts();
-    wishListProducts();
+    Future.delayed(Duration(milliseconds: 500), () {
+      wishListProducts();
+    });
+    
   }
 
   void wishListProducts() {
-    setState(() {
-      isLoading = true;
-    });
-
+    showLoader();
     NetworkManager.shared
         .getWishList()
         .then((BaseResponse<List<Product>> response) {
+      hideLoader();
       // print(response.data);
       setState(() {
-        isLoading = false;
         wishListItems.clear();
         wishListItems.addAll(response.data!);
         // print(response.data!.first.catId);
       });
     }).catchError((e) {
+      hideLoader();
       print(e.toString());
     });
   }
@@ -194,6 +195,12 @@ class _WishlistScreenState extends State<WishlistScreen> {
         padding: const EdgeInsets.all(13.0),
       ),
     );
+  }
+
+  @override
+  bool isAuthenticationRequired() {
+    // TODO: implement isAuthenticationRequired
+    throw UnimplementedError();
   }
 }
   // Widget _getWishListUI(BuildContext context, int index) {

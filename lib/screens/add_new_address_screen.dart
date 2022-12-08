@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lenzcamera/base/base_stateful_state.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/city_list.dart';
@@ -12,7 +13,7 @@ class AddNewAddressScreen extends StatefulWidget {
   State<AddNewAddressScreen> createState() => _AddNewAddressScreenState();
 }
 
-class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
+class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
   String? selectedCity;
   String? selectedState;
   bool isCheckedSA = false;
@@ -83,7 +84,7 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
         })
         .then((BaseResponse response) {})
         .catchError((e) {
-          
+          showFlashMsg(e.toString());
           print(e.toString());
         });
   }
@@ -431,7 +432,7 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                           height: 50,
                           child: ElevatedButton(
                             onPressed: () {
-                              // onSaveButtonTapped();
+                              onSaveButtonTapped();
                             },
                             child: Text(
                               'Save',
@@ -456,5 +457,11 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
             ),
           )),
     );
+  }
+  
+  @override
+  bool isAuthenticationRequired() {
+    // TODO: implement isAuthenticationRequired
+    throw UnimplementedError();
   }
 }
