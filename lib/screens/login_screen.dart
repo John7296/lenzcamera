@@ -2,6 +2,7 @@ import 'package:flash/flash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:lenzcamera/base/base_stateful_state.dart';
 import 'package:lenzcamera/connection/network_connection.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
@@ -19,8 +20,7 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
-
+class _LoginScreenState extends BaseStatefulState<LoginScreen> {
   final GlobalKey<FormState> _form = GlobalKey<FormState>();
 
   final _usernameController = TextEditingController();
@@ -37,32 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
 
-  void showFlashMsg(String msg, {Color color = const Color(0xFF272532)}) {
-    showFlash(
-      context: context,
-      duration: const Duration(seconds: 4),
-      builder: (context, controller) {
-        return Flash(
-          controller: controller,
-          behavior: FlashBehavior.floating,
-          position: FlashPosition.bottom,
-          boxShadows: kElevationToShadow[2],
-         // backgroundColor: Colors.grey,
-          reverseAnimationCurve: Curves.easeInCirc,
-          forwardAnimationCurve: Curves.easeInOutBack,
-          margin: const EdgeInsets.all(8.0),
-          borderRadius: BorderRadius.circular(6.0),    
-          horizontalDismissDirection: HorizontalDismissDirection.horizontal,
-          child: FlashBar(
-            content: Text(
-              msg,
-              style: const TextStyle(fontSize: 15.0, color: Colors.black),
-            ),
-          ),
-        );
-      },
-    );
-  }
+
 
     
 
@@ -79,14 +54,16 @@ class _LoginScreenState extends State<LoginScreen> {
       "password": password
     }).then((BaseResponse<LoginCustomer> response) {
       SessionsManager.saveUserToken(response.data?.token ?? '');
+       SessionsManager.saveUserId(response.data?.customerId ?? 0);
 
-      NetworkManager.shared.userKey = "Bearer " + (response.data?.token ?? "");
+      NetworkManager.shared.userToken = response.data?.token ?? "";
+      NetworkManager.shared.userId = response.data?.customerId ?? 0;
       
       NetworkManager.shared.refreshTokens();
-      showFlashMsg(response.message!);
+      
       Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
     }).catchError((e) {
-      print("login error");
+      showFlashMsg(e.toString());
       print(e);
       showFlashMsg(e.Message!);
     });
@@ -328,5 +305,11 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+  
+  @override
+  bool isAuthenticationRequired() {
+    // TODO: implement isAuthenticationRequired
+    throw UnimplementedError();
   }
 }

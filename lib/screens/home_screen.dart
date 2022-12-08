@@ -38,15 +38,15 @@ class _HomeScreenState extends State<HomeScreen> {
   List<TopCategories> categoryList = [];
   bool isLoading = false;
 
-  List<Widget> pages = [
-    HomeDetailsScreen(),
-    CategoryScreen(),
-    CartScreen(),
-    SearchScreen(),
-    ProfileScreen(),
-  ];
+  // List<Widget> pages = [
 
-  int selesctedindex = 0;
+  // ];
+
+  int selectedindex = 0;
+  PageController pageController = PageController(
+    initialPage: 0,
+    keepPage: true,
+  );
 
   @override
   void initState() {
@@ -96,7 +96,25 @@ class _HomeScreenState extends State<HomeScreen> {
       // ),
 
       backgroundColor: Colors.grey.shade100,
-      body: IndexedStack(index: selesctedindex, children: pages),
+      body: SafeArea(
+        child: PageView(
+          controller: pageController,
+          onPageChanged: (index) {
+            setState(() {
+              selectedindex=index;
+            });
+            // pageChanged(index);
+          },
+          children: <Widget>[
+            HomeDetailsScreen(),
+             CategoryScreen(),
+            CartScreen(),
+            SearchScreen(),
+            ProfileScreen(),
+          ],
+        ),
+      ),
+      //  IndexedStack(index: selesctedindex, children: pages),
       drawer: Drawer(
         backgroundColor: Colors.white,
         child: ListView(
@@ -124,8 +142,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 //     style: TextStyle(fontSize: 30.0, color: Colors.black),
                 //   ), //Text
                 // ), //circleAvatar
-              ), 
-            ), 
+              ),
+            ),
             ListTile(
               leading: const Icon(Icons.home_outlined),
               title: const Text("Home"),
@@ -150,7 +168,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     MaterialPageRoute(builder: (context) => ProfileScreen()));
               },
             ),
-
             ListTile(
               leading: const Icon(Icons.favorite_border_outlined),
               title: const Text("My Wishlist"),
@@ -219,7 +236,7 @@ class _HomeScreenState extends State<HomeScreen> {
         type: BottomNavigationBarType.fixed,
         selectedItemColor: Colors.red,
         unselectedItemColor: Colors.black,
-        currentIndex: selesctedindex,
+        currentIndex: selectedindex,
         onTap: selectedPage,
         items: [
           BottomNavigationBarItem(
@@ -239,7 +256,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void selectedPage(int index) {
     setState(() {
-      selesctedindex = index;
+      selectedindex = index;
+      pageController.animateToPage(index,
+          duration: Duration(milliseconds: 500), curve: Curves.ease);
     });
   }
 }
