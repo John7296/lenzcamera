@@ -596,7 +596,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                     onPressed: () {
                                                       if (featuredList[
                                                                       index]
-                                                                  .stockAvailability!.length==12) 
+                                                                  .stockAvailability!.length!=12) 
                                                       // print(popularProductsList[
                                                       //         index]
                                                       //     .urlKey);
@@ -940,7 +940,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                         onPressed: () {
                                                           if (popularProductsList[
                                                                       index]
-                                                                  .stockAvailability!.length==12) 
+                                                                  .stockAvailability!.length!=12) 
                                                           // print(popularProductsList[
                                                           //         index]
                                                           //     .urlKey);
