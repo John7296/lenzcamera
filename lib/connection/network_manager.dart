@@ -219,6 +219,11 @@ class NetworkManager {
     return call(networkConnection.placeOrder(map));
   }
 
+    Future<BaseResponse> cancelOrder(int orderId, int custId) {
+    return call(
+        networkConnection.cancelOrder(orderId,custId));
+  }
+
   Future<T> call<T>(Future<T> call) async {
     T response;
 

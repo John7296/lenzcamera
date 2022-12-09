@@ -251,4 +251,11 @@ abstract class NetworkConnection {
   @FormUrlEncoded()
   @POST('Order')
   Future<BaseResponse> placeOrder(@Body() Map<String, dynamic> map);
+
+    @FormUrlEncoded()
+  @GET("Order/CancelOrderItem")
+  Future<BaseResponse> cancelOrder(
+    @Query("orderId") int orderId,
+    @Query("custId") int custId,
+  );
 }

@@ -8,18 +8,12 @@ import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/order_list.dart';
 import 'package:lenzcamera/screens/home_screen.dart';
+import 'package:lenzcamera/screens/order_screen.dart';
 
 class OrderDetailScreen extends StatefulWidget {
-  // final OrderList orderList;
-  const OrderDetailScreen(this.ProductImgUrl, this.orderNumber, this.status,
-      this.orderDate, this.address, this.context);
+  final OrderList orderList;
 
-  final String? orderNumber;
-  final String? status;
-  final String? ProductImgUrl;
-  final String? orderDate;
-  final String? address;
-  final BuildContext? context;
+  OrderDetailScreen(this.orderList);
 
   @override
   State<OrderDetailScreen> createState() => _OrderDetailScreenState();
@@ -32,28 +26,22 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Future.delayed(Duration(milliseconds: 500), () {
-      cusOrderList();
-    });
   }
 
-  void cusOrderList() {
-    showLoader();
+  void cancelOrder() {
+    // showLoader();
     NetworkManager.shared
-        .getOrderList()
-        .then((BaseResponse<List<OrderList>> response) {
-      hideLoader();
-      // print(response.data);
-      setState(() {
-        // isLoading = false;
-        orderList.clear();
-        orderList.addAll(response.data!);
-        // print(response.data!.first.catId);
-      });
+        .cancelOrder(
+      widget.orderList.orderId!,
+      NetworkManager.shared.userId,
+    )
+        .then((BaseResponse response) {
+      // hideLoader();
+      showFlashMsg(response.message!);
+      // Navigator.pop(context);
     }).catchError((e) {
-      hideLoader();
+      // showLoader();
       showFlashMsg(e.toString());
-      print(e.toString());
     });
   }
 
@@ -81,7 +69,8 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
         backgroundColor: Colors.grey.shade700,
         leading: IconButton(
           onPressed: () {
-            Navigator.pop(context);
+             Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => OrderScreen()));
           },
           icon: Icon(Icons.arrow_back_ios),
         ),
@@ -106,22 +95,22 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
                     ),
                   ],
                 ),
-                child: Column(
+                child: Row(
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Row(
+                      child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             'ORDER DETAILS',
                             style: TextStyle(
-                                color: Colors.red, fontFamily: 'Roboto'),
+                                color: Colors.red, fontWeight: FontWeight.bold),
                           ),
                           Spacer(),
                           Text(
-                            'Status:${widget.status}',
-                            style: TextStyle(fontFamily: 'Roboto'),
+                            "#: ${widget.orderList.orderNumber ?? ''}",
+                            style: TextStyle(fontSize: 12),
                           ),
                         ],
                       ),
@@ -129,15 +118,18 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
                     Spacer(),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Row(
+                      child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(widget.orderNumber ?? ''),
+                          Text(
+                            'Status:${widget.orderList.status}',
+                            style: TextStyle(fontSize: 12),
+                          ),
                           Spacer(),
                           Text(
                             // "",
-                            widget.status ?? '',
-                            style: TextStyle(color: Colors.red),
+                            'Payment Method: COD',
+                            style: TextStyle(color: Colors.red, fontSize: 12),
                           ),
                         ],
                       ),
@@ -177,7 +169,10 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
                           ),
                           Text('Delivery to', style: TextStyle(fontSize: 12)),
                           Spacer(),
-                          Text(widget.orderDate ?? ''),
+                          Text(
+                            widget.orderList.orderDate ?? '',
+                            style: TextStyle(fontSize: 12),
+                          ),
                         ],
                       ),
                     ),
@@ -189,8 +184,9 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
                           Container(
                             width: 100,
                             child: Text(
-                              widget.address ?? '',
+                              widget.orderList.Address ?? '',
                               style: TextStyle(fontSize: 12),
+                              maxLines: 4,
                             ),
                           ),
                         ],
@@ -204,7 +200,7 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
           Container(
             height: 200,
             child: ListView.builder(
-                itemCount: 3,
+                itemCount: orderList.length,
                 itemBuilder: (BuildContext, context) {
                   return Container(
                     child: Padding(
@@ -230,9 +226,8 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  // Text('ORDER DETAILS',style: TextStyle(color: Colors.red),),
-                                  //       Spacer(),
-                                  //       Text('Status:Order Placed'),
+                                  Text(widget.orderList.Products ?? '',
+                                      style: TextStyle(color: Colors.red)),
                                 ],
                               ),
                             ),
@@ -342,8 +337,44 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
               height: 50,
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => HomeScreen()));
+                  // Navigator.push(context,
+                  //     MaterialPageRoute(builder: (context) => OrderScreen()));
+                  // cancelOrder();
+
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: Text(
+                        "Are you sure want to cancel this order?",
+                        style: TextStyle(fontSize: 15),
+                      ),
+                      actions: [
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => OrderScreen()));
+                          },
+                          child: Text('Cancel'),
+                          style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.grey.shade400)),
+                        ),
+
+                        ElevatedButton(
+                          onPressed: () {
+                            cancelOrder();
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => OrderScreen()));
+                          },
+                          child: Text('Ok'),
+                          style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.grey.shade400)),
+                        ),
+                         
+                      ],
+                    ),
+                  );
                 },
                 child: Text(
                   'CANCEL ORDER',

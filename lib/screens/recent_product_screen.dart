@@ -101,7 +101,8 @@ class _RecentProductsScreenState
         ),
       ),
       backgroundColor: Colors.grey.shade100,
-      body: Container(
+      body: 
+      Container(
           height: 900,
           color: Colors.white,
           child: Padding(
@@ -119,19 +120,23 @@ class _RecentProductsScreenState
                       children: [
                         Stack(children: [
                           Center(
-                              child: Container(
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 10),
+                                child: Container(
+                            height: 100,
+                            width: 150,
                             child: CachedNetworkImage(
-                                height: 100,
-                                width: 100,
-                                imageUrl:
-                                    "https://dev.lenzcamera.com/webadmin/${recentProductsList[index].imageUrl}"),
-                          )),
+                                  imageUrl:
+                                      "https://dev.lenzcamera.com/webadmin/${recentProductsList[index].imageUrl}"),
+                          ),
+                              )),
                           Padding(
-                            padding: const EdgeInsets.only(left: 120),
+                            padding: const EdgeInsets.only(left: 140),
                             child: IconButton(
                               onPressed: () {
                                 setState(() {
-                                  if (recentProductsList[index].isWhishlisted ==
+                                  if (recentProductsList[index]
+                                          .isWhishlisted ==
                                       true) {
                                     DataManager.shared.removeFromWishlist(
                                         recentProductsList[index]);
@@ -147,8 +152,8 @@ class _RecentProductsScreenState
                               },
                               icon: Icon(
                                 Icons.favorite,
-                                color: DataManager.shared
-                                        .iswishListed(recentProductsList[index])
+                                color: DataManager.shared.iswishListed(
+                                        recentProductsList[index])
                                     ? Colors.red
                                     : Colors.grey,
                               ),
@@ -156,60 +161,151 @@ class _RecentProductsScreenState
                           ),
                         ]),
                         Spacer(),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 10, right: 10),
-                          child: Align(
-                              alignment: Alignment.center,
-                              child: Text(
-                                // "CANON EF 16-35 MM F/4L IS USM ",
-                                recentProductsList[index].prName ?? '',
-                                style: TextStyle(
-                                    fontSize: 10, fontWeight: FontWeight.w400),
-                                maxLines: 1,
-                                textAlign: TextAlign.center,
-                              )),
-                        ),
+                        Align(
+                            alignment: Alignment.center,
+                            child: Text(
+                              // "CANON EF 16-35 MM F/4L IS USM ",
+                              recentProductsList[index].prName ?? '',
+                              style: TextStyle(
+                                  fontSize: 10, fontWeight: FontWeight.w400),
+                              maxLines: 1,
+                              textAlign: TextAlign.center,
+                            )),
                         Text("QAR${recentProductsList[index].unitPrice ?? ''}",
                             style: TextStyle(
                                 fontSize: 15, fontWeight: FontWeight.w600)),
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              elevation: 0,
-                              backgroundColor: (recentProductsList[index]
-                                          .stockAvailability!
-                                          .length ==
-                                      12)
-                                  ? Colors.grey
-                                  : Colors.yellow),
-                          onPressed: () {
-                            if (recentProductsList[index]
-                                    .stockAvailability!
-                                    .length !=
-                                12)
-                              DataManager.shared.updateItemToCart(
-                                  recentProductsList[index], 1, onUpdate: () {
-                                setState(() {});
-                              }, onUpdateStarted: () {
-                                setState(() {});
-                              });
-                          },
-                          child: Center(
-                            child: (recentProductsList[index]
-                                        .stockAvailability!
-                                        .length ==
-                                    12)
-                                ? Text(
-                                    "Out of Stock",
-                                    style: TextStyle(
-                                        fontSize: 15, color: Colors.black),
+                        if (recentProductsList[index].isCartUpdateProgress!)
+                          SizedBox(
+                              height: 30,
+                              width: 30,
+                              child: Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                ),
+                              )),
+                        if (recentProductsList[index].isCartUpdateProgress ==
+                            false)
+                          Container(
+                            // width: 160,
+                            margin: EdgeInsets.only(bottom:5,left: 10,right: 10),
+                            height: 30,
+                            child: recentProductsList[index].isAddedtoCart()
+                                ? Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      InkWell(
+                                        onTap: () {
+                                          DataManager.shared.updateItemToCart(
+                                              recentProductsList[index], 4,
+                                              onUpdate: () {
+                                            setState(() {});
+                                          }, onUpdateStarted: () {
+                                            setState(() {});
+                                          });
+                                        },
+                                        child: Container(
+                                          width: 40,
+                                          height: 30,
+                                          decoration: BoxDecoration(
+                                              color: Color(0xff70726f),
+                                              borderRadius: BorderRadius.only(
+                                                topLeft: Radius.circular(5),
+                                                bottomLeft: Radius.circular(5),
+                                              )),
+                                          child: Center(
+                                              child: Icon(
+                                            Icons.remove,
+                                            color: Colors.black,
+                                            size: 12,
+                                          )),
+                                        ),
+                                      ),
+                                      Container(
+                                        width: 80,
+                                        height: 30,
+                                        decoration: BoxDecoration(
+                                          color: Color(0xffe3e3e3),
+                                        ),
+                                        child: Center(
+                                            child: Text(
+                                          recentProductsList[index]
+                                              .qty
+                                              .toString(),
+                                          style: TextStyle(color: Colors.black),
+                                        )),
+                                      ),
+                                      InkWell(
+                                        onTap: () {
+                                          DataManager.shared.updateItemToCart(
+                                              recentProductsList[index], 3,
+                                              onUpdate: () {
+                                            setState(() {});
+                                          }, onUpdateStarted: () {
+                                            setState(() {});
+                                          });
+                                        },
+                                        child: Container(
+                                            width: 40,
+                                            height: 30,
+                                            decoration: BoxDecoration(
+                                                color: Color(0xffe83031),
+                                                borderRadius: BorderRadius.only(
+                                                  topRight: Radius.circular(5),
+                                                  bottomRight:
+                                                      Radius.circular(5),
+                                                )),
+                                            child: Icon(
+                                              Icons.add,
+                                              color: Colors.black,
+                                              size: 12,
+                                            )),
+                                      ),
+                                    ],
                                   )
-                                : Text(
-                                    "ADD",
-                                    style: TextStyle(
-                                        fontSize: 15, color: Colors.black),
+                                : ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                        elevation: 0,
+                                        backgroundColor:
+                                            (recentProductsList[index]
+                                                        .stockAvailability!
+                                                        .length ==
+                                                    12)
+                                                ? Colors.grey.shade400
+                                                : Colors.yellow),
+                                    onPressed: () {
+                                      if (recentProductsList[index]
+                                              .stockAvailability!
+                                              .length !=
+                                          12)
+                                        DataManager.shared.updateItemToCart(
+                                            recentProductsList[index], 1,
+                                            onUpdate: () {
+                                          setState(() {});
+                                        }, onUpdateStarted: () {
+                                          setState(() {});
+                                        });
+                                    },
+                                    child: Center(
+                                      child: (recentProductsList[index]
+                                                  .stockAvailability!
+                                                  .length ==
+                                              12)
+                                          ? Text(
+                                              "OUT OF STOCK",
+                                              style: TextStyle(
+                                                  fontSize: 12,
+                                                  color: Colors.grey.shade800),
+                                            )
+                                          : Text(
+                                              "ADD",
+                                              style: TextStyle(
+                                                  fontSize: 15,
+                                                  color: Colors.black),
+                                            ),
+                                    ),
                                   ),
                           ),
-                        ),
                       ],
                     ),
                   ),
