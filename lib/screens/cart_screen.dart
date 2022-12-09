@@ -161,18 +161,16 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                                             ),
                                             actions: [
                                               ElevatedButton(
-                                                  onPressed: () {
+                                                onPressed: () {
+                                                  DataManager.shared
+                                                        .removeFromCart(
+                                                            cartItemsList[
+                                                                index]);
+                                                    getCart();
                                                     Navigator.pop(context);
-                                                  },
-                                                  child: InkWell(
-                                                    onTap: (() {
-                                                      DataManager.shared
-                                                          .removeFromCart(
-                                                              cartItemsList[
-                                                                  index]);
-                                                    }),
-                                                    child: Text('Ok'),
-                                                  ))
+                                                },
+                                                child: Text('Ok'),
+                                              ),
                                             ],
                                           ),
                                         );

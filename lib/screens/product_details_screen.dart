@@ -33,7 +33,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
    List<ProductImages> productImages = [];
 
-  bool isLoading = true;
+  // bool isLoading = true;
 
   @override
   void initState() {
@@ -42,16 +42,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   }
 
   void getSingleProductDetails() {
-    setState(() {
-      isLoading = true;
-    });
-
-    // Map<String, dynamic> map = {
-    //   "custId": 386,
-    //   'guestId': 0,
-    //   'urlKey': 'canon-lpe6nh-battery-og',
-    //   ' pincode': 8,
-    // };
+   
 
     NetworkManager.shared.getSingleProductDetails(<String, dynamic>{
       "custId": NetworkManager.shared.userId,
