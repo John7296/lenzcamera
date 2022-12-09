@@ -38,18 +38,41 @@ class _ProductImagesScreenState extends State<ProductImagesScreen> {
       ),
       body: Column(children: [
 
-        Container(
-    child: PhotoViewGallery.builder(
-      scrollPhysics: const BouncingScrollPhysics(),
-      builder: (BuildContext context, int index) {
-        return PhotoViewGalleryPageOptions(
-          imageProvider: AssetImage("assets/images/lens.png"),
-          // NetworkImage(""),
-         initialScale: PhotoViewComputedScale.contained * 0.8,
-        //  heroAttributes: PhotoViewHeroAttributes(tag: galleryItems[index].id),
-        );
-      },
-       itemCount:2,
+        PhotoViewGallery.builder(itemCount: 3, builder: (BuildContext context, int index){
+          return PhotoViewGalleryPageOptions(imageProvider: AssetImage("assets/images/lens.png"));
+
+        },
+        ),
+        
+        Container(height: 290,
+        child:ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount:2,
+          itemBuilder: (BuildContext context,int index) {
+            return Card(
+        
+              child: Container(
+                height: 150,
+                child: Image(image: AssetImage("assets/images/lens.png"),)
+        
+              )
+            );
+                                              }
+        ))
+
+    //     Container(
+    // child: PhotoViewGallery.builder(
+    //   scrollPhysics: const BouncingScrollPhysics(),
+    //   builder: (BuildContext context, int index) {
+    //     return      
+    //    PhotoViewGalleryPageOptions(
+      //     imageProvider: AssetImage("assets/images/lens.png"),
+      //     // NetworkImage(""),
+      //    initialScale: PhotoViewComputedScale.contained * 0.8,
+      //   //  heroAttributes: PhotoViewHeroAttributes(tag: galleryItems[index].id),
+      //   );
+      // },
+      //  itemCount:2,
       // loadingBuilder: (context, event) => Center(
       //   child: Container(
       //     width: 20.0,
@@ -65,8 +88,8 @@ class _ProductImagesScreenState extends State<ProductImagesScreen> {
       // backgroundDecoration: widget.backgroundDecoration,
       // pageController: widget.pageController,
       // onPageChanged: onPageChanged,
-    ),
-        ),
+    // ),
+    //     ),
 
 
 

@@ -2,11 +2,13 @@
 import 'package:flash/flash.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lenzcamera/base/base_stateful_state.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/customer.dart';
 import 'package:lenzcamera/model/customer_details.dart';
 import 'package:lenzcamera/model/login_customer.dart';
+import 'package:lenzcamera/utils/helper.dart';
 import 'package:lenzcamera/utils/sessions_manager.dart';
 
 class ContactUsScreen extends StatefulWidget{
@@ -14,7 +16,7 @@ class ContactUsScreen extends StatefulWidget{
   State<ContactUsScreen> createState() => _ContactUsScreenState();
 }
 
-class _ContactUsScreenState extends State<ContactUsScreen> {
+class _ContactUsScreenState extends BaseStatefulState<ContactUsScreen> {
 
   final GlobalKey<FormState> _form = GlobalKey<FormState>();
 
@@ -94,8 +96,11 @@ void onSendButtonTapped() {
 
       showFlashMsg(response.message!);
       
-    }).catchError((Object obj) {
-     
+    }).catchError((e) {
+
+      showFlashMsg(e.toString());
+      print(e);
+      showFlashMsg(e.Message!);
     });
   }
 
@@ -274,8 +279,14 @@ void onSendButtonTapped() {
                           ),
                           controller: _emailController,
                           validator: (val) {
-                                      if (val!.isEmpty)
-                                        return "Enter your first name";
+                                      if (val!.isEmpty){
+                                        return "Enter your Email";
+                                      }
+                                      else {
+                                          if (!Helper.validateEmail(val)) {
+                                            return "Please enter a valid email";
+                                          }
+                                        }
                                       return null;
                                     }),
                         ),
@@ -428,5 +439,11 @@ void onSendButtonTapped() {
      ),
     
    );
+  }
+  
+  @override
+  bool isAuthenticationRequired() {
+    // TODO: implement isAuthenticationRequired
+    throw UnimplementedError();
   }
 }

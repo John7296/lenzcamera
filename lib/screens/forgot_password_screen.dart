@@ -21,7 +21,7 @@ class ForgotPasswordScreen extends StatefulWidget {
   State<ForgotPasswordScreen> createState() => _ForgotPasswordScreenState();
 }
 
-class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
+class _ForgotPasswordScreenState extends BaseStatefulState<ForgotPasswordScreen> {
 
     final GlobalKey<FormState> _form = GlobalKey<FormState>();
 
@@ -51,7 +51,11 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       builder: (context) =>
                       VerifyForgotPwddOtpScreen(response.data)));
      
-    }).catchError((Object obj) {
+    }).catchError((e) {
+
+      showFlashMsg(e.toString());
+      print(e);
+      showFlashMsg(e.Message!);
     });
   }
   
@@ -167,5 +171,11 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         ),
       ),
     );
+  }
+  
+  @override
+  bool isAuthenticationRequired() {
+    // TODO: implement isAuthenticationRequired
+    throw UnimplementedError();
   }
 }

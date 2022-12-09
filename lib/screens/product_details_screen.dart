@@ -487,10 +487,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           ),
                         ),
 
-
-
-                     
-
                         Padding(
                           padding: const EdgeInsets.only(
                               left: 24, right: 24, top: 5),
@@ -543,8 +539,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                                                   DataManager
                                                                       .shared
                                                                       .removeFromWishlist(
-                                                                          widget
-                                                                              .popularproducts!);
+                                                                         relatedproducts[index]);
                                                                   relatedproducts[
                                                                           index]
                                                                       .isWhishlisted = false;

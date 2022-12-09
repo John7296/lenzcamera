@@ -15,8 +15,11 @@ class DataManager {
   int? customerId;
   List<Product> cartItemsList = [];
   List<Product> wishListItems = [];
+  List<Product>? wishListArrayItem = [];
   VoidCallback? onCartUpdated;
   FilterData? filterData;
+
+   ValueChanged<String>? onWishlistUpdated;
 
 
 
@@ -136,6 +139,8 @@ class DataManager {
   }
 
   void addToWishlist(Product product) {
+      wishListItems.add(product);
+      // onWishlistUpdated = onChange;
     NetworkManager.shared
         .addToWishlist(<String, dynamic>{
           "urlKey": product.urlKey,
@@ -149,7 +154,14 @@ class DataManager {
         });
   }
 
-  void removeFromWishlist(Product product) {
+  void removeFromWishlist(Product product
+  // , ValueChanged<String> onChange
+  ) {
+
+      // onWishlistUpdated = onChange;
+      
+   wishListItems.removeWhere((item) => item.productId == product.productId);
+
     NetworkManager.shared
         .removeFromWishlist(NetworkManager.shared.userId,
           "0",
@@ -176,6 +188,7 @@ class DataManager {
     NetworkManager.shared.userToken = "";
     NetworkManager.shared.userId = 0;
     SessionsManager.clearSession();
+    wishListItems.clear();
   }
 
   
