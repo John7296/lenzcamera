@@ -32,7 +32,7 @@ class Product {
   String? vendorUrlKey;
 
   @JsonKey(name: 'variationJson')
-  int? variationJson;
+  String? variationJson;
 
   @JsonKey(name: 'catUrlKey')
   String? catUrlKey;
@@ -146,7 +146,7 @@ class Product {
   int? pincodeSetId;
 
   @JsonKey(name: 'prWeight')
-  int? prWeight;
+  String? prWeight;
 
   @JsonKey(name: 'taxClassId')
   int? taxClassId;
@@ -164,13 +164,13 @@ class Product {
   String? featuredImage;
 
   @JsonKey(name: 'avgRating')
-  int? avgRating;
+  String? avgRating;
 
   @JsonKey(name: 'reviewCount')
   String? reviewCount;
 
   @JsonKey(name: 'minQtyInOrders')
-  int? minQtyInOrders;
+  String? minQtyInOrders;
 
   @JsonKey(name: 'comboProducts')
   String? comboProducts;

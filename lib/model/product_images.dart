@@ -10,7 +10,7 @@ class ProductImages{
   String? imageUrl;
 
   @JsonKey(name: 'position')
-  int? position;
+  String? position;
 
   @JsonKey(name: 'imgType')
   String? imgType;

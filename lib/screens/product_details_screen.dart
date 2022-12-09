@@ -42,7 +42,16 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   }
 
   void getSingleProductDetails() {
-   
+    // setState(() {
+    //   isLoading = true;
+    // });
+
+    // Map<String, dynamic> map = {
+    //   "custId": 386,
+    //   'guestId': 0,
+    //   'urlKey': 'canon-lpe6nh-battery-og',
+    //   ' pincode': 8,
+    // };
 
     NetworkManager.shared.getSingleProductDetails(<String, dynamic>{
       "custId": NetworkManager.shared.userId,
@@ -56,6 +65,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
         productImages.clear();
         productImages.addAll(response.data!.productImages!);
+
+        print("////////////////");
+
+        print(relatedproducts.length);
 
 
 
@@ -474,6 +487,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           ),
                         ),
 
+
+
+                     
+
                         Padding(
                           padding: const EdgeInsets.only(
                               left: 24, right: 24, top: 5),
@@ -484,26 +501,28 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                   Expanded(
                                     child: Container(
                                       height: 290,
-
-                                      //color: Colors.green,
+                          
+                                      // color: Colors.green,
                                       child: ListView.builder(
                                           scrollDirection: Axis.horizontal,
-                                          itemCount: relatedproducts.length,
+                                          itemCount:relatedproducts.length,
                                           itemBuilder: (BuildContext context,
                                               int index) {
                                             return Card(
                                               child: Container(
                                                 width: 200,
+                                                // color: Colors.blue,
                                                 child: Column(
                                                   children: [
                                                     Stack(children: [
                                                       Center(
                                                         child: Container(
                                                             width: 150,
-                                                            child: CachedNetworkImage(
+                                                            child: 
+                                                            CachedNetworkImage(
                                                                 imageUrl:
                                                                     "https://dev.lenzcamera.com/webadmin/${relatedproducts[index].imageUrl}")
-
+                          
                                                             // Image(
                                                             //     image: AssetImage(
                                                             //         "assets/images/lens.png")),
@@ -566,8 +585,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                                                         index]
                                                                     .prName ??
                                                                 '',
-
-                                                            // "CANON EF 16-35 MM F/4L IS USM ",
+                          
+                                                            //  "CANON EF 16-35 MM F/4L IS USM ",
                                                             style: TextStyle(
                                                                 fontSize: 15,
                                                                 fontWeight:
@@ -586,7 +605,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                                               const EdgeInsets
                                                                   .only(top: 7),
                                                           child: Text(
-                                                              "QAR ${relatedproducts[index].unitPrice}",
+                                                             "QAR ${relatedproducts[index].unitPrice}",
                                                               //  "QAR 39999.00",
                                                               style: TextStyle(
                                                                   fontSize: 15,
@@ -594,8 +613,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                                                       FontWeight
                                                                           .w600)),
                                                         )),
-                                                        SizedBox(height: 10),
-
+                                                        SizedBox(height: 4),
+                          
                                                     if (relatedproducts[index]
                                                         .isCartUpdateProgress!)
                                                       SizedBox(
@@ -719,7 +738,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                                                     ),
                                                                   ],
                                                                 )
-                                                              : ElevatedButton(
+                                                              : 
+                                                              ElevatedButton(
                                                                   style: ElevatedButton
                                                                       .styleFrom(
                                                                     elevation:

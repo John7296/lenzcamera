@@ -9,7 +9,7 @@ part of 'product_images.dart';
 ProductImages _$ProductImagesFromJson(Map<String, dynamic> json) =>
     ProductImages(
       imageUrl: json['imageUrl'] as String?,
-      position: json['position'] as int?,
+      position: json['position'] as String?,
       imgType: json['imgType'] as String?,
     );
 
