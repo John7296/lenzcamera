@@ -184,7 +184,7 @@ class _FeaturedProductsScreenState
                             padding: const EdgeInsets.only(
                                 left: 10, right: 10, bottom: 10),
                             child: Container(
-                              // width: 160,
+                              width: 160,
                               height: 30,
                               child: featuredList[index].isAddedtoCart()
                                   ? Row(
@@ -202,7 +202,7 @@ class _FeaturedProductsScreenState
                                             });
                                           },
                                           child: Container(
-                                            width: 30,
+                                            width: 40,
                                             height: 30,
                                             decoration: BoxDecoration(
                                               color: Color(0xff70726f),
@@ -221,7 +221,7 @@ class _FeaturedProductsScreenState
                                           ),
                                         ),
                                         Container(
-                                          width: 30,
+                                          width: 80,
                                           height: 30,
                                           decoration: BoxDecoration(
                                             color: Color(0xffe3e3e3),
@@ -244,7 +244,7 @@ class _FeaturedProductsScreenState
                                             });
                                           },
                                           child: Container(
-                                              width: 30,
+                                              width: 40,
                                               height: 30,
                                               decoration: BoxDecoration(
                                                 color: Color(0xffe83031),

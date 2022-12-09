@@ -95,20 +95,24 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
               child: Column(
                 children: [
                   Container(
-                    margin: EdgeInsets.fromLTRB(120, 50, 120, 50),
+                    margin: EdgeInsets.fromLTRB(120, 45, 120, 10),
                     decoration: BoxDecoration(
                       border: Border.all(width: 5, color: Colors.black),
                       borderRadius: BorderRadius.all(Radius.circular(45)),
                     ),
-                    child: Icon(
-                      Icons.person_outline,
-                      size: 100,
+                    child: Container(
+                      height: 150,
+                      width: 200,
+                      child: Icon(
+                        Icons.person_outline,
+                        size: 100,
+                      ),
                     ),
                   ),
-                  Text(userProfile?.custName ?? ''),
+                  Text(userProfile?.custName ?? '',style: TextStyle(fontWeight: FontWeight.w500),),
                   Text(
                     userProfile?.emailId ?? '',
-                    style: TextStyle(color: Colors.red),
+                    style: TextStyle(color: Colors.red,fontWeight: FontWeight.w500),
                   ),
                 ],
               ),
@@ -138,19 +142,19 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                             child: ListTile(
                               title: Padding(
                                 padding: const EdgeInsets.all(10),
-                                child: Text("Personal"),
+                                child: Text("Personal",style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
                               ),
                               subtitle: Padding(
                                 padding: const EdgeInsets.all(10),
-                                child: Text("Profile,phone,email"),
+                                child: Text("Profile,phone,email",style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
                               ),
                               leading: Container(
-                                height: 50,
-                                width: 50,
+                                height: 60,
+                                width: 60,
                                 child: Icon(Icons.person),
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
-                                    color: Colors.grey),
+                                    color: Colors.grey.shade300),
                               ),
                               trailing: IconButton(
                                 onPressed: () {},
@@ -180,19 +184,19 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                             child: ListTile(
                               title: Padding(
                                 padding: const EdgeInsets.all(10),
-                                child: Text("Change Password"),
+                                child: Text("Change Password",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
                               ),
                               subtitle: Padding(
                                 padding: const EdgeInsets.all(10),
-                                child: Text("Change your password"),
+                                child: Text("Change your password",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12)),
                               ),
                               leading: Container(
-                                height: 50,
-                                width: 50,
+                                height: 60,
+                                width: 60,
                                 child: Icon(Icons.remove_red_eye),
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
-                                    color: Colors.grey),
+                                    color: Colors.grey.shade300),
                               ),
                               trailing: IconButton(
                                 onPressed: () {},
@@ -221,19 +225,19 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                             child: ListTile(
                               title: Padding(
                                 padding: const EdgeInsets.all(10),
-                                child: Text("Address Book"),
+                                child: Text("Address Book",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15)),
                               ),
                               subtitle: Padding(
                                 padding: const EdgeInsets.all(10),
-                                child: Text("Add,Edit,Delete"),
+                                child: Text("Add,Edit,Delete",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12)),
                               ),
                               leading: Container(
-                                height: 50,
-                                width: 50,
+                                height: 60,
+                                width: 60,
                                 child: Icon(Icons.location_city),
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
-                                    color: Colors.grey),
+                                    color: Colors.grey.shade300),
                               ),
                               trailing: IconButton(
                                 onPressed: () {},
@@ -262,19 +266,19 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                             child: ListTile(
                               title: Padding(
                                 padding: const EdgeInsets.all(10),
-                                child: Text("My Orders"),
+                                child: Text("My Orders",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15)),
                               ),
                               subtitle: Padding(
                                 padding: const EdgeInsets.all(10),
-                                child: Text("View,Track,Update"),
+                                child: Text("View,Track,Update",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12)),
                               ),
                               leading: Container(
-                                height: 50,
-                                width: 50,
+                                height: 60,
+                                width: 60,
                                 child: Icon(Icons.card_giftcard_outlined),
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
-                                    color: Colors.grey),
+                                    color: Colors.grey.shade300),
                               ),
                               trailing: IconButton(
                                 onPressed: () {},
@@ -303,19 +307,19 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                             child: ListTile(
                               title: Padding(
                                 padding: const EdgeInsets.all(10),
-                                child: Text("My Wishlist"),
+                                child: Text("My Wishlist",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15)),
                               ),
                               subtitle: Padding(
                                 padding: const EdgeInsets.all(10),
-                                child: Text("View,Update,Remove"),
+                                child: Text("View,Update,Remove",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12)),
                               ),
                               leading: Container(
-                                height: 50,
-                                width: 50,
+                                height: 60,
+                                width: 60,
                                 child: Icon(Icons.favorite),
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
-                                    color: Colors.grey),
+                                    color: Colors.grey.shade300),
                               ),
                               trailing: IconButton(
                                 onPressed: () {},
@@ -344,19 +348,19 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                             child: ListTile(
                               title: Padding(
                                 padding: const EdgeInsets.all(10),
-                                child: Text("My Wallet"),
+                                child: Text("My Wallet",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15)),
                               ),
                               subtitle: Padding(
                                 padding: const EdgeInsets.all(10),
-                                child: Text("View,Recharge"),
+                                child: Text("View,Recharge",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12)),
                               ),
                               leading: Container(
-                                height: 50,
-                                width: 50,
+                                height: 60,
+                                width: 60,
                                 child: Icon(Icons.money),
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
-                                    color: Colors.grey),
+                                    color: Colors.grey.shade300),
                               ),
                               trailing: IconButton(
                                 onPressed: () {},
@@ -385,19 +389,19 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                             child: ListTile(
                               title: Padding(
                                 padding: const EdgeInsets.all(10),
-                                child: Text("Support"),
+                                child: Text("Support",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15)),
                               ),
                               subtitle: Padding(
                                 padding: const EdgeInsets.all(10),
-                                child: Text("Contact,Mail"),
+                                child: Text("Contact,Mail",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12)),
                               ),
                               leading: Container(
-                                height: 50,
-                                width: 50,
+                                height: 60,
+                                width: 60,
                                 child: Icon(Icons.mail),
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
-                                    color: Colors.grey),
+                                    color: Colors.grey.shade300),
                               ),
                               trailing: IconButton(
                                 onPressed: () {},

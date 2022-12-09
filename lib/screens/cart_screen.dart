@@ -180,13 +180,25 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                                             actions: [
                                               ElevatedButton(
                                                 onPressed: () {
+                                                  // Navigator.push(
+                                                  //     context,
+                                                  //     MaterialPageRoute(
+                                                  //         builder: (context) =>
+                                                  //             CartScreen()));
+                                                  Navigator.pop(context);
+                                                },
+                                                style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.grey.shade400)),
+                                                child: Text('Cancel'),
+                                              ),
+                                              ElevatedButton(
+                                                onPressed: () {
                                                   DataManager.shared
                                                       .removeFromCart(
                                                           cartItemsList[index]);
                                                   getCart();
-                                                  // DataManager.shared.getCart();
                                                   Navigator.pop(context);
                                                 },
+                                                style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.grey.shade400)),
                                                 child: Text('Ok'),
                                               ),
                                             ],

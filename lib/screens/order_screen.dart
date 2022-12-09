@@ -8,6 +8,7 @@ import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/order_list.dart';
 import 'package:lenzcamera/screens/cart_screen.dart';
 import 'package:lenzcamera/screens/order_details_screen.dart';
+import 'package:lenzcamera/screens/profile_screen.dart';
 import 'package:lenzcamera/screens/wishlist_screen.dart';
 
 class OrderScreen extends StatefulWidget {
@@ -76,7 +77,8 @@ class _OrderScreenState extends BaseStatefulState<OrderScreen> {
         backgroundColor: Colors.grey.shade700,
         leading: IconButton(
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => ProfileScreen()));
           },
           icon: Icon(Icons.arrow_back_ios),
         ),
@@ -92,14 +94,8 @@ class _OrderScreenState extends BaseStatefulState<OrderScreen> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => OrderDetailScreen(
-                              orderList[index].ProductImgUrl ?? '',
-                              orderList[index].orderNumber.toString(),
-                              orderList[index].status ?? '',
-                              orderList[index].orderDate ?? '',
-                              orderList[index].Address??'',
-                              context
-                              )));
+                          builder: (context) =>
+                              OrderDetailScreen(orderList[index])));
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(10),
@@ -241,17 +237,12 @@ class _OrderScreenState extends BaseStatefulState<OrderScreen> {
                             IconButton(
                               onPressed: () {
                                 Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => OrderDetailScreen(
-                                            orderList[index].ProductImgUrl ??
-                                                '',
-                                            orderList[index].orderId.toString(),
-                                            orderList[index].status ?? '',
-                                            orderList[index].orderDate ?? "",
-                                            orderList[index].Address??'',
-                                            context
-                                            )));
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        OrderDetailScreen(orderList[index]),
+                                  ),
+                                );
                               },
                               icon:
                                   Icon(Icons.arrow_forward, color: Colors.grey),

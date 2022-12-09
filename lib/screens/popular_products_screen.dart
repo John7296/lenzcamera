@@ -122,15 +122,18 @@ class _PopularProductsScreenState
                       children: [
                         Stack(children: [
                           Center(
-                              child: Container(
-                            height: 80,
-                            width: 80,
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 10),
+                                child: Container(
+                            height: 100,
+                            width: 150,
                             child: CachedNetworkImage(
-                                imageUrl:
-                                    "https://dev.lenzcamera.com/webadmin/${popularProductsList[index].imageUrl}"),
-                          )),
+                                  imageUrl:
+                                      "https://dev.lenzcamera.com/webadmin/${popularProductsList[index].imageUrl}"),
+                          ),
+                              )),
                           Padding(
-                            padding: const EdgeInsets.only(left: 120),
+                            padding: const EdgeInsets.only(left: 140),
                             child: IconButton(
                               onPressed: () {
                                 setState(() {
@@ -187,6 +190,7 @@ class _PopularProductsScreenState
                             false)
                           Container(
                             // width: 160,
+                            margin: EdgeInsets.only(bottom:5,left: 10,right: 10),
                             height: 30,
                             child: popularProductsList[index].isAddedtoCart()
                                 ? Row(
@@ -203,7 +207,7 @@ class _PopularProductsScreenState
                                           });
                                         },
                                         child: Container(
-                                          width: 30,
+                                          width: 40,
                                           height: 30,
                                           decoration: BoxDecoration(
                                               color: Color(0xff70726f),
@@ -214,13 +218,13 @@ class _PopularProductsScreenState
                                           child: Center(
                                               child: Icon(
                                             Icons.remove,
-                                            color: Colors.white,
+                                            color: Colors.black,
                                             size: 12,
                                           )),
                                         ),
                                       ),
                                       Container(
-                                        width: 30,
+                                        width: 80,
                                         height: 30,
                                         decoration: BoxDecoration(
                                           color: Color(0xffe3e3e3),
@@ -244,7 +248,7 @@ class _PopularProductsScreenState
                                           });
                                         },
                                         child: Container(
-                                            width: 30,
+                                            width: 40,
                                             height: 30,
                                             decoration: BoxDecoration(
                                                 color: Color(0xffe83031),
@@ -255,7 +259,7 @@ class _PopularProductsScreenState
                                                 )),
                                             child: Icon(
                                               Icons.add,
-                                              color: Colors.white,
+                                              color: Colors.black,
                                               size: 12,
                                             )),
                                       ),
@@ -269,7 +273,7 @@ class _PopularProductsScreenState
                                                         .stockAvailability!
                                                         .length ==
                                                     12)
-                                                ? Colors.grey
+                                                ? Colors.grey.shade400
                                                 : Colors.yellow),
                                     onPressed: () {
                                       if (popularProductsList[index]
@@ -290,10 +294,10 @@ class _PopularProductsScreenState
                                                   .length ==
                                               12)
                                           ? Text(
-                                              "Out of Stock",
+                                              "OUT OF STOCK",
                                               style: TextStyle(
-                                                  fontSize: 15,
-                                                  color: Colors.black),
+                                                  fontSize: 12,
+                                                  color: Colors.grey.shade800),
                                             )
                                           : Text(
                                               "ADD",
