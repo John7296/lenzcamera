@@ -54,7 +54,7 @@ class NetworkManager {
     });
 
     SessionsManager.getUserId().then((value) {
-      userId = value??0;
+      userId = value ?? 0;
       print("UserIdNM${userId}");
     });
   }
@@ -79,8 +79,8 @@ class NetworkManager {
     return call(networkConnection.getAddressList(userId));
   }
 
-  Future<BaseResponse<List<CityList>>> cityListAddress() {
-    return call(networkConnection.cityListAddress(int.parse("2920")));
+  Future<BaseResponse<List<CityList>>> cityListAddress(int id) {
+    return call(networkConnection.cityListAddress(id));
   }
 
   Future<BaseResponse<List<StateList>>> stateListAddress() {
@@ -164,7 +164,8 @@ class NetworkManager {
   // }
 
   Future<BaseResponse<MainBanner>> getBanner(Map<String, dynamic> map) {
-    return call(networkConnection.getBanner(map["userId"],map["guestId"],map[""]));
+    return call(
+        networkConnection.getBanner(map["userId"], map["guestId"], map[""]));
   }
 
   Future<BaseResponse<List<Product>>> getWishList() {
@@ -175,9 +176,10 @@ class NetworkManager {
     return call(networkConnection.addToWishlist(map));
   }
 
-  Future<BaseResponse> removeFromWishlist(Map<String, dynamic> map) {
-    return call(networkConnection.removeFromWishlist(
-        map[userId], map["guestId"], map["urlKey"]));
+  Future<BaseResponse> removeFromWishlist(
+      int userId, String guestId, String urlKey) {
+    print("useriddd $userId");
+    return call(networkConnection.removeFromWishlist(userId, guestId, urlKey));
   }
 
   Future<BaseResponse<Profile>> getProfile() {
@@ -188,9 +190,9 @@ class NetworkManager {
     return call(networkConnection.updateProfile(map));
   }
 
-  Future<BaseResponse<CartResponse>> getCart(int cusId, int guestId, int pincode) {
-    return call(networkConnection.getCart(
-        cusId, guestId, pincode));
+  Future<BaseResponse<CartResponse>> getCart(
+      int cusId, int guestId, int pincode) {
+    return call(networkConnection.getCart(cusId, guestId, pincode));
   }
 
   Future<BaseResponse> addToCart(Map<String, dynamic> map) {

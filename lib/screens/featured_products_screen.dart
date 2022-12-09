@@ -45,31 +45,31 @@ class _FeaturedProductsScreenState
     });
   }
 
-  // void addToWishlist(Product product) {
-  //   NetworkManager.shared
-  //       .addToWishlist(<String, dynamic>{
-  //         "urlKey": product.urlKey,
-  //         "custId": 386,
-  //         "guestId": 1,
-  //       })
-  //       .then((BaseResponse response) {})
-  //       .catchError((e) {
-  //         print(e.toString());
-  //       });
-  // }
+  void addToWishlist(Product product) {
+    NetworkManager.shared
+        .addToWishlist(<String, dynamic>{
+          "urlKey": product.urlKey,
+          "custId": 386,
+          "guestId": 1,
+        })
+        .then((BaseResponse response) {})
+        .catchError((e) {
+          print(e.toString());
+        });
+  }
 
-  // void removeFromWishlist(Product product) {
-  //   NetworkManager.shared
-  //       .removeFromWishlist(<String, dynamic>{
-  //         "urlKey": product.urlKey,
-  //         "custId": 386,
-  //         "guestId": 1,
-  //       })
-  //       .then((BaseResponse response) {})
-  //       .catchError((e) {
-  //         print(e.toString());
-  //       });
-  // }
+  void removeFromWishlist(Product product) {
+    NetworkManager.shared
+        .removeFromWishlist(
+          NetworkManager.shared.userId,
+          "0",
+          product.urlKey!,
+        )
+        .then((BaseResponse response) {})
+        .catchError((e) {
+      print(e.toString());
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -171,10 +171,13 @@ class _FeaturedProductsScreenState
                                 fontSize: 15, fontWeight: FontWeight.w600)),
                         if (featuredList[index].isCartUpdateProgress!)
                           SizedBox(
-                              height: 10,
-                              width: 10,
-                              child: CircularProgressIndicator(
-                                strokeWidth: 2,
+                              height: 30,
+                              width: 30,
+                              child: Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                ),
                               )),
                         if (featuredList[index].isCartUpdateProgress == false)
                           Padding(

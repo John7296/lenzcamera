@@ -1,3 +1,4 @@
+import 'package:flash/flash.dart';
 import 'package:flutter/foundation.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
@@ -17,12 +18,7 @@ class DataManager {
   VoidCallback? onCartUpdated;
   FilterData? filterData;
 
-  // void regCustomerId() {
-  //   SessionsManager.getUserId().then((value) {
-  //     customerId = value;
-  //     print('Customer ID:${customerId}');
-  //   });
-  // }
+
 
   void updateItemToCart(Product product, int type,
       {VoidCallback? onUpdate, VoidCallback? onUpdateStarted}) {
@@ -59,7 +55,7 @@ class DataManager {
     NetworkManager.shared
         .getCart(
       NetworkManager.shared.userId,
-      1,
+      0,
       8,
     )
         .then((BaseResponse<CartResponse> response) {
@@ -76,7 +72,7 @@ class DataManager {
     NetworkManager.shared.addToCart(<String, dynamic>{
       "urlKey": product.urlKey,
       "cusId": NetworkManager.shared.userId,
-      "guestId": 1,
+      "guestId": 0,
       "productQty": 1,
     }).then((BaseResponse response) {
       getCart(product: product);
@@ -89,7 +85,7 @@ class DataManager {
     NetworkManager.shared.removeFromCart(<String, dynamic>{
       "urlKey": product.urlKey,
       "custId": NetworkManager.shared.userId,
-      "guestId": 1,
+      "guestId": 0,
     }).then((BaseResponse response) {
       getCart(product: product);
     }).catchError((e) {
@@ -101,7 +97,7 @@ class DataManager {
     NetworkManager.shared.subCartQty(<String, dynamic>{
       "urlKey": product.urlKey,
       "custId": NetworkManager.shared.userId,
-      "guestId": 1,
+      "guestId": 0,
     }).then((BaseResponse response) {
       getCart(product: product);
     }).catchError((e) {
@@ -134,7 +130,6 @@ class DataManager {
         .then((BaseResponse<List<Product>> response) {
       wishListItems.clear();
       wishListItems.addAll(response.data!);
-      print('Wishlisted items 1- ${wishListItems.first.productId}');
     }).catchError((e) {
       print(e.toString());
     });
@@ -145,21 +140,21 @@ class DataManager {
         .addToWishlist(<String, dynamic>{
           "urlKey": product.urlKey,
           "custId": NetworkManager.shared.userId,
-          "guestId": 1,
+          "guestId": 0,
         })
         .then((BaseResponse response) {})
         .catchError((e) {
+          
           print(e.toString());
         });
   }
 
   void removeFromWishlist(Product product) {
     NetworkManager.shared
-        .removeFromWishlist(<String, dynamic>{
-          "urlKey": product.urlKey,
-          "custId": NetworkManager.shared.userId,
-          "guestId": 1,
-        })
+        .removeFromWishlist(NetworkManager.shared.userId,
+          "0",
+          product.urlKey!,
+        )
         .then((BaseResponse response) {})
         .catchError((e) {
           print(e.toString());
@@ -167,12 +162,9 @@ class DataManager {
   }
 
   bool iswishListed(Product? product) {
-    // print('Wishlisted items 2- ${wishListItems.first.productId}');
     if (wishListItems != null) {
       for (Product element in wishListItems) {
         if (element.productId == product!.productId) {
-          print('Wishlisted items 3- ${wishListItems.first.productId}');
-          print('ElementID ${element.productId}');
           return true;
         }
       }

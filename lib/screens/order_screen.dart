@@ -97,7 +97,9 @@ class _OrderScreenState extends BaseStatefulState<OrderScreen> {
                               orderList[index].orderNumber.toString(),
                               orderList[index].status ?? '',
                               orderList[index].orderDate ?? '',
-                              context)));
+                              orderList[index].Address??'',
+                              context
+                              )));
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(10),
@@ -247,7 +249,9 @@ class _OrderScreenState extends BaseStatefulState<OrderScreen> {
                                             orderList[index].orderId.toString(),
                                             orderList[index].status ?? '',
                                             orderList[index].orderDate ?? "",
-                                            context)));
+                                            orderList[index].Address??'',
+                                            context
+                                            )));
                               },
                               icon:
                                   Icon(Icons.arrow_forward, color: Colors.grey),

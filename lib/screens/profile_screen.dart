@@ -58,33 +58,34 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Scaffold(
-          appBar: AppBar(
-            title: Padding(
-              padding: const EdgeInsets.only(left: 50),
-              child: Text('My Profile'),
-            ),
-            actions: [
-              IconButton(
-                onPressed: () {},
-                icon: Icon(Icons.favorite_border),
-              ),
-              IconButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => CartScreen()));
-                },
-                icon: Icon(Icons.shopping_cart),
-              ),
-            ],
-            backgroundColor: Colors.grey,
-            leading: IconButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => HomeScreen()));
-              },
-              icon: Icon(Icons.arrow_back_ios),
-            ),
+          appBar:AppBar(
+        centerTitle: true,
+        title: Text("My Profile"),
+        titleTextStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back_ios_new_sharp,
+            color: Colors.white,
           ),
+          onPressed: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => HomeScreen()));
+          },
+        ),
+        backgroundColor: Colors.grey.shade700,
+        actions: [
+          Icon(
+            Icons.favorite_border_outlined,
+            color: Colors.white,
+          ),
+          SizedBox(width: 40),
+          Icon(
+            Icons.shopping_cart_outlined,
+            color: Colors.white,
+          ),
+          SizedBox(width: 20),
+        ],
+      ),
           backgroundColor: Colors.grey.shade100,
           body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Container(

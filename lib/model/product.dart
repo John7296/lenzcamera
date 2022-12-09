@@ -289,6 +289,10 @@ class Product {
     return ((qty ?? 0) > 0);
   }
 
+  // bool isAddedtoWishlist(){
+
+  // }
+
   factory Product.fromJson(Map<String, dynamic> json) =>
       _$ProductFromJson(json);
   Map<String, dynamic> toJson() => _$ProductToJson(this);

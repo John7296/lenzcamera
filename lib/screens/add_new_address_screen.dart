@@ -14,6 +14,8 @@ class AddNewAddressScreen extends StatefulWidget {
 }
 
 class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
+  final GlobalKey<FormState> _form = GlobalKey<FormState>();
+
   String? selectedCity;
   String? selectedState;
   bool isCheckedSA = false;
@@ -35,8 +37,8 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    cityNames();
-     stateNames();
+    // cityNames(44);
+    stateNames();
   }
 
   List<StateList>? showCityList(String name) {
@@ -62,36 +64,35 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
   }
 
   void onSaveButtonTapped() {
-    NetworkManager.shared
-        .updateAddress({
-          "addLine1": _addressL1Controller.text,
-          "addLine2": _addressL2Controller.text,
-          "addressType": "",
-          "country": "QATAR",
-          "custAdressId": 418,
-          "custId": NetworkManager.shared.userId,
-          "district": selectedCity,
-          "firstName": _firstNameController.text,
-          "isDefaultBillingAddress": isCheckedBA,
-          "isDefaultShippingAddress": isCheckedSA,
-          "landmark": _landmarkController.text,
-          "lastName": _lastNameController.text,
-          "latitude": 10.0224066,
-          "longitude": 76.3041375,
-          "phone": _phoneController.text,
-          "pincode": _pinCodeController.text,
-          "state": selectedState,
-        })
-        .then((BaseResponse response) {})
-        .catchError((e) {
-          showFlashMsg(e.toString());
-          print(e.toString());
-        });
+    NetworkManager.shared.updateAddress({
+      "addLine1": _addressL1Controller.text,
+      "addLine2": _addressL2Controller.text,
+      "addressType": "",
+      "country": "QATAR",
+      "custAdressId": 418,
+      "custId": NetworkManager.shared.userId,
+      "district": selectedCity,
+      "firstName": _firstNameController.text,
+      "isDefaultBillingAddress": isCheckedBA,
+      "isDefaultShippingAddress": isCheckedSA,
+      "landmark": _landmarkController.text,
+      "lastName": _lastNameController.text,
+      "latitude": 10.0224066,
+      "longitude": 76.3041375,
+      "phone": _phoneController.text,
+      "pincode": _pinCodeController.text,
+      "state": selectedState,
+    }).then((BaseResponse response) {
+      showFlashMsg(response.message!);
+    }).catchError((e) {
+      showFlashMsg(e.toString());
+      print(e.toString());
+    });
   }
 
-  void cityNames() {
+  void cityNames(int id) {
     NetworkManager.shared
-        .cityListAddress()
+        .cityListAddress(id)
         .then((BaseResponse<List<CityList>> response) {
       setState(() {
         cityList.clear();
@@ -136,329 +137,360 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
           backgroundColor: Colors.white,
           body: SafeArea(
             child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Container(
-                    margin: EdgeInsets.all(20),
-                    child: Column(
-                      children: [
-                        SizedBox(height: 20),
-                        Align(
-                            alignment: Alignment.topLeft,
-                            child: Padding(
-                              padding: const EdgeInsets.only(bottom: 10),
-                              child: Text(
-                                'First Name',
-                                style: TextStyle(
-                                    color: Colors.grey.shade600,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            )),
-                        Container(
-                          height: 40,
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                contentPadding: EdgeInsets.all(5)
-                                // labelText: 'Customer Name'
-                                ),
-                            controller: _firstNameController,
-                          ),
-                        ),
-                        SizedBox(height: 20),
-                        Align(
-                            alignment: Alignment.topLeft,
-                            child: Padding(
-                              padding: const EdgeInsets.only(bottom: 10),
-                              child: Text('Last Name',
+              child: Form(
+                key: _form,
+                child: Column(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.all(20),
+                      child: Column(
+                        children: [
+                          SizedBox(height: 20),
+                          Align(
+                              alignment: Alignment.topLeft,
+                              child: Padding(
+                                padding: const EdgeInsets.only(bottom: 10),
+                                child: Text(
+                                  'First Name',
                                   style: TextStyle(
                                       color: Colors.grey.shade600,
-                                      fontWeight: FontWeight.bold)),
-                            )),
-                        Container(
-                          height: 40,
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                contentPadding: EdgeInsets.all(5)
-                                // labelText: 'Email ID'
+                                      fontWeight: FontWeight.bold),
                                 ),
-                            controller: _lastNameController,
-                          ),
-                        ),
-                        SizedBox(height: 20),
-                        Align(
-                            alignment: Alignment.topLeft,
-                            child: Padding(
-                              padding: const EdgeInsets.only(bottom: 10),
-                              child: Text('Address Line 1',
-                                  style: TextStyle(
-                                      color: Colors.grey.shade600,
-                                      fontWeight: FontWeight.bold)),
-                            )),
-                        Container(
-                          height: 40,
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                contentPadding: EdgeInsets.all(5)
-                                // labelText: 'Mobile'
-                                ),
-                            controller: _addressL1Controller,
-                          ),
-                        ),
-                        SizedBox(height: 20),
-                        Align(
-                            alignment: Alignment.topLeft,
-                            child: Padding(
-                              padding: const EdgeInsets.only(bottom: 10),
-                              child: Text('Address Line 2',
-                                  style: TextStyle(
-                                      color: Colors.grey.shade600,
-                                      fontWeight: FontWeight.bold)),
-                            )),
-                        Container(
-                          height: 40,
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                contentPadding: EdgeInsets.all(5)
-                                // labelText: 'Password'
-                                ),
-                            controller: _addressL2Controller,
-                          ),
-                        ),
-                        SizedBox(height: 20),
-                        Align(
-                            alignment: Alignment.topLeft,
-                            child: Padding(
-                              padding: const EdgeInsets.only(bottom: 10),
-                              child: Text('Phone +974',
-                                  style: TextStyle(
-                                      color: Colors.grey.shade600,
-                                      fontWeight: FontWeight.bold)),
-                            )),
-                        Container(
-                          height: 40,
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                contentPadding: EdgeInsets.all(5)
-                                // labelText: 'Mobile'
-                                ),
-                            controller: _phoneController,
-                          ),
-                        ),
-                        SizedBox(height: 20),
-                        Align(
-                            alignment: Alignment.topLeft,
-                            child: Padding(
-                              padding: const EdgeInsets.only(bottom: 10),
-                              child: Text('PinCode',
-                                  style: TextStyle(
-                                      color: Colors.grey.shade600,
-                                      fontWeight: FontWeight.bold)),
-                            )),
-                        Container(
-                          height: 40,
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                contentPadding: EdgeInsets.all(5)
-                                // labelText: 'Mobile'
-                                ),
-                            controller: _pinCodeController,
-                          ),
-                        ),
-                        SizedBox(height: 20),
-                        Align(
-                            alignment: Alignment.topLeft,
-                            child: Padding(
-                              padding: const EdgeInsets.only(bottom: 10),
-                              // child: Text('Mobile',
-                              //     style:
-                              //         TextStyle(color: Colors.grey.shade600)),
-                            )),
-                        Container(
-                          height: 40,
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                labelText: 'QATAR'),
-                          ),
-                        ),
-                        SizedBox(height: 10),
-                        Align(
-                            alignment: Alignment.topLeft,
-                            child: Padding(
-                              padding: const EdgeInsets.only(bottom: 10),
-                              child: Text('',
-                                  style:
-                                      TextStyle(color: Colors.grey.shade600)),
-                            )),
-                        Container(
-                          height: 40,
-                          width: 400,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                                width: 1, color: Colors.grey.shade400),
-                            borderRadius: BorderRadius.all(Radius.circular(0)),
-                          ),
-                          child: DropdownButton<StateList>(
-                            hint: Text("Select State"),
-                            isExpanded: true,
-                            dropdownColor: Color(0xffadadad),
-                            elevation: 5,
-                            value: showSelectedState,
-                            underline: Container(color: Colors.transparent),
-                            icon: const Icon(
-                              Icons.arrow_drop_down_outlined,
-                              color: Colors.black,
-                            ),
-                            onChanged: (StateList? value) {
-                              
-                              // This is called when the user selects an item.
-                              setState(() {
-                                showSelectedState = value;
-                              });
-                              print(showSelectedState!.id);
-                            },
-                            items: stateList.map<DropdownMenuItem<StateList>>(
-                                (StateList value) {
-                              return DropdownMenuItem<StateList>(
-                                value: value,
-                                child: Text(value.name ?? ''),
-                              );
-                            }).toList(),
-                          ),
-                        ),
-                        SizedBox(height: 30),
-                        Container(
-                          height: 40,
-                          width: 400,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                                width: 1, color: Colors.grey.shade400),
-                            borderRadius: BorderRadius.all(Radius.circular(0)),
-                          ),
-                          child: DropdownButton<CityList>(
-                            hint: Text("Select City"),
-                            isExpanded: true,
-                            dropdownColor: Color(0xffadadad),
-                            elevation: 5,
-                            value: showSelectedCity,
-                            underline: Container(color: Colors.transparent),
-                            icon: const Icon(
-                              Icons.arrow_drop_down_outlined,
-                              color: Colors.black,
-                            ),
-                            onChanged: (CityList? value) {
-                              // This is called when the user selects an item.
-                              setState(() {
-                                showSelectedCity = value;
-                              });
-                            },
-                            items: cityList.map<DropdownMenuItem<CityList>>(
-                                (CityList value) {
-                              return DropdownMenuItem<CityList>(
-                                value: value,
-                                child: Text(value.name ?? ''),
-                              );
-                            }).toList(),
-                          ),
-                        ),
-                        SizedBox(height: 5),
-                        Row(
-                          children: [
-                            Checkbox(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(0)),
-                              value: isCheckedBA,
-                              onChanged: (value) {
-                                setState(() => isCheckedBA = value!);
-                              },
-                              activeColor: Colors.red,
-                              checkColor: Colors.white,
-                            ),
-                            Text(
-                              'Make As Default Billing Address',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 12),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Checkbox(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(0)),
-                              value: isCheckedSA,
-                              onChanged: (value) {
-                                setState(() => isCheckedSA = value!);
-                              },
-                              activeColor: Colors.red,
-                              checkColor: Colors.white,
-                            ),
-                            Text(
-                              'Make As Default Shipping Address',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 12),
-                            ),
-                          ],
-                        ),
-                        Align(
-                            alignment: Alignment.topLeft,
-                            child: Padding(
-                              padding: const EdgeInsets.only(bottom: 10),
-                              child: Text('Landmark',
-                                  style: TextStyle(
-                                      color: Colors.grey.shade600,
-                                      fontWeight: FontWeight.bold)),
-                            )),
-                        Container(
-                          height: 40,
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                contentPadding: EdgeInsets.all(5)
-                                // labelText: 'Mobile'
-                                ),
-                            controller: _landmarkController,
-                          ),
-                        ),
-                        SizedBox(height: 30),
-                        Container(
-                          width: 400,
-                          height: 50,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              onSaveButtonTapped();
-                            },
-                            child: Text(
-                              'Save',
-                              style: TextStyle(fontSize: 20),
-                            ),
-                            style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStateProperty.all(Colors.red),
-                              shape: MaterialStateProperty.all(
-                                  RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(5),
                               )),
+                          Container(
+                            height: 40,
+                            child: TextFormField(
+                              decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  contentPadding: EdgeInsets.all(5)
+                                  // labelText: 'Customer Name'
+                                  ),
+                              controller: _firstNameController,
+                                validator: (val) {
+                            if (val!.isEmpty) return "Enter First Name";
+                            return null;
+                          },
                             ),
                           ),
-                        ),
-                        SizedBox(height: 35),
-                      ],
+                          SizedBox(height: 20),
+                          Align(
+                              alignment: Alignment.topLeft,
+                              child: Padding(
+                                padding: const EdgeInsets.only(bottom: 10),
+                                child: Text('Last Name',
+                                    style: TextStyle(
+                                        color: Colors.grey.shade600,
+                                        fontWeight: FontWeight.bold)),
+                              )),
+                          Container(
+                            height: 40,
+                            child: TextFormField(
+                              decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  contentPadding: EdgeInsets.all(5)
+                                  // labelText: 'Email ID'
+                                  ),
+                              controller: _lastNameController,
+                                validator: (val) {
+                            if (val!.isEmpty) return "Enter Last Name";
+                            return null;
+                          },
+                            ),
+                          ),
+                          SizedBox(height: 20),
+                          Align(
+                              alignment: Alignment.topLeft,
+                              child: Padding(
+                                padding: const EdgeInsets.only(bottom: 10),
+                                child: Text('Address Line 1',
+                                    style: TextStyle(
+                                        color: Colors.grey.shade600,
+                                        fontWeight: FontWeight.bold)),
+                              )),
+                          Container(
+                            height: 40,
+                            child: TextFormField(
+                              decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  contentPadding: EdgeInsets.all(5)
+                                  // labelText: 'Mobile'
+                                  ),
+                              controller: _addressL1Controller,
+                                validator: (val) {
+                            if (val!.isEmpty) return "Enter Address";
+                            return null;
+                          },
+                            ),
+                          ),
+                          SizedBox(height: 20),
+                          Align(
+                              alignment: Alignment.topLeft,
+                              child: Padding(
+                                padding: const EdgeInsets.only(bottom: 10),
+                                child: Text('Address Line 2',
+                                    style: TextStyle(
+                                        color: Colors.grey.shade600,
+                                        fontWeight: FontWeight.bold)),
+                              )),
+                          Container(
+                            height: 40,
+                            child: TextFormField(
+                              decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  contentPadding: EdgeInsets.all(5)
+                                  // labelText: 'Password'
+                                  ),
+                              controller: _addressL2Controller,
+                                validator: (val) {
+                            if (val!.isEmpty) return "Enter Address";
+                            return null;
+                          },
+                            ),
+                          ),
+                          SizedBox(height: 20),
+                          Align(
+                              alignment: Alignment.topLeft,
+                              child: Padding(
+                                padding: const EdgeInsets.only(bottom: 10),
+                                child: Text('Phone +974',
+                                    style: TextStyle(
+                                        color: Colors.grey.shade600,
+                                        fontWeight: FontWeight.bold)),
+                              )),
+                          Container(
+                            height: 40,
+                            child: TextFormField(
+                              decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  contentPadding: EdgeInsets.all(5)
+                                  // labelText: 'Mobile'
+                                  ),
+                              controller: _phoneController,
+                                validator: (val) {
+                            if (val!.isEmpty) return "Enter Phone Number";
+                            return null;
+                          },
+                            ),
+                          ),
+                          SizedBox(height: 20),
+                          Align(
+                              alignment: Alignment.topLeft,
+                              child: Padding(
+                                padding: const EdgeInsets.only(bottom: 10),
+                                child: Text('PinCode',
+                                    style: TextStyle(
+                                        color: Colors.grey.shade600,
+                                        fontWeight: FontWeight.bold)),
+                              )),
+                          Container(
+                            height: 40,
+                            child: TextFormField(
+                              decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  contentPadding: EdgeInsets.all(5)
+                                  // labelText: 'Mobile'
+                                  ),
+                              controller: _pinCodeController,
+                                validator: (val) {
+                            if (val!.isEmpty) return "Enter PinCode";
+                            return null;
+                          },
+                            ),
+                          ),
+                          SizedBox(height: 20),
+                          Align(
+                              alignment: Alignment.topLeft,
+                              child: Padding(
+                                padding: const EdgeInsets.only(bottom: 10),
+                                // child: Text('Mobile',
+                                //     style:
+                                //         TextStyle(color: Colors.grey.shade600)),
+                              )),
+                          Container(
+                            height: 40,
+                            child: TextFormField(
+                              decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  labelText: 'QATAR'),
+                            ),
+                          ),
+                          SizedBox(height: 10),
+                          Align(
+                              alignment: Alignment.topLeft,
+                              child: Padding(
+                                padding: const EdgeInsets.only(bottom: 10),
+                                child: Text('',
+                                    style:
+                                        TextStyle(color: Colors.grey.shade600)),
+                              )),
+                          Container(
+                            height: 40,
+                            width: 400,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                  width: 1, color: Colors.grey.shade400),
+                              borderRadius: BorderRadius.all(Radius.circular(0)),
+                            ),
+                            child: DropdownButton<StateList>(
+                              hint: Text("Select State"),
+                              isExpanded: true,
+                              dropdownColor: Color(0xffadadad),
+                              elevation: 5,
+                              value: showSelectedState,
+                              underline: Container(color: Colors.transparent),
+                              icon: const Icon(
+                                Icons.arrow_drop_down_outlined,
+                                color: Colors.black,
+                              ),
+                              onChanged: (StateList? value) {
+                                cityNames(value!.id!);
+                                // This is called when the user selects an item.
+                                setState(() {
+                                  showSelectedState = value;
+                                });
+                                print(showSelectedState!.id);
+                              },
+                              items: stateList.map<DropdownMenuItem<StateList>>(
+                                  (StateList value) {
+                                return DropdownMenuItem<StateList>(
+                                  value: value,
+                                  child: Text(value.name ?? ''),
+                                );
+                              }).toList(),
+                            ),
+                          ),
+                          SizedBox(height: 30),
+                          Container(
+                            height: 40,
+                            width: 400,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                  width: 1, color: Colors.grey.shade400),
+                              borderRadius: BorderRadius.all(Radius.circular(0)),
+                            ),
+                            child: DropdownButton<CityList>(
+                              hint: Text("Select City"),
+                              isExpanded: true,
+                              dropdownColor: Color(0xffadadad),
+                              elevation: 5,
+                              value: showSelectedCity,
+                              underline: Container(color: Colors.transparent),
+                              icon: const Icon(
+                                Icons.arrow_drop_down_outlined,
+                                color: Colors.black,
+                              ),
+                              onChanged: (CityList? value) {
+                                // This is called when the user selects an item.
+                                setState(() {
+                                  showSelectedCity = value;
+                                });
+                              },
+                              items: cityList.map<DropdownMenuItem<CityList>>(
+                                  (CityList value) {
+                                return DropdownMenuItem<CityList>(
+                                  value: value,
+                                  child: Text(value.name ?? ''),
+                                );
+                              }).toList(),
+                            ),
+                          ),
+                          SizedBox(height: 5),
+                          Row(
+                            children: [
+                              Checkbox(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(0)),
+                                value: isCheckedBA,
+                                onChanged: (value) {
+                                  setState(() => isCheckedBA = value!);
+                                },
+                                activeColor: Colors.red,
+                                checkColor: Colors.white,
+                              ),
+                              Text(
+                                'Make As Default Billing Address',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 12),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Checkbox(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(0)),
+                                value: isCheckedSA,
+                                onChanged: (value) {
+                                  setState(() => isCheckedSA = value!);
+                                },
+                                activeColor: Colors.red,
+                                checkColor: Colors.white,
+                              ),
+                              Text(
+                                'Make As Default Shipping Address',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 12),
+                              ),
+                            ],
+                          ),
+                          Align(
+                              alignment: Alignment.topLeft,
+                              child: Padding(
+                                padding: const EdgeInsets.only(bottom: 10),
+                                child: Text('Landmark',
+                                    style: TextStyle(
+                                        color: Colors.grey.shade600,
+                                        fontWeight: FontWeight.bold)),
+                              )),
+                          Container(
+                            height: 40,
+                            child: TextFormField(
+                              decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  contentPadding: EdgeInsets.all(5)
+                                  // labelText: 'Mobile'
+                                  ),
+                              controller: _landmarkController,
+                                validator: (val) {
+                            if (val!.isEmpty) return "Enter Landmark";
+                            return null;
+                          },
+                            ),
+                          ),
+                          SizedBox(height: 30),
+                          Container(
+                            width: 400,
+                            height: 50,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                onSaveButtonTapped();
+                              },
+                              child: Text(
+                                'Save',
+                                style: TextStyle(fontSize: 20),
+                              ),
+                              style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all(Colors.red),
+                                shape: MaterialStateProperty.all(
+                                    RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5),
+                                )),
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 35),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           )),
     );
   }
-  
+
   @override
   bool isAuthenticationRequired() {
     // TODO: implement isAuthenticationRequired
