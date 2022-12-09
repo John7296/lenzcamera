@@ -21,12 +21,16 @@ class CartScreen extends StatefulWidget {
 class _CartScreenState extends BaseStatefulState<CartScreen> {
   List<Product> cartItemsList = [];
   double? subtotal;
+  double? grandtotal;
+  double? deliveryamount;
 
   @override
   void initState() {
     super.initState();
     Future.delayed(Duration(milliseconds: 500), () {
       getCart();
+
+      // DataManager.shared.getCart();
     });
   }
 
@@ -43,7 +47,20 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
       setState(() {
         cartItemsList.clear();
         cartItemsList.addAll(response.data!.cartItems!);
-        subtotal = response.data!.cartItems!.first.subTotal;
+        if (response.data!.cartItems!.first.subTotal != null) {
+          subtotal = response.data!.cartItems!.first.subTotal;
+        }
+
+        if (response.data!.cartItems!.first.grandTotal != null) {
+          grandtotal = response.data!.cartItems!.first.grandTotal;
+        }
+
+        if (response.data!.cartItems!.first.deliveryAmount != null) {
+          deliveryamount = response.data!.cartItems!.first.deliveryAmount;
+        }
+
+        print(subtotal.toString());
+        print(grandtotal.toString());
       });
     }).catchError((e) {
       showFlashMsg(e.toString());
@@ -70,7 +87,7 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                   MaterialPageRoute(builder: (context) => HomeScreen()));
             },
           ),
-          backgroundColor: Colors.black,
+          backgroundColor: Colors.grey.shade700,
         ),
         body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Expanded(
@@ -136,8 +153,9 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                                         ),
                                       ),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 15),
+                                    Spacer(),
+                                    Container(
+                                      margin: EdgeInsets.only(bottom: 15),
                                       child: Text(
                                         // 'QAR 8600.00',
                                         "QAR${cartItemsList[index].unitPrice}",
@@ -163,11 +181,11 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                                               ElevatedButton(
                                                 onPressed: () {
                                                   DataManager.shared
-                                                        .removeFromCart(
-                                                            cartItemsList[
-                                                                index]);
-                                                    getCart();
-                                                    Navigator.pop(context);
+                                                      .removeFromCart(
+                                                          cartItemsList[index]);
+                                                  getCart();
+                                                  // DataManager.shared.getCart();
+                                                  Navigator.pop(context);
                                                 },
                                                 child: Text('Ok'),
                                               ),
@@ -178,96 +196,105 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                                       icon: Icon(Icons.delete_outline,
                                           color: Colors.red),
                                     ),
-                                    Row(
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            InkWell(
-                                              onTap: () {
-                                                DataManager.shared
-                                                    .updateItemToCart(
-                                                  cartItemsList[index],
-                                                  4,
-                                                  onUpdate: () {
-                                                    setState(() {});
-                                                  },
-                                                  onUpdateStarted: () {
-                                                    setState(() {});
-                                                  },
-                                                );
-                                              },
-                                              child: Container(
-                                                width: 30,
-                                                height: 30,
-                                                decoration: BoxDecoration(
-                                                    color: Color(0xff70726f),
-                                                    borderRadius:
-                                                        BorderRadius.only(
-                                                      topLeft:
-                                                          Radius.circular(5),
-                                                      bottomLeft:
-                                                          Radius.circular(5),
-                                                    )),
-                                                child: Center(
-                                                    child: Icon(
-                                                  Icons.remove,
-                                                  color: Colors.white,
-                                                  size: 12,
-                                                )),
-                                              ),
-                                            ),
-                                            Container(
-                                              width: 30,
-                                              height: 30,
-                                              decoration: BoxDecoration(
-                                                color: Color(0xffe3e3e3),
-                                              ),
-                                              child: Center(
-                                                  child: Text(
-                                                cartItemsList[index]
-                                                    .qty
-                                                    .toString(),
-                                                style: TextStyle(
-                                                    color: Colors.black),
-                                              )),
-                                            ),
-                                            InkWell(
-                                              onTap: () {
-                                                DataManager.shared
-                                                    .updateItemToCart(
-                                                  cartItemsList[index],
-                                                  3,
-                                                  onUpdate: () {
-                                                    setState(() {});
-                                                  },
-                                                  onUpdateStarted: () {
-                                                    setState(() {});
-                                                  },
-                                                );
-                                              },
-                                              child: Container(
+                                    Spacer(),
+                                    Container(
+                                      margin:
+                                          EdgeInsets.only(bottom: 5, right: 5),
+                                      child: Row(
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              InkWell(
+                                                onTap: () {
+                                                  DataManager.shared
+                                                      .updateItemToCart(
+                                                    cartItemsList[index],
+                                                    4,
+                                                    onUpdate: () {
+                                                      setState(() {});
+                                                    },
+                                                    onUpdateStarted: () {
+                                                      setState(() {});
+                                                    },
+                                                  );
+                                                  getCart();
+                                                },
+                                                child: Container(
                                                   width: 30,
                                                   height: 30,
                                                   decoration: BoxDecoration(
-                                                      color: Color(0xffe83031),
+                                                      color: Color(0xff70726f),
                                                       borderRadius:
                                                           BorderRadius.only(
-                                                        topRight:
+                                                        topLeft:
                                                             Radius.circular(5),
-                                                        bottomRight:
+                                                        bottomLeft:
                                                             Radius.circular(5),
                                                       )),
-                                                  child: Icon(
-                                                    Icons.add,
+                                                  child: Center(
+                                                      child: Icon(
+                                                    Icons.remove,
                                                     color: Colors.white,
                                                     size: 12,
                                                   )),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
+                                                ),
+                                              ),
+                                              Container(
+                                                width: 30,
+                                                height: 30,
+                                                decoration: BoxDecoration(
+                                                  color: Color(0xffe3e3e3),
+                                                ),
+                                                child: Center(
+                                                    child: Text(
+                                                  cartItemsList[index]
+                                                      .qty
+                                                      .toString(),
+                                                  style: TextStyle(
+                                                      color: Colors.black),
+                                                )),
+                                              ),
+                                              InkWell(
+                                                onTap: () {
+                                                  DataManager.shared
+                                                      .updateItemToCart(
+                                                    cartItemsList[index],
+                                                    3,
+                                                    onUpdate: () {
+                                                      setState(() {});
+                                                    },
+                                                    onUpdateStarted: () {
+                                                      setState(() {});
+                                                    },
+                                                  );
+                                                },
+                                                child: Container(
+                                                    width: 30,
+                                                    height: 30,
+                                                    decoration: BoxDecoration(
+                                                        color:
+                                                            Color(0xffe83031),
+                                                        borderRadius:
+                                                            BorderRadius.only(
+                                                          topRight:
+                                                              Radius.circular(
+                                                                  5),
+                                                          bottomRight:
+                                                              Radius.circular(
+                                                                  5),
+                                                        )),
+                                                    child: Icon(
+                                                      Icons.add,
+                                                      color: Colors.white,
+                                                      size: 12,
+                                                    )),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ],
                                 )
@@ -309,8 +336,7 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                         //   width: 220,
                         // ),
                         Text(
-                          "",
-                          // "QAR ${cartItemsList.first.subTotal.toString()}",
+                          "QAR ${subtotal.toString()}",
                           style: TextStyle(
                               fontSize: 14, fontWeight: FontWeight.w500),
                         ),
@@ -331,8 +357,7 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                         //           width: 240,
                         //         ),
                         Text(
-                          "",
-                          // "QAR ${cartItemsList.first.deliveryAmount.toString()}",
+                          "QAR ${deliveryamount.toString()}",
                           style: TextStyle(
                               fontSize: 12, fontWeight: FontWeight.w500),
                         ),
@@ -384,8 +409,8 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                     style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
                   )),
                   Text(
-                    "",
-                    // "QAR ${cartItemsList.first.grandTotal.toString()}",
+                    // "",
+                    "QAR ${grandtotal.toString()}",
                     style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
                   ),
                 ]),
@@ -393,9 +418,10 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
+            padding:
+                const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
             child: Container(
-              height: 40,
+              height: 50,
 // width: 400,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
@@ -409,7 +435,7 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                               cartItemsList.first.grandTotal,
                               cartItemsList.first.subTotal,
                               context)));
-                  // getCart();
+                  getCart();
                 },
                 child: Center(
                     child: Text(

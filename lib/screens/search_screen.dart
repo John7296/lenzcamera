@@ -94,7 +94,7 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
                 context, MaterialPageRoute(builder: (context) => HomeScreen()));
           },
         ),
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.grey.shade700,
         actions: [
           Icon(
             Icons.favorite_border_outlined,
@@ -236,7 +236,7 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
                                         padding: const EdgeInsets.only(top: 15),
                                         child: Text(
                                           // 'QAR 8600.00',
-                                          "QAR${_products[index].unitPrice}",
+                                          "QAR ${_products[index].unitPrice}",
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold,
                                               color: Colors.red),
@@ -249,7 +249,7 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
                                       IconButton(
                                         onPressed: () {
                                           setState(() {
-                                            DataManager.shared.removeFromCart(
+                                            DataManager.shared.removeFromWishlist(
                                                 _products[index]);
                                           });
                                         },
@@ -269,7 +269,7 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
                                               .isCartUpdateProgress ==
                                           false)
                                         Container(
-                                          width: 80,
+                                          width: 90,
                                           height: 30,
                                           child: _products[index]
                                                   .isAddedtoCart()
@@ -310,13 +310,13 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
                                                         child: Center(
                                                             child: Icon(
                                                           Icons.remove,
-                                                          color: Colors.white,
+                                                          color: Colors.black,
                                                           size: 12,
                                                         )),
                                                       ),
                                                     ),
                                                     Container(
-                                                      width: 25,
+                                                      width: 40,
                                                       height: 30,
                                                       decoration: BoxDecoration(
                                                         color:
@@ -324,7 +324,7 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
                                                       ),
                                                       child: Center(
                                                           child: Text(
-                                                        "1",
+                                                        _products[index].qty.toString(),
                                                         style: TextStyle(
                                                             color:
                                                                 Colors.black),
@@ -394,12 +394,26 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
                                                     //             CartScreen()));
                                                   },
                                                   child: Center(
-                                                      child: Text(
-                                                    "ADD",
-                                                    style: TextStyle(
-                                                        fontSize: 15,
-                                                        color: Colors.black),
-                                                  )),
+                                                      child: (_products[
+                                                                      index]
+                                                                  .stockAvailability!
+                                                                  .length ==
+                                                              12)
+                                                          ? Text(
+                                                              "OUT OF STOCK",
+                                                              style: TextStyle(
+                                                                  fontSize: 8,
+                                                                  color: Colors
+                                                                      .grey.shade700),
+                                                            )
+                                                          : Text(
+                                                              "ADD",
+                                                              style: TextStyle(
+                                                                  fontSize: 12,
+                                                                  color: Colors
+                                                                      .black),
+                                                            ),
+                                                    ),
                                                 ),
                                         ),
                                     ],

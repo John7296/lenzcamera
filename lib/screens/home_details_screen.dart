@@ -56,13 +56,13 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
   @override
   void initState() {
     super.initState();
+
     Future.delayed(const Duration(milliseconds: 500), () {
       getTopCategories();
       _featuredProducts();
 
       // _updateDeviceToken();
     });
-
     DataManager.shared.getWishList();
   }
 
@@ -71,11 +71,13 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
     NetworkManager.shared
         .getTopCategories()
         .then((BaseResponse<List<TopCategories>> response) {
+      // showFlashMsg(response.message!);
       setState(() {
         categoryList.clear();
         categoryList.addAll(response.data!);
       });
     }).catchError((e) {
+      showFlashMsg(e.toString());
       print(e.toString());
     });
   }
@@ -84,6 +86,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
     NetworkManager.shared
         .featuredProducts()
         .then((BaseResponse<List<Product>> response) {
+      // showFlashMsg(response.message!);
       hideLoader();
       setState(() {
         featuredList.clear();
@@ -92,6 +95,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
       popularProducts();
       recentProducts();
     }).catchError((e) {
+      showFlashMsg(e.toString());
       hideLoader();
       print(e.toString());
     });
@@ -101,6 +105,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
     NetworkManager.shared
         .popularProducts()
         .then((BaseResponse<List<Product>> response) {
+      // showFlashMsg(response.message!);
       DataManager.shared.getCart();
 
       setState(() {
@@ -108,6 +113,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
         popularProductsList.addAll(response.data!);
       });
     }).catchError((e) {
+      showFlashMsg(e.toString());
       print(e.toString());
     });
   }
@@ -123,6 +129,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
         // print(response.data!.first.catId);
       });
     }).catchError((e) {
+      showFlashMsg(e.toString());
       print(e.toString());
     });
   }
@@ -144,8 +151,6 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print("UserIdHome${NetworkManager.shared.userId}");
-
     return Scaffold(
       appBar: AppBar(
         title: Container(
@@ -306,13 +311,17 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                             height: 150,
                             child: Column(
                               children: [
-                                Container(
-                                  height: 100,
-                                  width: 80,
-                                  child: CachedNetworkImage(
-                                      imageUrl:
-                                          "https://dev.lenzcamera.com/webadmin/${categoryList[index].imageUrl}"),
+                                Padding(
+                                  padding: const EdgeInsets.all(5),
+                                  child: Container(
+                                    height: 100,
+                                    width: 100,
+                                    child: CachedNetworkImage(
+                                        imageUrl:
+                                            "https://dev.lenzcamera.com/webadmin/${categoryList[index].imageUrl}"),
+                                  ),
                                 ),
+                                Spacer(),
                                 Padding(
                                   padding: const EdgeInsets.all(5),
                                   child: Text(
@@ -370,7 +379,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                   Column(
                     children: [
                       Container(
-                        height: 630,
+                        height: 622,
                         child: Padding(
                           padding: const EdgeInsets.only(left: 10, right: 10),
                           child: StaggeredGridView.countBuilder(
@@ -466,18 +475,24 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                         const SizedBox(height: 5),
                                         if (featuredList[index]
                                             .isCartUpdateProgress!)
-                                          SizedBox(
-                                              height: 10,
-                                              width: 10,
-                                              child: CircularProgressIndicator(
-                                                strokeWidth: 2,
+                                          Container(
+                                            // color:Colors.yellow,
+                                              height: 20,
+                                              width: 20,
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(5),
+                                                child:
+                                                    CircularProgressIndicator(
+                                                  strokeWidth: 2,
+                                                ),
                                               )),
                                         if (featuredList[index]
                                                 .isCartUpdateProgress ==
                                             false)
                                           Container(
                                             // width: 160,
-                                            height: 30,
+                                            height: 20,
                                             child: featuredList[index]
                                                     .isAddedtoCart()
                                                 ? Row(
@@ -500,8 +515,8 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                           });
                                                         },
                                                         child: Container(
-                                                          width: 30,
-                                                          height: 30,
+                                                          width: 25,
+                                                          height: 25,
                                                           decoration:
                                                               BoxDecoration(
                                                                   color: Color(
@@ -519,14 +534,14 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                           child: Center(
                                                               child: Icon(
                                                             Icons.remove,
-                                                            color: Colors.white,
+                                                            color: Colors.black,
                                                             size: 12,
                                                           )),
                                                         ),
                                                       ),
                                                       Container(
-                                                        width: 30,
-                                                        height: 30,
+                                                        width: 45,
+                                                        height: 20,
                                                         decoration:
                                                             BoxDecoration(
                                                           color:
@@ -557,8 +572,8 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                           });
                                                         },
                                                         child: Container(
-                                                          width: 30,
-                                                          height: 30,
+                                                          width: 25,
+                                                          height: 25,
                                                           decoration:
                                                               BoxDecoration(
                                                                   color: Color(
@@ -575,7 +590,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                                   )),
                                                           child: Icon(
                                                             Icons.add,
-                                                            color: Colors.white,
+                                                            color: Colors.black,
                                                             size: 12,
                                                           ),
                                                         ),
@@ -590,26 +605,28 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                                         .stockAvailability!
                                                                         .length ==
                                                                     12)
-                                                                ? Colors.grey
+                                                                ? Colors.grey.shade300
                                                                 : Colors
                                                                     .yellow),
                                                     onPressed: () {
-                                                      if (featuredList[
-                                                                      index]
-                                                                  .stockAvailability!.length!=12) 
-                                                      // print(popularProductsList[
-                                                      //         index]
-                                                      //     .urlKey);
+                                                      if (featuredList[index]
+                                                              .stockAvailability!
+                                                              .length !=
+                                                          12)
+                                                        // print(popularProductsList[
+                                                        //         index]
+                                                        //     .urlKey);
 
-                                                      DataManager.shared
-                                                          .updateItemToCart(
-                                                              featuredList[
-                                                                  index],
-                                                              1, onUpdate: () {
-                                                        setState(() {});
-                                                      }, onUpdateStarted: () {
-                                                        setState(() {});
-                                                      });
+                                                        DataManager.shared
+                                                            .updateItemToCart(
+                                                                featuredList[
+                                                                    index],
+                                                                1,
+                                                                onUpdate: () {
+                                                          setState(() {});
+                                                        }, onUpdateStarted: () {
+                                                          setState(() {});
+                                                        });
                                                       // Navigator.push(
                                                       //     context,
                                                       //     MaterialPageRoute(
@@ -619,14 +636,15 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                     child: Center(
                                                       child: (featuredList[
                                                                       index]
-                                                                  .stockAvailability!.length ==
+                                                                  .stockAvailability!
+                                                                  .length ==
                                                               12)
                                                           ? Text(
-                                                              "Out of stock",
+                                                              "OUT OF STOCK",
                                                               style: TextStyle(
-                                                                  fontSize: 12,
+                                                                  fontSize: 8,
                                                                   color: Colors
-                                                                      .black),
+                                                                      .grey.shade700),
                                                             )
                                                           : Text(
                                                               "ADD",
@@ -656,28 +674,32 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
             ),
 
             // SizedBox(height: 70),
-            CarouselSlider.builder(
-              options: CarouselOptions(
-                height: 150.0,
-                autoPlay: true,
+            Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: CarouselSlider.builder(
+                options: CarouselOptions(
+                  height: 150.0,
+                  autoPlay: true,
+                ),
+                itemCount: 4,
+                // bannerList.length,
+                itemBuilder: (BuildContext context, itemIndex, realIndex) {
+                  return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child:
+                       Image(
+                        image: AssetImage("assets/images/logo_lenzcamera.png"),
+                      )
+                      // CachedNetworkImage(
+                      // imageUrl:
+                      //     "https://dev.lenzcamera.com/webadmin/${bannerList[itemIndex].MainBanners[index].imageUrl}"),
+                      );
+                },
               ),
-              itemCount: 4,
-              // bannerList.length,
-              itemBuilder: (BuildContext context, itemIndex, realIndex) {
-                return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Image(
-                      image: AssetImage("assets/images/logo_lenzcamera.png"),
-                    )
-                    // CachedNetworkImage(
-                    // imageUrl:
-                    //     "https://dev.lenzcamera.com/webadmin/${bannerList[itemIndex].MainBanners[index].imageUrl}"),
-                    );
-              },
             ),
             SizedBox(height: 10),
             Container(
-              height: 855,
+              height: 850,
               width: MediaQuery.of(context).size.width,
               color: Colors.white,
               child: Column(
@@ -711,7 +733,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                   Column(
                     children: [
                       Container(
-                        height: 800,
+                        height: 780,
                         child: Padding(
                           padding: const EdgeInsets.only(left: 10, right: 10),
                           child: StaggeredGridView.countBuilder(
@@ -766,6 +788,8 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                       popularProductsList[index]
                                                           .isWhishlisted = true;
                                                     }
+                                                    DataManager.shared
+                                                        .getWishList();
                                                   });
                                                 },
                                                 icon: Icon(
@@ -810,10 +834,15 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                         if (popularProductsList[index]
                                             .isCartUpdateProgress!)
                                           SizedBox(
-                                              height: 10,
-                                              width: 10,
-                                              child: CircularProgressIndicator(
-                                                strokeWidth: 2,
+                                              height: 30,
+                                              width: 30,
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(10),
+                                                child:
+                                                    CircularProgressIndicator(
+                                                  strokeWidth: 2,
+                                                ),
                                               )),
                                         if (popularProductsList[index]
                                                 .isCartUpdateProgress ==
@@ -845,7 +874,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                               });
                                                             },
                                                             child: Container(
-                                                              width: 30,
+                                                              width: 40,
                                                               height: 30,
                                                               decoration:
                                                                   BoxDecoration(
@@ -863,13 +892,13 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                                   child: Icon(
                                                                 Icons.remove,
                                                                 color: Colors
-                                                                    .white,
+                                                                    .black,
                                                                 size: 12,
                                                               )),
                                                             ),
                                                           ),
                                                           Container(
-                                                            width: 30,
+                                                            width: 80,
                                                             height: 30,
                                                             decoration:
                                                                 BoxDecoration(
@@ -880,8 +909,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                                 child: Text(
                                                               popularProductsList[
                                                                       index]
-                                                                  .qty
-                                                                  .toString(),
+                                                                  .qty.toString(),
                                                               style: TextStyle(
                                                                   color: Colors
                                                                       .black),
@@ -903,7 +931,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                               });
                                                             },
                                                             child: Container(
-                                                                width: 30,
+                                                                width: 40,
                                                                 height: 30,
                                                                 decoration:
                                                                     BoxDecoration(
@@ -919,7 +947,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                                 child: Icon(
                                                                   Icons.add,
                                                                   color: Colors
-                                                                      .white,
+                                                                      .black,
                                                                   size: 12,
                                                                 )),
                                                           ),
@@ -934,27 +962,29 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                                             .length ==
                                                                         12)
                                                                     ? Colors
-                                                                        .grey
+                                                                        .grey.shade300
                                                                     : Colors
                                                                         .yellow),
                                                         onPressed: () {
                                                           if (popularProductsList[
                                                                       index]
-                                                                  .stockAvailability!.length!=12) 
-                                                          // print(popularProductsList[
-                                                          //         index]
-                                                          //     .urlKey);
-                                                          DataManager.shared
-                                                              .updateItemToCart(
-                                                                  popularProductsList[
-                                                                      index],
-                                                                  1,
-                                                                  onUpdate: () {
-                                                            setState(() {});
-                                                          }, onUpdateStarted:
-                                                                      () {
-                                                            setState(() {});
-                                                          });
+                                                                  .stockAvailability!
+                                                                  .length !=
+                                                              12)
+                                                            // print(popularProductsList[
+                                                            //         index]
+                                                            //     .urlKey);
+                                                            DataManager.shared
+                                                                .updateItemToCart(
+                                                                    popularProductsList[
+                                                                        index],
+                                                                    1, onUpdate:
+                                                                        () {
+                                                              setState(() {});
+                                                            }, onUpdateStarted:
+                                                                        () {
+                                                              setState(() {});
+                                                            });
                                                           // Navigator.push(
                                                           //     context,
                                                           //     MaterialPageRoute(
@@ -968,24 +998,25 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                                       .length ==
                                                                   12)
                                                               ? Text(
-                                                                  "Out Of Stock",
+                                                                  "OUT OF STOCK",
                                                                   style: TextStyle(
                                                                       fontSize:
-                                                                          15,
+                                                                          12,
                                                                       color: Colors
-                                                                          .black),
+                                                                          .grey.shade700),
                                                                 )
                                                               : Text(
                                                                   "ADD",
                                                                   style: TextStyle(
                                                                       fontSize:
-                                                                          12,
+                                                                          15,
                                                                       color: Colors
                                                                           .black),
                                                                 ),
                                                         ),
                                                       ),
                                           ),
+                                      
                                       ],
                                     ),
                                   ),
@@ -1134,15 +1165,19 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                   if (recentProductsList[index]
                                       .isCartUpdateProgress!)
                                     SizedBox(
-                                        height: 10,
-                                        width: 10,
-                                        child: CircularProgressIndicator(
-                                          strokeWidth: 2,
+                                        height: 30,
+                                        width: 30,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(10),
+                                          child: CircularProgressIndicator(
+                                            strokeWidth: 2,
+                                          ),
                                         )),
                                   if (recentProductsList[index]
                                           .isCartUpdateProgress ==
                                       false)
                                     Container(
+                                      margin: EdgeInsets.fromLTRB(8, 4, 8, 5),
                                       width: 160,
                                       height: 30,
                                       child: recentProductsList[index]
@@ -1164,7 +1199,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                     });
                                                   },
                                                   child: Container(
-                                                    width: 30,
+                                                    width: 40,
                                                     height: 30,
                                                     decoration: BoxDecoration(
                                                         color:
@@ -1181,13 +1216,13 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                     child: Center(
                                                         child: Icon(
                                                       Icons.remove,
-                                                      color: Colors.white,
+                                                      color: Colors.black,
                                                       size: 12,
                                                     )),
                                                   ),
                                                 ),
                                                 Container(
-                                                  width: 30,
+                                                  width: 70,
                                                   height: 30,
                                                   decoration: BoxDecoration(
                                                     color: Color(0xffe3e3e3),
@@ -1214,7 +1249,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                     });
                                                   },
                                                   child: Container(
-                                                      width: 30,
+                                                      width: 40,
                                                       height: 30,
                                                       decoration: BoxDecoration(
                                                           color:
@@ -1242,19 +1277,19 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                 backgroundColor: Colors.yellow,
                                               ),
                                               onPressed: () {
-                                                 if (recentProductsList[
-                                                                      index]
-                                                                  .stockAvailability!.length !=
-                                                              12) 
-                                                DataManager.shared
-                                                    .updateItemToCart(
-                                                        recentProductsList[
-                                                            index],
-                                                        1, onUpdate: () {
-                                                  setState(() {});
-                                                }, onUpdateStarted: () {
-                                                  setState(() {});
-                                                });
+                                                if (recentProductsList[index]
+                                                        .stockAvailability!
+                                                        .length !=
+                                                    12)
+                                                  DataManager.shared
+                                                      .updateItemToCart(
+                                                          recentProductsList[
+                                                              index],
+                                                          1, onUpdate: () {
+                                                    setState(() {});
+                                                  }, onUpdateStarted: () {
+                                                    setState(() {});
+                                                  });
                                                 // Navigator.push(
                                                 //     context,
                                                 //     MaterialPageRoute(
@@ -1262,12 +1297,25 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                 //             CartScreen()));
                                               },
                                               child: Center(
-                                                  child: Text(
-                                                "ADD",
-                                                style: TextStyle(
-                                                    fontSize: 15,
-                                                    color: Colors.black),
-                                              )),
+                                                child: (featuredList[index]
+                                                            .stockAvailability!
+                                                            .length ==
+                                                        12)
+                                                    ? Text(
+                                                        "OUT OF STOCK",
+                                                        style: TextStyle(
+                                                            fontSize: 12,
+                                                            color:
+                                                                Colors.grey.shade700),
+                                                      )
+                                                    : Text(
+                                                        "ADD",
+                                                        style: TextStyle(
+                                                            fontSize: 15,
+                                                            color:
+                                                                Colors.black),
+                                                      ),
+                                              ),
                                             ),
                                     ),
                                 ],

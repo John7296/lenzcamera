@@ -175,10 +175,13 @@ class _PopularProductsScreenState
                                 fontSize: 15, fontWeight: FontWeight.w600)),
                         if (popularProductsList[index].isCartUpdateProgress!)
                           SizedBox(
-                              height: 10,
-                              width: 10,
-                              child: CircularProgressIndicator(
-                                strokeWidth: 2,
+                              height: 30,
+                              width: 30,
+                              child: Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                ),
                               )),
                         if (popularProductsList[index].isCartUpdateProgress ==
                             false)
