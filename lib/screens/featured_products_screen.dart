@@ -49,8 +49,8 @@ class _FeaturedProductsScreenState
     NetworkManager.shared
         .addToWishlist(<String, dynamic>{
           "urlKey": product.urlKey,
-          "custId": 386,
-          "guestId": 1,
+          "custId": NetworkManager.shared.userId,
+          "guestId": 0,
         })
         .then((BaseResponse response) {})
         .catchError((e) {
@@ -62,7 +62,7 @@ class _FeaturedProductsScreenState
     NetworkManager.shared
         .removeFromWishlist(
           NetworkManager.shared.userId,
-          "0",
+          0,
           product.urlKey!,
         )
         .then((BaseResponse response) {})

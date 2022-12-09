@@ -163,9 +163,9 @@ class NetworkManager {
   //   return call(networkConnection.recentProducts(map["custId"], map["guestId"]));
   // }
 
-  Future<BaseResponse<MainBanner>> getBanner(Map<String, dynamic> map) {
+  Future<BaseResponse<MainBanner>> getBanner(int custId, int guestId, int pincode ) {
     return call(
-        networkConnection.getBanner(map["userId"], map["guestId"], map[""]));
+        networkConnection.getBanner(custId, guestId, pincode));
   }
 
   Future<BaseResponse<List<Product>>> getWishList() {
@@ -177,7 +177,7 @@ class NetworkManager {
   }
 
   Future<BaseResponse> removeFromWishlist(
-      int userId, String guestId, String urlKey) {
+      int userId, int guestId, String urlKey) {
     print("useriddd $userId");
     return call(networkConnection.removeFromWishlist(userId, guestId, urlKey));
   }

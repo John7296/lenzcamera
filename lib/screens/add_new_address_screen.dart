@@ -312,6 +312,7 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
                               decoration: InputDecoration(
                                   border: OutlineInputBorder(),
                                   labelText: 'QATAR'),
+                                  readOnly: true,
                             ),
                           ),
                           SizedBox(height: 10),
