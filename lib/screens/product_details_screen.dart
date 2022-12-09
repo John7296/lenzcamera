@@ -65,13 +65,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
         productImages.clear();
         productImages.addAll(response.data!.productImages!);
-
-        print("////////////////");
-
-        print(relatedproducts.length);
-
-
-
       });
     }).catchError((e) {
       print(e.toString());
@@ -96,7 +89,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               Navigator.pop(context);
             },
           ),
-          backgroundColor: Colors.black,
+          backgroundColor: Colors.grey.shade700,
           actions: [
             IconButton(
                 onPressed: () {
@@ -189,10 +182,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                 alignment: Alignment.bottomRight,
                                 child: IconButton(onPressed: (){
 
-                                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ProductImagesScreen()));
+                      //             Navigator.push(
+                      // context,
+                      // MaterialPageRoute(
+                      //     builder: (context) => ProductImagesScreen(widget.popularproducts?.urlKey??'')));
                                 }, icon: Icon(Icons.zoom_in_map))),
                             )
                           ],
@@ -933,7 +926,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           style: ElevatedButton.styleFrom(
                               elevation: 0,
                               backgroundColor:
-                                  (widget.popularproducts!.stockAvailability ==
+                                  (widget.popularproducts!.stockAvailability?.length ==
                                           12)
                                       ? Colors.grey
                                       : Color(0xffec3436)),
@@ -946,10 +939,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             });
                           },
                           child: Center(
-                            child: (widget.popularproducts!.stockAvailability ==
+                            child: (widget.popularproducts!.stockAvailability?.length ==
                                     12)
                                 ? Text(
-                                    "Out of Stocks",
+                                    "Out of Stock",
                                     style: TextStyle(
                                         fontSize: 12, color: Colors.black),
                                   )
