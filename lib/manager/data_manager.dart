@@ -164,7 +164,7 @@ class DataManager {
 
     NetworkManager.shared
         .removeFromWishlist(NetworkManager.shared.userId,
-          "0",
+          0,
           product.urlKey!,
         )
         .then((BaseResponse response) {})

@@ -28,8 +28,8 @@ class _WishlistScreenState extends BaseStatefulState<WishlistScreen> {
     //DataManager.shared.wishListProducts();
     Future.delayed(Duration(milliseconds: 500), () {
       wishListProducts();
+      // NetworkManager.shared.getWishList();
     });
-    
   }
 
   void wishListProducts() {
@@ -50,22 +50,25 @@ class _WishlistScreenState extends BaseStatefulState<WishlistScreen> {
     });
   }
 
-  // void removeFromWishList(Product wishList) {
-  //   // if (!_form.currentState!.validate()) {
-  //   //   return;
-  //   // }
+  void removeFromWishList(Product wishList) {
+    // if (!_form.currentState!.validate()) {
+    //   return;
+    // }
 
-  //   NetworkManager.shared.removeFromWishlist(<String, dynamic>{
-  //     "urlKey": wishList.urlKey,
-  //     "custId": NetworkManager.shared.userId,
-  //     "guestId": 0,
-  //   }).then((BaseResponse response) {
-  //     debugPrint("==========================================");
-  //   }).catchError((e) {
-  //     print(e.toString());
-  //   });
-  //   // print(value.toString());
-  // }
+    NetworkManager.shared
+        .removeFromWishlist(
+      NetworkManager.shared.userId,
+      0,
+      wishList.urlKey!,
+    )
+        .then((BaseResponse response) {
+      DataManager.shared.getWishList();
+      debugPrint("==========================================");
+    }).catchError((e) {
+      print(e.toString());
+    });
+    // print(value.toString());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -173,14 +176,22 @@ class _WishlistScreenState extends BaseStatefulState<WishlistScreen> {
                       children: [
                         IconButton(
                           onPressed: () {
-                            setState(() {});
-                            DataManager.shared
-                                .removeFromWishlist(wishListItems[index]);
+                            setState(() {
+                              //  DataManager.shared
+                              // .removeFromWishlist(wishListItems[index]);
+                              removeFromWishList(wishListItems[index]);
+                              wishListProducts();
+                            });
                           },
                           icon: Icon(Icons.delete_outline, color: Colors.red),
                         ),
                         IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => CartScreen()));
+                          },
                           icon: Icon(Icons.shopping_cart, color: Colors.grey),
                         ),
                       ],

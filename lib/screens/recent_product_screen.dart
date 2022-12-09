@@ -45,32 +45,6 @@ class _RecentProductsScreenState
     });
   }
 
-  // void addToWishlist(Product product) {
-  //   NetworkManager.shared
-  //       .addToWishlist(<String, dynamic>{
-  //         "urlKey": product.urlKey,
-  //         "custId": 386,
-  //         "guestId": 1,
-  //       })
-  //       .then((BaseResponse response) {})
-  //       .catchError((e) {
-  //         print(e.toString());
-  //       });
-  // }
-
-  // void removeFromWishlist(Product product) {
-  //   NetworkManager.shared
-  //       .removeFromWishlist(<String, dynamic>{
-  //         "urlKey": product.urlKey,
-  //         "custId": 386,
-  //         "guestId": 1,
-  //       })
-  //       .then((BaseResponse response) {})
-  //       .catchError((e) {
-  //         print(e.toString());
-  //       });
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

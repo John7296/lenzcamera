@@ -92,6 +92,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
         featuredList.clear();
         featuredList.addAll(response.data!);
       });
+      getBanners();
       popularProducts();
       recentProducts();
     }).catchError((e) {
@@ -135,11 +136,11 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
   }
 
   void getBanners() {
-    NetworkManager.shared.getBanner(<String, dynamic>{
-      "custId": NetworkManager.shared.userId,
-      "guestId": 0,
-      "pincode": 8,
-    }).then((BaseResponse<MainBanner> response) {
+    NetworkManager.shared.getBanner(
+      NetworkManager.shared.userId,
+      0,
+     8,
+    ).then((BaseResponse<MainBanner> response) {
       setState(() {
         bannerList.clear();
         bannerList.addAll(response.data!.MainBanners!);
@@ -476,7 +477,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                         if (featuredList[index]
                                             .isCartUpdateProgress!)
                                           Container(
-                                            // color:Colors.yellow,
+                                              // color:Colors.yellow,
                                               height: 20,
                                               width: 20,
                                               child: Padding(
@@ -605,7 +606,8 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                                         .stockAvailability!
                                                                         .length ==
                                                                     12)
-                                                                ? Colors.grey.shade300
+                                                                ? Colors.grey
+                                                                    .shade300
                                                                 : Colors
                                                                     .yellow),
                                                     onPressed: () {
@@ -644,7 +646,8 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                               style: TextStyle(
                                                                   fontSize: 8,
                                                                   color: Colors
-                                                                      .grey.shade700),
+                                                                      .grey
+                                                                      .shade700),
                                                             )
                                                           : Text(
                                                               "ADD",
@@ -673,30 +676,79 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
               ),
             ),
 
-            // SizedBox(height: 70),
-            Padding(
-              padding: const EdgeInsets.only(top: 10),
-              child: CarouselSlider.builder(
-                options: CarouselOptions(
-                  height: 150.0,
-                  autoPlay: true,
-                ),
-                itemCount: 4,
-                // bannerList.length,
-                itemBuilder: (BuildContext context, itemIndex, realIndex) {
-                  return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child:
-                       Image(
-                        image: AssetImage("assets/images/logo_lenzcamera.png"),
-                      )
-                      // CachedNetworkImage(
-                      // imageUrl:
-                      //     "https://dev.lenzcamera.com/webadmin/${bannerList[itemIndex].MainBanners[index].imageUrl}"),
-                      );
+            SizedBox(height: 10),
+              Padding(
+                padding: const EdgeInsets.only(left: 10,right: 10),
+                child: Center(
+        child: Stack(
+          alignment: Alignment.bottomCenter,
+          children: [
+            CarouselSlider.builder(
+                itemCount:
+                    bannerList.length,
+                itemBuilder: (context, itemIndex, realIndex) {
+                  return SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      child: Image.network(
+                          "https://dev.lenzcamera.com/webadmin/${bannerList[itemIndex].imageUrl}"));
+                  //   CachedNetworkImage(
+                  //       fit: BoxFit.fitWidth,
+                  //       imageUrl:"https:asaad.in/webadmin/${bannerlist?.data?.elementAt(0).items?.elementAt(1).imageUrl}",
+                  // ));
                 },
-              ),
+                options: CarouselOptions(
+                    height: 120,
+                    viewportFraction: 1.5,
+                    autoPlay: true,
+                    onPageChanged: (itemIndex, reason) {
+                      setState(() {
+                        // activeIndexBanner = itemIndex;
+                      });
+                    }),
             ),
+            // Padding(
+            //   padding: EdgeInsets.only(bottom: 5),
+            //   child: AnimatedSmoothIndicator(
+            //     count:
+            //         // bannerlist?.data?.first.items?.length??0,
+            //         detailslist?.data?.first.items?.length ?? 0,
+            //     activeIndex: activeIndexBanner,
+            //     effect: WormEffect(
+            //       activeDotColor: Colors.white,
+            //       dotColor: Colors.lightGreenAccent,
+            //       dotHeight: 6,
+            //       dotWidth: 6,
+            //     ),
+            //   ),
+            // ),
+          ],
+        ),
+      ),
+              ),
+            // Padding(
+            //   padding: const EdgeInsets.only(top: 10),
+            //   child: CarouselSlider.builder(
+            //     options: CarouselOptions(
+            //       height: 150.0,
+            //       autoPlay: true,
+            //     ),
+            //     itemCount: bannerList.length,
+            //     itemBuilder: (BuildContext context, itemIndex, realIndex) {
+            //       return Padding(
+            //           padding: const EdgeInsets.all(8.0),
+            //           child: 
+            //           // Image(
+            //           //   image: AssetImage("assets/images/logo_lenzcamera.png"),
+            //           // )
+            //           InkWell(
+            //             child: CachedNetworkImage(
+            //             imageUrl:
+            //                 "https://dev.lenzcamera.com/webadmin/${bannerList[itemIndex].imageUrl}",fit: BoxFit.contain),
+            //           ),
+            //           );
+            //     },
+            //   ),
+            // ),
             SizedBox(height: 10),
             Container(
               height: 850,
@@ -720,6 +772,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                   MaterialPageRoute(
                                       builder: (context) =>
                                           PopularProductsScreen()));
+                              
                             },
                             child: Text(
                               'View All ➜',
@@ -909,7 +962,8 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                                 child: Text(
                                                               popularProductsList[
                                                                       index]
-                                                                  .qty.toString(),
+                                                                  .qty
+                                                                  .toString(),
                                                               style: TextStyle(
                                                                   color: Colors
                                                                       .black),
@@ -956,15 +1010,15 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                     : ElevatedButton(
                                                         style: ElevatedButton.styleFrom(
                                                             elevation: 0,
-                                                            backgroundColor:
-                                                                (popularProductsList[index]
-                                                                            .stockAvailability!
-                                                                            .length ==
-                                                                        12)
-                                                                    ? Colors
-                                                                        .grey.shade300
-                                                                    : Colors
-                                                                        .yellow),
+                                                            backgroundColor: (popularProductsList[
+                                                                            index]
+                                                                        .stockAvailability!
+                                                                        .length ==
+                                                                    12)
+                                                                ? Colors.grey
+                                                                    .shade300
+                                                                : Colors
+                                                                    .yellow),
                                                         onPressed: () {
                                                           if (popularProductsList[
                                                                       index]
@@ -1003,7 +1057,8 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                                       fontSize:
                                                                           12,
                                                                       color: Colors
-                                                                          .grey.shade700),
+                                                                          .grey
+                                                                          .shade700),
                                                                 )
                                                               : Text(
                                                                   "ADD",
@@ -1016,7 +1071,6 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                         ),
                                                       ),
                                           ),
-                                      
                                       ],
                                     ),
                                   ),
@@ -1297,7 +1351,8 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                 //             CartScreen()));
                                               },
                                               child: Center(
-                                                child: (featuredList[index]
+                                                child: (recentProductsList[
+                                                                index]
                                                             .stockAvailability!
                                                             .length ==
                                                         12)
@@ -1305,8 +1360,8 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                         "OUT OF STOCK",
                                                         style: TextStyle(
                                                             fontSize: 12,
-                                                            color:
-                                                                Colors.grey.shade700),
+                                                            color: Colors
+                                                                .grey.shade700),
                                                       )
                                                     : Text(
                                                         "ADD",
