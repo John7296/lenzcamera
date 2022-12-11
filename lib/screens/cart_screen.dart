@@ -187,7 +187,11 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                                                   //             CartScreen()));
                                                   Navigator.pop(context);
                                                 },
-                                                style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.grey.shade400)),
+                                                style: ButtonStyle(
+                                                    backgroundColor:
+                                                        MaterialStateProperty
+                                                            .all(Colors.grey
+                                                                .shade400)),
                                                 child: Text('Cancel'),
                                               ),
                                               ElevatedButton(
@@ -198,7 +202,11 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                                                   getCart();
                                                   Navigator.pop(context);
                                                 },
-                                                style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.grey.shade400)),
+                                                style: ButtonStyle(
+                                                    backgroundColor:
+                                                        MaterialStateProperty
+                                                            .all(Colors.grey
+                                                                .shade400)),
                                                 child: Text('Ok'),
                                               ),
                                             ],

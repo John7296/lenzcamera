@@ -203,7 +203,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                       padding: const EdgeInsets.all(5),
                       child: Text(
                         'Doha',
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        style: TextStyle(fontWeight: FontWeight.bold,fontFamily: 'Intro'),
                       ),
                     ),
                   ),
@@ -214,7 +214,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                         onPressed: () {},
                         child: Text(
                           'Change',
-                          style: TextStyle(color: Colors.red),
+                          style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold,fontFamily: 'Intro'),
                         )),
                   ),
                 ],
@@ -245,7 +245,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                               "SEARCH PRODUCTS",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.grey.shade700),
+                                  color: Colors.grey.shade700,fontFamily: 'Intro'),
                             ),
                           ),
                         ],
@@ -329,7 +329,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                     categoryList[index].catName ?? '',
                                     style: TextStyle(
                                         fontSize: 12,
-                                        fontWeight: FontWeight.w400),
+                                        fontWeight: FontWeight.bold,fontFamily: 'Intro'),
                                     maxLines: 1,
                                     textAlign: TextAlign.center,
                                   ),
@@ -357,7 +357,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                       children: [
                         Text(
                           'Featured Products',
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                          style: TextStyle(fontWeight: FontWeight.bold,fontFamily: 'Intro'),
                         ),
                         Spacer(),
                         TextButton(
@@ -762,7 +762,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                       children: [
                         Text(
                           'Popular Products',
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                          style: TextStyle(fontWeight: FontWeight.bold,fontFamily: 'Intro'),
                         ),
                         Spacer(),
                         TextButton(
@@ -778,7 +778,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                               'View All ➜',
                               style: TextStyle(
                                   color: Colors.red,
-                                  fontWeight: FontWeight.bold),
+                                  fontWeight: FontWeight.bold,fontFamily: 'Intro'),
                             )),
                       ],
                     ),
@@ -1100,7 +1100,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                               top: 20, left: 15, right: 15),
                           child: Text(
                             'Recent Products',
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: TextStyle(fontWeight: FontWeight.bold,fontFamily: 'Intro'),
                           ),
                         ),
                         Spacer(),
@@ -1119,7 +1119,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                 'View All ➜',
                                 style: TextStyle(
                                     color: Colors.red,
-                                    fontWeight: FontWeight.bold),
+                                    fontWeight: FontWeight.bold,fontFamily: 'Intro'),
                               )),
                         )
                       ],
