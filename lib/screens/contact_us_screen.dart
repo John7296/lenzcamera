@@ -2,12 +2,13 @@
 import 'package:flash/flash.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lenzcamera/base/base_stateful_state.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/customer.dart';
 import 'package:lenzcamera/model/customer_details.dart';
 import 'package:lenzcamera/model/login_customer.dart';
-import 'package:lenzcamera/screens/home_screen.dart';
+import 'package:lenzcamera/utils/helper.dart';
 import 'package:lenzcamera/utils/sessions_manager.dart';
 
 class ContactUsScreen extends StatefulWidget{
@@ -15,16 +16,15 @@ class ContactUsScreen extends StatefulWidget{
   State<ContactUsScreen> createState() => _ContactUsScreenState();
 }
 
-class _ContactUsScreenState extends State<ContactUsScreen> {
+class _ContactUsScreenState extends BaseStatefulState<ContactUsScreen> {
+
+  final GlobalKey<FormState> _form = GlobalKey<FormState>();
 
 final _emailController = TextEditingController();
   final _phoneController = TextEditingController();
   final _titleController = TextEditingController();
   final _messageController = TextEditingController();
   // LoginCustomer? user;
-
-
-
 
 
 
@@ -56,6 +56,9 @@ void showFlashMsg(String msg, {Color color = const Color(0xFF272532)}) {
   }
 
    void customerDetails() {
+     if (!_form.currentState!.validate()) {
+      return;
+    }
     NetworkManager.shared
         .customerDetails(NetworkManager.shared.userId)
         .then((BaseResponse<LoginCustomer> response) {
@@ -69,6 +72,10 @@ void showFlashMsg(String msg, {Color color = const Color(0xFF272532)}) {
   }
 
 void onSendButtonTapped() {
+
+    if (!_form.currentState!.validate()) {
+      return;
+    }
 
   Map<String, dynamic> map = {
       
@@ -85,10 +92,15 @@ void onSendButtonTapped() {
       _titleController.text = "";
       _messageController.text = "";
 
+   
+
       showFlashMsg(response.message!);
       
-    }).catchError((Object obj) {
-     
+    }).catchError((e) {
+
+      showFlashMsg(e.toString());
+      print(e);
+      showFlashMsg(e.Message!);
     });
   }
 
@@ -240,132 +252,152 @@ void onSendButtonTapped() {
                    ),
                  ),
                 
-                SizedBox(
-                        height: 20,
-                      ),
-                      Align(
-                        alignment: Alignment.topLeft,
-                        child: Text(
-                          "Email ID",
-                          style: TextStyle(
-                              color: Color(0xff747474), fontWeight: FontWeight.w600, fontSize: 12),
+                Form(
+                  key: _form,
+                  child: Column(children: [
+                  SizedBox(
+                          height: 20,
                         ),
-                      ),
-                      SizedBox(height: 12),
-                      Container(
-                        height: 40,
-                        child: TextFormField(
-                            decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(color: Color(0xffb0b0b0)),
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: Text(
+                            "Email ID",
+                            style: TextStyle(
+                                color: Color(0xff747474), fontWeight: FontWeight.w600, fontSize: 12),
                           ),
-                          labelText: " ",
                         ),
-                        controller: _emailController,
-                        validator: (val) {
-                                    if (val!.isEmpty)
-                                      return "Enter your first name";
-                                    return null;
-                                  }),
-                      ),
-             
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Align(
-                        alignment: Alignment.topLeft,
-                        child: Text(
-                          "Phone +974",
-                          style: TextStyle(
-                              color: Color(0xff747474), fontWeight: FontWeight.w600, fontSize: 12),
-                        ),
-                      ),
-                      SizedBox(height: 12),
-                      Container(
-                        height: 40,
-                        child: TextFormField(
-                            decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(color: Color(0xffb0b0b0)),
+                        SizedBox(height: 12),
+                        Container(
+                         // height: 40,
+                          child: TextFormField(
+                              decoration: InputDecoration(
+                                contentPadding:
+                     EdgeInsets.only(left:10, top:5, bottom:5),
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(color: Color(0xffb0b0b0)),
+                            ),
+                            labelText: " ",
                           ),
-                          labelText: " ",
+                          controller: _emailController,
+                          validator: (val) {
+                                      if (val!.isEmpty){
+                                        return "Enter your Email";
+                                      }
+                                      else {
+                                          if (!Helper.validateEmail(val)) {
+                                            return "Please enter a valid email";
+                                          }
+                                        }
+                                      return null;
+                                    }),
                         ),
-                        
-                        controller: _phoneController,
-                        validator: (val) {
-                                    if (val!.isEmpty)
-                                      return "Enter your phoneNo";
-                                    return null;
-                                  }
-                        
-                        
+                             
+                        SizedBox(
+                          height: 20,
                         ),
-                      ),
-             
-                       SizedBox(
-                        height: 20,
-                      ),
-                      Align(
-                        alignment: Alignment.topLeft,
-                        child: Text(
-                          "Title",
-                          style: TextStyle(
-                              color: Color(0xff747474), fontWeight: FontWeight.w600, fontSize: 12),
-                        ),
-                      ),
-                      SizedBox(height: 12),
-                      Container(
-                        height: 40,
-                        child: TextFormField(
-                            decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(color: Color(0xffb0b0b0)),
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: Text(
+                            "Phone +974",
+                            style: TextStyle(
+                                color: Color(0xff747474), fontWeight: FontWeight.w600, fontSize: 12),
                           ),
-                          labelText: " ",
                         ),
-                        controller: _titleController,
-                        validator: (val) {
-                                    if (val!.isEmpty)
-                                      return "Enter title";
-                                    return null;
-                                  }
-                        
-                        
-                        ),
-                      ),
-             
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Align(
-                        alignment: Alignment.topLeft,
-                        child: Text(
-                          "Message",
-                          style: TextStyle(
-                              color: Color(0xff747474), fontWeight: FontWeight.w600, fontSize: 12),
-                        ),
-                      ),
-                      SizedBox(height: 12),
-                      Container(
-                        height: 90,
-                        child: TextFormField(
-                            decoration: InputDecoration(
-                               contentPadding: const EdgeInsets.symmetric(vertical: 60.0),
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(color: Color(0xffb0b0b0)),
+                        SizedBox(height: 12),
+                        Container(
+                         // height: 40,
+                          child: TextFormField(
+                              decoration: InputDecoration(
+                                  contentPadding:
+                     EdgeInsets.only(left:10, top:5, bottom:5),
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(color: Color(0xffb0b0b0)),
+                            ),
+                            labelText: " ",
                           ),
-                          labelText: " ",
+                          
+                          controller: _phoneController,
+                          validator: (val) {
+                                      if (val!.isEmpty)
+                                        return "Enter your phoneNo";
+                                      return null;
+                                    }
+                          
+                          
+                          ),
                         ),
-                        controller: _messageController,
-                        validator: (val) {
-                                    if (val!.isEmpty)
-                                      return "Enter your message";
-                                    return null;
-                                  }
-                        
+                             
+                         SizedBox(
+                          height: 20,
                         ),
-                      ),
-                    SizedBox(height: 150),
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: Text(
+                            "Title",
+                            style: TextStyle(
+                                color: Color(0xff747474), fontWeight: FontWeight.w600, fontSize: 12),
+                          ),
+                        ),
+                        SizedBox(height: 12),
+                        Container(
+                         // height: 40,
+                          child: TextFormField(
+                              decoration: InputDecoration(
+                                  contentPadding:
+                     EdgeInsets.only(left:10, top:5, bottom:5),
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(color: Color(0xffb0b0b0)),
+                            ),
+                            labelText: " ",
+                          ),
+                          controller: _titleController,
+                          validator: (val) {
+                                      if (val!.isEmpty)
+                                        return "Enter title";
+                                      return null;
+                                    }
+                          
+                          
+                          ),
+                        ),
+                             
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: Text(
+                            "Message",
+                            style: TextStyle(
+                                color: Color(0xff747474), fontWeight: FontWeight.w600, fontSize: 12),
+                          ),
+                        ),
+                        SizedBox(height: 12),
+                        Container(
+                         // height: 120,
+                          child: TextFormField(
+                              decoration: InputDecoration(
+                                 contentPadding: const EdgeInsets.only(left: 10, top:50, bottom: 50, right:10),
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(color: Color(0xffb0b0b0)),
+                            ),
+                            labelText: " ",
+                          ),
+                          controller: _messageController,
+                          validator: (val) {
+                                      if (val!.isEmpty)
+                                        return "Enter your message";
+                                      return null;
+                                    },
+                                    maxLines: 3,
+                          
+                          ),
+                        ),
+                   
+                     SizedBox(height: 200),
+                     ]
+                  ),
+                ),
                ],),
              ),
            ),
@@ -383,15 +415,14 @@ void onSendButtonTapped() {
                       ),
                       onPressed: () {
 
-                       //onSendButtonTapped();
-                        print("/////////////////");
-
-                        print(SessionsManager.userId);
+                       onSendButtonTapped();
+                       
                         // Navigator.push(
                         //     context,
                         //     MaterialPageRoute(
                         //     builder: (context) =>
                         //     ForgotPasswordScreen()));
+
               
                       },
                       child: Center(
@@ -409,5 +440,11 @@ void onSendButtonTapped() {
      ),
     
    );
+  }
+  
+  @override
+  bool isAuthenticationRequired() {
+    // TODO: implement isAuthenticationRequired
+    throw UnimplementedError();
   }
 }

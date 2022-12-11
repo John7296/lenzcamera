@@ -6,7 +6,9 @@ import 'package:lenzcamera/base/base_stateful_state.dart';
 import 'package:lenzcamera/connection/network_connection.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
+import 'package:lenzcamera/model/customer.dart';
 import 'package:lenzcamera/model/login_customer.dart';
+import 'package:lenzcamera/screens/filter_screen.dart';
 import 'package:lenzcamera/screens/forgot_password_screen.dart';
 import 'package:lenzcamera/screens/home_screen.dart';
 import 'package:lenzcamera/screens/register_screen.dart';
@@ -46,11 +48,11 @@ class _LoginScreenState extends BaseStatefulState<LoginScreen> {
       "password": password
     }).then((BaseResponse<LoginCustomer> response) {
       SessionsManager.saveUserToken(response.data?.token ?? '');
-       SessionsManager.saveUserId(response.data?.customerId ?? 0);
+      SessionsManager.saveUserId(response.data?.customerId ?? 0);
 
       NetworkManager.shared.userToken = response.data?.token ?? "";
       NetworkManager.shared.userId = response.data?.customerId ?? 0;
-      
+
       NetworkManager.shared.refreshTokens();
       
       Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (BuildContext context) {
@@ -59,23 +61,23 @@ class _LoginScreenState extends BaseStatefulState<LoginScreen> {
     }).catchError((e) {
       showFlashMsg(e.toString());
       print(e);
+      showFlashMsg(e.Message!);
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: ()async {
-     final difference = DateTime.now().difference(timeBackPressed);
-     final isExitWarning = difference>=Duration(seconds: 2);
+      onWillPop: () async {
+        final difference = DateTime.now().difference(timeBackPressed);
+        final isExitWarning = difference >= Duration(seconds: 2);
 
-     timeBackPressed = DateTime.now();
-     if(isExitWarning){
-      return true;
-     }else{
-      return false;
-     }
-
+        timeBackPressed = DateTime.now();
+        if (isExitWarning) {
+          return true;
+        } else {
+          return false;
+        }
       },
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -114,15 +116,17 @@ class _LoginScreenState extends BaseStatefulState<LoginScreen> {
                     ),
                     SizedBox(height: 12),
                     Container(
-                      height: 40,
+                      // height: 40,
                       child: TextFormField(
-    
                           controller: _usernameController,
                           validator: (val) {
                             if (val!.isEmpty) return "Enter Mobile/Email";
                             return null;
                           },
                           decoration: InputDecoration(
+                            contentPadding: EdgeInsets.
+                                //only(left:10, top:5, bottom:5),
+                                symmetric(vertical: 10, horizontal: 10),
                             border: OutlineInputBorder(
                               borderSide: BorderSide(color: Color(0xffb0b0b0)),
                             ),
@@ -142,9 +146,11 @@ class _LoginScreenState extends BaseStatefulState<LoginScreen> {
                     ),
                     SizedBox(height: 12),
                     Container(
-                      height: 40,
+                     // height: 40,
                       child: TextFormField(
                           decoration: InputDecoration(
+                            contentPadding:EdgeInsets.
+                                symmetric(vertical: 10, horizontal: 10),
                             border: OutlineInputBorder(
                               borderSide: BorderSide(color: Color(0xffb0b0b0)),
                             ),
@@ -153,13 +159,12 @@ class _LoginScreenState extends BaseStatefulState<LoginScreen> {
                               padding: const EdgeInsets.only(right: 20),
                               child: IconButton(
                                 icon: Icon(
-                                  _obscureText?
-                                  Icons.visibility
-                              : Icons.visibility_off,
+                                  _obscureText
+                                      ? Icons.visibility
+                                      : Icons.visibility_off,
                                   color: Color(0xff6e6e6c),
                                 ),
                                 onPressed: () {
-    
                                   setState(() {
                                     _obscureText = !_obscureText;
                                   });
@@ -176,7 +181,6 @@ class _LoginScreenState extends BaseStatefulState<LoginScreen> {
                     ),
                   ]),
                 ),
-                
                 SizedBox(height: 30),
                 Container(
                   height: 40,
@@ -186,10 +190,6 @@ class _LoginScreenState extends BaseStatefulState<LoginScreen> {
                     ),
                     onPressed: () {
                       onLoginButtonTapped();
-    
-                      
-                     
-                      
                     },
                     child: Center(
                         child: Text(
@@ -261,37 +261,37 @@ class _LoginScreenState extends BaseStatefulState<LoginScreen> {
           //       ),
           //       label: "Home",
           //     ),
-    
+
           //     BottomNavigationBarItem(
           //         icon: Icon(Icons.category_outlined,
           //             size: 25),
           //         label: "Categories"),
-    
+
           //     BottomNavigationBarItem(
           //       icon: Icon(Icons.shopping_cart_outlined,
           //           size: 30),
           //       label: "Cart",
           //     ),
-    
+
           //     BottomNavigationBarItem(
           //       icon: Icon(Icons.search,
           //           size: 30),
           //       label: "Search",
           //     ),
-    
+
           //     BottomNavigationBarItem(
           //       icon: Icon(Icons.person_outline,
           //           size: 30),
           //       label: "Profile",
           //     ),
           //   ],
-    
+
           // ),
         ),
       ),
     );
   }
-  
+
   @override
   bool isAuthenticationRequired() {
     // TODO: implement isAuthenticationRequired

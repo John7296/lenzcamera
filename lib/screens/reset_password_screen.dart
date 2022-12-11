@@ -15,6 +15,8 @@ class ResetPasswordScreen extends StatefulWidget {
 
 class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
 
+    final GlobalKey<FormState> _form = GlobalKey<FormState>();
+
   final _passwordController = TextEditingController();
   final _confirmpwdController = TextEditingController();
 
@@ -50,6 +52,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   }
   
   void resetPassword(){
+      if (!_form.currentState!.validate()) {
+      return;
+    }
    
    NetworkManager.shared.resetPassword(<String, dynamic>{
         "OtpUrlKey" : widget.OtpUrlKey,
@@ -86,131 +91,138 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
         backgroundColor: Colors.black,
       ),
       body: Padding(
-        padding: EdgeInsets.only(left: 24, right: 24),
-        child: SingleChildScrollView(
-          child: Column(children: [
-            SizedBox(height: 200),
-            SizedBox(height: 12),
-            SizedBox(height: 8),
-            Align(
-              alignment: Alignment.topLeft,
-              child: Text(
-                "Enter New Password",
-                style: TextStyle(
-                    color: Color(0xff747474),
-                    fontWeight: FontWeight.w600,
-                    fontSize: 12),
-              ),
-            ),
-            SizedBox(height: 12),
-            Container(
-              height: 50,
-              child: TextFormField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(color: Color(0xffb0b0b0)),
-                    ),
-                    labelText: " ",
-                    suffixIcon: Padding(
-                      padding: const EdgeInsets.only(right: 20),
-                      child: IconButton(
-                       icon: Icon(
-                                _obscureText?
-                                Icons.visibility
-                            : Icons.visibility_off,
-                          color: Color(0xff6e6e6c),
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            _obscureText = !_obscureText;
-                          });
-                        },
-                      ),
-                    ),
-                  ),
-                  obscureText:_obscureText,
-                  controller: _passwordController,
-                  validator: (val) {
-                    if (val!.isEmpty) {
-                      return "Please enter new password";
-                    }
-                    return null;
-                  }),
-            ),
-            SizedBox(height: 8),
-            Align(
-              alignment: Alignment.topLeft,
-              child: Text(
-                "Confirm Password",
-                style: TextStyle(
-                    color: Color(0xff747474),
-                    fontWeight: FontWeight.w600,
-                    fontSize: 12),
-              ),
-            ),
-            SizedBox(height: 12),
-            Container(
-              height: 50,
-              child: TextFormField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(color: Color(0xffb0b0b0)),
-                    ),
-                    labelText: " ",
-                    suffixIcon: Padding(
-                      padding: const EdgeInsets.only(right: 20),
-                      child: IconButton(
-                          icon: Icon(
-                                _obscureText1?
-                                Icons.visibility
-                            : Icons.visibility_off,
-                          color: Color(0xff6e6e6c),
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            _obscureText1=!_obscureText1;
-                          });
-                        },
-                      ),
-                    ),
-                  ),
-                  obscureText: _obscureText1,
-                  controller: _confirmpwdController,
-                  validator: (val) {
-                    if (val!.isEmpty) {
-                      return "Re-type password";
-                    }
-                    if (val != _passwordController.text) {
-                      return "Password should be same";
-                    }
-                    if (val.length < 8) {
-                      return "Please type atleas 8 digit password";
-                    }
-                    return null;
-                  }),
-            ),
-            SizedBox(height: 20),
-            Container(
-              height: 50,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xffec3436),
+        padding: EdgeInsets.only(left: 24, right: 24, top:250),
+        child: Form(
+          key: _form,
+          child: SingleChildScrollView(
+            child: Column(children: [
+              // SizedBox(height: 200),
+              // SizedBox(height: 12),
+              // SizedBox(height: 8),
+              Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  "Enter New Password",
+                  style: TextStyle(
+                      color: Color(0xff747474),
+                      fontWeight: FontWeight.w600,
+                      fontSize: 12),
                 ),
-                onPressed: () {
-
-                  print("hhhhhhhhhhhhhhhh");
-                  resetPassword();
-                  // Navigator.push(context,
-                  //     MaterialPageRoute(builder: (context) => LoginScreen()));
-                },
-                child: Center(
-                    child: Text(
-                  "Submit Password",
-                  style: TextStyle(fontSize: 20, color: Colors.white),
-                )),
               ),
-            ),
-          ]),
+              SizedBox(height: 12),
+              Container(
+               // height: 50,
+                child: TextFormField(
+                    decoration: InputDecoration(
+                       contentPadding:
+                     EdgeInsets.only(left:10, top:5, bottom:5),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(color: Color(0xffb0b0b0)),
+                      ),
+                      labelText: " ",
+                      suffixIcon: Padding(
+                        padding: const EdgeInsets.only(right: 20),
+                        child: IconButton(
+                         icon: Icon(
+                                  _obscureText?
+                                  Icons.visibility
+                              : Icons.visibility_off,
+                            color: Color(0xff6e6e6c),
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _obscureText = !_obscureText;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                    obscureText:_obscureText,
+                    controller: _passwordController,
+                    validator: (val) {
+                      if (val!.isEmpty) {
+                        return "Please enter new password";
+                      }
+                      return null;
+                    }),
+              ),
+              SizedBox(height: 8),
+              Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  "Confirm Password",
+                  style: TextStyle(
+                      color: Color(0xff747474),
+                      fontWeight: FontWeight.w600,
+                      fontSize: 12),
+                ),
+              ),
+              SizedBox(height: 12),
+              Container(
+              //  height: 50,
+                child: TextFormField(
+                    decoration: InputDecoration(
+                       contentPadding:
+                     EdgeInsets.only(left:10, top:5, bottom:5),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(color: Color(0xffb0b0b0)),
+                      ),
+                      labelText: " ",
+                      suffixIcon: Padding(
+                        padding: const EdgeInsets.only(right: 20),
+                        child: IconButton(
+                            icon: Icon(
+                                  _obscureText1?
+                                  Icons.visibility
+                              : Icons.visibility_off,
+                            color: Color(0xff6e6e6c),
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _obscureText1=!_obscureText1;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                    obscureText: _obscureText1,
+                    controller: _confirmpwdController,
+                    validator: (val) {
+                      if (val!.isEmpty) {
+                        return "Re-type password";
+                      }
+                      if (val != _passwordController.text) {
+                        return "Password should be same";
+                      }
+                      if (val.length < 8) {
+                        return "Please type atleas 8 digit password";
+                      }
+                      return null;
+                    }),
+              ),
+              SizedBox(height: 20),
+              Container(
+                height: 50,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0xffec3436),
+                  ),
+                  onPressed: () {
+                  
+                    print("hhhhhhhhhhhhhhhh");
+                    resetPassword();
+                    // Navigator.push(context,
+                    //     MaterialPageRoute(builder: (context) => LoginScreen()));
+                  },
+                  child: Center(
+                      child: Text(
+                    "Submit Password",
+                    style: TextStyle(fontSize: 20, color: Colors.white),
+                  )),
+                ),
+              ),
+            ]),
+          ),
         ),
       ),
     );

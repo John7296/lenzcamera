@@ -66,42 +66,38 @@ class _WriteReviewScreenState extends State<WriteReviewScreen> {
 
         body: SingleChildScrollView(
           child: Column(children: [
-            Stack(
-              children: [
-                 Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
+            Column(
+             crossAxisAlignment: CrossAxisAlignment.start,
+             children: [
                 Container(
-                 height: 200,
-                 width: MediaQuery.of(context).size.width,
-                   
+            height: 200,
+            width: MediaQuery.of(context).size.width,
+              
                 //  child: Image(image: AssetImage("assets/images/lens.png"),)
                 ),
-        
-                 Padding(
-                   padding: const EdgeInsets.only(left:24),
-                   child: Text(
-                    // widget.products?.prName??'',
-                     "GoPro Volta Battery Grip for HERO",
-                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-                     maxLines: 2,
-                     overflow: TextOverflow.ellipsis,
-                   ),
-                 ),
-        
+          
+            Padding(
+              padding: const EdgeInsets.only(left:24),
+              child: Text(
+               // widget.products?.prName??'',
+                "GoPro Volta Battery Grip for HERO",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          
                 Row(
             // mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Padding(
                 padding: const EdgeInsets.only(left: 24, top: 10),
                 child: Text("QAR 600",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
+               style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
               ),
             ],
           ),
               ],),
-              ]
-            ),
              
              Padding(
                padding: const EdgeInsets.only(left: 24, top: 15),
@@ -137,7 +133,7 @@ class _WriteReviewScreenState extends State<WriteReviewScreen> {
                         ],
                       ),
              ),
-        
+          
               Padding(
                 padding: const EdgeInsets.only(left:24, right:24, top:20),
                 child: Container(
@@ -158,25 +154,23 @@ class _WriteReviewScreenState extends State<WriteReviewScreen> {
                       ),
                 ),
               ),
-        
+          
               Padding(
                 padding: const EdgeInsets.only(left:24, right:24, top:20),
-                child: Expanded(
-                  child: TextField(
-                    maxLines: 7,
-                          decoration: InputDecoration(
-                        hintText: "Write Your Review",
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(color: Color(0xff878787)),
-                        ),
-                        
-                        hintStyle: TextStyle(color: Colors.black, fontSize: 15, fontWeight: FontWeight.w500, ),
-                        // 
-                          
-                        ),
-                        controller: _reviewController,
+                child: TextField(
+                  maxLines: 7,
+                        decoration: InputDecoration(
+                      hintText: "Write Your Review",
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(color: Color(0xff878787)),
                       ),
-                ),
+                      
+                      hintStyle: TextStyle(color: Colors.black, fontSize: 15, fontWeight: FontWeight.w500, ),
+                      // 
+                        
+                      ),
+                      controller: _reviewController,
+                    ),
                 ),
             
               Row(
@@ -187,7 +181,7 @@ class _WriteReviewScreenState extends State<WriteReviewScreen> {
                   ),
                 ],
               ),
-
+        
               Padding(
                 padding: const EdgeInsets.only(left:24, right:24, top:20),
                 child: Container(
@@ -197,7 +191,7 @@ class _WriteReviewScreenState extends State<WriteReviewScreen> {
                         backgroundColor: Color(0xffec3436),
                       ),
                       onPressed: () {
-
+        
                         addReview();
                         // Navigator.push(
                         // context,

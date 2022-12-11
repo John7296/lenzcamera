@@ -17,6 +17,9 @@ class ChangePasswordScreen extends StatefulWidget {
 }
 
 class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
+
+    final GlobalKey<FormState> _form = GlobalKey<FormState>();
+
   final _passwordController = TextEditingController();
   final _newPasswordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
@@ -56,6 +59,10 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   }
 
   void onChangeButtonTapped() {
+
+     if (!_form.currentState!.validate()) {
+      return;
+    }
      String password = _passwordController.text;
     String newPassword = _newPasswordController.text;
 
@@ -293,8 +300,193 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     style: TextStyle(fontSize: 20, color: Colors.white,fontFamily: 'Intro'),
                   )),
                 ),
-              ),
-            ]),
+                SizedBox(height: 12),
+                Container(
+                 // height: 40,
+                  child: TextFormField(
+                      decoration: InputDecoration(
+                        contentPadding:
+                     EdgeInsets.only(left:10, top:5, bottom:5),
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(color: Color(0xffb0b0b0)),
+                        ),
+                        labelText: " ",
+                        suffixIcon: Padding(
+                          padding: const EdgeInsets.only(right: 20),
+                          child: IconButton(
+                            icon: Icon(
+                             
+                                  _obscureText?
+                                  Icons.visibility
+                              : Icons.visibility_off,
+                              color: Color(0xff6e6e6c),
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _obscureText = !_obscureText;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                      obscureText: _obscureText,
+                      controller: _passwordController,
+                      validator: (val) {
+                        if (val!.isEmpty)
+                          return "Please enter your current password";
+                        return null;
+                      }),
+                ),
+                SizedBox(height: 12),
+                // Align(
+                //   alignment: Alignment.bottomRight,
+                //   child: Text(
+                //     "*Required",
+                //     style: TextStyle(
+                //         color: Color(0xffb2232b),
+                //         fontWeight: FontWeight.w600,
+                //         fontSize: 10),
+                //   ),
+                // ),
+                SizedBox(height: 8),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    "New Password",
+                    style: TextStyle(
+                        color: Color(0xff747474),
+                        fontWeight: FontWeight.w600,
+                        fontSize: 12),
+                  ),
+                ),
+                SizedBox(height: 12),
+                Container(
+                 // height: 40,
+                  child: TextFormField(
+                      decoration: InputDecoration(
+                        contentPadding:
+                     EdgeInsets.only(left:10, top:5, bottom:5),
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(color: Color(0xffb0b0b0)),
+                        ),
+                        labelText: " ",
+                        suffixIcon: Padding(
+                          padding: const EdgeInsets.only(right: 20),
+                          child: IconButton(
+                            icon: Icon(
+                                  _obscureText1?
+                                  Icons.visibility
+                              : Icons.visibility_off,
+                              color: Color(0xff6e6e6c),
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _obscureText1 = !_obscureText1;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                      obscureText: _obscureText1,
+                      controller: _newPasswordController,
+                      validator: (val) {
+                        if (val!.isEmpty) return "Please enter a new password";
+                        return null;
+                      }),
+                ),
+                SizedBox(height: 12),
+                // Align(
+                //   alignment: Alignment.bottomRight,
+                //   child: Text(
+                //     "*Minimum 6 Characters Required",
+                //     style: TextStyle(
+                //         color: Color(0xffb2232b),
+                //         fontWeight: FontWeight.w600,
+                //         fontSize: 10),
+                //   ),
+                // ),
+                SizedBox(height: 8),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    "Confirm Password",
+                    style: TextStyle(
+                        color: Color(0xff747474),
+                        fontWeight: FontWeight.w600,
+                        fontSize: 12),
+                  ),
+                ),
+                SizedBox(height: 12),
+                Container(
+                 // height: 40,
+                  child: TextFormField(
+                      decoration: InputDecoration(
+                         contentPadding:
+                     EdgeInsets.only(left:10, top:5, bottom:5),
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(color: Color(0xffb0b0b0)),
+                        ),
+                        labelText: " ",
+                        suffixIcon: Padding(
+                          padding: const EdgeInsets.only(right: 20),
+                          child: IconButton(
+                            icon: Icon(
+                                  _obscureText2?
+                                  Icons.visibility
+                              : Icons.visibility_off,
+                              color: Color(0xff6e6e6c),
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _obscureText2 = !_obscureText2;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                      obscureText: _obscureText2,
+                      controller: _confirmPasswordController,
+                      validator: (val) {
+                        if (val!.isEmpty) return "Retype the password";
+                        if (val != _newPasswordController.text)
+                          return "Passwords should be same";
+                        if (val.length < 6)
+                          return "Minimum 6 characters required";
+                        return null;
+                      }),
+                ),
+                SizedBox(height: 12),
+                // Align(
+                //   alignment: Alignment.bottomRight,
+                //   child: Text(
+                //     "*Password Does not Match",
+                //     style: TextStyle(
+                //         color: Color(0xffb2232b),
+                //         fontWeight: FontWeight.w600,
+                //         fontSize: 10),re
+                //   ),
+                // ),
+                SizedBox(height: 80),
+                Container(
+                  height: 40,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color(0xffec3436),
+                    ),
+                    onPressed: () {
+                      onChangeButtonTapped();
+                      // Navigator.push(context,
+                      //     MaterialPageRoute(builder: (context) => LoginScreen()));
+                    },
+                    child: Center(
+                        child: Text(
+                      "CHANGE PASSWORD",
+                      style: TextStyle(fontSize: 20, color: Colors.white),
+                    )),
+                  ),
+                ),
+              ]),
+            ),
           ),
         ),
       ),

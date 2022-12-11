@@ -12,6 +12,7 @@ import 'package:lenzcamera/model/search_products_response.dart';
 import 'package:lenzcamera/screens/cart_screen.dart';
 import 'package:lenzcamera/screens/filter_screen.dart';
 import 'package:lenzcamera/screens/home_screen.dart';
+import 'package:lenzcamera/screens/wishlist_screen.dart';
 
 class SearchScreen extends StatefulWidget {
   //  final SearchProducts? product;
@@ -50,12 +51,8 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
       "pagesize": 20,
       "custId": NetworkManager.shared.userId,
       "currentpage": currentPage,
-      "filtervalues": (DataManager.shared.filterData?.brand != null ||
-              DataManager.shared.filterData?.manufacturer != null ||
-              DataManager.shared.filterData?.lensMount != null)
-          ? "${DataManager.shared.filterData?.brand?.attrId ?? ''}, ${DataManager.shared.filterData?.manufacturer?.attrId ?? ''},  ${DataManager.shared.filterData?.lensMount?.attrId ?? ""}"
-          : "",
-      "guestId": "",
+      "filtervalues": (DataManager.shared.filterData?.brand != null ||DataManager.shared.filterData?.manufacturer != null ||DataManager.shared.filterData?.lensMount != null) ? "${DataManager.shared.filterData?.brand?.attrId}, ${DataManager.shared.filterData?.manufacturer?.attrId},  ${DataManager.shared.filterData?.lensMount?.attrId??''}": "",
+       "guestId": "",
       "maxPrice": DataManager.shared.filterData?.maxPrice ?? 1000000,
       "minPrice": DataManager.shared.filterData?.minPrice ?? 0,
       "pincode": 8,
@@ -96,15 +93,25 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
         ),
         backgroundColor: Colors.grey.shade700,
         actions: [
-          Icon(
-            Icons.favorite_border_outlined,
+          IconButton(icon:
+            Icon(Icons.favorite_border_outlined),
             color: Colors.white,
+            onPressed: () {
+              Navigator.push(
+                context, MaterialPageRoute(builder: (context) => WishlistScreen()));
+            },
           ),
           SizedBox(width: 40),
-          Icon(
-            Icons.shopping_cart_outlined,
+
+          IconButton(icon:
+            Icon(Icons.shopping_cart_outlined),
             color: Colors.white,
+            onPressed: () {
+              Navigator.push(
+                context, MaterialPageRoute(builder: (context) => CartScreen()));
+            },
           ),
+        
           SizedBox(width: 20),
         ],
       ),
@@ -248,13 +255,43 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
                                     children: [
                                       IconButton(
                                         onPressed: () {
-                                          setState(() {
-                                            DataManager.shared.removeFromWishlist(
-                                                _products[index]);
-                                          });
+                                                    setState(() {
+                                                                if (_products[
+                                                                            index]
+                                                                        .isWhishlisted ==
+                                                                    true) {
+                                                                  DataManager
+                                                                      .shared
+                                                                      .removeFromWishlist(
+                                                                         _products[index]);
+                                                                  _products[
+                                                                          index]
+                                                                      .isWhishlisted = false;
+                                                                } else {
+                                                                  DataManager
+                                                                      .shared
+                                                                      .addToWishlist(
+                                                                          _products[
+                                                                              index]);
+                                                                 _products[
+                                                                          index]
+                                                                      .isWhishlisted = true;
+                                                                }
+                                                              });
+
+                                          // setState(() {
+                                          //   DataManager.shared.removeFromWishlist(
+                                          //       _products[index]);
+                                          // });
                                         },
                                         icon: Icon(Icons.favorite,
-                                            color: Colors.grey),
+                                            color: DataManager
+                                                                      .shared
+                                                                      .iswishListed(
+                                                                          _products[
+                                                                              index])
+                                                                  ? Colors.red
+                                                                  :Colors.grey,),
                                       ),
                                       SizedBox(height: 20),
                                       if (_products[index]
