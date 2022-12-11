@@ -177,10 +177,13 @@ class _WishlistScreenState extends BaseStatefulState<WishlistScreen> {
                         IconButton(
                           onPressed: () {
                             setState(() {
-                              //  DataManager.shared
-                              // .removeFromWishlist(wishListItems[index]);
-                              removeFromWishList(wishListItems[index]);
-                              wishListProducts();
+                              DataManager.shared
+                                  .removeFromWishlist(wishListItems[index]);
+                              // removeFromWishList(wishListItems[index]);
+                              // wishListProducts();
+                              showLoader();
+                              DataManager.shared.getWishList();
+                              hideLoader();
                             });
                           },
                           icon: Icon(Icons.delete_outline, color: Colors.red),
