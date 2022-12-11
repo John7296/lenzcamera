@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lenzcamera/base/base_stateful_state.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/manager/data_manager.dart';
 import 'package:lenzcamera/model/add_address.dart';
@@ -28,7 +29,7 @@ class ProductDetailsScreen extends StatefulWidget {
   State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
 }
 
-class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
+class _ProductDetailsScreenState extends BaseStatefulState<ProductDetailsScreen> {
   List<Product> relatedproducts = [];
 
    List<ProductImages> productImages = [];
@@ -42,31 +43,26 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   }
 
   void getSingleProductDetails() {
-    // setState(() {
-    //   isLoading = true;
-    // });
 
-    // Map<String, dynamic> map = {
-    //   "custId": 386,
-    //   'guestId': 0,
-    //   'urlKey': 'canon-lpe6nh-battery-og',
-    //   ' pincode': 8,
-    // };
-
+    showLoader();
     NetworkManager.shared.getSingleProductDetails(<String, dynamic>{
       "custId": NetworkManager.shared.userId,
       'guestId': 0,
       'urlKey': widget.popularproducts?.urlKey,
       ' pincode': 8,
     }).then((BaseResponse<ProductDetail> response) {
+      //hideLoader();
       setState(() {
         relatedproducts.clear();
         relatedproducts.addAll(response.data!.products!);
 
         productImages.clear();
         productImages.addAll(response.data!.productImages!);
+
+        
       });
     }).catchError((e) {
+     // hideLoader();
       print(e.toString());
     });
   }
@@ -151,30 +147,40 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
                         Column(
                           children: [
-                            CarouselSlider.builder(
-                              options: CarouselOptions(
-                                height: 200.0,
-                                autoPlay: false,
-                              ),
-                              itemCount: 2,
-                              itemBuilder: (context, itemIndex, realIndex) {
-                                return Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: CachedNetworkImage(
-                                      imageUrl:
-                                          "https://dev.lenzcamera.com/webadmin/${widget.popularproducts?.imageUrl}"),
-                                  // FadeInImage.assetNetwork(
-                                  //   placeholder: 'assets/images/placeholder.jpg',
-                                  //   image: "https://dev.lenzcamera.com/webadmin/${widget.popularproducts?.imageUrl??''}",
-                                  //   fit: BoxFit.cover),
-                                  //     Image(
-                                  //   image: AssetImage("assets/images/camerabanner.png"),
-                                  //   fit: BoxFit.fill,
-                                  //   width: MediaQuery.of(context).size.width,
-                                  // ),
-                                );
-                              },
+
+                            Container(
+
+                              height:200,
+                              width: 200,
+                              child:CachedNetworkImage(
+                               imageUrl:
+                                    "https://dev.lenzcamera.com/webadmin/${widget.popularproducts?.imageUrl}"),
                             ),
+                            // CarouselSlider.builder(
+                            //   options: CarouselOptions(
+                            //     height: 200.0,
+                            //     autoPlay: false,
+                            //   ),
+                            //   itemCount: 1,
+                            //   itemBuilder: (context, itemIndex, realIndex) {
+                            //     return Padding(
+                            //       padding: const EdgeInsets.all(8.0),
+                            //       child: 
+                            //       // CachedNetworkImage(
+                            //       //     imageUrl:
+                            //       //         "https://dev.lenzcamera.com/webadmin/${widget.popularproducts?.imageUrl}"),
+                            //       // FadeInImage.assetNetwork(
+                            //       //   placeholder: 'assets/images/placeholder.jpg',
+                            //       //   image: "https://dev.lenzcamera.com/webadmin/${widget.popularproducts?.imageUrl??''}",
+                            //       //   fit: BoxFit.cover),
+                            //           Image(
+                            //         image: AssetImage("assets/images/camerabanner.png"),
+                            //         fit: BoxFit.fill,
+                            //         width: MediaQuery.of(context).size.width,
+                            //       ),
+                            //     );
+                            //   },
+                            // ),
 
                             Padding(
                               padding: const EdgeInsets.only(right:24),
@@ -960,5 +966,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         ),
       ),
     );
+  }
+  
+  @override
+  bool isAuthenticationRequired() {
+    // TODO: implement isAuthenticationRequired
+    throw UnimplementedError();
   }
 }
