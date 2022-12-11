@@ -169,13 +169,13 @@ class _PopularProductsScreenState
                               // "CANON EF 16-35 MM F/4L IS USM ",
                               popularProductsList[index].prName ?? '',
                               style: TextStyle(
-                                  fontSize: 10, fontWeight: FontWeight.w400),
+                                  fontSize: 10, fontWeight: FontWeight.bold,fontFamily: 'Intro'),
                               maxLines: 1,
                               textAlign: TextAlign.center,
                             )),
                         Text("QAR${popularProductsList[index].unitPrice ?? ''}",
                             style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.w600)),
+                                fontSize: 15, fontWeight: FontWeight.bold,fontFamily: 'Intro')),
                         if (popularProductsList[index].isCartUpdateProgress!)
                           SizedBox(
                               height: 30,

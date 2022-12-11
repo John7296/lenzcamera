@@ -7,16 +7,26 @@ import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/city_list.dart';
 import 'package:lenzcamera/model/state_list.dart';
 
-class AddNewAddressScreen extends StatefulWidget {
-  const AddNewAddressScreen({Key? key}) : super(key: key);
+class EditAddressScreen extends StatefulWidget {
+   EditAddressScreen(this.firstName, this.lastName, this.addressLine1,
+      this.addressLine2, this.phone, this.pinCode, this.landMark, context);
+
+  String? firstName;
+  String? lastName;
+  String? addressLine1;
+  String? addressLine2;
+  String? phone;
+  String? pinCode;
+  String? landMark;
+  BuildContext? context;
 
   @override
-  State<AddNewAddressScreen> createState() => _AddNewAddressScreenState();
+  State<EditAddressScreen> createState() => _EditAddressScreenState();
 }
 
-class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
+class _EditAddressScreenState extends BaseStatefulState<EditAddressScreen> {
   final GlobalKey<FormState> _form = GlobalKey<FormState>();
-
+  List<AddressList> addressList = [];
   String? selectedCity;
   String? selectedState;
   bool isCheckedSA = false;
@@ -33,6 +43,8 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
   final _phoneController = TextEditingController();
   final _landmarkController = TextEditingController();
   final _pinCodeController = TextEditingController();
+
+  late AddressList userAddress;
 
   @override
   void initState() {
@@ -70,9 +82,9 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
       "addLine2": _addressL2Controller.text,
       "addressType": "",
       "country": "QATAR",
-      "custAdressId": 418,
+      "custAdressId": addressList.first.custAdressId,
       "custId": NetworkManager.shared.userId,
-      "district": selectedCity,
+      "district": cityList.first.name,
       "firstName": _firstNameController.text,
       "isDefaultBillingAddress": isCheckedBA,
       "isDefaultShippingAddress": isCheckedSA,
@@ -82,7 +94,7 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
       "longitude": 76.3041375,
       "phone": _phoneController.text,
       "pincode": _pinCodeController.text,
-      "state": selectedState,
+      "state": stateList.first.id,
     }).then((BaseResponse response) {
       showFlashMsg(response.message!);
     }).catchError((e) {
@@ -119,6 +131,14 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
 
   @override
   Widget build(BuildContext context) {
+    _firstNameController.text = widget.firstName??'';
+    _lastNameController.text = widget.lastName ?? '';
+    _addressL1Controller.text = widget.addressLine1 ?? '';
+    _addressL2Controller.text = widget.addressLine2 ?? '';
+    _phoneController.text = widget.phone ?? '';
+    _pinCodeController.text = widget.pinCode ?? '';
+    _landmarkController.text = widget.landMark ?? '';
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -126,7 +146,7 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
             backgroundColor: Colors.grey.shade700,
             title: Padding(
               padding: const EdgeInsets.only(left: 50),
-              child: Text('Add New Address',style: TextStyle(fontFamily: 'Intro'),),
+              child: Text('Edit Address'),
             ),
             leading: IconButton(
               icon: Icon(Icons.arrow_back_ios),
@@ -155,7 +175,7 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
                                   'First Name',
                                   style: TextStyle(
                                       color: Colors.grey.shade600,
-                                      fontWeight: FontWeight.bold,fontFamily: 'Intro'),
+                                      fontWeight: FontWeight.bold),
                                 ),
                               )),
                           Container(
@@ -181,7 +201,7 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
                                 child: Text('Last Name',
                                     style: TextStyle(
                                         color: Colors.grey.shade600,
-                                        fontWeight: FontWeight.bold,fontFamily: 'Intro')),
+                                        fontWeight: FontWeight.bold)),
                               )),
                           Container(
                             height: 40,
@@ -206,7 +226,7 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
                                 child: Text('Address Line 1',
                                     style: TextStyle(
                                         color: Colors.grey.shade600,
-                                        fontWeight: FontWeight.bold,fontFamily: 'Intro')),
+                                        fontWeight: FontWeight.bold)),
                               )),
                           Container(
                             height: 40,
@@ -231,7 +251,7 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
                                 child: Text('Address Line 2',
                                     style: TextStyle(
                                         color: Colors.grey.shade600,
-                                        fontWeight: FontWeight.bold,fontFamily: 'Intro')),
+                                        fontWeight: FontWeight.bold)),
                               )),
                           Container(
                             height: 40,
@@ -256,7 +276,7 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
                                 child: Text('Phone +974',
                                     style: TextStyle(
                                         color: Colors.grey.shade600,
-                                        fontWeight: FontWeight.bold,fontFamily: 'Intro')),
+                                        fontWeight: FontWeight.bold)),
                               )),
                           Container(
                             height: 40,
@@ -281,7 +301,7 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
                                 child: Text('PinCode',
                                     style: TextStyle(
                                         color: Colors.grey.shade600,
-                                        fontWeight: FontWeight.bold,fontFamily: 'Intro')),
+                                        fontWeight: FontWeight.bold)),
                               )),
                           Container(
                             height: 40,
@@ -414,7 +434,7 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
                               Text(
                                 'Make As Default Billing Address',
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 12,fontFamily: 'Intro'),
+                                    fontWeight: FontWeight.bold, fontSize: 12),
                               ),
                             ],
                           ),
@@ -433,7 +453,7 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
                               Text(
                                 'Make As Default Shipping Address',
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 12,fontFamily: 'Intro'),
+                                    fontWeight: FontWeight.bold, fontSize: 12),
                               ),
                             ],
                           ),
@@ -444,7 +464,7 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
                                 child: Text('Landmark',
                                     style: TextStyle(
                                         color: Colors.grey.shade600,
-                                        fontWeight: FontWeight.bold,fontFamily: 'Intro')),
+                                        fontWeight: FontWeight.bold)),
                               )),
                           Container(
                             height: 40,
@@ -470,7 +490,6 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
                                 onSaveButtonTapped();
                                 Navigator.pop(context);
                                 showFlashMsg("Address Added");
-                               
                               },
                               child: Text(
                                 'Save',

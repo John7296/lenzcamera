@@ -1498,12 +1498,9 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
               leading: const Icon(Icons.logout),
               title: const Text('LogOut'),
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => LoginScreen(),
-                  ),
-                );
+              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (BuildContext context) {
+        return LoginScreen();
+      },),(route) => false);
               },
             ),
           ],

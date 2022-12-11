@@ -31,7 +31,9 @@ class _ReturnPolicyScreenState extends State<ReturnPolicyScreen> {
         // ],
         backgroundColor: Colors.grey.shade700,
         leading: IconButton(
-          onPressed: () { Navigator.pop(context);},
+          onPressed: () { 
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => HomeScreen()));},
           icon: Icon(Icons.arrow_back_ios),
         ),
       ),

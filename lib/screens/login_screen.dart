@@ -53,7 +53,9 @@ class _LoginScreenState extends BaseStatefulState<LoginScreen> {
       
       NetworkManager.shared.refreshTokens();
       
-      Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (BuildContext context) {
+        return HomeScreen();
+      },),(route) => false);
     }).catchError((e) {
       showFlashMsg(e.toString());
       print(e);
@@ -106,7 +108,7 @@ class _LoginScreenState extends BaseStatefulState<LoginScreen> {
                         "Email Or Mobile Number",
                         style: TextStyle(
                             color: Color(0xff747474),
-                            fontWeight: FontWeight.w600,
+                            fontWeight: FontWeight.bold,fontFamily: 'Intro',
                             fontSize: 12),
                       ),
                     ),
@@ -134,7 +136,7 @@ class _LoginScreenState extends BaseStatefulState<LoginScreen> {
                         "Password",
                         style: TextStyle(
                             color: Color(0xff747474),
-                            fontWeight: FontWeight.w600,
+                            fontWeight: FontWeight.bold,fontFamily: 'Intro',
                             fontSize: 12),
                       ),
                     ),
@@ -210,7 +212,7 @@ class _LoginScreenState extends BaseStatefulState<LoginScreen> {
                       "Forgot Password?",
                       style: TextStyle(
                           color: Color(0xff454545),
-                          fontWeight: FontWeight.w800,
+                          fontWeight: FontWeight.bold,fontFamily: 'Intro',
                           fontSize: 14),
                     ))),
                 Row(
@@ -233,7 +235,7 @@ class _LoginScreenState extends BaseStatefulState<LoginScreen> {
                         style: TextStyle(
                             decoration: TextDecoration.underline,
                             fontSize: 16,
-                            fontWeight: FontWeight.normal,
+                            fontWeight: FontWeight.bold,fontFamily: 'Intro',
                             color: Color(0xffc5484c)),
                       ),
                     ),

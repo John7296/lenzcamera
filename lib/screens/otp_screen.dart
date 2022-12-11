@@ -31,8 +31,12 @@ class _OtpScreenState extends BaseStatefulState<OtpScreen> {
     }).then((BaseResponse response) {
       // hideLoader();
       showFlashMsg(response.message!);
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => HomeScreen()));
+
+      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+        builder: (BuildContext context) {
+          return HomeScreen();
+        },
+      ), (route) => false);
     }).catchError((e) {
       // showLoader();
       showFlashMsg(e.toString());
@@ -46,7 +50,7 @@ class _OtpScreenState extends BaseStatefulState<OtpScreen> {
       home: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text("Forgot Password"),
+          title: Text(""),
           titleTextStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
           leading: IconButton(
             icon: const Icon(

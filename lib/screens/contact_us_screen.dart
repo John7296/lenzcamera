@@ -7,6 +7,7 @@ import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/customer.dart';
 import 'package:lenzcamera/model/customer_details.dart';
 import 'package:lenzcamera/model/login_customer.dart';
+import 'package:lenzcamera/screens/home_screen.dart';
 import 'package:lenzcamera/utils/sessions_manager.dart';
 
 class ContactUsScreen extends StatefulWidget{
@@ -104,8 +105,9 @@ void onSendButtonTapped() {
               color: Colors.white,
             ),
             onPressed: () {
-             Navigator.pop(context);
 
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => HomeScreen()));
             },
           ),
           backgroundColor: Colors.black,
