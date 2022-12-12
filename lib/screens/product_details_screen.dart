@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:lenzcamera/base/base_stateful_state.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/manager/data_manager.dart';
@@ -32,14 +33,17 @@ class ProductDetailsScreen extends StatefulWidget {
 class _ProductDetailsScreenState extends BaseStatefulState<ProductDetailsScreen> {
   List<Product> relatedproducts = [];
 
-   List<ProductImages> productImages = [];
+   //List<ProductImages> productImages = [];
 
   // bool isLoading = true;
 
   @override
   void initState() {
     super.initState();
-    getSingleProductDetails();
+     Future.delayed(Duration(milliseconds: 500), (() {
+       getSingleProductDetails();
+    }));
+   
   }
 
   void getSingleProductDetails() {
@@ -51,18 +55,18 @@ class _ProductDetailsScreenState extends BaseStatefulState<ProductDetailsScreen>
       'urlKey': widget.popularproducts?.urlKey,
       ' pincode': 8,
     }).then((BaseResponse<ProductDetail> response) {
-      //hideLoader();
+      hideLoader();
       setState(() {
         relatedproducts.clear();
         relatedproducts.addAll(response.data!.products!);
 
-        productImages.clear();
-        productImages.addAll(response.data!.productImages!);
+        // productImages.clear();
+        // productImages.addAll(response.data!.productImages!);
 
         
       });
     }).catchError((e) {
-     // hideLoader();
+      hideLoader();
       print(e.toString());
     });
   }
@@ -139,62 +143,54 @@ class _ProductDetailsScreenState extends BaseStatefulState<ProductDetailsScreen>
         //         ),                                     
         //   ],
         // ),
+                        Padding(
+                          padding: const EdgeInsets.only(top:50),
+                          child: Container(
 
+                            height:200,
+                            width: 200,
+                            child:CachedNetworkImage(
+                             imageUrl:
+                                  "https://dev.lenzcamera.com/webadmin/${widget.popularproducts?.imageUrl}"),
+                          ),
+                        ),
+                        // CarouselSlider.builder(
+                        //   options: CarouselOptions(
+                        //     height: 200.0,
+                        //     autoPlay: false,
+                        //   ),
+                        //   itemCount: 1,
+                        //   itemBuilder: (context, itemIndex, realIndex) {
+                        //     return Padding(
+                        //       padding: const EdgeInsets.all(8.0),
+                        //       child: 
+                        //       // CachedNetworkImage(
+                        //       //     imageUrl:
+                        //       //         "https://dev.lenzcamera.com/webadmin/${widget.popularproducts?.imageUrl}"),
+                        //       // FadeInImage.assetNetwork(
+                        //       //   placeholder: 'assets/images/placeholder.jpg',
+                        //       //   image: "https://dev.lenzcamera.com/webadmin/${widget.popularproducts?.imageUrl??''}",
+                        //       //   fit: BoxFit.cover),
+                        //           Image(
+                        //         image: AssetImage("assets/images/camerabanner.png"),
+                        //         fit: BoxFit.fill,
+                        //         width: MediaQuery.of(context).size.width,
+                        //       ),
+                        //     );
+                        //   },
+                        // ),
 
-
-
-
-
-                        Column(
-                          children: [
-
-                            Container(
-
-                              height:200,
-                              width: 200,
-                              child:CachedNetworkImage(
-                               imageUrl:
-                                    "https://dev.lenzcamera.com/webadmin/${widget.popularproducts?.imageUrl}"),
-                            ),
-                            // CarouselSlider.builder(
-                            //   options: CarouselOptions(
-                            //     height: 200.0,
-                            //     autoPlay: false,
-                            //   ),
-                            //   itemCount: 1,
-                            //   itemBuilder: (context, itemIndex, realIndex) {
-                            //     return Padding(
-                            //       padding: const EdgeInsets.all(8.0),
-                            //       child: 
-                            //       // CachedNetworkImage(
-                            //       //     imageUrl:
-                            //       //         "https://dev.lenzcamera.com/webadmin/${widget.popularproducts?.imageUrl}"),
-                            //       // FadeInImage.assetNetwork(
-                            //       //   placeholder: 'assets/images/placeholder.jpg',
-                            //       //   image: "https://dev.lenzcamera.com/webadmin/${widget.popularproducts?.imageUrl??''}",
-                            //       //   fit: BoxFit.cover),
-                            //           Image(
-                            //         image: AssetImage("assets/images/camerabanner.png"),
-                            //         fit: BoxFit.fill,
-                            //         width: MediaQuery.of(context).size.width,
-                            //       ),
-                            //     );
-                            //   },
-                            // ),
-
-                            Padding(
-                              padding: const EdgeInsets.only(right:24),
-                              child: Align(
-                                alignment: Alignment.bottomRight,
-                                child: IconButton(onPressed: (){
+                        Padding(
+                          padding: const EdgeInsets.only(right:24),
+                          child: Align(
+                            alignment: Alignment.bottomRight,
+                            child: IconButton(onPressed: (){
 
                       //             Navigator.push(
                       // context,
                       // MaterialPageRoute(
                       //     builder: (context) => ProductImagesScreen(widget.popularproducts?.urlKey??'')));
-                                }, icon: Icon(Icons.zoom_in_map))),
-                            )
-                          ],
+                            }, icon: Icon(Icons.zoom_in_map))),
                         ),
                         // Center(
                         //     child: Container(
@@ -392,77 +388,18 @@ class _ProductDetailsScreenState extends BaseStatefulState<ProductDetailsScreen>
                               SizedBox(height: 10),
                               Padding(
                                 padding: const EdgeInsets.only(left: 12),
-                                child: Text(
-                                  widget.popularproducts?.description ?? "",
+                                child: Html(
+
+                                data:  widget.popularproducts?.description ?? "",
                                   // "Key Features",
-                                  style: TextStyle(
-                                      color: Color(0xff6e706d),
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.w300),
-                                  maxLines: 10,
+                                  // style: TextStyle(
+                                  //     color: Color(0xff6e706d),
+                                  //     fontSize: 13,
+                                  //     fontWeight: FontWeight.w300),
+                                  // maxLines: 10,
                                 ),
                               ),
-                              // Padding(
-                              //   padding: const EdgeInsets.only(left: 20, top: 30),
-                              //   child: Row(
-                              //     children: [
-                              //       Text(". EF Mount Lens/ Full Frame Format",
-                              //           style: TextStyle(
-                              //               color: Color(0xff6e706d),
-                              //               fontSize: 13,
-                              //               fontWeight: FontWeight.w300)),
-                              //     ],
-                              //   ),
-                              // ),
-                              // Padding(
-                              //   padding: const EdgeInsets.only(left: 20, top: 5),
-                              //   child: Row(
-                              //     children: [
-                              //       Text(". EF Mount Lens/ Full Frame Format",
-                              //           style: TextStyle(
-                              //               color: Color(0xff6e706d),
-                              //               fontSize: 13,
-                              //               fontWeight: FontWeight.w300)),
-                              //     ],
-                              //   ),
-                              // ),
-                              // Padding(
-                              //   padding: const EdgeInsets.only(left: 20, top: 5),
-                              //   child: Row(
-                              //     children: [
-                              //       Text(". EF Mount Lens/ Full Frame Format",
-                              //           style: TextStyle(
-                              //               color: Color(0xff6e706d),
-                              //               fontSize: 13,
-                              //               fontWeight: FontWeight.w300)),
-                              //     ],
-                              //   ),
-                              // ),
-                              // Padding(
-                              //   padding: const EdgeInsets.only(left: 20, top: 5),
-                              //   child: Row(
-                              //     children: [
-                              //       Text(". EF Mount Lens/ Full Frame Format",
-                              //           style: TextStyle(
-                              //               color: Color(0xff6e706d),
-                              //               fontSize: 13,
-                              //               fontWeight: FontWeight.w300)),
-                              //     ],
-                              //   ),
-                              // ),
-                              // Padding(
-                              //   padding: const EdgeInsets.only(
-                              //       left: 20, top: 5, bottom: 5),
-                              //   child: Row(
-                              //     children: [
-                              //       Text(". EF Mount Lens/ Full Frame Format",
-                              //           style: TextStyle(
-                              //               color: Color(0xff6e706d),
-                              //               fontSize: 13,
-                              //               fontWeight: FontWeight.w300)),
-                              //     ],
-                              //   ),
-                              // ),
+                             
                             ],
                           ),
                         ),
@@ -586,7 +523,7 @@ class _ProductDetailsScreenState extends BaseStatefulState<ProductDetailsScreen>
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w400),
-                                                            maxLines: 3,
+                                                            maxLines: 2,
                                                             textAlign: TextAlign
                                                                 .center,
                                                           )),
@@ -827,108 +764,106 @@ class _ProductDetailsScreenState extends BaseStatefulState<ProductDetailsScreen>
                   // width: 160,
                   height: 40,
                   child: widget.popularproducts!.isAddedtoCart()
-                      ? Expanded(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Container(
-                                width: 200,
-                                height: 40,
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Color(0xffec3436),
-                                  ),
-                                  onPressed: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                CartScreen()));
-                                  },
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        "Go To Cart",
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                      
-                                    ],
-                                  ),
-                                ),
+                      ? Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: 200,
+                            height: 40,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Color(0xffec3436),
                               ),
-                              SizedBox(width: 30),
-                              InkWell(
-                                onTap: () {
-                                  DataManager.shared.updateItemToCart(
-                                      widget.popularproducts!, 4, onUpdate: () {
-                                    setState(() {});
-                                  }, onUpdateStarted: () {
-                                    setState(() {});
-                                  });
-                                },
-                                child: Container(
-                                  width: 40,
-                                  height: 30,
-                                  decoration: BoxDecoration(
-                                    color: Color(0xff70726f),
-                                    borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(5),
-                                      bottomLeft: Radius.circular(5),
-                                    ),
-                                  ),
-                                  child: Center(
-                                    child: Icon(
-                                      Icons.remove,
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            CartScreen()));
+                              },
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Go To Cart",
+                                    style: TextStyle(
+                                      fontSize: 16,
                                       color: Colors.white,
-                                      size: 12,
                                     ),
                                   ),
+                                  
+                                ],
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: 30),
+                          InkWell(
+                            onTap: () {
+                              DataManager.shared.updateItemToCart(
+                                  widget.popularproducts!, 4, onUpdate: () {
+                                setState(() {});
+                              }, onUpdateStarted: () {
+                                setState(() {});
+                              });
+                            },
+                            child: Container(
+                              width: 40,
+                              height: 30,
+                              decoration: BoxDecoration(
+                                color: Color(0xff70726f),
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(5),
+                                  bottomLeft: Radius.circular(5),
                                 ),
                               ),
-                              Container(
-                                width: 70,
+                              child: Center(
+                                child: Icon(
+                                  Icons.remove,
+                                  color: Colors.white,
+                                  size: 12,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            width: 60,
+                            height: 30,
+                            decoration: BoxDecoration(
+                              color: Color(0xffe3e3e3),
+                            ),
+                            child: Center(
+                                child: Text(
+                              "1",
+                              style: TextStyle(color: Colors.black),
+                            )),
+                          ),
+                          InkWell(
+                            onTap: () {
+                              DataManager.shared.updateItemToCart(
+                                  widget.popularproducts!, 3, onUpdate: () {
+                                setState(() {});
+                              }, onUpdateStarted: () {
+                                setState(() {});
+                              });
+                            },
+                            child: Container(
+                                width: 40,
                                 height: 30,
                                 decoration: BoxDecoration(
-                                  color: Color(0xffe3e3e3),
+                                  color: Color(0xffe83031),
+                                  borderRadius: BorderRadius.only(
+                                    topRight: Radius.circular(5),
+                                    bottomRight: Radius.circular(5),
+                                  ),
                                 ),
-                                child: Center(
-                                    child: Text(
-                                  "1",
-                                  style: TextStyle(color: Colors.black),
+                                child: Icon(
+                                  Icons.add,
+                                  color: Colors.white,
+                                  size: 12,
                                 )),
-                              ),
-                              InkWell(
-                                onTap: () {
-                                  DataManager.shared.updateItemToCart(
-                                      widget.popularproducts!, 3, onUpdate: () {
-                                    setState(() {});
-                                  }, onUpdateStarted: () {
-                                    setState(() {});
-                                  });
-                                },
-                                child: Container(
-                                    width: 40,
-                                    height: 30,
-                                    decoration: BoxDecoration(
-                                      color: Color(0xffe83031),
-                                      borderRadius: BorderRadius.only(
-                                        topRight: Radius.circular(5),
-                                        bottomRight: Radius.circular(5),
-                                      ),
-                                    ),
-                                    child: Icon(
-                                      Icons.add,
-                                      color: Colors.white,
-                                      size: 12,
-                                    )),
-                              ),
-                            ],
                           ),
-                        )
+                        ],
+                      )
                       : ElevatedButton(
                           style: ElevatedButton.styleFrom(
                               elevation: 0,

@@ -36,12 +36,13 @@ dependencies:
   retrofit: ^3.3.1
   flutter_staggered_grid_view: ^0.4.1
   pretty_dio_logger: ^1.2.0-beta-1
-  cached_network_image: ^3.2.2
+  cached_network_image: ^3.2.3
   pin_code_fields: ^7.4.0
   fluttertoast: ^8.1.1
   flash: ^2.0.3
   photo_view: ^0.14.0
   fullscreen: ^1.0.3
+  flutter_html: ^2.2.1
 
 
   # The following adds the Cupertino Icons font to your application.

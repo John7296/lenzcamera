@@ -52,6 +52,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
   String? cartItemId;
 
   Product? featuredProducts;
+  Product? products;
 
   @override
   void initState() {
@@ -415,7 +416,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                       MaterialPageRoute(
                                           builder: (context) =>
                                               ProductDetailsScreen(
-                                                  featuredList[index])));
+                                                featuredList[index])));
                                 },
                                 child: Card(
                                   shape: RoundedRectangleBorder(),
