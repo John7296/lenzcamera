@@ -71,25 +71,27 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color(0xfff9f8f6),
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text("Cart"),
-          titleTextStyle: TextStyle(
-              fontSize: 14, fontWeight: FontWeight.bold, fontFamily: 'Intro'),
-          leading: IconButton(
-            icon: const Icon(
-              Icons.arrow_back_ios_new_sharp,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => HomeScreen()));
-            },
+      backgroundColor: Color(0xfff9f8f6),
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text("Cart"),
+        titleTextStyle: TextStyle(
+            fontSize: 14, fontWeight: FontWeight.bold, fontFamily: 'Intro'),
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back_ios_new_sharp,
+            color: Colors.white,
           ),
-          backgroundColor: Colors.grey.shade700,
+          onPressed: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => HomeScreen()));
+          },
         ),
-        body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        backgroundColor: Colors.grey.shade700,
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
           Expanded(
             child: Container(
               height: 600,
@@ -148,7 +150,7 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                                           // 'CANON EF 16-35 MM F/4L IS USM',
                                           cartItemsList[index].prName ?? '',
                                           style: TextStyle(
-                                              fontWeight: FontWeight.bold,
+                                              // fontWeight: FontWeight.bold,
                                               fontFamily: 'Intro'),
                                           maxLines: 2,
                                         ),
@@ -467,27 +469,28 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                 ),
                 onPressed: () {
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => CheckoutScreen(
-                              cartItemsList.first.grandTotal,
-                              cartItemsList.first.subTotal,
-                              context)));
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CheckoutScreen(
+                          cartItemsList.first.grandTotal,
+                          cartItemsList.first.subTotal,
+                          context),
+                    ),
+                  );
                   getCart();
                 },
                 child: Center(
                     child: Text(
                   "PROCEED TO CHECKOUT",
                   style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Intro'),
+                      fontSize: 20, color: Colors.white, fontFamily: 'Intro'),
                 )),
               ),
             ),
           ),
-        ]));
+        ],
+      ),
+    );
   }
 
   @override

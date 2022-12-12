@@ -7,6 +7,7 @@ import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/order_list.dart';
 import 'package:lenzcamera/screens/home_screen.dart';
 import 'package:lenzcamera/screens/order_details_screen.dart';
+import 'package:lenzcamera/screens/order_screen.dart';
 
 class OrderSuccessScreen extends StatefulWidget {
   const OrderSuccessScreen();
@@ -92,13 +93,16 @@ class _OrderSuccessScreenState extends BaseStatefulState<OrderSuccessScreen> {
                   //   context,
                   //   MaterialPageRoute(
                   //     builder: (context) => OrderDetailScreen(
-                  //         orderList.first.ProductImgUrl ?? '',
-                  //         orderList.first.orderId.toString(),
-                  //         orderList.first.status ?? '',
-                  //         orderList.first.orderDate ?? "",
+                  //         orderList,
                   //         context),
                   //   ),
                   // );
+
+                    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+                      builder: (BuildContext context) {
+                        return OrderScreen();
+                      },
+                    ), (route) => false);
                 },
                 child: Text(orderList.first.orderNumber ?? ''),
               ),

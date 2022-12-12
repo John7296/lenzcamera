@@ -7,6 +7,7 @@ import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/order_list.dart';
 import 'package:lenzcamera/screens/cart_screen.dart';
+import 'package:lenzcamera/screens/home_screen.dart';
 import 'package:lenzcamera/screens/order_details_screen.dart';
 import 'package:lenzcamera/screens/profile_screen.dart';
 import 'package:lenzcamera/screens/wishlist_screen.dart';
@@ -56,7 +57,11 @@ class _OrderScreenState extends BaseStatefulState<OrderScreen> {
       appBar: AppBar(
         title: Padding(
           padding: const EdgeInsets.only(left: 50),
-          child: Text('My Orders',style: TextStyle(fontFamily: 'Intro',fontWeight: FontWeight.bold,fontSize: 15),),
+          child: Text(
+            'My Orders',
+            style: TextStyle(
+                fontFamily: 'Intro', fontWeight: FontWeight.bold, fontSize: 15),
+          ),
         ),
         actions: [
           IconButton(
@@ -78,7 +83,8 @@ class _OrderScreenState extends BaseStatefulState<OrderScreen> {
         leading: IconButton(
           onPressed: () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => ProfileScreen()));
+                MaterialPageRoute(builder: (context) => HomeScreen()));
+            // Navigator.pop(context);
           },
           icon: Icon(Icons.arrow_back_ios),
         ),
@@ -129,17 +135,18 @@ class _OrderScreenState extends BaseStatefulState<OrderScreen> {
                                         child: Container(
                                           height: 50,
                                           width: 50,
-                                          child: 
-                                               ClipRRect(
-                borderRadius: BorderRadius.circular(5.0),
-                child: 
-                FadeInImage.assetNetwork(
-                    height: 250,
-                    width: double.infinity,
-                    placeholder: 'assets/images/placeholder.png',
-                    image: "https://dev.lenzcamera.com/webadmin/${orderList[index].ProductImgUrl}",
-                    fit: BoxFit.cover),
-              ),
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(5.0),
+                                            child: FadeInImage.assetNetwork(
+                                                height: 250,
+                                                width: double.infinity,
+                                                placeholder:
+                                                    'assets/images/placeholder.png',
+                                                image:
+                                                    "https://dev.lenzcamera.com/webadmin/${orderList[index].ProductImgUrl}",
+                                                fit: BoxFit.cover),
+                                          ),
                                           // CachedNetworkImage(
                                           //     imageUrl:
                                           //         "https://dev.lenzcamera.com/webadmin/${orderList[index].ProductImgUrl}"),

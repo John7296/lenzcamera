@@ -156,7 +156,7 @@ class _WishlistScreenState extends BaseStatefulState<WishlistScreen> {
                             child: Text(
                               // 'CANON EF 16-35 MM F/4L IS USM',
                               wishListItems[index].prName ?? '',
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                              style: TextStyle(fontFamily: 'Intro'),
                               maxLines: 2,
                             ),
                           ),

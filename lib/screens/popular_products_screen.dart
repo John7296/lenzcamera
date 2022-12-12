@@ -168,7 +168,7 @@ class _PopularProductsScreenState
                             child: Text(
                               popularProductsList[index].prName ?? '',
                                           maxLines: 2,
-                                          style: const TextStyle(fontSize: 12),
+                                          style: const TextStyle(fontSize: 12,fontFamily: 'Intro'),
                                           overflow: TextOverflow.ellipsis,
                               // "CANON EF 16-35 MM F/4L IS USM ",
                               // popularProductsList[index].prName ?? '',

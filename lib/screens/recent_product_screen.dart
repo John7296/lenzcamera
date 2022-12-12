@@ -141,7 +141,7 @@ class _RecentProductsScreenState
                               // "CANON EF 16-35 MM F/4L IS USM ",
                               recentProductsList[index].prName ?? '',
                               style: TextStyle(
-                                  fontSize: 10, fontWeight: FontWeight.w400),
+                                  fontSize: 10, fontFamily: 'Intro'),
                               maxLines: 1,
                               textAlign: TextAlign.center,
                             )),

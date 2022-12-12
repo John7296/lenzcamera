@@ -168,7 +168,7 @@ class _FeaturedProductsScreenState
                               // textAlign: TextAlign.center,
                               featuredList[index].prName ?? '',
                                           maxLines: 2,
-                                          style: const TextStyle(fontSize: 12),
+                                          style: const TextStyle(fontSize: 12,fontFamily: 'Intro'),
                                           overflow: TextOverflow.ellipsis,
                             ),
                           ),

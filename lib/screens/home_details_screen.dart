@@ -345,7 +345,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                     categoryList[index].catName ?? '',
                                     style: TextStyle(
                                         fontSize: 12,
-                                        fontWeight: FontWeight.bold,
+                                        // fontWeight: FontWeight.bold,
                                         fontFamily: 'Intro'),
                                     maxLines: 1,
                                     textAlign: TextAlign.center,
@@ -416,7 +416,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                       MaterialPageRoute(
                                           builder: (context) =>
                                               ProductDetailsScreen(
-                                                featuredList[index])));
+                                                  featuredList[index])));
                                 },
                                 child: Card(
                                   shape: RoundedRectangleBorder(),
@@ -490,7 +490,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                           // 'CANON EF 16-35 MM F/4L IS USM',
                                           featuredList[index].prName ?? '',
                                           maxLines: 2,
-                                          style: const TextStyle(fontSize: 12),
+                                          style: const TextStyle(fontSize: 12, fontFamily: 'Intro'),
                                           overflow: TextOverflow.ellipsis,
                                         ),
                                         const SizedBox(height: 5),
@@ -722,17 +722,17 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                       itemBuilder: (context, itemIndex, realIndex) {
                         return SizedBox(
                           width: MediaQuery.of(context).size.width,
-                          child: 
-                          //  FadeInImage.assetNetwork(
-                          //                         height: 250,
-                          //                         width: double.infinity,
-                          //                         placeholder:
-                          //                             'assets/images/placeholder.png',
-                          //                         image:
-                          //                             "https://dev.lenzcamera.com/webadmin/${bannerList[itemIndex].imageUrl}",
-                          //                         fit: BoxFit.cover),
-                          Image.network(
-                              "https://dev.lenzcamera.com/webadmin/${bannerList[itemIndex].imageUrl}"),
+                          child:
+                              //  FadeInImage.assetNetwork(
+                              //                         height: 250,
+                              //                         width: double.infinity,
+                              //                         placeholder:
+                              //                             'assets/images/placeholder.png',
+                              //                         image:
+                              //                             "https://dev.lenzcamera.com/webadmin/${bannerList[itemIndex].imageUrl}",
+                              //                         fit: BoxFit.cover),
+                              Image.network(
+                                  "https://dev.lenzcamera.com/webadmin/${bannerList[itemIndex].imageUrl}"),
                         );
                         //   CachedNetworkImage(
                         //       fit: BoxFit.fitWidth,
@@ -906,7 +906,8 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                   height: 100,
                                                   width: 100,
                                                   placeholder:
-                                                      'assets/images/placeholder.png',placeholderFit: BoxFit.fill,
+                                                      'assets/images/placeholder.png',
+                                                  placeholderFit: BoxFit.fill,
                                                   image:
                                                       "https://dev.lenzcamera.com/webadmin/${popularProductsList[index].imageUrl}",
                                                   fit: BoxFit.cover),
@@ -919,7 +920,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                           popularProductsList[index].prName ??
                                               '',
                                           maxLines: 2,
-                                          style: const TextStyle(fontSize: 12),
+                                          style: const TextStyle(fontSize: 12,fontFamily: 'Intro'),
                                           overflow: TextOverflow.ellipsis,
                                         ),
                                         const SizedBox(height: 5),
@@ -1204,18 +1205,17 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                       child: Container(
                                         width: 100,
                                         height: 100,
-                                        child: 
-                                         FadeInImage.assetNetwork(
-                                                  height: 250,
-                                                  width: double.infinity,
-                                                  placeholder:
-                                                      'assets/images/placeholder.png',
-                                                  image:
-                                                      "https://dev.lenzcamera.com/webadmin/${recentProductsList[index].imageUrl}",
-                                                  fit: BoxFit.cover),
+                                        child: FadeInImage.assetNetwork(
+                                            height: 250,
+                                            width: double.infinity,
+                                            placeholder:
+                                                'assets/images/placeholder.png',
+                                            image:
+                                                "https://dev.lenzcamera.com/webadmin/${recentProductsList[index].imageUrl}",
+                                            fit: BoxFit.cover),
                                         // CachedNetworkImage(
-                                            // imageUrl:
-                                            //     "https://dev.lenzcamera.com/webadmin/${recentProductsList[index].imageUrl}"),
+                                        // imageUrl:
+                                        //     "https://dev.lenzcamera.com/webadmin/${recentProductsList[index].imageUrl}"),
                                       ),
                                     ),
                                     Padding(
@@ -1266,7 +1266,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                           // "CANON EF 16-35 MM F/4L IS USM ",
                                           style: TextStyle(
                                               fontSize: 10,
-                                              fontWeight: FontWeight.w400),
+                                              fontFamily: 'Intro'),
                                           maxLines: 2,
                                           textAlign: TextAlign.center,
                                         )),
@@ -1275,8 +1275,11 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                       "QAR${recentProductsList[index].unitPrice.toString()}",
                                       // "QAR 39999.00",
                                       style: TextStyle(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w600)),
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'Intro',
+                                        color: Colors.grey,
+                                      )),
                                   if (recentProductsList[index]
                                       .isCartUpdateProgress!)
                                     SizedBox(
