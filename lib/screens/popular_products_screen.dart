@@ -166,16 +166,20 @@ class _PopularProductsScreenState
                         Align(
                             alignment: Alignment.center,
                             child: Text(
-                              // "CANON EF 16-35 MM F/4L IS USM ",
                               popularProductsList[index].prName ?? '',
-                              style: TextStyle(
-                                  fontSize: 10, fontWeight: FontWeight.w400),
-                              maxLines: 1,
-                              textAlign: TextAlign.center,
+                                          maxLines: 2,
+                                          style: const TextStyle(fontSize: 12),
+                                          overflow: TextOverflow.ellipsis,
+                              // "CANON EF 16-35 MM F/4L IS USM ",
+                              // popularProductsList[index].prName ?? '',
+                              // style: TextStyle(
+                              //     fontSize: 10, fontWeight: FontWeight.bold,fontFamily: 'Intro'),
+                              // maxLines: 1,
+                              // textAlign: TextAlign.center,
                             )),
                         Text("QAR${popularProductsList[index].unitPrice ?? ''}",
                             style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.w600)),
+                                fontSize: 15, fontWeight: FontWeight.bold,fontFamily: 'Intro')),
                         if (popularProductsList[index].isCartUpdateProgress!)
                           SizedBox(
                               height: 30,
@@ -295,13 +299,13 @@ class _PopularProductsScreenState
                                               12)
                                           ? Text(
                                               "OUT OF STOCK",
-                                              style: TextStyle(
+                                              style: TextStyle(fontFamily: 'Intro',
                                                   fontSize: 12,
                                                   color: Colors.grey.shade800),
                                             )
                                           : Text(
                                               "ADD",
-                                              style: TextStyle(
+                                              style: TextStyle(fontFamily: 'Intro',
                                                   fontSize: 15,
                                                   color: Colors.black),
                                             ),

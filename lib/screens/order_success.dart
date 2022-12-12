@@ -67,7 +67,11 @@ class _OrderSuccessScreenState extends BaseStatefulState<OrderSuccessScreen> {
         ],
         backgroundColor: Colors.grey.shade700,
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+           
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => HomeScreen()));
+          },
           icon: Icon(Icons.arrow_back_ios),
         ),
       ),

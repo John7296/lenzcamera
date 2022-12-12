@@ -156,19 +156,35 @@ class _FeaturedProductsScreenState
                         Padding(
                           padding: const EdgeInsets.only(left: 10, right: 10),
                           child: Align(
-                              alignment: Alignment.center,
-                              child: Text(
-                                // "CANON EF 16-35 MM F/4L IS USM ",
-                                featuredList[index].prName ?? '',
-                                style: TextStyle(
-                                    fontSize: 10, fontWeight: FontWeight.w400),
-                                maxLines: 1,
-                                textAlign: TextAlign.center,
-                              )),
+                            alignment: Alignment.center,
+                            child: Text(
+                              // "CANON EF 16-35 MM F/4L IS USM ",
+                              // featuredList[index].prName ?? '',
+                              // style: TextStyle(
+                              //     fontSize: 10,
+                              //     fontWeight: FontWeight.bold,
+                              //     fontFamily: 'Intro'),
+                              // maxLines: 1,
+                              // textAlign: TextAlign.center,
+                              featuredList[index].prName ?? '',
+                                          maxLines: 2,
+                                          style: const TextStyle(fontSize: 12),
+                                          overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
                         ),
-                        Text("QAR${featuredList[index].unitPrice ?? ''}",
-                            style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.w600)),
+                        Text(
+                          "QAR${featuredList[index].unitPrice ?? ''}",
+                                          maxLines: 2,
+                                          style: const TextStyle(fontSize: 12),
+                                          overflow: TextOverflow.ellipsis,
+                          
+                          // "QAR${featuredList[index].unitPrice ?? ''}",
+                          //   style: TextStyle(
+                          //       fontSize: 15,
+                          //       fontWeight: FontWeight.bold,
+                          //       fontFamily: 'Intro'),
+                                ),
                         if (featuredList[index].isCartUpdateProgress!)
                           SizedBox(
                               height: 30,

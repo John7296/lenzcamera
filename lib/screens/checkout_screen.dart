@@ -77,7 +77,7 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
       appBar: AppBar(
         centerTitle: true,
         title: Text("Checkout"),
-        titleTextStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+        titleTextStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.bold,fontFamily: 'Intro'),
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back_ios_new_sharp,
@@ -123,7 +123,7 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                       style: TextStyle(
                                           color: Color(0xff717171),
                                           fontSize: 12,
-                                          fontWeight: FontWeight.w600),
+                                          fontWeight: FontWeight.bold,fontFamily: 'Intro'),
                                     )),
                                     SizedBox(width: 150),
                                     TextButton(
@@ -274,7 +274,7 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                   style: TextStyle(
                                       color: Color(0xff717171),
                                       fontSize: 15,
-                                      fontWeight: FontWeight.w500),
+                                      fontWeight: FontWeight.bold,fontFamily: 'Intro'),
                                 ),
                               ),
                               Padding(
@@ -324,7 +324,7 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                       style: TextStyle(
                                           color: Color(0xff717171),
                                           fontSize: 12,
-                                          fontWeight: FontWeight.w600),
+                                          fontWeight: FontWeight.bold,fontFamily: 'Intro'),
                                     )),
                                     SizedBox(width: 160),
                                     TextButton(
@@ -358,7 +358,7 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                                                     color: Colors
                                                                         .red,
                                                                     fontSize:
-                                                                        14),
+                                                                        14,fontFamily: 'Intro'),
                                                               )),
                                                         ),
                                                         SizedBox(
@@ -475,7 +475,7 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                   style: TextStyle(
                                       color: Color(0xff717171),
                                       fontSize: 15,
-                                      fontWeight: FontWeight.w500),
+                                      fontWeight: FontWeight.bold,fontFamily: 'Intro'),
                                 ),
                               ),
                               Padding(
@@ -554,7 +554,7 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                     style: TextStyle(
                                         color: Color(0xff717171),
                                         fontSize: 12,
-                                        fontWeight: FontWeight.w600),
+                                        fontWeight: FontWeight.bold,fontFamily: 'Intro'),
                                   ),
                                   SizedBox(width: 10),
                                 ],
@@ -614,7 +614,7 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                     style: TextStyle(
                                         color: Color(0xff717171),
                                         fontSize: 12,
-                                        fontWeight: FontWeight.w600),
+                                        fontWeight: FontWeight.bold,fontFamily: 'Intro'),
                                   ),
                                   SizedBox(width: 10),
                                 ],
@@ -630,7 +630,7 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                       style: TextStyle(
                                           color: Color(0xff717171),
                                           fontSize: 12,
-                                          fontWeight: FontWeight.w600),
+                                          fontWeight: FontWeight.bold,fontFamily: 'Intro'),
                                     )),
 
                                     //  SizedBox(width: 160),
@@ -640,7 +640,7 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontSize: 15,
-                                          fontWeight: FontWeight.w600),
+                                          fontWeight: FontWeight.bold,fontFamily: 'Intro'),
                                     ),
                                   ],
                                 ),
@@ -663,7 +663,7 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontSize: 16,
-                                          fontWeight: FontWeight.w600),
+                                          fontWeight: FontWeight.bold,fontFamily: 'Intro'),
                                     )),
 
                                     //  SizedBox(width: 175),
@@ -673,7 +673,7 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontSize: 16,
-                                          fontWeight: FontWeight.w600),
+                                          fontWeight: FontWeight.bold,fontFamily: 'Intro'),
                                     ),
                                   ],
                                 ),
@@ -707,7 +707,7 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                       style: TextStyle(
                                           color: Color(0xff717171),
                                           fontSize: 12,
-                                          fontWeight: FontWeight.w600))
+                                          fontWeight: FontWeight.bold,fontFamily: 'Intro'))
                                 ],
                               ),
                             ),

@@ -100,7 +100,8 @@ class _WishlistScreenState extends BaseStatefulState<WishlistScreen> {
         backgroundColor: Colors.grey.shade700,
         leading: IconButton(
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => HomeScreen()));
           },
           icon: Icon(Icons.arrow_back_ios),
         ),
@@ -177,10 +178,13 @@ class _WishlistScreenState extends BaseStatefulState<WishlistScreen> {
                         IconButton(
                           onPressed: () {
                             setState(() {
-                              //  DataManager.shared
-                              // .removeFromWishlist(wishListItems[index]);
-                              removeFromWishList(wishListItems[index]);
-                              wishListProducts();
+                              DataManager.shared
+                                  .removeFromWishlist(wishListItems[index]);
+                              // removeFromWishList(wishListItems[index]);
+                              // wishListProducts();
+                              showLoader();
+                              DataManager.shared.getWishList();
+                              hideLoader();
                             });
                           },
                           icon: Icon(Icons.delete_outline, color: Colors.red),

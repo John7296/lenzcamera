@@ -201,7 +201,7 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
             height: 200,
             child: ListView.builder(
                 itemCount: orderList.length,
-                itemBuilder: (BuildContext, context) {
+                itemBuilder: (BuildContext context, int index) {
                   return Container(
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -226,7 +226,7 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(widget.orderList.Products ?? '',
+                                  Text(orderList[index].orderNumber ?? '',
                                       style: TextStyle(color: Colors.red)),
                                 ],
                               ),

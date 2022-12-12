@@ -6,6 +6,8 @@ import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/model/address_list.dart';
 import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/screens/add_new_address_screen.dart';
+import 'package:lenzcamera/screens/edit_address_screen.dart';
+import 'package:lenzcamera/screens/home_screen.dart';
 
 class AddressScreen extends StatefulWidget {
   const AddressScreen({super.key});
@@ -75,8 +77,9 @@ class _AddressScreenState extends BaseStatefulState<AddressScreen> {
         backgroundColor: Colors.grey.shade700,
         leading: IconButton(
           onPressed: () {
-            Navigator.pop(context);
-          },
+
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => HomeScreen()));          },
           icon: Icon(Icons.arrow_back_ios),
         ),
       ),
@@ -148,7 +151,16 @@ class _AddressScreenState extends BaseStatefulState<AddressScreen> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              AddNewAddressScreen()));
+                                              EditAddressScreen(
+                                                addressList[index].firstName,
+                                                addressList[index].lastName,
+                                                addressList[index].addLine1,
+                                                addressList[index].addLine2,
+                                                addressList[index].phone,
+                                                addressList[index].pincode,
+                                                addressList[index].landmark,
+                                                context
+                                              )));
                                 },
                                 icon: Icon(Icons.draw, color: Colors.grey),
                               ),

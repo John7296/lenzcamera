@@ -91,7 +91,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         appBar: AppBar(
           centerTitle: true,
           title: Text("Change Password"),
-          titleTextStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+          titleTextStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.bold,fontFamily: 'Intro'),
           leading: IconButton(
             icon: const Icon(
               Icons.arrow_back_ios_new_sharp,
@@ -117,7 +117,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     "Current Password",
                     style: TextStyle(
                         color: Color(0xff747474),
-                        fontWeight: FontWeight.w600,
+                        fontWeight: FontWeight.bold,fontFamily: 'Intro',
                         fontSize: 12),
                   ),
                 ),
@@ -176,7 +176,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     "New Password",
                     style: TextStyle(
                         color: Color(0xff747474),
-                        fontWeight: FontWeight.w600,
+                        fontWeight: FontWeight.bold,fontFamily: 'Intro',
                         fontSize: 12),
                   ),
                 ),
@@ -233,7 +233,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     "Confirm Password",
                     style: TextStyle(
                         color: Color(0xff747474),
-                        fontWeight: FontWeight.w600,
+                        fontWeight: FontWeight.bold,
                         fontSize: 12),
                   ),
                 ),
@@ -302,7 +302,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     child: Center(
                         child: Text(
                       "CHANGE PASSWORD",
-                      style: TextStyle(fontSize: 20, color: Colors.white),
+                      style: TextStyle(fontSize: 20, color: Colors.white,fontFamily: 'Intro'),
                     )),
                   ),
                 ),
