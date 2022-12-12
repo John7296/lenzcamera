@@ -229,7 +229,7 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
                                         padding: const EdgeInsets.only(top: 15),
                                         child: Container(
                                           // height: 30,
-                                          width: 160,
+                                          width: 150,
                                           child: Text(
                                             // 'CANON EF 16-35 MM F/4L IS USM',
                                             _products[index].prName ?? '',
@@ -252,7 +252,10 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
                                     ],
                                   ),
                                   Column(
+                                    // mainAxisAlignment: MainAxisAlignment.end,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
                                     children: [
+                                      
                                       IconButton(
                                         onPressed: () {
                                                     setState(() {
@@ -306,7 +309,7 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
                                               .isCartUpdateProgress ==
                                           false)
                                         Container(
-                                          width: 90,
+                                          width: 80,
                                           height: 30,
                                           child: _products[index]
                                                   .isAddedtoCart()
@@ -353,7 +356,7 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
                                                       ),
                                                     ),
                                                     Container(
-                                                      width: 40,
+                                                      width: 30,
                                                       height: 30,
                                                       decoration: BoxDecoration(
                                                         color:
@@ -399,7 +402,7 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
                                                                   )),
                                                           child: Icon(
                                                             Icons.add,
-                                                            color: Colors.white,
+                                                            color: Colors.black,
                                                             size: 12,
                                                           )),
                                                     ),
@@ -455,6 +458,7 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
                                         ),
                                     ],
                                   )
+                                
                                 ],
                               ),
                             ),

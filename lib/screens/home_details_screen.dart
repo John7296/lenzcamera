@@ -372,7 +372,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                               'View All ➜',
                               style: TextStyle(
                                   color: Colors.red,
-                                  fontWeight: FontWeight.bold),
+                                  fontWeight: FontWeight.bold,fontFamily: 'Intro'),
                             )),
                       ],
                     ),
@@ -409,7 +409,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                         Stack(
                                           children: [
                                             Container(
-                                              margin: EdgeInsets.only(left: 80),
+                                              margin: EdgeInsets.only(left: 70),
                                               child: IconButton(
                                                 onPressed: () {
                                                   setState(() {
@@ -470,7 +470,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                           "QAR${featuredList[index].unitPrice}",
                                           style: const TextStyle(
                                               fontSize: 12,
-                                              fontWeight: FontWeight.bold,
+                                              fontWeight: FontWeight.bold,fontFamily: 'Intro',
                                               color: Colors.grey),
                                         ),
                                         const SizedBox(height: 5),
@@ -643,7 +643,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                               12)
                                                           ? Text(
                                                               "OUT OF STOCK",
-                                                              style: TextStyle(
+                                                              style: TextStyle(fontFamily: 'Intro',
                                                                   fontSize: 8,
                                                                   color: Colors
                                                                       .grey
@@ -651,7 +651,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                             )
                                                           : Text(
                                                               "ADD",
-                                                              style: TextStyle(
+                                                              style: TextStyle(fontFamily: 'Intro',
                                                                   fontSize: 12,
                                                                   color: Colors
                                                                       .black),
@@ -659,6 +659,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                     ),
                                                   ),
                                           ),
+                                      
                                       ],
                                     ),
                                   ),

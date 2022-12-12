@@ -143,7 +143,7 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                                       padding: const EdgeInsets.only(top: 15),
                                       child: Container(
                                         height: 30,
-                                        width: 180,
+                                        width: 170,
                                         child: Text(
                                           // 'CANON EF 16-35 MM F/4L IS USM',
                                           cartItemsList[index].prName ?? '',
