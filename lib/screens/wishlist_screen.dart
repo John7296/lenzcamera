@@ -180,11 +180,8 @@ class _WishlistScreenState extends BaseStatefulState<WishlistScreen> {
                             setState(() {
                               DataManager.shared
                                   .removeFromWishlist(wishListItems[index]);
-                              // removeFromWishList(wishListItems[index]);
-                              // wishListProducts();
-                              showLoader();
+
                               DataManager.shared.getWishList();
-                              hideLoader();
                             });
                           },
                           icon: Icon(Icons.delete_outline, color: Colors.red),

@@ -8,7 +8,6 @@ import 'package:lenzcamera/model/order_list.dart';
 import 'package:lenzcamera/model/product.dart';
 import 'package:lenzcamera/screens/add_new_address_screen.dart';
 import 'package:lenzcamera/screens/address_screen.dart';
-import 'package:lenzcamera/screens/order_screen.dart';
 import 'package:lenzcamera/screens/order_success.dart';
 
 class CheckoutScreen extends StatefulWidget {

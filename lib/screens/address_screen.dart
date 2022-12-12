@@ -48,12 +48,13 @@ class _AddressScreenState extends BaseStatefulState<AddressScreen> {
 
   void deleteAddress(AddressList address) {
     NetworkManager.shared
-        .deleteAddress(<String, dynamic>{})
-        .then((BaseResponse response) {})
-        .catchError((e) {
-          showFlashMsg(e.toString());
-          print(e.toString());
-        });
+        .deleteAddress(<String, dynamic>{}).then((BaseResponse response) {
+      showFlashMsg(response.message!);
+      addressList;
+    }).catchError((e) {
+      showFlashMsg(e.toString());
+      print(e.toString());
+    });
   }
 
   @override
@@ -77,9 +78,9 @@ class _AddressScreenState extends BaseStatefulState<AddressScreen> {
         backgroundColor: Colors.grey.shade700,
         leading: IconButton(
           onPressed: () {
-
             Navigator.push(
-                context, MaterialPageRoute(builder: (context) => HomeScreen()));          },
+                context, MaterialPageRoute(builder: (context) => HomeScreen()));
+          },
           icon: Icon(Icons.arrow_back_ios),
         ),
       ),
@@ -152,21 +153,22 @@ class _AddressScreenState extends BaseStatefulState<AddressScreen> {
                                       MaterialPageRoute(
                                           builder: (context) =>
                                               EditAddressScreen(
-                                                addressList[index].firstName,
-                                                addressList[index].lastName,
-                                                addressList[index].addLine1,
-                                                addressList[index].addLine2,
-                                                addressList[index].phone,
-                                                addressList[index].pincode,
-                                                addressList[index].landmark,
-                                                context
-                                              )));
+                                                  addressList[index].firstName,
+                                                  addressList[index].lastName,
+                                                  addressList[index].addLine1,
+                                                  addressList[index].addLine2,
+                                                  addressList[index].phone,
+                                                  addressList[index].pincode,
+                                                  addressList[index].landmark,
+                                                  context)));
                                 },
                                 icon: Icon(Icons.draw, color: Colors.grey),
                               ),
                               IconButton(
                                 onPressed: () {
-                                  deleteAddress(addressList[index]);
+                                  setState(() {
+                                    deleteAddress(addressList[index]);
+                                  });
                                 },
                                 icon: Icon(Icons.delete_outline,
                                     color: Colors.red),

@@ -156,6 +156,7 @@ class _RecentProductsScreenState
                                 padding: const EdgeInsets.all(10),
                                 child: CircularProgressIndicator(
                                   strokeWidth: 2,
+                                  color: Colors.grey,
                                 ),
                               )),
                         if (recentProductsList[index].isCartUpdateProgress ==

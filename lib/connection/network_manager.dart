@@ -19,6 +19,7 @@ import 'package:lenzcamera/model/related_products.dart';
 import 'package:lenzcamera/model/search_filter_response.dart';
 
 import 'package:lenzcamera/model/search_products_response.dart';
+import 'package:lenzcamera/model/single_order_detail.dart';
 import 'package:lenzcamera/model/state_list.dart';
 import 'package:lenzcamera/model/top_categories.dart';
 import 'package:lenzcamera/screens/featured_products_screen.dart';
@@ -213,6 +214,10 @@ class NetworkManager {
 
   Future<BaseResponse<List<OrderList>>> getOrderList() {
     return call(networkConnection.getOrderList(userId));
+  }
+
+    Future<BaseResponse<SingleOrderDetail>> orderDetails( int orderId) {
+    return call(networkConnection.orderDetails(orderId));
   }
 
   Future<BaseResponse> placeOrder(Map<String, dynamic> map) {

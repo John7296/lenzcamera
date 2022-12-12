@@ -193,6 +193,7 @@ class _FeaturedProductsScreenState
                                 padding: const EdgeInsets.all(10),
                                 child: CircularProgressIndicator(
                                   strokeWidth: 2,
+                                  color: Colors.grey,
                                 ),
                               )),
                         if (featuredList[index].isCartUpdateProgress == false)

@@ -68,9 +68,8 @@ class _OrderSuccessScreenState extends BaseStatefulState<OrderSuccessScreen> {
         backgroundColor: Colors.grey.shade700,
         leading: IconButton(
           onPressed: () {
-           
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => HomeScreen()));
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => HomeScreen()));
           },
           icon: Icon(Icons.arrow_back_ios),
         ),
@@ -89,8 +88,6 @@ class _OrderSuccessScreenState extends BaseStatefulState<OrderSuccessScreen> {
               Text("Your Order Number:"),
               TextButton(
                 onPressed: () {
-
-                  
                   // Navigator.push(
                   //   context,
                   //   MaterialPageRoute(
@@ -116,8 +113,11 @@ class _OrderSuccessScreenState extends BaseStatefulState<OrderSuccessScreen> {
                 // color: Colors.red,
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => HomeScreen()));
+                    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+                      builder: (BuildContext context) {
+                        return HomeScreen();
+                      },
+                    ), (route) => false);
                   },
                   child: Text("Continue Shopping"),
                 )),

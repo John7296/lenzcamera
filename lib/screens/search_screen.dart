@@ -304,6 +304,7 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
                                             width: 10,
                                             child: CircularProgressIndicator(
                                               strokeWidth: 2,
+                                              color: Colors.grey,
                                             )),
                                       if (_products[index]
                                               .isCartUpdateProgress ==

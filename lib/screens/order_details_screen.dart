@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -7,7 +8,9 @@ import 'package:lenzcamera/base/base_stateful_state.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/order_list.dart';
+import 'package:lenzcamera/model/single_order_detail.dart';
 import 'package:lenzcamera/screens/home_screen.dart';
+import 'package:lenzcamera/model/order_product_detail.dart';
 import 'package:lenzcamera/screens/order_screen.dart';
 
 class OrderDetailScreen extends StatefulWidget {
@@ -21,11 +24,30 @@ class OrderDetailScreen extends StatefulWidget {
 
 class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
   List<OrderList> orderList = [];
+  List<OrderProductDetail> singleItemList = [];
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    singleOrderDetail();
+  }
+
+  void singleOrderDetail() {
+    // showLoader();
+    NetworkManager.shared
+        .orderDetails(widget.orderList.orderId!)
+        .then((BaseResponse<SingleOrderDetail> response) {
+      // hideLoader();
+      setState(() {
+        singleItemList.clear();
+        singleItemList.addAll(response.data!.OrderItemsDetails!);
+      });
+    }).catchError((e) {
+      showFlashMsg(e.toString());
+      // hideLoader();
+      print(e.toString());
+    });
   }
 
   void cancelOrder() {
@@ -53,7 +75,7 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
           padding: const EdgeInsets.only(left: 50),
           child: Text(
             'Orders Details',
-            style: TextStyle(fontFamily: 'Roboto'),
+            style: TextStyle(fontFamily: 'Intro',fontWeight: FontWeight.bold,fontSize: 15),
           ),
         ),
         actions: [
@@ -69,8 +91,8 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
         backgroundColor: Colors.grey.shade700,
         leading: IconButton(
           onPressed: () {
-             Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => OrderScreen()));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => OrderScreen()));
           },
           icon: Icon(Icons.arrow_back_ios),
         ),
@@ -105,12 +127,12 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
                           Text(
                             'ORDER DETAILS',
                             style: TextStyle(
-                                color: Colors.red, fontWeight: FontWeight.bold),
+                                color: Colors.red, fontWeight: FontWeight.bold,fontFamily: 'Intro'),
                           ),
                           Spacer(),
                           Text(
                             "#: ${widget.orderList.orderNumber ?? ''}",
-                            style: TextStyle(fontSize: 12),
+                            style: TextStyle(fontSize: 12,fontFamily: 'Intro',color: Colors.grey,fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),
@@ -123,7 +145,7 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
                         children: [
                           Text(
                             'Status:${widget.orderList.status}',
-                            style: TextStyle(fontSize: 12),
+                            style: TextStyle(fontSize: 12,fontFamily: 'Intro',fontWeight: FontWeight.bold,color: Colors.grey),
                           ),
                           Spacer(),
                           Text(
@@ -167,11 +189,11 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
                             Icons.location_pin,
                             size: 15,
                           ),
-                          Text('Delivery to', style: TextStyle(fontSize: 12)),
+                          Text('Delivery to', style: TextStyle(fontSize: 12,color: Colors.grey)),
                           Spacer(),
                           Text(
                             widget.orderList.orderDate ?? '',
-                            style: TextStyle(fontSize: 12),
+                            style: TextStyle(fontSize: 12,color: Colors.grey),
                           ),
                         ],
                       ),
@@ -185,7 +207,7 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
                             width: 100,
                             child: Text(
                               widget.orderList.Address ?? '',
-                              style: TextStyle(fontSize: 12),
+                              style: TextStyle(fontSize: 12,color: Colors.grey),
                               maxLines: 4,
                             ),
                           ),
@@ -200,7 +222,7 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
           Container(
             height: 200,
             child: ListView.builder(
-                itemCount: orderList.length,
+                itemCount: singleItemList.length,
                 itemBuilder: (BuildContext context, int index) {
                   return Container(
                     child: Padding(
@@ -219,17 +241,39 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
                             ),
                           ],
                         ),
-                        child: Column(
+                        child: Row(
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(orderList[index].orderNumber ?? '',
-                                      style: TextStyle(color: Colors.red)),
-                                ],
+                              child: CachedNetworkImage(
+                                imageUrl:
+                                    "https://dev.lenzcamera.com/webadmin/${singleItemList[index].imageUrl}",
+                                height: 50,
+                                width: 50,
                               ),
+                            ),
+                            Container(
+                              width: 180,
+                              child: Column(
+                                  // mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        singleItemList[index].prName ?? '',
+                                        style: TextStyle(color: Colors.grey.shade600,fontWeight: FontWeight.bold,),
+                                        maxLines: 2,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        "QAR${singleItemList[index].productPrice.toString()}",
+                                        style: TextStyle(color: Colors.grey.shade600,fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  ]),
                             ),
                             Spacer(),
                             Padding(
@@ -276,11 +320,12 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
                         children: [
                           Text('Sub Total:',
                               style: TextStyle(
-                                  fontSize: 12, fontFamily: 'Roboto')),
+                                  fontSize: 12, fontFamily: 'Intro',color: Colors.grey,fontWeight: FontWeight.bold)),
                           Spacer(),
-                          Text('QAR 3198.00',
+                          Text(
+                              'QAR ${singleItemList.first.itemTotal.toString()}',
                               style: TextStyle(
-                                  fontSize: 12, fontFamily: 'Roboto')),
+                                  fontSize: 12, fontFamily: 'Intro',color: Colors.grey,fontWeight: FontWeight.bold)),
                         ],
                       ),
                     ),
@@ -291,11 +336,12 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
                         children: [
                           Text('Shipping(+):',
                               style: TextStyle(
-                                  fontSize: 12, fontFamily: 'Roboto')),
+                                  fontSize: 12, fontFamily: 'Intro',color: Colors.grey,fontWeight: FontWeight.bold)),
                           Spacer(),
-                          Text('QAR 25.00',
+                          Text(
+                              'QAR ${singleItemList.first.itemTotal.toString()}',
                               style: TextStyle(
-                                  fontSize: 12, fontFamily: 'Roboto')),
+                                  fontSize: 12, fontFamily: 'Intro',color: Colors.grey,fontWeight: FontWeight.bold)),
                         ],
                       ),
                     ),
@@ -313,13 +359,13 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
                         children: [
                           Text(
                             'Order Total:',
-                            style: TextStyle(fontFamily: 'Roboto'),
+                            style: TextStyle(fontFamily: 'Intro',color: Colors.grey,fontWeight: FontWeight.bold),
                           ),
                           Spacer(),
                           Text(
                             'QAR 3223.00',
                             style: TextStyle(
-                                color: Colors.red, fontFamily: 'Roboto'),
+                                color: Colors.red,fontFamily: 'Intro',fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),
@@ -357,9 +403,10 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
                                     builder: (context) => OrderScreen()));
                           },
                           child: Text('Cancel'),
-                          style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.grey.shade400)),
+                          style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(
+                                  Colors.grey.shade400)),
                         ),
-
                         ElevatedButton(
                           onPressed: () {
                             cancelOrder();
@@ -369,9 +416,10 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
                                     builder: (context) => OrderScreen()));
                           },
                           child: Text('Ok'),
-                          style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.grey.shade400)),
+                          style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(
+                                  Colors.grey.shade400)),
                         ),
-                         
                       ],
                     ),
                   );

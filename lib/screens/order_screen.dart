@@ -56,7 +56,7 @@ class _OrderScreenState extends BaseStatefulState<OrderScreen> {
       appBar: AppBar(
         title: Padding(
           padding: const EdgeInsets.only(left: 50),
-          child: Text('My Orders'),
+          child: Text('My Orders',style: TextStyle(fontFamily: 'Intro',fontWeight: FontWeight.bold,fontSize: 15),),
         ),
         actions: [
           IconButton(
@@ -129,9 +129,20 @@ class _OrderScreenState extends BaseStatefulState<OrderScreen> {
                                         child: Container(
                                           height: 50,
                                           width: 50,
-                                          child: CachedNetworkImage(
-                                              imageUrl:
-                                                  "https://dev.lenzcamera.com/webadmin/${orderList[index].ProductImgUrl}"),
+                                          child: 
+                                               ClipRRect(
+                borderRadius: BorderRadius.circular(5.0),
+                child: 
+                FadeInImage.assetNetwork(
+                    height: 250,
+                    width: double.infinity,
+                    placeholder: 'assets/images/placeholder.png',
+                    image: "https://dev.lenzcamera.com/webadmin/${orderList[index].ProductImgUrl}",
+                    fit: BoxFit.cover),
+              ),
+                                          // CachedNetworkImage(
+                                          //     imageUrl:
+                                          //         "https://dev.lenzcamera.com/webadmin/${orderList[index].ProductImgUrl}"),
                                         )),
                                     Container(
                                       height: 16,

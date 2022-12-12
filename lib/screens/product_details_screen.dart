@@ -617,6 +617,7 @@ class _ProductDetailsScreenState extends BaseStatefulState<ProductDetailsScreen>
                                                           child:
                                                               CircularProgressIndicator(
                                                             strokeWidth: 2,
+                                                            color: Colors.grey,
                                                           )),
                                                     if (relatedproducts[index]
                                                             .isCartUpdateProgress ==

@@ -136,11 +136,13 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
   }
 
   void getBanners() {
-    NetworkManager.shared.getBanner(
+    NetworkManager.shared
+        .getBanner(
       NetworkManager.shared.userId,
       0,
-     8,
-    ).then((BaseResponse<MainBanner> response) {
+      8,
+    )
+        .then((BaseResponse<MainBanner> response) {
       setState(() {
         bannerList.clear();
         bannerList.addAll(response.data!.MainBanners!);
@@ -203,7 +205,8 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                       padding: const EdgeInsets.all(5),
                       child: Text(
                         'Doha',
-                        style: TextStyle(fontWeight: FontWeight.bold,fontFamily: 'Intro'),
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontFamily: 'Intro'),
                       ),
                     ),
                   ),
@@ -214,7 +217,10 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                         onPressed: () {},
                         child: Text(
                           'Change',
-                          style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold,fontFamily: 'Intro'),
+                          style: TextStyle(
+                              color: Colors.red,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Intro'),
                         )),
                   ),
                 ],
@@ -245,7 +251,8 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                               "SEARCH PRODUCTS",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.grey.shade700,fontFamily: 'Intro'),
+                                  color: Colors.grey.shade700,
+                                  fontFamily: 'Intro'),
                             ),
                           ),
                         ],
@@ -317,9 +324,17 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                   child: Container(
                                     height: 100,
                                     width: 100,
-                                    child: CachedNetworkImage(
-                                        imageUrl:
-                                            "https://dev.lenzcamera.com/webadmin/${categoryList[index].imageUrl}"),
+                                    child: FadeInImage.assetNetwork(
+                                        height: 250,
+                                        width: double.infinity,
+                                        placeholder:
+                                            'assets/images/placeholder.png',
+                                        image:
+                                            "https://dev.lenzcamera.com/webadmin/${categoryList[index].imageUrl}",
+                                        fit: BoxFit.cover),
+                                    // CachedNetworkImage(
+                                    //     imageUrl:
+                                    //         "https://dev.lenzcamera.com/webadmin/${categoryList[index].imageUrl}"),
                                   ),
                                 ),
                                 Spacer(),
@@ -329,7 +344,8 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                     categoryList[index].catName ?? '',
                                     style: TextStyle(
                                         fontSize: 12,
-                                        fontWeight: FontWeight.bold,fontFamily: 'Intro'),
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'Intro'),
                                     maxLines: 1,
                                     textAlign: TextAlign.center,
                                   ),
@@ -357,7 +373,8 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                       children: [
                         Text(
                           'Featured Products',
-                          style: TextStyle(fontWeight: FontWeight.bold,fontFamily: 'Intro'),
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontFamily: 'Intro'),
                         ),
                         Spacer(),
                         TextButton(
@@ -372,7 +389,8 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                               'View All ➜',
                               style: TextStyle(
                                   color: Colors.red,
-                                  fontWeight: FontWeight.bold,fontFamily: 'Intro'),
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Intro'),
                             )),
                       ],
                     ),
@@ -445,16 +463,25 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                               ),
                                             ),
                                             Container(
-                                                height: 100,
-                                                width: double.infinity,
-                                                clipBehavior: Clip.antiAlias,
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(0),
-                                                ),
-                                                child: CachedNetworkImage(
-                                                    imageUrl:
-                                                        "https://dev.lenzcamera.com/webadmin/${featuredList[index].imageUrl}")),
+                                              height: 100,
+                                              width: double.infinity,
+                                              clipBehavior: Clip.antiAlias,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(0),
+                                              ),
+                                              child: FadeInImage.assetNetwork(
+                                                  height: 250,
+                                                  width: double.infinity,
+                                                  placeholder:
+                                                      'assets/images/placeholder.png',
+                                                  image:
+                                                      "https://dev.lenzcamera.com/webadmin/${featuredList[index].imageUrl}",
+                                                  fit: BoxFit.cover),
+                                              // CachedNetworkImage(
+                                              //     imageUrl:
+                                              //         "https://dev.lenzcamera.com/webadmin/${featuredList[index].imageUrl}")),
+                                            ),
                                           ],
                                         ),
                                         const SizedBox(height: 10),
@@ -470,7 +497,8 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                           "QAR${featuredList[index].unitPrice}",
                                           style: const TextStyle(
                                               fontSize: 12,
-                                              fontWeight: FontWeight.bold,fontFamily: 'Intro',
+                                              fontWeight: FontWeight.bold,
+                                              fontFamily: 'Intro',
                                               color: Colors.grey),
                                         ),
                                         const SizedBox(height: 5),
@@ -486,6 +514,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                 child:
                                                     CircularProgressIndicator(
                                                   strokeWidth: 2,
+                                                  color: Colors.grey,
                                                 ),
                                               )),
                                         if (featuredList[index]
@@ -643,7 +672,9 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                               12)
                                                           ? Text(
                                                               "OUT OF STOCK",
-                                                              style: TextStyle(fontFamily: 'Intro',
+                                                              style: TextStyle(
+                                                                  fontFamily:
+                                                                      'Intro',
                                                                   fontSize: 8,
                                                                   color: Colors
                                                                       .grey
@@ -651,7 +682,9 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                             )
                                                           : Text(
                                                               "ADD",
-                                                              style: TextStyle(fontFamily: 'Intro',
+                                                              style: TextStyle(
+                                                                  fontFamily:
+                                                                      'Intro',
                                                                   fontSize: 12,
                                                                   color: Colors
                                                                       .black),
@@ -659,7 +692,6 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                     ),
                                                   ),
                                           ),
-                                      
                                       ],
                                     ),
                                   ),
@@ -678,54 +710,63 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
             ),
 
             SizedBox(height: 10),
-              Padding(
-                padding: const EdgeInsets.only(left: 10,right: 10),
-                child: Center(
-        child: Stack(
-          alignment: Alignment.bottomCenter,
-          children: [
-            CarouselSlider.builder(
-                itemCount:
-                    bannerList.length,
-                itemBuilder: (context, itemIndex, realIndex) {
-                  return SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      child: Image.network(
-                          "https://dev.lenzcamera.com/webadmin/${bannerList[itemIndex].imageUrl}"));
-                  //   CachedNetworkImage(
-                  //       fit: BoxFit.fitWidth,
-                  //       imageUrl:"https:asaad.in/webadmin/${bannerlist?.data?.elementAt(0).items?.elementAt(1).imageUrl}",
-                  // ));
-                },
-                options: CarouselOptions(
-                    height: 120,
-                    viewportFraction: 1.5,
-                    autoPlay: true,
-                    onPageChanged: (itemIndex, reason) {
-                      setState(() {
-                        // activeIndexBanner = itemIndex;
-                      });
-                    }),
-            ),
-            // Padding(
-            //   padding: EdgeInsets.only(bottom: 5),
-            //   child: AnimatedSmoothIndicator(
-            //     count:
-            //         // bannerlist?.data?.first.items?.length??0,
-            //         detailslist?.data?.first.items?.length ?? 0,
-            //     activeIndex: activeIndexBanner,
-            //     effect: WormEffect(
-            //       activeDotColor: Colors.white,
-            //       dotColor: Colors.lightGreenAccent,
-            //       dotHeight: 6,
-            //       dotWidth: 6,
-            //     ),
-            //   ),
-            // ),
-          ],
-        ),
-      ),
+            Padding(
+              padding: const EdgeInsets.only(left: 10, right: 10),
+              child: Center(
+                child: Stack(
+                  alignment: Alignment.bottomCenter,
+                  children: [
+                    CarouselSlider.builder(
+                      itemCount: bannerList.length,
+                      itemBuilder: (context, itemIndex, realIndex) {
+                        return SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          child: 
+                          //  FadeInImage.assetNetwork(
+                          //                         height: 250,
+                          //                         width: double.infinity,
+                          //                         placeholder:
+                          //                             'assets/images/placeholder.png',
+                          //                         image:
+                          //                             "https://dev.lenzcamera.com/webadmin/${bannerList[itemIndex].imageUrl}",
+                          //                         fit: BoxFit.cover),
+                          Image.network(
+                              "https://dev.lenzcamera.com/webadmin/${bannerList[itemIndex].imageUrl}"),
+                        );
+                        //   CachedNetworkImage(
+                        //       fit: BoxFit.fitWidth,
+                        //       imageUrl:"https:asaad.in/webadmin/${bannerlist?.data?.elementAt(0).items?.elementAt(1).imageUrl}",
+                        // ));
+                      },
+                      options: CarouselOptions(
+                          height: 120,
+                          viewportFraction: 1,
+                          autoPlay: true,
+                          onPageChanged: (itemIndex, reason) {
+                            setState(() {
+                              // activeIndexBanner = itemIndex;
+                            });
+                          }),
+                    ),
+                    // Padding(
+                    //   padding: EdgeInsets.only(bottom: 5),
+                    //   child: AnimatedSmoothIndicator(
+                    //     count:
+                    //         // bannerlist?.data?.first.items?.length??0,
+                    //         detailslist?.data?.first.items?.length ?? 0,
+                    //     activeIndex: activeIndexBanner,
+                    //     effect: WormEffect(
+                    //       activeDotColor: Colors.white,
+                    //       dotColor: Colors.lightGreenAccent,
+                    //       dotHeight: 6,
+                    //       dotWidth: 6,
+                    //     ),
+                    //   ),
+                    // ),
+                  ],
+                ),
               ),
+            ),
             // Padding(
             //   padding: const EdgeInsets.only(top: 10),
             //   child: CarouselSlider.builder(
@@ -737,7 +778,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
             //     itemBuilder: (BuildContext context, itemIndex, realIndex) {
             //       return Padding(
             //           padding: const EdgeInsets.all(8.0),
-            //           child: 
+            //           child:
             //           // Image(
             //           //   image: AssetImage("assets/images/logo_lenzcamera.png"),
             //           // )
@@ -763,7 +804,8 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                       children: [
                         Text(
                           'Popular Products',
-                          style: TextStyle(fontWeight: FontWeight.bold,fontFamily: 'Intro'),
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontFamily: 'Intro'),
                         ),
                         Spacer(),
                         TextButton(
@@ -773,13 +815,13 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                   MaterialPageRoute(
                                       builder: (context) =>
                                           PopularProductsScreen()));
-                              
                             },
                             child: Text(
                               'View All ➜',
                               style: TextStyle(
                                   color: Colors.red,
-                                  fontWeight: FontWeight.bold,fontFamily: 'Intro'),
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Intro'),
                             )),
                       ],
                     ),
@@ -787,7 +829,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                   Column(
                     children: [
                       Container(
-                        height: 780,
+                        height: 710,
                         child: Padding(
                           padding: const EdgeInsets.only(left: 10, right: 10),
                           child: StaggeredGridView.countBuilder(
@@ -857,12 +899,16 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                 ),
                                               ),
                                             ),
-                                            Container(
-                                              height: 145,
-                                              width: 110,
-                                              child: CachedNetworkImage(
-                                                  imageUrl:
-                                                      "https://dev.lenzcamera.com/webadmin/${popularProductsList[index].imageUrl}"),
+                                            Padding(
+                                              padding: const EdgeInsets.all(10),
+                                              child: FadeInImage.assetNetwork(
+                                                  height: 100,
+                                                  width: 100,
+                                                  placeholder:
+                                                      'assets/images/placeholder.png',placeholderFit: BoxFit.fill,
+                                                  image:
+                                                      "https://dev.lenzcamera.com/webadmin/${popularProductsList[index].imageUrl}",
+                                                  fit: BoxFit.cover),
                                             ),
                                           ],
                                         ),
@@ -896,6 +942,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                 child:
                                                     CircularProgressIndicator(
                                                   strokeWidth: 2,
+                                                  color: Colors.grey,
                                                 ),
                                               )),
                                         if (popularProductsList[index]
@@ -1101,7 +1148,9 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                               top: 20, left: 15, right: 15),
                           child: Text(
                             'Recent Products',
-                            style: TextStyle(fontWeight: FontWeight.bold,fontFamily: 'Intro'),
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'Intro'),
                           ),
                         ),
                         Spacer(),
@@ -1120,7 +1169,8 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                 'View All ➜',
                                 style: TextStyle(
                                     color: Colors.red,
-                                    fontWeight: FontWeight.bold,fontFamily: 'Intro'),
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'Intro'),
                               )),
                         )
                       ],
@@ -1153,9 +1203,18 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                       child: Container(
                                         width: 100,
                                         height: 100,
-                                        child: CachedNetworkImage(
-                                            imageUrl:
-                                                "https://dev.lenzcamera.com/webadmin/${recentProductsList[index].imageUrl}"),
+                                        child: 
+                                         FadeInImage.assetNetwork(
+                                                  height: 250,
+                                                  width: double.infinity,
+                                                  placeholder:
+                                                      'assets/images/placeholder.png',
+                                                  image:
+                                                      "https://dev.lenzcamera.com/webadmin/${recentProductsList[index].imageUrl}",
+                                                  fit: BoxFit.cover),
+                                        // CachedNetworkImage(
+                                            // imageUrl:
+                                            //     "https://dev.lenzcamera.com/webadmin/${recentProductsList[index].imageUrl}"),
                                       ),
                                     ),
                                     Padding(
@@ -1226,6 +1285,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                           padding: const EdgeInsets.all(10),
                                           child: CircularProgressIndicator(
                                             strokeWidth: 2,
+                                            color: Colors.grey,
                                           ),
                                         )),
                                   if (recentProductsList[index]
@@ -1499,9 +1559,11 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
               leading: const Icon(Icons.logout),
               title: const Text('LogOut'),
               onTap: () {
-              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (BuildContext context) {
-        return LoginScreen();
-      },),(route) => false);
+                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+                  builder: (BuildContext context) {
+                    return LoginScreen();
+                  },
+                ), (route) => false);
               },
             ),
           ],

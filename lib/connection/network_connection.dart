@@ -16,6 +16,7 @@ import 'package:lenzcamera/model/related_products.dart';
 import 'package:lenzcamera/model/search_filter_response.dart';
 
 import 'package:lenzcamera/model/search_products_response.dart';
+import 'package:lenzcamera/model/single_order_detail.dart';
 import 'package:lenzcamera/model/state_list.dart';
 import 'package:lenzcamera/model/top_categories.dart';
 import 'package:lenzcamera/utils/constants.dart';
@@ -246,6 +247,12 @@ abstract class NetworkConnection {
     // @Query("year") int year,
     // @Query("addressid") int addressid,
     // @Query("guestId") int guestId,
+  );
+
+    @FormUrlEncoded()
+  @GET("Order/CustOrderItemList")
+  Future<BaseResponse<SingleOrderDetail>> orderDetails(
+    @Query("orderId") int orderId,
   );
 
   @FormUrlEncoded()

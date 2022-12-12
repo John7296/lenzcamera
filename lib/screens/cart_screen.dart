@@ -10,11 +10,10 @@ import 'package:lenzcamera/model/cart_details.dart';
 import 'package:lenzcamera/model/product.dart';
 import 'package:lenzcamera/screens/checkout_screen.dart';
 import 'package:lenzcamera/screens/home_screen.dart';
-import 'package:lenzcamera/screens/order_screen.dart';
 
 class CartScreen extends StatefulWidget {
   CartScreen({super.key});
-  @override 
+  @override
   State<CartScreen> createState() => _CartScreenState();
 }
 
@@ -76,7 +75,8 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
         appBar: AppBar(
           centerTitle: true,
           title: Text("Cart"),
-          titleTextStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.bold,fontFamily: 'Intro'),
+          titleTextStyle: TextStyle(
+              fontSize: 14, fontWeight: FontWeight.bold, fontFamily: 'Intro'),
           leading: IconButton(
             icon: const Icon(
               Icons.arrow_back_ios_new_sharp,
@@ -148,7 +148,8 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                                           // 'CANON EF 16-35 MM F/4L IS USM',
                                           cartItemsList[index].prName ?? '',
                                           style: TextStyle(
-                                              fontWeight: FontWeight.bold,fontFamily: 'Intro'),
+                                              fontWeight: FontWeight.bold,
+                                              fontFamily: 'Intro'),
                                           maxLines: 2,
                                         ),
                                       ),
@@ -160,7 +161,8 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                                         // 'QAR 8600.00',
                                         "QAR${cartItemsList[index].unitPrice}",
                                         style: TextStyle(
-                                            fontWeight: FontWeight.bold,fontFamily: 'Intro',
+                                            fontWeight: FontWeight.bold,
+                                            fontFamily: 'Intro',
                                             color: Colors.grey.shade700),
                                       ),
                                     ),
@@ -201,6 +203,8 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                                                           cartItemsList[index]);
                                                   getCart();
                                                   Navigator.pop(context);
+                                                  showFlashMsg(
+                                                      "Item Removed Successfully");
                                                 },
                                                 style: ButtonStyle(
                                                     backgroundColor:
@@ -350,7 +354,9 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                             child: Text(
                           "Subtotal: ",
                           style: TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.bold,fontFamily: 'Intro'),
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Intro'),
                         )),
                         // SizedBox(
                         //   width: 220,
@@ -358,7 +364,9 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                         Text(
                           "QAR ${subtotal.toString()}",
                           style: TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.bold,fontFamily: 'Intro'),
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Intro'),
                         ),
                       ],
                     ),
@@ -371,7 +379,9 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                             child: Text(
                           "Delivery: ",
                           style: TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.bold,fontFamily: 'Intro'),
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Intro'),
                         )),
                         //  SizedBox(
                         //           width: 240,
@@ -379,7 +389,9 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                         Text(
                           "QAR ${deliveryamount.toString()}",
                           style: TextStyle(
-                              fontSize: 12, fontWeight: FontWeight.bold,fontFamily: 'Intro'),
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Intro'),
                         ),
                       ],
                     ),
@@ -426,12 +438,18 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                   Expanded(
                       child: Text(
                     "Total: ",
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold,fontFamily: 'Intro'),
+                    style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Intro'),
                   )),
                   Text(
                     // "",
                     "QAR ${grandtotal.toString()}",
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold,fontFamily: 'Intro'),
+                    style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Intro'),
                   ),
                 ]),
               ),
@@ -463,7 +481,8 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                   style: TextStyle(
                       fontSize: 20,
                       color: Colors.white,
-                      fontWeight: FontWeight.bold,fontFamily: 'Intro'),
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Intro'),
                 )),
               ),
             ),

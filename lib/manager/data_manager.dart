@@ -154,11 +154,7 @@ class DataManager {
         });
   }
 
-  void removeFromWishlist(Product product
-  // , ValueChanged<String> onChange
-  ) {
-
-      // onWishlistUpdated = onChange;
+  void removeFromWishlist(Product product) {
       
    wishListItems.removeWhere((item) => item.productId == product.productId);
 

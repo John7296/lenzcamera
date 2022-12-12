@@ -290,6 +290,7 @@ class Product {
   }
 
   // bool isAddedtoWishlist(){
+  //   wishlistqty = DataManager.shared.
 
   // }
 

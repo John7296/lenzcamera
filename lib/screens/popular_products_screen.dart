@@ -188,6 +188,7 @@ class _PopularProductsScreenState
                                 padding: const EdgeInsets.all(10),
                                 child: CircularProgressIndicator(
                                   strokeWidth: 2,
+                                  color: Colors.grey,
                                 ),
                               )),
                         if (popularProductsList[index].isCartUpdateProgress ==
