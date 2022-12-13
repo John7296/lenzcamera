@@ -43,6 +43,8 @@ dependencies:
   photo_view: ^0.14.0
   fullscreen: ^1.0.3
   flutter_html: ^2.2.1
+  pinch_zoom: ^1.0.0
+
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -98,6 +100,10 @@ flutter:
     - family: Intro
       fonts:
         - asset: assets/fonts/Intro.otf
+          weight: 600 
+        - asset: assets/fonts/Intro.otf
+          weight: 500 
+        - asset: assets/fonts/Intro.otf
           weight: 400 
         - asset: assets/fonts/Intro.otf
           weight: 300  
@@ -105,14 +111,35 @@ flutter:
           weight: 200   
           
         - asset: assets/fonts/Intro Black.otf
+          weight: 500
+        - asset: assets/fonts/Intro Black.otf
+          weight: 400
+        - asset: assets/fonts/Intro Black.otf
+          weight: 300
+        - asset: assets/fonts/Intro Black.otf
+          weight: 200
+
         - asset: assets/fonts/Intro Bold.otf
+          weight: 600
+        - asset: assets/fonts/Intro Bold.otf
+          weight: 500
+
+        - asset: assets/fonts/Intro Bold.otf
+          weight: 400
+        - asset: assets/fonts/Intro Bold.otf
+          weight: 300
+        - asset: assets/fonts/Intro Bold.otf
+          weight: 200
+
         - asset: assets/fonts/Intro Book.otf
+        
         - asset: assets/fonts/Intro-Regular.otf
           weight: 200   
         - asset: assets/fonts/Intro-Regular.otf
           weight: 300 
         - asset: assets/fonts/Intro-Regular.otf
           weight: 400   
+    
   #         style: italic
   #   - family: Trajan Pro
   #     fonts:

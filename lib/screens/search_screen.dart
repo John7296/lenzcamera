@@ -85,7 +85,10 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
       appBar: AppBar(
         centerTitle: true,
         title: Text("Search"),
-        titleTextStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+        titleTextStyle: TextStyle(
+            fontSize: 14,
+            fontFamily: "Intro Bold.otf",
+            fontWeight: FontWeight.w600),
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back_ios_new_sharp,
@@ -146,7 +149,10 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
                     decoration: const InputDecoration(
                         border: InputBorder.none,
                         hintText: "SEARCH PRODUCTS",
-                        hintStyle: TextStyle(color: Colors.grey)),
+                        hintStyle: TextStyle(
+                            fontFamily: "Intro-Regular.otf",
+                            fontWeight: FontWeight.w400,
+                            color: Colors.grey)),
                   ),
                 ),
                 const SizedBox(
@@ -249,8 +255,10 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
                                                   // 'CANON EF 16-35 MM F/4L IS USM',
                                                   _products[index].prName ?? '',
                                                   style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold),
+                                                    fontFamily:
+                                                        "Intro-Regular.otf",
+                                                    fontWeight: FontWeight.w400,
+                                                  ),
                                                   maxLines: 2,
                                                 ),
                                               ),
@@ -264,7 +272,8 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
                                             // 'QAR 8600.00',
                                             "QAR ${_products[index].unitPrice}",
                                             style: TextStyle(
-                                                fontWeight: FontWeight.bold,
+                                                fontFamily: "Intro",
+                                                fontWeight: FontWeight.w600,
                                                 color: Colors.red),
                                           ),
                                         )
@@ -478,6 +487,11 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
                                                                   style: TextStyle(
                                                                       fontSize:
                                                                           8,
+                                                                      fontFamily:
+                                                                          "Intro",
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w600,
                                                                       color: Colors
                                                                           .grey
                                                                           .shade700),
@@ -487,6 +501,11 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
                                                                   style: TextStyle(
                                                                       fontSize:
                                                                           12,
+                                                                      fontFamily:
+                                                                          "Intro",
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w600,
                                                                       color: Colors
                                                                           .black),
                                                                 ),
