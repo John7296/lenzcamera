@@ -1,21 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:lenzcamera/base/base_stateful_state.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
+import 'package:lenzcamera/model/product.dart';
 import 'package:lenzcamera/model/product.dart';
 import 'package:lenzcamera/screens/review_screen.dart';
 
 class WriteReviewScreen extends StatefulWidget{
 
-  // Product? products;
 
-  //  WriteReviewScreen(this.products);
+
   @override
   State<WriteReviewScreen> createState() => _WriteReviewScreenState();
 }
 
-class _WriteReviewScreenState extends State<WriteReviewScreen> {
+class _WriteReviewScreenState extends BaseStatefulState<WriteReviewScreen> {
 
     double selectedRating = 5;
      final _reviewController = TextEditingController();
@@ -33,12 +34,14 @@ class _WriteReviewScreenState extends State<WriteReviewScreen> {
          "urlKey": "nikon-d850-dslr-cameraB305B4E"
        }).then((BaseResponse response) {
 
+          showFlashMsg(response.message!);
+
     
-     Navigator.push(
-                    context,
-                      MaterialPageRoute(
-                      builder: (context) =>
-                      ReviewScreen()));
+    //  Navigator.push(
+    //                 context,
+    //                   MaterialPageRoute(
+    //                   builder: (context) =>
+    //                   ReviewScreen()));
     }).catchError((Object obj) {
     });
 
@@ -211,5 +214,11 @@ class _WriteReviewScreenState extends State<WriteReviewScreen> {
           ],),
         )
    );
+  }
+  
+  @override
+  bool isAuthenticationRequired() {
+    // TODO: implement isAuthenticationRequired
+    throw UnimplementedError();
   }
 }

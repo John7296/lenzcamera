@@ -40,7 +40,11 @@ class _ForgotPasswordScreenState extends BaseStatefulState<ForgotPasswordScreen>
       if (!_form.currentState!.validate()) {
       return;
     }
+
+    showLoader();
     NetworkManager.shared.forgotPasswordOTPSend(_emailController.text, "").then((BaseResponse response) {
+
+       hideLoader();
       print(_emailController.text);
       setState(() {
         emailSent = true;
@@ -52,7 +56,7 @@ class _ForgotPasswordScreenState extends BaseStatefulState<ForgotPasswordScreen>
                       VerifyForgotPwddOtpScreen(response.data)));
      
     }).catchError((e) {
-
+       hideLoader();
       showFlashMsg(e.toString());
       print(e);
       showFlashMsg(e.Message!);

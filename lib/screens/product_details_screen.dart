@@ -74,6 +74,9 @@ class _ProductDetailsScreenState extends BaseStatefulState<ProductDetailsScreen>
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        fontFamily: 'Intro'
+        ),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
@@ -279,8 +282,8 @@ class _ProductDetailsScreenState extends BaseStatefulState<ProductDetailsScreen>
                                 // "Canon EF 16-35mm f/2.8L III USM Lens  ",
                                 style: TextStyle(
                                     color: Color(0xff6e706d),
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w500),
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.w300),
                                 maxLines: 8,
                               ),
                               SizedBox(height: 7),
@@ -291,7 +294,7 @@ class _ProductDetailsScreenState extends BaseStatefulState<ProductDetailsScreen>
                                     // "DSLR Lenses",
                                     style: TextStyle(
                                         color: Color(0xff5aa567),
-                                        fontSize: 12,
+                                        fontSize: 10,
                                         fontWeight: FontWeight.w500),
                                   )),
                               Align(
@@ -343,7 +346,7 @@ class _ProductDetailsScreenState extends BaseStatefulState<ProductDetailsScreen>
                                 child: Text(
                                   "Reviews",
                                   style: TextStyle(
-                                      fontSize: 13,
+                                      fontSize: 10,
                                       color: Colors.white,
                                       fontWeight: FontWeight.w500),
                                   maxLines: 1,
@@ -391,6 +394,7 @@ class _ProductDetailsScreenState extends BaseStatefulState<ProductDetailsScreen>
                                 child: Html(
 
                                 data:  widget.popularproducts?.description ?? "",
+                                
                                   // "Key Features",
                                   // style: TextStyle(
                                   //     color: Color(0xff6e706d),
@@ -522,7 +526,10 @@ class _ProductDetailsScreenState extends BaseStatefulState<ProductDetailsScreen>
                                                                 fontSize: 15,
                                                                 fontWeight:
                                                                     FontWeight
-                                                                        .w400),
+                                                                        .w400,
+                                                                        fontFamily: "Intro-Regular.otf"
+                                                                      
+                                                                        ),
                                                             maxLines: 2,
                                                             textAlign: TextAlign
                                                                 .center,
@@ -539,7 +546,7 @@ class _ProductDetailsScreenState extends BaseStatefulState<ProductDetailsScreen>
                                                              "QAR ${relatedproducts[index].unitPrice}",
                                                               //  "QAR 39999.00",
                                                               style: TextStyle(
-                                                                  fontSize: 15,
+                                                                  fontSize: 12,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w600)),
@@ -796,7 +803,7 @@ class _ProductDetailsScreenState extends BaseStatefulState<ProductDetailsScreen>
                               ),
                             ),
                           ),
-                          SizedBox(width: 30),
+                          SizedBox(width: 20),
                           InkWell(
                             onTap: () {
                               DataManager.shared.updateItemToCart(
