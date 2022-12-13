@@ -5,6 +5,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:lenzcamera/base/base_stateful_state.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
+import 'package:lenzcamera/manager/data_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/top_categories.dart';
 import 'package:lenzcamera/screens/cart_screen.dart';
@@ -61,17 +62,76 @@ class _CategoryScreenState extends BaseStatefulState<CategoryScreen> {
             child: Text('Category'),
           ),
           actions: [
-            // IconButton(
-            //   onPressed: () {},
-            //   icon: Icon(Icons.favorite_border),
-            // ),
-            IconButton(
+          //    Stack(
+          //   children: [
+          //     IconButton(
+          //     onPressed: () {
+          //       Navigator.push(context,
+          //           MaterialPageRoute(builder: (context) => WishlistScreen()));
+          //       // getBanners();
+          //     },
+          //     icon: Icon(Icons.favorite_border),
+          //   ),
+          //   if (DataManager.shared.wishListItems.isNotEmpty) 
+          //   Positioned(
+          //       right: 5,
+          //       top: 5,
+          //       child: new Container(
+          //         padding: EdgeInsets.all(2),
+          //         decoration: new BoxDecoration(
+          //           color: Colors.red,
+          //           borderRadius: BorderRadius.circular(6),
+          //         ),
+          //         constraints: BoxConstraints(
+          //           minWidth: 14,
+          //           minHeight: 14,
+          //         ),
+          //         child: Text(
+          //           DataManager.shared.wishListItems.length.toString(),
+          //           style: TextStyle(
+          //             color: Colors.white,
+          //             fontSize:10,
+          //           ),
+          //           textAlign: TextAlign.center,
+          //         ),
+          //       ),)
+          //   ], 
+          // ),
+           Stack(
+            children: [
+              IconButton(
               onPressed: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => CartScreen()));
+                // getBanners();
               },
               icon: Icon(Icons.shopping_cart),
             ),
+            if(DataManager.shared.cartItemsList.isNotEmpty)
+            Positioned(
+                right: 5,
+                top: 5,
+                child: new Container(
+                  padding: EdgeInsets.all(2),
+                  decoration: new BoxDecoration(
+                    color: Colors.red,
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  constraints: BoxConstraints(
+                    minWidth: 14,
+                    minHeight: 14,
+                  ),
+                  child: Text(
+                    DataManager.shared.cartItemsList.length.toString(),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 10,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),)
+            ], 
+          ),
           ],
           backgroundColor: Colors.grey.shade700,
           leading: IconButton(

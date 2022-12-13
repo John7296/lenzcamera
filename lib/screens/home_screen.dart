@@ -205,18 +205,40 @@ class _HomeScreenState extends State<HomeScreen> {
         unselectedItemColor: Colors.grey.shade600,
         currentIndex: selectedindex,
         onTap: selectedPage,
+        
         items: [
+        
           BottomNavigationBarItem(
-              icon: Icon(Icons.home_outlined), label: "home"),
+            
+              icon: Padding(
+                padding: const EdgeInsets.all(5),
+                child: Icon(Icons.home_outlined),
+              ), label: "Home"),
           BottomNavigationBarItem(
-              icon: Icon(Icons.menu_book_outlined), label: "category"),
+              icon: Padding(
+                padding: const EdgeInsets.all(5),
+                child: Icon(Icons.menu_book_outlined,size: 25),
+              ), label: "Category"),
           BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_cart_outlined), label: "Cart"),
+              icon: Padding(
+                padding: const EdgeInsets.all(5),
+                child: Icon(Icons.shopping_cart_outlined),
+              ), label: "Cart"),
           BottomNavigationBarItem(
-              icon: Icon(Icons.search_outlined), label: "Search"),
+              icon: Padding(
+                padding: const EdgeInsets.all(5),
+                child: Icon(Icons.search_outlined),
+              ), label: "Search"),
           BottomNavigationBarItem(
-              icon: Icon(Icons.person_outline), label: "Profile"),
+              icon: Padding(
+                padding: const EdgeInsets.all(5),
+                child: Icon(Icons.person_outline),
+              ), label: "Profile"),
         ],
+        selectedLabelStyle: TextStyle(fontFamily: 'Intro'),
+        selectedFontSize: 12,
+        unselectedLabelStyle: TextStyle(fontFamily: 'Intro'),
+      unselectedFontSize: 12,
       ),
     );
   }

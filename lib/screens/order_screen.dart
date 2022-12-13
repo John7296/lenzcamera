@@ -4,9 +4,11 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:lenzcamera/base/base_stateful_state.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
+import 'package:lenzcamera/manager/data_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/order_list.dart';
 import 'package:lenzcamera/screens/cart_screen.dart';
+import 'package:lenzcamera/screens/home_screen.dart';
 import 'package:lenzcamera/screens/order_details_screen.dart';
 import 'package:lenzcamera/screens/profile_screen.dart';
 import 'package:lenzcamera/screens/wishlist_screen.dart';
@@ -56,29 +58,90 @@ class _OrderScreenState extends BaseStatefulState<OrderScreen> {
       appBar: AppBar(
         title: Padding(
           padding: const EdgeInsets.only(left: 50),
-          child: Text('My Orders',style: TextStyle(fontFamily: 'Intro',fontWeight: FontWeight.bold,fontSize: 15),),
+          child: Text(
+            'My Orders',
+            style: TextStyle(
+                fontFamily: 'Intro', fontWeight: FontWeight.bold, fontSize: 15),
+          ),
         ),
         actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => WishlistScreen()));
-            },
-            icon: Icon(Icons.favorite_border),
+            Stack(
+            children: [
+              IconButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => WishlistScreen()));
+                // getBanners();
+              },
+              icon: Icon(Icons.favorite_border),
+            ),
+            if (DataManager.shared.wishListItems.isNotEmpty) 
+            Positioned(
+                right: 5,
+                top: 5,
+                child: new Container(
+                  padding: EdgeInsets.all(2),
+                  decoration: new BoxDecoration(
+                    color: Colors.red,
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  constraints: BoxConstraints(
+                    minWidth: 14,
+                    minHeight: 14,
+                  ),
+                  child: Text(
+                    DataManager.shared.wishListItems.length.toString(),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize:10,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),)
+            ], 
           ),
-          IconButton(
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => CartScreen()));
-            },
-            icon: Icon(Icons.shopping_cart),
+           Stack(
+            children: [
+              IconButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => CartScreen()));
+                // getBanners();
+              },
+              icon: Icon(Icons.shopping_cart),
+            ),
+            if(DataManager.shared.cartItemsList.isNotEmpty)
+            Positioned(
+                right: 5,
+                top: 5,
+                child: new Container(
+                  padding: EdgeInsets.all(2),
+                  decoration: new BoxDecoration(
+                    color: Colors.red,
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  constraints: BoxConstraints(
+                    minWidth: 14,
+                    minHeight: 14,
+                  ),
+                  child: Text(
+                    DataManager.shared.cartItemsList.length.toString(),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 10,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),)
+            ], 
           ),
         ],
         backgroundColor: Colors.grey.shade700,
         leading: IconButton(
           onPressed: () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => ProfileScreen()));
+                MaterialPageRoute(builder: (context) => HomeScreen()));
+            // Navigator.pop(context);
           },
           icon: Icon(Icons.arrow_back_ios),
         ),
@@ -129,17 +192,18 @@ class _OrderScreenState extends BaseStatefulState<OrderScreen> {
                                         child: Container(
                                           height: 50,
                                           width: 50,
-                                          child: 
-                                               ClipRRect(
-                borderRadius: BorderRadius.circular(5.0),
-                child: 
-                FadeInImage.assetNetwork(
-                    height: 250,
-                    width: double.infinity,
-                    placeholder: 'assets/images/placeholder.png',
-                    image: "https://dev.lenzcamera.com/webadmin/${orderList[index].ProductImgUrl}",
-                    fit: BoxFit.cover),
-              ),
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(5.0),
+                                            child: FadeInImage.assetNetwork(
+                                                height: 250,
+                                                width: double.infinity,
+                                                placeholder:
+                                                    'assets/images/placeholder.png',
+                                                image:
+                                                    "https://dev.lenzcamera.com/webadmin/${orderList[index].ProductImgUrl}",
+                                                fit: BoxFit.cover),
+                                          ),
                                           // CachedNetworkImage(
                                           //     imageUrl:
                                           //         "https://dev.lenzcamera.com/webadmin/${orderList[index].ProductImgUrl}"),
@@ -239,7 +303,7 @@ class _OrderScreenState extends BaseStatefulState<OrderScreen> {
                             )
                           ],
                         ),
-                        SizedBox(width: 20),
+                        SizedBox(width: 10),
                         Column(
                           children: [
                             SizedBox(

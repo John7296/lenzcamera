@@ -101,24 +101,76 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
         ),
         backgroundColor: Colors.grey.shade700,
         actions: [
-          IconButton(
-            icon: Icon(Icons.favorite_border_outlined),
-            color: Colors.white,
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => WishlistScreen()));
-            },
+       Stack(
+            children: [
+              IconButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => WishlistScreen()));
+                // getBanners();
+              },
+              icon: Icon(Icons.favorite_border),
+            ),
+            if (DataManager.shared.wishListItems.isNotEmpty) 
+            Positioned(
+                right: 5,
+                top: 5,
+                child: new Container(
+                  padding: EdgeInsets.all(2),
+                  decoration: new BoxDecoration(
+                    color: Colors.red,
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  constraints: BoxConstraints(
+                    minWidth: 14,
+                    minHeight: 14,
+                  ),
+                  child: Text(
+                    DataManager.shared.wishListItems.length.toString(),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize:10,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),)
+            ], 
           ),
-          SizedBox(width: 40),
-          IconButton(
-            icon: Icon(Icons.shopping_cart_outlined),
-            color: Colors.white,
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => CartScreen()));
-            },
+           Stack(
+            children: [
+              IconButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => CartScreen()));
+                // getBanners();
+              },
+              icon: Icon(Icons.shopping_cart),
+            ),
+            if(DataManager.shared.cartItemsList.isNotEmpty)
+            Positioned(
+                right: 5,
+                top: 5,
+                child: new Container(
+                  padding: EdgeInsets.all(2),
+                  decoration: new BoxDecoration(
+                    color: Colors.red,
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  constraints: BoxConstraints(
+                    minWidth: 14,
+                    minHeight: 14,
+                  ),
+                  child: Text(
+                    DataManager.shared.cartItemsList.length.toString(),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 10,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),)
+            ], 
           ),
-          SizedBox(width: 20),
         ],
       ),
       body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [

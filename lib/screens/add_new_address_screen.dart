@@ -65,12 +65,11 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
   }
 
   void onSaveButtonTapped() {
-    NetworkManager.shared.updateAddress({
+    NetworkManager.shared.addAddress({
       "addLine1": _addressL1Controller.text,
       "addLine2": _addressL2Controller.text,
       "addressType": "",
       "country": "QATAR",
-      "custAdressId": 418,
       "custId": NetworkManager.shared.userId,
       "district": selectedCity,
       "firstName": _firstNameController.text,

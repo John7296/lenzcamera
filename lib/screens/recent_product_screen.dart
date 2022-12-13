@@ -7,6 +7,7 @@ import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/manager/data_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/product.dart';
+import 'package:lenzcamera/screens/cart_screen.dart';
 import 'package:lenzcamera/screens/wishlist_screen.dart';
 
 class RecentProductsScreen extends StatefulWidget {
@@ -54,16 +55,75 @@ class _RecentProductsScreenState
           child: Text('Recent Products'),
         ),
         actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => WishlistScreen()));
-            },
-            icon: Icon(Icons.favorite_border),
+             Stack(
+            children: [
+              IconButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => WishlistScreen()));
+                // getBanners();
+              },
+              icon: Icon(Icons.favorite_border),
+            ),
+            if (DataManager.shared.wishListItems.isNotEmpty) 
+            Positioned(
+                right: 5,
+                top: 5,
+                child: new Container(
+                  padding: EdgeInsets.all(2),
+                  decoration: new BoxDecoration(
+                    color: Colors.red,
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  constraints: BoxConstraints(
+                    minWidth: 14,
+                    minHeight: 14,
+                  ),
+                  child: Text(
+                    DataManager.shared.wishListItems.length.toString(),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize:10,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),)
+            ], 
           ),
-          IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.shopping_cart),
+           Stack(
+            children: [
+              IconButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => CartScreen()));
+                // getBanners();
+              },
+              icon: Icon(Icons.shopping_cart),
+            ),
+            if(DataManager.shared.cartItemsList.isNotEmpty)
+            Positioned(
+                right: 5,
+                top: 5,
+                child: new Container(
+                  padding: EdgeInsets.all(2),
+                  decoration: new BoxDecoration(
+                    color: Colors.red,
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  constraints: BoxConstraints(
+                    minWidth: 14,
+                    minHeight: 14,
+                  ),
+                  child: Text(
+                    DataManager.shared.cartItemsList.length.toString(),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 10,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),)
+            ], 
           ),
         ],
         backgroundColor: Colors.grey.shade700,
@@ -134,20 +194,26 @@ class _RecentProductsScreenState
                             ),
                           ),
                         ]),
-                        Spacer(),
-                        Align(
-                            alignment: Alignment.center,
-                            child: Text(
-                              // "CANON EF 16-35 MM F/4L IS USM ",
-                              recentProductsList[index].prName ?? '',
-                              style: TextStyle(
-                                  fontSize: 10, fontWeight: FontWeight.w400),
-                              maxLines: 1,
-                              textAlign: TextAlign.center,
-                            )),
-                        Text("QAR${recentProductsList[index].unitPrice ?? ''}",
+                        
+                        Container(
+                          height: 40,
+                          child: Column(
+                            children: [
+                              Text(
+                                // "CANON EF 16-35 MM F/4L IS USM ",
+                                recentProductsList[index].prName ?? '',
+                                style: TextStyle(
+                                    fontSize: 14, fontFamily: 'Intro'),
+                                maxLines: 2,
+                                textAlign: TextAlign.center,
+                              ),
+                              Text("QAR${recentProductsList[index].unitPrice ?? ''}",
                             style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.w600)),
+                                fontSize: 12, fontWeight: FontWeight.bold,fontFamily: 'Intro',color: Colors.grey)),
+                            ],
+                          ),
+                        ),
+                        
                         if (recentProductsList[index].isCartUpdateProgress!)
                           SizedBox(
                               height: 30,

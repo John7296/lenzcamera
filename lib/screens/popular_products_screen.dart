@@ -7,6 +7,7 @@ import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/manager/data_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/product.dart';
+import 'package:lenzcamera/screens/cart_screen.dart';
 import 'package:lenzcamera/screens/wishlist_screen.dart';
 
 class PopularProductsScreen extends StatefulWidget {
@@ -77,22 +78,78 @@ class _PopularProductsScreenState
       appBar: AppBar(
         title: Padding(
           padding: const EdgeInsets.only(left: 50),
-          child: Text('Popular Products'),
+          child: Text('Popular Products',style: TextStyle(fontWeight: FontWeight.bold,fontFamily: 'Intro',fontSize: 16),),
         ),
         actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => WishlistScreen(),
-                  ));
-            },
-            icon: Icon(Icons.favorite_border),
+         Stack(
+            children: [
+              IconButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => WishlistScreen()));
+                // getBanners();
+              },
+              icon: Icon(Icons.favorite_border),
+            ),
+            if (DataManager.shared.wishListItems.isNotEmpty) 
+            Positioned(
+                right: 5,
+                top: 5,
+                child: new Container(
+                  padding: EdgeInsets.all(2),
+                  decoration: new BoxDecoration(
+                    color: Colors.red,
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  constraints: BoxConstraints(
+                    minWidth: 14,
+                    minHeight: 14,
+                  ),
+                  child: Text(
+                    DataManager.shared.wishListItems.length.toString(),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize:10,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),)
+            ], 
           ),
-          IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.shopping_cart),
+           Stack(
+            children: [
+              IconButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => CartScreen()));
+                // getBanners();
+              },
+              icon: Icon(Icons.shopping_cart),
+            ),
+            if(DataManager.shared.cartItemsList.isNotEmpty)
+            Positioned(
+                right: 5,
+                top: 5,
+                child: new Container(
+                  padding: EdgeInsets.all(2),
+                  decoration: new BoxDecoration(
+                    color: Colors.red,
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  constraints: BoxConstraints(
+                    minWidth: 14,
+                    minHeight: 14,
+                  ),
+                  child: Text(
+                    DataManager.shared.cartItemsList.length.toString(),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 10,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),)
+            ], 
           ),
         ],
         backgroundColor: Colors.grey.shade700,
@@ -126,10 +183,17 @@ class _PopularProductsScreenState
                                 padding: const EdgeInsets.only(top: 10),
                                 child: Container(
                             height: 100,
-                            width: 150,
-                            child: CachedNetworkImage(
-                                  imageUrl:
-                                      "https://dev.lenzcamera.com/webadmin/${popularProductsList[index].imageUrl}"),
+                            width: 100,
+                            child: 
+                        FadeInImage.assetNetwork(
+                                    height: 200,
+                                    width: double.infinity,
+                                    placeholder:
+                                        'assets/images/placeholder.png',
+                                    placeholderFit: BoxFit.contain,
+                                    image:
+                                        "https://dev.lenzcamera.com/webadmin/${popularProductsList[index].imageUrl}",
+                                    fit: BoxFit.cover),
                           ),
                               )),
                           Padding(
@@ -162,24 +226,31 @@ class _PopularProductsScreenState
                             ),
                           ),
                         ]),
-                        Spacer(),
-                        Align(
-                            alignment: Alignment.center,
-                            child: Text(
-                              popularProductsList[index].prName ?? '',
-                                          maxLines: 2,
-                                          style: const TextStyle(fontSize: 12),
-                                          overflow: TextOverflow.ellipsis,
-                              // "CANON EF 16-35 MM F/4L IS USM ",
-                              // popularProductsList[index].prName ?? '',
-                              // style: TextStyle(
-                              //     fontSize: 10, fontWeight: FontWeight.bold,fontFamily: 'Intro'),
-                              // maxLines: 1,
-                              // textAlign: TextAlign.center,
-                            )),
-                        Text("QAR${popularProductsList[index].unitPrice ?? ''}",
+                        
+                        Container(
+                          height: 40,
+                          child: Column(
+                            children: [
+                              Text(
+                                popularProductsList[index].prName ?? '',
+                                            maxLines: 2,
+                                            style: const TextStyle(fontSize: 12,fontFamily: 'Intro'),
+                                            overflow: TextOverflow.ellipsis,
+                                            textAlign: TextAlign.center,
+                                // "CANON EF 16-35 MM F/4L IS USM ",
+                                // popularProductsList[index].prName ?? '',
+                                // style: TextStyle(
+                                //     fontSize: 10, fontWeight: FontWeight.bold,fontFamily: 'Intro'),
+                                // maxLines: 1,
+                                // textAlign: TextAlign.center,
+                              ),
+                                Text("QAR ${popularProductsList[index].unitPrice ?? ''}",
                             style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.bold,fontFamily: 'Intro')),
+                                fontSize: 15, fontWeight: FontWeight.bold,fontFamily: 'Intro',color: Colors.grey)),
+                            ],
+                          ),
+                        ),
+                      
                         if (popularProductsList[index].isCartUpdateProgress!)
                           SizedBox(
                               height: 30,
@@ -237,9 +308,9 @@ class _PopularProductsScreenState
                                         child: Center(
                                             child: Text(
                                           popularProductsList[index]
-                                              .qty
-                                              .toString(),
-                                          style: TextStyle(color: Colors.black),
+                                              .qty!
+                                              .toStringAsFixed(0),
+                                          style: TextStyle(color: Colors.black,fontFamily: 'Intro'),
                                         )),
                                       ),
                                       InkWell(
@@ -300,7 +371,7 @@ class _PopularProductsScreenState
                                               12)
                                           ? Text(
                                               "OUT OF STOCK",
-                                              style: TextStyle(fontFamily: 'Intro',
+                                              style: TextStyle(fontFamily: 'Intro',fontWeight: FontWeight.bold,
                                                   fontSize: 12,
                                                   color: Colors.grey.shade800),
                                             )
@@ -308,7 +379,7 @@ class _PopularProductsScreenState
                                               "ADD",
                                               style: TextStyle(fontFamily: 'Intro',
                                                   fontSize: 15,
-                                                  color: Colors.black),
+                                                  color: Colors.black,fontWeight: FontWeight.bold),
                                             ),
                                     ),
                                   ),
