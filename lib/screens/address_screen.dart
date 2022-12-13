@@ -46,9 +46,10 @@ class _AddressScreenState extends BaseStatefulState<AddressScreen> {
     });
   }
 
-  void deleteAddress(AddressList address) {
+  void deleteAddress(index) {
     NetworkManager.shared
-        .deleteAddress(<String, dynamic>{}).then((BaseResponse response) {
+        .deleteAddress(addressList[index].custAdressId.toString())
+        .then((BaseResponse response) {
       showFlashMsg(response.message!);
       addressList;
     }).catchError((e) {
@@ -85,104 +86,124 @@ class _AddressScreenState extends BaseStatefulState<AddressScreen> {
         ),
       ),
       backgroundColor: Colors.grey.shade100,
-      body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Row(
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.0),
-              child: TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => AddNewAddressScreen()));
-                  },
-                  child: Text(
-                    "+Add New Address",
-                    style: TextStyle(color: Colors.red, fontSize: 14),
-                  )),
-            ),
-            SizedBox(
-              width: 10,
-            ),
-          ],
-        ),
-        Divider(
-          thickness: 2,
-          indent: 10,
-          endIndent: 10,
-        ),
-        Expanded(
-          child: Container(
-            height: 600,
-            color: Colors.grey.shade100,
-            child: ListView.builder(
-                itemCount: addressList.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      height: 100,
-                      width: 400,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(5)),
-                      ),
-                      child: Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(addressList[index].firstName ?? ''),
-                                Text(addressList[index].lastName ?? ''),
-                                Text(addressList[index].addLine1 ?? ''),
-                                Text(addressList[index].addLine2 ?? ''),
-                                Text(addressList[index].country ?? ''),
-                              ],
-                            ),
-                          ),
-                          Spacer(),
-                          Column(
-                            children: [
-                              IconButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              EditAddressScreen(
-                                                  addressList[index].firstName,
-                                                  addressList[index].lastName,
-                                                  addressList[index].addLine1,
-                                                  addressList[index].addLine2,
-                                                  addressList[index].phone,
-                                                  addressList[index].pincode,
-                                                  addressList[index].landmark,
-                                                  context)));
-                                },
-                                icon: Icon(Icons.draw, color: Colors.grey),
-                              ),
-                              IconButton(
-                                onPressed: () {
-                                  setState(() {
-                                    deleteAddress(addressList[index]);
-                                  });
-                                },
-                                icon: Icon(Icons.delete_outline,
-                                    color: Colors.red),
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  );
-                }),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.0),
+                child: TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => AddNewAddressScreen()));
+                    },
+                    child: Text(
+                      "+Add New Address",
+                      style: TextStyle(
+                          color: Colors.red, fontSize: 14, fontFamily: 'Intro'),
+                    )),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+            ],
           ),
-        )
-      ]),
+          Divider(
+            thickness: 2,
+            indent: 10,
+            endIndent: 10,
+          ),
+          Expanded(
+            child: Container(
+              height: 600,
+              color: Colors.grey.shade100,
+              child: ListView.builder(
+                  itemCount: addressList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        height: 100,
+                        width: 400,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.all(Radius.circular(5)),
+                        ),
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(addressList[index].firstName ?? '',
+                                      style: TextStyle(
+                                          fontFamily: 'Intro',
+                                          fontWeight: FontWeight.bold)),
+                                  Text(addressList[index].lastName ?? '',
+                                      style: TextStyle(
+                                          fontFamily: 'Intro', fontSize: 12)),
+                                  Text(addressList[index].addLine1 ?? '',
+                                      style: TextStyle(
+                                          fontFamily: 'Intro', fontSize: 12)),
+                                  Text(addressList[index].addLine2 ?? '',
+                                      style: TextStyle(
+                                          fontFamily: 'Intro', fontSize: 12)),
+                                  Text(addressList[index].country ?? '',
+                                      style: TextStyle(
+                                          fontFamily: 'Intro', fontSize: 12)),
+                                ],
+                              ),
+                            ),
+                            Spacer(),
+                            Column(
+                              children: [
+                                IconButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                EditAddressScreen(
+                                                  addressList[index],
+                                                  //     .custAdressId,
+                                                  // addressList[index]
+                                                  //     .firstName,
+                                                  // addressList[index].lastName,
+                                                  // addressList[index].addLine1,
+                                                  // addressList[index].addLine2,
+                                                  // addressList[index].phone,
+                                                  // addressList[index].pincode,
+                                                  // addressList[index].landmark,
+                                                  // addre
+                                                  // context
+                                                )));
+                                  },
+                                  icon: Icon(Icons.draw, color: Colors.grey),
+                                ),
+                                IconButton(
+                                  onPressed: () {
+                                    print("addressId:${addressList[index].custAdressId}");
+                                    deleteAddress(
+                                        addressList[index].custAdressId!);
+                                  },
+                                  icon: Icon(Icons.delete_outline,
+                                      color: Colors.red),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                    );
+                  }),
+            ),
+          ),
+        ],
+      ),
     );
   }
 

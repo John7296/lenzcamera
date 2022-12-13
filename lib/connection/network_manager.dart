@@ -76,6 +76,10 @@ class NetworkManager {
     return call(networkConnection.newRegister(map));
   }
 
+    Future<BaseResponse> addAddress(Map<String, dynamic> map) {
+    return call(networkConnection.addAddress(map));
+  }
+
   Future<BaseResponse<List<AddressList>>> getAddressList() {
     return call(networkConnection.getAddressList(userId));
   }
@@ -92,9 +96,14 @@ class NetworkManager {
     return call(networkConnection.updateAddress(map));
   }
 
-  Future<BaseResponse> deleteAddress(Map<String, dynamic> map) {
-    return call(networkConnection.deleteAddress(map));
+  
+  Future<BaseResponse> deleteAddress(String cusAddress_id) {
+    return call(networkConnection.deleteAddress(cusAddress_id));
   }
+
+  // Future<BaseResponse> deleteAddress(Map<String, dynamic> map) {
+  //   return call(networkConnection.deleteAddress(map));
+  // }
 
   Future<BaseResponse> forgotPasswordOTPSend(
       String email, String mobileNumber) {
@@ -179,7 +188,7 @@ class NetworkManager {
 
   Future<BaseResponse> removeFromWishlist(
       int userId, int guestId, String urlKey) {
-    print("useriddd $userId");
+    print("useriddd $urlKey");
     return call(networkConnection.removeFromWishlist(userId, guestId, urlKey));
   }
 

@@ -145,7 +145,7 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                                       padding: const EdgeInsets.only(top: 15),
                                       child: Container(
                                         height: 30,
-                                        width: 170,
+                                        width: 160,
                                         child: Text(
                                           // 'CANON EF 16-35 MM F/4L IS USM',
                                           cartItemsList[index].prName ?? '',
@@ -274,13 +274,17 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                                                   color: Color(0xffe3e3e3),
                                                 ),
                                                 child: Center(
-                                                    child: Text(
-                                                  cartItemsList[index]
-                                                      .qty
-                                                      .toString(),
-                                                  style: TextStyle(
-                                                      color: Colors.black),
-                                                )),
+                                                  child: Text(
+                                                      cartItemsList[index]
+                                                          .qty!
+                                                          .toStringAsFixed(0),
+                                                      style: TextStyle(
+                                                          fontFamily: 'Intro',
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Colors.black),
+                                                    ),
+                                                ),
                                               ),
                                               InkWell(
                                                 onTap: () {

@@ -29,6 +29,7 @@ class _WishlistScreenState extends BaseStatefulState<WishlistScreen> {
     Future.delayed(Duration(milliseconds: 500), () {
       wishListProducts();
       // NetworkManager.shared.getWishList();
+      // DataManager.shared.getWishList();
     });
   }
 
@@ -62,8 +63,9 @@ class _WishlistScreenState extends BaseStatefulState<WishlistScreen> {
       wishList.urlKey!,
     )
         .then((BaseResponse response) {
-      DataManager.shared.getWishList();
-      debugPrint("==========================================");
+      setState(() {
+        DataManager.shared.getWishList();
+      });
     }).catchError((e) {
       print(e.toString());
     });
@@ -91,8 +93,9 @@ class _WishlistScreenState extends BaseStatefulState<WishlistScreen> {
           ),
           IconButton(
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => CartScreen()));
+              // Navigator.push(context,
+              //     MaterialPageRoute(builder: (context) => CartScreen()));
+              // NetworkManager.shared.getWishList();
             },
             icon: Icon(Icons.shopping_cart),
           ),
@@ -180,8 +183,9 @@ class _WishlistScreenState extends BaseStatefulState<WishlistScreen> {
                             setState(() {
                               DataManager.shared
                                   .removeFromWishlist(wishListItems[index]);
+                              // DataManager.shared.getWishList();
+                              wishListProducts();
 
-                              DataManager.shared.getWishList();
                             });
                           },
                           icon: Icon(Icons.delete_outline, color: Colors.red),

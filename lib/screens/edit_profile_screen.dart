@@ -44,18 +44,18 @@ class _EditProfileScreen extends BaseStatefulState<EditProfileScreen> {
   }
 
   void onUpdateButtonTapped() {
-    NetworkManager.shared
-        .updateProfile({
-          "custId": NetworkManager.shared.userId,
-          "custName": _userNameController.text,
-          "phoneNo": _mobileController.text,
-          "emailId": _emailIdController.text,
-        })
-        .then((BaseResponse response) {})
-        .catchError((e) {
-          showFlashMsg(e.toString());
-          print(e.toString());
-        });
+    NetworkManager.shared.updateProfile({
+      "custId": NetworkManager.shared.userId,
+      "custName": _userNameController.text,
+      "phoneNo": _mobileController.text,
+      "emailId": _emailIdController.text,
+    }).then((BaseResponse response) {
+      showFlashMsg(response.message!);
+      Navigator.pop(context);
+    }).catchError((e) {
+      showFlashMsg(e.toString());
+      print(e.toString());
+    });
   }
 
   @override
@@ -63,127 +63,129 @@ class _EditProfileScreen extends BaseStatefulState<EditProfileScreen> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-          appBar: AppBar(
-            backgroundColor: Colors.grey.shade700,
-            title: Padding(
-              padding: const EdgeInsets.only(left: 50),
-              child: Text('Edit Profile'),
-            ),
-            leading: IconButton(
-              icon: Icon(Icons.arrow_back_ios),
-              onPressed: () {
-                Navigator.pop(context);
-              },
+        appBar: AppBar(
+          backgroundColor: Colors.grey.shade700,
+          title: Padding(
+            padding: const EdgeInsets.only(left: 50),
+            child: Text('Edit Profile'),
+          ),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back_ios),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+        ),
+        backgroundColor: Colors.white,
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(height: 50),
+                Container(
+                  height: 80,
+                  width: 150,
+                  child: Image(
+                    image: AssetImage("assets/images/lens.png"),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.all(20),
+                  child: Column(
+                    children: [
+                      SizedBox(height: 80),
+                      Align(
+                          alignment: Alignment.topLeft,
+                          child: Padding(
+                            padding: const EdgeInsets.only(bottom: 10),
+                            child: Text(
+                              'User Name*',
+                              style: TextStyle(
+                                  color: Colors.grey.shade600,
+                                  fontFamily: 'Intro'),
+                            ),
+                          )),
+                      Container(
+                        height: 40,
+                        child: TextFormField(
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            contentPadding: EdgeInsets.all(5),
+                            // labelText: 'Customer Name'
+                          ),
+                          controller: _userNameController,
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      Align(
+                          alignment: Alignment.topLeft,
+                          child: Padding(
+                            padding: const EdgeInsets.only(bottom: 10),
+                            child: Text('Email ID',
+                                style: TextStyle(
+                                    color: Colors.grey.shade600,
+                                    fontFamily: 'Intro')),
+                          )),
+                      Container(
+                        height: 40,
+                        child: TextFormField(
+                          decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              contentPadding: EdgeInsets.all(5)
+                              // labelText: 'Email ID'
+                              ),
+                          controller: _emailIdController,
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      Align(
+                          alignment: Alignment.topLeft,
+                          child: Padding(
+                            padding: const EdgeInsets.only(bottom: 10),
+                            child: Text('Mobile',
+                                style: TextStyle(color: Colors.grey.shade600)),
+                          )),
+                      Container(
+                        height: 40,
+                        child: TextFormField(
+                          decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              contentPadding: EdgeInsets.all(5)
+                              // labelText: 'Mobile'
+                              ),
+                          controller: _mobileController,
+                        ),
+                      ),
+                      SizedBox(height: 100),
+                      Container(
+                        width: 400,
+                        height: 50,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            onUpdateButtonTapped();
+                          },
+                          child: Text(
+                            'Update',
+                            style: TextStyle(fontSize: 20, fontFamily: 'Intro'),
+                          ),
+                          style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all(Colors.green),
+                            shape: MaterialStateProperty.all(
+                                RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5),
+                            )),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
-          backgroundColor: Colors.white,
-          body: SafeArea(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  SizedBox(height: 50),
-                  Container(
-                    height: 80,
-                    width: 150,
-                    child: Image(
-                      image: AssetImage("assets/images/lens.png"),
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.all(20),
-                    child: Column(
-                      children: [
-                        SizedBox(height: 80),
-                        Align(
-                            alignment: Alignment.topLeft,
-                            child: Padding(
-                              padding: const EdgeInsets.only(bottom: 10),
-                              child: Text(
-                                'User Name*',
-                                style: TextStyle(color: Colors.grey.shade600),
-                              ),
-                            )),
-                        Container(
-                          height: 40,
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              contentPadding: EdgeInsets.all(5),
-                              // labelText: 'Customer Name'
-                            ),
-                            controller: _userNameController,
-                          ),
-                        ),
-                        SizedBox(height: 20),
-                        Align(
-                            alignment: Alignment.topLeft,
-                            child: Padding(
-                              padding: const EdgeInsets.only(bottom: 10),
-                              child: Text('Email ID',
-                                  style:
-                                      TextStyle(color: Colors.grey.shade600)),
-                            )),
-                        Container(
-                          height: 40,
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                contentPadding: EdgeInsets.all(5)
-                                // labelText: 'Email ID'
-                                ),
-                            controller: _emailIdController,
-                          ),
-                        ),
-                        SizedBox(height: 20),
-                        Align(
-                            alignment: Alignment.topLeft,
-                            child: Padding(
-                              padding: const EdgeInsets.only(bottom: 10),
-                              child: Text('Mobile',
-                                  style:
-                                      TextStyle(color: Colors.grey.shade600)),
-                            )),
-                        Container(
-                          height: 40,
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                contentPadding: EdgeInsets.all(5)
-                                // labelText: 'Mobile'
-                                ),
-                            controller: _mobileController,
-                          ),
-                        ),
-                        SizedBox(height: 100),
-                        Container(
-                          width: 400,
-                          height: 50,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              onUpdateButtonTapped();
-                            },
-                            child: Text(
-                              'Update',
-                              style:
-                                  TextStyle(fontSize: 20, fontFamily: 'Intro'),
-                            ),
-                            style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStateProperty.all(Colors.green),
-                              shape: MaterialStateProperty.all(
-                                  RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(5),
-                              )),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          )),
+        ),
+      ),
     );
   }
 

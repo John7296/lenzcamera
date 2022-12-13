@@ -262,7 +262,7 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
                                       padding: const EdgeInsets.all(8.0),
                                       child: Text(
                                         singleItemList[index].prName ?? '',
-                                        style: TextStyle(color: Colors.grey.shade600,fontFamily: 'Intro',),
+                                        style: TextStyle(color: Colors.grey.shade600,fontWeight: FontWeight.bold,),
                                         maxLines: 2,
                                       ),
                                     ),

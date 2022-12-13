@@ -25,7 +25,8 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
   List<OrderList> orderList = [];
   bool umw = false;
   bool cod = false;
-  AddressList? selectedAddress;
+  AddressList? selectedShippingAddress;
+  AddressList? selectedBillingAddress;
 
   @override
   void initState() {
@@ -41,7 +42,7 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
     NetworkManager.shared
         .getAddressList()
         .then((BaseResponse<List<AddressList>> response) {
-          showFlashMsg(response.message!);
+      showFlashMsg(response.message!);
       hideLoader();
       setState(() {
         addressList.clear();
@@ -53,8 +54,6 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
       print(e.toString());
     });
   }
-
-
 
   void placeOrder() {
     NetworkManager.shared.placeOrder(<String, dynamic>{
@@ -76,7 +75,8 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
       appBar: AppBar(
         centerTitle: true,
         title: Text("Checkout"),
-        titleTextStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.bold,fontFamily: 'Intro'),
+        titleTextStyle: TextStyle(
+            fontSize: 14, fontWeight: FontWeight.bold, fontFamily: 'Intro'),
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back_ios_new_sharp,
@@ -86,7 +86,7 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
             Navigator.pop(context);
           },
         ),
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.grey.shade700,
       ),
       body: Padding(
         padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
@@ -122,7 +122,8 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                       style: TextStyle(
                                           color: Color(0xff717171),
                                           fontSize: 12,
-                                          fontWeight: FontWeight.bold,fontFamily: 'Intro'),
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: 'Intro'),
                                     )),
                                     SizedBox(width: 150),
                                     TextButton(
@@ -189,7 +190,7 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                                                         8.0),
                                                                 child: InkWell(
                                                                   onTap: () {
-                                                                    selectedAddress =
+                                                                    selectedShippingAddress =
                                                                         addressList[
                                                                             index];
                                                                     Navigator.pop(
@@ -225,23 +226,23 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                                                             ],
                                                                           ),
                                                                         ),
-                                                                        Spacer(),
-                                                                        Column(
-                                                                          children: [
-                                                                            IconButton(
-                                                                              onPressed: () {
-                                                                                Navigator.push(context, MaterialPageRoute(builder: (context) => AddNewAddressScreen()));
-                                                                              },
-                                                                              icon: Icon(Icons.draw, color: Colors.grey),
-                                                                            ),
-                                                                            IconButton(
-                                                                              onPressed: () {
-                                                                                // deleteAddress(addressList[index]);
-                                                                              },
-                                                                              icon: Icon(Icons.delete_outline, color: Colors.red),
-                                                                            ),
-                                                                          ],
-                                                                        )
+                                                                        // Spacer(),
+                                                                        // Column(
+                                                                        //   children: [
+                                                                        //     IconButton(
+                                                                        //       onPressed: () {
+                                                                        //         Navigator.push(context, MaterialPageRoute(builder: (context) => AddNewAddressScreen()));
+                                                                        //       },
+                                                                        //       icon: Icon(Icons.draw, color: Colors.grey),
+                                                                        //     ),
+                                                                        //     IconButton(
+                                                                        //       onPressed: () {
+                                                                        //         // deleteAddress(addressList[index]);
+                                                                        //       },
+                                                                        //       icon: Icon(Icons.delete_outline, color: Colors.red),
+                                                                        //     ),
+                                                                        //   ],
+                                                                        // )
                                                                       ],
                                                                     ),
                                                                   ),
@@ -267,20 +268,21 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                               ),
                               Padding(
                                 padding:
-                                    const EdgeInsets.only(left: 44, top: 15),
+                                    const EdgeInsets.only(left: 44),
                                 child: Text(
-                                  selectedAddress?.addLine1 ?? '',
+                                  selectedShippingAddress?.addLine1 ?? '',
                                   style: TextStyle(
                                       color: Color(0xff717171),
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold,fontFamily: 'Intro'),
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'Intro'),
                                 ),
                               ),
                               Padding(
                                 padding:
                                     const EdgeInsets.only(left: 44, top: 5),
                                 child: Text(
-                                  selectedAddress?.addLine2 ?? '',
+                                  selectedShippingAddress?.addLine2 ?? '',
                                   style: TextStyle(
                                       color: Color(0xff717171), fontSize: 12),
                                 ),
@@ -303,13 +305,13 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                     Card(
                       elevation: 2,
                       child: Container(
-                        height: 140,
+                        height: 130,
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Padding(
                                 padding: const EdgeInsets.only(
-                                    left: 10, top: 10, right: 20, bottom: 10),
+                                    left: 10, top: 10, right: 20),
                                 child: Row(
                                   children: [
                                     Icon(
@@ -323,9 +325,10 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                       style: TextStyle(
                                           color: Color(0xff717171),
                                           fontSize: 12,
-                                          fontWeight: FontWeight.bold,fontFamily: 'Intro'),
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: 'Intro'),
                                     )),
-                                    SizedBox(width: 160),
+                                    SizedBox(width: 150),
                                     TextButton(
                                       onPressed: () {
                                         showModalBottomSheet(
@@ -357,7 +360,7 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                                                     color: Colors
                                                                         .red,
                                                                     fontSize:
-                                                                        14,fontFamily: 'Intro'),
+                                                                        14),
                                                               )),
                                                         ),
                                                         SizedBox(
@@ -390,7 +393,7 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                                                         8.0),
                                                                 child: InkWell(
                                                                   onTap: () {
-                                                                    selectedAddress =
+                                                                    selectedBillingAddress =
                                                                         addressList[
                                                                             index];
                                                                     Navigator.pop(
@@ -426,23 +429,23 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                                                             ],
                                                                           ),
                                                                         ),
-                                                                        Spacer(),
-                                                                        Column(
-                                                                          children: [
-                                                                            IconButton(
-                                                                              onPressed: () {
-                                                                                Navigator.push(context, MaterialPageRoute(builder: (context) => AddNewAddressScreen()));
-                                                                              },
-                                                                              icon: Icon(Icons.draw, color: Colors.grey),
-                                                                            ),
-                                                                            IconButton(
-                                                                              onPressed: () {
-                                                                                // deleteAddress(addressList[index]);
-                                                                              },
-                                                                              icon: Icon(Icons.delete_outline, color: Colors.red),
-                                                                            ),
-                                                                          ],
-                                                                        )
+                                                                        // Spacer(),
+                                                                        // Column(
+                                                                        //   children: [
+                                                                        //     IconButton(
+                                                                        //       onPressed: () {
+                                                                        //         Navigator.push(context, MaterialPageRoute(builder: (context) => AddNewAddressScreen()));
+                                                                        //       },
+                                                                        //       icon: Icon(Icons.draw, color: Colors.grey),
+                                                                        //     ),
+                                                                        //     IconButton(
+                                                                        //       onPressed: () {
+                                                                        //         // deleteAddress(addressList[index]);
+                                                                        //       },
+                                                                        //       icon: Icon(Icons.delete_outline, color: Colors.red),
+                                                                        //     ),
+                                                                        //   ],
+                                                                        // )
                                                                       ],
                                                                     ),
                                                                   ),
@@ -468,20 +471,21 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                               ),
                               Padding(
                                 padding:
-                                    const EdgeInsets.only(left: 44, top: 15),
+                                    const EdgeInsets.only(left: 44),
                                 child: Text(
-                                  "Dhffig Yrfud",
+                                  selectedBillingAddress?.firstName ?? '',
                                   style: TextStyle(
                                       color: Color(0xff717171),
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold,fontFamily: 'Intro'),
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'Intro'),
                                 ),
                               ),
                               Padding(
                                 padding:
                                     const EdgeInsets.only(left: 44, top: 5),
                                 child: Text(
-                                  "Dhffig Yrfud",
+                                  selectedBillingAddress?.addLine2 ?? '',
                                   style: TextStyle(
                                       color: Color(0xff717171), fontSize: 12),
                                 ),
@@ -490,7 +494,7 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                 padding:
                                     const EdgeInsets.only(left: 44, top: 5),
                                 child: Text(
-                                  "Dhffig Yrfud",
+                                  addressList.first.country ?? '',
                                   style: TextStyle(
                                       color: Color(0xff717171), fontSize: 12),
                                 ),
@@ -553,7 +557,8 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                     style: TextStyle(
                                         color: Color(0xff717171),
                                         fontSize: 12,
-                                        fontWeight: FontWeight.bold,fontFamily: 'Intro'),
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'Intro'),
                                   ),
                                   SizedBox(width: 10),
                                 ],
@@ -613,7 +618,8 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                     style: TextStyle(
                                         color: Color(0xff717171),
                                         fontSize: 12,
-                                        fontWeight: FontWeight.bold,fontFamily: 'Intro'),
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'Intro'),
                                   ),
                                   SizedBox(width: 10),
                                 ],
@@ -629,7 +635,8 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                       style: TextStyle(
                                           color: Color(0xff717171),
                                           fontSize: 12,
-                                          fontWeight: FontWeight.bold,fontFamily: 'Intro'),
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: 'Intro'),
                                     )),
 
                                     //  SizedBox(width: 160),
@@ -638,8 +645,9 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                       "QAR ${widget.subTotal}",
                                       style: TextStyle(
                                           color: Colors.black,
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold,fontFamily: 'Intro'),
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: 'Intro'),
                                     ),
                                   ],
                                 ),
@@ -662,7 +670,8 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontSize: 16,
-                                          fontWeight: FontWeight.bold,fontFamily: 'Intro'),
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: 'Intro'),
                                     )),
 
                                     //  SizedBox(width: 175),
@@ -671,8 +680,9 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                       // "",
                                       style: TextStyle(
                                           color: Colors.black,
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,fontFamily: 'Intro'),
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: 'Intro'),
                                     ),
                                   ],
                                 ),
@@ -706,7 +716,8 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                       style: TextStyle(
                                           color: Color(0xff717171),
                                           fontSize: 12,
-                                          fontWeight: FontWeight.bold,fontFamily: 'Intro'))
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: 'Intro'))
                                 ],
                               ),
                             ),
@@ -749,7 +760,7 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                   child: Center(
                       child: Text(
                     "PLACE ORDER",
-                    style: TextStyle(fontSize: 20, color: Colors.white),
+                    style: TextStyle(fontSize: 16, color: Colors.white,fontFamily: 'Intro'),
                   )),
                 ),
               ),

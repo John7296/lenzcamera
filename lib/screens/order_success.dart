@@ -24,7 +24,7 @@ class _OrderSuccessScreenState extends BaseStatefulState<OrderSuccessScreen> {
     // TODO: implement initState
     super.initState();
     Future.delayed(Duration(milliseconds: 500), () {
-      cusOrderList();
+      // cusOrderList();
     });
   }
 

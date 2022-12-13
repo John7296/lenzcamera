@@ -124,6 +124,10 @@ abstract class NetworkConnection {
       @Body() Map<String, dynamic> map);
 
   @FormUrlEncoded()
+  @POST("NewAddress")
+  Future<BaseResponse> addAddress(@Body() Map<String, dynamic> map);
+
+  @FormUrlEncoded()
   @GET('Order/CusAddressList')
   Future<BaseResponse<List<AddressList>>> getAddressList(
     @Query("cusId") int cusId,
@@ -134,8 +138,10 @@ abstract class NetworkConnection {
   Future<BaseResponse> updateAddress(@Body() Map<String, dynamic> map);
 
   @FormUrlEncoded()
-  @GET("Customer/DelAddress/210")
-  Future<BaseResponse> deleteAddress(@Body() Map<String, dynamic> map);
+  @GET("Customer/DelAddress/{cusAddress_id}")
+  Future<BaseResponse> deleteAddress(
+    @Path() String cusAddress_id,
+  );
 
   @FormUrlEncoded()
   @GET("StateList")
@@ -249,7 +255,7 @@ abstract class NetworkConnection {
     // @Query("guestId") int guestId,
   );
 
-    @FormUrlEncoded()
+  @FormUrlEncoded()
   @GET("Order/CustOrderItemList")
   Future<BaseResponse<SingleOrderDetail>> orderDetails(
     @Query("orderId") int orderId,
@@ -259,7 +265,7 @@ abstract class NetworkConnection {
   @POST('Order')
   Future<BaseResponse> placeOrder(@Body() Map<String, dynamic> map);
 
-    @FormUrlEncoded()
+  @FormUrlEncoded()
   @GET("Order/CancelOrderItem")
   Future<BaseResponse> cancelOrder(
     @Query("orderId") int orderId,

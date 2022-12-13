@@ -8,17 +8,8 @@ import 'package:lenzcamera/model/city_list.dart';
 import 'package:lenzcamera/model/state_list.dart';
 
 class EditAddressScreen extends StatefulWidget {
-   EditAddressScreen(this.firstName, this.lastName, this.addressLine1,
-      this.addressLine2, this.phone, this.pinCode, this.landMark, context);
-
-  String? firstName;
-  String? lastName;
-  String? addressLine1;
-  String? addressLine2;
-  String? phone;
-  String? pinCode;
-  String? landMark;
-  BuildContext? context;
+  AddressList? address;
+  EditAddressScreen(this.address);
 
   @override
   State<EditAddressScreen> createState() => _EditAddressScreenState();
@@ -43,8 +34,6 @@ class _EditAddressScreenState extends BaseStatefulState<EditAddressScreen> {
   final _phoneController = TextEditingController();
   final _landmarkController = TextEditingController();
   final _pinCodeController = TextEditingController();
-
-  late AddressList userAddress;
 
   @override
   void initState() {
@@ -82,9 +71,9 @@ class _EditAddressScreenState extends BaseStatefulState<EditAddressScreen> {
       "addLine2": _addressL2Controller.text,
       "addressType": "",
       "country": "QATAR",
-      "custAdressId": addressList.first.custAdressId,
+      "custAdressId": widget.address!.custAdressId,
       "custId": NetworkManager.shared.userId,
-      "district": cityList.first.name,
+      "district": selectedCity,
       "firstName": _firstNameController.text,
       "isDefaultBillingAddress": isCheckedBA,
       "isDefaultShippingAddress": isCheckedSA,
@@ -94,7 +83,7 @@ class _EditAddressScreenState extends BaseStatefulState<EditAddressScreen> {
       "longitude": 76.3041375,
       "phone": _phoneController.text,
       "pincode": _pinCodeController.text,
-      "state": stateList.first.id,
+      "state": selectedState,
     }).then((BaseResponse response) {
       showFlashMsg(response.message!);
     }).catchError((e) {
@@ -112,6 +101,7 @@ class _EditAddressScreenState extends BaseStatefulState<EditAddressScreen> {
         cityList.addAll(response.data!);
       });
     }).catchError((e) {
+      showFlashMsg(e.toString());
       print(e.toString());
     });
   }
@@ -125,19 +115,22 @@ class _EditAddressScreenState extends BaseStatefulState<EditAddressScreen> {
         stateList.addAll(response.data!);
       });
     }).catchError((e) {
+      showFlashMsg(e.toString());
       print(e.toString());
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    _firstNameController.text = widget.firstName??'';
-    _lastNameController.text = widget.lastName ?? '';
-    _addressL1Controller.text = widget.addressLine1 ?? '';
-    _addressL2Controller.text = widget.addressLine2 ?? '';
-    _phoneController.text = widget.phone ?? '';
-    _pinCodeController.text = widget.pinCode ?? '';
-    _landmarkController.text = widget.landMark ?? '';
+    _firstNameController.text = widget.address!.firstName ?? '';
+    _lastNameController.text = widget.address!.lastName ?? '';
+    _addressL1Controller.text = widget.address!.addLine1 ?? '';
+    _addressL2Controller.text = widget.address!.addLine2 ?? '';
+    _phoneController.text = widget.address!.phone ?? '';
+    _pinCodeController.text = widget.address!.pincode ?? '';
+    _landmarkController.text = widget.address!.landmark ?? '';
+    selectedState = widget.address!.state;
+    selectedCity = widget.address!.district;
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -146,7 +139,11 @@ class _EditAddressScreenState extends BaseStatefulState<EditAddressScreen> {
             backgroundColor: Colors.grey.shade700,
             title: Padding(
               padding: const EdgeInsets.only(left: 50),
-              child: Text('Edit Address'),
+              child: Text('Edit Address',
+                  style: TextStyle(
+                      fontFamily: 'Intro',
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15)),
             ),
             leading: IconButton(
               icon: Icon(Icons.arrow_back_ios),
@@ -175,7 +172,8 @@ class _EditAddressScreenState extends BaseStatefulState<EditAddressScreen> {
                                   'First Name',
                                   style: TextStyle(
                                       color: Colors.grey.shade600,
-                                      fontWeight: FontWeight.bold),
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'Intro'),
                                 ),
                               )),
                           Container(
@@ -201,7 +199,8 @@ class _EditAddressScreenState extends BaseStatefulState<EditAddressScreen> {
                                 child: Text('Last Name',
                                     style: TextStyle(
                                         color: Colors.grey.shade600,
-                                        fontWeight: FontWeight.bold)),
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'Intro')),
                               )),
                           Container(
                             height: 40,
@@ -226,7 +225,8 @@ class _EditAddressScreenState extends BaseStatefulState<EditAddressScreen> {
                                 child: Text('Address Line 1',
                                     style: TextStyle(
                                         color: Colors.grey.shade600,
-                                        fontWeight: FontWeight.bold)),
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'Intro')),
                               )),
                           Container(
                             height: 40,
@@ -251,7 +251,8 @@ class _EditAddressScreenState extends BaseStatefulState<EditAddressScreen> {
                                 child: Text('Address Line 2',
                                     style: TextStyle(
                                         color: Colors.grey.shade600,
-                                        fontWeight: FontWeight.bold)),
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'Intro')),
                               )),
                           Container(
                             height: 40,
@@ -276,7 +277,8 @@ class _EditAddressScreenState extends BaseStatefulState<EditAddressScreen> {
                                 child: Text('Phone +974',
                                     style: TextStyle(
                                         color: Colors.grey.shade600,
-                                        fontWeight: FontWeight.bold)),
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'Intro')),
                               )),
                           Container(
                             height: 40,
@@ -301,7 +303,8 @@ class _EditAddressScreenState extends BaseStatefulState<EditAddressScreen> {
                                 child: Text('PinCode',
                                     style: TextStyle(
                                         color: Colors.grey.shade600,
-                                        fontWeight: FontWeight.bold)),
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'Intro')),
                               )),
                           Container(
                             height: 40,
@@ -338,13 +341,17 @@ class _EditAddressScreenState extends BaseStatefulState<EditAddressScreen> {
                           ),
                           SizedBox(height: 10),
                           Align(
-                              alignment: Alignment.topLeft,
-                              child: Padding(
-                                padding: const EdgeInsets.only(bottom: 10),
-                                child: Text('',
-                                    style:
-                                        TextStyle(color: Colors.grey.shade600)),
-                              )),
+                            alignment: Alignment.topLeft,
+                            child: Padding(
+                              padding: const EdgeInsets.only(bottom: 10),
+                              child: Text(
+                                '',
+                                style: TextStyle(
+                                    color: Colors.grey.shade600,
+                                    fontFamily: 'Intro'),
+                              ),
+                            ),
+                          ),
                           Container(
                             height: 40,
                             width: 400,
@@ -355,7 +362,10 @@ class _EditAddressScreenState extends BaseStatefulState<EditAddressScreen> {
                                   BorderRadius.all(Radius.circular(0)),
                             ),
                             child: DropdownButton<StateList>(
-                              hint: Text("Select State"),
+                              hint: Text("Select State",
+                                  style: TextStyle(
+                                      color: Colors.grey.shade600,
+                                      fontFamily: 'Intro')),
                               isExpanded: true,
                               dropdownColor: Color(0xffadadad),
                               elevation: 5,
@@ -371,7 +381,6 @@ class _EditAddressScreenState extends BaseStatefulState<EditAddressScreen> {
                                 setState(() {
                                   showSelectedState = value;
                                 });
-                                print(showSelectedState!.id);
                               },
                               items: stateList.map<DropdownMenuItem<StateList>>(
                                   (StateList value) {
@@ -393,7 +402,10 @@ class _EditAddressScreenState extends BaseStatefulState<EditAddressScreen> {
                                   BorderRadius.all(Radius.circular(0)),
                             ),
                             child: DropdownButton<CityList>(
-                              hint: Text("Select City"),
+                              hint: Text("Select City",
+                                  style: TextStyle(
+                                      color: Colors.grey.shade600,
+                                      fontFamily: 'Intro')),
                               isExpanded: true,
                               dropdownColor: Color(0xffadadad),
                               elevation: 5,
@@ -434,7 +446,9 @@ class _EditAddressScreenState extends BaseStatefulState<EditAddressScreen> {
                               Text(
                                 'Make As Default Billing Address',
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 12),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12,
+                                    fontFamily: 'Intro'),
                               ),
                             ],
                           ),
@@ -453,7 +467,9 @@ class _EditAddressScreenState extends BaseStatefulState<EditAddressScreen> {
                               Text(
                                 'Make As Default Shipping Address',
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 12),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12,
+                                    fontFamily: 'Intro'),
                               ),
                             ],
                           ),
@@ -464,7 +480,8 @@ class _EditAddressScreenState extends BaseStatefulState<EditAddressScreen> {
                                 child: Text('Landmark',
                                     style: TextStyle(
                                         color: Colors.grey.shade600,
-                                        fontWeight: FontWeight.bold)),
+                                        fontSize: 12,
+                                        fontFamily: 'Intro')),
                               )),
                           Container(
                             height: 40,
@@ -487,13 +504,16 @@ class _EditAddressScreenState extends BaseStatefulState<EditAddressScreen> {
                             height: 50,
                             child: ElevatedButton(
                               onPressed: () {
-                                onSaveButtonTapped();
-                                Navigator.pop(context);
-                                showFlashMsg("Address Added");
+                                setState(() {
+                                  onSaveButtonTapped();
+                                  Navigator.pop(context);
+                                  showFlashMsg("Address Added");
+                                });
                               },
                               child: Text(
-                                'Save',
-                                style: TextStyle(fontSize: 20),
+                                'Update',
+                                style: TextStyle(
+                                    fontSize: 20, fontFamily: 'Intro'),
                               ),
                               style: ButtonStyle(
                                 backgroundColor:
