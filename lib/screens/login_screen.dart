@@ -220,7 +220,9 @@ class _LoginScreenState extends BaseStatefulState<LoginScreen> {
                   children: [
                     Text(
                       "Dont't have an account? ",
-                      style: TextStyle(fontSize: 14, color: Color(0xff757575)),
+                      style: TextStyle(fontSize: 14, 
+                      fontFamily: 'Intro',
+                      color: Color(0xff757575)),
                     ),
                     SizedBox(),
                     TextButton(
