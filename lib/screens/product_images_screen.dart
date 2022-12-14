@@ -13,8 +13,8 @@ import 'package:photo_view/photo_view_gallery.dart';
 import 'package:pinch_zoom/pinch_zoom.dart';
 
 class ProductImagesScreen extends StatefulWidget {
-  String urlKey;
-  ProductImagesScreen(this.urlKey);
+  Product? images;
+  ProductImagesScreen(this.images);
   @override
   State<ProductImagesScreen> createState() => _ProductImagesScreenState();
 }
@@ -26,33 +26,33 @@ class _ProductImagesScreenState extends State<ProductImagesScreen>
   late AnimationController? animationController;
   Animation<Matrix4>? animation;
 
-  List<ProductImages> _productImages = [];
+ // List<ProductImages> _productImages = [];
 
   final double minScale = 0.1;
   final double maxScale = 4;
 
   int? _index;
 
-  void getSingleProductDetails() {
-    NetworkManager.shared.getSingleProductDetails(<String, dynamic>{
-      "custId": NetworkManager.shared.userId,
-      'guestId': 0,
-      'urlKey': widget.urlKey,
-      ' pincode': 8,
-    }).then((BaseResponse<ProductDetail> response) {
-      setState(() {
-        _productImages.clear();
-        _productImages.addAll(response.data!.productImages!);
-      });
-    }).catchError((e) {
-      print(e.toString());
-    });
-  }
+  // void getSingleProductDetails() {
+  //   NetworkManager.shared.getSingleProductDetails(<String, dynamic>{
+  //     "custId": NetworkManager.shared.userId,
+  //     'guestId': 0,
+  //     'urlKey': widget.images?.urlKey,
+  //     ' pincode': 8,
+  //   }).then((BaseResponse<ProductDetail> response) {
+  //     setState(() {
+  //       _productImages.clear();
+  //       _productImages.addAll(response.data!.productImages!);
+  //     });
+  //   }).catchError((e) {
+  //     print(e.toString());
+  //   });
+  // }
 
   @override
   void initState() {
     super.initState();
-    getSingleProductDetails();
+  //  getSingleProductDetails();
     _index == null;
     //  controller=TransformationController();
     //  animationController = AnimationController(
@@ -67,9 +67,9 @@ class _ProductImagesScreenState extends State<ProductImagesScreen>
     animationController?.dispose();
   }
 
-  void onTapped(int index) {
-    _productImages[index];
-  }
+  // void onTapped(int index) {
+  //   _productImages[index];
+  // }
 
 
    void resetAnimation(){
@@ -116,7 +116,7 @@ class _ProductImagesScreenState extends State<ProductImagesScreen>
                     child: Container(
                       height: 300,
                        child: PhotoView(imageProvider: 
-                       CachedNetworkImageProvider("https://dev.lenzcamera.com/webadmin/${_productImages[_index ?? 0].imageUrl}"),
+                       CachedNetworkImageProvider("https://dev.lenzcamera.com/webadmin/${widget.images?.imageUrl}"),
                         backgroundDecoration: BoxDecoration(color: Colors.transparent),
                        
                        ),
@@ -153,7 +153,7 @@ class _ProductImagesScreenState extends State<ProductImagesScreen>
                   //  color: Colors.green,
                   margin: EdgeInsets.only(left: 30, right: 10),
                   child: ListView.builder(
-                      itemCount: _productImages.length,
+                      itemCount: widget.images?.productImages?.length,
                       scrollDirection: Axis.horizontal,
                       //shrinkWrap: true,
                       itemBuilder: (BuildContext context, int index) {
@@ -172,7 +172,7 @@ class _ProductImagesScreenState extends State<ProductImagesScreen>
                                     width: 100,
                                     child: CachedNetworkImage(
                                         imageUrl:
-                                            "https://dev.lenzcamera.com/webadmin/${_productImages[index].imageUrl}")),
+                                            "https://dev.lenzcamera.com/webadmin/${widget.images?.productImages?[index].imageUrl}")),
                               ),
                             ),
                           ],

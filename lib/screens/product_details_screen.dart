@@ -34,7 +34,7 @@ class _ProductDetailsScreenState
     extends BaseStatefulState<ProductDetailsScreen> {
   List<Product> relatedproducts = [];
 
-  //List<ProductImages> productImages = [];
+   List<ProductImages> productImages = [];
 
   // bool isLoading = true;
 
@@ -59,8 +59,8 @@ class _ProductDetailsScreenState
         relatedproducts.clear();
         relatedproducts.addAll(response.data!.products!);
 
-        // productImages.clear();
-        // productImages.addAll(response.data!.productImages!);
+        productImages.clear();
+        productImages.addAll(response.data!.productImages!);
       });
     }).catchError((e) {
       hideLoader();
@@ -183,10 +183,10 @@ class _ProductDetailsScreenState
                               alignment: Alignment.bottomRight,
                               child: IconButton(
                                   onPressed: () {
-                                    //             Navigator.push(
-                                    // context,
-                                    // MaterialPageRoute(
-                                    //     builder: (context) => ProductImagesScreen(widget.popularproducts?.urlKey??'')));
+                                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => ProductImagesScreen(widget.popularproducts)));
                                   },
                                   icon: Icon(
                                     Icons.zoom_in_map,
