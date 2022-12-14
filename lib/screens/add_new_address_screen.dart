@@ -71,7 +71,7 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
       "addressType": "",
       "country": "QATAR",
       "custId": NetworkManager.shared.userId,
-      "district": selectedCity,
+      "district": showSelectedCity!.name,
       "firstName": _firstNameController.text,
       "isDefaultBillingAddress": isCheckedBA,
       "isDefaultShippingAddress": isCheckedSA,
@@ -81,7 +81,7 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
       "longitude": 76.3041375,
       "phone": _phoneController.text,
       "pincode": _pinCodeController.text,
-      "state": selectedState,
+      "state": showSelectedState!.name,
     }).then((BaseResponse response) {
       showFlashMsg(response.message!);
     }).catchError((e) {
@@ -350,7 +350,7 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
                                 setState(() {
                                   showSelectedState = value;
                                 });
-                                print(showSelectedState!.id);
+                                print(showSelectedState!.name);
                               },
                               items: stateList.map<DropdownMenuItem<StateList>>(
                                   (StateList value) {

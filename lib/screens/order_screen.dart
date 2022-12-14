@@ -65,82 +65,86 @@ class _OrderScreenState extends BaseStatefulState<OrderScreen> {
           ),
         ),
         actions: [
-            Stack(
+          Stack(
             children: [
               IconButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => WishlistScreen()));
-                // getBanners();
-              },
-              icon: Icon(Icons.favorite_border),
-            ),
-            if (DataManager.shared.wishListItems.isNotEmpty) 
-            Positioned(
-                right: 5,
-                top: 5,
-                child: new Container(
-                  padding: EdgeInsets.all(2),
-                  decoration: new BoxDecoration(
-                    color: Colors.red,
-                    borderRadius: BorderRadius.circular(6),
-                  ),
-                  constraints: BoxConstraints(
-                    minWidth: 14,
-                    minHeight: 14,
-                  ),
-                  child: Text(
-                    DataManager.shared.wishListItems.length.toString(),
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize:10,
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => WishlistScreen()));
+                  // getBanners();
+                },
+                icon: Icon(Icons.favorite_border),
+              ),
+              if (DataManager.shared.wishListItems.isNotEmpty)
+                Positioned(
+                  right: 5,
+                  top: 5,
+                  child: new Container(
+                    padding: EdgeInsets.all(2),
+                    decoration: new BoxDecoration(
+                      color: Colors.red,
+                      borderRadius: BorderRadius.circular(6),
                     ),
-                    textAlign: TextAlign.center,
+                    constraints: BoxConstraints(
+                      minWidth: 14,
+                      minHeight: 14,
+                    ),
+                    child: Text(
+                      DataManager.shared.wishListItems.length.toString(),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 10,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
-                ),)
-            ], 
+                )
+            ],
           ),
-           Stack(
+          Stack(
             children: [
               IconButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => CartScreen()));
-                // getBanners();
-              },
-              icon: Icon(Icons.shopping_cart),
-            ),
-            if(DataManager.shared.cartItemsList.isNotEmpty)
-            Positioned(
-                right: 5,
-                top: 5,
-                child: new Container(
-                  padding: EdgeInsets.all(2),
-                  decoration: new BoxDecoration(
-                    color: Colors.red,
-                    borderRadius: BorderRadius.circular(6),
-                  ),
-                  constraints: BoxConstraints(
-                    minWidth: 14,
-                    minHeight: 14,
-                  ),
-                  child: Text(
-                    DataManager.shared.cartItemsList.length.toString(),
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 10,
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => CartScreen()));
+                  // getBanners();
+                },
+                icon: Icon(Icons.shopping_cart),
+              ),
+              if (DataManager.shared.cartItemsList.isNotEmpty)
+                Positioned(
+                  right: 5,
+                  top: 5,
+                  child: new Container(
+                    padding: EdgeInsets.all(2),
+                    decoration: new BoxDecoration(
+                      color: Colors.red,
+                      borderRadius: BorderRadius.circular(6),
                     ),
-                    textAlign: TextAlign.center,
+                    constraints: BoxConstraints(
+                      minWidth: 14,
+                      minHeight: 14,
+                    ),
+                    child: Text(
+                      DataManager.shared.cartItemsList.length.toString(),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 10,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
-                ),)
-            ], 
+                )
+            ],
           ),
         ],
         backgroundColor: Colors.grey.shade700,
         leading: IconButton(
           onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => HomeScreen()));
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => HomeScreen()));
             // Navigator.pop(context);
           },
           icon: Icon(Icons.arrow_back_ios),
@@ -155,10 +159,11 @@ class _OrderScreenState extends BaseStatefulState<OrderScreen> {
               InkWell(
                 onTap: () {
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              OrderDetailScreen(orderList[index])));
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => OrderDetailScreen(orderList[index]),
+                    ),
+                  );
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(10),
@@ -315,7 +320,8 @@ class _OrderScreenState extends BaseStatefulState<OrderScreen> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) =>
-                                        OrderDetailScreen(orderList[index]),
+                                        OrderDetailScreen(
+                                          orderList[index]),
                                   ),
                                 );
                               },

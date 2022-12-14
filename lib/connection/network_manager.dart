@@ -8,6 +8,7 @@ import 'package:lenzcamera/model/city_list.dart';
 import 'package:lenzcamera/model/company_policy.dart';
 import 'package:lenzcamera/model/customer.dart';
 import 'package:lenzcamera/model/main_banners.dart';
+import 'package:lenzcamera/model/order_detail.dart';
 import 'package:lenzcamera/model/order_list.dart';
 import 'package:lenzcamera/model/product.dart';
 import 'package:lenzcamera/model/product_detail.dart';
@@ -225,7 +226,11 @@ class NetworkManager {
     return call(networkConnection.getOrderList(userId));
   }
 
-    Future<BaseResponse<SingleOrderDetail>> orderDetails( int orderId) {
+  //   Future<BaseResponse<SingleOrderDetail>> orderItemDetails( int orderId) {
+  //   return call(networkConnection.orderItemDetails(orderId));
+  // }
+
+      Future<BaseResponse<SingleOrderDetail>> orderDetails( int orderId) {
     return call(networkConnection.orderDetails(orderId));
   }
 

@@ -1,6 +1,7 @@
 import 'package:flash/flash.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/shims/dart_ui_real.dart';
 import 'package:lenzcamera/base/base_stateful_state.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
@@ -125,7 +126,7 @@ class _RegisterScreenState extends BaseStatefulState<RegisterScreen> {
                           child: Text(
                             'Create New Account to access thousands of products',
                             style: TextStyle(
-                                fontSize: 14, fontWeight: FontWeight.bold),
+                                fontSize: 12, fontWeight: FontWeight.bold,fontFamily: 'Intro'),
                           ),
                         ),
                         SizedBox(height: 20),
@@ -135,7 +136,7 @@ class _RegisterScreenState extends BaseStatefulState<RegisterScreen> {
                             padding: const EdgeInsets.only(bottom: 10),
                             child: Text(
                               'Customer Name*',
-                              style: TextStyle(color: Colors.grey.shade600),
+                              style: TextStyle(color: Colors.grey.shade600,fontSize: 12, fontWeight: FontWeight.bold,fontFamily: 'Intro'),
                             ),
                           ),
                         ),
@@ -160,7 +161,7 @@ class _RegisterScreenState extends BaseStatefulState<RegisterScreen> {
                           child: Padding(
                             padding: const EdgeInsets.only(bottom: 10),
                             child: Text('Email ID',
-                                style: TextStyle(color: Colors.grey.shade600)),
+                                style: TextStyle(color: Colors.grey.shade600,fontSize: 12, fontWeight: FontWeight.bold,fontFamily: 'Intro')),
                           ),
                         ),
                         SizedBox(
@@ -183,7 +184,7 @@ class _RegisterScreenState extends BaseStatefulState<RegisterScreen> {
                           child: Padding(
                             padding: const EdgeInsets.only(bottom: 10),
                             child: Text('Mobile',
-                                style: TextStyle(color: Colors.grey.shade600)),
+                                style: TextStyle(color: Colors.grey.shade600,fontSize: 12, fontWeight: FontWeight.bold,fontFamily: 'Intro')),
                           ),
                         ),
                         SizedBox(
@@ -207,7 +208,7 @@ class _RegisterScreenState extends BaseStatefulState<RegisterScreen> {
                           child: Padding(
                             padding: const EdgeInsets.only(bottom: 10),
                             child: Text('Password',
-                                style: TextStyle(color: Colors.grey.shade600)),
+                                style: TextStyle(color: Colors.grey.shade600,fontSize: 12, fontWeight: FontWeight.bold,fontFamily: 'Intro')),
                           ),
                         ),
                         SizedBox(
@@ -243,7 +244,7 @@ class _RegisterScreenState extends BaseStatefulState<RegisterScreen> {
                             Text(
                               'I Read and agree to',
                               style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 12),
+                                  color: Colors.grey.shade600,fontSize: 12, fontWeight: FontWeight.bold,fontFamily: 'Intro'),
                             ),
                             TextButton(
                               onPressed: () {
@@ -257,13 +258,13 @@ class _RegisterScreenState extends BaseStatefulState<RegisterScreen> {
                                 'Terms & conditions',
                                 style: TextStyle(
                                     color: Colors.red,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12, fontWeight: FontWeight.bold,fontFamily: 'Intro',
                                     decoration: TextDecoration.underline),
                               ),
                             ),
                           ],
                         ),
+                      (isChecked==false)?Text('PLEASE ACCEPT TERMS AND CONDITIONS',style: TextStyle(fontFamily: 'Intro',color: Colors.red,fontWeight: FontWeight.bold,fontSize: 15),):
                         Container(
                           width: 400,
                           height: 50,
@@ -273,7 +274,7 @@ class _RegisterScreenState extends BaseStatefulState<RegisterScreen> {
                             },
                             child: Text(
                               'Sign Up',
-                              style: TextStyle(fontSize: 20),
+                              style: TextStyle(fontSize: 20,fontFamily: 'Intro'),
                             ),
                             style: ButtonStyle(
                               backgroundColor:
@@ -293,7 +294,7 @@ class _RegisterScreenState extends BaseStatefulState<RegisterScreen> {
                             Text(
                               'Already Have an Account',
                               style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 12),
+                                  fontWeight: FontWeight.bold, fontSize: 12,fontFamily: 'Intro'),
                             ),
                             TextButton(
                               onPressed: () {
@@ -308,6 +309,7 @@ class _RegisterScreenState extends BaseStatefulState<RegisterScreen> {
                                     color: Colors.red,
                                     fontSize: 12,
                                     fontWeight: FontWeight.bold,
+                                    fontFamily: 'Intro',
                                     decoration: TextDecoration.underline),
                               ),
                             ),

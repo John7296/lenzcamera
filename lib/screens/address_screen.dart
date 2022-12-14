@@ -33,7 +33,7 @@ class _AddressScreenState extends BaseStatefulState<AddressScreen> {
     NetworkManager.shared
         .getAddressList()
         .then((BaseResponse<List<AddressList>> response) {
-      showFlashMsg(response.message!);
+      // showFlashMsg(response.message!);
       hideLoader();
       setState(() {
         addressList.clear();
@@ -47,8 +47,9 @@ class _AddressScreenState extends BaseStatefulState<AddressScreen> {
   }
 
   void deleteAddress(index) {
+    // print("indexID${index}");
     NetworkManager.shared
-        .deleteAddress(addressList[index].custAdressId.toString())
+        .deleteAddress(index.toString())
         .then((BaseResponse response) {
       showFlashMsg(response.message!);
       addressList;
@@ -79,8 +80,9 @@ class _AddressScreenState extends BaseStatefulState<AddressScreen> {
         backgroundColor: Colors.grey.shade700,
         leading: IconButton(
           onPressed: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => HomeScreen()));
+            // Navigator.push(
+            //     context, MaterialPageRoute(builder: (context) => HomeScreen()));
+            Navigator.pop(context);
           },
           icon: Icon(Icons.arrow_back_ios),
         ),
@@ -164,31 +166,37 @@ class _AddressScreenState extends BaseStatefulState<AddressScreen> {
                                 IconButton(
                                   onPressed: () {
                                     Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                EditAddressScreen(
-                                                  addressList[index],
-                                                  //     .custAdressId,
-                                                  // addressList[index]
-                                                  //     .firstName,
-                                                  // addressList[index].lastName,
-                                                  // addressList[index].addLine1,
-                                                  // addressList[index].addLine2,
-                                                  // addressList[index].phone,
-                                                  // addressList[index].pincode,
-                                                  // addressList[index].landmark,
-                                                  // addre
-                                                  // context
-                                                )));
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => EditAddressScreen(
+                                          addressList[index],
+                                          //     .custAdressId,
+                                          // addressList[index]
+                                          //     .firstName,
+                                          // addressList[index].lastName,
+                                          // addressList[index].addLine1,
+                                          // addressList[index].addLine2,
+                                          // addressList[index].phone,
+                                          // addressList[index].pincode,
+                                          // addressList[index].landmark,
+                                          // addre
+                                          // context
+                                        ),
+                                      ),
+                                    );
                                   },
                                   icon: Icon(Icons.draw, color: Colors.grey),
                                 ),
                                 IconButton(
                                   onPressed: () {
-                                    print("addressId:${addressList[index].custAdressId}");
-                                    deleteAddress(
-                                        addressList[index].custAdressId!);
+                                    // print(
+                                    //     "addressId:${addressList[index].custAdressId}");
+
+                                    setState(() {
+                                      deleteAddress(
+                                          addressList[index].custAdressId!);
+                                      address();
+                                    });
                                   },
                                   icon: Icon(Icons.delete_outline,
                                       color: Colors.red),

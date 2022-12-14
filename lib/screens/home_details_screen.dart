@@ -494,9 +494,8 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                     "https://dev.lenzcamera.com/webadmin/${featuredList[index].imageUrl}",
                                                 fit: BoxFit.cover),
                                           ),
-                                          Padding(
-                                            padding:
-                                                const EdgeInsets.only(left: 80),
+                                          Align(
+                                            alignment: Alignment.topRight,
                                             child: IconButton(
                                               onPressed: () {
                                                 setState(() {
@@ -508,22 +507,26 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                             featuredList[
                                                                 index]);
                                                     featuredList[index]
-                                                        .isWhishlisted = false;
+                                                            .isWhishlisted =
+                                                        false;
                                                   } else {
                                                     DataManager.shared
                                                         .addToWishlist(
                                                             featuredList[
                                                                 index]);
                                                     featuredList[index]
-                                                        .isWhishlisted = true;
+                                                            .isWhishlisted =
+                                                        true;
                                                   }
                                                 });
                                               },
                                               icon: Icon(
                                                 Icons.favorite,
+                                                size: 20,
                                                 color: DataManager.shared
                                                         .iswishListed(
-                                                            featuredList[index])
+                                                            featuredList[
+                                                                index])
                                                     ? Colors.red
                                                     : Colors.grey,
                                               ),

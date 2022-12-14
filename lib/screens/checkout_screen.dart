@@ -28,6 +28,8 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
   AddressList? selectedShippingAddress;
   AddressList? selectedBillingAddress;
 
+   final _orderNoteController = TextEditingController();
+
   @override
   void initState() {
     // TODO: implement initState
@@ -42,7 +44,7 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
     NetworkManager.shared
         .getAddressList()
         .then((BaseResponse<List<AddressList>> response) {
-      showFlashMsg(response.message!);
+      // showFlashMsg(response.message!);
       hideLoader();
       setState(() {
         addressList.clear();
@@ -60,11 +62,13 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
       "custBillAdressId": addressList.first.custAdressId,
       "custId": NetworkManager.shared.userId,
       "custShipAdressId": addressList.first.custAdressId,
-      "orderNote": "Test",
+      "orderNote": _orderNoteController,
       "payMethod": "COD",
     }).then((BaseResponse response) {
+      showFlashMsg(response.message!);
       // getCart(product: product);
     }).catchError((e) {
+      showFlashMsg(e.toString());
       print(e.toString());
     });
   }
@@ -267,8 +271,7 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                 ),
                               ),
                               Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 44),
+                                padding: const EdgeInsets.only(left: 44),
                                 child: Text(
                                   selectedShippingAddress?.addLine1 ?? '',
                                   style: TextStyle(
@@ -470,8 +473,7 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                 ),
                               ),
                               Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 44),
+                                padding: const EdgeInsets.only(left: 44),
                                 child: Text(
                                   selectedBillingAddress?.firstName ?? '',
                                   style: TextStyle(
@@ -728,6 +730,7 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                 maxLines: 3,
                                 decoration:
                                     InputDecoration(border: InputBorder.none),
+                                    controller: _orderNoteController,
                               ),
                             )
                           ],
@@ -751,16 +754,18 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                   ),
                   onPressed: () {
                     if (cartItemsList != null)
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => OrderSuccessScreen()));
+                          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+                  builder: (BuildContext context) {
+                    return OrderSuccessScreen();
+                  },
+                ), (route) => false);
                     placeOrder();
                   },
                   child: Center(
                       child: Text(
                     "PLACE ORDER",
-                    style: TextStyle(fontSize: 16, color: Colors.white,fontFamily: 'Intro'),
+                    style: TextStyle(
+                        fontSize: 16, color: Colors.white, fontFamily: 'Intro'),
                   )),
                 ),
               ),

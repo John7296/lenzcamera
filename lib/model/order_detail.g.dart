@@ -1,0 +1,78 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'order_detail.dart';
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+OrderDetail _$OrderDetailFromJson(Map<String, dynamic> json) => OrderDetail(
+      PayMethod: json['PayMethod'] as String?,
+      cartID: json['cartID'] as int?,
+      couponDiscount: json['couponDiscount'] as String?,
+      cpId: json['cpId'] as String?,
+      custBillingAdressId: json['custBillingAdressId'] as int?,
+      custId: json['custId'] as int?,
+      custPhone: json['custPhone'] as int?,
+      custShippingAdressId: json['custShippingAdressId'] as int?,
+      delDate: json['delDate'] as String?,
+      jobOrderId: json['jobOrderId'] as int?,
+      joborderDate: json['joborderDate'] as String?,
+      joborderItemsId: json['joborderItemsId'] as int?,
+      joborderNumber: json['joborderNumber'] as int?,
+      latitude: json['latitude'] as String?,
+      longitude: json['longitude'] as String?,
+      orderAmount: (json['orderAmount'] as num?)?.toDouble(),
+      orderCancelledDate: json['orderCancelledDate'] as String?,
+      orderDate: json['orderDate'] as String?,
+      orderDeliveryCharge: json['orderDeliveryCharge'] as String?,
+      orderDeliveryDate: (json['orderDeliveryDate'] as num?)?.toDouble(),
+      orderDiscount: json['orderDiscount'] as String?,
+      orderId: json['orderId'] as int?,
+      orderNote: json['orderNote'] as String?,
+      orderNumber: json['orderNumber'] as String?,
+      orderReturnDate: json['orderReturnDate'] as String?,
+      orderReturnStatus: json['orderReturnStatus'] as String?,
+      orderStatus: json['orderStatus'] as String?,
+      orderTax: (json['orderTax'] as num?)?.toDouble(),
+      returnOrderId: json['returnOrderId'] as String?,
+      status: json['status'] as String?,
+      subTotal: (json['subTotal'] as num?)?.toDouble(),
+      walletAmount: (json['walletAmount'] as num?)?.toDouble(),
+    );
+
+Map<String, dynamic> _$OrderDetailToJson(OrderDetail instance) =>
+    <String, dynamic>{
+      'status': instance.status,
+      'PayMethod': instance.PayMethod,
+      'subTotal': instance.subTotal,
+      'latitude': instance.latitude,
+      'longitude': instance.longitude,
+      'joborderItemsId': instance.joborderItemsId,
+      'custPhone': instance.custPhone,
+      'walletAmount': instance.walletAmount,
+      'orderNote': instance.orderNote,
+      'custBillingAdressId': instance.custBillingAdressId,
+      'custShippingAdressId': instance.custShippingAdressId,
+      'jobOrderId': instance.jobOrderId,
+      'joborderNumber': instance.joborderNumber,
+      'joborderDate': instance.joborderDate,
+      'orderId': instance.orderId,
+      'cartID': instance.cartID,
+      'custId': instance.custId,
+      'orderAmount': instance.orderAmount,
+      'orderTax': instance.orderTax,
+      'orderDate': instance.orderDate,
+      'orderDiscount': instance.orderDiscount,
+      'orderStatus': instance.orderStatus,
+      'orderDeliveryDate': instance.orderDeliveryDate,
+      'orderCancelledDate': instance.orderCancelledDate,
+      'orderReturnDate': instance.orderReturnDate,
+      'orderReturnStatus': instance.orderReturnStatus,
+      'returnOrderId': instance.returnOrderId,
+      'delDate': instance.delDate,
+      'orderDeliveryCharge': instance.orderDeliveryCharge,
+      'orderNumber': instance.orderNumber,
+      'cpId': instance.cpId,
+      'couponDiscount': instance.couponDiscount,
+    };
