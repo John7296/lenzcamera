@@ -422,8 +422,8 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
               height: 50,
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => OrderScreen()));
+                  // Navigator.push(context,
+                  //     MaterialPageRoute(builder: (context) => OrderScreen()));
                   // cancelOrder();
 
                   showDialog(
@@ -449,6 +449,7 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
                         ElevatedButton(
                           onPressed: () {
                             cancelOrder();
+                            // Navigator.pop(context);
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
