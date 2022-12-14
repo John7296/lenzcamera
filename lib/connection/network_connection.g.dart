@@ -540,7 +540,7 @@ class _NetworkConnection implements NetworkConnection {
     )
             .compose(
               _dio.options,
-              'Customer/DelAddress/{}',
+              'Customer/DelAddress/${cusAddress_id}',
               queryParameters: queryParameters,
               data: _data,
             )

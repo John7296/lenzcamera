@@ -5,6 +5,7 @@ import 'package:lenzcamera/model/city_list.dart';
 import 'package:lenzcamera/model/company_policy.dart';
 import 'package:lenzcamera/model/customer.dart';
 import 'package:lenzcamera/model/main_banners.dart';
+import 'package:lenzcamera/model/order_detail.dart';
 import 'package:lenzcamera/model/order_list.dart';
 import 'package:lenzcamera/model/product.dart';
 import 'package:lenzcamera/model/product_detail.dart';
@@ -254,6 +255,12 @@ abstract class NetworkConnection {
     // @Query("addressid") int addressid,
     // @Query("guestId") int guestId,
   );
+
+  // @FormUrlEncoded()
+  // @GET("Order/CustOrderItemList")
+  // Future<BaseResponse<SingleOrderDetail>> orderItemDetails(
+  //   @Query("orderId") int orderId,
+  // );
 
   @FormUrlEncoded()
   @GET("Order/CustOrderItemList")

@@ -388,6 +388,7 @@ class _PopularProductsScreenState
                     ),
                   ),
                 );
+              
               },
             ),
           )),
