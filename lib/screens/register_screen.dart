@@ -264,7 +264,7 @@ class _RegisterScreenState extends BaseStatefulState<RegisterScreen> {
                             ),
                           ],
                         ),
-                      (isChecked==false)?Text('PLEASE ACCEPT TERMS AND CONDITIONS',style: TextStyle(fontFamily: 'Intro',color: Colors.red,fontWeight: FontWeight.bold,fontSize: 15),):
+                      // (isChecked==false)?Text('PLEASE ACCEPT TERMS AND CONDITIONS',style: TextStyle(fontFamily: 'Intro',color: Colors.red,fontWeight: FontWeight.bold,fontSize: 15),):
                         Container(
                           width: 400,
                           height: 50,
