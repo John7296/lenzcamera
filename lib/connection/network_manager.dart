@@ -23,6 +23,7 @@ import 'package:lenzcamera/model/search_products_response.dart';
 import 'package:lenzcamera/model/single_order_detail.dart';
 import 'package:lenzcamera/model/state_list.dart';
 import 'package:lenzcamera/model/top_categories.dart';
+import 'package:lenzcamera/model/user_location.dart';
 import 'package:lenzcamera/screens/featured_products_screen.dart';
 import 'package:lenzcamera/utils/sessions_manager.dart';
 
@@ -59,6 +60,10 @@ class NetworkManager {
       userId = value ?? 0;
       print("UserIdNM${userId}");
     });
+  }
+
+    Future<BaseResponse<List<Location>>> custLocation(String term) {
+    return call(networkConnection.custLocation(term));
   }
 
   Future<BaseResponse<List<TopCategories>>> getTopCategories() {

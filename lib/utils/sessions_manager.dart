@@ -36,5 +36,6 @@ class SessionsManager {
    static void clearSession() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.remove(userKey);
+    
   }
 }

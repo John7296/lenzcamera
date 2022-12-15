@@ -16,7 +16,7 @@ class _CircularLoadingWidgetState extends State<CircularLoadingWidget>
     return Container(
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.height,
-      color: Colors.white,
+      color: Colors.white.withOpacity(0.5),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

@@ -19,6 +19,7 @@ import 'package:lenzcamera/model/main_banners.dart';
 import 'package:lenzcamera/model/product.dart';
 import 'package:lenzcamera/model/search_products_response.dart';
 import 'package:lenzcamera/model/top_categories.dart';
+import 'package:lenzcamera/model/user_location.dart';
 import 'package:lenzcamera/screens/address_screen.dart';
 import 'package:lenzcamera/screens/cart_screen.dart';
 import 'package:lenzcamera/screens/category_screen.dart';
@@ -50,6 +51,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
   List<Product> relatedProductsList = [];
   List<Banners> bannerList = [];
   String? cartItemId;
+  List<Location> locationList = [];
 
   Product? featuredProducts;
   Product? products;
@@ -147,6 +149,19 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
       setState(() {
         bannerList.clear();
         bannerList.addAll(response.data!.MainBanners!);
+      });
+    }).catchError((e) {
+      print(e.toString());
+    });
+  }
+
+  void location() {
+    NetworkManager.shared
+        .custLocation("m")
+        .then((BaseResponse<List<Location>> response) {
+      setState(() {
+        locationList.clear();
+        locationList.addAll(response.data!);
       });
     }).catchError((e) {
       print(e.toString());
@@ -274,7 +289,18 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                   Padding(
                     padding: const EdgeInsets.all(2),
                     child: TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          location();
+                          showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              title: Text(
+                                "Would you like to delete this item",
+                                style: TextStyle(fontSize: 15),
+                              ),
+                            ),
+                          );
+                        },
                         child: Text(
                           'Change',
                           style: TextStyle(
@@ -464,11 +490,12 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                           return InkWell(
                             onTap: () {
                               Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          ProductDetailsScreen(
-                                              featuredList[index])));
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      ProductDetailsScreen(featuredList[index]),
+                                ),
+                              );
                             },
                             child: Container(
                               height: 190,
@@ -507,16 +534,14 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                             featuredList[
                                                                 index]);
                                                     featuredList[index]
-                                                            .isWhishlisted =
-                                                        false;
+                                                        .isWhishlisted = false;
                                                   } else {
                                                     DataManager.shared
                                                         .addToWishlist(
                                                             featuredList[
                                                                 index]);
                                                     featuredList[index]
-                                                            .isWhishlisted =
-                                                        true;
+                                                        .isWhishlisted = true;
                                                   }
                                                 });
                                               },
@@ -525,8 +550,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                 size: 20,
                                                 color: DataManager.shared
                                                         .iswishListed(
-                                                            featuredList[
-                                                                index])
+                                                            featuredList[index])
                                                     ? Colors.red
                                                     : Colors.grey,
                                               ),
@@ -754,6 +778,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                   ),
                                                 ),
                                         ),
+                                    
                                     ],
                                   ),
                                 ),

@@ -62,7 +62,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
           appBar:AppBar(
         centerTitle: true,
         title: Text("My Profile"),
-        titleTextStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+        titleTextStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back_ios_new_sharp,
@@ -207,7 +207,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                               ),
                               subtitle: Padding(
                                 padding: const EdgeInsets.all(10),
-                                child: Text("Profile,phone,email",style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
+                                child: Text("Profile, phone, email",style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
                               ),
                               leading: Container(
                                 height: 60,
@@ -290,7 +290,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                               ),
                               subtitle: Padding(
                                 padding: const EdgeInsets.all(10),
-                                child: Text("Add,Edit,Delete",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12)),
+                                child: Text("Add, Edit, Delete",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12)),
                               ),
                               leading: Container(
                                 height: 60,
@@ -331,7 +331,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                               ),
                               subtitle: Padding(
                                 padding: const EdgeInsets.all(10),
-                                child: Text("View,Track,Update",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12)),
+                                child: Text("View, Track, Update",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12)),
                               ),
                               leading: Container(
                                 height: 60,
@@ -372,7 +372,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                               ),
                               subtitle: Padding(
                                 padding: const EdgeInsets.all(10),
-                                child: Text("View,Update,Remove",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12)),
+                                child: Text("View, Update, Remove",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12)),
                               ),
                               leading: Container(
                                 height: 60,
@@ -395,10 +395,10 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                       ),
                       InkWell(
                         onTap: (() {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => EditProfileScreen()));
+                          // Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //         builder: (context) => EditProfileScreen()));
                         }),
                         child: Padding(
                           padding: const EdgeInsets.only(left: 20, right: 20),
@@ -413,7 +413,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                               ),
                               subtitle: Padding(
                                 padding: const EdgeInsets.all(10),
-                                child: Text("View,Recharge",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12)),
+                                child: Text("View, Recharge",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12)),
                               ),
                               leading: Container(
                                 height: 60,
@@ -454,7 +454,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                               ),
                               subtitle: Padding(
                                 padding: const EdgeInsets.all(10),
-                                child: Text("Contact,Mail",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12)),
+                                child: Text("Contact, Mail",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12)),
                               ),
                               leading: Container(
                                 height: 60,

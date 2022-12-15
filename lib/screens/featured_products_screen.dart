@@ -186,7 +186,7 @@ class _FeaturedProductsScreenState
                             width: 100,
                             child: 
                         FadeInImage.assetNetwork(
-                                    height: 200,
+                                    height: 150,
                                     width: double.infinity,
                                     placeholder:
                                         'assets/images/placeholder.png',
@@ -246,7 +246,7 @@ class _FeaturedProductsScreenState
                               ),
                                 Text("QAR ${featuredList[index].unitPrice ?? ''}",
                             style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.bold,fontFamily: 'Intro',color: Colors.grey)),
+                                fontSize: 12, fontWeight: FontWeight.bold,fontFamily: 'Intro',color: Colors.grey)),
                             ],
                           ),
                         ),

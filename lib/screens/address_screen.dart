@@ -24,11 +24,11 @@ class _AddressScreenState extends BaseStatefulState<AddressScreen> {
     // TODO: implement initState
     super.initState();
     Future.delayed(Duration(milliseconds: 500), () {
-      address();
+      getAddress();
     });
   }
 
-  void address() {
+  void getAddress() {
     showLoader();
     NetworkManager.shared
         .getAddressList()
@@ -41,19 +41,24 @@ class _AddressScreenState extends BaseStatefulState<AddressScreen> {
       });
     }).catchError((e) {
       hideLoader();
-      showFlashMsg(e.toString());
+      showFlashMsg('Please Add Your Address');
       print(e.toString());
     });
   }
 
   void deleteAddress(index) {
+    showLoader();
     // print("indexID${index}");
     NetworkManager.shared
         .deleteAddress(index.toString())
         .then((BaseResponse response) {
+      hideLoader();
       showFlashMsg(response.message!);
-      addressList;
+      setState(() {
+        getAddress();
+      });
     }).catchError((e) {
+      hideLoader();
       showFlashMsg(e.toString());
       print(e.toString());
     });
@@ -170,17 +175,6 @@ class _AddressScreenState extends BaseStatefulState<AddressScreen> {
                                       MaterialPageRoute(
                                         builder: (context) => EditAddressScreen(
                                           addressList[index],
-                                          //     .custAdressId,
-                                          // addressList[index]
-                                          //     .firstName,
-                                          // addressList[index].lastName,
-                                          // addressList[index].addLine1,
-                                          // addressList[index].addLine2,
-                                          // addressList[index].phone,
-                                          // addressList[index].pincode,
-                                          // addressList[index].landmark,
-                                          // addre
-                                          // context
                                         ),
                                       ),
                                     );
@@ -195,7 +189,7 @@ class _AddressScreenState extends BaseStatefulState<AddressScreen> {
                                     setState(() {
                                       deleteAddress(
                                           addressList[index].custAdressId!);
-                                      address();
+                                      getAddress();
                                     });
                                   },
                                   icon: Icon(Icons.delete_outline,

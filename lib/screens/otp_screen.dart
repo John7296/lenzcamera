@@ -24,13 +24,13 @@ class _OtpScreenState extends BaseStatefulState<OtpScreen> {
   final _otpController = TextEditingController();
 
   void verifyRegisterOtp() {
-    // showLoader();
+    showLoader();
     NetworkManager.shared.verifyOtp(<String, dynamic>{
       "OTP": _otpController.text,
       "OtpUrlKey": widget.otpUrlKey
     }).then((BaseResponse response) {
-      // hideLoader();
-      showFlashMsg(response.message!);
+      hideLoader();
+      showFlashMsg("Account Created Successfully..!");
 
       Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
         builder: (BuildContext context) {
@@ -38,7 +38,7 @@ class _OtpScreenState extends BaseStatefulState<OtpScreen> {
         },
       ), (route) => false);
     }).catchError((e) {
-      // showLoader();
+      showLoader();
       showFlashMsg(e.toString());
     });
   }

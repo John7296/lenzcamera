@@ -27,6 +27,7 @@ class _RegisterScreenState extends BaseStatefulState<RegisterScreen> {
   final _passwordController = TextEditingController();
 
   bool isChecked = false;
+  bool _obscureText = true;
 
   LoginCustomer? customer;
 
@@ -64,6 +65,7 @@ class _RegisterScreenState extends BaseStatefulState<RegisterScreen> {
   // }
 
   void register() {
+    // showLoader();
     if (!_form.currentState!.validate()) {
       return;
     }
@@ -78,15 +80,19 @@ class _RegisterScreenState extends BaseStatefulState<RegisterScreen> {
     NetworkManager.shared
         .newRegister(map)
         .then((BaseResponse<NewRegister> response) {
-      showFlashMsg(response.data.toString());
+      // hideLoader();
+      showFlashMsg('Successfully Registered');
       SessionsManager.saveUserId(response.data?.custId ?? 0);
 
       print("Customer--Id: ${SessionsManager.userId}");
       Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => OtpScreen(response.data?.otpUrlKey),),);
+        context,
+        MaterialPageRoute(
+          builder: (context) => OtpScreen(response.data?.otpUrlKey),
+        ),
+      );
     }).catchError((e) {
+      // hideLoader();
       showFlashMsg(e.toString());
     });
   }
@@ -126,7 +132,9 @@ class _RegisterScreenState extends BaseStatefulState<RegisterScreen> {
                           child: Text(
                             'Create New Account to access thousands of products',
                             style: TextStyle(
-                                fontSize: 12, fontWeight: FontWeight.bold,fontFamily: 'Intro'),
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'Intro'),
                           ),
                         ),
                         SizedBox(height: 20),
@@ -136,7 +144,11 @@ class _RegisterScreenState extends BaseStatefulState<RegisterScreen> {
                             padding: const EdgeInsets.only(bottom: 10),
                             child: Text(
                               'Customer Name*',
-                              style: TextStyle(color: Colors.grey.shade600,fontSize: 12, fontWeight: FontWeight.bold,fontFamily: 'Intro'),
+                              style: TextStyle(
+                                  color: Colors.grey.shade600,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Intro'),
                             ),
                           ),
                         ),
@@ -161,7 +173,11 @@ class _RegisterScreenState extends BaseStatefulState<RegisterScreen> {
                           child: Padding(
                             padding: const EdgeInsets.only(bottom: 10),
                             child: Text('Email ID',
-                                style: TextStyle(color: Colors.grey.shade600,fontSize: 12, fontWeight: FontWeight.bold,fontFamily: 'Intro')),
+                                style: TextStyle(
+                                    color: Colors.grey.shade600,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'Intro')),
                           ),
                         ),
                         SizedBox(
@@ -184,7 +200,11 @@ class _RegisterScreenState extends BaseStatefulState<RegisterScreen> {
                           child: Padding(
                             padding: const EdgeInsets.only(bottom: 10),
                             child: Text('Mobile',
-                                style: TextStyle(color: Colors.grey.shade600,fontSize: 12, fontWeight: FontWeight.bold,fontFamily: 'Intro')),
+                                style: TextStyle(
+                                    color: Colors.grey.shade600,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'Intro')),
                           ),
                         ),
                         SizedBox(
@@ -208,25 +228,61 @@ class _RegisterScreenState extends BaseStatefulState<RegisterScreen> {
                           child: Padding(
                             padding: const EdgeInsets.only(bottom: 10),
                             child: Text('Password',
-                                style: TextStyle(color: Colors.grey.shade600,fontSize: 12, fontWeight: FontWeight.bold,fontFamily: 'Intro')),
+                                style: TextStyle(
+                                    color: Colors.grey.shade600,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'Intro')),
                           ),
                         ),
                         SizedBox(
                           height: 60,
                           child: TextFormField(
-                            obscureText: true,
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              // labelText: 'Password'
-                              isCollapsed: false,
-                            ),
-                            controller: _passwordController,
-                            validator: (value) {
-                              if (value!.isEmpty)
-                                return "Minimum 6 charaters required";
-                              return null;
-                            },
-                          ),
+                              decoration: InputDecoration(
+                                contentPadding: EdgeInsets.symmetric(
+                                    vertical: 10, horizontal: 10),
+                                border: OutlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Color(0xffb0b0b0)),
+                                ),
+                                labelText: " ",
+                                suffixIcon: Padding(
+                                  padding: const EdgeInsets.only(right: 20),
+                                  child: IconButton(
+                                    icon: Icon(
+                                      _obscureText
+                                          ? Icons.visibility
+                                          : Icons.visibility_off,
+                                      color: Color(0xff6e6e6c),
+                                    ),
+                                    onPressed: () {
+                                      setState(() {
+                                        _obscureText = !_obscureText;
+                                      });
+                                    },
+                                  ),
+                                ),
+                              ),
+                              obscureText: _obscureText,
+                              controller: _passwordController,
+                              validator: (val) {
+                                if (val!.isEmpty) return "Enter your password";
+                                return null;
+                              }),
+                          //  TextFormField(
+                          //   obscureText: true,
+                          //   decoration: InputDecoration(
+                          //     border: OutlineInputBorder(),
+                          //     // labelText: 'Password'
+                          //     isCollapsed: false,
+                          //   ),
+                          //   controller: _passwordController,
+                          //   validator: (value) {
+                          //     if (value!.isEmpty)
+                          //       return "Minimum 6 characters required";
+                          //     return null;
+                          //   },
+                          // ),
                         ),
                         SizedBox(height: 5),
                         Row(
@@ -242,9 +298,12 @@ class _RegisterScreenState extends BaseStatefulState<RegisterScreen> {
                               checkColor: Colors.white,
                             ),
                             Text(
-                              'I Read and agree to',
+                              'I Read and Agree to',
                               style: TextStyle(
-                                  color: Colors.grey.shade600,fontSize: 12, fontWeight: FontWeight.bold,fontFamily: 'Intro'),
+                                  color: Colors.grey.shade600,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Intro'),
                             ),
                             TextButton(
                               onPressed: () {
@@ -255,16 +314,18 @@ class _RegisterScreenState extends BaseStatefulState<RegisterScreen> {
                                             PrivacyPolicyScreen()));
                               },
                               child: Text(
-                                'Terms & conditions',
+                                'Terms & Conditions',
                                 style: TextStyle(
                                     color: Colors.red,
-                                    fontSize: 12, fontWeight: FontWeight.bold,fontFamily: 'Intro',
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'Intro',
                                     decoration: TextDecoration.underline),
                               ),
                             ),
                           ],
                         ),
-                      // (isChecked==false)?Text('PLEASE ACCEPT TERMS AND CONDITIONS',style: TextStyle(fontFamily: 'Intro',color: Colors.red,fontWeight: FontWeight.bold,fontSize: 15),):
+                        // (isChecked==false)?Text('PLEASE ACCEPT TERMS AND CONDITIONS',style: TextStyle(fontFamily: 'Intro',color: Colors.red,fontWeight: FontWeight.bold,fontSize: 15),):
                         Container(
                           width: 400,
                           height: 50,
@@ -274,7 +335,8 @@ class _RegisterScreenState extends BaseStatefulState<RegisterScreen> {
                             },
                             child: Text(
                               'Sign Up',
-                              style: TextStyle(fontSize: 20,fontFamily: 'Intro'),
+                              style:
+                                  TextStyle(fontSize: 20, fontFamily: 'Intro'),
                             ),
                             style: ButtonStyle(
                               backgroundColor:
@@ -294,7 +356,9 @@ class _RegisterScreenState extends BaseStatefulState<RegisterScreen> {
                             Text(
                               'Already Have an Account',
                               style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 12,fontFamily: 'Intro'),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12,
+                                  fontFamily: 'Intro'),
                             ),
                             TextButton(
                               onPressed: () {
@@ -326,7 +390,7 @@ class _RegisterScreenState extends BaseStatefulState<RegisterScreen> {
       ),
     );
   }
-  
+
   @override
   bool isAuthenticationRequired() {
     // TODO: implement isAuthenticationRequired

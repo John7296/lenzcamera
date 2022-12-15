@@ -15,8 +15,8 @@ class AddNewAddressScreen extends StatefulWidget {
 }
 
 class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
-  final GlobalKey<FormState> _form = GlobalKey<FormState>();
-
+  final formKey = GlobalKey<FormState>();
+  List<AddressList> addressList = [];
   String? selectedCity;
   String? selectedState;
   bool isCheckedSA = false;
@@ -38,7 +38,10 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    // cityNames(44);
+    Future.delayed(Duration(milliseconds: 300), () {
+      getAddress();
+    });
+
     stateNames();
   }
 
@@ -65,6 +68,10 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
   }
 
   void onSaveButtonTapped() {
+    // if (!_form.currentState!.validate()) {
+    //   return;
+    // }
+
     NetworkManager.shared.addAddress({
       "addLine1": _addressL1Controller.text,
       "addLine2": _addressL2Controller.text,
@@ -116,6 +123,24 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
     });
   }
 
+  void getAddress() {
+    showLoader();
+    NetworkManager.shared
+        .getAddressList()
+        .then((BaseResponse<List<AddressList>> response) {
+      // showFlashMsg(response.message!);
+      hideLoader();
+      setState(() {
+        addressList.clear();
+        addressList.addAll(response.data!);
+      });
+    }).catchError((e) {
+      hideLoader();
+      showFlashMsg('Please Add Your Address');
+      print(e.toString());
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -125,7 +150,13 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
             backgroundColor: Colors.grey.shade700,
             title: Padding(
               padding: const EdgeInsets.only(left: 50),
-              child: Text('Add New Address',style: TextStyle(fontFamily: 'Intro'),),
+              child: Text(
+                'Add New Address',
+                style: TextStyle(
+                    fontFamily: 'Intro',
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold),
+              ),
             ),
             leading: IconButton(
               icon: Icon(Icons.arrow_back_ios),
@@ -138,7 +169,7 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
           body: SafeArea(
             child: SingleChildScrollView(
               child: Form(
-                key: _form,
+                key: formKey,
                 child: Column(
                   children: [
                     Container(
@@ -154,11 +185,12 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
                                   'First Name',
                                   style: TextStyle(
                                       color: Colors.grey.shade600,
-                                      fontWeight: FontWeight.bold,fontFamily: 'Intro'),
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'Intro'),
                                 ),
                               )),
                           Container(
-                            height: 40,
+                            height: 60,
                             child: TextFormField(
                               decoration: InputDecoration(
                                   border: OutlineInputBorder(),
@@ -166,9 +198,12 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
                                   // labelText: 'Customer Name'
                                   ),
                               controller: _firstNameController,
-                              validator: (val) {
-                                if (val!.isEmpty) return "Enter First Name";
-                                return null;
+                              validator: (value) {
+                                if (value!.isEmpty||!RegExp(r'^[a-z A-Z]+$').hasMatch(value!)) {
+                                  return "Enter First Name";
+                                } else {
+                                  return null;
+                                }
                               },
                             ),
                           ),
@@ -180,10 +215,11 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
                                 child: Text('Last Name',
                                     style: TextStyle(
                                         color: Colors.grey.shade600,
-                                        fontWeight: FontWeight.bold,fontFamily: 'Intro')),
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'Intro')),
                               )),
                           Container(
-                            height: 40,
+                            height: 60,
                             child: TextFormField(
                               decoration: InputDecoration(
                                   border: OutlineInputBorder(),
@@ -191,8 +227,8 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
                                   // labelText: 'Email ID'
                                   ),
                               controller: _lastNameController,
-                              validator: (val) {
-                                if (val!.isEmpty) return "Enter Last Name";
+                              validator: (value) {
+                                if (value!.isEmpty) return "Enter Last Name";
                                 return null;
                               },
                             ),
@@ -205,10 +241,11 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
                                 child: Text('Address Line 1',
                                     style: TextStyle(
                                         color: Colors.grey.shade600,
-                                        fontWeight: FontWeight.bold,fontFamily: 'Intro')),
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'Intro')),
                               )),
                           Container(
-                            height: 40,
+                            height: 60,
                             child: TextFormField(
                               decoration: InputDecoration(
                                   border: OutlineInputBorder(),
@@ -216,8 +253,8 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
                                   // labelText: 'Mobile'
                                   ),
                               controller: _addressL1Controller,
-                              validator: (val) {
-                                if (val!.isEmpty) return "Enter Address";
+                              validator: (value) {
+                                if (value!.isEmpty) return "Enter Address";
                                 return null;
                               },
                             ),
@@ -230,10 +267,11 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
                                 child: Text('Address Line 2',
                                     style: TextStyle(
                                         color: Colors.grey.shade600,
-                                        fontWeight: FontWeight.bold,fontFamily: 'Intro')),
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'Intro')),
                               )),
                           Container(
-                            height: 40,
+                            height: 60,
                             child: TextFormField(
                               decoration: InputDecoration(
                                   border: OutlineInputBorder(),
@@ -241,8 +279,8 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
                                   // labelText: 'Password'
                                   ),
                               controller: _addressL2Controller,
-                              validator: (val) {
-                                if (val!.isEmpty) return "Enter Address";
+                              validator: (value) {
+                                if (value!.isEmpty) return "Enter Address";
                                 return null;
                               },
                             ),
@@ -255,10 +293,11 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
                                 child: Text('Phone +974',
                                     style: TextStyle(
                                         color: Colors.grey.shade600,
-                                        fontWeight: FontWeight.bold,fontFamily: 'Intro')),
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'Intro')),
                               )),
                           Container(
-                            height: 40,
+                            height: 60,
                             child: TextFormField(
                               decoration: InputDecoration(
                                   border: OutlineInputBorder(),
@@ -266,8 +305,8 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
                                   // labelText: 'Mobile'
                                   ),
                               controller: _phoneController,
-                              validator: (val) {
-                                if (val!.isEmpty) return "Enter Phone Number";
+                              validator: (value) {
+                                if (value!.isEmpty) return "Enter Phone Number";
                                 return null;
                               },
                             ),
@@ -280,10 +319,11 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
                                 child: Text('PinCode',
                                     style: TextStyle(
                                         color: Colors.grey.shade600,
-                                        fontWeight: FontWeight.bold,fontFamily: 'Intro')),
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'Intro')),
                               )),
                           Container(
-                            height: 40,
+                            height: 60,
                             child: TextFormField(
                               decoration: InputDecoration(
                                   border: OutlineInputBorder(),
@@ -291,8 +331,8 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
                                   // labelText: 'Mobile'
                                   ),
                               controller: _pinCodeController,
-                              validator: (val) {
-                                if (val!.isEmpty) return "Enter PinCode";
+                              validator: (value) {
+                                if (value!.isEmpty) return "Enter PinCode";
                                 return null;
                               },
                             ),
@@ -307,7 +347,7 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
                                 //         TextStyle(color: Colors.grey.shade600)),
                               )),
                           Container(
-                            height: 40,
+                            height: 60,
                             child: TextFormField(
                               decoration: InputDecoration(
                                   border: OutlineInputBorder(),
@@ -333,32 +373,35 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
                               borderRadius:
                                   BorderRadius.all(Radius.circular(0)),
                             ),
-                            child: DropdownButton<StateList>(
-                              hint: Text("Select State"),
-                              isExpanded: true,
-                              dropdownColor: Color(0xffadadad),
-                              elevation: 5,
-                              value: showSelectedState,
-                              underline: Container(color: Colors.transparent),
-                              icon: const Icon(
-                                Icons.arrow_drop_down_outlined,
-                                color: Colors.black,
+                            child: ButtonTheme(
+                              alignedDropdown: true,
+                              child: DropdownButton<StateList>(
+                                hint: Text("Select State"),
+                                isExpanded: true,
+                                dropdownColor: Color(0xffadadad),
+                                elevation: 5,
+                                value: showSelectedState,
+                                underline: Container(color: Colors.transparent),
+                                icon: const Icon(
+                                  Icons.arrow_drop_down_outlined,
+                                  color: Colors.black,
+                                ),
+                                onChanged: (StateList? value) {
+                                  cityNames(value!.id!);
+                                  // This is called when the user selects an item.
+                                  setState(() {
+                                    showSelectedState = value;
+                                  });
+                                  print(showSelectedState!.name);
+                                },
+                                items: stateList.map<DropdownMenuItem<StateList>>(
+                                    (StateList value) {
+                                  return DropdownMenuItem<StateList>(
+                                    value: value,
+                                    child: Text(value.name ?? ''),
+                                  );
+                                }).toList(),
                               ),
-                              onChanged: (StateList? value) {
-                                cityNames(value!.id!);
-                                // This is called when the user selects an item.
-                                setState(() {
-                                  showSelectedState = value;
-                                });
-                                print(showSelectedState!.name);
-                              },
-                              items: stateList.map<DropdownMenuItem<StateList>>(
-                                  (StateList value) {
-                                return DropdownMenuItem<StateList>(
-                                  value: value,
-                                  child: Text(value.name ?? ''),
-                                );
-                              }).toList(),
                             ),
                           ),
                           SizedBox(height: 30),
@@ -371,30 +414,33 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
                               borderRadius:
                                   BorderRadius.all(Radius.circular(0)),
                             ),
-                            child: DropdownButton<CityList>(
-                              hint: Text("Select City"),
-                              isExpanded: true,
-                              dropdownColor: Color(0xffadadad),
-                              elevation: 5,
-                              value: showSelectedCity,
-                              underline: Container(color: Colors.transparent),
-                              icon: const Icon(
-                                Icons.arrow_drop_down_outlined,
-                                color: Colors.black,
+                            child: ButtonTheme(
+                              alignedDropdown: true,
+                              child: DropdownButton<CityList>(
+                                hint: Text("Select City"),
+                                isExpanded: true,
+                                dropdownColor: Color(0xffadadad),
+                                elevation: 5,
+                                value: showSelectedCity,
+                                underline: Container(color: Colors.transparent),
+                                icon: const Icon(
+                                  Icons.arrow_drop_down_outlined,
+                                  color: Colors.black,
+                                ),
+                                onChanged: (CityList? value) {
+                                  // This is called when the user selects an item.
+                                  setState(() {
+                                    showSelectedCity = value;
+                                  });
+                                },
+                                items: cityList.map<DropdownMenuItem<CityList>>(
+                                    (CityList value) {
+                                  return DropdownMenuItem<CityList>(
+                                    value: value,
+                                    child: Text(value.name ?? ''),
+                                  );
+                                }).toList(),
                               ),
-                              onChanged: (CityList? value) {
-                                // This is called when the user selects an item.
-                                setState(() {
-                                  showSelectedCity = value;
-                                });
-                              },
-                              items: cityList.map<DropdownMenuItem<CityList>>(
-                                  (CityList value) {
-                                return DropdownMenuItem<CityList>(
-                                  value: value,
-                                  child: Text(value.name ?? ''),
-                                );
-                              }).toList(),
                             ),
                           ),
                           SizedBox(height: 5),
@@ -413,7 +459,9 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
                               Text(
                                 'Make As Default Billing Address',
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 12,fontFamily: 'Intro'),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12,
+                                    fontFamily: 'Intro'),
                               ),
                             ],
                           ),
@@ -432,7 +480,9 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
                               Text(
                                 'Make As Default Shipping Address',
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 12,fontFamily: 'Intro'),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12,
+                                    fontFamily: 'Intro'),
                               ),
                             ],
                           ),
@@ -443,10 +493,11 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
                                 child: Text('Landmark',
                                     style: TextStyle(
                                         color: Colors.grey.shade600,
-                                        fontWeight: FontWeight.bold,fontFamily: 'Intro')),
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'Intro')),
                               )),
                           Container(
-                            height: 40,
+                            height: 60,
                             child: TextFormField(
                               decoration: InputDecoration(
                                   border: OutlineInputBorder(),
@@ -466,10 +517,17 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
                             height: 50,
                             child: ElevatedButton(
                               onPressed: () {
-                                onSaveButtonTapped();
+                                if(formKey.currentState!.validate()){
+                                  onSaveButtonTapped();
+                                     getAddress();
                                 Navigator.pop(context);
                                 showFlashMsg("Address Added");
-                               
+                                setState(() {});
+
+                                }
+                                
+                                
+                             
                               },
                               child: Text(
                                 'Save',

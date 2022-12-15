@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:lenzcamera/base/base_stateful_state.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/company_policy.dart';
@@ -13,11 +14,9 @@ class PrivacyPolicyScreen extends StatefulWidget {
   State<PrivacyPolicyScreen> createState() => _PrivacyPolicyScreenState();
 }
 
-class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
+class _PrivacyPolicyScreenState extends BaseStatefulState<PrivacyPolicyScreen> {
   List<CompanyPolicy> companyPolicyList = [];
   bool isLoading = false;
-
-
 
   @override
   void initState() {
@@ -26,21 +25,20 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
     getPrivacyPolicy();
   }
 
- void getPrivacyPolicy() {
-    setState(() {
-      isLoading = true;
-    });
+  void getPrivacyPolicy() {
+    showLoader();
 
-    NetworkManager.shared.getCompanyPolicy()
+    NetworkManager.shared
+        .getCompanyPolicy()
         .then((BaseResponse<List<CompanyPolicy>> response) {
-      print(response.data);
+      hideLoader();
       setState(() {
         isLoading = false;
         companyPolicyList.clear();
         companyPolicyList.addAll(response.data!);
-        // print(response.data);
       });
     }).catchError((e) {
+      hideLoader();
       print(e.toString());
     });
   }
@@ -51,9 +49,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
       appBar: AppBar(
         title: Padding(
           padding: const EdgeInsets.only(left: 50),
-          child: Text(
-            
-          'Privacy Policy'),
+          child: Text('Privacy Policy'),
         ),
         // actions: [
         //   IconButton(
@@ -82,14 +78,16 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text(companyPolicyList.first.name??'',style: TextStyle(color: Colors.grey.shade500,fontSize: 25),),
-                
+                Text(
+                  companyPolicyList.first.name ?? '',
+                  style: TextStyle(color: Colors.grey.shade500, fontSize: 25),
+                ),
               ],
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(10),
-            child: Text(companyPolicyList.first.value??''),
+            child: Text(companyPolicyList.first.value ?? ''),
           ),
           // Text(companyPolicyList.first.name??''),
           Spacer(),
@@ -117,7 +115,12 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
           ),
         ],
       ),
-      
     );
+  }
+
+  @override
+  bool isAuthenticationRequired() {
+    // TODO: implement isAuthenticationRequired
+    throw UnimplementedError();
   }
 }

@@ -25,7 +25,7 @@ class _OrderSuccessScreenState extends BaseStatefulState<OrderSuccessScreen> {
     // TODO: implement initState
     super.initState();
     Future.delayed(Duration(milliseconds: 500), () {
-      // cusOrderList();
+      cusOrderList();
     });
   }
 
@@ -65,14 +65,20 @@ class _OrderSuccessScreenState extends BaseStatefulState<OrderSuccessScreen> {
             ),
           ),
           actions: [
-            // IconButton(
-            //   onPressed: () {},
-            //   icon: Icon(Icons.favorite_border),
-            // ),
-            IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.shopping_cart),
-            ),
+           AppBar(
+        title: Container(
+          height: 100,
+          width: 200,
+          child: Image(
+            image: AssetImage("assets/images/logo_lenzcamera.png"),
+          ),
+        ),
+        backgroundColor: Colors.grey.shade700,
+        // leading: IconButton(
+        //   onPressed: () {},
+        //   icon: Icon(Icons.arrow_back_ios),
+        // ),
+      ),
           ],
           backgroundColor: Colors.grey.shade700,
           leading: IconButton(
@@ -109,23 +115,22 @@ class _OrderSuccessScreenState extends BaseStatefulState<OrderSuccessScreen> {
                     Text("Your Order Number:",style: TextStyle(fontFamily: 'Intro')),
                     TextButton(
                       onPressed: () {
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => OrderDetailScreen(
-                        //         orderList,
-                        //         context),
-                        //   ),
-                        // );
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => OrderDetailScreen(
+                                orderList.first),
+                          ),
+                        );
 
-                        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
-                          builder: (BuildContext context) {
-                            return OrderScreen();
-                          },
-                        ), (route) => false);
+                        // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+                        //   builder: (BuildContext context) {
+                        //     return OrderDetailScreen(orderList[]);
+                        //   },
+                        // ), (route) => false);
                       },
                       child: Text(
-                        "123545566",
+                        orderList.first.orderNumber.toString(),
                         style: TextStyle(color: Colors.red,fontFamily: 'Intro'),
                       ),
                       // Text(orderList.first.orderNumber ?? '',style: TextStyle(color: Colors.red,fontFamily: 'Intro'),

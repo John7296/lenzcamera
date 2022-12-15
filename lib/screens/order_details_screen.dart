@@ -37,18 +37,18 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
   }
 
   void singleOrderDetail() {
-    // showLoader();
+    showLoader();
     NetworkManager.shared
         .orderDetails(widget.orderList.orderId!)
         .then((BaseResponse<SingleOrderDetail> response) {
-      // hideLoader();
+      hideLoader();
       setState(() {
         singleItemList.clear();
         singleItemList.addAll(response.data!.OrderItemsDetails!);
       });
     }).catchError((e) {
       showFlashMsg(e.toString());
-      // hideLoader();
+      hideLoader();
       print(e.toString());
     });
   }
@@ -222,7 +222,7 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
                           Container(
                             width: 100,
                             child: Text(
-                              widget.orderList.Address ?? '',
+                              widget.orderList.Address.toString().replaceAll("\\n", " "),
                               style:
                                   TextStyle(fontSize: 12, color: Colors.grey),
                               maxLines: 4,

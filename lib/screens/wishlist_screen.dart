@@ -25,11 +25,9 @@ class _WishlistScreenState extends BaseStatefulState<WishlistScreen> {
   @override
   void initState() {
     super.initState();
-    //DataManager.shared.wishListProducts();
+
     Future.delayed(Duration(milliseconds: 500), () {
       wishListProducts();
-      // NetworkManager.shared.getWishList();
-      // DataManager.shared.getWishList();
     });
   }
 
@@ -91,13 +89,41 @@ class _WishlistScreenState extends BaseStatefulState<WishlistScreen> {
             },
             icon: Icon(Icons.search_sharp),
           ),
-          IconButton(
-            onPressed: () {
-              // Navigator.push(context,
-              //     MaterialPageRoute(builder: (context) => CartScreen()));
-              // NetworkManager.shared.getWishList();
-            },
-            icon: Icon(Icons.shopping_cart),
+          Stack(
+            children: [
+              IconButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => CartScreen()));
+                  // getBanners();
+                },
+                icon: Icon(Icons.shopping_cart),
+              ),
+              if (DataManager.shared.cartItemsList.isNotEmpty)
+                Positioned(
+                  right: 5,
+                  top: 5,
+                  child: new Container(
+                    padding: EdgeInsets.all(2),
+                    decoration: new BoxDecoration(
+                      color: Colors.red,
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                    constraints: BoxConstraints(
+                      minWidth: 14,
+                      minHeight: 14,
+                    ),
+                    child: Text(
+                      DataManager.shared.cartItemsList.length.toString(),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 10,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                )
+            ],
           ),
         ],
         backgroundColor: Colors.grey.shade700,
@@ -142,9 +168,14 @@ class _WishlistScreenState extends BaseStatefulState<WishlistScreen> {
                             child: Container(
                               height: 80,
                               width: 80,
-                              child: CachedNetworkImage(
-                                  imageUrl:
-                                      "https://dev.lenzcamera.com/webadmin/${wishListItems[index].imageUrl}"),
+                              child: FadeInImage.assetNetwork(
+                                  height: 200,
+                                  width: double.infinity,
+                                  placeholder: 'assets/images/placeholder.png',
+                                  placeholderFit: BoxFit.contain,
+                                  image:
+                                      "https://dev.lenzcamera.com/webadmin/${wishListItems[index].imageUrl}",
+                                  fit: BoxFit.cover),
                             )),
                       ],
                     ),
@@ -183,19 +214,25 @@ class _WishlistScreenState extends BaseStatefulState<WishlistScreen> {
                             setState(() {
                               DataManager.shared
                                   .removeFromWishlist(wishListItems[index]);
-                              // DataManager.shared.getWishList();
-                              wishListProducts();
 
+                              // DataManager.shared.getWishList();
+                             
                             });
+                             wishListProducts();
+                             setState(() {
+                               
+                             });
                           },
                           icon: Icon(Icons.delete_outline, color: Colors.red),
                         ),
                         IconButton(
                           onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => CartScreen()));
+                            DataManager.shared.addToCart(wishListItems[index]);
+                            showFlashMsg('Item Added to Cart');
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) => CartScreen()));
                           },
                           icon: Icon(Icons.shopping_cart, color: Colors.grey),
                         ),

@@ -62,7 +62,7 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
         print(grandtotal.toString());
       });
     }).catchError((e) {
-      showFlashMsg(e.toString());
+      showFlashMsg('Your Cart Is Empty');
       hideLoader();
       print(e.toString());
     });
@@ -89,7 +89,9 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
         ),
         backgroundColor: Colors.grey.shade700,
       ),
-      body: Column(
+      body: 
+      
+      (cartItemsList.isNotEmpty)?Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
@@ -299,6 +301,7 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                                                       setState(() {});
                                                     },
                                                   );
+                                                  getCart();
                                                 },
                                                 child: Container(
                                                     width: 30,
@@ -367,6 +370,7 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                         // SizedBox(
                         //   width: 220,
                         // ),
+                        if(cartItemsList.isNotEmpty)
                         Text(
                           "QAR ${subtotal.toString()}",
                           style: TextStyle(
@@ -392,6 +396,7 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                         //  SizedBox(
                         //           width: 240,
                         //         ),
+                        if(cartItemsList.isNotEmpty)
                         Text(
                           "QAR ${deliveryamount.toString()}",
                           style: TextStyle(
@@ -449,6 +454,7 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                         fontWeight: FontWeight.bold,
                         fontFamily: 'Intro'),
                   )),
+                  if(cartItemsList.isNotEmpty)
                   Text(
                     // "",
                     "QAR ${grandtotal.toString()}",
@@ -493,7 +499,13 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
             ),
           ),
         ],
-      ),
+      ):Container(
+          height: 600,
+          // width: 200,
+          child: Image(
+            image: AssetImage("assets/images/empty_cart.png"),
+          ),
+        ),
     );
   }
 

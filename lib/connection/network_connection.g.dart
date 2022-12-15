@@ -21,6 +21,35 @@ class _NetworkConnection implements NetworkConnection {
   String? baseUrl;
 
   @override
+  Future<BaseResponse<List<Location>>> custLocation(term) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'term': term};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<BaseResponse<List<Location>>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+      contentType: 'application/x-www-form-urlencoded',
+    )
+            .compose(
+              _dio.options,
+              'Customer/getPincodeList',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = BaseResponse<List<Location>>.fromJson(
+      _result.data!,
+      (json) => (json as List<dynamic>)
+          .map<Location>((i) => Location.fromJson(i as Map<String, dynamic>))
+          .toList(),
+    );
+    return value;
+  }
+
+  @override
   Future<BaseResponse<List<TopCategories>>> getTopCategories() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

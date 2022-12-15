@@ -20,6 +20,7 @@ import 'package:lenzcamera/model/search_products_response.dart';
 import 'package:lenzcamera/model/single_order_detail.dart';
 import 'package:lenzcamera/model/state_list.dart';
 import 'package:lenzcamera/model/top_categories.dart';
+import 'package:lenzcamera/model/user_location.dart';
 import 'package:lenzcamera/utils/constants.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:retrofit/retrofit.dart';
@@ -42,6 +43,18 @@ abstract class NetworkConnection {
     }
     return _NetworkConnection(dio);
   }
+
+
+    @FormUrlEncoded()
+  @GET("Customer/getPincodeList")
+  Future<BaseResponse<List<Location>>> custLocation(
+    @Query("term") String term,
+  );
+
+
+
+
+
   @FormUrlEncoded()
   @GET('category/TopCategory')
   Future<BaseResponse<List<TopCategories>>> getTopCategories();

@@ -13,6 +13,7 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreen extends BaseStatefulState<EditProfileScreen> {
+  final formKey = GlobalKey<FormState>();
   final _userNameController = TextEditingController();
   final _emailIdController = TextEditingController();
   final _mobileController = TextEditingController();
@@ -23,7 +24,7 @@ class _EditProfileScreen extends BaseStatefulState<EditProfileScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Future.delayed(Duration(milliseconds: 500), () {
+    Future.delayed(Duration(microseconds: 10), () {
       getProfile();
     });
   }
@@ -44,15 +45,19 @@ class _EditProfileScreen extends BaseStatefulState<EditProfileScreen> {
   }
 
   void onUpdateButtonTapped() {
+    // showLoader();
     NetworkManager.shared.updateProfile({
       "custId": NetworkManager.shared.userId,
       "custName": _userNameController.text,
       "phoneNo": _mobileController.text,
       "emailId": _emailIdController.text,
     }).then((BaseResponse response) {
-      showFlashMsg(response.message!);
+      // hideLoader();
+      showFlashMsg("Address Updated");
       Navigator.pop(context);
+      getProfile();
     }).catchError((e) {
+      // hideLoader();
       showFlashMsg(e.toString());
       print(e.toString());
     });
@@ -79,109 +84,132 @@ class _EditProfileScreen extends BaseStatefulState<EditProfileScreen> {
         backgroundColor: Colors.white,
         body: SafeArea(
           child: SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(height: 50),
-                Container(
-                  height: 80,
-                  width: 150,
-                  child: Image(
-                    image: AssetImage("assets/images/lens.png"),
+            child: Form(
+              key: formKey,
+              child: Column(
+                children: [
+                  SizedBox(height: 50),
+                  Container(
+                    height: 80,
+                    width: 150,
+                    child: Image(
+                      image: AssetImage("assets/images/lens.png"),
+                    ),
                   ),
-                ),
-                Container(
-                  margin: EdgeInsets.all(20),
-                  child: Column(
-                    children: [
-                      SizedBox(height: 80),
-                      Align(
-                          alignment: Alignment.topLeft,
-                          child: Padding(
-                            padding: const EdgeInsets.only(bottom: 10),
-                            child: Text(
-                              'User Name*',
-                              style: TextStyle(
-                                  color: Colors.grey.shade600,
-                                  fontFamily: 'Intro'),
-                            ),
-                          )),
-                      Container(
-                        height: 40,
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            contentPadding: EdgeInsets.all(5),
-                            // labelText: 'Customer Name'
-                          ),
-                          controller: _userNameController,
-                        ),
-                      ),
-                      SizedBox(height: 20),
-                      Align(
-                          alignment: Alignment.topLeft,
-                          child: Padding(
-                            padding: const EdgeInsets.only(bottom: 10),
-                            child: Text('Email ID',
+                  Container(
+                    margin: EdgeInsets.all(20),
+                    child: Column(
+                      children: [
+                        SizedBox(height: 80),
+                        Align(
+                            alignment: Alignment.topLeft,
+                            child: Padding(
+                              padding: const EdgeInsets.only(bottom: 10),
+                              child: Text(
+                                'User Name*',
                                 style: TextStyle(
                                     color: Colors.grey.shade600,
-                                    fontFamily: 'Intro')),
-                          )),
-                      Container(
-                        height: 40,
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              contentPadding: EdgeInsets.all(5)
-                              // labelText: 'Email ID'
+                                    fontFamily: 'Intro'),
                               ),
-                          controller: _emailIdController,
-                        ),
-                      ),
-                      SizedBox(height: 20),
-                      Align(
-                          alignment: Alignment.topLeft,
-                          child: Padding(
-                            padding: const EdgeInsets.only(bottom: 10),
-                            child: Text('Mobile',
-                                style: TextStyle(color: Colors.grey.shade600)),
-                          )),
-                      Container(
-                        height: 40,
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              contentPadding: EdgeInsets.all(5)
-                              // labelText: 'Mobile'
-                              ),
-                          controller: _mobileController,
-                        ),
-                      ),
-                      SizedBox(height: 100),
-                      Container(
-                        width: 400,
-                        height: 50,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            onUpdateButtonTapped();
-                          },
-                          child: Text(
-                            'Update',
-                            style: TextStyle(fontSize: 20, fontFamily: 'Intro'),
-                          ),
-                          style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all(Colors.green),
-                            shape: MaterialStateProperty.all(
-                                RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5),
                             )),
+                        Container(
+                          height: 60,
+                          child: TextFormField(
+                            decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                contentPadding: EdgeInsets.all(5)
+                                // labelText: 'Mobile'
+                                ),
+                            controller: _userNameController,
+                            validator: (value) {
+                              if (value!.isEmpty) return "Enter UserNmae";
+                              return null;
+                            },
                           ),
                         ),
-                      ),
-                    ],
+                        SizedBox(height: 5),
+                        Align(
+                            alignment: Alignment.topLeft,
+                            child: Padding(
+                              padding: const EdgeInsets.only(bottom: 10),
+                              child: Text('Email ID',
+                                  style: TextStyle(
+                                      color: Colors.grey.shade600,
+                                      fontFamily: 'Intro')),
+                            )),
+                        Container(
+                          height: 60,
+                          child: TextFormField(
+                            decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                contentPadding: EdgeInsets.all(5)
+                                // labelText: 'Mobile'
+                                ),
+                            controller: _emailIdController,
+                            validator: (value) {
+                              if (value!.isEmpty) return "Enter Email Id";
+                              return null;
+                            },
+                          ),
+                        ),
+                        SizedBox(height: 5),
+                        Align(
+                            alignment: Alignment.topLeft,
+                            child: Padding(
+                              padding: const EdgeInsets.only(bottom: 10),
+                              child: Text('Mobile',
+                                  style: TextStyle(
+                                      color: Colors.grey.shade600,
+                                      fontFamily: 'Intro')),
+                            )),
+                        Container(
+                          height: 60,
+                          child: TextFormField(
+                            decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                contentPadding: EdgeInsets.all(5)
+                                // labelText: 'Mobile'
+                                ),
+                            controller: _mobileController,
+                            validator: (value) {
+                              if (value!.isEmpty) return "Enter Mobile Number";
+                              return null;
+                            },
+                          ),
+                        ),
+                        SizedBox(height: 100),
+                        // if(_userNameController.text.isNotEmpty)
+                        Container(
+                          width: 400,
+                          height: 50,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              if (formKey.currentState!.validate()) {
+                                onUpdateButtonTapped();
+                                Navigator.pop(context);
+                                getProfile();
+                              }
+                            },
+                            child: Text(
+                              'Update',
+                              style:
+                                  TextStyle(fontSize: 20, fontFamily: 'Intro'),
+                            ),
+                            style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all(Colors.green),
+                              shape: MaterialStateProperty.all(
+                                  RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(5),
+                              )),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
