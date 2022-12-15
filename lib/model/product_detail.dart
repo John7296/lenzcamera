@@ -9,7 +9,7 @@ part 'product_detail.g.dart';
 class ProductDetail{
 
       @JsonKey(name: "ProdDetails")
- List<Product>? productDetails;
+    List<Product>? productDetails;
 
   @JsonKey(name: 'RelatedList')
     List<Product>? relatedList;

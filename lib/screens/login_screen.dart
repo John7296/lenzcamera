@@ -183,7 +183,7 @@ class _LoginScreenState extends BaseStatefulState<LoginScreen> {
                 ),
                 SizedBox(height: 30),
                 Container(
-                  height: 40,
+                  height: 50,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xffec3436),
@@ -194,7 +194,7 @@ class _LoginScreenState extends BaseStatefulState<LoginScreen> {
                     child: Center(
                         child: Text(
                       "Sign In",
-                      style: TextStyle(fontSize: 20, color: Colors.white),
+                      style: TextStyle(fontSize: 20, fontFamily: 'Intro', fontWeight: FontWeight.w600, color: Colors.white),
                     )),
                   ),
                 ),
@@ -238,7 +238,7 @@ class _LoginScreenState extends BaseStatefulState<LoginScreen> {
                             decoration: TextDecoration.underline,
                             fontSize: 16,
                             fontWeight: FontWeight.bold,fontFamily: 'Intro',
-                            color: Color(0xffc5484c)),
+                            color: Color(0xffec3436)),
                       ),
                     ),
                   ],

@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fullscreen/fullscreen.dart';
+import 'package:lenzcamera/base/base_stateful_state.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/product.dart';
@@ -19,37 +20,34 @@ class ProductImagesScreen extends StatefulWidget {
   State<ProductImagesScreen> createState() => _ProductImagesScreenState();
 }
 
-class _ProductImagesScreenState extends State<ProductImagesScreen>
-    with SingleTickerProviderStateMixin {
-  TransformationController? controller;
-  TapDownDetails? tapDownDetails;
-  late AnimationController? animationController;
-  Animation<Matrix4>? animation;
+class _ProductImagesScreenState extends BaseStatefulState<ProductImagesScreen> {
+
 
   List<ProductImages> _productImages = [];
-
-  final double minScale = 0.1;
-  final double maxScale = 4;
 
   int? _index;
 
   void getSingleProductDetails() {
+    showLoader();
     NetworkManager.shared.getSingleProductDetails(<String, dynamic>{
       "custId": NetworkManager.shared.userId,
       'guestId': 0,
       'urlKey': widget.products?.urlKey,
       ' pincode': 8,
-    }).then((BaseResponse<ProductDetail> response) {
+    }).then((BaseResponse<Product> response) {
+       hideLoader();
       setState(() {
         _productImages.clear();
         _productImages.addAll(response.data!.productImages!);
 
         print("hhhhhhhhhhhhhhhhhhhhhhhhh");
-        print(response.data?.productImages?.length);
+        print(widget.products?.urlKey);
 
+          print(_productImages.length);
       
       });
     }).catchError((e) {
+       hideLoader();
       print(e.toString());
     });
   }
@@ -57,38 +55,12 @@ class _ProductImagesScreenState extends State<ProductImagesScreen>
   @override
   void initState() {
     super.initState();
-   getSingleProductDetails();
+   Future.delayed(Duration(milliseconds: 500), (() {
+      getSingleProductDetails();
+    }));
     _index == null;
-    //  controller=TransformationController();
-    //  animationController = AnimationController(
-    //   vsync: this,
-    //   duration: Duration(milliseconds:300 ))..addListener((){controller?.value =animation!.value;});
+    
   }
-  //
-
-  @override
-  void dispose() {
-    super.dispose();
-    animationController?.dispose();
-  }
-
-  // void onTapped(int index) {
-  //   _productImages[index];
-  // }
-
-
-   void resetAnimation(){
-
-   animation = Matrix4Tween(
-    begin: controller?.value,
-    end: Matrix4.identity(),
-
-   ).animate(
-    CurvedAnimation(parent: animationController!, curve: Curves.ease)
-   );
-   //animationController.forward(from: 0);
-
-   }
 
   @override
   Widget build(BuildContext context) {
@@ -120,12 +92,12 @@ class _ProductImagesScreenState extends State<ProductImagesScreen>
                     padding: const EdgeInsets.only(top:100),
                     child: Container(
                       height: 300,
-                       //child: 
-                      //  PhotoView(imageProvider: 
-                      //  CachedNetworkImageProvider("https://dev.lenzcamera.com/webadmin/${_productImages[_index??0].imageUrl}"),
-                      //   backgroundDecoration: BoxDecoration(color: Colors.transparent),
+                       child: 
+                       PhotoView(imageProvider: 
+                       CachedNetworkImageProvider("https://dev.lenzcamera.com/webadmin/${_productImages[_index ?? 0].imageUrl}"),
+                        backgroundDecoration: BoxDecoration(color: Colors.transparent),
                        
-                      //  ),
+                       ),
                       
                       //height: 300,
                      // width: 300,
@@ -194,6 +166,12 @@ class _ProductImagesScreenState extends State<ProductImagesScreen>
         ),
       ),
     );
+  }
+  
+  @override
+  bool isAuthenticationRequired() {
+    // TODO: implement isAuthenticationRequired
+    throw UnimplementedError();
   }
 
   //  Widget pinchZoomImage() {

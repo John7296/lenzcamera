@@ -91,10 +91,11 @@ abstract class NetworkConnection {
 
   @FormUrlEncoded()
   @GET("/ProductDetails")
-  Future<BaseResponse<ProductDetail>> getSingleProductDetails(
-      @Query("urlKey") String urlKey,
+  Future<BaseResponse<Product>> getSingleProductDetails(
+    
       @Query("custId") int userId,
       @Query("guestId") int guestId,
+      @Query("urlKey") String urlKey,
       @Query("pincode") int pincode);
 
   @FormUrlEncoded()

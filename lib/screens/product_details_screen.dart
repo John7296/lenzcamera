@@ -53,8 +53,8 @@ class _ProductDetailsScreenState
       'guestId': 0,
       'urlKey': widget.popularproducts?.urlKey,
       ' pincode': 8,
-    }).then((BaseResponse<ProductDetail> response) {
-      hideLoader();
+    }).then((BaseResponse<Product> response) {
+     hideLoader();
       setState(() {
         relatedproducts.clear();
         relatedproducts.addAll(response.data!.relatedList!);
@@ -65,6 +65,9 @@ class _ProductDetailsScreenState
         print("hhhhhhhhhhhhhhhhhhh");
 
         print(widget.popularproducts?.urlKey);
+
+         print(response.data?.relatedList?.first.prName);
+
        
       });
     }).catchError((e) {
@@ -72,6 +75,8 @@ class _ProductDetailsScreenState
       print(e.toString());
     });
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -842,6 +847,23 @@ class _ProductDetailsScreenState
                                 ),
                               ),
                             ),
+
+                            // if (widget.popularproducts!.
+                            //             isCartUpdateProgress!)
+                            //           Container(
+                            //               // color:Colors.yellow,
+                            //               height: 20,
+                            //               width: 20,
+                            //               child: Padding(
+                            //                 padding: const EdgeInsets.all(5),
+                            //                 child: CircularProgressIndicator(
+                            //                   strokeWidth: 2,
+                            //                   color: Colors.grey,
+                            //                 ),
+                            //               )),
+                            //         if (widget.popularproducts!
+                            //                 .isCartUpdateProgress ==
+                            //             false)
                             SizedBox(width: 20),
                             InkWell(
                               onTap: () {
