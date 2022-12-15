@@ -141,7 +141,7 @@ class NetworkManager {
   Future<BaseResponse<ProductDetail>> getSingleProductDetails(
       Map<String, dynamic> map) {
     return call(networkConnection.getSingleProductDetails(
-        "canon-lpe6nh-battery-og", userId, 0, int.parse("8")));
+        map['urlKey'], userId, 0, int.parse("8")));
   }
 
   Future<BaseResponse<SearchFilterResponse>> searchFilter(

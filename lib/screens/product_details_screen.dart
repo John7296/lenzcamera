@@ -57,10 +57,15 @@ class _ProductDetailsScreenState
       hideLoader();
       setState(() {
         relatedproducts.clear();
-        relatedproducts.addAll(response.data!.products!);
+        relatedproducts.addAll(response.data!.relatedList!);
 
         productImages.clear();
         productImages.addAll(response.data!.productImages!);
+
+        print("hhhhhhhhhhhhhhhhhhh");
+
+        print(widget.popularproducts?.urlKey);
+       
       });
     }).catchError((e) {
       hideLoader();
@@ -143,12 +148,22 @@ class _ProductDetailsScreenState
                         // ),
                         Padding(
                           padding: const EdgeInsets.only(top: 50),
-                          child: Container(
-                            height: 200,
-                            width: 200,
-                            child: CachedNetworkImage(
-                                imageUrl:
-                                    "https://dev.lenzcamera.com/webadmin/${widget.popularproducts?.imageUrl}"),
+                          child: InkWell(
+                            onTap: (){
+
+                               Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => ProductImagesScreen(widget.popularproducts)));
+
+                            },
+                            child: Container(
+                              height: 200,
+                              width: 200,
+                              child: CachedNetworkImage(
+                                  imageUrl:
+                                      "https://dev.lenzcamera.com/webadmin/${widget.popularproducts?.imageUrl}"),
+                            ),
                           ),
                         ),
                         // CarouselSlider.builder(
@@ -343,7 +358,7 @@ class _ProductDetailsScreenState
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              WriteReviewScreen()));
+                                              WriteReviewScreen(widget.popularproducts)));
                                 },
                                 child: Text(
                                   "Reviews",
