@@ -60,7 +60,12 @@ class _VerifyForgotPwddOtpScreenState extends State<VerifyForgotPwddOtpScreen> {
       showFlashMsg(response.message!);
       Navigator.pushReplacement(context,
           MaterialPageRoute(builder: (context) => ResetPasswordScreen(response.data!)));
-    }).catchError((Object obj) {});
+    }).catchError((e) {
+
+      showFlashMsg(e.toString());
+      print(e);
+      showFlashMsg(e.Message!);
+    });
   }
   @override
  Widget build(BuildContext context) {
@@ -123,15 +128,7 @@ class _VerifyForgotPwddOtpScreenState extends State<VerifyForgotPwddOtpScreen> {
                       }
                       return null;
                     }),
-                //  OtpTextField(
-
-                //  numberOfFields: 5,
-                //    enabledBorderColor: Color(0xffce443a),
-                //    focusedBorderColor: Color(0xff474747),
-                //    showFieldAsBox: true,
-                //    fieldWidth: 60,
-
-                //  ),
+               
                 SizedBox(height: 35),
                 Container(
                   height: 40,
@@ -142,16 +139,11 @@ class _VerifyForgotPwddOtpScreenState extends State<VerifyForgotPwddOtpScreen> {
                     onPressed: () {
                       
                       verifyForgotPasswordOtp();
-
-                      
-
-                      //            Navigator.pushReplacement(
-                      // context, MaterialPageRoute(builder: (context)=>ResetPasswordScreen()));
                     },
                     child: Center(
                         child: Text(
                       "Submit OTP",
-                      style: TextStyle(fontSize: 20, color: Colors.white),
+                      style: TextStyle(fontSize: 20, fontFamily: 'Intro', fontWeight: FontWeight.w600, color: Colors.white),
                     )),
                   ),
                 ),

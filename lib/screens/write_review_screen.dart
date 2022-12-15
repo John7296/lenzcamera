@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -10,7 +11,8 @@ import 'package:lenzcamera/screens/review_screen.dart';
 
 class WriteReviewScreen extends StatefulWidget{
 
-
+Product? products;
+ WriteReviewScreen(this.products);
 
   @override
   State<WriteReviewScreen> createState() => _WriteReviewScreenState();
@@ -37,11 +39,11 @@ class _WriteReviewScreenState extends BaseStatefulState<WriteReviewScreen> {
           showFlashMsg(response.message!);
 
     
-    //  Navigator.push(
-    //                 context,
-    //                   MaterialPageRoute(
-    //                   builder: (context) =>
-    //                   ReviewScreen()));
+     Navigator.push(
+                    context,
+                      MaterialPageRoute(
+                      builder: (context) =>
+                      ReviewScreen()));
     }).catchError((Object obj) {
     });
 
@@ -72,19 +74,23 @@ class _WriteReviewScreenState extends BaseStatefulState<WriteReviewScreen> {
             Column(
              crossAxisAlignment: CrossAxisAlignment.start,
              children: [
-                Container(
+                Center(
+                  child: Container(
             height: 200,
-            width: MediaQuery.of(context).size.width,
+            width: 200,
               
-                //  child: Image(image: AssetImage("assets/images/lens.png"),)
+                    child: CachedNetworkImage(
+                                  imageUrl:
+                                      "https://dev.lenzcamera.com/webadmin/${widget.products?.imageUrl}"),
+                  ),
                 ),
           
             Padding(
               padding: const EdgeInsets.only(left:24),
               child: Text(
-               // widget.products?.prName??'',
-                "GoPro Volta Battery Grip for HERO",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+               widget.products?.prName??'',
+               // "GoPro Volta Battery Grip for HERO",
+                style: TextStyle(fontSize: 20, fontFamily: 'Intro', fontWeight: FontWeight.w600),
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),
@@ -95,8 +101,10 @@ class _WriteReviewScreenState extends BaseStatefulState<WriteReviewScreen> {
             children: [
               Padding(
                 padding: const EdgeInsets.only(left: 24, top: 10),
-                child: Text("QAR 600",
-               style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
+                child: Text("QAR ${widget.products?.unitPrice}",
+                  
+                  //"QAR 600",
+               style: TextStyle(fontSize: 20, color: Color(0xff70706e),fontFamily: 'Intro',fontWeight: FontWeight.w600)),
               ),
             ],
           ),
@@ -147,7 +155,7 @@ class _WriteReviewScreenState extends BaseStatefulState<WriteReviewScreen> {
                           borderSide: BorderSide(color: Color(0xff878787)),
                         ),
                         hintText: "Title",
-                        hintStyle: TextStyle(color: Colors.black, fontSize: 15, fontWeight: FontWeight.w500 ),
+                        hintStyle: TextStyle(color: Colors.black, fontFamily: 'Intro',fontSize: 15, fontWeight: FontWeight.w500 ),
                         suffixIcon: Padding(
                           padding: const EdgeInsets.only(right: 20),
                           
@@ -168,7 +176,7 @@ class _WriteReviewScreenState extends BaseStatefulState<WriteReviewScreen> {
                         borderSide: BorderSide(color: Color(0xff878787)),
                       ),
                       
-                      hintStyle: TextStyle(color: Colors.black, fontSize: 15, fontWeight: FontWeight.w500, ),
+                      hintStyle: TextStyle(color: Colors.black, fontFamily: 'Intro',fontSize: 15, fontWeight: FontWeight.w500, ),
                       // 
                         
                       ),
@@ -206,7 +214,7 @@ class _WriteReviewScreenState extends BaseStatefulState<WriteReviewScreen> {
                       child: Center(
                           child: Text(
                             "Submit",
-                            style: TextStyle(fontSize: 20, color: Colors.white),
+                            style: TextStyle(fontSize: 20, fontFamily: 'Intro', fontWeight:FontWeight.w600, color: Colors.white),
                           )),
                     ),
                   ),

@@ -143,11 +143,17 @@ class NetworkManager {
     return call(networkConnection.searchProducts(map));
   }
 
-  Future<BaseResponse<ProductDetail>> getSingleProductDetails(
+  Future<BaseResponse<Product>> getSingleProductDetails(
       Map<String, dynamic> map) {
     return call(networkConnection.getSingleProductDetails(
-        "canon-lpe6nh-battery-og", userId, 0, int.parse("8")));
+        userId, 0, map['urlKey'], 8));
   }
+
+  //  Future<BaseResponse<ProductDetail>> getSingleProductDetails(
+  //     int userId, int guestId,String urlKey, int pincode ) {
+  //   return call(networkConnection.getSingleProductDetails(
+  //     userId, guestId, urlKey, pincode ));
+  // }
 
   Future<BaseResponse<SearchFilterResponse>> searchFilter(
       Map<String, dynamic> map) {

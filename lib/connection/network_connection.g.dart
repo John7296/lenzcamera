@@ -291,23 +291,23 @@ class _NetworkConnection implements NetworkConnection {
   }
 
   @override
-  Future<BaseResponse<ProductDetail>> getSingleProductDetails(
-    urlKey,
+  Future<BaseResponse<Product>> getSingleProductDetails(
     userId,
     guestId,
+    urlKey,
     pincode,
   ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
-      r'urlKey': urlKey,
       r'custId': userId,
       r'guestId': guestId,
+      r'urlKey': urlKey,
       r'pincode': pincode,
     };
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<BaseResponse<ProductDetail>>(Options(
+        _setStreamType<BaseResponse<Product>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -320,9 +320,9 @@ class _NetworkConnection implements NetworkConnection {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = BaseResponse<ProductDetail>.fromJson(
+    final value = BaseResponse<Product>.fromJson(
       _result.data!,
-      (json) => ProductDetail.fromJson(json as Map<String, dynamic>),
+      (json) => Product.fromJson(json as Map<String, dynamic>),
     );
     return value;
   }

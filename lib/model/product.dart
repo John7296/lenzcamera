@@ -214,6 +214,9 @@ class Product {
      @JsonKey(name: "ProdImages")
  List<ProductImages>? productImages;
 
+     @JsonKey(name: "RelatedList")
+ List<Product>? relatedList;
+
   Product(
       {this.catName,
       this.imageUrl,

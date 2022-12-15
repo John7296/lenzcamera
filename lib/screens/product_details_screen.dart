@@ -30,40 +30,45 @@ class ProductDetailsScreen extends StatefulWidget {
   State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
 }
 
-class _ProductDetailsScreenState extends BaseStatefulState<ProductDetailsScreen> {
+class _ProductDetailsScreenState
+    extends BaseStatefulState<ProductDetailsScreen> {
   List<Product> relatedproducts = [];
 
-   //List<ProductImages> productImages = [];
+   List<ProductImages> productImages = [];
 
   // bool isLoading = true;
 
   @override
   void initState() {
     super.initState();
-     Future.delayed(Duration(milliseconds: 500), (() {
-       getSingleProductDetails();
+    Future.delayed(Duration(milliseconds: 500), (() {
+      getSingleProductDetails();
     }));
-   
   }
 
   void getSingleProductDetails() {
-
     showLoader();
     NetworkManager.shared.getSingleProductDetails(<String, dynamic>{
       "custId": NetworkManager.shared.userId,
       'guestId': 0,
       'urlKey': widget.popularproducts?.urlKey,
       ' pincode': 8,
-    }).then((BaseResponse<ProductDetail> response) {
-      hideLoader();
+    }).then((BaseResponse<Product> response) {
+     hideLoader();
       setState(() {
         relatedproducts.clear();
-        relatedproducts.addAll(response.data!.products!);
+        relatedproducts.addAll(response.data!.relatedList!);
 
-        // productImages.clear();
-        // productImages.addAll(response.data!.productImages!);
+        productImages.clear();
+        productImages.addAll(response.data!.productImages!);
 
-        
+        print("hhhhhhhhhhhhhhhhhhh");
+
+        print(widget.popularproducts?.urlKey);
+
+         print(response.data?.relatedList?.first.prName);
+
+       
       });
     }).catchError((e) {
       hideLoader();
@@ -71,18 +76,19 @@ class _ProductDetailsScreenState extends BaseStatefulState<ProductDetailsScreen>
     });
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-        fontFamily: 'Intro'
-        ),
+      theme: ThemeData(fontFamily: 'Intro'),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
           centerTitle: true,
           title: Text("Product Details"),
-          titleTextStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+          titleTextStyle: TextStyle(
+              fontSize: 14, fontFamily: 'Intro', fontWeight: FontWeight.w600),
           leading: IconButton(
             icon: const Icon(
               Icons.arrow_back_ios_new_sharp,
@@ -123,38 +129,46 @@ class _ProductDetailsScreenState extends BaseStatefulState<ProductDetailsScreen>
                     padding: const EdgeInsets.only(bottom: 65),
                     child: Column(
                       children: [
-
-        //                       CarouselSlider(
-        //                         options: CarouselOptions(
-        //   autoPlay: true,
-        //   //pauseAutoPlayOnTouch: Duration(seconds: 5),
-        //   height:200
-        //                         ),
-        //   items: <Widget>[
-        //     for (var i = 0; i <widget.popularproducts!.productImages!.length; i++)
-        //       Container(
-        //           margin: const EdgeInsets.only(top: 20.0, left: 20.0),
-        //           decoration: BoxDecoration(
-        //             image: DecorationImage(
-        //               image: NetworkImage(productImages[i].toString()),
-        //               fit: BoxFit.fitHeight,
-        //             ),
-        //             // border:
-        //             //     Border.all(color: Theme.of(context).accentColor),
-        //             borderRadius: BorderRadius.circular(32.0),
-        //           ),
-        //         ),                                     
-        //   ],
-        // ),
+                        //                       CarouselSlider(
+                        //                         options: CarouselOptions(
+                        //   autoPlay: true,
+                        //   //pauseAutoPlayOnTouch: Duration(seconds: 5),
+                        //   height:200
+                        //                         ),
+                        //   items: <Widget>[
+                        //     for (var i = 0; i <widget.popularproducts!.productImages!.length; i++)
+                        //       Container(
+                        //           margin: const EdgeInsets.only(top: 20.0, left: 20.0),
+                        //           decoration: BoxDecoration(
+                        //             image: DecorationImage(
+                        //               image: NetworkImage(productImages[i].toString()),
+                        //               fit: BoxFit.fitHeight,
+                        //             ),
+                        //             // border:
+                        //             //     Border.all(color: Theme.of(context).accentColor),
+                        //             borderRadius: BorderRadius.circular(32.0),
+                        //           ),
+                        //         ),
+                        //   ],
+                        // ),
                         Padding(
-                          padding: const EdgeInsets.only(top:50),
-                          child: Container(
+                          padding: const EdgeInsets.only(top: 50),
+                          child: InkWell(
+                            onTap: (){
 
-                            height:200,
-                            width: 200,
-                            child:CachedNetworkImage(
-                             imageUrl:
-                                  "https://dev.lenzcamera.com/webadmin/${widget.popularproducts?.imageUrl}"),
+                               Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => ProductImagesScreen(widget.popularproducts)));
+
+                            },
+                            child: Container(
+                              height: 200,
+                              width: 200,
+                              child: CachedNetworkImage(
+                                  imageUrl:
+                                      "https://dev.lenzcamera.com/webadmin/${widget.popularproducts?.imageUrl}"),
+                            ),
                           ),
                         ),
                         // CarouselSlider.builder(
@@ -166,7 +180,7 @@ class _ProductDetailsScreenState extends BaseStatefulState<ProductDetailsScreen>
                         //   itemBuilder: (context, itemIndex, realIndex) {
                         //     return Padding(
                         //       padding: const EdgeInsets.all(8.0),
-                        //       child: 
+                        //       child:
                         //       // CachedNetworkImage(
                         //       //     imageUrl:
                         //       //         "https://dev.lenzcamera.com/webadmin/${widget.popularproducts?.imageUrl}"),
@@ -184,16 +198,20 @@ class _ProductDetailsScreenState extends BaseStatefulState<ProductDetailsScreen>
                         // ),
 
                         Padding(
-                          padding: const EdgeInsets.only(right:24),
+                          padding: const EdgeInsets.only(right: 24),
                           child: Align(
-                            alignment: Alignment.bottomRight,
-                            child: IconButton(onPressed: (){
-
-                      //             Navigator.push(
-                      // context,
-                      // MaterialPageRoute(
-                      //     builder: (context) => ProductImagesScreen(widget.popularproducts?.urlKey??'')));
-                            }, icon: Icon(Icons.zoom_in_map))),
+                              alignment: Alignment.bottomRight,
+                              child: IconButton(
+                                  onPressed: () {
+                                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => ProductImagesScreen(widget.popularproducts)));
+                                  },
+                                  icon: Icon(
+                                    Icons.zoom_in_map,
+                                    color: Color(0xff70706e),
+                                  ))),
                         ),
                         // Center(
                         //     child: Container(
@@ -202,13 +220,13 @@ class _ProductDetailsScreenState extends BaseStatefulState<ProductDetailsScreen>
                         //   child: FadeInImage.assetNetwork(placeholder: "assets/images/lens.png",
                         //   image: "https://dev.lenzcamera.com/webadmin/${widget.popularproducts?.imageUrl}"),
 
-                          // CachedNetworkImage(imageUrl:
-                          //                 "https://dev.lenzcamera.com/webadmin/${widget.popularproducts?.imageUrl}"),
-                          //
-                          //
-                          // Image(
-                          //   image: AssetImage("assets/images/lens.png"),
-                          // ),
+                        // CachedNetworkImage(imageUrl:
+                        //                 "https://dev.lenzcamera.com/webadmin/${widget.popularproducts?.imageUrl}"),
+                        //
+                        //
+                        // Image(
+                        //   image: AssetImage("assets/images/lens.png"),
+                        // ),
                         // )),
                         Divider(
                           thickness: 5,
@@ -226,8 +244,9 @@ class _ProductDetailsScreenState extends BaseStatefulState<ProductDetailsScreen>
                                     widget.popularproducts!.prName.toString(),
                                     // "CANON EF 16-35MM F/2.8L III USM  ",
                                     style: TextStyle(
-                                        color: Color(0xff6e706d),
+                                        color: Color(0xff70706e),
                                         fontSize: 20,
+                                        fontFamily: 'Intro',
                                         fontWeight: FontWeight.w600),
                                     maxLines: 2,
                                   ),
@@ -262,7 +281,7 @@ class _ProductDetailsScreenState extends BaseStatefulState<ProductDetailsScreen>
                                     color: DataManager.shared.iswishListed(
                                             widget.popularproducts)
                                         ? Colors.red
-                                        : Colors.grey,
+                                        : Color(0xff70706e),
                                   )),
                             ],
                           ),
@@ -281,9 +300,10 @@ class _ProductDetailsScreenState extends BaseStatefulState<ProductDetailsScreen>
                                 widget.popularproducts?.shortDescription ?? '',
                                 // "Canon EF 16-35mm f/2.8L III USM Lens  ",
                                 style: TextStyle(
-                                    color: Color(0xff6e706d),
+                                    color: Color(0xff70706e),
                                     fontSize: 10,
-                                    fontWeight: FontWeight.w300),
+                                    fontFamily: 'Intro',
+                                    fontWeight: FontWeight.w600),
                                 maxLines: 8,
                               ),
                               SizedBox(height: 7),
@@ -295,7 +315,8 @@ class _ProductDetailsScreenState extends BaseStatefulState<ProductDetailsScreen>
                                     style: TextStyle(
                                         color: Color(0xff5aa567),
                                         fontSize: 10,
-                                        fontWeight: FontWeight.w500),
+                                        fontFamily: 'Intro',
+                                        fontWeight: FontWeight.w600),
                                   )),
                               Align(
                                   alignment: Alignment.centerRight,
@@ -303,7 +324,7 @@ class _ProductDetailsScreenState extends BaseStatefulState<ProductDetailsScreen>
                                     onPressed: () {},
                                     icon: Icon(
                                       Icons.share,
-                                      color: Color(0xff70726f),
+                                      color: Color(0xff70706e),
                                     ),
                                   )),
                               Align(
@@ -313,8 +334,9 @@ class _ProductDetailsScreenState extends BaseStatefulState<ProductDetailsScreen>
 
                                       // "QAR 6899.00",
                                       style: TextStyle(
-                                          color: Color(0xff6e706d),
+                                          color: Color(0xff70706e),
                                           fontSize: 17,
+                                          fontFamily: 'Intro',
                                           fontWeight: FontWeight.w600)))
                             ],
                           ),
@@ -341,14 +363,15 @@ class _ProductDetailsScreenState extends BaseStatefulState<ProductDetailsScreen>
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              WriteReviewScreen()));
+                                              WriteReviewScreen(widget.popularproducts)));
                                 },
                                 child: Text(
                                   "Reviews",
                                   style: TextStyle(
                                       fontSize: 10,
                                       color: Colors.white,
-                                      fontWeight: FontWeight.w500),
+                                      fontFamily: "Intro",
+                                      fontWeight: FontWeight.w600),
                                   maxLines: 1,
                                 ),
                               ),
@@ -368,8 +391,9 @@ class _ProductDetailsScreenState extends BaseStatefulState<ProductDetailsScreen>
                                 children: [
                                   Text("Product Details",
                                       style: TextStyle(
-                                          color: Color(0xff6e706d),
+                                          color: Color(0xff70706e),
                                           fontSize: 15,
+                                          fontFamily: "Intro",
                                           fontWeight: FontWeight.w600)),
                                 ],
                               ),
@@ -392,9 +416,14 @@ class _ProductDetailsScreenState extends BaseStatefulState<ProductDetailsScreen>
                               Padding(
                                 padding: const EdgeInsets.only(left: 12),
                                 child: Html(
-
-                                data:  widget.popularproducts?.description ?? "",
-                                
+                                  data:
+                                      widget.popularproducts?.description ?? "",
+                                  style: {
+                                    "body": Style(
+                                      fontSize: FontSize(15.0),
+                                      fontFamily: "Intro Book.otf",
+                                    ),
+                                  },
                                   // "Key Features",
                                   // style: TextStyle(
                                   //     color: Color(0xff6e706d),
@@ -403,7 +432,6 @@ class _ProductDetailsScreenState extends BaseStatefulState<ProductDetailsScreen>
                                   // maxLines: 10,
                                 ),
                               ),
-                             
                             ],
                           ),
                         ),
@@ -419,13 +447,16 @@ class _ProductDetailsScreenState extends BaseStatefulState<ProductDetailsScreen>
                               Text(
                                 "Related Products",
                                 style: TextStyle(
-                                    color: Color(0xff6e706d),
+                                    color: Color(0xff70706e),
                                     fontSize: 15,
+                                    fontFamily: "Intro",
                                     fontWeight: FontWeight.w600),
                               ),
                             ],
                           ),
                         ),
+
+                       
 
                         Padding(
                           padding: const EdgeInsets.only(
@@ -436,39 +467,41 @@ class _ProductDetailsScreenState extends BaseStatefulState<ProductDetailsScreen>
                                 children: [
                                   Expanded(
                                     child: Container(
-                                      height: 290,
-                          
-                                      // color: Colors.green,
+                                      height: 240,
+                                      //color: Colors.green,
                                       child: ListView.builder(
                                           scrollDirection: Axis.horizontal,
-                                          itemCount:relatedproducts.length,
+                                          itemCount: relatedproducts.length,
                                           itemBuilder: (BuildContext context,
                                               int index) {
                                             return Card(
                                               child: Container(
-                                                width: 200,
+                                                width: 180,
                                                 // color: Colors.blue,
                                                 child: Column(
                                                   children: [
                                                     Stack(children: [
                                                       Center(
-                                                        child: Container(
-                                                            width: 150,
-                                                            child: 
-                                                            CachedNetworkImage(
-                                                                imageUrl:
-                                                                    "https://dev.lenzcamera.com/webadmin/${relatedproducts[index].imageUrl}")
-                          
-                                                            // Image(
-                                                            //     image: AssetImage(
-                                                            //         "assets/images/lens.png")),
-                                                            ),
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.only(top:10),
+                                                          child: Container(
+                                                              width: 100,
+                                                              height: 100,
+                                                              child: CachedNetworkImage(
+                                                                  imageUrl:
+                                                                      "https://dev.lenzcamera.com/webadmin/${relatedproducts[index].imageUrl}")
+
+                                                              // Image(
+                                                              //     image: AssetImage(
+                                                              //         "assets/images/lens.png")),
+                                                              ),
+                                                        ),
                                                       ),
                                                       Padding(
                                                         padding:
                                                             const EdgeInsets
                                                                     .only(
-                                                                left: 140),
+                                                                left: 120),
                                                         child: IconButton(
                                                             onPressed: () {
                                                               setState(() {
@@ -479,7 +512,8 @@ class _ProductDetailsScreenState extends BaseStatefulState<ProductDetailsScreen>
                                                                   DataManager
                                                                       .shared
                                                                       .removeFromWishlist(
-                                                                         relatedproducts[index]);
+                                                                          relatedproducts[
+                                                                              index]);
                                                                   relatedproducts[
                                                                           index]
                                                                       .isWhishlisted = false;
@@ -503,13 +537,14 @@ class _ProductDetailsScreenState extends BaseStatefulState<ProductDetailsScreen>
                                                                           relatedproducts[
                                                                               index])
                                                                   ? Colors.red
-                                                                  : Colors.grey,
+                                                                  : Color(
+                                                                      0xff70706e),
                                                             )),
                                                       ),
                                                     ]),
                                                     Padding(
                                                       padding:
-                                                          const EdgeInsets.only(
+                                                          const EdgeInsets.only(top:10,
                                                               left: 10,
                                                               right: 10),
                                                       child: Align(
@@ -520,19 +555,21 @@ class _ProductDetailsScreenState extends BaseStatefulState<ProductDetailsScreen>
                                                                         index]
                                                                     .prName ??
                                                                 '',
-                          
+
                                                             //  "CANON EF 16-35 MM F/4L IS USM ",
                                                             style: TextStyle(
                                                                 fontSize: 15,
                                                                 fontWeight:
                                                                     FontWeight
-                                                                        .w400,
-                                                                        fontFamily: "Intro-Regular.otf"
-                                                                      
-                                                                        ),
+                                                                        .w300,
+                                                                fontFamily:
+                                                                    "Intro-Regular.otf"),
                                                             maxLines: 2,
-                                                            textAlign: TextAlign
-                                                                .center,
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                            textAlign: TextAlign.left
+                                                                ,
                                                           )),
                                                     ),
                                                     Align(
@@ -543,16 +580,20 @@ class _ProductDetailsScreenState extends BaseStatefulState<ProductDetailsScreen>
                                                               const EdgeInsets
                                                                   .only(top: 7),
                                                           child: Text(
-                                                             "QAR ${relatedproducts[index].unitPrice}",
+                                                              "QAR ${relatedproducts[index].unitPrice}",
                                                               //  "QAR 39999.00",
                                                               style: TextStyle(
                                                                   fontSize: 12,
+                                                                  fontFamily:
+                                                                      "Intro",
                                                                   fontWeight:
                                                                       FontWeight
-                                                                          .w600)),
+                                                                          .w600,
+                                                                  color: Color(
+                                                                      0xff70706e))),
                                                         )),
-                                                        SizedBox(height: 4),
-                          
+                                                    SizedBox(height: 4),
+
                                                     if (relatedproducts[index]
                                                         .isCartUpdateProgress!)
                                                       SizedBox(
@@ -677,8 +718,7 @@ class _ProductDetailsScreenState extends BaseStatefulState<ProductDetailsScreen>
                                                                     ),
                                                                   ],
                                                                 )
-                                                              : 
-                                                              ElevatedButton(
+                                                              : ElevatedButton(
                                                                   style: ElevatedButton
                                                                       .styleFrom(
                                                                     elevation:
@@ -708,6 +748,11 @@ class _ProductDetailsScreenState extends BaseStatefulState<ProductDetailsScreen>
                                                                           Text(
                                                                     "ADD",
                                                                     style: TextStyle(
+                                                                        fontFamily:
+                                                                            "Intro",
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .w600,
                                                                         fontSize:
                                                                             15,
                                                                         color: Colors
@@ -716,7 +761,7 @@ class _ProductDetailsScreenState extends BaseStatefulState<ProductDetailsScreen>
                                                                 ),
                                                         ),
                                                       ),
-                                                          
+
                                                     //     .updateItemToCart(
                                                     //         relatedproducts[
                                                     //             index],
@@ -766,119 +811,135 @@ class _ProductDetailsScreenState extends BaseStatefulState<ProductDetailsScreen>
               child: Padding(
                 padding:
                     const EdgeInsets.only(bottom: 10.0, left: 24, right: 24),
-                child:  
-                  Container(
+                child: Container(
                   // width: 160,
                   height: 40,
                   child: widget.popularproducts!.isAddedtoCart()
                       ? Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            width: 200,
-                            height: 40,
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Color(0xffec3436),
-                              ),
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            CartScreen()));
-                              },
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "Go To Cart",
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.white,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              width: 200,
+                              height: 40,
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Color(0xffec3436),
+                                ),
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => CartScreen()));
+                                },
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "Go To Cart",
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontFamily: "Intro",
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.white,
+                                      ),
                                     ),
-                                  ),
-                                  
-                                ],
-                              ),
-                            ),
-                          ),
-                          SizedBox(width: 20),
-                          InkWell(
-                            onTap: () {
-                              DataManager.shared.updateItemToCart(
-                                  widget.popularproducts!, 4, onUpdate: () {
-                                setState(() {});
-                              }, onUpdateStarted: () {
-                                setState(() {});
-                              });
-                            },
-                            child: Container(
-                              width: 40,
-                              height: 30,
-                              decoration: BoxDecoration(
-                                color: Color(0xff70726f),
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(5),
-                                  bottomLeft: Radius.circular(5),
-                                ),
-                              ),
-                              child: Center(
-                                child: Icon(
-                                  Icons.remove,
-                                  color: Colors.white,
-                                  size: 12,
+                                  ],
                                 ),
                               ),
                             ),
-                          ),
-                          Container(
-                            width: 60,
-                            height: 30,
-                            decoration: BoxDecoration(
-                              color: Color(0xffe3e3e3),
-                            ),
-                            child: Center(
-                                child: Text(
-                              "1",
-                              style: TextStyle(color: Colors.black),
-                            )),
-                          ),
-                          InkWell(
-                            onTap: () {
-                              DataManager.shared.updateItemToCart(
-                                  widget.popularproducts!, 3, onUpdate: () {
-                                setState(() {});
-                              }, onUpdateStarted: () {
-                                setState(() {});
-                              });
-                            },
-                            child: Container(
+
+                            // if (widget.popularproducts!.
+                            //             isCartUpdateProgress!)
+                            //           Container(
+                            //               // color:Colors.yellow,
+                            //               height: 20,
+                            //               width: 20,
+                            //               child: Padding(
+                            //                 padding: const EdgeInsets.all(5),
+                            //                 child: CircularProgressIndicator(
+                            //                   strokeWidth: 2,
+                            //                   color: Colors.grey,
+                            //                 ),
+                            //               )),
+                            //         if (widget.popularproducts!
+                            //                 .isCartUpdateProgress ==
+                            //             false)
+                            SizedBox(width: 20),
+                            InkWell(
+                              onTap: () {
+                                DataManager.shared.updateItemToCart(
+                                    widget.popularproducts!, 4, onUpdate: () {
+                                  setState(() {});
+                                }, onUpdateStarted: () {
+                                  setState(() {});
+                                });
+                              },
+                              child: Container(
                                 width: 40,
                                 height: 30,
                                 decoration: BoxDecoration(
-                                  color: Color(0xffe83031),
+                                  color: Color(0xff70726f),
                                   borderRadius: BorderRadius.only(
-                                    topRight: Radius.circular(5),
-                                    bottomRight: Radius.circular(5),
+                                    topLeft: Radius.circular(5),
+                                    bottomLeft: Radius.circular(5),
                                   ),
                                 ),
-                                child: Icon(
-                                  Icons.add,
-                                  color: Colors.white,
-                                  size: 12,
-                                )),
-                          ),
-                        ],
-                      )
+                                child: Center(
+                                  child: Icon(
+                                    Icons.remove,
+                                    color: Colors.white,
+                                    size: 12,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Container(
+                              width: 60,
+                              height: 30,
+                              decoration: BoxDecoration(
+                                color: Color(0xffe3e3e3),
+                              ),
+                              child: Center(
+                                  child: Text(
+                                "1",
+                                style: TextStyle(color: Colors.black),
+                              )),
+                            ),
+                            InkWell(
+                              onTap: () {
+                                DataManager.shared.updateItemToCart(
+                                    widget.popularproducts!, 3, onUpdate: () {
+                                  setState(() {});
+                                }, onUpdateStarted: () {
+                                  setState(() {});
+                                });
+                              },
+                              child: Container(
+                                  width: 40,
+                                  height: 30,
+                                  decoration: BoxDecoration(
+                                    color: Color(0xffe83031),
+                                    borderRadius: BorderRadius.only(
+                                      topRight: Radius.circular(5),
+                                      bottomRight: Radius.circular(5),
+                                    ),
+                                  ),
+                                  child: Icon(
+                                    Icons.add,
+                                    color: Colors.white,
+                                    size: 12,
+                                  )),
+                            ),
+                          ],
+                        )
                       : ElevatedButton(
                           style: ElevatedButton.styleFrom(
                               elevation: 0,
-                              backgroundColor:
-                                  (widget.popularproducts!.stockAvailability?.length ==
-                                          12)
-                                      ? Colors.grey
-                                      : Color(0xffec3436)),
+                              backgroundColor: (widget.popularproducts!
+                                          .stockAvailability?.length ==
+                                      12)
+                                  ? Colors.grey
+                                  : Color(0xffec3436)),
                           onPressed: () {
                             DataManager.shared.updateItemToCart(
                                 widget.popularproducts!, 1, onUpdate: () {
@@ -888,17 +949,24 @@ class _ProductDetailsScreenState extends BaseStatefulState<ProductDetailsScreen>
                             });
                           },
                           child: Center(
-                            child: (widget.popularproducts!.stockAvailability?.length ==
+                            child: (widget.popularproducts!.stockAvailability
+                                        ?.length ==
                                     12)
                                 ? Text(
-                                    "Out of Stock",
+                                    "OUT OF STOCK",
                                     style: TextStyle(
-                                        fontSize: 12, color: Colors.black),
+                                        fontFamily: "Intro",
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 12,
+                                        color: Colors.black),
                                   )
                                 : Text(
                                     "Add To Cart",
                                     style: TextStyle(
-                                        fontSize: 15, color: Colors.white),
+                                        fontFamily: "Intro",
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 15,
+                                        color: Colors.white),
                                   ),
                           ),
                         ),
@@ -910,7 +978,7 @@ class _ProductDetailsScreenState extends BaseStatefulState<ProductDetailsScreen>
       ),
     );
   }
-  
+
   @override
   bool isAuthenticationRequired() {
     // TODO: implement isAuthenticationRequired

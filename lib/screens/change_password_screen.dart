@@ -74,13 +74,22 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
           'newPassword': newPassword
         })
         .then((BaseResponse<LoginCustomer> response) {
+
+          Navigator.push(context,
+                         MaterialPageRoute(builder: (context) => ProfileScreen()));
           showFlashMsg(response.message!);
 
         print("================");
         print("password");
           print(newPassword);
         })
-        .catchError((Object obj) {});
+        .catchError((e) {
+
+          //hideLoader();
+      showFlashMsg(e.toString());
+      print(e);
+      showFlashMsg(e.Message!);
+        });
   }
 
   @override
@@ -233,7 +242,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     "Confirm Password",
                     style: TextStyle(
                         color: Color(0xff747474),
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.bold,fontFamily: 'Intro',
                         fontSize: 12),
                   ),
                 ),

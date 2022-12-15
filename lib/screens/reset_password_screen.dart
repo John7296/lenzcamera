@@ -96,9 +96,6 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
           key: _form,
           child: SingleChildScrollView(
             child: Column(children: [
-              // SizedBox(height: 200),
-              // SizedBox(height: 12),
-              // SizedBox(height: 8),
               Align(
                 alignment: Alignment.topLeft,
                 child: Text(
@@ -154,6 +151,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   style: TextStyle(
                       color: Color(0xff747474),
                       fontWeight: FontWeight.w600,
+                     fontFamily: 'Intro',
                       fontSize: 12),
                 ),
               ),
@@ -195,7 +193,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                         return "Password should be same";
                       }
                       if (val.length < 8) {
-                        return "Please type atleas 8 digit password";
+                        return "Please type atleast 8 digit password";
                       }
                       return null;
                     }),

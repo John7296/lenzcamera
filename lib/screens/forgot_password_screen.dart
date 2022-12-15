@@ -110,6 +110,7 @@ class _ForgotPasswordScreenState extends BaseStatefulState<ForgotPasswordScreen>
                       style: TextStyle(
                           color: Color(0xff747474),
                           fontWeight: FontWeight.w600,
+                         fontFamily: 'Intro',
                           fontSize: 12),
                     ),
                   ),
@@ -144,7 +145,7 @@ class _ForgotPasswordScreenState extends BaseStatefulState<ForgotPasswordScreen>
                   SizedBox(height: 25),
                 
                   Container(
-                    height: 40,
+                    height: 50,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xffec3436),
@@ -164,7 +165,7 @@ class _ForgotPasswordScreenState extends BaseStatefulState<ForgotPasswordScreen>
                       child: Center(
                           child: Text(
                             "Send OTP",
-                            style: TextStyle(fontSize: 20, color: Colors.white),
+                            style: TextStyle(fontSize: 20, fontFamily: 'Intro', fontWeight: FontWeight.w600,color: Colors.white),
                           )),
                     ),
                   ),
