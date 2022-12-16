@@ -887,6 +887,7 @@ class _NetworkConnection implements NetworkConnection {
       r'guestId': gustId,
       r'urlKey': urlKey,
     };
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(

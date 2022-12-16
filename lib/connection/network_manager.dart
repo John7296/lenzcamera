@@ -199,9 +199,11 @@ class NetworkManager {
   }
 
   Future<BaseResponse> removeFromWishlist(
-      int userId, int guestId, String urlKey) {
-    print("useriddd $urlKey");
-    return call(networkConnection.removeFromWishlist(userId, guestId, urlKey));
+      int userId,String? guestId, String urlKey) {
+    print("useriddd $userId");
+    // print("guestIddd $guestId");
+    print("urlKeyyy $urlKey");
+    return call(networkConnection.removeFromWishlist(userId,guestId, urlKey));
   }
 
   Future<BaseResponse<Profile>> getProfile() {

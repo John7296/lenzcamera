@@ -27,11 +27,11 @@ class _WishlistScreenState extends BaseStatefulState<WishlistScreen> {
     super.initState();
 
     Future.delayed(Duration(milliseconds: 500), () {
-      wishListProducts();
+      getWishListProducts();
     });
   }
 
-  void wishListProducts() {
+  void getWishListProducts() {
     showLoader();
     NetworkManager.shared
         .getWishList()
@@ -44,30 +44,30 @@ class _WishlistScreenState extends BaseStatefulState<WishlistScreen> {
         // print(response.data!.first.catId);
       });
     }).catchError((e) {
+      showFlashMsg('No Items in your wishlist');
       hideLoader();
       print(e.toString());
     });
   }
 
   void removeFromWishList(Product wishList) {
-    // if (!_form.currentState!.validate()) {
-    //   return;
-    // }
-
+    showLoader();
     NetworkManager.shared
         .removeFromWishlist(
       NetworkManager.shared.userId,
-      0,
+      "",
       wishList.urlKey!,
     )
         .then((BaseResponse response) {
-      setState(() {
-        DataManager.shared.getWishList();
-      });
+      hideLoader();
+      
+        // DataManager.shared.getWishList();
+
+     
     }).catchError((e) {
+      hideLoader();
       print(e.toString());
     });
-    // print(value.toString());
   }
 
   @override
@@ -136,117 +136,131 @@ class _WishlistScreenState extends BaseStatefulState<WishlistScreen> {
         ),
       ),
       backgroundColor: Colors.grey.shade100,
-      body: ListView.builder(
-        physics: const ClampingScrollPhysics(),
-        shrinkWrap: true,
-        itemCount: wishListItems.length,
-        itemBuilder: ((context, index) {
-          return Column(
-            children: [
-              Container(
-                height: 100,
-                width: 400,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(15)),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey,
-                      offset: Offset(0.0, 1.0), //(x,y)
-                      blurRadius: 6.0,
-                    ),
-                  ],
-                ),
-                child: Row(
+      body: (wishListItems.isNotEmpty)
+          ? ListView.builder(
+              physics: const ClampingScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: wishListItems.length,
+              itemBuilder: ((context, index) {
+                return Column(
                   children: [
-                    Column(
-                      // mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(
-                              height: 80,
-                              width: 80,
-                              child: FadeInImage.assetNetwork(
-                                  height: 200,
-                                  width: double.infinity,
-                                  placeholder: 'assets/images/placeholder.png',
-                                  placeholderFit: BoxFit.contain,
-                                  image:
-                                      "https://dev.lenzcamera.com/webadmin/${wishListItems[index].imageUrl}",
-                                  fit: BoxFit.cover),
-                            )),
-                      ],
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 15),
-                          child: Container(
-                            height: 30,
-                            width: 200,
-                            child: Text(
-                              // 'CANON EF 16-35 MM F/4L IS USM',
-                              wishListItems[index].prName ?? '',
-                              style: TextStyle(fontFamily: 'Intro'),
-                              maxLines: 2,
-                            ),
+                    Container(
+                      height: 100,
+                      width: 400,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey,
+                            offset: Offset(0.0, 1.0), //(x,y)
+                            blurRadius: 6.0,
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 15),
-                          child: Text(
-                            // 'QAR 8600.00',
-                            "QAR${wishListItems[index].unitPrice}",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.grey.shade700),
+                        ],
+                      ),
+                      child: Row(
+                        children: [
+                          Column(
+                            // mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Container(
+                                    height: 80,
+                                    width: 80,
+                                    child: FadeInImage.assetNetwork(
+                                        height: 200,
+                                        width: double.infinity,
+                                        placeholder:
+                                            'assets/images/placeholder.png',
+                                        placeholderFit: BoxFit.contain,
+                                        image:
+                                            "https://dev.lenzcamera.com/webadmin/${wishListItems[index].imageUrl}",
+                                        fit: BoxFit.cover),
+                                  )),
+                            ],
                           ),
-                        )
-                      ],
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(top: 15),
+                                child: Container(
+                                  height: 30,
+                                  width: 200,
+                                  child: Text(
+                                    // 'CANON EF 16-35 MM F/4L IS USM',
+                                    wishListItems[index].prName ?? '',
+                                    style: TextStyle(fontFamily: 'Intro'),
+                                    maxLines: 2,
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 15),
+                                child: Text(
+                                  // 'QAR 8600.00',
+                                  "QAR${wishListItems[index].unitPrice}",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.grey.shade700),
+                                ),
+                              )
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    // if (wishListItems[index].isWhishlisted ==
+                                    //     true) {
+                                    removeFromWishList(wishListItems[index]);
+                                    // } else {
+                                    //   wishListItems[index].isWhishlisted =
+                                    //       false;
+                                    // }
+                                  });
+                                  getWishListProducts();
+                                },
+                                icon: Icon(Icons.delete_outline,
+                                    color: Colors.red),
+                              ),
+                              IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    DataManager.shared
+                                        .addToCart(wishListItems[index]);
+                                    showFlashMsg('Item Added to Cart');
+                                    getWishListProducts();
+                                  });
+                                  // Navigator.push(
+                                  //     context,
+                                  //     MaterialPageRoute(
+                                  //         builder: (context) => CartScreen()));
+                                },
+                                icon: Icon(Icons.shopping_cart,
+                                    color: Colors.grey),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
                     ),
-                    Column(
-                      children: [
-                        IconButton(
-                          onPressed: () {
-                            setState(() {
-                              DataManager.shared
-                                  .removeFromWishlist(wishListItems[index]);
-
-                              // DataManager.shared.getWishList();
-                             
-                            });
-                             wishListProducts();
-                             setState(() {
-                               
-                             });
-                          },
-                          icon: Icon(Icons.delete_outline, color: Colors.red),
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            DataManager.shared.addToCart(wishListItems[index]);
-                            showFlashMsg('Item Added to Cart');
-                            // Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: (context) => CartScreen()));
-                          },
-                          icon: Icon(Icons.shopping_cart, color: Colors.grey),
-                        ),
-                      ],
-                    )
+                    SizedBox(height: 10)
                   ],
-                ),
+                );
+              }),
+              padding: const EdgeInsets.all(13.0),
+            )
+          : Container(
+              height: 600,
+              // width: 200,
+              child: Image(
+                image: AssetImage("assets/images/empty_wishlist.png"),
               ),
-              SizedBox(height: 10)
-            ],
-          );
-        }),
-        padding: const EdgeInsets.all(13.0),
-      ),
+            ),
     );
   }
 

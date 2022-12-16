@@ -53,8 +53,8 @@ class _EditProfileScreen extends BaseStatefulState<EditProfileScreen> {
       "emailId": _emailIdController.text,
     }).then((BaseResponse response) {
       // hideLoader();
-      showFlashMsg("Address Updated");
-      Navigator.pop(context);
+      showFlashMsg("Profile Updated");
+      Navigator.pop(context, true);
       getProfile();
     }).catchError((e) {
       // hideLoader();
@@ -186,8 +186,9 @@ class _EditProfileScreen extends BaseStatefulState<EditProfileScreen> {
                             onPressed: () {
                               if (formKey.currentState!.validate()) {
                                 onUpdateButtonTapped();
-                                Navigator.pop(context);
                                 getProfile();
+                                Navigator.pop(context);
+                                
                               }
                             },
                             child: Text(

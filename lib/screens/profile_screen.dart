@@ -58,95 +58,102 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: Scaffold(  
-          appBar:AppBar(
-        centerTitle: true,
-        title: Text("My Profile"),
-        titleTextStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back_ios_new_sharp,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => HomeScreen()));
-          },
-        ),
-        backgroundColor: Colors.grey.shade700,
-        actions: [
-         Stack(
-            children: [
-              IconButton(
+        home: Scaffold(
+          appBar: AppBar(
+            centerTitle: true,
+            title: Text("My Profile"),
+            titleTextStyle:
+                TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+            leading: IconButton(
+              icon: const Icon(
+                Icons.arrow_back_ios_new_sharp,
+                color: Colors.white,
+              ),
               onPressed: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => WishlistScreen()));
-                // getBanners();
+                    MaterialPageRoute(builder: (context) => HomeScreen()));
               },
-              icon: Icon(Icons.favorite_border),
             ),
-            if (DataManager.shared.wishListItems.isNotEmpty) 
-            Positioned(
-                right: 5,
-                top: 5,
-                child: new Container(
-                  padding: EdgeInsets.all(2),
-                  decoration: new BoxDecoration(
-                    color: Colors.red,
-                    borderRadius: BorderRadius.circular(6),
+            backgroundColor: Colors.grey.shade700,
+            actions: [
+              Stack(
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => WishlistScreen()));
+                      // getBanners();
+                    },
+                    icon: Icon(Icons.favorite_border),
                   ),
-                  constraints: BoxConstraints(
-                    minWidth: 14,
-                    minHeight: 14,
+                  if (DataManager.shared.wishListItems.isNotEmpty)
+                    Positioned(
+                      right: 5,
+                      top: 5,
+                      child: new Container(
+                        padding: EdgeInsets.all(2),
+                        decoration: new BoxDecoration(
+                          color: Colors.red,
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                        constraints: BoxConstraints(
+                          minWidth: 14,
+                          minHeight: 14,
+                        ),
+                        child: Text(
+                          DataManager.shared.wishListItems.length.toString(),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 10,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    )
+                ],
+              ),
+              Stack(
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => CartScreen()));
+                      // getBanners();
+                    },
+                    icon: Icon(Icons.shopping_cart),
                   ),
-                  child: Text(
-                    DataManager.shared.wishListItems.length.toString(),
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize:10,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),)
-            ], 
+                  if (DataManager.shared.cartItemsList.isNotEmpty)
+                    Positioned(
+                      right: 5,
+                      top: 5,
+                      child: new Container(
+                        padding: EdgeInsets.all(2),
+                        decoration: new BoxDecoration(
+                          color: Colors.red,
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                        constraints: BoxConstraints(
+                          minWidth: 14,
+                          minHeight: 14,
+                        ),
+                        child: Text(
+                          DataManager.shared.cartItemsList.length.toString(),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 10,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    )
+                ],
+              ),
+            ],
           ),
-           Stack(
-            children: [
-              IconButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => CartScreen()));
-                // getBanners();
-              },
-              icon: Icon(Icons.shopping_cart),
-            ),
-            if(DataManager.shared.cartItemsList.isNotEmpty)
-            Positioned(
-                right: 5,
-                top: 5,
-                child: new Container(
-                  padding: EdgeInsets.all(2),
-                  decoration: new BoxDecoration(
-                    color: Colors.red,
-                    borderRadius: BorderRadius.circular(6),
-                  ),
-                  constraints: BoxConstraints(
-                    minWidth: 14,
-                    minHeight: 14,
-                  ),
-                  child: Text(
-                    DataManager.shared.cartItemsList.length.toString(),
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 10,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),)
-            ], 
-          ),
-        ],
-      ),
           backgroundColor: Colors.grey.shade100,
           body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Container(
@@ -170,10 +177,14 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                       ),
                     ),
                   ),
-                  Text(userProfile?.custName ?? '',style: TextStyle(fontWeight: FontWeight.w500),),
+                  Text(
+                    userProfile?.custName ?? '',
+                    style: TextStyle(fontWeight: FontWeight.w500),
+                  ),
                   Text(
                     userProfile?.emailId ?? '',
-                    style: TextStyle(color: Colors.red,fontWeight: FontWeight.w500),
+                    style: TextStyle(
+                        color: Colors.red, fontWeight: FontWeight.w500),
                   ),
                 ],
               ),
@@ -192,7 +203,12 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => EditProfileScreen()));
+                                  builder: (context) =>
+                                      EditProfileScreen())).then(((value) {
+                            setState(() {
+                              
+                            });
+                          }));
                         }),
                         child: Padding(
                           padding: const EdgeInsets.only(left: 20, right: 20),
@@ -203,11 +219,21 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                             child: ListTile(
                               title: Padding(
                                 padding: const EdgeInsets.all(10),
-                                child: Text("Personal",style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold),),
+                                child: Text(
+                                  "Personal",
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold),
+                                ),
                               ),
                               subtitle: Padding(
                                 padding: const EdgeInsets.all(10),
-                                child: Text("Profile, phone, email",style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
+                                child: Text(
+                                  "Profile, phone, email",
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold),
+                                ),
                               ),
                               leading: Container(
                                 height: 60,
@@ -245,11 +271,19 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                             child: ListTile(
                               title: Padding(
                                 padding: const EdgeInsets.all(10),
-                                child: Text("Change Password",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
+                                child: Text(
+                                  "Change Password",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
+                                ),
                               ),
                               subtitle: Padding(
                                 padding: const EdgeInsets.all(10),
-                                child: Text("Change your password",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12)),
+                                child: Text("Change your password",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 12)),
                               ),
                               leading: Container(
                                 height: 60,
@@ -286,11 +320,17 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                             child: ListTile(
                               title: Padding(
                                 padding: const EdgeInsets.all(10),
-                                child: Text("Address Book",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15)),
+                                child: Text("Address Book",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15)),
                               ),
                               subtitle: Padding(
                                 padding: const EdgeInsets.all(10),
-                                child: Text("Add, Edit, Delete",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12)),
+                                child: Text("Add, Edit, Delete",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 12)),
                               ),
                               leading: Container(
                                 height: 60,
@@ -327,11 +367,17 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                             child: ListTile(
                               title: Padding(
                                 padding: const EdgeInsets.all(10),
-                                child: Text("My Orders",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15)),
+                                child: Text("My Orders",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15)),
                               ),
                               subtitle: Padding(
                                 padding: const EdgeInsets.all(10),
-                                child: Text("View, Track, Update",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12)),
+                                child: Text("View, Track, Update",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 12)),
                               ),
                               leading: Container(
                                 height: 60,
@@ -368,11 +414,17 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                             child: ListTile(
                               title: Padding(
                                 padding: const EdgeInsets.all(10),
-                                child: Text("My Wishlist",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15)),
+                                child: Text("My Wishlist",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15)),
                               ),
                               subtitle: Padding(
                                 padding: const EdgeInsets.all(10),
-                                child: Text("View, Update, Remove",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12)),
+                                child: Text("View, Update, Remove",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 12)),
                               ),
                               leading: Container(
                                 height: 60,
@@ -395,6 +447,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                       ),
                       InkWell(
                         onTap: (() {
+                          showFlashMsg('Wallet is Not Available');
                           // Navigator.push(
                           //     context,
                           //     MaterialPageRoute(
@@ -409,11 +462,17 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                             child: ListTile(
                               title: Padding(
                                 padding: const EdgeInsets.all(10),
-                                child: Text("My Wallet",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15)),
+                                child: Text("My Wallet",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15)),
                               ),
                               subtitle: Padding(
                                 padding: const EdgeInsets.all(10),
-                                child: Text("View, Recharge",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12)),
+                                child: Text("View, Recharge",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 12)),
                               ),
                               leading: Container(
                                 height: 60,
@@ -424,7 +483,9 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                                     color: Colors.grey.shade300),
                               ),
                               trailing: IconButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  showFlashMsg('Wallet is Not Available');
+                                },
                                 icon: Icon(Icons.arrow_forward_ios),
                               ),
                             ),
@@ -450,11 +511,17 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                             child: ListTile(
                               title: Padding(
                                 padding: const EdgeInsets.all(10),
-                                child: Text("Support",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15)),
+                                child: Text("Support",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15)),
                               ),
                               subtitle: Padding(
                                 padding: const EdgeInsets.all(10),
-                                child: Text("Contact, Mail",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12)),
+                                child: Text("Contact, Mail",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 12)),
                               ),
                               leading: Container(
                                 height: 60,

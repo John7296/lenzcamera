@@ -20,8 +20,8 @@ class _EditAddressScreenState extends BaseStatefulState<EditAddressScreen> {
   List<AddressList> addressList = [];
   String? selectedCity;
   String? selectedState;
-  bool isCheckedSA = false;
-  bool isCheckedBA = false;
+  bool? isCheckedSA;
+  bool? isCheckedBA;
   List<CityList> cityList = [];
   List<StateList> stateList = [];
   StateList? showSelectedState;
@@ -129,8 +129,10 @@ class _EditAddressScreenState extends BaseStatefulState<EditAddressScreen> {
     _phoneController.text = widget.address!.phone ?? '';
     _pinCodeController.text = widget.address!.pincode ?? '';
     _landmarkController.text = widget.address!.landmark ?? '';
-    selectedState = widget.address!.state;
-    selectedCity = widget.address!.district;
+    bool? isCheckedSA = widget.address!.isDefaultShippingAddress;
+    bool? isCheckedBA = widget.address!.isDefaultBillingAddress;
+    // selectedState = widget.address!.state;
+    // selectedCity = widget.address!.district;
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -361,34 +363,38 @@ class _EditAddressScreenState extends BaseStatefulState<EditAddressScreen> {
                               borderRadius:
                                   BorderRadius.all(Radius.circular(0)),
                             ),
-                            child: DropdownButton<StateList>(
-                              hint: Text("Select State",
-                                  style: TextStyle(
-                                      color: Colors.grey.shade600,
-                                      fontFamily: 'Intro')),
-                              isExpanded: true,
-                              dropdownColor: Color(0xffadadad),
-                              elevation: 5,
-                              value: showSelectedState,
-                              underline: Container(color: Colors.transparent),
-                              icon: const Icon(
-                                Icons.arrow_drop_down_outlined,
-                                color: Colors.black,
+                            child: ButtonTheme(
+                              alignedDropdown: true,
+                              child: DropdownButton<StateList>(
+                                hint: Text(widget.address!.state.toString(),
+                                    style: TextStyle(
+                                        color: Colors.grey.shade600,
+                                        fontFamily: 'Intro')),
+                                isExpanded: true,
+                                dropdownColor: Color(0xffadadad),
+                                elevation: 5,
+                                value: showSelectedState,
+                                underline: Container(color: Colors.transparent),
+                                icon: const Icon(
+                                  Icons.arrow_drop_down_outlined,
+                                  color: Colors.black,
+                                ),
+                                onChanged: (StateList? value) {
+                                  cityNames(value!.id!);
+                                  // This is called when the user selects an item.
+                                  setState(() {
+                                    showSelectedState = value;
+                                  });
+                                },
+                                items: stateList
+                                    .map<DropdownMenuItem<StateList>>(
+                                        (StateList value) {
+                                  return DropdownMenuItem<StateList>(
+                                    value: value,
+                                    child: Text(value.name ?? ''),
+                                  );
+                                }).toList(),
                               ),
-                              onChanged: (StateList? value) {
-                                cityNames(value!.id!);
-                                // This is called when the user selects an item.
-                                setState(() {
-                                  showSelectedState = value;
-                                });
-                              },
-                              items: stateList.map<DropdownMenuItem<StateList>>(
-                                  (StateList value) {
-                                return DropdownMenuItem<StateList>(
-                                  value: value,
-                                  child: Text(value.name ?? ''),
-                                );
-                              }).toList(),
                             ),
                           ),
                           SizedBox(height: 30),
@@ -401,33 +407,36 @@ class _EditAddressScreenState extends BaseStatefulState<EditAddressScreen> {
                               borderRadius:
                                   BorderRadius.all(Radius.circular(0)),
                             ),
-                            child: DropdownButton<CityList>(
-                              hint: Text("Select City",
-                                  style: TextStyle(
-                                      color: Colors.grey.shade600,
-                                      fontFamily: 'Intro')),
-                              isExpanded: true,
-                              dropdownColor: Color(0xffadadad),
-                              elevation: 5,
-                              value: showSelectedCity,
-                              underline: Container(color: Colors.transparent),
-                              icon: const Icon(
-                                Icons.arrow_drop_down_outlined,
-                                color: Colors.black,
+                            child: ButtonTheme(
+                              alignedDropdown: true,
+                              child: DropdownButton<CityList>(
+                                hint: Text(widget.address!.district ?? '',
+                                    style: TextStyle(
+                                        color: Colors.grey.shade600,
+                                        fontFamily: 'Intro')),
+                                isExpanded: true,
+                                dropdownColor: Color(0xffadadad),
+                                elevation: 5,
+                                value: showSelectedCity,
+                                underline: Container(color: Colors.transparent),
+                                icon: const Icon(
+                                  Icons.arrow_drop_down_outlined,
+                                  color: Colors.black,
+                                ),
+                                onChanged: (CityList? value) {
+                                  // This is called when the user selects an item.
+                                  setState(() {
+                                    showSelectedCity = value;
+                                  });
+                                },
+                                items: cityList.map<DropdownMenuItem<CityList>>(
+                                    (CityList value) {
+                                  return DropdownMenuItem<CityList>(
+                                    value: value,
+                                    child: Text(value.name ?? ''),
+                                  );
+                                }).toList(),
                               ),
-                              onChanged: (CityList? value) {
-                                // This is called when the user selects an item.
-                                setState(() {
-                                  showSelectedCity = value;
-                                });
-                              },
-                              items: cityList.map<DropdownMenuItem<CityList>>(
-                                  (CityList value) {
-                                return DropdownMenuItem<CityList>(
-                                  value: value,
-                                  child: Text(value.name ?? ''),
-                                );
-                              }).toList(),
                             ),
                           ),
                           SizedBox(height: 5),
