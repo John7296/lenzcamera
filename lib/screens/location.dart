@@ -18,8 +18,8 @@ class LocationSelectScreen extends StatefulWidget {
 
 class _LocationSelectScreenState extends State<LocationSelectScreen> {
   List<Location> locationList = [];
-
-  var items = ["India", "USA", "Brazil", "Canada", "Australia"];
+  final _TextController = TextEditingController();
+  Location? showSelectedState;
 
   @override
   void initState() {
@@ -28,9 +28,21 @@ class _LocationSelectScreenState extends State<LocationSelectScreen> {
     location();
   }
 
+  List<Location>? showCityList(String place) {
+    List<Location> newLocationList = [];
+
+    for (Location element in newLocationList) {
+      if (element.place == place) {
+        newLocationList.add(element);
+      }
+    }
+    return newLocationList;
+  }
+
   void location() {
+    print(_TextController.text);
     NetworkManager.shared
-        .custLocation("m")
+        .custLocation('b')
         .then((BaseResponse<List<Location>> response) {
       setState(() {
         locationList.clear();
@@ -45,32 +57,51 @@ class _LocationSelectScreenState extends State<LocationSelectScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-       
         backgroundColor: Colors.grey.shade100,
         body: Column(
           children: [
+            SizedBox(
+              height: 60,
+              child: TextFormField(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  // labelText: 'Email ID'
+                ),
+                controller: _TextController,
+                // validator: (value) {
+                //   if (value!.isEmpty) return "Enter your Email ID";
+                //   return null;
+                // },
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.all(10),
-              child: DropdownSearch<String>(
-                //mode of dropdown
-                mode: Mode.DIALOG,
-                //to show search box
-                showSearchBox: true,
-                showSelectedItem: true,
-                //list of dropdown items
-                items: items,
-                
-          //       List<Location>.map((map) {
-          //   return DropdownMenuItem(
-          //     child: Text(map['name']),
-          //     value: map['value'],
-          //   );
-          // }).toList(),
-    
-                label: "Country",
-                onChanged: print,
-                //show selected item
-                selectedItem: "India",
+              child: DropdownButton<Location>(
+                hint: Text("Select State"),
+                isExpanded: true,
+                dropdownColor: Color(0xffadadad),
+                elevation: 5,
+                value: showSelectedState,
+                underline: Container(color: Colors.transparent),
+                icon: const Icon(
+                  Icons.arrow_drop_down_outlined,
+                  color: Colors.black,
+                ),
+                onChanged: (Location? value) {
+                  // newLocationList(value!.pincodeId);
+                  // This is called when the user selects an item.
+                  setState(() {
+                    showSelectedState = value;
+                  });
+                  print(showSelectedState!.place);
+                },
+                items: locationList
+                    .map<DropdownMenuItem<Location>>((Location value) {
+                  return DropdownMenuItem<Location>(
+                    value: value,
+                    child: Text(value.place ?? ''),
+                  );
+                }).toList(),
               ),
             ),
             ElevatedButton(
