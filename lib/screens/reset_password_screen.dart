@@ -194,7 +194,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                         return "Password should be same";
                       }
                       if (val.length < 8) {
-                        return "Please type atleast 8 digit password";
+                        return 'Must be more than 6 character';
                       }
                       return null;
                     }),

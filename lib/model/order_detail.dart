@@ -3,137 +3,156 @@ part 'order_detail.g.dart';
 
 @JsonSerializable(genericArgumentFactories: true)
 class OrderDetail {
-  @JsonKey(name: 'status')
+ 
+  @JsonKey(name: "status")
   String? status;
 
-  @JsonKey(name: 'PayMethod')
-  String? PayMethod;
+  @JsonKey(name: "PayMethod")
+  String? payMethod;
 
-  @JsonKey(name: 'subTotal')
-  double? subTotal;
+  @JsonKey(name: "subTotal")
+  String? subTotal;
 
-  @JsonKey(name: 'latitude')
+  @JsonKey(name: "latitude")
   String? latitude;
 
-  @JsonKey(name: 'longitude')
+  @JsonKey(name: "longitude")
   String? longitude;
 
-  @JsonKey(name: 'joborderItemsId')
+  @JsonKey(name: "joborderItemsId")
   int? joborderItemsId;
 
-  @JsonKey(name: 'custPhone')
-  int? custPhone;
+  @JsonKey(name: "custPhone")
+  String? custPhone;
 
-  @JsonKey(name: 'walletAmount')
+  @JsonKey(name: "walletAmount")
   double? walletAmount;
 
-  @JsonKey(name: 'orderNote')
+  @JsonKey(name: "orderNote")
   String? orderNote;
 
-  @JsonKey(name: 'custBillingAdressId')
+  @JsonKey(name: "custBillingAdressId")
   int? custBillingAdressId;
 
-  @JsonKey(name: 'custShippingAdressId')
+  @JsonKey(name: "custShippingAdressId")
   int? custShippingAdressId;
 
-  @JsonKey(name: 'jobOrderId')
+  @JsonKey(name: "jobOrderId")
   int? jobOrderId;
 
-  @JsonKey(name: 'joborderNumber')
+  @JsonKey(name: "joborderNumber")
   int? joborderNumber;
 
-  @JsonKey(name: 'joborderDate')
+  @JsonKey(name: "joborderDate")
   String? joborderDate;
 
-  @JsonKey(name: 'orderId')
+  @JsonKey(name: "orderId")
   int? orderId;
 
-  @JsonKey(name: 'cartID')
+  @JsonKey(name: "cartID")
   int? cartID;
 
-  @JsonKey(name: 'custId')
+  @JsonKey(name: "custId")
   int? custId;
 
-  @JsonKey(name: 'orderAmount')
-  double? orderAmount;
-
-  @JsonKey(name: 'orderTax')
-  double? orderTax;
-
-  @JsonKey(name: 'orderDate')
+  @JsonKey(name: "orderDate")
   String? orderDate;
 
-  @JsonKey(name: 'orderDiscount')
-  String? orderDiscount;
+  @JsonKey(name: "orderAmount")
+  double? orderAmount;
 
-  @JsonKey(name: 'orderStatus')
+  @JsonKey(name: "orderTax")
+  double? jorderTax;
+
+  @JsonKey(name: "orderDiscount")
+  double? orderDiscount;
+
+  @JsonKey(name: "orderStatus")
   String? orderStatus;
 
-  @JsonKey(name: 'orderDeliveryDate')
-  double? orderDeliveryDate;
+  @JsonKey(name: "orderDeliveryDate")
+  String? orderDeliveryDate;
 
-  @JsonKey(name: 'orderCancelledDate')
+  @JsonKey(name: "orderCancelledDate")
   String? orderCancelledDate;
 
-  @JsonKey(name: 'orderReturnDate')
+  @JsonKey(name: "orderReturnDate")
   String? orderReturnDate;
 
-  @JsonKey(name: 'orderReturnStatus')
+  @JsonKey(name: "orderReturnStatus")
   String? orderReturnStatus;
 
-  @JsonKey(name: 'returnOrderId')
-  String? returnOrderId;
+  @JsonKey(name: "returnOrderId")
+  int? returnOrderId;
 
-  @JsonKey(name: 'delDate')
+  @JsonKey(name: "delDate")
   String? delDate;
 
-  @JsonKey(name: 'orderDeliveryCharge')
-  String? orderDeliveryCharge;
+  @JsonKey(name: "orderDeliveryCharge")
+  double? orderDeliveryCharge;
 
-  @JsonKey(name: 'orderNumber')
+  @JsonKey(name: "orderNumber")
   String? orderNumber;
 
-  @JsonKey(name: 'cpId')
+  @JsonKey(name: "cpId")
   String? cpId;
 
-  @JsonKey(name: 'couponDiscount')
-  String? couponDiscount;
+  @JsonKey(name: "couponDiscount")
+  double? couponDiscount;
+
+  @JsonKey(name: "orderWeight")
+  String? orderWeight;
+
+  @JsonKey(name: "orderPincode")
+  int? orderPincode;
+
+  @JsonKey(name: "OTP")
+  String? OTP;
+
+  @JsonKey(name: "OTPExpiry")
+  String? OTPExpiry;
 
   OrderDetail(
-      {this.PayMethod,
-      this.cartID,
-      this.couponDiscount,
-      this.cpId,
-      this.custBillingAdressId,
-      this.custId,
-      this.custPhone,
-      this.custShippingAdressId,
-      this.delDate,
-      this.jobOrderId,
-      this.joborderDate,
-      this.joborderItemsId,
-      this.joborderNumber,
+      {this.status,
+      this.payMethod,
+      this.subTotal,
       this.latitude,
       this.longitude,
-      this.orderAmount,
-      this.orderCancelledDate,
-      this.orderDate,
-      this.orderDeliveryCharge,
-      this.orderDeliveryDate,
-      this.orderDiscount,
-      this.orderId,
+      this.joborderItemsId,
+      this.custPhone,
+      this.walletAmount,
       this.orderNote,
-      this.orderNumber,
+      this.custBillingAdressId,
+      this.custShippingAdressId,
+      this.jobOrderId,
+      this.joborderNumber,
+      this.joborderDate,
+      this.orderId,
+      this.cartID,
+      this.custId,
+      this.orderDate,
+      this.orderAmount,
+      this.jorderTax,
+      this.orderDiscount,
+      this.orderStatus,
+      this.orderDeliveryDate,
+      this.orderCancelledDate,
       this.orderReturnDate,
       this.orderReturnStatus,
-      this.orderStatus,
-      this.orderTax,
       this.returnOrderId,
-      this.status,
-      this.subTotal,
-      this.walletAmount});
+      this.delDate,
+      this.orderDeliveryCharge,
+      this.orderNumber,
+      this.cpId,
+      this.couponDiscount,
+      this.orderWeight,
+      this.orderPincode,
+      this.OTP,
+      this.OTPExpiry});
 
   factory OrderDetail.fromJson(Map<String, dynamic> json) =>
       _$OrderDetailFromJson(json);
   Map<String, dynamic> toJson() => _$OrderDetailToJson(this);
 }
+
+ 

@@ -345,8 +345,8 @@ singleOrderDetail();
                                   color: Colors.grey,
                                   fontWeight: FontWeight.bold)),
                           Spacer(),
-                          Text(
-                              'QAR ${singleItemList.first.itemTotal.toString()}',
+                          Text("",
+                              // 'QAR ${singleItemList.first.itemTotal.toString()}',
                               style: TextStyle(
                                   fontSize: 12,
                                   fontFamily: 'Intro',
@@ -397,8 +397,8 @@ singleOrderDetail();
                                 fontWeight: FontWeight.bold),
                           ),
                           Spacer(),
-                          Text(
-                            singleItemList.first.itemTotal.toString(),
+                          Text("",
+                           // singleItemList.first.itemTotal.toString(),
                             style: TextStyle(
                                 color: Colors.red,
                                 fontFamily: 'Intro',

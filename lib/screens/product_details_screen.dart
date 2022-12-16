@@ -16,6 +16,7 @@ import 'package:lenzcamera/screens/cart_screen.dart';
 import 'package:lenzcamera/screens/product_images_screen.dart';
 import 'package:lenzcamera/screens/wishlist_screen.dart';
 import 'package:lenzcamera/screens/write_review_screen.dart';
+import 'package:share_plus/share_plus.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
   Product? popularproducts;
@@ -394,7 +395,13 @@ class _ProductDetailsScreenState
                               Align(
                                   alignment: Alignment.centerRight,
                                   child: IconButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+
+                                      Share.share(
+                                       "https://dev.lenzcamera.com/product/ ${widget.popularproducts?.urlKey??''}"
+
+                                      );
+                                    },
                                     icon: Icon(
                                       Icons.share,
                                       color: Color(0xff70706e),
