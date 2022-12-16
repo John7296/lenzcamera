@@ -60,10 +60,8 @@ class _WishlistScreenState extends BaseStatefulState<WishlistScreen> {
     )
         .then((BaseResponse response) {
       hideLoader();
-      
-        // DataManager.shared.getWishList();
 
-     
+      // DataManager.shared.getWishList();
     }).catchError((e) {
       hideLoader();
       print(e.toString());
@@ -213,15 +211,8 @@ class _WishlistScreenState extends BaseStatefulState<WishlistScreen> {
                             children: [
                               IconButton(
                                 onPressed: () {
-                                  setState(() {
-                                    // if (wishListItems[index].isWhishlisted ==
-                                    //     true) {
-                                    removeFromWishList(wishListItems[index]);
-                                    // } else {
-                                    //   wishListItems[index].isWhishlisted =
-                                    //       false;
-                                    // }
-                                  });
+                                  removeFromWishList(wishListItems[index]);
+
                                   getWishListProducts();
                                 },
                                 icon: Icon(Icons.delete_outline,
@@ -270,9 +261,3 @@ class _WishlistScreenState extends BaseStatefulState<WishlistScreen> {
     throw UnimplementedError();
   }
 }
-  // Widget _getWishListUI(BuildContext context, int index) {
-  //   return InkWell(
-  //     onTap: () {},
-  //     child: WishlistItemWidget(),
-  //   );
-  // }

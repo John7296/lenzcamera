@@ -62,7 +62,7 @@ class NetworkManager {
     });
   }
 
-    Future<BaseResponse<List<Location>>> custLocation(String term) {
+  Future<BaseResponse<List<Location>>> custLocation(String term) {
     return call(networkConnection.custLocation(term));
   }
 
@@ -82,7 +82,7 @@ class NetworkManager {
     return call(networkConnection.newRegister(map));
   }
 
-    Future<BaseResponse> addAddress(Map<String, dynamic> map) {
+  Future<BaseResponse> addAddress(Map<String, dynamic> map) {
     return call(networkConnection.addAddress(map));
   }
 
@@ -102,7 +102,6 @@ class NetworkManager {
     return call(networkConnection.updateAddress(map));
   }
 
-  
   Future<BaseResponse> deleteAddress(String cusAddress_id) {
     return call(networkConnection.deleteAddress(cusAddress_id));
   }
@@ -145,8 +144,8 @@ class NetworkManager {
 
   Future<BaseResponse<Product>> getSingleProductDetails(
       Map<String, dynamic> map) {
-    return call(networkConnection.getSingleProductDetails(
-        userId, 0, map['urlKey'], 8));
+    return call(
+        networkConnection.getSingleProductDetails(userId, 0, map['urlKey'], 8));
   }
 
   //  Future<BaseResponse<ProductDetail>> getSingleProductDetails(
@@ -185,9 +184,9 @@ class NetworkManager {
   //   return call(networkConnection.recentProducts(map["custId"], map["guestId"]));
   // }
 
-  Future<BaseResponse<MainBanner>> getBanner(int custId, int guestId, int pincode ) {
-    return call(
-        networkConnection.getBanner(custId, guestId, pincode));
+  Future<BaseResponse<MainBanner>> getBanner(
+      int custId, int guestId, int pincode) {
+    return call(networkConnection.getBanner(custId, guestId, pincode));
   }
 
   Future<BaseResponse<List<Product>>> getWishList() {
@@ -199,11 +198,11 @@ class NetworkManager {
   }
 
   Future<BaseResponse> removeFromWishlist(
-      int userId,String? guestId, String urlKey) {
+      int userId, String? guestId, String urlKey) {
     print("useriddd $userId");
     // print("guestIddd $guestId");
     print("urlKeyyy $urlKey");
-    return call(networkConnection.removeFromWishlist(userId,guestId, urlKey));
+    return call(networkConnection.removeFromWishlist(userId, guestId, urlKey));
   }
 
   Future<BaseResponse<Profile>> getProfile() {
@@ -243,7 +242,7 @@ class NetworkManager {
   //   return call(networkConnection.orderItemDetails(orderId));
   // }
 
-      Future<BaseResponse<SingleOrderDetail>> orderDetails( int orderId) {
+  Future<BaseResponse<SingleOrderDetail>> orderDetails(int orderId) {
     return call(networkConnection.orderDetails(orderId));
   }
 
@@ -251,9 +250,8 @@ class NetworkManager {
     return call(networkConnection.placeOrder(map));
   }
 
-    Future<BaseResponse> cancelOrder(int orderId, int custId) {
-    return call(
-        networkConnection.cancelOrder(orderId,custId));
+  Future<BaseResponse> cancelOrder(int orderId, int custId) {
+    return call(networkConnection.cancelOrder(orderId, custId));
   }
 
   Future<T> call<T>(Future<T> call) async {

@@ -156,18 +156,18 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
     });
   }
 
-  void location() {
-    NetworkManager.shared
-        .custLocation("m")
-        .then((BaseResponse<List<Location>> response) {
-      setState(() {
-        locationList.clear();
-        locationList.addAll(response.data!);
-      });
-    }).catchError((e) {
-      print(e.toString());
-    });
-  }
+  // void location() {
+  //   NetworkManager.shared
+  //       .custLocation("m")
+  //       .then((BaseResponse<List<Location>> response) {
+  //     setState(() {
+  //       locationList.clear();
+  //       locationList.addAll(response.data!);
+  //     });
+  //   }).catchError((e) {
+  //     print(e.toString());
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -291,10 +291,10 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                     padding: const EdgeInsets.all(2),
                     child: TextButton(
                         onPressed: () {
-                          // Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //         builder: (context) => LocationSelectScreen()));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => LocationSelectScreen()));
                           // location();
                           // showDialog(
                           //   context: context,
