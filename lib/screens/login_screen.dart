@@ -130,7 +130,7 @@ class _LoginScreenState extends BaseStatefulState<LoginScreen> {
                             border: OutlineInputBorder(
                               borderSide: BorderSide(color: Color(0xffb0b0b0)),
                             ),
-                            labelText: " ",
+                            labelText: "",
                           )),
                     ),
                     SizedBox(height: 30),
@@ -154,7 +154,7 @@ class _LoginScreenState extends BaseStatefulState<LoginScreen> {
                             border: OutlineInputBorder(
                               borderSide: BorderSide(color: Color(0xffb0b0b0)),
                             ),
-                            labelText: " ",
+                            labelText: "",
                             suffixIcon: Padding(
                               padding: const EdgeInsets.only(right: 20),
                               child: IconButton(

@@ -125,7 +125,7 @@ class _ForgotPasswordScreenState extends BaseStatefulState<ForgotPasswordScreen>
                       border: OutlineInputBorder(
                         borderSide: BorderSide(color: Color(0xffb0b0b0)),
                       ),
-                      labelText: " ",
+                      labelText: "",
                     ),
                      controller: _emailController,
                                       validator: (val) {

@@ -163,7 +163,10 @@ class DataManager {
           0,
           product.urlKey!,
         )
-        .then((BaseResponse response) {})
+        .then((BaseResponse response) {
+
+           //onWishlistUpdated!(response.message!);
+        })
         .catchError((e) {
           print(e.toString());
         });

@@ -58,7 +58,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: Scaffold(
+        home: Scaffold(  
           appBar:AppBar(
         centerTitle: true,
         title: Text("My Profile"),

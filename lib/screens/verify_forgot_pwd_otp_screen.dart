@@ -3,7 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
+import 'package:lenzcamera/screens/forgot_password_screen.dart';
 import 'package:lenzcamera/screens/home_screen.dart';
+import 'package:lenzcamera/screens/login_screen.dart';
 import 'package:lenzcamera/screens/reset_password_screen.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
@@ -82,7 +84,8 @@ class _VerifyForgotPwddOtpScreenState extends State<VerifyForgotPwddOtpScreen> {
               color: Colors.white,
             ),
             onPressed: () {
-              Navigator.pop(context);
+             Navigator.push(context,
+          MaterialPageRoute(builder: (context) => LoginScreen()));
             },
           ),
           backgroundColor: Color(0xff474747),
