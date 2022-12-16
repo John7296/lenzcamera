@@ -30,10 +30,10 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-//     Future.delayed(Duration(milliseconds: 500), () {
-// singleOrderDetail();
-//     });
-    singleOrderDetail();
+    Future.delayed(Duration(milliseconds: 500), () {
+singleOrderDetail();
+    });
+    // singleOrderDetail();
   }
 
   void singleOrderDetail() {
@@ -63,7 +63,7 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
         .then((BaseResponse response) {
       // hideLoader();
       showFlashMsg(response.message!);
-      // Navigator.pop(context);
+      // Navigator.pop(context)
     }).catchError((e) {
       // showLoader();
       showFlashMsg(e.toString());
@@ -270,20 +270,30 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
                               ),
                             ),
                             Container(
-                              width: 180,
+                              width: 280,
                               child: Column(
                                   // mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Padding(
                                       padding: const EdgeInsets.all(8.0),
-                                      child: Text(
-                                        singleItemList[index].prName ?? '',
-                                        style: TextStyle(
-                                          color: Colors.grey.shade600,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                        maxLines: 2,
+                                      child: Row(
+                                        children: [
+                                          Container(
+                                            height: 30,
+                                            width: 160,
+                                            child: Text(
+                                              singleItemList[index].prName ?? '',
+                                              style: TextStyle(
+                                                color: Colors.grey.shade600,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                              maxLines: 2,
+                                            ),
+                                          ),
+                                          Spacer(),
+                                          Container(child: Text('x '+singleItemList[index].qty!.toStringAsFixed(0),style: TextStyle(fontSize: 20,fontFamily: 'Intro',fontWeight: FontWeight.bold,color: Colors.grey),))
+                                        ],
                                       ),
                                     ),
                                     Padding(
@@ -296,18 +306,6 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
                                       ),
                                     ),
                                   ]),
-                            ),
-                            Spacer(),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  // Text('#ORD6195845655'),
-                                  //       Spacer(),
-                                  //       Text('Status:Order Placed',style: TextStyle(color: Colors.red),),
-                                ],
-                              ),
                             ),
                           ],
                         ),
@@ -370,7 +368,7 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
                                   fontWeight: FontWeight.bold)),
                           Spacer(),
                           Text(
-                              'QAR ${singleItemList.first.itemTotal.toString()}',
+                              'QAR ${0}',
                               style: TextStyle(
                                   fontSize: 12,
                                   fontFamily: 'Intro',
@@ -400,7 +398,7 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
                           ),
                           Spacer(),
                           Text(
-                            'QAR 3223.00',
+                            singleItemList.first.itemTotal.toString(),
                             style: TextStyle(
                                 color: Colors.red,
                                 fontFamily: 'Intro',

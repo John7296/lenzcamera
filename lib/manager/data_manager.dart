@@ -19,9 +19,7 @@ class DataManager {
   VoidCallback? onCartUpdated;
   FilterData? filterData;
 
-   ValueChanged<String>? onWishlistUpdated;
-
-
+  ValueChanged<String>? onWishlistUpdated;
 
   void updateItemToCart(Product product, int type,
       {VoidCallback? onUpdate, VoidCallback? onUpdateStarted}) {
@@ -139,8 +137,8 @@ class DataManager {
   }
 
   void addToWishlist(Product product) {
-      wishListItems.add(product);
-      // onWishlistUpdated = onChange;
+    wishListItems.add(product);
+    // onWishlistUpdated = onChange;
     NetworkManager.shared
         .addToWishlist(<String, dynamic>{
           "urlKey": product.urlKey,
@@ -149,24 +147,22 @@ class DataManager {
         })
         .then((BaseResponse response) {})
         .catchError((e) {
-          
           print(e.toString());
         });
   }
 
   void removeFromWishlist(Product product) {
-      
-   wishListItems.removeWhere((item) => item.productId == product.productId);
-
+    wishListItems.removeWhere((item) => item.productId == product.productId);
     NetworkManager.shared
-        .removeFromWishlist(NetworkManager.shared.userId,
-          0,
-          product.urlKey!,
+        .removeFromWishlist(
+           NetworkManager.shared.userId,
+           "",
+           product.urlKey!,
         )
         .then((BaseResponse response) {})
         .catchError((e) {
-          print(e.toString());
-        });
+      print(e.toString());
+    });
   }
 
   bool iswishListed(Product? product) {
@@ -186,6 +182,4 @@ class DataManager {
     SessionsManager.clearSession();
     wishListItems.clear();
   }
-
-  
 }

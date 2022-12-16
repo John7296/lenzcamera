@@ -161,10 +161,13 @@ class _RegisterScreenState extends BaseStatefulState<RegisterScreen> {
                               isDense: true,
                             ),
                             controller: _customerNameController,
-                            validator: (value) {
-                              if (value!.isEmpty) return "Enter your Name";
-                              return null;
-                            },
+                               validator: (value) {
+                                if (value!.isEmpty||!RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
+                                  return "Enter Your Name";
+                                } else {
+                                  return null;
+                                }
+                              },
                           ),
                         ),
                         SizedBox(height: 20),
@@ -215,11 +218,20 @@ class _RegisterScreenState extends BaseStatefulState<RegisterScreen> {
                               // labelText: 'Mobile'
                             ),
                             controller: _mobileController,
-                            validator: (value) {
-                              if (value!.isEmpty)
-                                return "Enter your Mobile Number";
+                               validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Enter Mobile Number';
+                              }
+                              if (value.length < 8) {
+                                return 'Enter valid phone number';
+                              }
                               return null;
                             },
+                            // validator: (value) {
+                            //   if (value!.isEmpty)
+                            //     return "Enter your Mobile Number";
+                            //   return null;
+                            // },
                           ),
                         ),
                         SizedBox(height: 20),
@@ -238,37 +250,38 @@ class _RegisterScreenState extends BaseStatefulState<RegisterScreen> {
                         SizedBox(
                           height: 60,
                           child: TextFormField(
-                              decoration: InputDecoration(
-                                contentPadding: EdgeInsets.symmetric(
-                                    vertical: 10, horizontal: 10),
-                                border: OutlineInputBorder(
-                                  borderSide:
-                                      BorderSide(color: Color(0xffb0b0b0)),
-                                ),
-                                labelText: " ",
-                                suffixIcon: Padding(
-                                  padding: const EdgeInsets.only(right: 20),
-                                  child: IconButton(
-                                    icon: Icon(
-                                      _obscureText
-                                          ? Icons.visibility
-                                          : Icons.visibility_off,
-                                      color: Color(0xff6e6e6c),
-                                    ),
-                                    onPressed: () {
-                                      setState(() {
-                                        _obscureText = !_obscureText;
-                                      });
-                                    },
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              // labelText: " ",
+                              suffixIcon: Padding(
+                                padding: const EdgeInsets.only(right: 20),
+                                child: IconButton(
+                                  icon: Icon(
+                                    _obscureText
+                                        ? Icons.visibility
+                                        : Icons.visibility_off,
+                                    color: Color(0xff6e6e6c),
                                   ),
+                                  onPressed: () {
+                                    setState(() {
+                                      _obscureText = !_obscureText;
+                                    });
+                                  },
                                 ),
                               ),
-                              obscureText: _obscureText,
-                              controller: _passwordController,
-                              validator: (val) {
-                                if (val!.isEmpty) return "Enter your password";
-                                return null;
-                              }),
+                            ),
+                            obscureText: _obscureText,
+                            controller: _passwordController,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Enter your password';
+                              }
+                              if (value.length <= 6) {
+                                return 'Must be more than 6 character';
+                              }
+                              return null;
+                            },
+                          ),
                           //  TextFormField(
                           //   obscureText: true,
                           //   decoration: InputDecoration(

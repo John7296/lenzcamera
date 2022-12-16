@@ -46,31 +46,31 @@ class _FeaturedProductsScreenState
     });
   }
 
-  void addToWishlist(Product product) {
-    NetworkManager.shared
-        .addToWishlist(<String, dynamic>{
-          "urlKey": product.urlKey,
-          "custId": NetworkManager.shared.userId,
-          "guestId": 0,
-        })
-        .then((BaseResponse response) {})
-        .catchError((e) {
-          print(e.toString());
-        });
-  }
+  // void addToWishlist(Product product) {
+  //   NetworkManager.shared
+  //       .addToWishlist(<String, dynamic>{
+  //         "urlKey": product.urlKey,
+  //         "custId": NetworkManager.shared.userId,
+  //         "guestId": 0,
+  //       })
+  //       .then((BaseResponse response) {})
+  //       .catchError((e) {
+  //         print(e.toString());
+  //       });
+  // }
 
-  void removeFromWishlist(Product product) {
-    NetworkManager.shared
-        .removeFromWishlist(
-          NetworkManager.shared.userId,
-          0,
-          product.urlKey!,
-        )
-        .then((BaseResponse response) {})
-        .catchError((e) {
-      print(e.toString());
-    });
-  }
+  // void removeFromWishlist(Product product) {
+  //   NetworkManager.shared
+  //       .removeFromWishlist(
+  //         NetworkManager.shared.userId,
+  //         0,
+  //         product.urlKey!,
+  //       )
+  //       .then((BaseResponse response) {})
+  //       .catchError((e) {
+  //     print(e.toString());
+  //   });
+  // }
 
   @override
    Widget build(BuildContext context) {

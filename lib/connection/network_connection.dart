@@ -44,16 +44,11 @@ abstract class NetworkConnection {
     return _NetworkConnection(dio);
   }
 
-
-    @FormUrlEncoded()
+  @FormUrlEncoded()
   @GET("Customer/getPincodeList")
   Future<BaseResponse<List<Location>>> custLocation(
     @Query("term") String term,
   );
-
-
-
-
 
   @FormUrlEncoded()
   @GET('category/TopCategory')
@@ -105,7 +100,6 @@ abstract class NetworkConnection {
   @FormUrlEncoded()
   @GET("/ProductDetails")
   Future<BaseResponse<Product>> getSingleProductDetails(
-    
       @Query("custId") int userId,
       @Query("guestId") int guestId,
       @Query("urlKey") String urlKey,
@@ -220,7 +214,7 @@ abstract class NetworkConnection {
   @POST('Order/InsertWishListsDel')
   Future<BaseResponse> removeFromWishlist(
     @Query("custId") int userId,
-    @Query("guestId") int gustId,
+    @Query("guestId") String? gustId,
     @Query("urlKey") String urlKey,
   );
 

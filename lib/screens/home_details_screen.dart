@@ -26,6 +26,7 @@ import 'package:lenzcamera/screens/category_screen.dart';
 import 'package:lenzcamera/screens/contact_us_screen.dart';
 import 'package:lenzcamera/screens/featured_products_screen.dart';
 import 'package:lenzcamera/screens/home_screen.dart';
+import 'package:lenzcamera/screens/location.dart';
 import 'package:lenzcamera/screens/login_screen.dart';
 import 'package:lenzcamera/screens/popular_products_screen.dart';
 import 'package:lenzcamera/screens/privacy_policy_screen.dart';
@@ -273,7 +274,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(5),
-                    child: Icon(Icons.circle_outlined),
+                    child: Icon(Icons.location_pin),
                   ),
                   Container(
                     child: Padding(
@@ -290,16 +291,20 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                     padding: const EdgeInsets.all(2),
                     child: TextButton(
                         onPressed: () {
-                          location();
-                          showDialog(
-                            context: context,
-                            builder: (context) => AlertDialog(
-                              title: Text(
-                                "Would you like to delete this item",
-                                style: TextStyle(fontSize: 15),
-                              ),
-                            ),
-                          );
+                          // Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //         builder: (context) => LocationSelectScreen()));
+                          // location();
+                          // showDialog(
+                          //   context: context,
+                          //   builder: (context) => AlertDialog(
+                          //     title: Text(
+                          //       "Would you like to delete this item",
+                          //       style: TextStyle(fontSize: 15),
+                          //     ),
+                          //   ),
+                          // );
                         },
                         child: Text(
                           'Change',
@@ -359,15 +364,21 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
             ),
             Padding(
               padding: const EdgeInsets.only(left: 10, right: 10),
-              child: SizedBox(
-                height: 150,
-                width: MediaQuery.of(context).size.width,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Image(
-                    image: AssetImage("assets/images/camerabanner.png"),
-                    fit: BoxFit.fill,
-                    // width: MediaQuery.of(context).size.width,
+              child: InkWell(
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => SearchScreen()));
+                },
+                child: SizedBox(
+                  height: 150,
+                  width: MediaQuery.of(context).size.width,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Image(
+                      image: AssetImage("assets/images/camerabanner.png"),
+                      fit: BoxFit.fill,
+                      // width: MediaQuery.of(context).size.width,
+                    ),
                   ),
                 ),
               ),
@@ -778,7 +789,6 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                   ),
                                                 ),
                                         ),
-                                    
                                     ],
                                   ),
                                 ),

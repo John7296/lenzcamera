@@ -47,7 +47,7 @@ class _OrderScreenState extends BaseStatefulState<OrderScreen> {
       });
     }).catchError((e) {
       hideLoader();
-      showFlashMsg(e.toString());
+      showFlashMsg('No orders');
       print(e.toString());
     });
   }
@@ -151,7 +151,7 @@ class _OrderScreenState extends BaseStatefulState<OrderScreen> {
         ),
       ),
       backgroundColor: Colors.grey.shade100,
-      body: ListView.builder(
+      body: (orderList.isNotEmpty)?ListView.builder(
         itemCount: orderList.length,
         itemBuilder: (BuildContext context, int index) {
           return Column(
@@ -287,7 +287,7 @@ class _OrderScreenState extends BaseStatefulState<OrderScreen> {
                                 Padding(
                                   padding: const EdgeInsets.only(top: 25),
                                   child: Text(
-                                    orderList[index].orderDate ?? '',
+                                    orderList[index].orderDate.toString().replaceAll("T","   "),
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 12,
@@ -338,7 +338,13 @@ class _OrderScreenState extends BaseStatefulState<OrderScreen> {
             ],
           );
         },
-      ),
+      ):Container(
+          height: 600,
+          // width: 200,
+          child: Image(
+            image: AssetImage("assets/images/no_order.png"),
+          ),
+        ),
     );
   }
 

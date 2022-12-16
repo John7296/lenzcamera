@@ -24,11 +24,11 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
   List<AddressList> addressList = [];
   List<OrderList> orderList = [];
   bool umw = false;
-  bool cod = false;
+  bool cod = true;
   AddressList? selectedShippingAddress;
   AddressList? selectedBillingAddress;
 
-   final _orderNoteController = TextEditingController();
+  final _orderNoteController = TextEditingController();
 
   @override
   void initState() {
@@ -51,7 +51,7 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
         addressList.addAll(response.data!);
       });
     }).catchError((e) {
-      showFlashMsg(e.toString());
+      showFlashMsg('No Address Found, Please Add  your Address');
       hideLoader();
       print(e.toString());
     });
@@ -119,7 +119,7 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                       Icons.location_on,
                                       color: Color(0xff717171),
                                     ),
-                                    SizedBox(width: 10),
+                                    SizedBox(width: 5),
                                     Expanded(
                                         child: Text(
                                       "Delivery to",
@@ -576,7 +576,9 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                               BorderRadius.circular(15)),
                                       value: cod,
                                       onChanged: (value) {
-                                        setState(() => cod = value!);
+                                        setState(() {
+                                          cod = false;
+                                        });
                                       },
                                       activeColor: Colors.red,
                                       checkColor: Colors.white,
@@ -730,7 +732,7 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                 maxLines: 3,
                                 decoration:
                                     InputDecoration(border: InputBorder.none),
-                                    controller: _orderNoteController,
+                                controller: _orderNoteController,
                               ),
                             )
                           ],
@@ -754,11 +756,11 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                   ),
                   onPressed: () {
                     if (cartItemsList != null)
-                          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
-                  builder: (BuildContext context) {
-                    return OrderSuccessScreen();
-                  },
-                ), (route) => false);
+                      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+                        builder: (BuildContext context) {
+                          return OrderSuccessScreen();
+                        },
+                      ), (route) => false);
                     placeOrder();
                   },
                   child: Center(

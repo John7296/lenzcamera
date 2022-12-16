@@ -199,7 +199,7 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
                                   ),
                               controller: _firstNameController,
                               validator: (value) {
-                                if (value!.isEmpty||!RegExp(r'^[a-z A-Z]+$').hasMatch(value!)) {
+                                if (value!.isEmpty||!RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
                                   return "Enter First Name";
                                 } else {
                                   return null;
