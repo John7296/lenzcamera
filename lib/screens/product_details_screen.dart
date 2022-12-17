@@ -16,6 +16,7 @@ import 'package:lenzcamera/screens/cart_screen.dart';
 import 'package:lenzcamera/screens/product_images_screen.dart';
 import 'package:lenzcamera/screens/wishlist_screen.dart';
 import 'package:lenzcamera/screens/write_review_screen.dart';
+import 'package:share_plus/share_plus.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
   Product? popularproducts;
@@ -100,23 +101,96 @@ class _ProductDetailsScreenState
           ),
           backgroundColor: Colors.grey.shade700,
           actions: [
-            IconButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => WishlistScreen()));
-                },
-                icon:
-                    Icon(Icons.favorite_border_outlined, color: Colors.white)),
-            SizedBox(width: 20),
-            IconButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => CartScreen()));
-                },
-                icon: Icon(Icons.shopping_cart_outlined, color: Colors.white)),
-            SizedBox(width: 20),
+
+             Stack(
+            children: [
+              IconButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => WishlistScreen()));
+                // getBanners();
+              },
+              icon: Icon(Icons.favorite_border),
+            ),
+            if (DataManager.shared.wishListItems.isNotEmpty) 
+            Positioned(
+                right: 5,
+                top: 5,
+                child: new Container(
+                  padding: EdgeInsets.all(2),
+                  decoration: new BoxDecoration(
+                    color: Colors.red,
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  constraints: BoxConstraints(
+                    minWidth: 14,
+                    minHeight: 14,
+                  ),
+                  child: Text(
+                    DataManager.shared.wishListItems.length.toString(),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize:10,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),)
+            ], 
+          ),
+
+
+          Stack(
+            children: [
+              IconButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => CartScreen()));
+                // getBanners();
+              },
+              icon: Icon(Icons.shopping_cart),
+            ),
+            if(DataManager.shared.cartItemsList.isNotEmpty)
+            Positioned(
+                right: 5,
+                top: 5,
+                child: new Container(
+                  padding: EdgeInsets.all(2),
+                  decoration: new BoxDecoration(
+                    color: Colors.red,
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  constraints: BoxConstraints(
+                    minWidth: 14,
+                    minHeight: 14,
+                  ),
+                  child: Text(
+                    DataManager.shared.cartItemsList.length.toString(),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 10,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),)
+            ], 
+          ),
+            // IconButton(
+            //     onPressed: () {
+            //       Navigator.push(
+            //           context,
+            //           MaterialPageRoute(
+            //               builder: (context) => WishlistScreen()));
+            //     },
+            //     icon:
+            //         Icon(Icons.favorite_border_outlined, color: Colors.white)),
+            // SizedBox(width: 20),
+            // IconButton(
+            //     onPressed: () {
+            //       Navigator.push(context,
+            //           MaterialPageRoute(builder: (context) => CartScreen()));
+            //     },
+            //     icon: Icon(Icons.shopping_cart_outlined, color: Colors.white)),
+            // SizedBox(width: 20),
           ],
         ),
         body: Column(
@@ -321,7 +395,13 @@ class _ProductDetailsScreenState
                               Align(
                                   alignment: Alignment.centerRight,
                                   child: IconButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+
+                                      Share.share(
+                                       "https://dev.lenzcamera.com/product/ ${widget.popularproducts?.urlKey??''}"
+
+                                      );
+                                    },
                                     icon: Icon(
                                       Icons.share,
                                       color: Color(0xff70706e),
@@ -345,43 +425,43 @@ class _ProductDetailsScreenState
                           thickness: 9,
                           color: Color(0xffe3e3e3),
                         ),
-                        SizedBox(height: 5),
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 5, right: 24),
-                          child: Align(
-                            alignment: Alignment.centerRight,
-                            child: Container(
-                              //height: 27,
-                              width: 85,
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Color(0xffec3436),
-                                ),
-                                onPressed: () {
-                                  setState(() {});
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              WriteReviewScreen(widget.popularproducts)));
-                                },
-                                child: Text(
-                                  "Reviews",
-                                  style: TextStyle(
-                                      fontSize: 10,
-                                      color: Colors.white,
-                                      fontFamily: "Intro",
-                                      fontWeight: FontWeight.w600),
-                                  maxLines: 1,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Divider(
-                          thickness: 9,
-                          color: Color(0xffe3e3e3),
-                        ),
+                        // SizedBox(height: 5),
+                        // Padding(
+                        //   padding: const EdgeInsets.only(bottom: 5, right: 24),
+                        //   child: Align(
+                        //     alignment: Alignment.centerRight,
+                        //     child: Container(
+                        //       //height: 27,
+                        //       width: 85,
+                        //       child: ElevatedButton(
+                        //         style: ElevatedButton.styleFrom(
+                        //           backgroundColor: Color(0xffec3436),
+                        //         ),
+                        //         onPressed: () {
+                        //           setState(() {});
+                        //           Navigator.push(
+                        //               context,
+                        //               MaterialPageRoute(
+                        //                   builder: (context) =>
+                        //                       WriteReviewScreen(widget.popularproducts)));
+                        //         },
+                        //         child: Text(
+                        //           "Reviews",
+                        //           style: TextStyle(
+                        //               fontSize: 10,
+                        //               color: Colors.white,
+                        //               fontFamily: "Intro",
+                        //               fontWeight: FontWeight.w600),
+                        //           maxLines: 1,
+                        //         ),
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
+                        // Divider(
+                        //   thickness: 9,
+                        //   color: Color(0xffe3e3e3),
+                        // ),
                         Padding(
                           padding: const EdgeInsets.only(
                               left: 24, right: 24, top: 10, bottom: 5),
@@ -676,7 +756,7 @@ class _ProductDetailsScreenState
                                                                       ),
                                                                       child: Center(
                                                                           child: Text(
-                                                                        "1",
+                                                                        relatedproducts[index].qty.toString(),
                                                                         style: TextStyle(
                                                                             color:
                                                                                 Colors.black),
@@ -806,171 +886,196 @@ class _ProductDetailsScreenState
                 ),
               ),
             ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding:
-                    const EdgeInsets.only(bottom: 10.0, left: 24, right: 24),
-                child: Container(
-                  // width: 160,
-                  height: 40,
-                  child: widget.popularproducts!.isAddedtoCart()
-                      ? Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              width: 200,
-                              height: 40,
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Color(0xffec3436),
-                                ),
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => CartScreen()));
-                                },
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "Go To Cart",
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        fontFamily: "Intro",
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.white,
-                                      ),
+              
+            //   if (widget.popularproducts!.isCartUpdateProgress!)
+            //  SizedBox(
+            //                   height: 30,
+            //                   width: 30,
+            //                   child: Padding(
+            //                     padding: const EdgeInsets.all(10),
+            //                     child: CircularProgressIndicator(
+            //                       strokeWidth: 2,
+            //                       color: Colors.grey,
+            //                     ),
+            //                   )),
+            //                   if (widget.popularproducts!.isCartUpdateProgress ==
+            //                 false)
+            Padding(
+              padding: const EdgeInsets.only(left:24, right:24, bottom: 10),
+              child: Container(
+                // width: 160,
+                height: 40,
+                child: widget.popularproducts!.isAddedtoCart()
+                    ? Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Container(
+                            width: 200,
+                            height: 40,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Color(0xffec3436),
+                              ),
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => CartScreen()));
+                              },
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Go To Cart",
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontFamily: "Intro",
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.white,
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ),
+                          ),
 
-                            // if (widget.popularproducts!.
-                            //             isCartUpdateProgress!)
-                            //           Container(
-                            //               // color:Colors.yellow,
-                            //               height: 20,
-                            //               width: 20,
-                            //               child: Padding(
-                            //                 padding: const EdgeInsets.all(5),
-                            //                 child: CircularProgressIndicator(
-                            //                   strokeWidth: 2,
-                            //                   color: Colors.grey,
-                            //                 ),
-                            //               )),
-                            //         if (widget.popularproducts!
-                            //                 .isCartUpdateProgress ==
-                            //             false)
-                            SizedBox(width: 20),
-                            InkWell(
-                              onTap: () {
-                                DataManager.shared.updateItemToCart(
-                                    widget.popularproducts!, 4, onUpdate: () {
-                                  setState(() {});
-                                }, onUpdateStarted: () {
-                                  setState(() {});
-                                });
-                              },
-                              child: Container(
-                                width: 40,
+                         
+                          SizedBox(width: 20),
+
+                            if (widget.popularproducts!.isCartUpdateProgress!)
+                           Padding(
+                             padding: const EdgeInsets.only(left: 0),
+                             child: SizedBox(
                                 height: 30,
-                                decoration: BoxDecoration(
-                                  color: Color(0xff70726f),
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(5),
-                                    bottomLeft: Radius.circular(5),
+                                width: 30,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2,
+                                    color: Colors.grey,
                                   ),
-                                ),
-                                child: Center(
-                                  child: Icon(
-                                    Icons.remove,
-                                    color: Colors.white,
-                                    size: 12,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Container(
-                              width: 60,
-                              height: 30,
-                              decoration: BoxDecoration(
-                                color: Color(0xffe3e3e3),
-                              ),
-                              child: Center(
-                                  child: Text(
-                                "1",
-                                style: TextStyle(color: Colors.black),
-                              )),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                DataManager.shared.updateItemToCart(
-                                    widget.popularproducts!, 3, onUpdate: () {
-                                  setState(() {});
-                                }, onUpdateStarted: () {
-                                  setState(() {});
-                                });
-                              },
-                              child: Container(
+                                )),
+                           ),
+                              if (widget.popularproducts!.isCartUpdateProgress ==
+                            false)
+
+                          if(widget.popularproducts!.isAddedtoCart())
+                          Row(
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  DataManager.shared.updateItemToCart(
+                                              widget.popularproducts!, 4,
+                                              onUpdate: () {
+                                            setState(() {});
+                                          }, onUpdateStarted: () {
+                                            setState(() {});
+                                          });
+                                },
+                                child: Container(
                                   width: 40,
                                   height: 30,
                                   decoration: BoxDecoration(
-                                    color: Color(0xffe83031),
+                                    color: Color(0xff70726f),
                                     borderRadius: BorderRadius.only(
-                                      topRight: Radius.circular(5),
-                                      bottomRight: Radius.circular(5),
+                                      topLeft: Radius.circular(5),
+                                      bottomLeft: Radius.circular(5),
                                     ),
                                   ),
-                                  child: Icon(
-                                    Icons.add,
-                                    color: Colors.white,
-                                    size: 12,
-                                  )),
-                            ),
-                          ],
-                        )
-                      : ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              elevation: 0,
-                              backgroundColor: (widget.popularproducts!
-                                          .stockAvailability?.length ==
-                                      12)
-                                  ? Colors.grey
-                                  : Color(0xffec3436)),
-                          onPressed: () {
-                            DataManager.shared.updateItemToCart(
-                                widget.popularproducts!, 1, onUpdate: () {
-                              setState(() {});
-                            }, onUpdateStarted: () {
-                              setState(() {});
-                            });
-                          },
-                          child: Center(
-                            child: (widget.popularproducts!.stockAvailability
-                                        ?.length ==
-                                    12)
-                                ? Text(
-                                    "OUT OF STOCK",
-                                    style: TextStyle(
-                                        fontFamily: "Intro",
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 12,
-                                        color: Colors.black),
-                                  )
-                                : Text(
-                                    "Add To Cart",
-                                    style: TextStyle(
-                                        fontFamily: "Intro",
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 15,
-                                        color: Colors.white),
+                                  child: Center(
+                                    child: Icon(
+                                      Icons.remove,
+                                      color: Colors.white,
+                                      size: 12,
+                                    ),
                                   ),
+                                ),
+                              ),
+                            
+                          Container(
+                            width: 60,
+                            height: 30,
+                            decoration: BoxDecoration(
+                          color: Color(0xffe3e3e3),
+                            ),
+                            child: Center(
+                            child: Text(
+                          widget.popularproducts!
+                                              .qty
+                                              .toString(),
+                          style: TextStyle(color: Colors.black),
+                            )),
                           ),
+                          InkWell(
+                            onTap: () {
+                         DataManager.shared.updateItemToCart(
+                                             widget.popularproducts!, 3,
+                                              onUpdate: () {
+                                            setState(() {});
+                                          }, onUpdateStarted: () {
+                                            setState(() {});
+                                          });
+                         
+                            },
+                            child: Container(
+                            width: 40,
+                            height: 30,
+                            decoration: BoxDecoration(
+                              color: Color(0xffe83031),
+                              borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(5),
+                                bottomRight: Radius.circular(5),
+                              ),
+                            ),
+                            child: Icon(
+                              Icons.add,
+                              color: Colors.white,
+                              size: 12,
+                            )),
+                          ),
+                          ],
+                          ),
+                            
+                        ],
+                      )
+                    : ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            elevation: 0,
+                            backgroundColor: (widget.popularproducts!
+                                        .stockAvailability?.length ==
+                                    12)
+                                ? Colors.grey
+                                : Color(0xffec3436)),
+                        onPressed: () {
+                          DataManager.shared.updateItemToCart(
+                              widget.popularproducts!, 1, onUpdate: () {
+                            setState(() {});
+                          }, onUpdateStarted: () {
+                            setState(() {});
+                          });
+                        },
+                        child: Center(
+                          child: (widget.popularproducts!.stockAvailability
+                                      ?.length ==
+                                  12)
+                              ? Text(
+                                  "OUT OF STOCK",
+                                  style: TextStyle(
+                                      fontFamily: "Intro",
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 12,
+                                      color: Colors.black),
+                                )
+                              : Text(
+                                  "Add To Cart",
+                                  style: TextStyle(
+                                      fontFamily: "Intro",
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 15,
+                                      color: Colors.white),
+                                ),
                         ),
-                ),
+                      ),
               ),
             ),
           ],

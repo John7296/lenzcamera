@@ -10,9 +10,13 @@ SingleOrderDetail _$SingleOrderDetailFromJson(Map<String, dynamic> json) =>
     SingleOrderDetail()
       ..OrderItemsDetails = (json['OrderItemsDetails'] as List<dynamic>?)
           ?.map((e) => OrderProductDetail.fromJson(e as Map<String, dynamic>))
+          .toList()
+      ..OrderDetails = (json['OrderDetails'] as List<dynamic>?)
+          ?.map((e) => OrderDetail.fromJson(e as Map<String, dynamic>))
           .toList();
 
 Map<String, dynamic> _$SingleOrderDetailToJson(SingleOrderDetail instance) =>
     <String, dynamic>{
       'OrderItemsDetails': instance.OrderItemsDetails,
+      'OrderDetails': instance.OrderDetails,
     };

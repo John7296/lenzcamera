@@ -73,22 +73,20 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
           'oldPassword': password,
           'newPassword': newPassword
         })
-        .then((BaseResponse<LoginCustomer> response) {
+        .then((BaseResponse  response) {
 
           Navigator.push(context,
                          MaterialPageRoute(builder: (context) => ProfileScreen()));
-          showFlashMsg(response.message!);
+         showFlashMsg(response.message!);
 
         print("================");
         print("password");
           print(newPassword);
         })
         .catchError((e) {
-
-          //hideLoader();
-      showFlashMsg(e.toString());
+     showFlashMsg(e.toString());
       print(e);
-      showFlashMsg(e.Message!);
+       showFlashMsg(e.Message!);
         });
   }
 
@@ -132,15 +130,20 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                 ),
                 SizedBox(height: 12),
                 Container(
-                 // height: 40,
-                  child: TextFormField(
+                //  height: 60,
+                  child: 
+                 
+                            
+                        
+                  
+                  
+                  TextFormField(
                       decoration: InputDecoration(
                         contentPadding:
                      EdgeInsets.only(left:10, top:5, bottom:5),
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(color: Color(0xffb0b0b0)),
-                        ),
-                        labelText: " ",
+                        border: OutlineInputBorder(),
+                        labelText: "",
+                        
                         suffixIcon: Padding(
                           padding: const EdgeInsets.only(right: 20),
                           child: IconButton(
@@ -196,10 +199,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       decoration: InputDecoration(
                         contentPadding:
                      EdgeInsets.only(left:10, top:5, bottom:5),
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(color: Color(0xffb0b0b0)),
-                        ),
-                        labelText: " ",
+                        border: OutlineInputBorder(),
+                        labelText: "",
                         suffixIcon: Padding(
                           padding: const EdgeInsets.only(right: 20),
                           child: IconButton(
@@ -220,8 +221,11 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       obscureText: _obscureText1,
                       controller: _newPasswordController,
                       validator: (val) {
-                        if (val!.isEmpty) return "Please enter a new password";
-                        return null;
+                        if (val!.isEmpty) 
+                        return "Please enter a new password";
+                        if(val==_passwordController.text){
+                          return ("Old password cannot be set as new password");
+                        }
                       }),
                 ),
                 SizedBox(height: 12),
@@ -256,7 +260,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                         border: OutlineInputBorder(
                           borderSide: BorderSide(color: Color(0xffb0b0b0)),
                         ),
-                        labelText: " ",
+                        labelText: "",
                         suffixIcon: Padding(
                           padding: const EdgeInsets.only(right: 20),
                           child: IconButton(

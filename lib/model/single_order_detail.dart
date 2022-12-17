@@ -12,6 +12,10 @@ class SingleOrderDetail {
   @JsonKey(name: "OrderItemsDetails")
   List<OrderProductDetail>? OrderItemsDetails;
 
+  
+  @JsonKey(name: "OrderDetails")
+  List<OrderDetail>? OrderDetails;
+
   SingleOrderDetail();
 
   factory SingleOrderDetail.fromJson(Map<String, dynamic> json) =>

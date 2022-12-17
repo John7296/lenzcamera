@@ -321,7 +321,9 @@ void onSendButtonTapped() {
                           validator: (val) {
                                       if (val!.isEmpty)
                                         return "Enter your phoneNo";
-                                      return null;
+                                        if(val!=_phoneController.text){
+                                          return "Enter a valid number";
+                                        }
                                     }
                           
                           

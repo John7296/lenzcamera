@@ -85,7 +85,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
             color: Colors.white,
           ),
           onPressed: () {
-            Navigator.pop(context);
+             Navigator.push(context,
+          MaterialPageRoute(builder: (context) => LoginScreen()));
           },
         ),
         backgroundColor: Colors.black,
@@ -116,7 +117,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                       border: OutlineInputBorder(
                         borderSide: BorderSide(color: Color(0xffb0b0b0)),
                       ),
-                      labelText: " ",
+                      labelText: "",
                       suffixIcon: Padding(
                         padding: const EdgeInsets.only(right: 20),
                         child: IconButton(
@@ -165,7 +166,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                       border: OutlineInputBorder(
                         borderSide: BorderSide(color: Color(0xffb0b0b0)),
                       ),
-                      labelText: " ",
+                      labelText: "",
                       suffixIcon: Padding(
                         padding: const EdgeInsets.only(right: 20),
                         child: IconButton(
@@ -193,7 +194,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                         return "Password should be same";
                       }
                       if (val.length < 8) {
-                        return "Please type atleast 8 digit password";
+                        return 'Must be more than 6 character';
                       }
                       return null;
                     }),

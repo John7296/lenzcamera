@@ -124,7 +124,7 @@ class _FilterScreenState extends State<FilterScreen> {
                   children: [
                     SizedBox(height: 15),
                     Container(
-                      height: 40,
+                      height: 45,
                       decoration: BoxDecoration(
                         color:  Color(0xff6f7270),
                           borderRadius: BorderRadius.circular(10)),
@@ -159,7 +159,7 @@ class _FilterScreenState extends State<FilterScreen> {
             
                     SizedBox(height: 13),
                     Container(
-                      height: 40,
+                      height: 45,
                       width: double.infinity,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
@@ -202,7 +202,7 @@ class _FilterScreenState extends State<FilterScreen> {
                     ),
                     SizedBox(height: 13),
                     Container(
-                      height: 40,
+                      height: 45,
                       decoration: BoxDecoration(
                         color:  Color(0xff6f7270),
                           borderRadius: BorderRadius.circular(10)),
@@ -237,7 +237,7 @@ class _FilterScreenState extends State<FilterScreen> {
                     SizedBox(height: 13),
             
                    Container(
-                      height: 40,
+                      height: 45,
                       decoration: BoxDecoration(
                         color:  Color(0xff6f7270),
                           borderRadius: BorderRadius.circular(10)),
@@ -273,7 +273,7 @@ class _FilterScreenState extends State<FilterScreen> {
                     SizedBox(height: 13),
             
                     Container(
-                      height: 40,
+                      height: 45,
                       decoration: BoxDecoration(
                         color:  Color(0xff6f7270),
                           borderRadius: BorderRadius.circular(10)),
@@ -319,7 +319,7 @@ class _FilterScreenState extends State<FilterScreen> {
                 children: [
                   Container(
                     height: 40,
-                    width: 100,
+                    width: 110,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xff70726f),

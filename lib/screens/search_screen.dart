@@ -338,7 +338,7 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
                                       children: [
                                         Padding(
                                           padding: const EdgeInsets.only(
-                                              left: 50, right: 10),
+                                              left: 30, right: 10),
                                           child: Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.end,
