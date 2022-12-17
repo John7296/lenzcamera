@@ -19,11 +19,17 @@ import 'package:lenzcamera/screens/review_screen.dart';
 import 'package:lenzcamera/screens/search_screen.dart';
 import 'package:lenzcamera/screens/splash_screen.dart';
 import 'package:lenzcamera/screens/write_review_screen.dart';
+import 'package:sizer/sizer.dart';
 
 void main() {
-  runApp(MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: SplashScreen(),
+  runApp(Sizer(
+    builder:
+        (BuildContext context, Orientation orientation, DeviceType deviceType) {
+      return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: SplashScreen(),
+      );
+    },
   ));
   NetworkManager.shared.init();
 }

@@ -36,6 +36,7 @@ import 'package:lenzcamera/screens/recent_product_screen.dart';
 import 'package:lenzcamera/screens/return_policy_screen.dart';
 import 'package:lenzcamera/screens/search_screen.dart';
 import 'package:lenzcamera/screens/wishlist_screen.dart';
+import 'package:sizer/sizer.dart';
 
 class HomeDetailsScreen extends StatefulWidget {
   const HomeDetailsScreen({Key? key}) : super(key: key);
@@ -288,7 +289,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                   ),
                   Spacer(),
                   Padding(
-                    padding: const EdgeInsets.all(2),
+                    padding:  EdgeInsets.all(0.5.h),
                     child: TextButton(
                         onPressed: () {
                           Navigator.push(
@@ -300,7 +301,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                           //   context: context,
                           //   builder: (context) => AlertDialog(
                           //     title: Text(
-                          //       "Would you like to delete this item",
+                          //       "Would you like to delete this item", 
                           //       style: TextStyle(fontSize: 15),
                           //     ),
                           //   ),
@@ -332,15 +333,15 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                       child: Row(
                         children: [
                           Container(
-                            margin: EdgeInsets.only(left: 10),
+                            margin: EdgeInsets.only(left: 1.h),
                             child: Icon(Icons.search_rounded,
-                                size: 30, color: Colors.grey.shade700),
+                                size: 3.h, color: Colors.grey.shade700),
                           ),
-                          SizedBox(width: 30),
+                          SizedBox(width: 3.h),
                           SizedBox(
                             child: Text(
                               "SEARCH PRODUCTS",
-                              style: TextStyle(
+                              style: TextStyle(fontSize: 10.sp,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.grey.shade700,
                                   fontFamily: 'Intro'),
@@ -349,8 +350,8 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                         ],
                       ),
                       margin: EdgeInsets.only(left: 10, right: 10),
-                      height: 50,
-                      width: 50,
+                      height: 5.h,
+                      width: 5.w,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           color: Colors.grey.shade300),
@@ -360,17 +361,17 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
               ],
             ),
             SizedBox(
-              height: 5,
+              height: 1.5.h,
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 10, right: 10),
+              padding: EdgeInsets.only(left: 1.h, right: 1.h),
               child: InkWell(
                 onTap: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => SearchScreen()));
                 },
                 child: SizedBox(
-                  height: 150,
+                  height: 20.h,
                   width: MediaQuery.of(context).size.width,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
@@ -383,11 +384,11 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                 ),
               ),
             ),
-            SizedBox(height: 5),
+            SizedBox(height: 1.5.h),
             Padding(
-              padding: const EdgeInsets.only(left: 5, right: 10),
+              padding:  EdgeInsets.only(left: 0.5.h, right: 1.5.h),
               child: SizedBox(
-                height: 160,
+                height: 22.h,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   // shrinkWrap: true,
@@ -397,9 +398,9 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.all(5),
+                          padding:  EdgeInsets.all(0.5.h),
                           child: Container(
-                            width: 115,
+                            width: 15.h,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.all(
                                 Radius.circular(5),
@@ -413,7 +414,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                 ),
                               ],
                             ),
-                            height: 150,
+                            height: 20.h,
                             child: Column(
                               children: [
                                 Padding(
