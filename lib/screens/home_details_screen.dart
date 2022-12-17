@@ -283,7 +283,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                       child: Text(
                         'Doha',
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, fontFamily: 'Intro'),
+                            fontWeight: FontWeight.bold, fontFamily: 'Intro',fontSize: 10.sp),
                       ),
                     ),
                   ),
@@ -311,7 +311,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                           'Change',
                           style: TextStyle(
                               color: Colors.red,
-                              fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.bold,fontSize: 10.sp,
                               fontFamily: 'Intro'),
                         )),
                   ),
@@ -435,7 +435,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                   child: Text(
                                     categoryList[index].catName ?? '',
                                     style: TextStyle(
-                                        fontSize: 12,
+                                        fontSize: 10.sp,
                                         // fontWeight: FontWeight.bold,
                                         fontFamily: 'Intro'),
                                     maxLines: 1,
@@ -454,19 +454,19 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
             ),
 
             Container(
-              height: 435,
+              height: 60.h,
               width: MediaQuery.of(context).size.width,
               color: Colors.white,
               child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 15, right: 15),
+                    padding: EdgeInsets.only(left: 1.5.h, right: 1.5.h),
                     child: Row(
                       children: [
                         Text(
                           'Featured Products',
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, fontFamily: 'Intro'),
+                              fontWeight: FontWeight.bold, fontFamily: 'Intro',fontSize: 10.sp),
                         ),
                         Spacer(),
                         TextButton(
@@ -481,16 +481,16 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                               'View All ➜',
                               style: TextStyle(
                                   color: Colors.red,
-                                  fontWeight: FontWeight.bold,
+                                  fontWeight: FontWeight.bold,fontSize: 10.sp,
                                   fontFamily: 'Intro'),
                             )),
                       ],
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 5, right: 5),
+                    padding: EdgeInsets.only(left: 1.h, right: 1.h),
                     child: Container(
-                      height: 380,
+                      height: 52.h,
                       // color: Colors.red,
                       child: StaggeredGridView.countBuilder(
                         physics: NeverScrollableScrollPhysics(),
@@ -510,7 +510,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                               );
                             },
                             child: Container(
-                              height: 190,
+                              height: 26.h,
                               child: Card(
                                 shape: RoundedRectangleBorder(),
                                 elevation: 3,
