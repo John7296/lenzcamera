@@ -344,11 +344,12 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.end,
                                         children: [
-                                          Padding(
-                                            padding:  EdgeInsets.symmetric(vertical: 0.5.h, horizontal: 1.h
-                                                //left: 30.h, right: 10
-                                                ),
-                                            child: Row(
+                                          // Padding(
+                                          //   padding:  EdgeInsets.symmetric(vertical: 0.5.h, horizontal: 1.h
+                                          //       //left: 30.h, right: 10
+                                          //       ),
+                                            // child:
+                                             Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.end,
                                               children: [
@@ -390,7 +391,7 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
                                                 ),
                                               ],
                                             ),
-                                          ),
+                                          // ),
                                           SizedBox(height: 20),
                                           if (_products[index]
                                               .isCartUpdateProgress!)

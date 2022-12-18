@@ -201,7 +201,7 @@ class _PopularProductsScreenState
                       Stack(
                         children: [
                           Container(
-                            height: 15.h,
+                            height: 10.h,
 
                             // color: Colors.red,
                             child: Center(

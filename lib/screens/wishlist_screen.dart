@@ -190,7 +190,8 @@ class _WishlistScreenState extends BaseStatefulState<WishlistScreen> {
                                 padding: const EdgeInsets.only(top: 15),
                                 child: Container(
                                   height: 30,
-                                  width: 200,
+                                  width: 50.w,
+                                  // width: 200,
                                   child: Text(
                                     // 'CANON EF 16-35 MM F/4L IS USM',
                                     wishListItems[index].prName ?? '',
@@ -247,7 +248,7 @@ class _WishlistScreenState extends BaseStatefulState<WishlistScreen> {
                   ],
                 );
               }),
-              padding: EdgeInsets.symmetric(vertical:3.h, horizontal: 5.w),
+              padding: EdgeInsets.symmetric(vertical:2.h, horizontal: 5.w),
               // all(13.0)
             )
           : Container(

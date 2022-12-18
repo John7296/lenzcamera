@@ -230,7 +230,7 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                                     Spacer(),
                                     Container(
                                       margin:
-                                          EdgeInsets.symmetric(horizontal: 2.h, vertical: 1.h),
+                                          EdgeInsets.symmetric( vertical: 1.h),
                                           // bottom: 5, right: 5
                                       child: Row(
                                         children: [

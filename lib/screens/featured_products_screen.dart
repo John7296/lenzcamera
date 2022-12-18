@@ -188,7 +188,7 @@ class _FeaturedProductsScreenState
               );
             },
             child: Container(
-              height: 26.h,
+              height: 27.h,
               child: Card(
                 shape: RoundedRectangleBorder(),
                 elevation: 3,

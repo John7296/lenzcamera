@@ -161,7 +161,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
             Container(
               // color: Colors.amber,
               // height: 250,
-               height: 30.h,
+               height: 35.h,
               width: MediaQuery.of(context).size.width,
               child: Column(
                 children: [
@@ -180,9 +180,12 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                       ),
                     ),
                   ),
-                  Text(
-                    userProfile?.custName ?? '',
-                    style: TextStyle(fontWeight: FontWeight.w500),
+                  Padding(
+                    padding: const EdgeInsets.only(top:20),
+                    child: Text(
+                      userProfile?.custName ?? '',
+                      style: TextStyle(fontWeight: FontWeight.w500),
+                    ),
                   ),
                   Text(
                     userProfile?.emailId ?? '',
@@ -197,7 +200,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
             ),
             Expanded(
               child: Container(
-                  height: 600,
+                   height: 600,
                   color: Colors.grey.shade100,
                   child: ListView(
                     children: [

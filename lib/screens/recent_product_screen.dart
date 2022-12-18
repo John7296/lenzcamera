@@ -188,12 +188,13 @@ class _RecentProductsScreenState
               );
             },
             child: Container(
-              height: 26.h,
+              height: 700,
+
               child: Card(
                 shape: RoundedRectangleBorder(),
                 elevation: 3,
                 child: Padding(
-                  padding: EdgeInsets.all(0.4.h),
+                  padding: EdgeInsets.symmetric(horizontal:0.5.w),
                   child: Column(
                     children: [
                       Stack(
@@ -431,7 +432,7 @@ class _RecentProductsScreenState
         },
       ),
 
-      // SizedBox(height: 50),
+      //SizedBox(height: 50),
     );
   }
 
