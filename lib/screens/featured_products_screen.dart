@@ -279,7 +279,7 @@ class _FeaturedProductsScreenState
                       if (featuredList[index].isCartUpdateProgress ==
                           false)
                         Container(
-                          // width: 160,
+                          width: 160,
                           height: 4.h,
                           child: featuredList[index].isAddedtoCart()
                               ? Row(
