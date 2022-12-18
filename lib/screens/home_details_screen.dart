@@ -529,7 +529,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                       Stack(
                                         children: [
                                           Container(
-                                            height: 14.h,
+                                            height: 14.5.h,
                                             // color: Colors.red,
                                             child: FadeInImage.assetNetwork(
                                                 height: 200,
@@ -539,7 +539,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                 placeholderFit: BoxFit.contain,
                                                 image:
                                                     "https://dev.lenzcamera.com/webadmin/${featuredList[index].imageUrl}",
-                                                fit: BoxFit.cover),
+                                                fit: BoxFit.contain),
                                           ),
                                           Align(
                                             alignment: Alignment.topRight,
@@ -1026,7 +1026,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                               '',
                                           maxLines: 2,
                                           style: TextStyle(
-                                              fontSize: 10.sp,
+                                              fontSize: 8.sp,
                                               fontFamily: 'Intro'),
                                           overflow: TextOverflow.ellipsis,
                                           textAlign: TextAlign.center,
@@ -1036,7 +1036,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                           // 'QAR 120.00',
                                           "QAR ${popularProductsList[index].unitPrice.toString()}",
                                           style: TextStyle(
-                                              fontSize: 9.sp,
+                                              fontSize: 8.sp,
                                               fontWeight: FontWeight.bold,
                                               fontFamily: 'Intro',
                                               color: Colors.grey),
@@ -1257,9 +1257,8 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                 ],
               ),
             ),
-
             Container(
-              height: 300,
+              height: 36.h,
               color: Colors.white,
               child: Stack(
                 children: [
@@ -1379,21 +1378,21 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                         ),
                                       ],
                                     ),
-                                    SizedBox(height: 0.5.h),
+                                    // SizedBox(height: 0.5.h),
                                     Text(
                                       recentProductsList[index].prName ?? '',
                                       maxLines: 2,
                                       style: TextStyle(
-                                          fontSize: 10.sp, fontFamily: 'Intro'),
+                                          fontSize: 8.sp, fontFamily: 'Intro'),
                                       overflow: TextOverflow.ellipsis,
                                       textAlign: TextAlign.center,
                                     ),
-                                    SizedBox(height: 5),
+                                    SizedBox(height: 0.5.h),
                                     Text(
                                       // 'QAR 120.00',
                                       "QAR ${recentProductsList[index].unitPrice.toString()}",
                                       style: TextStyle(
-                                          fontSize: 9.sp,
+                                          fontSize: 8.sp,
                                           fontWeight: FontWeight.bold,
                                           fontFamily: 'Intro',
                                           color: Colors.grey),

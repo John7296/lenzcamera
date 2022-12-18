@@ -9,26 +9,28 @@ import 'package:lenzcamera/model/state_list.dart';
 import 'package:lenzcamera/model/user_location.dart';
 import 'package:lenzcamera/screens/home_screen.dart';
 
-class LocationSelectScreen extends StatefulWidget {
-  const LocationSelectScreen({super.key});
 
+class LocationSelectScreen extends StatefulWidget {
+  LocationSelectScreen({Key? key, this.title}) : super(key: key);
+  final String? title;
   @override
-  State<LocationSelectScreen> createState() => _LocationSelectScreenState();
+  _LocationSelectScreenState createState() => _LocationSelectScreenState();
 }
 
 class _LocationSelectScreenState extends State<LocationSelectScreen> {
   List<Location> locationList = [];
-  final _TextController = TextEditingController();
-  Location? showSelectedState;
+  Location? selectedValue;
+  String? hello;
+  TextEditingController v = TextEditingController();
 
-  @override
+    @override
   void initState() {
     // TODO: implement initState
     super.initState();
     location();
   }
 
-  List<Location>? showCityList(String place) {
+     List<Location>? showCityList(String place) {
     List<Location> newLocationList = [];
 
     for (Location element in newLocationList) {
@@ -40,9 +42,8 @@ class _LocationSelectScreenState extends State<LocationSelectScreen> {
   }
 
   void location() {
-    print(_TextController.text);
     NetworkManager.shared
-        .custLocation('b')
+        .custLocation("a")
         .then((BaseResponse<List<Location>> response) {
       setState(() {
         locationList.clear();
@@ -53,63 +54,59 @@ class _LocationSelectScreenState extends State<LocationSelectScreen> {
     });
   }
 
+
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.grey.shade100,
-        body: Column(
-          children: [
-            SizedBox(
-              height: 60,
-              child: TextFormField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  // labelText: 'Email ID'
-                ),
-                controller: _TextController,
-                // validator: (value) {
-                //   if (value!.isEmpty) return "Enter your Email ID";
-                //   return null;
-                // },
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: DropdownButton<Location>(
-                hint: Text("Select State"),
-                isExpanded: true,
-                dropdownColor: Color(0xffadadad),
-                elevation: 5,
-                value: showSelectedState,
-                underline: Container(color: Colors.transparent),
-                icon: const Icon(
-                  Icons.arrow_drop_down_outlined,
-                  color: Colors.black,
-                ),
-                onChanged: (Location? value) {
-                  // newLocationList(value!.pincodeId);
-                  // This is called when the user selects an item.
-                  setState(() {
-                    showSelectedState = value;
-                  });
-                  print(showSelectedState!.place);
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.grey.shade700,
+        title: Text(widget.title??''),
+      ),
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              DropdownSearch<Location>(
+                mode: Mode.DIALOG,
+                showSelectedItem: false,
+                items: locationList,
+                itemAsString: (Location u) => u.place!,
+                hint: "select",
+                onChanged: (value) {
+                  v.text = value!.pincodeId.toString();
+                  print(value.pincodeId);
                 },
-                items: locationList
-                    .map<DropdownMenuItem<Location>>((Location value) {
-                  return DropdownMenuItem<Location>(
-                    value: value,
-                    child: Text(value.place ?? ''),
+                showSearchBox: true,
+                filterFn: (instance, filter) {
+                  if (instance.place!.contains(filter)) {
+                    print(filter);
+                    return true;
+                  } else {
+                    return false;
+                  }
+                },
+                popupItemBuilder:
+                    (context, Location item, bool isSelected) {
+                  return Container(
+                    margin: EdgeInsets.symmetric(horizontal: 8),
+                    decoration: !isSelected
+                        ? null
+                        : BoxDecoration(
+                            border: Border.all(
+                                color: Theme.of(context).primaryColor),
+                            borderRadius: BorderRadius.circular(5),
+                            color: Colors.green,
+                          ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(item.place!),
+                    ),
                   );
-                }).toList(),
-              ),
-            ),
-            ElevatedButton(
-                onPressed: () {
-                  location();
                 },
-                child: Text("Click"))
-          ],
+              ),
+            ],
+          ),
         ),
       ),
     );

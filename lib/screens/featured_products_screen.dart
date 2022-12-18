@@ -178,29 +178,29 @@ class _FeaturedProductsScreenState
             SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
         itemBuilder: (BuildContext context, int index) {
           return InkWell(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      ProductDetailsScreen(featuredList[index]),
-                ),
-              );
-            },
-            child: Container(
-              height: 26.h,
-              child: Card(
-                shape: RoundedRectangleBorder(),
-                elevation: 3,
-                child: Padding(
-                  padding: EdgeInsets.all(0.4.h),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        ProductDetailsScreen(featuredList[index]),
+                  ),
+                );
+              },
+              child: Padding(
+                padding: EdgeInsets.all(0.5.h),
+                child: Container(
+                  // height: 10.h,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(.5.h)),
+                      color: Colors.white
+                      ),
                   child: Column(
                     children: [
                       Stack(
                         children: [
                           Container(
-                            height: 14.5.h,
-
+                            height: 14.h,
                             // color: Colors.red,
                             child: Center(
                               child: FadeInImage.assetNetwork(
@@ -245,37 +245,30 @@ class _FeaturedProductsScreenState
                           ),
                         ],
                       ),
-                      // SizedBox(height: 5),
-                      Container(
-                        height: 3.5.h,
-                        // color: Colors.green,
-                        child: Text(
-                          featuredList[index].prName ?? '',
-                          maxLines: 2,
-                          style:
-                              TextStyle(fontSize: 10.sp, fontFamily: 'Intro'),
-                          textAlign: TextAlign.center,
-                          overflow: TextOverflow.ellipsis,
-                        ),
+                      // SizedBox(height: 1.h),
+                      Text(
+                        featuredList[index].prName ?? '',
+                        maxLines: 2,
+                        style:
+                            TextStyle(fontSize: 8.sp, fontFamily: 'Intro'),
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
                       ),
-                      Container(
-                        height: 2.5.h,
-                        // color: Colors.yellow,
-                        child: Text(
-                          "QAR ${featuredList[index].unitPrice}",
-                          style: TextStyle(
-                              fontSize: 10.sp,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'Intro',
-                              color: Colors.grey),
-                        ),
+                      // SizedBox(height: 1.h),
+                      Text(
+                        "QAR ${featuredList[index].unitPrice}",
+                        style: TextStyle(
+                            fontSize: 8.sp,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'Intro',
+                            color: Colors.grey),
                       ),
                       if (featuredList[index].isCartUpdateProgress!)
                         Container(
 
                             // color:Colors.yellow,
                             height: 3.h,
-                            width: 3.h,
+                            // width: 3.h,
                             child: Padding(
                               padding: EdgeInsets.all(0.6.h),
                               child: CircularProgressIndicator(
@@ -365,59 +358,63 @@ class _FeaturedProductsScreenState
                                     ),
                                   ],
                                 )
-                              : ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                      elevation: 0,
-                                      backgroundColor:
-                                          (featuredList[index]
-                                                      .stockAvailability!
-                                                      .length ==
-                                                  12)
-                                              ? Colors.grey.shade300
-                                              : Colors.yellow),
-                                  onPressed: () {
-                                    if (featuredList[index]
-                                            .stockAvailability!
-                                            .length !=
-                                        12)
-                                      // print(featuredList[
-                                      //         index]
-                                      //     .urlKey);
+                              : Padding(
+                                  padding:
+                                      const EdgeInsets.only(left: 5, right: 5),
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                        elevation: 0,
+                                        backgroundColor:
+                                            (featuredList[index]
+                                                        .stockAvailability!
+                                                        .length ==
+                                                    12)
+                                                ? Colors.grey.shade300
+                                                : Colors.yellow),
+                                    onPressed: () {
+                                      if (featuredList[index]
+                                              .stockAvailability!
+                                              .length !=
+                                          12)
+                                        // print(featuredList[
+                                        //         index]
+                                        //     .urlKey);
 
-                                      DataManager.shared.updateItemToCart(
-                                          featuredList[index], 1,
-                                          onUpdate: () {
-                                        setState(() {});
-                                      }, onUpdateStarted: () {
-                                        setState(() {});
-                                      });
-                                    // Navigator.push(
-                                    //     context,
-                                    //     MaterialPageRoute(
-                                    //         builder: (context) =>
-                                    //             CartScreen()));
-                                  },
-                                  child: Center(
-                                    child: (featuredList[index]
-                                                .stockAvailability!
-                                                .length ==
-                                            12)
-                                        ? Text(
-                                            "OUT OF STOCK",
-                                            style: TextStyle(
-                                                fontFamily: 'Intro',
-                                                fontSize: 1.5.h,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.grey.shade700),
-                                          )
-                                        : Text(
-                                            "ADD",
-                                            style: TextStyle(
-                                                fontFamily: 'Intro',
-                                                fontSize: 10.sp,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.black),
-                                          ),
+                                        DataManager.shared.updateItemToCart(
+                                            featuredList[index], 1,
+                                            onUpdate: () {
+                                          setState(() {});
+                                        }, onUpdateStarted: () {
+                                          setState(() {});
+                                        });
+                                      // Navigator.push(
+                                      //     context,
+                                      //     MaterialPageRoute(
+                                      //         builder: (context) =>
+                                      //             CartScreen()));
+                                    },
+                                    child: Center(
+                                      child: (featuredList[index]
+                                                  .stockAvailability!
+                                                  .length ==
+                                              12)
+                                          ? Text(
+                                              "OUT OF STOCK",
+                                              style: TextStyle(
+                                                  fontFamily: 'Intro',
+                                                  fontSize: 1.5.h,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.grey.shade700),
+                                            )
+                                          : Text(
+                                              "ADD",
+                                              style: TextStyle(
+                                                  fontFamily: 'Intro',
+                                                  fontSize: 10.sp,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.black),
+                                            ),
+                                    ),
                                   ),
                                 ),
                         ),
@@ -425,9 +422,8 @@ class _FeaturedProductsScreenState
                   ),
                 ),
               ),
-            ),
-          );
-        
+            );
+          
         },
       ),
 

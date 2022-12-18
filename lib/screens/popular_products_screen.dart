@@ -192,6 +192,7 @@ class _PopularProductsScreenState
               child: Padding(
                 padding: EdgeInsets.all(0.5.h),
                 child: Container(
+                  // height: 10.h,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(.5.h)),
                       color: Colors.white
@@ -201,8 +202,7 @@ class _PopularProductsScreenState
                       Stack(
                         children: [
                           Container(
-                            height: 15.h,
-
+                            height: 14.h,
                             // color: Colors.red,
                             child: Center(
                               child: FadeInImage.assetNetwork(
@@ -247,27 +247,25 @@ class _PopularProductsScreenState
                           ),
                         ],
                       ),
-                      SizedBox(height: 1.h),
+                      // SizedBox(height: 1.h),
                       Container(
-                        height: 3.5.h,
-                        // color: Colors.green,
+                        height: 3.h,
                         child: Text(
                           popularProductsList[index].prName ?? '',
                           maxLines: 2,
                           style:
-                              TextStyle(fontSize: 10.sp, fontFamily: 'Intro'),
+                              TextStyle(fontSize: 8.sp, fontFamily: 'Intro'),
                           textAlign: TextAlign.center,
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
-                      SizedBox(height: 1.h),
+                      // SizedBox(height: 1.h),
                       Container(
-                        height: 3.h,
-                        // color: Colors.yellow,
+                        height: 1.5.h,
                         child: Text(
                           "QAR ${popularProductsList[index].unitPrice}",
                           style: TextStyle(
-                              fontSize: 10.sp,
+                              fontSize: 8.sp,
                               fontWeight: FontWeight.bold,
                               fontFamily: 'Intro',
                               color: Colors.grey),
@@ -278,7 +276,7 @@ class _PopularProductsScreenState
 
                             // color:Colors.yellow,
                             height: 3.h,
-                            width: 3.h,
+                            // width: 3.h,
                             child: Padding(
                               padding: EdgeInsets.all(0.6.h),
                               child: CircularProgressIndicator(
@@ -433,6 +431,7 @@ class _PopularProductsScreenState
                 ),
               ),
             );
+          
           },
         ),
       ),

@@ -178,29 +178,29 @@ class _RecentProductsScreenState
             SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
         itemBuilder: (BuildContext context, int index) {
           return InkWell(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      ProductDetailsScreen(recentProductsList[index]),
-                ),
-              );
-            },
-            child: Container(
-              height: 26.h,
-              child: Card(
-                shape: RoundedRectangleBorder(),
-                elevation: 3,
-                child: Padding(
-                  padding: EdgeInsets.all(0.4.h),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        ProductDetailsScreen(recentProductsList[index]),
+                  ),
+                );
+              },
+              child: Padding(
+                padding: EdgeInsets.all(0.5.h),
+                child: Container(
+                  // height: 10.h,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(.5.h)),
+                      color: Colors.white
+                      ),
                   child: Column(
                     children: [
                       Stack(
                         children: [
                           Container(
-                            height: 14.5.h,
-
+                            height: 14.h,
                             // color: Colors.red,
                             child: Center(
                               child: FadeInImage.assetNetwork(
@@ -245,26 +245,25 @@ class _RecentProductsScreenState
                           ),
                         ],
                       ),
-                      // SizedBox(height: 5),
+                      // SizedBox(height: 1.h),
                       Container(
-                        height: 3.5.h,
-                        // color: Colors.green,
+                        height: 3.h,
                         child: Text(
                           recentProductsList[index].prName ?? '',
                           maxLines: 2,
                           style:
-                              TextStyle(fontSize: 10.sp, fontFamily: 'Intro'),
+                              TextStyle(fontSize: 8.sp, fontFamily: 'Intro'),
                           textAlign: TextAlign.center,
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
+                      // SizedBox(height: 1.h),
                       Container(
-                        height: 2.5.h,
-                        // color: Colors.yellow,
+                        height: 1.5.h,
                         child: Text(
                           "QAR ${recentProductsList[index].unitPrice}",
                           style: TextStyle(
-                              fontSize: 10.sp,
+                              fontSize: 8.sp,
                               fontWeight: FontWeight.bold,
                               fontFamily: 'Intro',
                               color: Colors.grey),
@@ -275,7 +274,7 @@ class _RecentProductsScreenState
 
                             // color:Colors.yellow,
                             height: 3.h,
-                            width: 3.h,
+                            // width: 3.h,
                             child: Padding(
                               padding: EdgeInsets.all(0.6.h),
                               child: CircularProgressIndicator(
@@ -365,59 +364,63 @@ class _RecentProductsScreenState
                                     ),
                                   ],
                                 )
-                              : ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                      elevation: 0,
-                                      backgroundColor:
-                                          (recentProductsList[index]
-                                                      .stockAvailability!
-                                                      .length ==
-                                                  12)
-                                              ? Colors.grey.shade300
-                                              : Colors.yellow),
-                                  onPressed: () {
-                                    if (recentProductsList[index]
-                                            .stockAvailability!
-                                            .length !=
-                                        12)
-                                      // print(recentProductsList[
-                                      //         index]
-                                      //     .urlKey);
+                              : Padding(
+                                  padding:
+                                      const EdgeInsets.only(left: 5, right: 5),
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                        elevation: 0,
+                                        backgroundColor:
+                                            (recentProductsList[index]
+                                                        .stockAvailability!
+                                                        .length ==
+                                                    12)
+                                                ? Colors.grey.shade300
+                                                : Colors.yellow),
+                                    onPressed: () {
+                                      if (recentProductsList[index]
+                                              .stockAvailability!
+                                              .length !=
+                                          12)
+                                        // print(recentProductsList[
+                                        //         index]
+                                        //     .urlKey);
 
-                                      DataManager.shared.updateItemToCart(
-                                          recentProductsList[index], 1,
-                                          onUpdate: () {
-                                        setState(() {});
-                                      }, onUpdateStarted: () {
-                                        setState(() {});
-                                      });
-                                    // Navigator.push(
-                                    //     context,
-                                    //     MaterialPageRoute(
-                                    //         builder: (context) =>
-                                    //             CartScreen()));
-                                  },
-                                  child: Center(
-                                    child: (recentProductsList[index]
-                                                .stockAvailability!
-                                                .length ==
-                                            12)
-                                        ? Text(
-                                            "OUT OF STOCK",
-                                            style: TextStyle(
-                                                fontFamily: 'Intro',
-                                                fontSize: 1.5.h,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.grey.shade700),
-                                          )
-                                        : Text(
-                                            "ADD",
-                                            style: TextStyle(
-                                                fontFamily: 'Intro',
-                                                fontSize: 10.sp,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.black),
-                                          ),
+                                        DataManager.shared.updateItemToCart(
+                                            recentProductsList[index], 1,
+                                            onUpdate: () {
+                                          setState(() {});
+                                        }, onUpdateStarted: () {
+                                          setState(() {});
+                                        });
+                                      // Navigator.push(
+                                      //     context,
+                                      //     MaterialPageRoute(
+                                      //         builder: (context) =>
+                                      //             CartScreen()));
+                                    },
+                                    child: Center(
+                                      child: (recentProductsList[index]
+                                                  .stockAvailability!
+                                                  .length ==
+                                              12)
+                                          ? Text(
+                                              "OUT OF STOCK",
+                                              style: TextStyle(
+                                                  fontFamily: 'Intro',
+                                                  fontSize: 1.5.h,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.grey.shade700),
+                                            )
+                                          : Text(
+                                              "ADD",
+                                              style: TextStyle(
+                                                  fontFamily: 'Intro',
+                                                  fontSize: 10.sp,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.black),
+                                            ),
+                                    ),
                                   ),
                                 ),
                         ),
@@ -425,9 +428,8 @@ class _RecentProductsScreenState
                   ),
                 ),
               ),
-            ),
-          );
-        
+            );
+          
         },
       ),
 
