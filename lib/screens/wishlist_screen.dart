@@ -12,6 +12,8 @@ import 'package:lenzcamera/screens/home_screen.dart';
 import 'package:lenzcamera/screens/search_screen.dart';
 import 'package:lenzcamera/widgets/wishlist_item_widget.dart';
 
+import 'package:sizer/sizer.dart';
+
 class WishlistScreen extends StatefulWidget {
   const WishlistScreen({super.key});
 
@@ -143,8 +145,10 @@ class _WishlistScreenState extends BaseStatefulState<WishlistScreen> {
                 return Column(
                   children: [
                     Container(
-                      height: 100,
-                      width: 400,
+                      height: 13.h,
+                      width: 100.h,
+                      //  height: 100,
+                      // width: 400,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.all(Radius.circular(15)),
@@ -186,7 +190,8 @@ class _WishlistScreenState extends BaseStatefulState<WishlistScreen> {
                                 padding: const EdgeInsets.only(top: 15),
                                 child: Container(
                                   height: 30,
-                                  width: 200,
+                                  width: 50.w,
+                                  // width: 200,
                                   child: Text(
                                     // 'CANON EF 16-35 MM F/4L IS USM',
                                     wishListItems[index].prName ?? '',
@@ -215,7 +220,7 @@ class _WishlistScreenState extends BaseStatefulState<WishlistScreen> {
 
                                   getWishListProducts();
                                 },
-                                icon: Icon(Icons.delete_outline,
+                                icon: Icon(Icons.delete_outline,size: 25,
                                     color: Colors.red),
                               ),
                               IconButton(
@@ -243,7 +248,8 @@ class _WishlistScreenState extends BaseStatefulState<WishlistScreen> {
                   ],
                 );
               }),
-              padding: const EdgeInsets.all(13.0),
+              padding: EdgeInsets.symmetric(vertical:2.h, horizontal: 5.w),
+              // all(13.0)
             )
           : Container(
               height: 600,

@@ -1,9 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:lenzcamera/connection/network_manager.dart';
+import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/product.dart';
+import 'package:lenzcamera/model/review_response.dart';
 
 class ReviewScreen extends StatefulWidget {
+  Product? products;
+  ReviewScreen(this.products);
 
   @override
   State<ReviewScreen> createState() => _ReviewScreenState();
@@ -11,6 +16,36 @@ class ReviewScreen extends StatefulWidget {
 
 class _ReviewScreenState extends State<ReviewScreen> {
   double rating = 0.0;
+
+    @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration(milliseconds: 500), (() {
+      productReview();
+    }));
+  }
+
+
+ void productReview(){
+
+     NetworkManager.shared.productReview(<String, dynamic>{
+       "cusId": NetworkManager.shared.userId,
+         "urlKey": widget.products?.urlKey
+       }).then((BaseResponse<ReviewResponse> response) {
+
+          //showFlashMsg(response.message!);
+
+    
+    //  Navigator.push(
+    //                 context,
+    //                   MaterialPageRoute(
+    //                   builder: (context) =>
+    //                   ReviewScreen()));
+    }).catchError((Object obj) {
+    });
+
+
+     }
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +73,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
             children: [
               Container(
                 child: Text(
-                  "GoPro Volta Battery Grip for HERO",
+                  widget.products?.prName??'',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
@@ -52,7 +87,8 @@ class _ReviewScreenState extends State<ReviewScreen> {
           children: [
             Padding(
               padding: const EdgeInsets.only(left: 24, top: 10),
-              child: Text("QAR 600",
+              child: Text("QAR ${widget.products?.unitPrice}",
+                // "QAR 600",
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
             ),
           ],
@@ -69,7 +105,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(left: 40, top: 20),
-                  child: Text("4",
+                  child: Text("",
                       style:
                           TextStyle(fontSize: 50, fontWeight: FontWeight.w600)),
                 ),
@@ -258,7 +294,9 @@ class _ReviewScreenState extends State<ReviewScreen> {
                 children: [
                 Row(
                   children: [
-                    Text("jibin_intertoons_QC", style:
+                    Text(
+                     "jibin_intertoons_QC", 
+                      style:
                                 TextStyle(fontSize: 15, fontWeight: FontWeight.w600)),
 
                                 SizedBox(width:100),

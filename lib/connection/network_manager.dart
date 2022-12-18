@@ -17,6 +17,7 @@ import 'package:lenzcamera/model/login_customer.dart';
 import 'package:lenzcamera/model/new_register.dart';
 import 'package:lenzcamera/model/profile.dart';
 import 'package:lenzcamera/model/related_products.dart';
+import 'package:lenzcamera/model/review_response.dart';
 import 'package:lenzcamera/model/search_filter_response.dart';
 
 import 'package:lenzcamera/model/search_products_response.dart';
@@ -161,6 +162,11 @@ class NetworkManager {
 
   Future<BaseResponse> addReview(Map<String, dynamic> map) {
     return call(networkConnection.addReview(map));
+  }
+
+
+  Future<BaseResponse<ReviewResponse>> productReview(Map<String, dynamic> map) {
+    return call(networkConnection.productReview(map["CustId"], map["urlKey"]));
   }
 
   Future<BaseResponse> verifyOtp(Map<String, dynamic> map) {

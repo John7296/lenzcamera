@@ -10,6 +10,7 @@ import 'package:lenzcamera/model/cart_details.dart';
 import 'package:lenzcamera/model/product.dart';
 import 'package:lenzcamera/screens/checkout_screen.dart';
 import 'package:lenzcamera/screens/home_screen.dart';
+import 'package:sizer/sizer.dart';
 
 class CartScreen extends StatefulWidget {
   CartScreen({super.key});
@@ -109,8 +110,10 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                       child: Column(
                         children: [
                           Container(
-                            height: 100,
-                            width: 400,
+                            height: 12.h,
+                            width: 100.h,
+                            //  height: 100,
+                            // width: 400,
                             decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius:
@@ -227,7 +230,8 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                                     Spacer(),
                                     Container(
                                       margin:
-                                          EdgeInsets.only(bottom: 5, right: 5),
+                                          EdgeInsets.symmetric( vertical: 1.h),
+                                          // bottom: 5, right: 5
                                       child: Row(
                                         children: [
                                           Row(
@@ -347,7 +351,8 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
           Padding(
             padding: const EdgeInsets.only(left: 10, right: 10),
             child: Container(
-              height: 80,
+              height: 8.h,
+              // height: 80,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 color: Colors.white,
@@ -438,7 +443,8 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
           Padding(
             padding: const EdgeInsets.only(left: 10, right: 10),
             child: Container(
-              height: 30,
+              height: 5.h,
+              // height: 30,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 color: Colors.white,

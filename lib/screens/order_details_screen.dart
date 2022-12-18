@@ -31,7 +31,8 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
     // TODO: implement initState
     super.initState();
     Future.delayed(Duration(milliseconds: 500), () {
-singleOrderDetail();
+    singleOrderDetail();
+     getOrderList();
     });
     // singleOrderDetail();
   }
@@ -69,6 +70,24 @@ singleOrderDetail();
       showFlashMsg(e.toString());
     });
   }
+
+
+   void getOrderList() {
+    showLoader();
+    NetworkManager.shared
+        .getOrderList()
+        .then((BaseResponse<List<OrderList>> response) {
+      hideLoader();
+      setState(() {
+       
+      });
+    }).catchError((e) {
+      showFlashMsg(e.toString());
+      hideLoader();
+      print(e.toString());
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -282,8 +301,8 @@ singleOrderDetail();
                                           Container(
                                             height: 30,
                                             width: 160,
-                                            child: Text(
-                                              singleItemList[index].prName ?? '',
+                                            child: Text("vzfgthtyjyuj",
+                                             // singleItemList[index].prName ?? '',
                                               style: TextStyle(
                                                 color: Colors.grey.shade600,
                                                 fontWeight: FontWeight.bold,
@@ -345,7 +364,7 @@ singleOrderDetail();
                                   color: Colors.grey,
                                   fontWeight: FontWeight.bold)),
                           Spacer(),
-                          Text("",
+                          Text("QAR ${widget.orderList.orderAmount}",
                               // 'QAR ${singleItemList.first.itemTotal.toString()}',
                               style: TextStyle(
                                   fontSize: 12,
@@ -367,8 +386,8 @@ singleOrderDetail();
                                   color: Colors.grey,
                                   fontWeight: FontWeight.bold)),
                           Spacer(),
-                          Text(
-                              'QAR ${0}',
+                          Text("",
+                              // 'QAR ${widget.orderList.}',
                               style: TextStyle(
                                   fontSize: 12,
                                   fontFamily: 'Intro',

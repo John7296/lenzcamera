@@ -459,7 +459,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
             ),
 
             Container(
-              height: 60.h,
+              height: 62.h,
               width: MediaQuery.of(context).size.width,
               color: Colors.white,
               child: Column(
@@ -498,7 +498,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                   Padding(
                     padding: EdgeInsets.only(left: 1.h, right: 1.h),
                     child: Container(
-                      height: 52.h,
+                      height: 53.h,
                       // color: Colors.red,
                       child: StaggeredGridView.countBuilder(
                         physics: NeverScrollableScrollPhysics(),
@@ -968,7 +968,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                           children: [
                                             Container(
                                               margin:
-                                                  EdgeInsets.only(left: 15.h),
+                                                  EdgeInsets.only(left: 13.h),
                                               child: IconButton(
                                                 onPressed: () {
                                                   setState(() {
@@ -1299,7 +1299,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                     ],
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: 80, left: 10),
+                    padding: EdgeInsets.only(top: 70, left: 10),
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       // shrinkWrap: true,
@@ -1316,7 +1316,8 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                             );
                           }),
                           child: Container(
-                            // height: 400.h,
+                            // height: 200.h,
+                           
                             width: 50.w,
                             child: Card(
                               elevation: 1,

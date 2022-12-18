@@ -433,7 +433,7 @@ class _RecentProductsScreenState
         },
       ),
 
-      // SizedBox(height: 50),
+      //SizedBox(height: 50),
     );
   }
 
