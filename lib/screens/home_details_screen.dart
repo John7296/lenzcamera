@@ -283,25 +283,28 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                       child: Text(
                         'Doha',
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, fontFamily: 'Intro',fontSize: 10.sp),
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'Intro',
+                            fontSize: 10.sp),
                       ),
                     ),
                   ),
                   Spacer(),
                   Padding(
-                    padding:  EdgeInsets.all(0.5.h),
+                    padding: EdgeInsets.all(0.5.h),
                     child: TextButton(
                         onPressed: () {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => LocationSelectScreen()));
+                                  builder: (context) =>
+                                      LocationSelectScreen()));
                           // location();
                           // showDialog(
                           //   context: context,
                           //   builder: (context) => AlertDialog(
                           //     title: Text(
-                          //       "Would you like to delete this item", 
+                          //       "Would you like to delete this item",
                           //       style: TextStyle(fontSize: 15),
                           //     ),
                           //   ),
@@ -311,7 +314,8 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                           'Change',
                           style: TextStyle(
                               color: Colors.red,
-                              fontWeight: FontWeight.bold,fontSize: 10.sp,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 10.sp,
                               fontFamily: 'Intro'),
                         )),
                   ),
@@ -341,7 +345,8 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                           SizedBox(
                             child: Text(
                               "SEARCH PRODUCTS",
-                              style: TextStyle(fontSize: 10.sp,
+                              style: TextStyle(
+                                  fontSize: 10.sp,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.grey.shade700,
                                   fontFamily: 'Intro'),
@@ -386,7 +391,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
             ),
             SizedBox(height: 1.5.h),
             Padding(
-              padding:  EdgeInsets.only(left: 0.5.h, right: 1.5.h),
+              padding: EdgeInsets.only(left: 0.5.h, right: 1.5.h),
               child: SizedBox(
                 height: 22.h,
                 child: ListView.builder(
@@ -398,7 +403,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding:  EdgeInsets.all(0.5.h),
+                          padding: EdgeInsets.all(0.5.h),
                           child: Container(
                             width: 15.h,
                             decoration: BoxDecoration(
@@ -420,8 +425,8 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                 Padding(
                                   padding: const EdgeInsets.all(5),
                                   child: FadeInImage.assetNetwork(
-                                      height: 110,
-                                      width: 110,
+                                      height: 15.h,
+                                      width: 15.w,
                                       placeholder:
                                           'assets/images/placeholder.png',
                                       placeholderFit: BoxFit.contain,
@@ -466,7 +471,9 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                         Text(
                           'Featured Products',
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, fontFamily: 'Intro',fontSize: 10.sp),
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Intro',
+                              fontSize: 12.sp),
                         ),
                         Spacer(),
                         TextButton(
@@ -481,7 +488,8 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                               'View All ➜',
                               style: TextStyle(
                                   color: Colors.red,
-                                  fontWeight: FontWeight.bold,fontSize: 10.sp,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12.sp,
                                   fontFamily: 'Intro'),
                             )),
                       ],
@@ -515,13 +523,13 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                 shape: RoundedRectangleBorder(),
                                 elevation: 3,
                                 child: Padding(
-                                  padding: const EdgeInsets.all(2),
+                                  padding: EdgeInsets.all(0.4.h),
                                   child: Column(
                                     children: [
                                       Stack(
                                         children: [
                                           Container(
-                                            height: 100,
+                                            height: 14.h,
                                             // color: Colors.red,
                                             child: FadeInImage.assetNetwork(
                                                 height: 200,
@@ -559,7 +567,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                               },
                                               icon: Icon(
                                                 Icons.favorite,
-                                                size: 20,
+                                                size: 3.h,
                                                 color: DataManager.shared
                                                         .iswishListed(
                                                             featuredList[index])
@@ -572,7 +580,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                       ),
                                       SizedBox(height: 5),
                                       Container(
-                                        height: 30,
+                                        height: 3.5.h,
                                         // color: Colors.green,
                                         child: Text(
                                           featuredList[index].prName ?? '',
@@ -585,7 +593,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                         ),
                                       ),
                                       Container(
-                                        height: 20,
+                                        height: 2.5.h,
                                         // color: Colors.yellow,
                                         child: Text(
                                           "QAR ${featuredList[index].unitPrice}",
@@ -600,10 +608,10 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                           .isCartUpdateProgress!)
                                         Container(
                                             // color:Colors.yellow,
-                                            height: 20,
-                                            width: 20,
+                                            height: 2.5.h,
+                                            width: 2.5.h,
                                             child: Padding(
-                                              padding: const EdgeInsets.all(5),
+                                              padding: EdgeInsets.all(5),
                                               child: CircularProgressIndicator(
                                                 strokeWidth: 2,
                                                 color: Colors.grey,
@@ -780,7 +788,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                             style: TextStyle(
                                                                 fontFamily:
                                                                     'Intro',
-                                                                fontSize: 12,
+                                                                fontSize: 10.sp,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .bold,
@@ -807,7 +815,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
 
             // SizedBox(height: 10),
             Padding(
-              padding: const EdgeInsets.only(left: 10, right: 10),
+              padding: EdgeInsets.only(left: 10, right: 10),
               child: Center(
                 child: Stack(
                   alignment: Alignment.bottomCenter,
@@ -887,21 +895,23 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
             //     },
             //   ),
             // ),
-            SizedBox(height: 10),
+            // SizedBox(height: 10),
             Container(
-              height: 750,
+              height: 110.h,
               width: MediaQuery.of(context).size.width,
               color: Colors.white,
               child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 15, right: 15),
+                    padding: EdgeInsets.only(left: 1.5.h, right: 1.5.h),
                     child: Row(
                       children: [
                         Text(
                           'Popular Products',
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, fontFamily: 'Intro'),
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Intro',
+                              fontSize: 12.sp),
                         ),
                         Spacer(),
                         TextButton(
@@ -917,7 +927,8 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                               style: TextStyle(
                                   color: Colors.red,
                                   fontWeight: FontWeight.bold,
-                                  fontFamily: 'Intro'),
+                                  fontFamily: 'Intro',
+                                  fontSize: 12.sp),
                             )),
                       ],
                     ),
@@ -925,9 +936,9 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                   Column(
                     children: [
                       Container(
-                        height: 690,
+                        height: 101.h,
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 10, right: 10),
+                          padding: EdgeInsets.only(left: 1.5.h, right: 1.5.h),
                           child: StaggeredGridView.countBuilder(
                             physics: NeverScrollableScrollPhysics(),
                             crossAxisCount: 2,
@@ -950,14 +961,14 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                   elevation: 1,
                                   shape: RoundedRectangleBorder(),
                                   child: Padding(
-                                    padding: const EdgeInsets.all(8),
+                                    padding: EdgeInsets.all(1.h),
                                     child: Column(
                                       children: [
                                         Stack(
                                           children: [
                                             Container(
                                               margin:
-                                                  EdgeInsets.only(left: 125),
+                                                  EdgeInsets.only(left: 15.h),
                                               child: IconButton(
                                                 onPressed: () {
                                                   setState(() {
@@ -996,7 +1007,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                               ),
                                             ),
                                             Padding(
-                                              padding: const EdgeInsets.all(10),
+                                              padding: EdgeInsets.all(1.h),
                                               child: FadeInImage.assetNetwork(
                                                   height: 100,
                                                   width: 100,
@@ -1009,23 +1020,23 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                             ),
                                           ],
                                         ),
-                                        const SizedBox(height: 10),
+                                        SizedBox(height: 2.1.h),
                                         Text(
                                           popularProductsList[index].prName ??
                                               '',
                                           maxLines: 2,
-                                          style: const TextStyle(
-                                              fontSize: 12,
+                                          style: TextStyle(
+                                              fontSize: 10.sp,
                                               fontFamily: 'Intro'),
                                           overflow: TextOverflow.ellipsis,
                                           textAlign: TextAlign.center,
                                         ),
-                                        const SizedBox(height: 5),
+                                        SizedBox(height: 5),
                                         Text(
                                           // 'QAR 120.00',
                                           "QAR ${popularProductsList[index].unitPrice.toString()}",
-                                          style: const TextStyle(
-                                              fontSize: 12,
+                                          style: TextStyle(
+                                              fontSize: 9.sp,
                                               fontWeight: FontWeight.bold,
                                               fontFamily: 'Intro',
                                               color: Colors.grey),
@@ -1180,7 +1191,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                                   .stockAvailability!
                                                                   .length !=
                                                               12)
-                                                            // print(popularProductsList[
+                                                            // print(recentProductsList[
                                                             //         index]
                                                             //     .urlKey);
                                                             DataManager.shared
@@ -1260,7 +1271,9 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                         child: Text(
                           'Recent Products',
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, fontFamily: 'Intro'),
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Intro',
+                              fontSize: 12.sp),
                         ),
                       ),
                       Spacer(),
@@ -1280,20 +1293,21 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                               style: TextStyle(
                                   color: Colors.red,
                                   fontWeight: FontWeight.bold,
-                                  fontFamily: 'Intro'),
+                                  fontFamily: 'Intro',
+                                  fontSize: 12.sp),
                             )),
                       )
                     ],
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 80, left: 10),
+                    padding: EdgeInsets.only(top: 80, left: 10),
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      shrinkWrap: true,
+                      // shrinkWrap: true,
                       itemCount: recentProductsList.length,
                       itemBuilder: (context, index) {
                         return InkWell(
-                          onTap: () {
+                          onTap: (() {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -1301,35 +1315,21 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                     recentProductsList[index]),
                               ),
                             );
-                          },
+                          }),
                           child: Container(
-                            height: 200,
-                            width: 180,
+                            // height: 400.h,
+                            width: 50.w,
                             child: Card(
+                              elevation: 1,
                               shape: RoundedRectangleBorder(),
-                              elevation: 3,
                               child: Padding(
-                                padding: const EdgeInsets.all(2),
+                                padding: EdgeInsets.all(1.h),
                                 child: Column(
                                   children: [
                                     Stack(
                                       children: [
                                         Container(
-                                          height: 120,
-                                          // color: Colors.red,
-                                          child: FadeInImage.assetNetwork(
-                                              height: 200,
-                                              width: double.infinity,
-                                              placeholder:
-                                                  'assets/images/placeholder.png',
-                                              placeholderFit: BoxFit.contain,
-                                              image:
-                                                  "https://dev.lenzcamera.com/webadmin/${recentProductsList[index].imageUrl}",
-                                              fit: BoxFit.contain),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 120),
+                                          margin: EdgeInsets.only(left: 15.h),
                                           child: IconButton(
                                             onPressed: () {
                                               setState(() {
@@ -1350,6 +1350,8 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                   recentProductsList[index]
                                                       .isWhishlisted = true;
                                                 }
+                                                // DataManager.shared
+                                                //     .getWishList();
                                               });
                                             },
                                             icon: Icon(
@@ -1363,41 +1365,47 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                             ),
                                           ),
                                         ),
+                                        Padding(
+                                          padding: EdgeInsets.all(1.h),
+                                          child: FadeInImage.assetNetwork(
+                                              height: 100,
+                                              width: 100,
+                                              placeholder:
+                                                  'assets/images/placeholder.png',
+                                              placeholderFit: BoxFit.fill,
+                                              image:
+                                                  "https://dev.lenzcamera.com/webadmin/${recentProductsList[index].imageUrl}",
+                                              fit: BoxFit.cover),
+                                        ),
                                       ],
                                     ),
+                                    SizedBox(height: 0.5.h),
+                                    Text(
+                                      recentProductsList[index].prName ?? '',
+                                      maxLines: 2,
+                                      style: TextStyle(
+                                          fontSize: 10.sp, fontFamily: 'Intro'),
+                                      overflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.center,
+                                    ),
                                     SizedBox(height: 5),
-                                    Container(
-                                      height: 30,
-                                      // color: Colors.green,
-                                      child: Text(
-                                        recentProductsList[index].prName ?? '',
-                                        maxLines: 2,
-                                        style: const TextStyle(
-                                            fontSize: 12, fontFamily: 'Intro'),
-                                        textAlign: TextAlign.center,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
+                                    Text(
+                                      // 'QAR 120.00',
+                                      "QAR ${recentProductsList[index].unitPrice.toString()}",
+                                      style: TextStyle(
+                                          fontSize: 9.sp,
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: 'Intro',
+                                          color: Colors.grey),
                                     ),
-                                    Container(
-                                      height: 20,
-                                      // color: Colors.yellow,
-                                      child: Text(
-                                        "QAR ${recentProductsList[index].unitPrice}",
-                                        style: const TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.bold,
-                                            fontFamily: 'Intro',
-                                            color: Colors.grey),
-                                      ),
-                                    ),
+                                    const SizedBox(height: 5),
                                     if (recentProductsList[index]
                                         .isCartUpdateProgress!)
-                                      Container(
-                                          // color:Colors.yellow,
-                                          height: 20,
-                                          width: 20,
+                                      SizedBox(
+                                          height: 30,
+                                          width: 30,
                                           child: Padding(
-                                            padding: const EdgeInsets.all(5),
+                                            padding: const EdgeInsets.all(10),
                                             child: CircularProgressIndicator(
                                               strokeWidth: 2,
                                               color: Colors.grey,
@@ -1407,7 +1415,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                             .isCartUpdateProgress ==
                                         false)
                                       Container(
-                                        // width: 160,
+                                        width: 160,
                                         height: 30,
                                         child: recentProductsList[index]
                                                 .isAddedtoCart()
@@ -1484,26 +1492,27 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                       });
                                                     },
                                                     child: Container(
-                                                      width: 40,
-                                                      height: 30,
-                                                      decoration: BoxDecoration(
-                                                          color:
-                                                              Color(0xffe83031),
-                                                          borderRadius:
-                                                              BorderRadius.only(
-                                                            topRight:
-                                                                Radius.circular(
-                                                                    5),
-                                                            bottomRight:
-                                                                Radius.circular(
-                                                                    5),
-                                                          )),
-                                                      child: Icon(
-                                                        Icons.add,
-                                                        color: Colors.black,
-                                                        size: 12,
-                                                      ),
-                                                    ),
+                                                        width: 40,
+                                                        height: 30,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                                color: Color(
+                                                                    0xffe83031),
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .only(
+                                                                  topRight: Radius
+                                                                      .circular(
+                                                                          5),
+                                                                  bottomRight: Radius
+                                                                      .circular(
+                                                                          5),
+                                                                )),
+                                                        child: Icon(
+                                                          Icons.add,
+                                                          color: Colors.black,
+                                                          size: 12,
+                                                        )),
                                                   ),
                                                 ],
                                               )
@@ -1527,7 +1536,6 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                     // print(popularProductsList[
                                                     //         index]
                                                     //     .urlKey);
-
                                                     DataManager.shared
                                                         .updateItemToCart(
                                                             recentProductsList[
@@ -1552,24 +1560,18 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                       ? Text(
                                                           "OUT OF STOCK",
                                                           style: TextStyle(
+                                                              fontSize: 12,
                                                               fontFamily:
                                                                   'Intro',
-                                                              fontSize: 8,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
                                                               color: Colors.grey
                                                                   .shade700),
                                                         )
                                                       : Text(
                                                           "ADD",
                                                           style: TextStyle(
+                                                              fontSize: 15,
                                                               fontFamily:
                                                                   'Intro',
-                                                              fontSize: 12,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
                                                               color:
                                                                   Colors.black),
                                                         ),
