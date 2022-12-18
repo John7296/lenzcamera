@@ -65,7 +65,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
             centerTitle: true,
             title: Text("My Profile"),
             titleTextStyle:
-                TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                TextStyle(fontSize: 16, fontFamily: "Intro",fontWeight: FontWeight.w600),
             leading: IconButton(
               icon: const Icon(
                 Icons.arrow_back_ios_new_sharp,
@@ -161,12 +161,12 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
             Container(
               // color: Colors.amber,
               // height: 250,
-               height: 35.h,
+               height: 36.h,
               width: MediaQuery.of(context).size.width,
               child: Column(
                 children: [
                   Container(
-                    margin: EdgeInsets.fromLTRB(120, 45, 120, 10),
+                    margin: EdgeInsets.fromLTRB(120, 43, 120, 10),
                     decoration: BoxDecoration(
                       border: Border.all(width: 5, color: Colors.black),
                       borderRadius: BorderRadius.all(Radius.circular(45)),
@@ -181,16 +181,16 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top:20),
+                    padding: const EdgeInsets.only(top:15),
                     child: Text(
                       userProfile?.custName ?? '',
-                      style: TextStyle(fontWeight: FontWeight.w500),
+                      style: TextStyle(fontWeight: FontWeight.w500, fontFamily: "Intro"),
                     ),
                   ),
                   Text(
                     userProfile?.emailId ?? '',
                     style: TextStyle(
-                        color: Colors.red, fontWeight: FontWeight.w500),
+                        color: Colors.red, fontWeight: FontWeight.w500, fontFamily: "Intro"),
                   ),
                 ],
               ),
@@ -229,6 +229,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                                   "Personal",
                                   style: TextStyle(
                                       fontSize: 15,
+                                      fontFamily: "Intro",
                                       fontWeight: FontWeight.bold),
                                 ),
                               ),
@@ -236,8 +237,10 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                                 padding: const EdgeInsets.all(10),
                                 child: Text(
                                   "Profile, phone, email",
+
                                   style: TextStyle(
                                       fontSize: 12,
+                                      fontFamily: "Intro",
                                       fontWeight: FontWeight.bold),
                                 ),
                               ),
@@ -281,14 +284,17 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                                   "Change Password",
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
+                                      fontFamily: "Intro",
                                       fontSize: 15),
                                 ),
                               ),
                               subtitle: Padding(
                                 padding: const EdgeInsets.all(10),
                                 child: Text("Change your password",
+
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
+                                        fontFamily: "Intro",
                                         fontSize: 12)),
                               ),
                               leading: Container(
@@ -329,6 +335,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                                 child: Text("Address Book",
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
+                                        fontFamily: "Intro",
                                         fontSize: 15)),
                               ),
                               subtitle: Padding(
@@ -336,6 +343,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                                 child: Text("Add, Edit, Delete",
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
+                                        fontFamily: "Intro",
                                         fontSize: 12)),
                               ),
                               leading: Container(
@@ -376,6 +384,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                                 child: Text("My Orders",
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
+                                        fontFamily: "Intro",
                                         fontSize: 15)),
                               ),
                               subtitle: Padding(
@@ -383,6 +392,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                                 child: Text("View, Track, Update",
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
+                                        fontFamily: "Intro",
                                         fontSize: 12)),
                               ),
                               leading: Container(
@@ -423,6 +433,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                                 child: Text("My Wishlist",
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
+                                        fontFamily: "Intro",
                                         fontSize: 15)),
                               ),
                               subtitle: Padding(
@@ -430,6 +441,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                                 child: Text("View, Update, Remove",
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
+                                        fontFamily: "Intro",
                                         fontSize: 12)),
                               ),
                               leading: Container(
@@ -471,6 +483,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                                 child: Text("My Wallet",
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
+                                        fontFamily: "Intro",
                                         fontSize: 15)),
                               ),
                               subtitle: Padding(
@@ -478,6 +491,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                                 child: Text("View, Recharge",
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
+                                        fontFamily: "Intro",
                                         fontSize: 12)),
                               ),
                               leading: Container(
@@ -520,6 +534,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                                 child: Text("Support",
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
+                                        fontFamily: "Intro",
                                         fontSize: 15)),
                               ),
                               subtitle: Padding(
@@ -527,6 +542,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                                 child: Text("Contact, Mail",
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
+                                        fontFamily: "Intro",
                                         fontSize: 12)),
                               ),
                               leading: Container(

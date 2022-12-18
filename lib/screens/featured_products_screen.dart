@@ -188,18 +188,22 @@ class _FeaturedProductsScreenState
               );
             },
             child: Container(
-              height: 27.h,
+              // height: 600,
               child: Card(
                 shape: RoundedRectangleBorder(),
                 elevation: 3,
-                child: Padding(
-                  padding: EdgeInsets.all(0.4.h),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(.5.h)),
+                    color: Colors.white
+                    ),
                   child: Column(
                     children: [
                       Stack(
                         children: [
                           Container(
-                            height: 14.5.h,
+                             height: 13.h,
+                           // height: 100,
 
                             // color: Colors.red,
                             child: Center(
@@ -286,7 +290,7 @@ class _FeaturedProductsScreenState
                       if (featuredList[index].isCartUpdateProgress ==
                           false)
                         Container(
-                          // width: 160,
+                          width: 160,
                           height: 4.h,
                           child: featuredList[index].isAddedtoCart()
                               ? Row(
