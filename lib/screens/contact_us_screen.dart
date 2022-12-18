@@ -11,6 +11,7 @@ import 'package:lenzcamera/model/login_customer.dart';
 import 'package:lenzcamera/screens/home_screen.dart';
 import 'package:lenzcamera/utils/helper.dart';
 import 'package:lenzcamera/utils/sessions_manager.dart';
+import 'package:sizer/sizer.dart';
 
 class ContactUsScreen extends StatefulWidget{
   @override
@@ -130,7 +131,8 @@ void onSendButtonTapped() {
       color: Colors.white,
        child: Stack(
          children:[ Padding(
-           padding: const EdgeInsets.only(left:24, right:24 , top: 30),
+           padding: EdgeInsets.symmetric(vertical:3.h, horizontal: 6.w),
+          //  left:24, right:24 , top: 30
            child: Container(
             margin: EdgeInsets.only(bottom:70),
              child: SingleChildScrollView(
@@ -148,7 +150,8 @@ void onSendButtonTapped() {
                     elevation: 2,
                     child: Stack(
                       children: [ Padding(
-                        padding: const EdgeInsets.all(20),
+                        padding: EdgeInsets.symmetric(vertical: 2.h, horizontal: 4.w),
+                        //all(20)
                         child: Column(
                          children: [
                            Row(
@@ -217,7 +220,8 @@ void onSendButtonTapped() {
                         
                        Container(
                          child: Padding(
-                           padding: const EdgeInsets.only( top: 10, right:24 ),
+                           padding:  EdgeInsets.symmetric(vertical: 1.h,horizontal: 5.w ),
+                          //  top: 10, right:24
                            child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [

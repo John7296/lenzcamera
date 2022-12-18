@@ -9,6 +9,8 @@ import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/product.dart';
 import 'package:lenzcamera/screens/cart_screen.dart';
 import 'package:lenzcamera/screens/wishlist_screen.dart';
+import 'package:sizer/sizer.dart';
+
 
 class FeaturedProductsScreen extends StatefulWidget {
   const FeaturedProductsScreen({super.key});
@@ -173,7 +175,8 @@ class _FeaturedProductsScreenState
                   SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
               itemBuilder: (BuildContext context, int index) {
                 return Container(
-                  height: 600,
+                  height: 205.h,
+                  // height: 600,
                   child: Card(
                     child: Column(
                       children: [
@@ -227,27 +230,30 @@ class _FeaturedProductsScreenState
                           ),
                         ]),
                         
-                        Container(
-                          height: 40,
-                          child: Column(
-                            children: [
-                              Text(
-                                featuredList[index].prName ?? '',
-                                            maxLines: 2,
-                                            style: const TextStyle(fontSize: 12,fontFamily: 'Intro'),
-                                            overflow: TextOverflow.ellipsis,
-                                            textAlign: TextAlign.center,
-                                // "CANON EF 16-35 MM F/4L IS USM ",
-                                // featuredList[index].prName ?? '',
-                                // style: TextStyle(
-                                //     fontSize: 10, fontWeight: FontWeight.bold,fontFamily: 'Intro'),
-                                // maxLines: 1,
-                                // textAlign: TextAlign.center,
-                              ),
-                                Text("QAR ${featuredList[index].unitPrice ?? ''}",
-                            style: TextStyle(
-                                fontSize: 12, fontWeight: FontWeight.bold,fontFamily: 'Intro',color: Colors.grey)),
-                            ],
+                        Padding(
+                          padding: const EdgeInsets.only(top:5),
+                          child: Container(
+                            height: 40,
+                            child: Column(
+                              children: [
+                                Text(
+                                  featuredList[index].prName ?? '',
+                                              maxLines: 2,
+                                              style: const TextStyle(fontSize: 12,fontFamily: 'Intro'),
+                                              overflow: TextOverflow.ellipsis,
+                                              textAlign: TextAlign.center,
+                                  // "CANON EF 16-35 MM F/4L IS USM ",
+                                  // featuredList[index].prName ?? '',
+                                  // style: TextStyle(
+                                  //     fontSize: 10, fontWeight: FontWeight.bold,fontFamily: 'Intro'),
+                                  // maxLines: 1,
+                                  // textAlign: TextAlign.center,
+                                ),
+                                  Text("QAR ${featuredList[index].unitPrice ?? ''}",
+                              style: TextStyle(
+                                  fontSize: 12, fontWeight: FontWeight.bold,fontFamily: 'Intro',color: Colors.grey)),
+                              ],
+                            ),
                           ),
                         ),
                       

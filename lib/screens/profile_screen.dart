@@ -19,6 +19,8 @@ import 'package:lenzcamera/screens/home_screen.dart';
 import 'package:lenzcamera/screens/order_screen.dart';
 import 'package:lenzcamera/screens/wishlist_screen.dart';
 
+import 'package:sizer/sizer.dart';
+
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
@@ -158,7 +160,8 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
           body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Container(
               // color: Colors.amber,
-              height: 250,
+              // height: 250,
+               height: 30.h,
               width: MediaQuery.of(context).size.width,
               child: Column(
                 children: [

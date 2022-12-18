@@ -39,11 +39,11 @@ class _WriteReviewScreenState extends BaseStatefulState<WriteReviewScreen> {
           showFlashMsg(response.message!);
 
     
-     Navigator.push(
-                    context,
-                      MaterialPageRoute(
-                      builder: (context) =>
-                      ReviewScreen()));
+    //  Navigator.push(
+    //                 context,
+    //                   MaterialPageRoute(
+    //                   builder: (context) =>
+    //                   ReviewScreen()));
     }).catchError((Object obj) {
     });
 

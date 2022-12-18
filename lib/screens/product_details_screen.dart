@@ -14,9 +14,11 @@ import 'package:lenzcamera/model/product_images.dart';
 import 'package:lenzcamera/model/related_products.dart';
 import 'package:lenzcamera/screens/cart_screen.dart';
 import 'package:lenzcamera/screens/product_images_screen.dart';
+import 'package:lenzcamera/screens/review_screen.dart';
 import 'package:lenzcamera/screens/wishlist_screen.dart';
 import 'package:lenzcamera/screens/write_review_screen.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:sizer/sizer.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
   Product? popularproducts;
@@ -421,47 +423,80 @@ class _ProductDetailsScreenState
                             ],
                           ),
                         ),
+
+                        // (widget.popularproducts?.IsReviewAvgrating!> 1)
+                        
                         Divider(
                           thickness: 9,
                           color: Color(0xffe3e3e3),
                         ),
-                        // SizedBox(height: 5),
-                        // Padding(
-                        //   padding: const EdgeInsets.only(bottom: 5, right: 24),
-                        //   child: Align(
-                        //     alignment: Alignment.centerRight,
-                        //     child: Container(
-                        //       //height: 27,
-                        //       width: 85,
-                        //       child: ElevatedButton(
-                        //         style: ElevatedButton.styleFrom(
-                        //           backgroundColor: Color(0xffec3436),
-                        //         ),
-                        //         onPressed: () {
-                        //           setState(() {});
-                        //           Navigator.push(
-                        //               context,
-                        //               MaterialPageRoute(
-                        //                   builder: (context) =>
-                        //                       WriteReviewScreen(widget.popularproducts)));
-                        //         },
-                        //         child: Text(
-                        //           "Reviews",
-                        //           style: TextStyle(
-                        //               fontSize: 10,
-                        //               color: Colors.white,
-                        //               fontFamily: "Intro",
-                        //               fontWeight: FontWeight.w600),
-                        //           maxLines: 1,
-                        //         ),
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
-                        // Divider(
-                        //   thickness: 9,
-                        //   color: Color(0xffe3e3e3),
-                        // ),
+                        SizedBox(height: 5),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 5, right: 24),
+                          child: Align(
+                            alignment: Alignment.centerRight,
+                            child: 
+                            // widget.popularproducts?.IsReviewAvgrating>=
+                            // ? 
+                            Container(
+                              //height: 27,
+                              width: 85,
+                              child: 
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Color(0xffec3436),
+                                ),
+                                onPressed: () {
+                                  setState(() {});
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              ReviewScreen(widget.popularproducts)));
+                                },
+                                child: Text(
+                                  "Reviews",
+                                  style: TextStyle(
+                                      fontSize: 10,
+                                      color: Colors.white,
+                                      fontFamily: "Intro",
+                                      fontWeight: FontWeight.w600),
+                                  maxLines: 1,
+                                ),
+                              )
+                            )
+                            // Container(
+                            //   width: 95,
+                            //   child: ElevatedButton(
+                            //       style: ElevatedButton.styleFrom(
+                            //         backgroundColor: Color(0xffec3436),
+                            //       ),
+                            //       onPressed: () {
+                            //         setState(() {});
+                            //         Navigator.push(
+                            //             context,
+                            //             MaterialPageRoute(
+                            //                 builder: (context) =>
+                            //                     WriteReviewScreen(widget.popularproducts)));
+                            //       },
+                            //       child: Text(
+                            //         "Write Review",
+                            //         style: TextStyle(
+                            //             fontSize: 10,
+                            //             color: Colors.white,
+                            //             fontFamily: "Intro",
+                            //             fontWeight: FontWeight.w600),
+                            //         maxLines: 1,
+                            //       ),
+                            //     ),
+                            // )
+                            ),
+                          
+                        ),
+                        Divider(
+                          thickness: 9,
+                          color: Color(0xffe3e3e3),
+                        ),
                         Padding(
                           padding: const EdgeInsets.only(
                               left: 24, right: 24, top: 10, bottom: 5),
@@ -904,14 +939,17 @@ class _ProductDetailsScreenState
               padding: const EdgeInsets.only(left:24, right:24, bottom: 10),
               child: Container(
                 // width: 160,
-                height: 40,
+                height: 5.h,
+                 //height: 40,
                 child: widget.popularproducts!.isAddedtoCart()
                     ? Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Container(
-                            width: 200,
-                            height: 40,
+                            width: 23.h,
+                            height: 20.h,
+                            // height: 40,
+                            //  width: 200,
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Color(0xffec3436),
@@ -944,10 +982,12 @@ class _ProductDetailsScreenState
 
                             if (widget.popularproducts!.isCartUpdateProgress!)
                            Padding(
-                             padding: const EdgeInsets.only(left: 0),
+                             padding: const EdgeInsets.only(left: 60),
                              child: SizedBox(
-                                height: 30,
-                                width: 30,
+                                // height: 30,
+                                // width: 30,
+                                 height: 15.h,
+                                width: 15.w,
                                 child: Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: CircularProgressIndicator(
@@ -975,6 +1015,8 @@ class _ProductDetailsScreenState
                                 child: Container(
                                   width: 40,
                                   height: 30,
+                                  // width: 40,
+                                  // height: 30,
                                   decoration: BoxDecoration(
                                     color: Color(0xff70726f),
                                     borderRadius: BorderRadius.only(
