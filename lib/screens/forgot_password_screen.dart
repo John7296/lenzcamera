@@ -72,7 +72,7 @@ class _ForgotPasswordScreenState extends BaseStatefulState<ForgotPasswordScreen>
         appBar: AppBar(
           centerTitle: true,
           title: Text("Forgot Password"),
-          titleTextStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+          titleTextStyle: TextStyle(fontSize: 14,  fontFamily: "Intro",fontWeight: FontWeight.w600),
           leading: IconButton(
             icon: const Icon(
               Icons.arrow_back_ios_new_sharp,

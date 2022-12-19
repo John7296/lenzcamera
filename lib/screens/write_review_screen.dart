@@ -31,19 +31,21 @@ class _WriteReviewScreenState extends BaseStatefulState<WriteReviewScreen> {
      NetworkManager.shared.addReview(<String, dynamic>{
        "cusId": NetworkManager.shared.userId,
         "rating": selectedRating, 
-        "review": _reviewController,
+        "review": _reviewController.text,
          "reviewtitle": _reviewtitleController.text, 
-         "urlKey": "nikon-d850-dslr-cameraB305B4E"
+         "urlKey": widget.products?.urlKey
        }).then((BaseResponse response) {
 
           showFlashMsg(response.message!);
+          print("llllllllllllllll");
+          print(widget.products?.urlKey);
 
     
-    //  Navigator.push(
-    //                 context,
-    //                   MaterialPageRoute(
-    //                   builder: (context) =>
-    //                   ReviewScreen()));
+     Navigator.push(
+                    context,
+                      MaterialPageRoute(
+                      builder: (context) =>
+                      ReviewScreen(widget.products)));
     }).catchError((Object obj) {
     });
 
@@ -56,7 +58,7 @@ class _WriteReviewScreenState extends BaseStatefulState<WriteReviewScreen> {
     appBar: AppBar(
           centerTitle: true,
           title: Text("Write a Review"),
-          titleTextStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+          titleTextStyle: TextStyle(fontSize: 14, fontFamily: 'Intro',fontWeight: FontWeight.w600),
           leading: IconButton(
             icon: const Icon(
               Icons.arrow_back_ios_new_sharp,

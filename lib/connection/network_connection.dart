@@ -127,8 +127,9 @@ abstract class NetworkConnection {
   @FormUrlEncoded()
   @GET("/Product/ProductReview")
   Future<BaseResponse<ReviewResponse>> productReview(
+     @Query("CustId") int userId,
     @Query("urlKey") String urlKey,
-     @Query("CustId") String CustId
+    
   );
 
   @FormUrlEncoded()

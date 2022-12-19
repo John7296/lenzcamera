@@ -101,7 +101,8 @@ class _FilterScreenState extends State<FilterScreen> {
       appBar: AppBar(
         centerTitle: true,
         title: Text("Filter"),
-        titleTextStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+        titleTextStyle: TextStyle(fontSize: 14,fontFamily:
+                                                                            "Intro", fontWeight: FontWeight.w600),
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back_ios_new_sharp,
@@ -131,7 +132,8 @@ class _FilterScreenState extends State<FilterScreen> {
                       child: Padding(
                         padding: const EdgeInsets.only(left:10, right:10),
                         child: DropdownButton<Category>(
-                          hint: Text("Categories"),
+                          hint: Text("Categories",style:TextStyle(fontFamily:
+                                                                            "Intro",) ),
                           underline: Container(color: Colors.transparent),
                           isExpanded: true,
                           dropdownColor: Color(0xffadadad),
@@ -149,7 +151,8 @@ class _FilterScreenState extends State<FilterScreen> {
                               _categoryList.map<DropdownMenuItem<Category>>((Category value) {
                             return DropdownMenuItem<Category>(
                               value: value,
-                              child: Text(value.catName??''),
+                              child: Text(value.catName??'', style:TextStyle(fontFamily:
+                                                                            "Intro",)),
                             );
                           }).toList(),
                         ),
@@ -167,7 +170,8 @@ class _FilterScreenState extends State<FilterScreen> {
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(12),
-                        child: Text("Price Range"),
+                        child: Text("Price Range", style:TextStyle(fontFamily:
+                                                                            "Intro",)),
                       ),
                     ),
                     SizedBox(
@@ -209,7 +213,8 @@ class _FilterScreenState extends State<FilterScreen> {
                       child: Padding(
                         padding: const EdgeInsets.only(left:10, right:10),
                         child: DropdownButton<Attribute>(
-                          hint: Text("Brand"),
+                          hint: Text("Brand", style:TextStyle(fontFamily:
+                                                                            "Intro",)),
                           isExpanded: true,
                           underline: Container(color: Colors.transparent),
                           dropdownColor: Color(0xffadadad),
@@ -228,7 +233,8 @@ class _FilterScreenState extends State<FilterScreen> {
                               value: value,
                               child: 
                               
-                              Text(value.attrValue??''),
+                              Text(value.attrValue??'', style:TextStyle(fontFamily:
+                                                                            "Intro",)),
                             );
                           }).toList(),
                         ),
@@ -244,7 +250,8 @@ class _FilterScreenState extends State<FilterScreen> {
                       child: Padding(
                         padding: const EdgeInsets.only(left:10, right:10),
                         child: DropdownButton<Attribute>(
-                          hint: Text("Manufacturer"),
+                          hint: Text("Manufacturer", style:TextStyle(fontFamily:
+                                                                            "Intro",)),
                           isExpanded: true,
                           dropdownColor: Color(0xffadadad),
                           elevation: 5,
@@ -280,7 +287,8 @@ class _FilterScreenState extends State<FilterScreen> {
                       child: Padding(
                         padding: const EdgeInsets.only(left:10, right:10),
                         child: DropdownButton<Attribute>(
-                          hint: Text("Lens Mount"),
+                          hint: Text("Lens Mount", style:TextStyle(fontFamily:
+                                                                            "Intro",)),
                           isExpanded: true,
                           underline: Container(color: Colors.transparent),
                           dropdownColor: Color(0xffadadad),
@@ -299,7 +307,8 @@ class _FilterScreenState extends State<FilterScreen> {
                               value: value,
                               child: 
                               
-                              Text(value.attrValue??''),
+                              Text(value.attrValue??'', style:TextStyle(fontFamily:
+                                                                            "Intro",)),
                             );
                           }).toList(),
                         ),
@@ -341,7 +350,8 @@ class _FilterScreenState extends State<FilterScreen> {
                       },
                       child: Text(
                         "CLEAR",
-                        style: TextStyle(fontSize: 20),
+                        style: TextStyle(fontSize: 20, fontFamily:
+                                                                            "Intro"),
                       ),
                     ),
                   ),
@@ -370,7 +380,8 @@ class _FilterScreenState extends State<FilterScreen> {
                         },
                         child: Text(
                           "APPLY",
-                          style: TextStyle(fontSize: 20),
+                          style: TextStyle(fontSize: 20,fontFamily:
+                                                                            "Intro"),
                         ),
                       ),
                     ),

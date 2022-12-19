@@ -2,6 +2,8 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:lenzcamera/manager/data_manager.dart';
 import 'package:lenzcamera/model/cart_details.dart';
 import 'package:lenzcamera/model/product_images.dart';
+import 'package:lenzcamera/model/product_review.dart';
+import 'package:lenzcamera/model/review_details.dart';
 
 part 'product.g.dart';
 
@@ -216,6 +218,16 @@ class Product {
 
      @JsonKey(name: "RelatedList")
  List<Product>? relatedList;
+
+   @JsonKey(name: 'ReviewDetails')
+  List<ReviewDetails>? reviewDetails;
+
+  @JsonKey(name: 'Details')
+  List<ReviewDetails>? details;
+
+    @JsonKey(name: 'ProdRev')
+  List<ProductReview>? prodRev;
+
 
   Product(
       {this.catName,

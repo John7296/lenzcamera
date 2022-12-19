@@ -350,56 +350,58 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
                                           //       ),
                                             // child:
                                              Padding(
-                                               padding: const EdgeInsets.only(left:30, right:10),
-                                               child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.end,
-                                                children: [
-                                                  IconButton(
-                                                    onPressed: () {
-                                                      setState(() {
-                                                        if (_products[index]
-                                                                .isWhishlisted ==
-                                                            true) {
-                                                          DataManager.shared
-                                                              .removeFromWishlist(
-                                                                  _products[index]);
-                                                          _products[index]
-                                                                  .isWhishlisted =
-                                                              false;
-                                                        } else {
-                                                          DataManager.shared
-                                                              .addToWishlist(
-                                                                  _products[index]);
-                                                          _products[index]
-                                                              .isWhishlisted = true;
-                                                        }
-                                                      });
+                                               padding: const EdgeInsets.only( right:35),
+                                               child: Container(
+                                                 child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.end,
+                                                  children: [
+                                                    IconButton(
+                                                      onPressed: () {
+                                                        setState(() {
+                                                          if (_products[index]
+                                                                  .isWhishlisted ==
+                                                              true) {
+                                                            DataManager.shared
+                                                                .removeFromWishlist(
+                                                                    _products[index]);
+                                                            _products[index]
+                                                                    .isWhishlisted =
+                                                                false;
+                                                          } else {
+                                                            DataManager.shared
+                                                                .addToWishlist(
+                                                                    _products[index]);
+                                                            _products[index]
+                                                                .isWhishlisted = true;
+                                                          }
+                                                        });
     
-                                                      // setState(() {
-                                                      //   DataManager.shared.removeFromWishlist(
-                                                      //       _products[index]);
-                                                      // });
-                                                    },
-                                                    icon: Icon(
-                                                      Icons.favorite,
-                                                      size:25,
-                                                      color: DataManager.shared
-                                                              .iswishListed(
-                                                                  _products[index])
-                                                          ? Colors.red
-                                                          : Colors.grey,
+                                                        // setState(() {
+                                                        //   DataManager.shared.removeFromWishlist(
+                                                        //       _products[index]);
+                                                        // });
+                                                      },
+                                                      icon: Icon(
+                                                        Icons.favorite,
+                                                        size:25,
+                                                        color: DataManager.shared
+                                                                .iswishListed(
+                                                                    _products[index])
+                                                            ? Colors.red
+                                                            : Colors.grey,
+                                                      ),
                                                     ),
-                                                  ),
-                                                ],
+                                                  ],
                                             ),
+                                               ),
                                              ),
                                           // ),
-                                          SizedBox(height: 20),
+                                          SizedBox(height: 25),
                                           if (_products[index]
                                               .isCartUpdateProgress!)
                                             Padding(
-                                              padding: const EdgeInsets.only(right:25),
+                                              padding: const EdgeInsets.only(left:30),
                                               child: SizedBox(
                                                   height: 15,
                                                   width: 15,
@@ -411,8 +413,9 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
                                                   .isCartUpdateProgress ==
                                               false)
                                             Padding(
-                                              padding: const EdgeInsets.only(right:15),
+                                              padding: const EdgeInsets.only(right:35),
                                               child: Row(
+                                                mainAxisAlignment: MainAxisAlignment.start,
                                                 children: [
                                                   Container(
                                                     width: 80,

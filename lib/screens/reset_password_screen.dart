@@ -78,7 +78,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
       appBar: AppBar(
         centerTitle: true,
         title: Text("Reset Password"),
-        titleTextStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+        titleTextStyle: TextStyle(fontSize: 14,  fontFamily: "Intro",fontWeight: FontWeight.w600),
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back_ios_new_sharp,
@@ -216,7 +216,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   child: Center(
                       child: Text(
                     "Submit Password",
-                    style: TextStyle(fontSize: 20, color: Colors.white),
+                    style: TextStyle(fontSize: 20,  fontFamily: "Intro",color: Colors.white),
                   )),
                 ),
               ),
