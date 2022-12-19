@@ -18,6 +18,7 @@ import 'package:lenzcamera/screens/edit_profile_screen.dart';
 import 'package:lenzcamera/screens/home_screen.dart';
 import 'package:lenzcamera/screens/order_screen.dart';
 import 'package:lenzcamera/screens/wishlist_screen.dart';
+import 'package:sizer/sizer.dart';
 
 import 'package:sizer/sizer.dart';
 
@@ -180,17 +181,14 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(top:15),
-                    child: Text(
-                      userProfile?.custName ?? '',
-                      style: TextStyle(fontWeight: FontWeight.w500, fontFamily: "Intro"),
-                    ),
+                  Text(
+                    userProfile?.custName ?? '',
+                    style: TextStyle(fontWeight: FontWeight.w500,fontFamily: 'Intro',fontSize: 10.sp),
                   ),
                   Text(
                     userProfile?.emailId ?? '',
                     style: TextStyle(
-                        color: Colors.red, fontWeight: FontWeight.w500, fontFamily: "Intro"),
+                        color: Colors.red, fontWeight: FontWeight.w500,fontFamily: 'Intro',fontSize: 10.sp),
                   ),
                 ],
               ),

@@ -257,7 +257,8 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
           ),
           Container(
             height: 200,
-            child: ListView.builder(
+            child: 
+            ListView.builder(
                 itemCount: singleItemList.length,
                 itemBuilder: (BuildContext context, int index) {
                   return Container(
@@ -301,8 +302,8 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
                                           Container(
                                             height: 30,
                                             width: 160,
-                                            child: Text("vzfgthtyjyuj",
-                                             // singleItemList[index].prName ?? '',
+                                            child: Text(
+                                             singleItemList[index].prName ?? '',
                                               style: TextStyle(
                                                 color: Colors.grey.shade600,
                                                 fontWeight: FontWeight.bold,
@@ -318,7 +319,7 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
                                     Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: Text(
-                                        "QAR${singleItemList[index].productPrice.toString()}",
+                                        "QAR ${singleItemList[index].productPrice.toString()}",
                                         style: TextStyle(
                                             color: Colors.grey.shade600,
                                             fontWeight: FontWeight.bold),
@@ -332,6 +333,7 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
                     ),
                   );
                 }),
+          
           ),
           Container(
             child: Padding(
@@ -364,7 +366,8 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
                                   color: Colors.grey,
                                   fontWeight: FontWeight.bold)),
                           Spacer(),
-                          Text("QAR ${widget.orderList.orderAmount}",
+                          Text(
+                            "QAR ${widget.orderList.orderAmount}",
                               // 'QAR ${singleItemList.first.itemTotal.toString()}',
                               style: TextStyle(
                                   fontSize: 12,
@@ -386,7 +389,8 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
                                   color: Colors.grey,
                                   fontWeight: FontWeight.bold)),
                           Spacer(),
-                          Text("",
+                          Text(
+                            '',
                               // 'QAR ${widget.orderList.}',
                               style: TextStyle(
                                   fontSize: 12,
@@ -416,8 +420,9 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
                                 fontWeight: FontWeight.bold),
                           ),
                           Spacer(),
-                          Text("",
-                           // singleItemList.first.itemTotal.toString(),
+                          Text(
+                            "QAR ${widget.orderList.orderAmount}",
+                          // 'QAR ${singleItemList.first.itemTotal.toString()}',
                             style: TextStyle(
                                 color: Colors.red,
                                 fontFamily: 'Intro',

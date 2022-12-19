@@ -97,7 +97,7 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
         children: [
           Expanded(
             child: Container(
-              height: 600,
+              height: 100.h,
               color: Colors.grey.shade100,
               child: ListView.builder(
                   // physics: NeverScrollableScrollPhysics(),
@@ -135,8 +135,8 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                                     Padding(
                                         padding: const EdgeInsets.only(left:6, right:6, top:8, bottom:3),
                                         child: Container(
-                                          height: 80,
-                                          width: 80,
+                                          height: 8.h,
+                                          width: 8.h,
                                           child: CachedNetworkImage(
                                               imageUrl:
                                                   "https://dev.lenzcamera.com/webadmin/${cartItemsList[index].imageUrl}"),

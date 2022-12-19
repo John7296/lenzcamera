@@ -249,23 +249,23 @@ class _PopularProductsScreenState
                       ),
                       // SizedBox(height: 1.h),
                       Container(
-                        height: 3.h,
+                        height: 3.5.h,
                         child: Text(
                           popularProductsList[index].prName ?? '',
                           maxLines: 2,
                           style:
-                              TextStyle(fontSize: 8.sp, fontFamily: 'Intro'),
+                              TextStyle(fontSize: 10.sp, fontFamily: 'Intro'),
                           textAlign: TextAlign.center,
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
                       // SizedBox(height: 1.h),
                       Container(
-                        height: 1.5.h,
+                        height: 2.h,
                         child: Text(
                           "QAR ${popularProductsList[index].unitPrice}",
                           style: TextStyle(
-                              fontSize: 8.sp,
+                              fontSize: 10.sp,
                               fontWeight: FontWeight.bold,
                               fontFamily: 'Intro',
                               color: Colors.grey),
