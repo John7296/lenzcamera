@@ -412,13 +412,13 @@ class _NetworkConnection implements NetworkConnection {
 
   @override
   Future<BaseResponse<ReviewResponse>> productReview(
-    userId,
     urlKey,
+    userId,
   ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
-      r'CustId': userId,
       r'urlKey': urlKey,
+      r'CustId': userId,
     };
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};

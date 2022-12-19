@@ -23,7 +23,7 @@ class ReviewScreen extends StatefulWidget {
 class _ReviewScreenState extends State<ReviewScreen> {
   double rating = 0.0;
 
-  // List<ReviewDetails> review = [];
+   List<ReviewDetails> review = [];
 
   // List<ProductReview> prodrev = [];
 
@@ -32,26 +32,31 @@ class _ReviewScreenState extends State<ReviewScreen> {
   @override
   void initState() {
     super.initState();
-    // Future.delayed(Duration(milliseconds: 500), (() {
+     Future.delayed(Duration(milliseconds: 500), (() {
       productReview();
-    // }));
+     }));
   }
 
   void productReview() {
     NetworkManager.shared
-        .productReview(
-      NetworkManager.shared.userId,
-      widget.products?.urlKey??'' 
-    ).then((BaseResponse<ReviewResponse> response) {
+        .productReview(<String, dynamic>{
+          
+          "CustId": NetworkManager.shared.userId,
+          "urlKey": widget.products?.urlKey??'',
+        } ).then((BaseResponse<ReviewResponse> response) {
       setState(() {
        
-        revdetails.clear();
-        revdetails.addAll(response.data!.reviewDetails!);
+        review.clear();
+        review.addAll(response.data!.reviewDetails!);
 
-         
-      print(response.data?.reviewDetails);
+       print(",,,,,,,,,,,,,,,,,");
+      print(widget.products?.urlKey);
+      print(response.data?.reviewDetails?.first.rating);
       });   
-    }).catchError((Object obj) {});
+    }).catchError((e) {
+     // hideLoader();
+      print(e.toString());
+    });
   }
 
   @override
@@ -384,7 +389,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                                       fontSize: 15,
                                       fontFamily: 'Intro',
                                       fontWeight: FontWeight.w600)),
-                              subtitle: Text("date",
+                              subtitle: Text("2022-09-15T12:02:16.25",
                                   style: TextStyle(
                                       fontSize: 10,
                                       fontFamily: 'Intro',
@@ -402,7 +407,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                           Padding(
                             padding: const EdgeInsets.only(left: 20),
                             child: Text(
-                              "2022-09-15T12:02:16.25",
+                              "good product",
                               style: TextStyle(
                                   fontSize: 15,
                                   fontFamily: 'Intro',

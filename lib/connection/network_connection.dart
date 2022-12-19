@@ -14,6 +14,7 @@ import 'package:lenzcamera/model/login_customer.dart';
 import 'package:lenzcamera/model/new_register.dart';
 import 'package:lenzcamera/model/profile.dart';
 import 'package:lenzcamera/model/related_products.dart';
+import 'package:lenzcamera/model/review_details.dart';
 import 'package:lenzcamera/model/review_response.dart';
 import 'package:lenzcamera/model/search_filter_response.dart';
 
@@ -124,13 +125,13 @@ abstract class NetworkConnection {
     @Body() Map<String, dynamic> map,
   );
 
-  @FormUrlEncoded()
+ @FormUrlEncoded()
   @GET("/Product/ProductReview")
   Future<BaseResponse<ReviewResponse>> productReview(
-     @Query("CustId") int userId,
     @Query("urlKey") String urlKey,
-    
+     @Query("CustId") int userId
   );
+ 
 
   @FormUrlEncoded()
   @GET('CompanyPolicy')

@@ -6,6 +6,7 @@ part 'order_list.g.dart';
 
 @JsonSerializable()
 class OrderList {
+  
   @JsonKey(name: 'status')
   String? status;
 

@@ -70,6 +70,7 @@ class _ProductDetailsScreenState
         print(widget.popularproducts?.urlKey);
 
          print(response.data?.relatedList?.first.prName);
+            print(response.data);
 
        
       });
