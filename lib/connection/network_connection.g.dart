@@ -21,9 +21,9 @@ class _NetworkConnection implements NetworkConnection {
   String? baseUrl;
 
   @override
-  Future<BaseResponse<List<Location>>> custLocation(term) async {
+  Future<BaseResponse<List<Location>>> custLocation(search) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'term': term};
+    final queryParameters = <String, dynamic>{r'term': search};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(

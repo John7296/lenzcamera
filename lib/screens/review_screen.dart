@@ -39,11 +39,11 @@ class _ReviewScreenState extends State<ReviewScreen> {
 
   void productReview() {
     NetworkManager.shared
-        .productReview(<String, dynamic>{
+        .productReview(widget.products?.urlKey??'',
           
-          "CustId": NetworkManager.shared.userId,
-          "urlKey": widget.products?.urlKey??'',
-        } ).then((BaseResponse<ReviewResponse> response) {
+          NetworkManager.shared.userId,
+          
+        ).then((BaseResponse<ReviewResponse> response) {
       setState(() {
        
         review.clear();

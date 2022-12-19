@@ -170,8 +170,8 @@ class NetworkManager {
   //   return call(networkConnection.productReview(CustId, map["urlKey"]));
   // }
 
-    Future<BaseResponse<ReviewResponse>> productReview(Map<String, dynamic> map){
-    return call(networkConnection.productReview(map["urlKey"], userId));
+    Future<BaseResponse<ReviewResponse>> productReview(String urlKey, int userId){
+    return call(networkConnection.productReview(urlKey, userId));
   }
 
 
