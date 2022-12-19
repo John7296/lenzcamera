@@ -430,41 +430,41 @@ class _ProductDetailsScreenState
                           thickness: 9,
                           color: Color(0xffe3e3e3),
                         ),
-                        SizedBox(height: 5),
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 5, right: 24),
-                          child: Align(
-                            alignment: Alignment.centerRight,
-                            child: 
+                        // SizedBox(height: 5),
+                        // Padding(
+                        //   padding: const EdgeInsets.only(bottom: 5, right: 24),
+                        //   child: Align(
+                        //     alignment: Alignment.centerRight,
+                        //     child: 
                             // widget.popularproducts?.IsReviewAvgrating>=
                             // ? 
-                            Container(
-                              //height: 27,
-                              width: 85,
-                              child: 
-                              ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Color(0xffec3436),
-                                ),
-                                onPressed: () {
-                                  setState(() {});
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              ReviewScreen(widget.popularproducts)));
-                                },
-                                child: Text(
-                                  "Reviews",
-                                  style: TextStyle(
-                                      fontSize: 10,
-                                      color: Colors.white,
-                                      fontFamily: "Intro",
-                                      fontWeight: FontWeight.w600),
-                                  maxLines: 1,
-                                ),
-                              )
-                            )
+                            // Container(
+                            //   //height: 27,
+                            //   width: 85,
+                            //   child: 
+                            //   ElevatedButton(
+                            //     style: ElevatedButton.styleFrom(
+                            //       backgroundColor: Color(0xffec3436),
+                            //     ),
+                            //     onPressed: () {
+                            //       setState(() {});
+                            //       Navigator.push(
+                            //           context,
+                            //           MaterialPageRoute(
+                            //               builder: (context) =>
+                            //                   ReviewScreen(widget.popularproducts)));
+                            //     },
+                            //     child: Text(
+                            //       "Reviews",
+                            //       style: TextStyle(
+                            //           fontSize: 10,
+                            //           color: Colors.white,
+                            //           fontFamily: "Intro",
+                            //           fontWeight: FontWeight.w600),
+                            //       maxLines: 1,
+                            //     ),
+                            //   )
+                            // )
                             // Container(
                             //   width: 95,
                             //   child: ElevatedButton(
@@ -490,13 +490,13 @@ class _ProductDetailsScreenState
                             //       ),
                             //     ),
                             // )
-                            ),
+                        //     ),
                           
-                        ),
-                        Divider(
-                          thickness: 9,
-                          color: Color(0xffe3e3e3),
-                        ),
+                        // ),
+                        // Divider(
+                        //   thickness: 9,
+                        //   color: Color(0xffe3e3e3),
+                        // ),
                         Padding(
                           padding: const EdgeInsets.only(
                               left: 24, right: 24, top: 10, bottom: 5),
@@ -536,7 +536,7 @@ class _ProductDetailsScreenState
                                   style: {
                                     "body": Style(
                                       fontSize: FontSize(15.0),
-                                      fontFamily: "Intro Book.otf",
+                                      fontFamily: "Intro",
                                     ),
                                   },
                                   // "Key Features",
@@ -791,7 +791,7 @@ class _ProductDetailsScreenState
                                                                       ),
                                                                       child: Center(
                                                                           child: Text(
-                                                                        relatedproducts[index].qty.toString(),
+                                                                        relatedproducts[index].qty!.toStringAsFixed(0),
                                                                         style: TextStyle(
                                                                             color:
                                                                                 Colors.black),
@@ -1043,8 +1043,8 @@ class _ProductDetailsScreenState
                             child: Center(
                             child: Text(
                           widget.popularproducts!
-                                              .qty
-                                              .toString(),
+                                              .qty!
+                                              .toStringAsFixed(0),
                           style: TextStyle(color: Colors.black),
                             )),
                           ),

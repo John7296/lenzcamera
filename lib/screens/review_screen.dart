@@ -4,6 +4,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/product.dart';
+import 'package:lenzcamera/model/review_details.dart';
 import 'package:lenzcamera/model/review_response.dart';
 
 class ReviewScreen extends StatefulWidget {
@@ -16,6 +17,9 @@ class ReviewScreen extends StatefulWidget {
 
 class _ReviewScreenState extends State<ReviewScreen> {
   double rating = 0.0;
+
+  List<ReviewDetails>?review = [];
+
 
     @override
   void initState() {
@@ -32,6 +36,9 @@ class _ReviewScreenState extends State<ReviewScreen> {
        "cusId": NetworkManager.shared.userId,
          "urlKey": widget.products?.urlKey
        }).then((BaseResponse<ReviewResponse> response) {
+
+        review!.clear();
+        review!.addAll(response.data!.reviewDetails!);
 
           //showFlashMsg(response.message!);
 

@@ -17,7 +17,7 @@ ReviewDetails _$ReviewDetailsFromJson(Map<String, dynamic> json) =>
       rating: json['rating'] as int?,
       reviewerName: json['reviewerName'] as String?,
       reviewerEmail: json['reviewerEmail'] as String?,
-      status: json['status'] as int?,
+      status: json['status'] as String?,
       delDate: json['delDate'] as String?,
       Product: json['Product'] as String?,
     );

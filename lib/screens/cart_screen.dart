@@ -177,62 +177,65 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                                 ),
                                 Column(
                                   children: [
-                                    IconButton(
-                                      onPressed: () {
-                                        showDialog(
-                                          context: context,
-                                          builder: (context) => AlertDialog(
-                                            title: Text(
-                                              "Would you like to delete this item",
-                                              style: TextStyle(fontSize: 15),
+                                    Padding(
+                                      padding: const EdgeInsets.only(right:20),
+                                      child: IconButton(
+                                        onPressed: () {
+                                          showDialog(
+                                            context: context,
+                                            builder: (context) => AlertDialog(
+                                              title: Text(
+                                                "Would you like to delete this item",
+                                                style: TextStyle(fontSize: 15),
+                                              ),
+                                              actions: [
+                                                ElevatedButton(
+                                                  onPressed: () {
+                                                    // Navigator.push(
+                                                    //     context,
+                                                    //     MaterialPageRoute(
+                                                    //         builder: (context) =>
+                                                    //             CartScreen()));
+                                                    Navigator.pop(context);
+                                                  },
+                                                  style: ButtonStyle(
+                                                      backgroundColor:
+                                                          MaterialStateProperty
+                                                              .all(Colors.grey
+                                                                  .shade400)),
+                                                  child: Text('Cancel'),
+                                                ),
+                                                ElevatedButton(
+                                                  onPressed: () {
+                                                    DataManager.shared
+                                                        .removeFromCart(
+                                                            cartItemsList[index]);
+                                                    getCart();
+                                                    Navigator.pop(context);
+                                                    showFlashMsg(
+                                                        "Item Removed Successfully");
+                                                  },
+                                                  style: ButtonStyle(
+                                                      backgroundColor:
+                                                          MaterialStateProperty
+                                                              .all(Colors.grey
+                                                                  .shade400)),
+                                                  child: Text('Ok'),
+                                                ),
+                                              ],
                                             ),
-                                            actions: [
-                                              ElevatedButton(
-                                                onPressed: () {
-                                                  // Navigator.push(
-                                                  //     context,
-                                                  //     MaterialPageRoute(
-                                                  //         builder: (context) =>
-                                                  //             CartScreen()));
-                                                  Navigator.pop(context);
-                                                },
-                                                style: ButtonStyle(
-                                                    backgroundColor:
-                                                        MaterialStateProperty
-                                                            .all(Colors.grey
-                                                                .shade400)),
-                                                child: Text('Cancel'),
-                                              ),
-                                              ElevatedButton(
-                                                onPressed: () {
-                                                  DataManager.shared
-                                                      .removeFromCart(
-                                                          cartItemsList[index]);
-                                                  getCart();
-                                                  Navigator.pop(context);
-                                                  showFlashMsg(
-                                                      "Item Removed Successfully");
-                                                },
-                                                style: ButtonStyle(
-                                                    backgroundColor:
-                                                        MaterialStateProperty
-                                                            .all(Colors.grey
-                                                                .shade400)),
-                                                child: Text('Ok'),
-                                              ),
-                                            ],
-                                          ),
-                                        );
-                                      },
-                                      icon: Icon(Icons.delete_outline,
-                                          color: Colors.red),
+                                          );
+                                        },
+                                        icon: Icon(Icons.delete_outline,
+                                            color: Colors.red),
+                                      ),
                                     ),
                                     Spacer(),
                                     Padding(
-                                      padding: const EdgeInsets.only(right:15),
+                                      padding: const EdgeInsets.only(right:25),
                                       child: Container(
                                         margin:
-                                            EdgeInsets.only( bottom:8, right:10),
+                                            EdgeInsets.only( bottom:8, right:20),
                                             // bottom: 5, right: 5
                                         child: Row(
                                           children: [

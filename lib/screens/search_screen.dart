@@ -349,63 +349,69 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
                                           //       //left: 30.h, right: 10
                                           //       ),
                                             // child:
-                                             Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.end,
-                                              children: [
-                                                IconButton(
-                                                  onPressed: () {
-                                                    setState(() {
-                                                      if (_products[index]
-                                                              .isWhishlisted ==
-                                                          true) {
-                                                        DataManager.shared
-                                                            .removeFromWishlist(
-                                                                _products[index]);
-                                                        _products[index]
-                                                                .isWhishlisted =
-                                                            false;
-                                                      } else {
-                                                        DataManager.shared
-                                                            .addToWishlist(
-                                                                _products[index]);
-                                                        _products[index]
-                                                            .isWhishlisted = true;
-                                                      }
-                                                    });
+                                             Padding(
+                                               padding: const EdgeInsets.only(left:30, right:10),
+                                               child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.end,
+                                                children: [
+                                                  IconButton(
+                                                    onPressed: () {
+                                                      setState(() {
+                                                        if (_products[index]
+                                                                .isWhishlisted ==
+                                                            true) {
+                                                          DataManager.shared
+                                                              .removeFromWishlist(
+                                                                  _products[index]);
+                                                          _products[index]
+                                                                  .isWhishlisted =
+                                                              false;
+                                                        } else {
+                                                          DataManager.shared
+                                                              .addToWishlist(
+                                                                  _products[index]);
+                                                          _products[index]
+                                                              .isWhishlisted = true;
+                                                        }
+                                                      });
     
-                                                    // setState(() {
-                                                    //   DataManager.shared.removeFromWishlist(
-                                                    //       _products[index]);
-                                                    // });
-                                                  },
-                                                  icon: Icon(
-                                                    Icons.favorite,
-                                                    size:25,
-                                                    color: DataManager.shared
-                                                            .iswishListed(
-                                                                _products[index])
-                                                        ? Colors.red
-                                                        : Colors.grey,
+                                                      // setState(() {
+                                                      //   DataManager.shared.removeFromWishlist(
+                                                      //       _products[index]);
+                                                      // });
+                                                    },
+                                                    icon: Icon(
+                                                      Icons.favorite,
+                                                      size:25,
+                                                      color: DataManager.shared
+                                                              .iswishListed(
+                                                                  _products[index])
+                                                          ? Colors.red
+                                                          : Colors.grey,
+                                                    ),
                                                   ),
-                                                ),
-                                              ],
+                                                ],
                                             ),
+                                             ),
                                           // ),
                                           SizedBox(height: 20),
                                           if (_products[index]
                                               .isCartUpdateProgress!)
-                                            SizedBox(
-                                                height: 15,
-                                                width: 15,
-                                                child: CircularProgressIndicator(
-                                                  strokeWidth: 2,
-                                                )),
+                                            Padding(
+                                              padding: const EdgeInsets.only(right:25),
+                                              child: SizedBox(
+                                                  height: 15,
+                                                  width: 15,
+                                                  child: CircularProgressIndicator(
+                                                    strokeWidth: 2,
+                                                  )),
+                                            ),
                                           if (_products[index]
                                                   .isCartUpdateProgress ==
                                               false)
                                             Padding(
-                                              padding: const EdgeInsets.only(right:10),
+                                              padding: const EdgeInsets.only(right:15),
                                               child: Row(
                                                 children: [
                                                   Container(
@@ -468,8 +474,8 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
                                                                 child: Center(
                                                                     child: Text(
                                                                   _products[index]
-                                                                      .qty
-                                                                      .toString(),
+                                                                      .qty!
+                                                                      .toStringAsFixed(0),
                                                                   style: TextStyle(
                                                                       color: Colors
                                                                           .black),
