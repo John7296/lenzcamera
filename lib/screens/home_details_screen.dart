@@ -54,8 +54,10 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
   List<Product> relatedProductsList = [];
   List<Banners> bannerList = [];
   String? cartItemId;
-  List<Location> locationList = [];
-  final _searchController = TextEditingController();
+
+  var _searchController = TextEditingController();
+  String? search = '';
+  String? selectedPlace;
 
   Product? featuredProducts;
   Product? products;
@@ -67,11 +69,11 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
     Future.delayed(const Duration(milliseconds: 500), () {
       getTopCategories();
       _featuredProducts();
+      DataManager.shared.location(search!);
 
       // _updateDeviceToken();
     });
     DataManager.shared.getWishList();
-    location('');
   }
 
   List<Location>? showCityList(String place) {
@@ -83,19 +85,6 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
       }
     }
     return newLocationList;
-  }
-
-  void location(String _searchController) {
-    NetworkManager.shared
-        .custLocation(_searchController)
-        .then((BaseResponse<List<Location>> response) {
-      setState(() {
-        locationList.clear();
-        locationList.addAll(response.data!);
-      });
-    }).catchError((e) {
-      print(e.toString());
-    });
   }
 
   void getTopCategories() {
@@ -183,6 +172,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
       print(e.toString());
     });
   }
+  
 
   // void location() {
   //   NetworkManager.shared
@@ -261,7 +251,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                 Positioned(
                   right: 5,
                   top: 5,
-                  child: new Container(
+                  child: Container(
                     padding: EdgeInsets.all(2),
                     decoration: new BoxDecoration(
                       color: Colors.red,
@@ -308,7 +298,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                     child: Padding(
                       padding: const EdgeInsets.all(5),
                       child: Text(
-                        'Doha',
+                        selectedPlace ?? '',
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontFamily: 'Intro',
@@ -321,55 +311,93 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                     padding: EdgeInsets.all(0.5.h),
                     child: TextButton(
                         onPressed: () {
+                          DataManager.shared.location(_searchController.text);
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {
                               // return object of type Dialog
                               return AlertDialog(
                                 title: Container(
-                                  height: 60,
-                                  child: TextFormField(
-                                    decoration: InputDecoration(
-                                        border: OutlineInputBorder(),
-                                        contentPadding: EdgeInsets.all(5)
-                                        // labelText: 'Mobile'
+                                  height: 35.h,
+                                  // width: 50.h,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      SizedBox(
+                                        height: 5.h,
+                                        child: TextFormField(
+                                          decoration: InputDecoration(
+                                              border: OutlineInputBorder(),
+                                              contentPadding: EdgeInsets.all(5)
+                                              // labelText: 'Mobile'
+                                              ),
+                                          controller: _searchController,
+                                          onChanged: (value) {
+                                            search = value;
+                                          },
+                                          onFieldSubmitted: (value) {
+                                            DataManager.shared
+                                                .location(search!);
+                                          },
                                         ),
-                                    controller: _searchController,
+                                      ),
+                                      SizedBox(height: 0.5.h),
+                                      SizedBox(
+                                        height: 25.h,
+                                        width: 30.h,
+                                        child: ListView.separated(
+                                          shrinkWrap: true,
+                                          itemCount: DataManager
+                                              .shared.locationList.length,
+                                          itemBuilder: (context, index) {
+                                            return InkWell(
+                                                onTap: () {
+                                                  selectedPlace = DataManager
+                                                          .shared
+                                                          .locationList[index]
+                                                          .place ??
+                                                      '';
+                                                  print(DataManager
+                                                      .shared
+                                                      .locationList[index]
+                                                      .pincodeId);
+
+                                                  // Navigator.of(context).pop();
+                                                },
+                                                child: Text(
+                                                  DataManager
+                                                          .shared
+                                                          .locationList[index]
+                                                          .place ??
+                                                      '',
+                                                  style:
+                                                      TextStyle(fontSize: 15),
+                                                ));
+                                          },
+                                          separatorBuilder: (context, index) {
+                                            return Divider();
+                                          },
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                                actions: <Widget>[
-                                  // usually buttons at the bottom of the dialog
-
+                                actions: [
                                   ElevatedButton(
-                                    child: new Text("Close"),
+                                    style: ButtonStyle(
+                                        backgroundColor:
+                                            MaterialStateProperty.all(
+                                                Colors.grey.shade700)),
+                                    child: Text("close"),
                                     onPressed: () {
                                       // Navigator.of(context).pop();
-                                      location('');
+                                      DataManager.shared
+                                          .location(_searchController.text);
                                     },
                                   ),
                                 ],
-                                content: new Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: <Widget>[
-                                    Expanded(
-                                      child: 
-                                      DropdownButton(
-                                        items: locationList.map((item) {
-                                          return new DropdownMenuItem(
-                                            child: new Text(item.place!),
-                                            value: item.pincodeId.toString(),
-                                          );
-                                        }).toList(),
-                                        onChanged: (newVal) {
-                                          setState(() {
-                                            // _mySelectionAr = newVal;
-                                          });
-                                        },
-                                        // value: _mySelectionAr,
-                                      ),
-                                    ),
-                                  ],
-                                ),
                               );
                             },
                           );
@@ -567,9 +595,8 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                       child: StaggeredGridView.countBuilder(
                         physics: NeverScrollableScrollPhysics(),
                         crossAxisCount: 3,
-                        itemCount: featuredList.length > 6
-                                ? 6
-                                : featuredList.length,
+                        itemCount:
+                            featuredList.length > 6 ? 6 : featuredList.length,
                         crossAxisSpacing: 3,
                         mainAxisSpacing: 3,
                         itemBuilder: (context, index) {
@@ -889,19 +916,29 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                     CarouselSlider.builder(
                       itemCount: bannerList.length,
                       itemBuilder: (context, itemIndex, realIndex) {
-                        return SizedBox(
-                          width: MediaQuery.of(context).size.width,
-                          child:
-                              //  FadeInImage.assetNetwork(
-                              //                         height: 250,
-                              //                         width: double.infinity,
-                              //                         placeholder:
-                              //                             'assets/images/placeholder.png',
-                              //                         image:
-                              //                             "https://dev.lenzcamera.com/webadmin/${bannerList[itemIndex].imageUrl}",
-                              //                         fit: BoxFit.cover),
-                              Image.network(
-                                  "https://dev.lenzcamera.com/webadmin/${bannerList[itemIndex].imageUrl}"),
+                        return InkWell(
+                          onTap: (() {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SearchScreen(),
+                              ),
+                            );
+                          }),
+                          child: SizedBox(
+                            width: MediaQuery.of(context).size.width,
+                            child:
+                                //  FadeInImage.assetNetwork(
+                                //                         height: 250,
+                                //                         width: double.infinity,
+                                //                         placeholder:
+                                //                             'assets/images/placeholder.png',
+                                //                         image:
+                                //                             "https://dev.lenzcamera.com/webadmin/${bannerList[itemIndex].imageUrl}",
+                                //                         fit: BoxFit.cover),
+                                Image.network(
+                                    "https://dev.lenzcamera.com/webadmin/${bannerList[itemIndex].imageUrl}"),
+                          ),
                         );
                         //   CachedNetworkImage(
                         //       fit: BoxFit.fitWidth,
@@ -963,7 +1000,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
             // ),
             // SizedBox(height: 10),
             Container(
-              height: 100.h,
+              height: 105.h,
               width: MediaQuery.of(context).size.width,
               color: Colors.white,
               child: Column(
@@ -1002,7 +1039,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                   Column(
                     children: [
                       Container(
-                        height: 70.h,
+                        height: 75.h,
                         child: Padding(
                           padding: EdgeInsets.only(left: 1.5.h, right: 1.5.h),
                           child: StaggeredGridView.countBuilder(
@@ -1088,26 +1125,32 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                             ),
                                           ],
                                         ),
-                                        SizedBox(height: 2.1.h),
-                                        Text(
-                                          popularProductsList[index].prName ??
-                                              '',
-                                          maxLines: 2,
-                                          style: TextStyle(
-                                              fontSize: 8.sp,
-                                              fontFamily: 'Intro'),
-                                          overflow: TextOverflow.ellipsis,
-                                          textAlign: TextAlign.center,
+                                        // SizedBox(height: 2.1.h),
+                                        SizedBox(
+                                          height: 3.5.h,
+                                          child: Text(
+                                            popularProductsList[index].prName ??
+                                                '',
+                                            maxLines: 2,
+                                            style: TextStyle(
+                                                fontSize: 10.sp,
+                                                fontFamily: 'Intro'),
+                                            overflow: TextOverflow.ellipsis,
+                                            textAlign: TextAlign.center,
+                                          ),
                                         ),
-                                        SizedBox(height: 5),
-                                        Text(
-                                          // 'QAR 120.00',
-                                          "QAR ${popularProductsList[index].unitPrice.toString()}",
-                                          style: TextStyle(
-                                              fontSize: 8.sp,
-                                              fontWeight: FontWeight.bold,
-                                              fontFamily: 'Intro',
-                                              color: Colors.grey),
+                                        SizedBox(height: 2.h),
+                                        SizedBox(
+                                          height: 2.5.h,
+                                          child: Text(
+                                            // 'QAR 120.00',
+                                            "QAR ${popularProductsList[index].unitPrice.toString()}",
+                                            style: TextStyle(
+                                                fontSize: 10.sp,
+                                                fontWeight: FontWeight.bold,
+                                                fontFamily: 'Intro',
+                                                color: Colors.grey),
+                                          ),
                                         ),
                                         const SizedBox(height: 5),
                                         if (popularProductsList[index]
@@ -1326,7 +1369,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
               ),
             ),
             Container(
-              height: 36.h,
+              height: 40.h,
               color: Colors.white,
               child: Stack(
                 children: [
@@ -1436,11 +1479,11 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                         Padding(
                                           padding: EdgeInsets.all(1.h),
                                           child: FadeInImage.assetNetwork(
-                                              height: 95,
+                                              height: 100,
                                               width: 95,
                                               placeholder:
                                                   'assets/images/placeholder.png',
-                                              placeholderFit: BoxFit.fill,
+                                              placeholderFit: BoxFit.contain,
                                               image:
                                                   "https://dev.lenzcamera.com/webadmin/${recentProductsList[index].imageUrl}",
                                               fit: BoxFit.cover),
@@ -1448,23 +1491,30 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                       ],
                                     ),
                                     // SizedBox(height: 0.5.h),
-                                    Text(
-                                      recentProductsList[index].prName ?? '',
-                                      maxLines: 2,
-                                      style: TextStyle(
-                                          fontSize: 8.sp, fontFamily: 'Intro'),
-                                      overflow: TextOverflow.ellipsis,
-                                      textAlign: TextAlign.center,
+                                    SizedBox(
+                                      height: 3.5.h,
+                                      child: Text(
+                                        recentProductsList[index].prName ?? '',
+                                        maxLines: 2,
+                                        style: TextStyle(
+                                            fontSize: 10.sp,
+                                            fontFamily: 'Intro'),
+                                        overflow: TextOverflow.ellipsis,
+                                        textAlign: TextAlign.center,
+                                      ),
                                     ),
                                     SizedBox(height: 0.5.h),
-                                    Text(
-                                      // 'QAR 120.00',
-                                      "QAR ${recentProductsList[index].unitPrice.toString()}",
-                                      style: TextStyle(
-                                          fontSize: 8.sp,
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: 'Intro',
-                                          color: Colors.grey),
+                                    SizedBox(
+                                      height: 3.h,
+                                      child: Text(
+                                        // 'QAR 120.00',
+                                        "QAR ${recentProductsList[index].unitPrice.toString()}",
+                                        style: TextStyle(
+                                            fontSize: 10.sp,
+                                            fontWeight: FontWeight.bold,
+                                            fontFamily: 'Intro',
+                                            color: Colors.grey),
+                                      ),
                                     ),
                                     const SizedBox(height: 5),
                                     if (recentProductsList[index]

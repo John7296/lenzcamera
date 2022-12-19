@@ -68,7 +68,7 @@ class _OrderSuccessScreenState extends BaseStatefulState<OrderSuccessScreen> {
            AppBar(
         title: Container(
           height: 100,
-          width: 200,
+          width: 180,
           child: Image(
             image: AssetImage("assets/images/logo_lenzcamera.png"),
           ),

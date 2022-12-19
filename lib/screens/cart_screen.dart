@@ -76,8 +76,8 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
       appBar: AppBar(
         centerTitle: true,
         title: Text("Cart"),
-        titleTextStyle: TextStyle(
-            fontSize: 14, fontWeight: FontWeight.bold, fontFamily: 'Intro'),
+        titleTextStyle: 
+            TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold,fontFamily: 'Intro'),
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back_ios_new_sharp,
@@ -133,13 +133,13 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Padding(
-                                        padding: const EdgeInsets.only(left:6, right:6, top:8, bottom:3),
+                                        padding:  EdgeInsets.only(left:0.5.h, right:0.5.h, top:1.h, bottom:0.5.h),
                                         child: Container(
                                           height: 8.h,
-                                          width: 8.h,
+                                          width: 10.h,
                                           child: CachedNetworkImage(
                                               imageUrl:
-                                                  "https://dev.lenzcamera.com/webadmin/${cartItemsList[index].imageUrl}"),
+                                                  "https://dev.lenzcamera.com/webadmin/${cartItemsList[index].imageUrl}",fit: BoxFit.fill,),
                                         )),
                                   ],
                                 ),
@@ -147,14 +147,14 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsets.only(top: 15),
+                                      padding:  EdgeInsets.only(top: 2.h),
                                       child: Container(
                                         height: 30,
                                         width: 170,
                                         child: Text(
                                           // 'CANON EF 16-35 MM F/4L IS USM',
                                           cartItemsList[index].prName ?? '',
-                                          style: TextStyle(
+                                          style: TextStyle(fontSize: 12.sp,
                                               // fontWeight: FontWeight.bold,
                                               fontFamily: 'Intro'),
                                           maxLines: 2,
@@ -170,7 +170,7 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontFamily: 'Intro',
-                                            color: Colors.grey.shade700),
+                                            color: Colors.grey),
                                       ),
                                     ),
                                   ],

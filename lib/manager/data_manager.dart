@@ -5,6 +5,7 @@ import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/cart.dart';
 import 'package:lenzcamera/model/filter_data.dart';
 import 'package:lenzcamera/model/product.dart';
+import 'package:lenzcamera/model/user_location.dart';
 import 'package:lenzcamera/utils/sessions_manager.dart';
 
 class DataManager {
@@ -18,6 +19,7 @@ class DataManager {
   List<Product>? wishListArrayItem = [];
   VoidCallback? onCartUpdated;
   FilterData? filterData;
+  List<Location> locationList = [];
 
   ValueChanged<String>? onWishlistUpdated;
 
@@ -177,6 +179,19 @@ class DataManager {
       }
     }
     return false;
+  }
+
+    void location(String search) {
+    NetworkManager.shared
+        .custLocation(search)
+        .then((BaseResponse<List<Location>> response) {
+     
+        locationList.clear();
+        locationList.addAll(response.data!);
+      
+    }).catchError((e) {
+      print(e.toString());
+    });
   }
 
   void clearSession() {

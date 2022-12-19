@@ -287,10 +287,10 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Padding(
-                                              padding: EdgeInsets.all(8),
+                                              padding: EdgeInsets.all(0.5.h),
                                               child: Container(
-                                                height: 100,
-                                                width: 100,
+                                                height: 13.h,
+                                                width: 15.h,
                                                 child: CachedNetworkImage(
                                                     imageUrl:
                                                         "https://dev.lenzcamera.com/webadmin/${_products[index].imageUrl}"),
