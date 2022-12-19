@@ -27,8 +27,8 @@ class _CategoryScreenState extends BaseStatefulState<CategoryScreen> {
   List<TopCategories> categoryList = [];
   int pageCount = 10;
   bool isLoading = true;
-  List<dynamic> subCategoryList = [];
-  var test = [];
+  var levelThreeList = [];
+  var levelTwoList = [];
 
   @override
   void initState() {
@@ -48,41 +48,21 @@ class _CategoryScreenState extends BaseStatefulState<CategoryScreen> {
         isLoading = false;
         categoryList.clear();
         categoryList.addAll(response.data!);
-
-        for (var element in categoryList) {
-          var parentList = [];
-          parentList.addAll(element.code!.split('#'));
-
-          if (parentList.length == 2) {
-            if (parentList.elementAt(1).toString() ==
-                element.categoryId.toString()) {
-              test.add(element);
-            }
-            // else {
-            //   if (parentList.length == 3) {
-            //     if (parentList.elementAt(1).toString() ==
-            //         element.categoryId.toString()) {}
-            //   }
-            // }
+        response.data!.forEach((element) {
+          if (element.code!.split('#').length == 2 &&
+              element.categoryId.toString() ==
+                  element.code!.split('#').toString()) {
+            levelTwoList.add(element.catName);
+            // levelTwoList.add(element.imageUrl);
+            // levelTwoList.add(element.categoryId);
+            print("Level2${levelTwoList}");
           }
-          print(test);
-          // print(parentList);
-        }
-        // var mainCatList = [];
-        // mainCatList.addAll(categoryList[index].code!.split('#'));
-        // print(mainCatList.length);
-        // if (mainCatList.length == 2) {
-        //   var subCatList = [];
-        //   subCatList.addAll(mainCatList);
-        //   print("subCat${subCatList}");
-        // }
-        // if (mainCatList.length == 3) {
-        //   var childList = [];
-        //   childList.addAll(mainCatList);
-        //   print("childlist${childList}");
-        // }
-
-        // print(response.data);
+          if (element.code!.split('#').length == 3 &&
+              element.categoryId.toString() ==
+                  element.code!.split('#').elementAt(2).toString()) {
+            levelTwoList.add(element);
+          }
+        });
       });
     }).catchError((e) {
       showFlashMsg(e.toString());
@@ -197,27 +177,26 @@ class _CategoryScreenState extends BaseStatefulState<CategoryScreen> {
               SizedBox(
                 width: 120,
                 child: ListView.separated(
-                    itemBuilder: (BuildContext context, int index) {
-                      print("sublist${subCategoryList.length}");
-                      // print(categoryList[index].code!.split('#'));
-                      return GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            selectedIndex = index;
-                            _pageController.jumpToPage(index);
-                          });
-                        },
-                        child: Container(
-                          child: Row(
-                            children: [
-                              AnimatedContainer(
-                                duration: Duration(milliseconds: 0),
-                                color: Colors.grey.shade800,
-                                height: (selectedIndex == index) ? 120 : 0,
-                                width: 5,
-                              ),
-                              Expanded(
-                                  child: AnimatedContainer(
+                  itemCount: categoryList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          selectedIndex = index;
+                          _pageController.jumpToPage(index);
+                        });
+                      },
+                      child: Container(
+                        child: Row(
+                          children: [
+                            AnimatedContainer(
+                              duration: Duration(milliseconds: 0),
+                              color: Colors.grey.shade800,
+                              height: (selectedIndex == index) ? 120 : 0,
+                              width: 5,
+                            ),
+                            Expanded(
+                              child: AnimatedContainer(
                                 duration: Duration(milliseconds: 0),
                                 alignment: Alignment.center,
                                 height: 120,
@@ -241,35 +220,38 @@ class _CategoryScreenState extends BaseStatefulState<CategoryScreen> {
                                           height: 60,
                                           width: 60,
                                           child: Padding(
-                                              padding: const EdgeInsets.all(2),
-                                              child: Text("")
-                                              // CachedNetworkImage(
-                                              //     imageUrl:
-                                              //         "https://dev.lenzcamera.com/webadmin/${subCategoryList[index].imageUrl}"),
-                                              ),
+                                            padding: const EdgeInsets.all(2),
+                                            child: CachedNetworkImage(
+                                                imageUrl:
+                                                    "https://dev.lenzcamera.com/webadmin/${categoryList[index].imageUrl}"),
+                                          ),
                                         ),
                                         Text(
-                                        
-                                          test[index],
+                                          categoryList[index].catName,
                                           maxLines: 2,
+                                          style: TextStyle(
+                                              fontFamily: 'Intro',
+                                              fontSize: 10.sp),
+                                          textAlign: TextAlign.center,
                                         ),
                                       ],
                                     ),
                                   ),
                                 ),
-                              ))
-                            ],
-                          ),
+                              ),
+                            )
+                          ],
                         ),
-                      );
-                    },
-                    separatorBuilder: (BuildContext context, int index) {
-                      return Divider(
-                        thickness: 1,
-                        color: Colors.grey.shade800,
-                      );
-                    },
-                    itemCount: test.length),
+                      ),
+                    );
+                  },
+                  separatorBuilder: (BuildContext context, int index) {
+                    return Divider(
+                      thickness: 1,
+                      color: Colors.grey.shade800,
+                    );
+                  },
+                ),
               ),
               Expanded(
                 child: PageView(
@@ -284,7 +266,7 @@ class _CategoryScreenState extends BaseStatefulState<CategoryScreen> {
                         child: StaggeredGridView.countBuilder(
                           //physics: NeverScrollableScrollPhysics(),
                           crossAxisCount: 2,
-                          itemCount: 12,
+                          itemCount: categoryList.length,
                           crossAxisSpacing: 0,
                           mainAxisSpacing: 0,
                           itemBuilder: (context, index) {
@@ -313,17 +295,16 @@ class _CategoryScreenState extends BaseStatefulState<CategoryScreen> {
                                               borderRadius:
                                                   BorderRadius.circular(0),
                                             ),
-                                            child: Image(
-                                              image: AssetImage(
-                                                  "assets/images/lens.png"),
-                                            ),
+                                            child: CachedNetworkImage(
+                                                imageUrl:
+                                                    "https://dev.lenzcamera.com/webadmin/${categoryList[index].imageUrl}"),
                                           ),
                                         ],
                                       ),
                                       const SizedBox(height: 10),
                                       Text(
-                                        'DSLR Camera',
-                                        maxLines: 2,
+                                        categoryList[index].catName,
+                                        maxLines: 1,
                                         style: const TextStyle(fontSize: 12),
                                         overflow: TextOverflow.ellipsis,
                                       ),
