@@ -186,11 +186,10 @@ class _AddressScreenState extends BaseStatefulState<AddressScreen> {
                                     // print(
                                     //     "addressId:${addressList[index].custAdressId}");
 
-                                    setState(() {
-                                      deleteAddress(
+                                    deleteAddress(
                                           addressList[index].custAdressId!);
                                       getAddress();
-                                    });
+                                      
                                   },
                                   icon: Icon(Icons.delete_outline,
                                       color: Colors.red),

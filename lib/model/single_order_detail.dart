@@ -7,14 +7,11 @@ part 'single_order_detail.g.dart';
 
 @JsonSerializable(genericArgumentFactories: true)
 class SingleOrderDetail {
- 
-
   @JsonKey(name: "OrderItemsDetails")
   List<OrderProductDetail>? OrderItemsDetails;
 
-  
   @JsonKey(name: "OrderDetails")
-  List<OrderDetail>? OrderDetails;
+  OrderDetail? OrderDetails;
 
   SingleOrderDetail();
 

@@ -33,7 +33,7 @@ class _WishlistScreenState extends BaseStatefulState<WishlistScreen> {
     });
   }
 
-  void getWishListProducts() {
+  Future<void> getWishListProducts() async {
     showLoader();
     NetworkManager.shared
         .getWishList()
@@ -43,7 +43,7 @@ class _WishlistScreenState extends BaseStatefulState<WishlistScreen> {
       setState(() {
         wishListItems.clear();
         wishListItems.addAll(response.data!);
-        // print(response.data!.first.catId);
+        print("length${wishListItems.length}");
       });
     }).catchError((e) {
       showFlashMsg('No Items in your wishlist');
@@ -52,7 +52,7 @@ class _WishlistScreenState extends BaseStatefulState<WishlistScreen> {
     });
   }
 
-  void removeFromWishList(Product wishList) {
+  Future<void> removeFromWishList(Product wishList) async {
     showLoader();
     NetworkManager.shared
         .removeFromWishlist(
@@ -61,9 +61,23 @@ class _WishlistScreenState extends BaseStatefulState<WishlistScreen> {
       wishList.urlKey!,
     )
         .then((BaseResponse response) {
-      hideLoader();
-
       // DataManager.shared.getWishList();
+      NetworkManager.shared
+          .getWishList()
+          .then((BaseResponse<List<Product>> response) {
+        hideLoader();
+        // print(response.data);
+        setState(() {
+          wishListItems.clear();
+          wishListItems.addAll(response.data!);
+          print("length${wishListItems.length}");
+        });
+        hideLoader();
+      }).catchError((e) {
+        showFlashMsg('No Items in your wishlist');
+        // hideLoader();
+        print(e.toString());
+      });
     }).catchError((e) {
       hideLoader();
       print(e.toString());
@@ -145,7 +159,7 @@ class _WishlistScreenState extends BaseStatefulState<WishlistScreen> {
                 return Column(
                   children: [
                     Container(
-                      height: 13.h,
+                      height: 14.h,
                       width: 100.h,
                       //  height: 100,
                       // width: 400,
@@ -216,12 +230,18 @@ class _WishlistScreenState extends BaseStatefulState<WishlistScreen> {
                             children: [
                               IconButton(
                                 onPressed: () {
-                                  removeFromWishList(wishListItems[index]);
+                                  print("Before${wishListItems.length}");
 
-                                  getWishListProducts();
+                                  removeFromWishList(wishListItems[index])
+                                      .then((value) {});
+
+                                  // print("After${wishListItems.length}");
+                                  // getWishListProducts();
+                                  // print("Aaafter${wishListItems.length}");
+                                  // setState(() {});
                                 },
-                                icon: Icon(Icons.delete_outline,size: 25,
-                                    color: Colors.red),
+                                icon: Icon(Icons.delete_outline,
+                                    size: 25, color: Colors.red),
                               ),
                               IconButton(
                                 onPressed: () {
@@ -248,7 +268,7 @@ class _WishlistScreenState extends BaseStatefulState<WishlistScreen> {
                   ],
                 );
               }),
-              padding: EdgeInsets.symmetric(vertical:2.h, horizontal: 5.w),
+              padding: EdgeInsets.symmetric(vertical: 2.h, horizontal: 5.w),
               // all(13.0)
             )
           : Container(

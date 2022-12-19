@@ -6,6 +6,7 @@ import 'package:lenzcamera/model/address_list.dart';
 import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/city_list.dart';
 import 'package:lenzcamera/model/state_list.dart';
+import 'package:lenzcamera/screens/address_screen.dart';
 
 class AddNewAddressScreen extends StatefulWidget {
   const AddNewAddressScreen({Key? key}) : super(key: key);
@@ -199,7 +200,8 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
                                   ),
                               controller: _firstNameController,
                               validator: (value) {
-                                if (value!.isEmpty||!RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
+                                if (value!.isEmpty ||
+                                    !RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
                                   return "Enter First Name";
                                 } else {
                                   return null;
@@ -394,8 +396,9 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
                                   });
                                   print(showSelectedState!.name);
                                 },
-                                items: stateList.map<DropdownMenuItem<StateList>>(
-                                    (StateList value) {
+                                items: stateList
+                                    .map<DropdownMenuItem<StateList>>(
+                                        (StateList value) {
                                   return DropdownMenuItem<StateList>(
                                     value: value,
                                     child: Text(value.name ?? ''),
@@ -517,17 +520,17 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
                             height: 50,
                             child: ElevatedButton(
                               onPressed: () {
-                                if(formKey.currentState!.validate()){
+                                if (formKey.currentState!.validate()) {
                                   onSaveButtonTapped();
-                                     getAddress();
-                                Navigator.pop(context);
-                                showFlashMsg("Address Added");
-                                setState(() {});
-
+                                  getAddress();
+                                  Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              AddressScreen()));
+                                  showFlashMsg("Address Added");
+                                  setState(() {});
                                 }
-                                
-                                
-                             
                               },
                               child: Text(
                                 'Save',

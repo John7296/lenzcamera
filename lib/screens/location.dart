@@ -9,7 +9,6 @@ import 'package:lenzcamera/model/state_list.dart';
 import 'package:lenzcamera/model/user_location.dart';
 import 'package:lenzcamera/screens/home_screen.dart';
 
-
 class LocationSelectScreen extends StatefulWidget {
   LocationSelectScreen({Key? key, this.title}) : super(key: key);
   final String? title;
@@ -23,14 +22,14 @@ class _LocationSelectScreenState extends State<LocationSelectScreen> {
   String? hello;
   TextEditingController v = TextEditingController();
 
-    @override
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    location();
+    location('');
   }
 
-     List<Location>? showCityList(String place) {
+  List<Location>? showCityList(String place) {
     List<Location> newLocationList = [];
 
     for (Location element in newLocationList) {
@@ -41,9 +40,9 @@ class _LocationSelectScreenState extends State<LocationSelectScreen> {
     return newLocationList;
   }
 
-  void location() {
+  void location(String value) {
     NetworkManager.shared
-        .custLocation("a")
+        .custLocation(value)
         .then((BaseResponse<List<Location>> response) {
       setState(() {
         locationList.clear();
@@ -54,13 +53,12 @@ class _LocationSelectScreenState extends State<LocationSelectScreen> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.grey.shade700,
-        title: Text(widget.title??''),
+        title: Text(widget.title ?? ''),
       ),
       body: SingleChildScrollView(
         child: Center(
@@ -68,6 +66,8 @@ class _LocationSelectScreenState extends State<LocationSelectScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               DropdownSearch<Location>(
+                dropdownSearchDecoration:
+                    InputDecoration(border: UnderlineInputBorder()),
                 mode: Mode.DIALOG,
                 showSelectedItem: false,
                 items: locationList,
@@ -75,6 +75,7 @@ class _LocationSelectScreenState extends State<LocationSelectScreen> {
                 hint: "select",
                 onChanged: (value) {
                   v.text = value!.pincodeId.toString();
+                  location(value.place!);
                   print(value.pincodeId);
                 },
                 showSearchBox: true,
@@ -86,8 +87,7 @@ class _LocationSelectScreenState extends State<LocationSelectScreen> {
                     return false;
                   }
                 },
-                popupItemBuilder:
-                    (context, Location item, bool isSelected) {
+                popupItemBuilder: (context, Location item, bool isSelected) {
                   return Container(
                     margin: EdgeInsets.symmetric(horizontal: 8),
                     decoration: !isSelected

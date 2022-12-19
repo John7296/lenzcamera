@@ -4,6 +4,7 @@ import 'package:lenzcamera/base/base_stateful_state.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/profile.dart';
+import 'package:lenzcamera/screens/profile_screen.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({Key? key}) : super(key: key);
@@ -187,8 +188,11 @@ class _EditProfileScreen extends BaseStatefulState<EditProfileScreen> {
                               if (formKey.currentState!.validate()) {
                                 onUpdateButtonTapped();
                                 getProfile();
-                                Navigator.pop(context);
-                                
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            ProfileScreen()));
                               }
                             },
                             child: Text(

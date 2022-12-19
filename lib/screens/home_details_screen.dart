@@ -36,6 +36,7 @@ import 'package:lenzcamera/screens/recent_product_screen.dart';
 import 'package:lenzcamera/screens/return_policy_screen.dart';
 import 'package:lenzcamera/screens/search_screen.dart';
 import 'package:lenzcamera/screens/wishlist_screen.dart';
+import 'package:lenzcamera/utils/sessions_manager.dart';
 import 'package:sizer/sizer.dart';
 
 class HomeDetailsScreen extends StatefulWidget {
@@ -54,6 +55,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
   List<Banners> bannerList = [];
   String? cartItemId;
   List<Location> locationList = [];
+  final _searchController = TextEditingController();
 
   Product? featuredProducts;
   Product? products;
@@ -69,6 +71,31 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
       // _updateDeviceToken();
     });
     DataManager.shared.getWishList();
+    location('');
+  }
+
+  List<Location>? showCityList(String place) {
+    List<Location> newLocationList = [];
+
+    for (Location element in newLocationList) {
+      if (element.place == place) {
+        newLocationList.add(element);
+      }
+    }
+    return newLocationList;
+  }
+
+  void location(String _searchController) {
+    NetworkManager.shared
+        .custLocation(_searchController)
+        .then((BaseResponse<List<Location>> response) {
+      setState(() {
+        locationList.clear();
+        locationList.addAll(response.data!);
+      });
+    }).catchError((e) {
+      print(e.toString());
+    });
   }
 
   void getTopCategories() {
@@ -294,21 +321,58 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                     padding: EdgeInsets.all(0.5.h),
                     child: TextButton(
                         onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      LocationSelectScreen()));
-                          // location();
-                          // showDialog(
-                          //   context: context,
-                          //   builder: (context) => AlertDialog(
-                          //     title: Text(
-                          //       "Would you like to delete this item",
-                          //       style: TextStyle(fontSize: 15),
-                          //     ),
-                          //   ),
-                          // );
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              // return object of type Dialog
+                              return AlertDialog(
+                                title: Container(
+                                  height: 60,
+                                  child: TextFormField(
+                                    decoration: InputDecoration(
+                                        border: OutlineInputBorder(),
+                                        contentPadding: EdgeInsets.all(5)
+                                        // labelText: 'Mobile'
+                                        ),
+                                    controller: _searchController,
+                                  ),
+                                ),
+                                actions: <Widget>[
+                                  // usually buttons at the bottom of the dialog
+
+                                  ElevatedButton(
+                                    child: new Text("Close"),
+                                    onPressed: () {
+                                      // Navigator.of(context).pop();
+                                      location('');
+                                    },
+                                  ),
+                                ],
+                                content: new Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    Expanded(
+                                      child: 
+                                      DropdownButton(
+                                        items: locationList.map((item) {
+                                          return new DropdownMenuItem(
+                                            child: new Text(item.place!),
+                                            value: item.pincodeId.toString(),
+                                          );
+                                        }).toList(),
+                                        onChanged: (newVal) {
+                                          setState(() {
+                                            // _mySelectionAr = newVal;
+                                          });
+                                        },
+                                        // value: _mySelectionAr,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          );
                         },
                         child: Text(
                           'Change',
@@ -426,13 +490,13 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                   padding: const EdgeInsets.all(5),
                                   child: FadeInImage.assetNetwork(
                                       height: 15.h,
-                                      width: 15.w,
+                                      width: 25.w,
                                       placeholder:
                                           'assets/images/placeholder.png',
                                       placeholderFit: BoxFit.contain,
                                       image:
                                           "https://dev.lenzcamera.com/webadmin/${categoryList[index].imageUrl}",
-                                      fit: BoxFit.cover),
+                                      fit: BoxFit.contain),
                                 ),
                                 Spacer(),
                                 Padding(
@@ -503,7 +567,9 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                       child: StaggeredGridView.countBuilder(
                         physics: NeverScrollableScrollPhysics(),
                         crossAxisCount: 3,
-                        itemCount: featuredList.length,
+                        itemCount: featuredList.length > 6
+                                ? 6
+                                : featuredList.length,
                         crossAxisSpacing: 3,
                         mainAxisSpacing: 3,
                         itemBuilder: (context, index) {
@@ -897,7 +963,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
             // ),
             // SizedBox(height: 10),
             Container(
-              height: 110.h,
+              height: 100.h,
               width: MediaQuery.of(context).size.width,
               color: Colors.white,
               child: Column(
@@ -936,13 +1002,15 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                   Column(
                     children: [
                       Container(
-                        height: 101.h,
+                        height: 70.h,
                         child: Padding(
                           padding: EdgeInsets.only(left: 1.5.h, right: 1.5.h),
                           child: StaggeredGridView.countBuilder(
                             physics: NeverScrollableScrollPhysics(),
                             crossAxisCount: 2,
-                            itemCount: popularProductsList.length,
+                            itemCount: popularProductsList.length > 6
+                                ? 6
+                                : popularProductsList.length,
                             crossAxisSpacing: 0,
                             mainAxisSpacing: 0,
                             itemBuilder: (context, index) {
@@ -1317,7 +1385,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                           }),
                           child: Container(
                             // height: 200.h,
-                           
+
                             width: 50.w,
                             child: Card(
                               elevation: 1,
@@ -1368,8 +1436,8 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                         Padding(
                                           padding: EdgeInsets.all(1.h),
                                           child: FadeInImage.assetNetwork(
-                                              height: 100,
-                                              width: 100,
+                                              height: 95,
+                                              width: 95,
                                               placeholder:
                                                   'assets/images/placeholder.png',
                                               placeholderFit: BoxFit.fill,
@@ -1746,6 +1814,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                     fontSize: 12),
               ),
               onTap: () {
+                SessionsManager.clearSession();
                 Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
                   builder: (BuildContext context) {
                     return LoginScreen();
