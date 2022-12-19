@@ -1,10 +1,16 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/product.dart';
+import 'package:lenzcamera/model/product_review.dart';
+import 'package:lenzcamera/model/review_details.dart';
 import 'package:lenzcamera/model/review_response.dart';
+
+import 'package:sizer/sizer.dart';
 
 class ReviewScreen extends StatefulWidget {
   Product? products;
@@ -17,87 +23,157 @@ class ReviewScreen extends StatefulWidget {
 class _ReviewScreenState extends State<ReviewScreen> {
   double rating = 0.0;
 
-    @override
+  // List<ReviewDetails> review = [];
+
+  // List<ProductReview> prodrev = [];
+
+  List<ReviewDetails> revdetails= [];
+
+  @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(milliseconds: 500), (() {
+    // Future.delayed(Duration(milliseconds: 500), (() {
       productReview();
-    }));
+    // }));
   }
 
+  void productReview() {
+    NetworkManager.shared
+        .productReview(
+      NetworkManager.shared.userId,
+      widget.products?.urlKey??'' 
+    ).then((BaseResponse<ReviewResponse> response) {
+      setState(() {
+       
+        revdetails.clear();
+        revdetails.addAll(response.data!.reviewDetails!);
 
- void productReview(){
-
-     NetworkManager.shared.productReview(<String, dynamic>{
-       "cusId": NetworkManager.shared.userId,
-         "urlKey": widget.products?.urlKey
-       }).then((BaseResponse<ReviewResponse> response) {
-
-          //showFlashMsg(response.message!);
-
-    
-    //  Navigator.push(
-    //                 context,
-    //                   MaterialPageRoute(
-    //                   builder: (context) =>
-    //                   ReviewScreen()));
-    }).catchError((Object obj) {
-    });
-
-
-     }
+         
+      print(response.data?.reviewDetails);
+      });   
+    }).catchError((Object obj) {});
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          centerTitle: true,
-          title: Text("Reviews"),
-          titleTextStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
-          leading: IconButton(
-            icon: const Icon(
-              Icons.arrow_back_ios_new_sharp,
-              color: Colors.white,
-            ),
-            onPressed: () {
-                Navigator.pop(context);
-            },
+        centerTitle: true,
+        title: Text("Reviews"),
+        titleTextStyle: TextStyle(
+            fontSize: 14, fontFamily: 'Intro', fontWeight: FontWeight.w600),
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back_ios_new_sharp,
+            color: Colors.white,
           ),
-          backgroundColor: Colors.black,
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
+        backgroundColor: Colors.black,
+      ),
       body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        SizedBox(height: 200),
-        Padding(
-          padding: const EdgeInsets.only(left: 24),
-          child: Column(
-            children: [
-              Container(
-                child: Text(
-                  widget.products?.prName??'',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-            ],
-          ),
-        ),
-        Row(
+        SizedBox(height: 20),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 24, top: 10),
-              child: Text("QAR ${widget.products?.unitPrice}",
-                // "QAR 600",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
-            ),
+            Stack(children: [
+              Container(
+                height: 270,
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  color: Colors.white.withOpacity(0.85),
+                ),
+                child: Opacity(
+                  opacity: 0.1,
+                  // elevation: 5,
+                  child: CachedNetworkImage(
+                    imageUrl:
+                        "https://dev.lenzcamera.com/webadmin/${widget.products?.imageUrl}",
+                    fit: BoxFit.fill,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 24, top: 210),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 85.w,
+                      child: Text(
+                        widget.products?.prName ?? '',
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontFamily: 'Intro',
+                            fontWeight: FontWeight.w600),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 230),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 24, top: 10),
+                      child: Text("QAR ${widget.products?.unitPrice}",
+                          // "QAR 600",
+                          style: TextStyle(
+                              fontSize: 20,
+                              fontFamily: 'Intro',
+                              fontWeight: FontWeight.w600)),
+                    ),
+                  ],
+                ),
+              )
+            ]),
+
+            //     Padding(
+            //       padding: const EdgeInsets.only(left: 24),
+            //       child: Row(
+
+            //         children: [
+            //           Container(
+            //             child: Text(
+            //               widget.products?.prName??'',
+            //               style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+            //               maxLines: 1,
+            //               overflow: TextOverflow.ellipsis,
+            //             ),
+            //           ),
+            //         ],
+            //       ),
+            //     ),
+
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.start,
+            //   children: [
+            //     Padding(
+            //       padding: const EdgeInsets.only(left: 24, top: 10),
+            //       child: Text("QAR ${widget.products?.unitPrice}",
+            //         // "QAR 600",
+            //           style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
+            //     ),
+            //   ],
+            // ),
           ],
         ),
         Padding(
           padding: const EdgeInsets.only(left: 24, top: 30),
           child: Text("All Reviews",
-              style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600)),
+              style: TextStyle(
+                  fontSize: 15,
+                  fontFamily: 'Intro',
+                  fontWeight: FontWeight.w600)),
         ),
+
         Row(
           children: [
             Column(
@@ -105,22 +181,26 @@ class _ReviewScreenState extends State<ReviewScreen> {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(left: 40, top: 20),
-                  child: Text("",
-                      style:
-                          TextStyle(fontSize: 50, fontWeight: FontWeight.w600)),
+                  child: Text("4",
+                      style: TextStyle(
+                          fontSize: 50,
+                          fontFamily: 'Intro',
+                          fontWeight: FontWeight.w600)),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 25),
                   child: Text(" Out of 5",
-                      style:
-                          TextStyle(fontSize: 15, fontWeight: FontWeight.w400)),
+                      style: TextStyle(
+                          fontSize: 15,
+                          fontFamily: 'Intro',
+                          fontWeight: FontWeight.w400)),
                 ),
               ],
             ),
             Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(left: 60, top:20),
+                  padding: EdgeInsets.only(left: 25.w, top: 20),
                   child: Row(
                     children: [
                       RatingBarIndicator(
@@ -133,23 +213,20 @@ class _ReviewScreenState extends State<ReviewScreen> {
                         itemSize: 15.0,
                         direction: Axis.horizontal,
                       ),
-                      SizedBox(width: 5,),
-                      Container(
-                        width: 20,
-                        height: 5,
-                        color:Colors.black
+                      SizedBox(
+                        width: 5,
                       ),
+                      Container(width: 20, height: 5, color: Colors.black),
                       Container(
                         width: 100,
                         height: 5,
-                        color:Colors.grey,
+                        color: Colors.grey,
                       ),
                     ],
                   ),
                 ),
-
-                 Padding(
-                  padding: const EdgeInsets.only(left: 60, top:3),
+                Padding(
+                  padding: EdgeInsets.only(left: 25.w, top: 3),
                   child: Row(
                     children: [
                       RatingBarIndicator(
@@ -162,22 +239,20 @@ class _ReviewScreenState extends State<ReviewScreen> {
                         itemSize: 15.0,
                         direction: Axis.horizontal,
                       ),
-                      SizedBox(width: 5,),
-                      Container(
-                        width: 2,
-                        height: 5,
-                        color:Colors.black
+                      SizedBox(
+                        width: 5,
                       ),
+                      Container(width: 2, height: 5, color: Colors.black),
                       Container(
                         width: 118,
                         height: 5,
-                        color:Colors.grey,
+                        color: Colors.grey,
                       ),
                     ],
                   ),
-                 ),
-                  Padding(
-                  padding: const EdgeInsets.only(left: 60, top:3),
+                ),
+                Padding(
+                  padding:  EdgeInsets.only(left: 25.w, top: 3),
                   child: Row(
                     children: [
                       RatingBarIndicator(
@@ -190,23 +265,20 @@ class _ReviewScreenState extends State<ReviewScreen> {
                         itemSize: 15.0,
                         direction: Axis.horizontal,
                       ),
-                      SizedBox(width: 5,),
-                      Container(
-                        width: 20,
-                        height: 5,
-                        color:Colors.black
+                      SizedBox(
+                        width: 5,
                       ),
+                      Container(width: 20, height: 5, color: Colors.black),
                       Container(
                         width: 100,
                         height: 5,
-                        color:Colors.grey,
+                        color: Colors.grey,
                       ),
                     ],
                   ),
-                  ),
-
-                   Padding(
-                  padding: const EdgeInsets.only(left: 60, top:3),
+                ),
+                Padding(
+                  padding:  EdgeInsets.only(left: 25.w, top: 3),
                   child: Row(
                     children: [
                       RatingBarIndicator(
@@ -219,22 +291,20 @@ class _ReviewScreenState extends State<ReviewScreen> {
                         itemSize: 15.0,
                         direction: Axis.horizontal,
                       ),
-                      SizedBox(width: 5,),
-                      Container(
-                        width: 2,
-                        height: 5,
-                        color:Colors.black
+                      SizedBox(
+                        width: 5,
                       ),
+                      Container(width: 2, height: 5, color: Colors.black),
                       Container(
                         width: 118,
                         height: 5,
-                        color:Colors.grey,
+                        color: Colors.grey,
                       ),
                     ],
                   ),
-                   ),
-                    Padding(
-                  padding: const EdgeInsets.only(left: 60, top:3),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: 25.w, top: 3),
                   child: Row(
                     children: [
                       RatingBarIndicator(
@@ -247,79 +317,155 @@ class _ReviewScreenState extends State<ReviewScreen> {
                         itemSize: 15.0,
                         direction: Axis.horizontal,
                       ),
-                      SizedBox(width: 5,),
-                      Container(
-                        width: 2,
-                        height: 5,
-                        color:Colors.black
+                      SizedBox(
+                        width: 5,
                       ),
+                      Container(width: 2, height: 5, color: Colors.black),
                       Container(
                         width: 118,
                         height: 5,
-                        color:Colors.grey,
+                        color: Colors.grey,
                       ),
                     ],
                   ),
-                    ),
-
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 200, top: 5),
-                        child: Text("2 Reviews"),
-                      )
-                    ],)
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 200, top: 5),
+                      child: Text(
+                        "${''} Reviews",
+                        style: TextStyle(fontFamily: 'Intro'),
+                      ),
+                    )
+                  ],
+                )
               ],
             ),
           ],
         ),
-
+        SizedBox(height:20),
         Divider(
           indent: 24,
           endIndent: 24,
+          color: Colors.grey[400],
+          thickness: 2,
         ),
-
-        Padding(
-          padding: const EdgeInsets.only(left:24, top:10),
-          child: Row(children: [
-            Container(
-              child: CircleAvatar(backgroundColor: Color(0xffec3436)),
+         
+        
+        Row(
+          children: [
+            Expanded(
+              child: Container(
+                height: 15.h,
+                // color: Colors.green,
+                child: ListView.builder(
+                    scrollDirection: Axis.vertical,
+                  
+                    itemCount: 1,
+                    itemBuilder: (BuildContext context, int index) {
+                      print("----------------");
+                      print(revdetails.length);
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            height: 100,
+                            width: 300,
+                            // color: Colors.green,
+                            child: ListTile(
+                              leading: Container(
+                                child: CircleAvatar(
+                                    backgroundColor: Color(0xffec3436)),
+                              ),
+                              title: Text("jibin_intertoons_QC",
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      fontFamily: 'Intro',
+                                      fontWeight: FontWeight.w600)),
+                              subtitle: Text("date",
+                                  style: TextStyle(
+                                      fontSize: 10,
+                                      fontFamily: 'Intro',
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.grey[400])),
+                              trailing: Text(
+                                "(5)",
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    fontFamily: 'Intro',
+                                    fontWeight: FontWeight.w600),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 20),
+                            child: Text(
+                              "2022-09-15T12:02:16.25",
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  fontFamily: 'Intro',
+                                  fontWeight: FontWeight.w600),
+                            ),
+                          ),
+                          SizedBox(height: 5),
+                        ],
+                      );
+                    }),
+              ),
             ),
-
-            Padding(
-              padding: const EdgeInsets.only(left:20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                Row(
-                  children: [
-                    Text(
-                     "jibin_intertoons_QC", 
-                      style:
-                                TextStyle(fontSize: 15, fontWeight: FontWeight.w600)),
-
-                                SizedBox(width:100),
-
-                                 Text("(5)", style:
-                            TextStyle(fontSize: 15, fontWeight: FontWeight.w600)),
-                  ],
-                ),
-                SizedBox(height: 5,),
-
-                Row(children: [
-                  Text("15 Sept 2022", style:
-                                TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: Colors.grey[400])),
-                ],)
-              ],),
-            ),
-          ],),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left: 24,top:30 ),
-          child: Text("good product",  style:
-                              TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: Colors.grey[400])),
+          ],
         )
+        // Padding(
+        //   padding: const EdgeInsets.only(left: 24, top: 10),
+        //   child: Row(
+        //     children: [
+        //       Container(
+        //         child: CircleAvatar(backgroundColor: Color(0xffec3436)),
+        //       ),
+        //       Padding(
+        //         padding: const EdgeInsets.only(left: 20),
+        //         child: Column(
+        //           crossAxisAlignment: CrossAxisAlignment.start,
+        //           children: [
+        //             Row(
+        //               children: [
+        //                 Text("jibin_intertoons_QC",
+        //                     style: TextStyle(
+        //                         fontSize: 15, fontFamily: 'Intro',fontWeight: FontWeight.w600)),
+        //                 SizedBox(width: 100),
+        //                 Text("(5)",
+        //                     style: TextStyle(
+        //                         fontSize: 15, fontFamily: 'Intro',fontWeight: FontWeight.w600)),
+        //               ],
+        //             ),
+        //             SizedBox(
+        //               height: 5,
+        //             ),
+        //             Row(
+        //               children: [
+        //                 Text("15 Sept 2022",
+        //                     style: TextStyle(
+        //                         fontSize: 10,
+        //                         fontWeight: FontWeight.w600,fontFamily: 'Intro',
+        //                         color: Colors.grey[400])),
+        //               ],
+        //             )
+        //           ],
+        //         ),
+        //       ),
+        //     ],
+        //   ),
+        // ),
+        // Padding(
+        //   padding: const EdgeInsets.only(left: 24, top: 30),
+        //   child: Text("good product",
+        //       style: TextStyle(
+        //           fontSize: 12,fontFamily: 'Intro',
+        //           fontWeight: FontWeight.w500,
+        //           color: Colors.grey[400])),
+        // )
       ]),
     );
   }

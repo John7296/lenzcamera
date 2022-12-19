@@ -112,7 +112,7 @@ void onSendButtonTapped() {
     appBar: AppBar(
        centerTitle: true,
         title: Text("Support"),
-         titleTextStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+         titleTextStyle: TextStyle(fontSize: 14, fontFamily: "Intro", fontWeight: FontWeight.w600),
           leading: IconButton(
             icon: const Icon(
               Icons.arrow_back_ios_new_sharp,
@@ -186,7 +186,7 @@ void onSendButtonTapped() {
                             padding: const EdgeInsets.only(left:15, top:5),
                             child: Row(
                               children: [
-                                Text("Qatar,",style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Color(0xff70706f)),maxLines: 3, ),
+                                Text("Qatar,",style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, fontFamily: "Intro", color: Color(0xff70706f)),maxLines: 3, ),
                               ],
                             ),
                           ),
@@ -196,7 +196,7 @@ void onSendButtonTapped() {
                            padding: const EdgeInsets.only(left:15, top:20),
                            child: Row(
                              children: [
-                               Text("info@demo.com",style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Color(0xffd0393f)),maxLines: 3, ),
+                               Text("info@demo.com",style: TextStyle(fontSize: 15,  fontFamily: "Intro",fontWeight: FontWeight.w600, color: Color(0xffd0393f)),maxLines: 3, ),
                              ],
                            ),
                          ),
@@ -205,7 +205,7 @@ void onSendButtonTapped() {
                            padding: const EdgeInsets.only(left:15, top:20),
                            child: Row(
                              children: [
-                               Text("+974 5578 2553",style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Color(0xffd0393f)),maxLines: 3, ),
+                               Text("+974 5578 2553",style: TextStyle(fontSize: 15,  fontFamily: "Intro",fontWeight: FontWeight.w600, color: Color(0xffd0393f)),maxLines: 3, ),
                              ],
                            ),
                          ),
@@ -268,7 +268,7 @@ void onSendButtonTapped() {
                           child: Text(
                             "Email ID",
                             style: TextStyle(
-                                color: Color(0xff747474), fontWeight: FontWeight.w600, fontSize: 12),
+                                color: Color(0xff747474), fontFamily: "Intro", fontWeight: FontWeight.w600, fontSize: 12),
                           ),
                         ),
                         SizedBox(height: 12),
@@ -305,7 +305,7 @@ void onSendButtonTapped() {
                           child: Text(
                             "Phone +974",
                             style: TextStyle(
-                                color: Color(0xff747474), fontWeight: FontWeight.w600, fontSize: 12),
+                                color: Color(0xff747474),  fontFamily: "Intro",fontWeight: FontWeight.w600, fontSize: 12),
                           ),
                         ),
                         SizedBox(height: 12),
@@ -342,7 +342,7 @@ void onSendButtonTapped() {
                           child: Text(
                             "Title",
                             style: TextStyle(
-                                color: Color(0xff747474), fontWeight: FontWeight.w600, fontSize: 12),
+                                color: Color(0xff747474),  fontFamily: "Intro",fontWeight: FontWeight.w600, fontSize: 12),
                           ),
                         ),
                         SizedBox(height: 12),
@@ -376,7 +376,7 @@ void onSendButtonTapped() {
                           child: Text(
                             "Message",
                             style: TextStyle(
-                                color: Color(0xff747474), fontWeight: FontWeight.w600, fontSize: 12),
+                                color: Color(0xff747474),  fontFamily: "Intro",fontWeight: FontWeight.w600, fontSize: 12),
                           ),
                         ),
                         SizedBox(height: 12),
@@ -435,7 +435,7 @@ void onSendButtonTapped() {
                       child: Center(
                           child: Text(
                         "Send Message",
-                        style: TextStyle(fontSize: 20, color: Colors.white),
+                        style: TextStyle(fontSize: 20,  fontFamily: "Intro",color: Colors.white),
                       )),
                     ),
                   ),

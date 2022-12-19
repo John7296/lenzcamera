@@ -79,6 +79,15 @@ Product _$ProductFromJson(Map<String, dynamic> json) => Product(
           .toList()
       ..relatedList = (json['RelatedList'] as List<dynamic>?)
           ?.map((e) => Product.fromJson(e as Map<String, dynamic>))
+          .toList()
+      ..reviewDetails = (json['ReviewDetails'] as List<dynamic>?)
+          ?.map((e) => ReviewDetails.fromJson(e as Map<String, dynamic>))
+          .toList()
+      ..details = (json['Details'] as List<dynamic>?)
+          ?.map((e) => ReviewDetails.fromJson(e as Map<String, dynamic>))
+          .toList()
+      ..prodRev = (json['ProdRev'] as List<dynamic>?)
+          ?.map((e) => ProductReview.fromJson(e as Map<String, dynamic>))
           .toList();
 
 Map<String, dynamic> _$ProductToJson(Product instance) => <String, dynamic>{
@@ -150,4 +159,7 @@ Map<String, dynamic> _$ProductToJson(Product instance) => <String, dynamic>{
       'totalDiscount': instance.totalDiscount,
       'ProdImages': instance.productImages,
       'RelatedList': instance.relatedList,
+      'ReviewDetails': instance.reviewDetails,
+      'Details': instance.details,
+      'ProdRev': instance.prodRev,
     };

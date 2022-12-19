@@ -165,11 +165,27 @@ class NetworkManager {
   }
 
 
-  Future<BaseResponse<ReviewResponse>> productReview(Map<String, dynamic> map) {
-    return call(networkConnection.productReview(map["CustId"], map["urlKey"]));
+  // Future<BaseResponse<ReviewResponse>> productReview(Map<String, dynamic> map) {
+  //   return call(networkConnection.productReview(CustId, map["urlKey"]));
+  // }
+
+  
+  Future<BaseResponse<ReviewResponse>> productReview(int CustId, String urlKey) {
+    return call(networkConnection.productReview(CustId, urlKey)).then((value) {
+
+      print(
+      "\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\"  
+      );
+      print("Reshma");
+      return value;
+    }
+    
+    );
   }
 
   Future<BaseResponse> verifyOtp(Map<String, dynamic> map) {
+
+   
     return call(
         networkConnection.verifyOtp(int.parse(map['OTP']), map['OtpUrlKey']));
   }

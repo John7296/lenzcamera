@@ -489,10 +489,10 @@ class _ProductDetailsScreenState
                             //         maxLines: 1,
                             //       ),
                             //     ),
-                            // )
+                            )
                             ),
                           
-                        ),
+                      //  ),
                         Divider(
                           thickness: 9,
                           color: Color(0xffe3e3e3),
@@ -536,7 +536,7 @@ class _ProductDetailsScreenState
                                   style: {
                                     "body": Style(
                                       fontSize: FontSize(15.0),
-                                      fontFamily: "Intro Book.otf",
+                                      fontFamily: "Intro",
                                     ),
                                   },
                                   // "Key Features",
@@ -678,7 +678,7 @@ class _ProductDetailsScreenState
                                                                     FontWeight
                                                                         .w300,
                                                                 fontFamily:
-                                                                    "Intro-Regular.otf"),
+                                                                    "Intro"),
                                                             maxLines: 2,
                                                             overflow:
                                                                 TextOverflow
@@ -791,7 +791,7 @@ class _ProductDetailsScreenState
                                                                       ),
                                                                       child: Center(
                                                                           child: Text(
-                                                                        relatedproducts[index].qty.toString(),
+                                                                        relatedproducts[index].qty!.toStringAsFixed(0),
                                                                         style: TextStyle(
                                                                             color:
                                                                                 Colors.black),
@@ -1043,8 +1043,8 @@ class _ProductDetailsScreenState
                             child: Center(
                             child: Text(
                           widget.popularproducts!
-                                              .qty
-                                              .toString(),
+                                              .qty!
+                                              .toStringAsFixed(0),
                           style: TextStyle(color: Colors.black),
                             )),
                           ),

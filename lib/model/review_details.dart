@@ -34,7 +34,7 @@ class ReviewDetails{
   String? reviewerEmail;
 
     @JsonKey(name: 'status')
-  int? status;
+  String? status;
 
     @JsonKey(name: 'delDate')
   String? delDate;
