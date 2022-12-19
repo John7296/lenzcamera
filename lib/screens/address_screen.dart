@@ -41,12 +41,12 @@ class _AddressScreenState extends BaseStatefulState<AddressScreen> {
       });
     }).catchError((e) {
       hideLoader();
-      showFlashMsg('Please Add Your Address');
+      // showFlashMsg('Please Add Your Address');
       print(e.toString());
     });
   }
 
-  void deleteAddress(index) {
+  Future<void> deleteAddress(index) async {
     showLoader();
     // print("indexID${index}");
     NetworkManager.shared
@@ -184,12 +184,20 @@ class _AddressScreenState extends BaseStatefulState<AddressScreen> {
                                 IconButton(
                                   onPressed: () {
                                     // print(
-                                    //     "addressId:${addressList[index].custAdressId}");
+                                    // "addressId:${addressList[index].custAdressId}");
 
                                     deleteAddress(
-                                          addressList[index].custAdressId!);
-                                      getAddress();
-                                      
+                                            addressList[index].custAdressId!)
+                                        .then(
+                                      (value) {
+                                        getAddress();
+                                      },
+                                    );
+                                    // print(
+                                    //     "Before:${addressList[index].custAdressId}");
+
+                                    // print(
+                                    //     "after:${addressList[index].custAdressId}");
                                   },
                                   icon: Icon(Icons.delete_outline,
                                       color: Colors.red),

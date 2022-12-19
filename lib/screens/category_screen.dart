@@ -8,9 +8,11 @@ import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/manager/data_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/top_categories.dart';
+import 'package:lenzcamera/model/top_categories.dart';
 import 'package:lenzcamera/screens/cart_screen.dart';
 import 'package:lenzcamera/screens/home_screen.dart';
 import 'package:lenzcamera/screens/product_details_screen.dart';
+import 'package:sizer/sizer.dart';
 
 class CategoryScreen extends StatefulWidget {
   const CategoryScreen({super.key});
@@ -25,6 +27,8 @@ class _CategoryScreenState extends BaseStatefulState<CategoryScreen> {
   List<TopCategories> categoryList = [];
   int pageCount = 10;
   bool isLoading = true;
+  var levelThreeList = [];
+  var levelTwoList = [];
 
   @override
   void initState() {
@@ -44,7 +48,21 @@ class _CategoryScreenState extends BaseStatefulState<CategoryScreen> {
         isLoading = false;
         categoryList.clear();
         categoryList.addAll(response.data!);
-        // print(response.data);
+        response.data!.forEach((element) {
+          if (element.code!.split('#').length == 2 &&
+              element.categoryId.toString() ==
+                  element.code!.split('#').toString()) {
+            levelTwoList.add(element.catName);
+            // levelTwoList.add(element.imageUrl);
+            // levelTwoList.add(element.categoryId);
+            print("Level2${levelTwoList}");
+          }
+          if (element.code!.split('#').length == 3 &&
+              element.categoryId.toString() ==
+                  element.code!.split('#').elementAt(2).toString()) {
+            levelTwoList.add(element);
+          }
+        });
       });
     }).catchError((e) {
       showFlashMsg(e.toString());
@@ -59,79 +77,89 @@ class _CategoryScreenState extends BaseStatefulState<CategoryScreen> {
         appBar: AppBar(
           title: Padding(
             padding: const EdgeInsets.only(left: 50),
-            child: Text('Category'),
+            child: Text(
+              'Category',
+              style: TextStyle(
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Intro'),
+            ),
           ),
           actions: [
-          //    Stack(
-          //   children: [
-          //     IconButton(
-          //     onPressed: () {
-          //       Navigator.push(context,
-          //           MaterialPageRoute(builder: (context) => WishlistScreen()));
-          //       // getBanners();
-          //     },
-          //     icon: Icon(Icons.favorite_border),
-          //   ),
-          //   if (DataManager.shared.wishListItems.isNotEmpty) 
-          //   Positioned(
-          //       right: 5,
-          //       top: 5,
-          //       child: new Container(
-          //         padding: EdgeInsets.all(2),
-          //         decoration: new BoxDecoration(
-          //           color: Colors.red,
-          //           borderRadius: BorderRadius.circular(6),
-          //         ),
-          //         constraints: BoxConstraints(
-          //           minWidth: 14,
-          //           minHeight: 14,
-          //         ),
-          //         child: Text(
-          //           DataManager.shared.wishListItems.length.toString(),
-          //           style: TextStyle(
-          //             color: Colors.white,
-          //             fontSize:10,
-          //           ),
-          //           textAlign: TextAlign.center,
-          //         ),
-          //       ),)
-          //   ], 
-          // ),
-           Stack(
-            children: [
-              IconButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => CartScreen()));
-                // getBanners();
-              },
-              icon: Icon(Icons.shopping_cart),
-            ),
-            if(DataManager.shared.cartItemsList.isNotEmpty)
-            Positioned(
-                right: 5,
-                top: 5,
-                child: new Container(
-                  padding: EdgeInsets.all(2),
-                  decoration: new BoxDecoration(
-                    color: Colors.red,
-                    borderRadius: BorderRadius.circular(6),
-                  ),
-                  constraints: BoxConstraints(
-                    minWidth: 14,
-                    minHeight: 14,
-                  ),
-                  child: Text(
-                    DataManager.shared.cartItemsList.length.toString(),
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 10,
+            //    Stack(
+            //   children: [
+            //     IconButton(
+            //     onPressed: () {
+            //       Navigator.push(context,
+            //           MaterialPageRoute(builder: (context) => WishlistScreen()));
+            //       // getBanners();
+            //     },
+            //     icon: Icon(Icons.favorite_border),
+            //   ),
+            //   if (DataManager.shared.wishListItems.isNotEmpty)
+            //   Positioned(
+            //       right: 5,
+            //       top: 5,
+            //       child: new Container(
+            //         padding: EdgeInsets.all(2),
+            //         decoration: new BoxDecoration(
+            //           color: Colors.red,
+            //           borderRadius: BorderRadius.circular(6),
+            //         ),
+            //         constraints: BoxConstraints(
+            //           minWidth: 14,
+            //           minHeight: 14,
+            //         ),
+            //         child: Text(
+            //           DataManager.shared.wishListItems.length.toString(),
+            //           style: TextStyle(
+            //             color: Colors.white,
+            //             fontSize:10,
+            //           ),
+            //           textAlign: TextAlign.center,
+            //         ),
+            //       ),)
+            //   ],
+            // ),
+            Stack(
+              children: [
+                IconButton(
+                  onPressed: () {
+                    Future.delayed(Duration(milliseconds: 500), () {
+                      _getCategories();
+                    });
+                    // Navigator.push(context,
+                    //     MaterialPageRoute(builder: (context) => CartScreen()));
+                    // getBanners();
+                  },
+                  icon: Icon(Icons.shopping_cart),
+                ),
+                if (DataManager.shared.cartItemsList.isNotEmpty)
+                  Positioned(
+                    right: 5,
+                    top: 5,
+                    child: new Container(
+                      padding: EdgeInsets.all(2),
+                      decoration: new BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      constraints: BoxConstraints(
+                        minWidth: 14,
+                        minHeight: 14,
+                      ),
+                      child: Text(
+                        DataManager.shared.cartItemsList.length.toString(),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 10,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),)
-            ], 
-          ),
+                  )
+              ],
+            ),
           ],
           backgroundColor: Colors.grey.shade700,
           leading: IconButton(
@@ -149,25 +177,26 @@ class _CategoryScreenState extends BaseStatefulState<CategoryScreen> {
               SizedBox(
                 width: 120,
                 child: ListView.separated(
-                    itemBuilder: (BuildContext context, int index) {
-                      return GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            selectedIndex = index;
-                            _pageController.jumpToPage(index);
-                          });
-                        },
-                        child: Container(
-                          child: Row(
-                            children: [
-                              AnimatedContainer(
-                                duration: Duration(milliseconds: 0),
-                                color: Colors.grey.shade800,
-                                height: (selectedIndex == index) ? 120 : 0,
-                                width: 5,
-                              ),
-                              Expanded(
-                                  child: AnimatedContainer(
+                  itemCount: categoryList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          selectedIndex = index;
+                          _pageController.jumpToPage(index);
+                        });
+                      },
+                      child: Container(
+                        child: Row(
+                          children: [
+                            AnimatedContainer(
+                              duration: Duration(milliseconds: 0),
+                              color: Colors.grey.shade800,
+                              height: (selectedIndex == index) ? 120 : 0,
+                              width: 5,
+                            ),
+                            Expanded(
+                              child: AnimatedContainer(
                                 duration: Duration(milliseconds: 0),
                                 alignment: Alignment.center,
                                 height: 120,
@@ -188,105 +217,111 @@ class _CategoryScreenState extends BaseStatefulState<CategoryScreen> {
                                     child: Column(
                                       children: [
                                         Container(
-                                            height: 60,
-                                            width: 60,
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(2),
-                                              child: CachedNetworkImage(
-                                                  imageUrl:
-                                                      "https://dev.lenzcamera.com/webadmin/${categoryList[index].imageUrl}"),
-                                            )),
+                                          height: 60,
+                                          width: 60,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(2),
+                                            child: CachedNetworkImage(
+                                                imageUrl:
+                                                    "https://dev.lenzcamera.com/webadmin/${categoryList[index].imageUrl}"),
+                                          ),
+                                        ),
                                         Text(
                                           categoryList[index].catName,
                                           maxLines: 2,
+                                          style: TextStyle(
+                                              fontFamily: 'Intro',
+                                              fontSize: 10.sp),
+                                          textAlign: TextAlign.center,
                                         ),
                                       ],
                                     ),
                                   ),
                                 ),
-                              ))
-                            ],
-                          ),
+                              ),
+                            )
+                          ],
                         ),
-                      );
-                    },
-                    separatorBuilder: (BuildContext context, int index) {
-                      return Divider(
-                        thickness: 1,
-                        color: Colors.grey.shade800,
-                      );
-                    },
-                    itemCount: categoryList.length),
+                      ),
+                    );
+                  },
+                  separatorBuilder: (BuildContext context, int index) {
+                    return Divider(
+                      thickness: 1,
+                      color: Colors.grey.shade800,
+                    );
+                  },
+                ),
               ),
               Expanded(
-                  child: PageView(
-                controller: _pageController,
-                children: [
-                  // for (var i = 0; i < pageCount; i++)
-                  Container(
-                    height: 650,
-                    child: Padding(
-                      padding:
-                          const EdgeInsets.only(left: 10, right: 10, top: 20),
-                      child: StaggeredGridView.countBuilder(
-                        //physics: NeverScrollableScrollPhysics(),
-                        crossAxisCount: 2,
-                        itemCount: 12,
-                        crossAxisSpacing: 0,
-                        mainAxisSpacing: 0,
-                        itemBuilder: (context, index) {
-                          return InkWell(
-                            onTap: (() {
-                              // Navigator.push(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //         builder: (context) =>
-                              //             ProductDetailsScreen()));
-                            }),
-                            child: Card(
-                              elevation: 2,
-                              // shape: RoundedRectangleBorder(),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8),
-                                child: Column(
-                                  children: [
-                                    Stack(
-                                      children: [
-                                        Container(
-                                          height: 120,
-                                          width: double.infinity,
-                                          clipBehavior: Clip.antiAlias,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(0),
+                child: PageView(
+                  controller: _pageController,
+                  children: [
+                    // for (var i = 0; i < pageCount; i++)
+                    Container(
+                      height: 650,
+                      child: Padding(
+                        padding:
+                            const EdgeInsets.only(left: 10, right: 10, top: 20),
+                        child: StaggeredGridView.countBuilder(
+                          //physics: NeverScrollableScrollPhysics(),
+                          crossAxisCount: 2,
+                          itemCount: categoryList.length,
+                          crossAxisSpacing: 0,
+                          mainAxisSpacing: 0,
+                          itemBuilder: (context, index) {
+                            return InkWell(
+                              onTap: (() {
+                                // Navigator.push(
+                                //     context,
+                                //     MaterialPageRoute(
+                                //         builder: (context) =>
+                                //             ProductDetailsScreen()));
+                              }),
+                              child: Card(
+                                elevation: 2,
+                                // shape: RoundedRectangleBorder(),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8),
+                                  child: Column(
+                                    children: [
+                                      Stack(
+                                        children: [
+                                          Container(
+                                            height: 120,
+                                            width: double.infinity,
+                                            clipBehavior: Clip.antiAlias,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(0),
+                                            ),
+                                            child: CachedNetworkImage(
+                                                imageUrl:
+                                                    "https://dev.lenzcamera.com/webadmin/${categoryList[index].imageUrl}"),
                                           ),
-                                          child: Image(
-                                            image: AssetImage(
-                                                "assets/images/lens.png"),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(height: 10),
-                                    Text(
-                                      'DSLR Camera',
-                                      maxLines: 2,
-                                      style: const TextStyle(fontSize: 12),
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                    const SizedBox(height: 5),
-                                  ],
+                                        ],
+                                      ),
+                                      const SizedBox(height: 10),
+                                      Text(
+                                        categoryList[index].catName,
+                                        maxLines: 1,
+                                        style: const TextStyle(fontSize: 12),
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                      const SizedBox(height: 5),
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                          );
-                        },
-                        staggeredTileBuilder: (index) => StaggeredTile.fit(1),
+                            );
+                          },
+                          staggeredTileBuilder: (index) => StaggeredTile.fit(1),
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ))
+                  ],
+                ),
+              ),
 
               //     Container(
               //   child: PageView(
@@ -398,4 +433,3 @@ class _CategoryScreenState extends BaseStatefulState<CategoryScreen> {
     throw UnimplementedError();
   }
 }
-    

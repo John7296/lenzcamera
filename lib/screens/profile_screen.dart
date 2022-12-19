@@ -66,7 +66,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
             centerTitle: true,
             title: Text("My Profile"),
             titleTextStyle:
-                TextStyle(fontSize: 16, fontFamily: "Intro",fontWeight: FontWeight.w600),
+                TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold,fontFamily: 'Intro'),
             leading: IconButton(
               icon: const Icon(
                 Icons.arrow_back_ios_new_sharp,

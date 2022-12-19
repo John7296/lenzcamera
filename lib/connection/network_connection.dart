@@ -49,7 +49,7 @@ abstract class NetworkConnection {
   @FormUrlEncoded()
   @GET("Customer/getPincodeList")
   Future<BaseResponse<List<Location>>> custLocation(
-    @Query("term") String term,
+    @Query("term") String search,
   );
 
   @FormUrlEncoded()

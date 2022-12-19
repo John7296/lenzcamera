@@ -158,12 +158,18 @@ class _OrderScreenState extends BaseStatefulState<OrderScreen> {
             children: [
               InkWell(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => OrderDetailScreen(orderList[index]),
-                    ),
-                  );
+
+                  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+                  builder: (BuildContext context) {
+                    return OrderDetailScreen(orderList[index]);
+                  },
+                ), (route) => false);
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) => OrderDetailScreen(orderList[index]),
+                  //   ),
+                  // );
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(10),

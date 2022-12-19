@@ -64,8 +64,8 @@ class NetworkManager {
     });
   }
 
-  Future<BaseResponse<List<Location>>> custLocation(String term) {
-    return call(networkConnection.custLocation(term));
+  Future<BaseResponse<List<Location>>> custLocation(String search) {
+    return call(networkConnection.custLocation(search));
   }
 
   Future<BaseResponse<List<TopCategories>>> getTopCategories() {

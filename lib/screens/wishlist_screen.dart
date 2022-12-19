@@ -92,7 +92,7 @@ class _WishlistScreenState extends BaseStatefulState<WishlistScreen> {
           padding: const EdgeInsets.only(left: 80),
           child: Text(
             'Wishlist',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold,fontFamily: 'Intro'),
           ),
         ),
         actions: [
