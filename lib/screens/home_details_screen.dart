@@ -172,7 +172,6 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
       print(e.toString());
     });
   }
-  
 
   // void location() {
   //   NetworkManager.shared
@@ -364,7 +363,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                       .locationList[index]
                                                       .pincodeId);
 
-                                                  // Navigator.of(context).pop();
+                                                  Navigator.of(context).pop();
                                                 },
                                                 child: Text(
                                                   DataManager
@@ -392,7 +391,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                 Colors.grey.shade700)),
                                     child: Text("close"),
                                     onPressed: () {
-                                      // Navigator.of(context).pop();
+                                      Navigator.of(context).pop();
                                       DataManager.shared
                                           .location(_searchController.text);
                                     },

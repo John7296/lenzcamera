@@ -34,21 +34,20 @@ class _CategoryScreenState extends BaseStatefulState<CategoryScreen> {
   void initState() {
     super.initState();
     Future.delayed(Duration(milliseconds: 500), () {
-      _getCategories();
+      getCategories();
     });
   }
 
-  void _getCategories() {
+  void getCategories() {
     showLoader();
     NetworkManager.shared
         .getTopCategories()
         .then((BaseResponse<List<TopCategories>> response) {
       hideLoader();
       setState(() {
-        isLoading = false;
         categoryList.clear();
         categoryList.addAll(response.data!);
-        response.data!.forEach((element) {
+        categoryList.forEach((element) {
           if (element.code!.split('#').length == 2 &&
               element.categoryId.toString() ==
                   element.code!.split('#').toString()) {
@@ -125,11 +124,11 @@ class _CategoryScreenState extends BaseStatefulState<CategoryScreen> {
               children: [
                 IconButton(
                   onPressed: () {
-                    Future.delayed(Duration(milliseconds: 500), () {
-                      _getCategories();
-                    });
-                    // Navigator.push(context,
-                    //     MaterialPageRoute(builder: (context) => CartScreen()));
+                    // Future.delayed(Duration(milliseconds: 500), () {
+                    //   getCategories();
+                    // });
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => CartScreen()));
                     // getBanners();
                   },
                   icon: Icon(Icons.shopping_cart),
