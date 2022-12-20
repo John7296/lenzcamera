@@ -185,7 +185,6 @@ class DataManager {
     NetworkManager.shared
         .custLocation(search)
         .then((BaseResponse<List<Location>> response) {
-     
         locationList.clear();
         locationList.addAll(response.data!);
       

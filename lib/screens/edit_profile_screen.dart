@@ -147,10 +147,13 @@ class _EditProfileScreen extends BaseStatefulState<EditProfileScreen> {
                                 // labelText: 'Mobile'
                                 ),
                             controller: _emailIdController,
-                            validator: (value) {
-                              if (value!.isEmpty) return "Enter Email Id";
-                              return null;
-                            },
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return "Enter Email";
+                                } if (!RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(value)){
+                                  return 'Enter valid Email';
+                                }
+                              },
                           ),
                         ),
                         SizedBox(height: 5),
@@ -172,8 +175,13 @@ class _EditProfileScreen extends BaseStatefulState<EditProfileScreen> {
                                 // labelText: 'Mobile'
                                 ),
                             controller: _mobileController,
-                            validator: (value) {
-                              if (value!.isEmpty) return "Enter Mobile Number";
+                              validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Enter Mobile Number';
+                              }
+                              if (value.length < 8) {
+                                return 'Enter valid phone number';
+                              }
                               return null;
                             },
                           ),
