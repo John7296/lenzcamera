@@ -5,6 +5,7 @@ part 'review_details.g.dart';
 @JsonSerializable()
 
 class ReviewDetails{
+  
     @JsonKey(name: 'cusId')
   int? cusId;
 

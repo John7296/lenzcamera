@@ -9,16 +9,21 @@ part 'review_response.g.dart';
 class ReviewResponse{
 
 
+    @JsonKey(name: 'OrderDetails')
+  String? OrderDetails;
+
   @JsonKey(name: 'ReviewDetails')
   List<ReviewDetails>? reviewDetails;
 
   @JsonKey(name: 'Details')
-  List<ReviewDetails>? details;
+  ReviewDetails? details;
 
     @JsonKey(name: 'ProdRev')
   List<ProductReview>? prodRev;
 
-  ReviewResponse();
+  ReviewResponse({
+    this.OrderDetails,
+  });
 
    factory ReviewResponse.fromJson(Map<String, dynamic> json) =>
       _$ReviewResponseFromJson(json);
