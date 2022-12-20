@@ -34,11 +34,11 @@ class _CategoryScreenState extends BaseStatefulState<CategoryScreen> {
   void initState() {
     super.initState();
     Future.delayed(Duration(milliseconds: 500), () {
-      _getCategories();
+      getCategories();
     });
   }
 
-  void _getCategories() {
+  void getCategories() {
     showLoader();
     NetworkManager.shared
         .getTopCategories()
@@ -124,11 +124,11 @@ class _CategoryScreenState extends BaseStatefulState<CategoryScreen> {
               children: [
                 IconButton(
                   onPressed: () {
-                    // Future.delayed(Duration(milliseconds: 500), () {
-                    //   _getCategories();
-                    // });
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => CartScreen()));
+                    Future.delayed(Duration(milliseconds: 500), () {
+                      getCategories();
+                    });
+                    // Navigator.push(context,
+                    //     MaterialPageRoute(builder: (context) => CartScreen()));
                     // getBanners();
                   },
                   icon: Icon(Icons.shopping_cart),
