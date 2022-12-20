@@ -47,19 +47,30 @@ class _CategoryScreenState extends BaseStatefulState<CategoryScreen> {
       setState(() {
         categoryList.clear();
         categoryList.addAll(response.data!);
-        categoryList.forEach((element) {
-          if (element.code!.split('#').length == 2 &&
-              element.categoryId.toString() ==
-                  element.code!.split('#').toString()) {
-            levelTwoList.add(element.catName);
-            // levelTwoList.add(element.imageUrl);
-            // levelTwoList.add(element.categoryId);
-            print("Level2${levelTwoList}");
+        // print("catList${categoryList}");
+        // categoryList.forEach((element) {
+        //   if (element.code!.split('#').length == 2 &&
+        //       element.categoryId.toString() ==
+        //           element.code!.split('#').toString()) {
+        //     levelTwoList.add(element.catName);
+        //     // levelTwoList.add(element.imageUrl);
+        //     // levelTwoList.add(element.categoryId);
+        //     print("Level2${levelTwoList}");
+        //   }
+        //   if (element.code!.split('#').length == 3 &&
+        //       element.categoryId.toString() ==
+        //           element.code!.split('#').elementAt(2).toString()) {
+        //     levelTwoList.add(element);
+        //   }
+        // });
+
+        // print(element.catName);
+        response.data!.forEach((element) {
+          if (element.code!.split('#').length == 2) {
+            print("elements2${element}");
           }
-          if (element.code!.split('#').length == 3 &&
-              element.categoryId.toString() ==
-                  element.code!.split('#').elementAt(2).toString()) {
-            levelTwoList.add(element);
+          if (element.code!.split('#').length == 3) {
+            print("elements3${element}");
           }
         });
       });
@@ -124,11 +135,11 @@ class _CategoryScreenState extends BaseStatefulState<CategoryScreen> {
               children: [
                 IconButton(
                   onPressed: () {
-                    // Future.delayed(Duration(milliseconds: 500), () {
-                    //   getCategories();
-                    // });
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => CartScreen()));
+                    Future.delayed(Duration(milliseconds: 500), () {
+                      getCategories();
+                    });
+                    // Navigator.push(context,
+                    //     MaterialPageRoute(builder: (context) => CartScreen()));
                     // getBanners();
                   },
                   icon: Icon(Icons.shopping_cart),
