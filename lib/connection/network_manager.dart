@@ -7,6 +7,7 @@ import 'package:lenzcamera/model/cart.dart';
 import 'package:lenzcamera/model/city_list.dart';
 import 'package:lenzcamera/model/company_policy.dart';
 import 'package:lenzcamera/model/customer.dart';
+import 'package:lenzcamera/model/details.dart';
 import 'package:lenzcamera/model/main_banners.dart';
 import 'package:lenzcamera/model/order_detail.dart';
 import 'package:lenzcamera/model/order_list.dart';
@@ -170,8 +171,8 @@ class NetworkManager {
   //   return call(networkConnection.productReview(CustId, map["urlKey"]));
   // }
 
-    Future<BaseResponse<ReviewResponse>> productReview(String urlKey, int userId){
-    return call(networkConnection.productReview(urlKey, userId));
+    Future<BaseResponse<ReviewResponse>> productReview(Map<String, dynamic> map){
+    return call(networkConnection.productReview(map["urlKey"], userId));
   }
 
 

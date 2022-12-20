@@ -5,6 +5,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
+import 'package:lenzcamera/model/details.dart';
 import 'package:lenzcamera/model/product.dart';
 import 'package:lenzcamera/model/product_review.dart';
 import 'package:lenzcamera/model/review_details.dart';
@@ -23,7 +24,7 @@ class ReviewScreen extends StatefulWidget {
 class _ReviewScreenState extends State<ReviewScreen> {
   double rating = 0.0;
 
-   List<ReviewDetails> review = [];
+   List<Details> review = [];
 
   // List<ProductReview> prodrev = [];
 
@@ -37,21 +38,46 @@ class _ReviewScreenState extends State<ReviewScreen> {
      }));
   }
 
-  void productReview() {
+  // void productReview() {
+  //   NetworkManager.shared
+  //       .productReview(widget.products?.urlKey??'',
+          
+  //         NetworkManager.shared.userId,
+          
+  //       ).then((BaseResponse<ReviewResponse> response) {
+  //     setState(() {
+       
+  //       revdetails.clear();
+  //       revdetails.addAll(response.data!.reviewDetails);
+
+  //      print(",,,,,,,,,,,,,,,,,");
+  //     print(widget.products?.urlKey);
+  //     print(response.data?.details?.first.reviewerEmail);
+  //     });   
+  //   }).catchError((e) {
+  //    // hideLoader();
+  //     print(e.toString());
+  //   });
+  // }
+
+
+   void productReview() {
     NetworkManager.shared
-        .productReview(widget.products?.urlKey??'',
+        .productReview(<String, dynamic>{
           
-          NetworkManager.shared.userId,
+          "CustId": NetworkManager.shared.userId,
+          "urlKey" : widget.products?.urlKey
           
-        ).then((BaseResponse<ReviewResponse> response) {
+        }).then((BaseResponse<ReviewResponse> response) {
       setState(() {
        
-        review.clear();
-        review.addAll(response.data!.reviewDetails!);
+        revdetails.clear();
+        revdetails.addAll(response.data!.reviewDetails!);
 
        print(",,,,,,,,,,,,,,,,,");
       print(widget.products?.urlKey);
-      print(response.data?.reviewDetails?.first.rating);
+      print(response.data?.reviewDetails?.first.reviewerEmail);
+      print(revdetails.length);
       });   
     }).catchError((e) {
      // hideLoader();
@@ -368,10 +394,8 @@ class _ReviewScreenState extends State<ReviewScreen> {
                 child: ListView.builder(
                     scrollDirection: Axis.vertical,
                   
-                    itemCount: 1,
+                    itemCount: revdetails.length,
                     itemBuilder: (BuildContext context, int index) {
-                      print("----------------");
-                      print(revdetails.length);
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -384,19 +408,21 @@ class _ReviewScreenState extends State<ReviewScreen> {
                                 child: CircleAvatar(
                                     backgroundColor: Color(0xffec3436)),
                               ),
-                              title: Text("jibin_intertoons_QC",
+                              title: Text(revdetails[index].reviewerName??'',
+                                // "jibin_intertoons_QC",
                                   style: TextStyle(
                                       fontSize: 15,
                                       fontFamily: 'Intro',
                                       fontWeight: FontWeight.w600)),
-                              subtitle: Text("2022-09-15T12:02:16.25",
+                              subtitle: Text(revdetails[index].dateOfReview??'',
+                                // "2022-09-15T12:02:16.25",
                                   style: TextStyle(
                                       fontSize: 10,
                                       fontFamily: 'Intro',
                                       fontWeight: FontWeight.w600,
                                       color: Colors.grey[400])),
-                              trailing: Text(
-                                "(5)",
+                              trailing: Text("( ${revdetails[index].rating??''} )",
+                                //"(5)",
                                 style: TextStyle(
                                     fontSize: 15,
                                     fontFamily: 'Intro',
@@ -406,8 +432,8 @@ class _ReviewScreenState extends State<ReviewScreen> {
                           ),
                           Padding(
                             padding: const EdgeInsets.only(left: 20),
-                            child: Text(
-                              "good product",
+                            child: Text(revdetails[index].reviewDetails??'',
+                              //"good product",
                               style: TextStyle(
                                   fontSize: 15,
                                   fontFamily: 'Intro',
