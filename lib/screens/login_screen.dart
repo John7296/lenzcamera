@@ -117,7 +117,8 @@ class _LoginScreenState extends BaseStatefulState<LoginScreen> {
                     SizedBox(height: 12),
                     Container(
                       // height: 40,
-                      child: TextFormField(
+                      child: 
+                      TextFormField(
                           controller: _usernameController,
                           validator: (val) {
                             if (val!.isEmpty) return "Enter Mobile/Email";

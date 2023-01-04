@@ -46,7 +46,8 @@ class _SplashScreenState extends State<SplashScreen> {
       if ((value ?? "").isNotEmpty) {
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => HomeScreen()));
-      } else {
+      }
+      else {
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => LoginScreen()));
       }

@@ -278,7 +278,7 @@ class _PopularProductsScreenState
                             height: 3.h,
                             // width: 3.h,
                             child: Padding(
-                              padding: EdgeInsets.all(0.2.h),
+                              padding: EdgeInsets.all(0.4.h),
                               child: CircularProgressIndicator(
                                 strokeWidth: 2,
                                 color: Colors.grey,

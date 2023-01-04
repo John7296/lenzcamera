@@ -228,10 +228,42 @@ class _ProductDetailsScreenState
                         //         ),
                         //   ],
                         // ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 50),
-                          child: InkWell(
-                            onTap: (){
+
+                        // Padding(
+                        //   padding: const EdgeInsets.only(top: 50),
+                        //   child: InkWell(
+                        //     onTap: (){
+
+                        //        Navigator.push(
+                        //             context,
+                        //             MaterialPageRoute(
+                        //                 builder: (context) => ProductImagesScreen(widget.popularproducts)));
+
+                        //     },
+                        //     child: Container(
+                        //       height: 200,
+                        //       width: 200,
+                        //       child: CachedNetworkImage(
+                        //           imageUrl:
+                        //               "https://dev.lenzcamera.com/webadmin/${widget.popularproducts?.imageUrl}"),
+                        //     ),
+                        //   ),
+                        // ),
+
+
+                        CarouselSlider.builder(
+                          options: CarouselOptions(
+                            enableInfiniteScroll: false,
+                            height: 200.0,
+                            autoPlay: false,
+                          ),
+                          itemCount: productImages.length,
+                          itemBuilder: (context, itemIndex, realIndex) {
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child:
+                              InkWell(
+                                 onTap: (){
 
                                Navigator.push(
                                     context,
@@ -239,40 +271,15 @@ class _ProductDetailsScreenState
                                         builder: (context) => ProductImagesScreen(widget.popularproducts)));
 
                             },
-                            child: Container(
-                              height: 200,
-                              width: 200,
-                              child: CachedNetworkImage(
-                                  imageUrl:
-                                      "https://dev.lenzcamera.com/webadmin/${widget.popularproducts?.imageUrl}"),
-                            ),
-                          ),
+                     
+                                child: CachedNetworkImage(
+                                    imageUrl:
+                                        "https://dev.lenzcamera.com/webadmin/${productImages[itemIndex].imageUrl}"),
+                              ),
+                             
+                            );
+                          },
                         ),
-                        // CarouselSlider.builder(
-                        //   options: CarouselOptions(
-                        //     height: 200.0,
-                        //     autoPlay: false,
-                        //   ),
-                        //   itemCount: 1,
-                        //   itemBuilder: (context, itemIndex, realIndex) {
-                        //     return Padding(
-                        //       padding: const EdgeInsets.all(8.0),
-                        //       child:
-                        //       // CachedNetworkImage(
-                        //       //     imageUrl:
-                        //       //         "https://dev.lenzcamera.com/webadmin/${widget.popularproducts?.imageUrl}"),
-                        //       // FadeInImage.assetNetwork(
-                        //       //   placeholder: 'assets/images/placeholder.jpg',
-                        //       //   image: "https://dev.lenzcamera.com/webadmin/${widget.popularproducts?.imageUrl??''}",
-                        //       //   fit: BoxFit.cover),
-                        //           Image(
-                        //         image: AssetImage("assets/images/camerabanner.png"),
-                        //         fit: BoxFit.fill,
-                        //         width: MediaQuery.of(context).size.width,
-                        //       ),
-                        //     );
-                        //   },
-                        // ),
 
                         Padding(
                           padding: const EdgeInsets.only(right: 24),
@@ -420,25 +427,29 @@ class _ProductDetailsScreenState
                                           color: Color(0xff70706e),
                                           fontSize: 17,
                                           fontFamily: 'Intro',
-                                          fontWeight: FontWeight.w600)))
+                                          fontWeight: FontWeight.w600))),
+                              
+
                             ],
                           ),
                         ),
 
-                        // (widget.popularproducts?.IsReviewAvgrating!> 1)
-                        
                         Divider(
-                          thickness: 9,
+                          thickness: 5,
                           color: Color(0xffe3e3e3),
                         ),
-                        SizedBox(height: 5),
+                       
+                        //SizedBox(height: 5),
+                        if(widget.popularproducts?.IsReviewAvgrating!=0.0)
+                        //       Divider(
+                        //   thickness: 9,
+                        //   color: Color(0xffe3e3e3),
+                        // ),
                         Padding(
-                          padding: const EdgeInsets.only(bottom: 5, right: 24),
+                          padding: const EdgeInsets.only(right: 24),
                           child: Align(
                             alignment: Alignment.centerRight,
                             child: 
-                            // widget.popularproducts?.IsReviewAvgrating>=
-                            // ? 
                             Container(
                               //height: 27,
                               width: 85,
@@ -465,37 +476,56 @@ class _ProductDetailsScreenState
                                   maxLines: 1,
                                 ),
                               )
-                            )
-                            // Container(
-                            //   width: 95,
-                            //   child: ElevatedButton(
-                            //       style: ElevatedButton.styleFrom(
-                            //         backgroundColor: Color(0xffec3436),
-                            //       ),
-                            //       onPressed: () {
-                            //         setState(() {});
-                            //         Navigator.push(
-                            //             context,
-                            //             MaterialPageRoute(
-                            //                 builder: (context) =>
-                            //                     WriteReviewScreen(widget.popularproducts)));
-                            //       },
-                            //       child: Text(
-                            //         "Write Review",
-                            //         style: TextStyle(
-                            //             fontSize: 10,
-                            //             color: Colors.white,
-                            //             fontFamily: "Intro",
-                            //             fontWeight: FontWeight.w600),
-                            //         maxLines: 1,
-                            //       ),
-                            //     ),
-                            )
+                            ),
+
                             ),
                           
-                      //  ),
+                     ),
+
+                      // Divider(
+                      //     thickness: 9,
+                      //     color: Color(0xffe3e3e3),
+                      //   ),
+
+                      
+                      if(widget.popularproducts?.Reviewstatus!=0)
+
+                     Padding(
+                          padding: const EdgeInsets.only(right: 24),
+                          child: Align(
+                            alignment: Alignment.centerRight,
+                            child: 
+                            Container(
+                              //height: 27,
+                              width: 85,
+                              child: 
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Color(0xffec3436),
+                                ),
+                                onPressed: () {
+                                  setState(() {});
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              WriteReviewScreen(widget.popularproducts)));
+                                },
+                                child: Text(
+                                  "Write Review",
+                                  style: TextStyle(
+                                      fontSize: 10,
+                                      color: Colors.white,
+                                      fontFamily: "Intro",
+                                      fontWeight: FontWeight.w600),
+                                  maxLines: 1,
+                                ),
+                              )
+                            ),
+                          ),
+                     ),
                         Divider(
-                          thickness: 9,
+                          thickness: 5,
                           color: Color(0xffe3e3e3),
                         ),
                         Padding(

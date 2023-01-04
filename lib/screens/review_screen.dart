@@ -26,7 +26,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
 
    List<Details> review = [];
 
-  // List<ProductReview> prodrev = [];
+   List<ProductReview> prodrev = [];
 
   List<ReviewDetails> revdetails= [];
 
@@ -48,7 +48,10 @@ class _ReviewScreenState extends State<ReviewScreen> {
   //     setState(() {
        
   //       revdetails.clear();
-  //       revdetails.addAll(response.data!.reviewDetails);
+  //       revdetails.addAll(response.data!.reviewDetails!);
+
+  //        review.clear();
+  //       review.addAll(response.data!.details!);
 
   //      print(",,,,,,,,,,,,,,,,,");
   //     print(widget.products?.urlKey);
@@ -74,10 +77,15 @@ class _ReviewScreenState extends State<ReviewScreen> {
         revdetails.clear();
         revdetails.addAll(response.data!.reviewDetails!);
 
+        // review.clear();
+        // review.addAll(response.data!.details!);
+
        print(",,,,,,,,,,,,,,,,,");
       print(widget.products?.urlKey);
       print(response.data?.reviewDetails?.first.reviewerEmail);
       print(revdetails.length);
+
+      // print(response.data?.details?.first.dateOfReview);
       });   
     }).catchError((e) {
      // hideLoader();
@@ -364,9 +372,9 @@ class _ReviewScreenState extends State<ReviewScreen> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(left: 200, top: 5),
+                      padding: const EdgeInsets.only(left: 220, top: 5),
                       child: Text(
-                        "${''} Reviews",
+                        "${'2'} Reviews",
                         style: TextStyle(fontFamily: 'Intro'),
                       ),
                     )

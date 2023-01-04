@@ -14,7 +14,7 @@ class ReviewResponse{
   List<ReviewDetails>? reviewDetails;
 
   @JsonKey(name: 'Details')
-   List<Details>? details;
+   Details? details;
 
     @JsonKey(name: 'ProdRev')
   List<ProductReview>? prodRev;

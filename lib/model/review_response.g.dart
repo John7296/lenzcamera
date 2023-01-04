@@ -11,9 +11,9 @@ ReviewResponse _$ReviewResponseFromJson(Map<String, dynamic> json) =>
       ..reviewDetails = (json['ReviewDetails'] as List<dynamic>?)
           ?.map((e) => ReviewDetails.fromJson(e as Map<String, dynamic>))
           .toList()
-      ..details = (json['Details'] as List<dynamic>?)
-          ?.map((e) => Details.fromJson(e as Map<String, dynamic>))
-          .toList()
+      ..details = json['Details'] == null
+          ? null
+          : Details.fromJson(json['Details'] as Map<String, dynamic>)
       ..prodRev = (json['ProdRev'] as List<dynamic>?)
           ?.map((e) => ProductReview.fromJson(e as Map<String, dynamic>))
           .toList();

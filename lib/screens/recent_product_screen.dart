@@ -190,7 +190,7 @@ class _RecentProductsScreenState
                   );
                 },
                 child: Padding(
-                  padding: EdgeInsets.all(0.4.h),
+                  padding: EdgeInsets.all(0.3.h),
                   child: Container(
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(.5.h)),
@@ -200,7 +200,7 @@ class _RecentProductsScreenState
                         Stack(
                           children: [
                             Container(
-                              height: 14.5.h,
+                              height: 14.h,
 
                               // color: Colors.red,
                               child: Center(
@@ -275,9 +275,9 @@ class _RecentProductsScreenState
 
                               // color:Colors.yellow,
                               height: 3.h,
-                              width: 3.h,
+                             // width: 3.h,
                               child: Padding(
-                                padding: EdgeInsets.all(0.6.h),
+                                padding: EdgeInsets.all(0.4.h),
                                 child: CircularProgressIndicator(
                                   strokeWidth: 2,
                                   color: Colors.grey,
