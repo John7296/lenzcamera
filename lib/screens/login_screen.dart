@@ -176,7 +176,7 @@ class _LoginScreenState extends BaseStatefulState<LoginScreen> {
                           obscureText: _obscureText,
                           controller: _passwordController,
                           validator: (val) {
-                            if (val!.isEmpty) return "Enter your password";
+                            if (val!.isEmpty) return "Enter your Password";
                             return null;
                           }),
                     ),

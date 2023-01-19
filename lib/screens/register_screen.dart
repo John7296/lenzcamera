@@ -191,7 +191,9 @@ class _RegisterScreenState extends BaseStatefulState<RegisterScreen> {
                               // labelText: 'Email ID'
                             ),
                             controller: _emailController,
-                            validator: (value) {
+                            validator:
+                             (value) {
+                           
                               if (value!.isEmpty) return "Enter your Email ID";
                               return null;
                             },

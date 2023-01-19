@@ -134,9 +134,9 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                                         children: [
                                           Padding(
                                             padding: EdgeInsets.only(
-                                                left: 0.5.h,
+                                                left: 15,
                                                 right: 0.5.h,
-                                                top: 1.h,
+                                                top: 2.h,
                                                 bottom: 0.5.h),
                                             child: Container(
                                               height: 8.h,
@@ -150,47 +150,51 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                                           ),
                                         ],
                                       ),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Padding(
-                                            padding: EdgeInsets.only(top: 2.h),
-                                            child: Container(
-                                              height: 5.h,
-                                              width: 39.5.w,
-                                              child: Text(
-                                                // 'CANON EF 16-35 MM F/4L IS USM',
-                                                cartItemsList[index].prName ??
-                                                    '',
-                                                style: TextStyle(
-                                                    fontSize: 10.sp,
-                                                    // fontWeight: FontWeight.bold,
-                                                    fontFamily: 'Intro'),
-                                                maxLines: 2,
+                                      Padding(
+                                        padding: const EdgeInsets.only(left:10),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Padding(
+                                              padding: EdgeInsets.only(top: 2.h),
+                                              child: Container(
+                                                height: 5.h,
+                                                width: 39.5.w,
+                                                child: Text(
+                                                  // 'CANON EF 16-35 MM F/4L IS USM',
+                                                  cartItemsList[index].prName ??
+                                                      '',
+                                                  style: TextStyle(
+                                                      fontSize: 10.sp,
+                                                      // fontWeight: FontWeight.bold,
+                                                      fontFamily: 'Intro'),
+                                                  maxLines: 2,
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                          Spacer(),
-                                          Container(
-                                            margin: EdgeInsets.only(bottom: 15),
-                                            child: Text(
-                                              // 'QAR 8600.00',
-                                              "QAR${cartItemsList[index].unitPrice}",
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontFamily: 'Intro',
-                                                  color: Colors.grey),
+                                            Spacer(),
+                                            Container(
+                                              margin: EdgeInsets.only(bottom: 15),
+                                              child: Text(
+                                                // 'QAR 8600.00',
+                                                "QAR${cartItemsList[index].unitPrice}",
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontFamily: 'Intro',
+                                                    color: Colors.grey),
+                                              ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
-                                      Column(
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                right: 20),
-                                            child: IconButton(
+
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.end,
+                                          
+                                          children: [
+                                            IconButton(
                                               onPressed: () {
                                                 showDialog(
                                                   context: context,
@@ -247,137 +251,137 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                                               icon: Icon(Icons.delete_outline,
                                                   color: Colors.red),
                                             ),
-                                          ),
-                                          Spacer(),
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                right: 25),
-                                            child: Container(
+                                            Spacer(),
+                                            Container(
                                               margin: EdgeInsets.only(
-                                                  bottom: 8, right: 20),
+                                                  bottom: 8),
                                               // bottom: 5, right: 5
-                                              child: Row(
-                                                children: [
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      InkWell(
-                                                        onTap: () {
-                                                          DataManager.shared
-                                                              .updateItemToCart(
-                                                            cartItemsList[
-                                                                index],
-                                                            4,
-                                                            onUpdate: () {
-                                                              setState(() {});
-                                                            },
-                                                            onUpdateStarted:
-                                                                () {
-                                                              setState(() {});
-                                                            },
-                                                          );
-                                                          getCart();
-                                                        },
-                                                        child: Container(
-                                                          width: 30,
-                                                          height: 30,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                                  color: Color(
-                                                                      0xff70726f),
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .only(
-                                                                    topLeft: Radius
-                                                                        .circular(
-                                                                            5),
-                                                                    bottomLeft:
-                                                                        Radius.circular(
-                                                                            5),
-                                                                  )),
-                                                          child: Center(
-                                                              child: Icon(
-                                                            Icons.remove,
-                                                            color: Colors.white,
-                                                            size: 12,
-                                                          )),
-                                                        ),
-                                                      ),
-                                                      Container(
-                                                        width: 30,
-                                                        height: 30,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color:
-                                                              Color(0xffe3e3e3),
-                                                        ),
-                                                        child: Center(
-                                                          child: Text(
-                                                            cartItemsList[index]
-                                                                .qty!
-                                                                .toStringAsFixed(
-                                                                    0),
-                                                            style: TextStyle(
-                                                                fontFamily:
-                                                                    'Intro',
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                color: Colors
-                                                                    .black),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      InkWell(
-                                                        onTap: () {
-                                                          DataManager.shared
-                                                              .updateItemToCart(
-                                                            cartItemsList[
-                                                                index],
-                                                            3,
-                                                            onUpdate: () {
-                                                              setState(() {});
-                                                            },
-                                                            onUpdateStarted:
-                                                                () {
-                                                              setState(() {});
-                                                            },
-                                                          );
-                                                          getCart();
-                                                        },
-                                                        child: Container(
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(right:15),
+                                                child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.end,
+                                                  children: [
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        InkWell(
+                                                          onTap: () {
+                                                            DataManager.shared
+                                                                .updateItemToCart(
+                                                              cartItemsList[
+                                                                  index],
+                                                              4,
+                                                              onUpdate: () {
+                                                                setState(() {});
+                                                              },
+                                                              onUpdateStarted:
+                                                                  () {
+                                                                setState(() {});
+                                                              },
+                                                            );
+                                                            getCart();
+                                                          },
+                                                          child: Container(
                                                             width: 30,
                                                             height: 30,
                                                             decoration:
                                                                 BoxDecoration(
                                                                     color: Color(
-                                                                        0xffe83031),
+                                                                        0xff70726f),
                                                                     borderRadius:
                                                                         BorderRadius
                                                                             .only(
-                                                                      topRight:
-                                                                          Radius.circular(
+                                                                      topLeft: Radius
+                                                                          .circular(
                                                                               5),
-                                                                      bottomRight:
+                                                                      bottomLeft:
                                                                           Radius.circular(
                                                                               5),
                                                                     )),
-                                                            child: Icon(
-                                                              Icons.add,
-                                                              color:
-                                                                  Colors.white,
+                                                            child: Center(
+                                                                child: Icon(
+                                                              Icons.remove,
+                                                              color: Colors.white,
                                                               size: 12,
                                                             )),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ],
+                                                          ),
+                                                        ),
+                                                        Container(
+                                                          width: 30,
+                                                          height: 30,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color:
+                                                                Color(0xffe3e3e3),
+                                                          ),
+                                                          child: Center(
+                                                            child: Text(
+                                                              cartItemsList[index]
+                                                                  .qty!
+                                                                  .toStringAsFixed(
+                                                                      0),
+                                                              style: TextStyle(
+                                                                  fontFamily:
+                                                                      'Intro',
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  color: Colors
+                                                                      .black),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        InkWell(
+                                                          onTap: () {
+                                                            DataManager.shared
+                                                                .updateItemToCart(
+                                                              cartItemsList[
+                                                                  index],
+                                                              3,
+                                                              onUpdate: () {
+                                                                setState(() {});
+                                                              },
+                                                              onUpdateStarted:
+                                                                  () {
+                                                                setState(() {});
+                                                              },
+                                                            );
+                                                            getCart();
+                                                          },
+                                                          child: Container(
+                                                              width: 30,
+                                                              height: 30,
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                      color: Color(
+                                                                          0xffe83031),
+                                                                      borderRadius:
+                                                                          BorderRadius
+                                                                              .only(
+                                                                        topRight:
+                                                                            Radius.circular(
+                                                                                5),
+                                                                        bottomRight:
+                                                                            Radius.circular(
+                                                                                5),
+                                                                      )),
+                                                              child: Icon(
+                                                                Icons.add,
+                                                                color:
+                                                                    Colors.white,
+                                                                size: 12,
+                                                              )),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       )
                                     ],
                                   ),

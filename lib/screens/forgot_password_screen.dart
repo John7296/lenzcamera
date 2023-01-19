@@ -134,7 +134,7 @@ class _ForgotPasswordScreenState extends BaseStatefulState<ForgotPasswordScreen>
                                             return "Enter Mobile/Email";
                                         } else {
                                           if (!Helper.validateEmail(val!)) {
-                                            return "Please enter a valid email";
+                                            return "Enter Valid Email";
                                           }
                                         }
             

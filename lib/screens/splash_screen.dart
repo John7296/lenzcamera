@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
+import 'package:lenzcamera/screens/explore_screen.dart';
 import 'package:lenzcamera/screens/home_screen.dart';
 import 'package:lenzcamera/screens/login_screen.dart';
 import 'package:lenzcamera/utils/sessions_manager.dart';
@@ -28,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
   }
 
-  void _checkTokenAndNavigate() {
+  void _checkTokenAndNavigate() { 
     //     SessionsManager.getUserToken().then((utoken) {
     //      utoken = (utoken ?? "");
     //       NetworkManager.shared.userKey =
@@ -49,7 +50,7 @@ class _SplashScreenState extends State<SplashScreen> {
       }
       else {
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => LoginScreen()));
+            context, MaterialPageRoute(builder: (context) => ExploreScreen()));
       }
     });
 
