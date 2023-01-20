@@ -31,8 +31,8 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
     // TODO: implement initState
     super.initState();
     Future.delayed(Duration(milliseconds: 500), () {
-    singleOrderDetail();
-     getOrderList();
+      singleOrderDetail();
+      getOrderList();
     });
     // singleOrderDetail();
   }
@@ -71,23 +71,19 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
     });
   }
 
-
-   void getOrderList() {
+  void getOrderList() {
     showLoader();
     NetworkManager.shared
         .getOrderList()
         .then((BaseResponse<List<OrderList>> response) {
       hideLoader();
-      setState(() {
-       
-      });
+      setState(() {});
     }).catchError((e) {
       showFlashMsg(e.toString());
       hideLoader();
       print(e.toString());
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -241,7 +237,9 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
                           Container(
                             width: 100,
                             child: Text(
-                              widget.orderList.Address.toString().replaceAll("\\n", " "),
+                              widget.orderList.Address
+                                  .toString()
+                                  .replaceAll("\\n", " "),
                               style:
                                   TextStyle(fontSize: 12, color: Colors.grey),
                               maxLines: 4,
@@ -257,8 +255,7 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
           ),
           Container(
             height: 200,
-            child: 
-            ListView.builder(
+            child: ListView.builder(
                 itemCount: singleItemList.length,
                 itemBuilder: (BuildContext context, int index) {
                   return Container(
@@ -303,7 +300,8 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
                                             height: 30,
                                             width: 160,
                                             child: Text(
-                                             singleItemList[index].prName ?? '',
+                                              singleItemList[index].prName ??
+                                                  '',
                                               style: TextStyle(
                                                 color: Colors.grey.shade600,
                                                 fontWeight: FontWeight.bold,
@@ -312,7 +310,18 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
                                             ),
                                           ),
                                           Spacer(),
-                                          Container(child: Text('x '+singleItemList[index].qty!.toStringAsFixed(0),style: TextStyle(fontSize: 20,fontFamily: 'Intro',fontWeight: FontWeight.bold,color: Colors.grey),))
+                                          Container(
+                                              child: Text(
+                                            'x ' +
+                                                singleItemList[index]
+                                                    .qty!
+                                                    .toStringAsFixed(0),
+                                            style: TextStyle(
+                                                fontSize: 20,
+                                                fontFamily: 'Intro',
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.grey),
+                                          ))
                                         ],
                                       ),
                                     ),
@@ -333,7 +342,6 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
                     ),
                   );
                 }),
-          
           ),
           Container(
             child: Padding(
@@ -366,8 +374,7 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
                                   color: Colors.grey,
                                   fontWeight: FontWeight.bold)),
                           Spacer(),
-                          Text(
-                            "QAR ${widget.orderList.orderAmount}",
+                          Text("QAR ${widget.orderList.orderAmount}",
                               // 'QAR ${singleItemList.first.itemTotal.toString()}',
                               style: TextStyle(
                                   fontSize: 12,
@@ -389,8 +396,7 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
                                   color: Colors.grey,
                                   fontWeight: FontWeight.bold)),
                           Spacer(),
-                          Text(
-                            '',
+                          Text('',
                               // 'QAR ${widget.orderList.}',
                               style: TextStyle(
                                   fontSize: 12,
@@ -422,7 +428,7 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
                           Spacer(),
                           Text(
                             "QAR ${widget.orderList.orderAmount}",
-                          // 'QAR ${singleItemList.first.itemTotal.toString()}',
+                            // 'QAR ${singleItemList.first.itemTotal.toString()}',
                             style: TextStyle(
                                 color: Colors.red,
                                 fontFamily: 'Intro',
@@ -506,7 +512,8 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
               height: 50,
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.pop(context);
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => OrderScreen()));
                 },
                 child: Text(
                   'Back',

@@ -53,6 +53,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
   List<Product> recentProductsList = [];
   List<Product> relatedProductsList = [];
   List<Banners> bannerList = [];
+
   String? cartItemId;
 
   var _searchController = TextEditingController();
@@ -314,90 +315,99 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {
+                              List<Location> locationList = [];
                               // return object of type Dialog
-                              return AlertDialog(
-                                title: Container(
-                                  height: 35.h,
-                                  // width: 50.h,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      SizedBox(
-                                        height: 5.h,
-                                        child: TextFormField(
-                                          decoration: InputDecoration(
-                                              border: OutlineInputBorder(),
-                                              contentPadding: EdgeInsets.all(5)
-                                              // labelText: 'Mobile'
-                                              ),
-                                          controller: _searchController,
-                                          onChanged: (value) {
-                                            search = value;
-                                          },
-                                          onFieldSubmitted: (value) {
-                                            DataManager.shared
-                                                .location(search!);
-                                          },
+                              return StatefulBuilder(
+                                  builder: (context, setState) {
+                                return AlertDialog(
+                                  title: Container(
+                                    height: 35.h,
+                                    // width: 50.h,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        SizedBox(
+                                          height: 5.h,
+                                          child: TextFormField(
+                                            decoration: InputDecoration(
+                                                border: OutlineInputBorder(),
+                                                contentPadding:
+                                                    EdgeInsets.all(5)
+                                                // labelText: 'Mobile'
+                                                ),
+                                            controller: _searchController,
+                                            onChanged: (value) {
+                                              NetworkManager.shared
+                                                  .custLocation(value)
+                                                  .then((BaseResponse<
+                                                          List<Location>>
+                                                      response) {
+                                                locationList.clear();
+                                                locationList
+                                                    .addAll(response.data!);
+                                                setState(() {});
+                                              }).catchError((e) {
+                                                print(e.toString());
+                                              });
+                                            },
+                                          ),
                                         ),
-                                      ),
-                                      SizedBox(height: 0.5.h),
-                                      SizedBox(
-                                        height: 25.h,
-                                        width: 30.h,
-                                        child: ListView.separated(
-                                          shrinkWrap: true,
-                                          itemCount: DataManager
-                                              .shared.locationList.length,
-                                          itemBuilder: (context, index) {
-                                            return InkWell(
-                                                onTap: () {
-                                                  selectedPlace = DataManager
-                                                          .shared
-                                                          .locationList[index]
-                                                          .place ??
-                                                      '';
-                                                  print(DataManager
-                                                      .shared
-                                                      .locationList[index]
-                                                      .pincodeId);
+                                        SizedBox(height: 0.5.h),
+                                        SizedBox(
+                                          height: 25.h,
+                                          width: 30.h,
+                                          child: ListView.separated(
+                                            shrinkWrap: true,
+                                            itemCount: locationList.length,
+                                            itemBuilder: (context, index) {
+                                              return InkWell(
+                                                  onTap: () {
+                                                    selectedPlace = DataManager
+                                                            .shared
+                                                            .locationList[index]
+                                                            .place ??
+                                                        '';
+                                                    print(DataManager
+                                                        .shared
+                                                        .locationList[index]
+                                                        .pincodeId);
 
-                                                  Navigator.of(context).pop();
-                                                },
-                                                child: Text(
-                                                  DataManager
-                                                          .shared
-                                                          .locationList[index]
-                                                          .place ??
-                                                      '',
-                                                  style:
-                                                      TextStyle(fontSize: 15),
-                                                ));
-                                          },
-                                          separatorBuilder: (context, index) {
-                                            return Divider();
-                                          },
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                  child: Text(
+                                                    locationList[index].place ??
+                                                        '',
+                                                    style:
+                                                        TextStyle(fontSize: 15),
+                                                  ));
+                                            },
+                                            separatorBuilder: (context, index) {
+                                              return Divider();
+                                            },
+                                          ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
-                                ),
-                                actions: [
-                                  ElevatedButton(
-                                    style: ButtonStyle(
-                                        backgroundColor:
-                                            MaterialStateProperty.all(
-                                                Colors.grey.shade700)),
-                                    child: Text("close"),
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                      DataManager.shared
-                                          .location(_searchController.text);
-                                    },
-                                  ),
-                                ],
-                              );
+                                  actions: [
+                                    ElevatedButton(
+                                      style: ButtonStyle(
+                                          backgroundColor:
+                                              MaterialStateProperty.all(
+                                                  Colors.grey.shade700)),
+                                      child: Text("close"),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                        DataManager.shared
+                                            .location(_searchController.text);
+                                      },
+                                    ),
+                                  ],
+                                );
+                              });
                             },
                           );
                         },
@@ -456,6 +466,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                 ),
               ],
             ),
+
             SizedBox(
               height: 1.5.h,
             ),

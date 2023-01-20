@@ -19,6 +19,7 @@ import 'package:lenzcamera/screens/review_screen.dart';
 import 'package:lenzcamera/screens/search_screen.dart';
 import 'package:lenzcamera/screens/splash_screen.dart';
 import 'package:lenzcamera/screens/write_review_screen.dart';
+import 'package:lenzcamera/utils/constants.dart';
 import 'package:sizer/sizer.dart';
 
 void main() {
@@ -26,6 +27,8 @@ void main() {
     builder:
         (BuildContext context, Orientation orientation, DeviceType deviceType) {
       return MaterialApp(
+       theme:
+        ThemeData(primarySwatch: kAccentMaterialColor, fontFamily: kFontFamily),
         debugShowCheckedModeBanner: false,
         home: SplashScreen(),
       );
