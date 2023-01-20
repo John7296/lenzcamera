@@ -13,7 +13,7 @@ import 'package:lenzcamera/model/filter_data.dart';
 import 'package:lenzcamera/model/product.dart';
 import 'package:lenzcamera/model/search_filter_response.dart';
 
- //List<String> _categories = <String>['Canon', 'Nikon', 'Sigma', 'Tamron'];
+//List<String> _categories = <String>['Canon', 'Nikon', 'Sigma', 'Tamron'];
 
 class FilterScreen extends StatefulWidget {
   @override
@@ -27,72 +27,65 @@ class _FilterScreenState extends State<FilterScreen> {
   double _endValue = 7999;
 
   Category? selectedCategory;
-   Attribute? selectedAttribute;
-     Attribute? selectedBrand;
-         Attribute? selectedManufacturer;
-          Attribute? selectedLens;
+  Attribute? selectedAttribute;
+  Attribute? selectedBrand;
+  Attribute? selectedManufacturer;
+  Attribute? selectedLens;
 
-      SearchFilterResponse? price;
+  SearchFilterResponse? price;
 
-   bool isLoading = false;
+  bool isLoading = false;
   int currentPage = 1;
 
-  List<Category>_categoryList =[];
-  List<Attribute>_attributeList =[];
+  List<Category> _categoryList = [];
+  List<Attribute> _attributeList = [];
 
-
-   @override
+  @override
   void initState() {
     super.initState();
     searchFilter();
   }
- 
 
-   void searchFilter(){
+  void searchFilter() {
     setState(() {
       isLoading = true;
-   
     });
 
     NetworkManager.shared.searchFilter(<String, dynamic>{
-        "currentpage": 1,
-       "custId": NetworkManager.shared.userId, 
-       "filter": {"category": "dslr-lenses"}, 
-       "filtervalues": null, 
-       "guestId": null, 
-       "maxPrice": "1000000", 
-       "minPrice": "0", 
-       "pagesize": 20,
-        "searchstring": "",
-         "sortorder": {"direction": "default", "field": "prName"},
-          "status": false, 
-          "vendorUrlKey": 8
-      
-    }).then((BaseResponse<SearchFilterResponse>response) {
-       setState(() {
-            isLoading= false;  
-             _categoryList.clear();
-             _attributeList.clear();
-        _categoryList.addAll(response.data!.categoryList!);  
-        _attributeList.addAll(response.data!.attributes!);  
+      "currentpage": 1,
+      "custId": NetworkManager.shared.userId,
+      "filter": {"category": "dslr-lenses"},
+      "filtervalues": null,
+      "guestId": null,
+      "maxPrice": "1000000",
+      "minPrice": "0",
+      "pagesize": 20,
+      "searchstring": "",
+      "sortorder": {"direction": "default", "field": "prName"},
+      "status": false,
+      "vendorUrlKey": 8
+    }).then((BaseResponse<SearchFilterResponse> response) {
+      setState(() {
+        isLoading = false;
+        _categoryList.clear();
+        _attributeList.clear();
+        _categoryList.addAll(response.data!.categoryList!);
+        _attributeList.addAll(response.data!.attributes!);
       });
     }).catchError((e) {
-    print(e.toString());
+      print(e.toString());
     });
   }
 
+  List<Attribute> searchAttribute(String attName) {
+    List<Attribute> attributeValues = [];
 
-  List<Attribute> searchAttribute(String attName){
-
-  List<Attribute> attributeValues = [];
-
-     for (Attribute element in _attributeList){
-      if(element.attrName==attName){
-         attributeValues.add(element);
+    for (Attribute element in _attributeList) {
+      if (element.attrName == attName) {
+        attributeValues.add(element);
       }
-        
-     }
-     return attributeValues;
+    }
+    return attributeValues;
   }
 
   @override
@@ -101,8 +94,8 @@ class _FilterScreenState extends State<FilterScreen> {
       appBar: AppBar(
         centerTitle: true,
         title: Text("Filter"),
-        titleTextStyle: TextStyle(fontSize: 14,fontFamily:
-                                                                            "Intro", fontWeight: FontWeight.w600),
+        titleTextStyle: TextStyle(
+            fontSize: 14, fontFamily: "Intro", fontWeight: FontWeight.w600),
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back_ios_new_sharp,
@@ -127,39 +120,43 @@ class _FilterScreenState extends State<FilterScreen> {
                     Container(
                       height: 45,
                       decoration: BoxDecoration(
-                        color:  Color(0xff6f7270),
+                          color: Color(0xff6f7270),
                           borderRadius: BorderRadius.circular(10)),
                       child: Padding(
-                        padding: const EdgeInsets.only(left:10, right:10),
+                        padding: const EdgeInsets.only(left: 10, right: 10),
                         child: DropdownButton<Category>(
-                          hint: Text("Categories",style:TextStyle(fontFamily:
-                                                                            "Intro",) ),
+                          hint: Text("Categories",
+                              style: TextStyle(
+                                fontFamily: "Intro",
+                              )),
                           underline: Container(color: Colors.transparent),
                           isExpanded: true,
                           dropdownColor: Color(0xffadadad),
                           elevation: 5,
                           value: selectedCategory,
-                          icon: const Icon(Icons.arrow_drop_down_outlined, color: Colors.black,),
+                          icon: const Icon(
+                            Icons.arrow_drop_down_outlined,
+                            color: Colors.black,
+                          ),
                           onChanged: (Category? value) {
-                            
                             // This is called when the user selects an item.
                             setState(() {
-                              selectedCategory= value;
+                              selectedCategory = value;
                             });
                           },
-                          items:
-                              _categoryList.map<DropdownMenuItem<Category>>((Category value) {
+                          items: _categoryList.map<DropdownMenuItem<Category>>(
+                              (Category value) {
                             return DropdownMenuItem<Category>(
                               value: value,
-                              child: Text(value.catName??'', style:TextStyle(fontFamily:
-                                                                            "Intro",)),
+                              child: Text(value.catName ?? '',
+                                  style: TextStyle(
+                                    fontFamily: "Intro",
+                                  )),
                             );
                           }).toList(),
                         ),
                       ),
                     ),
-            
-            
                     SizedBox(height: 13),
                     Container(
                       height: 45,
@@ -170,8 +167,10 @@ class _FilterScreenState extends State<FilterScreen> {
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(12),
-                        child: Text("Price Range", style:TextStyle(fontFamily:
-                                                                            "Intro",)),
+                        child: Text("Price Range",
+                            style: TextStyle(
+                              fontFamily: "Intro",
+                            )),
                       ),
                     ),
                     SizedBox(
@@ -208,114 +207,125 @@ class _FilterScreenState extends State<FilterScreen> {
                     Container(
                       height: 45,
                       decoration: BoxDecoration(
-                        color:  Color(0xff6f7270),
+                          color: Color(0xff6f7270),
                           borderRadius: BorderRadius.circular(10)),
                       child: Padding(
-                        padding: const EdgeInsets.only(left:10, right:10),
+                        padding: const EdgeInsets.only(left: 10, right: 10),
                         child: DropdownButton<Attribute>(
-                          hint: Text("Brand", style:TextStyle(fontFamily:
-                                                                            "Intro",)),
+                          hint: Text("Brand",
+                              style: TextStyle(
+                                fontFamily: "Intro",
+                              )),
                           isExpanded: true,
                           underline: Container(color: Colors.transparent),
                           dropdownColor: Color(0xffadadad),
                           elevation: 5,
                           value: selectedBrand,
-                          icon: const Icon(Icons.arrow_drop_down_outlined, color: Colors.black,),
+                          icon: const Icon(
+                            Icons.arrow_drop_down_outlined,
+                            color: Colors.black,
+                          ),
                           onChanged: (Attribute? value) {
                             // This is called when the user selects an item.
                             setState(() {
                               selectedBrand = value;
                             });
                           },
-                          items:
-                              searchAttribute("Brand").map<DropdownMenuItem<Attribute>>((Attribute value) {
+                          items: searchAttribute("Brand")
+                              .map<DropdownMenuItem<Attribute>>(
+                                  (Attribute value) {
                             return DropdownMenuItem<Attribute>(
                               value: value,
-                              child: 
-                              
-                              Text(value.attrValue??'', style:TextStyle(fontFamily:
-                                                                            "Intro",)),
+                              child: Text(value.attrValue ?? '',
+                                  style: TextStyle(
+                                    fontFamily: "Intro",
+                                  )),
                             );
                           }).toList(),
                         ),
                       ),
                     ),
                     SizedBox(height: 13),
-            
-                   Container(
+                    Container(
                       height: 45,
                       decoration: BoxDecoration(
-                        color:  Color(0xff6f7270),
+                          color: Color(0xff6f7270),
                           borderRadius: BorderRadius.circular(10)),
                       child: Padding(
-                        padding: const EdgeInsets.only(left:10, right:10),
+                        padding: const EdgeInsets.only(left: 10, right: 10),
                         child: DropdownButton<Attribute>(
-                          hint: Text("Manufacturer", style:TextStyle(fontFamily:
-                                                                            "Intro",)),
+                          hint: Text("Manufacturer",
+                              style: TextStyle(
+                                fontFamily: "Intro",
+                              )),
                           isExpanded: true,
                           dropdownColor: Color(0xffadadad),
                           elevation: 5,
                           value: selectedManufacturer,
-                        underline: Container(color: Colors.transparent),
-                          icon: const Icon(Icons.arrow_drop_down_outlined, color: Colors.black,),
+                          underline: Container(color: Colors.transparent),
+                          icon: const Icon(
+                            Icons.arrow_drop_down_outlined,
+                            color: Colors.black,
+                          ),
                           onChanged: (Attribute? value) {
                             // This is called when the user selects an item.
                             setState(() {
                               selectedManufacturer = value;
                             });
                           },
-                          items:
-                              searchAttribute("Manufacturer").map<DropdownMenuItem<Attribute>>((Attribute value) {
+                          items: searchAttribute("Manufacturer")
+                              .map<DropdownMenuItem<Attribute>>(
+                                  (Attribute value) {
                             return DropdownMenuItem<Attribute>(
                               value: value,
-                              child: 
-                              
-                              Text(value.attrValue??''),
+                              child: Text(value.attrValue ?? ''),
                             );
                           }).toList(),
                         ),
                       ),
                     ),
-            
                     SizedBox(height: 13),
-            
                     Container(
                       height: 45,
                       decoration: BoxDecoration(
-                        color:  Color(0xff6f7270),
+                          color: Color(0xff6f7270),
                           borderRadius: BorderRadius.circular(10)),
                       child: Padding(
-                        padding: const EdgeInsets.only(left:10, right:10),
+                        padding: const EdgeInsets.only(left: 10, right: 10),
                         child: DropdownButton<Attribute>(
-                          hint: Text("Lens Mount", style:TextStyle(fontFamily:
-                                                                            "Intro",)),
+                          hint: Text("Lens Mount",
+                              style: TextStyle(
+                                fontFamily: "Intro",
+                              )),
                           isExpanded: true,
                           underline: Container(color: Colors.transparent),
                           dropdownColor: Color(0xffadadad),
                           elevation: 5,
                           value: selectedLens,
-                          icon: const Icon(Icons.arrow_drop_down_outlined, color: Colors.black,),
+                          icon: const Icon(
+                            Icons.arrow_drop_down_outlined,
+                            color: Colors.black,
+                          ),
                           onChanged: (Attribute? value) {
                             // This is called when the user selects an item.
                             setState(() {
                               selectedLens = value;
                             });
                           },
-                          items:
-                              searchAttribute("Lens Mount").map<DropdownMenuItem<Attribute>>((Attribute value) {
+                          items: searchAttribute("Lens Mount")
+                              .map<DropdownMenuItem<Attribute>>(
+                                  (Attribute value) {
                             return DropdownMenuItem<Attribute>(
                               value: value,
-                              child: 
-                              
-                              Text(value.attrValue??'', style:TextStyle(fontFamily:
-                                                                            "Intro",)),
+                              child: Text(value.attrValue ?? '',
+                                  style: TextStyle(
+                                    fontFamily: "Intro",
+                                  )),
                             );
                           }).toList(),
                         ),
                       ),
                     ),
-            
-                  
                   ],
                 ),
               ),
@@ -335,23 +345,17 @@ class _FilterScreenState extends State<FilterScreen> {
                       ),
                       onPressed: () {
                         setState(() {
-
-                          selectedCategory=null;
+                          selectedCategory = null;
                           _startValue = 499;
                           _endValue = 7999;
                           selectedBrand = null;
                           selectedManufacturer = null;
                           selectedLens = null;
-
-                          
                         });
-                       
-                      
                       },
                       child: Text(
                         "CLEAR",
-                        style: TextStyle(fontSize: 20, fontFamily:
-                                                                            "Intro"),
+                        style: TextStyle(fontSize: 20, fontFamily: "Intro"),
                       ),
                     ),
                   ),
@@ -366,22 +370,21 @@ class _FilterScreenState extends State<FilterScreen> {
                           backgroundColor: Color(0xffec3436),
                         ),
                         onPressed: () {
-                         FilterData? filterData= FilterData();
-                         filterData.maxPrice=_endValue;
-                         filterData.minPrice = _startValue;
-                         filterData.category=selectedCategory;
-                         filterData.brand= selectedBrand;
-                         filterData.manufacturer=selectedManufacturer;
-                         filterData.lensMount=selectedLens;
+                          FilterData? filterData = FilterData();
+                          filterData.maxPrice = _endValue;
+                          filterData.minPrice = _startValue;
+                          filterData.category = selectedCategory;
+                          filterData.brand = selectedBrand;
+                          filterData.manufacturer = selectedManufacturer;
+                          filterData.lensMount = selectedLens;
 
-                         DataManager.shared.filterData=filterData;
-                         
-                         Navigator.pop(context);
+                          DataManager.shared.filterData = filterData;
+
+                          Navigator.pop(context);
                         },
                         child: Text(
                           "APPLY",
-                          style: TextStyle(fontSize: 20,fontFamily:
-                                                                            "Intro"),
+                          style: TextStyle(fontSize: 20, fontFamily: "Intro"),
                         ),
                       ),
                     ),
