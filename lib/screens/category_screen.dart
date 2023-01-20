@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -12,6 +14,7 @@ import 'package:lenzcamera/model/top_categories.dart';
 import 'package:lenzcamera/screens/cart_screen.dart';
 import 'package:lenzcamera/screens/home_screen.dart';
 import 'package:lenzcamera/screens/product_details_screen.dart';
+import 'package:lenzcamera/screens/search_screen.dart';
 import 'package:sizer/sizer.dart';
 
 class CategoryScreen extends StatefulWidget {
@@ -24,17 +27,18 @@ class CategoryScreen extends StatefulWidget {
 class _CategoryScreenState extends BaseStatefulState<CategoryScreen> {
   int selectedIndex = 0;
   PageController _pageController = PageController();
-  List<TopCategories> categoryList = [];
+  List<TopCategories> mainCategoryList = [];
   int pageCount = 10;
   bool isLoading = true;
   var levelThreeList = [];
-  var levelTwoList = [];
+  var subCategoryList = [];
 
   @override
   void initState() {
     super.initState();
     Future.delayed(Duration(milliseconds: 500), () {
       getCategories();
+      getSubCategories(0);
     });
   }
 
@@ -44,35 +48,39 @@ class _CategoryScreenState extends BaseStatefulState<CategoryScreen> {
         .getTopCategories()
         .then((BaseResponse<List<TopCategories>> response) {
       hideLoader();
+      mainCategoryList.clear();
+      // levelTwoList.clear();
       setState(() {
-        categoryList.clear();
-        categoryList.addAll(response.data!);
-        // print("catList${categoryList}");
-        // categoryList.forEach((element) {
-        //   if (element.code!.split('#').length == 2 &&
-        //       element.categoryId.toString() ==
-        //           element.code!.split('#').toString()) {
-        //     levelTwoList.add(element.catName);
-        //     // levelTwoList.add(element.imageUrl);
-        //     // levelTwoList.add(element.categoryId);
-        //     print("Level2${levelTwoList}");
-        //   }
-        //   if (element.code!.split('#').length == 3 &&
-        //       element.categoryId.toString() ==
-        //           element.code!.split('#').elementAt(2).toString()) {
-        //     levelTwoList.add(element);
-        //   }
-        // });
+        for (var dataOne in response.data!) {
+          log(dataOne.catName);
+          if (dataOne.parentId == 1) {
+            mainCategoryList.add(dataOne);
+          }
+        }
+      });
+    }).catchError((e) {
+      showFlashMsg(e.toString());
+      hideLoader();
+      print(e.toString());
+    });
+  }
 
-        // print(element.catName);
-        response.data!.forEach((element) {
-          if (element.code!.split('#').length == 2) {
-            print("elements2${element}");
+  void getSubCategories(int catId) {
+    // print("cattID ${catId}");
+    showLoader();
+    NetworkManager.shared
+        .getTopCategories()
+        .then((BaseResponse<List<TopCategories>> response) {
+      hideLoader();
+      subCategoryList.clear();
+      setState(() {
+        for (var dataTwo in response.data!) {
+          // print("equals${dataTwo.parentId == catId}");
+          if (catId == dataTwo.parentId) {
+            // print("parenttId${dataTwo.parentId}");
+            subCategoryList.add(dataTwo);
           }
-          if (element.code!.split('#').length == 3) {
-            print("elements3${element}");
-          }
-        });
+        }
       });
     }).catchError((e) {
       showFlashMsg(e.toString());
@@ -174,8 +182,9 @@ class _CategoryScreenState extends BaseStatefulState<CategoryScreen> {
           backgroundColor: Colors.grey.shade700,
           leading: IconButton(
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => HomeScreen()));
+              getCategories();
+              // Navigator.push(context,
+              //     MaterialPageRoute(builder: (context) => HomeScreen()));
             },
             icon: Icon(Icons.arrow_back_ios),
           ),
@@ -187,11 +196,14 @@ class _CategoryScreenState extends BaseStatefulState<CategoryScreen> {
               SizedBox(
                 width: 120,
                 child: ListView.separated(
-                  itemCount: categoryList.length,
+                  itemCount: mainCategoryList.length,
+                  // >11?11:categoryList.length,
                   itemBuilder: (BuildContext context, int index) {
                     return GestureDetector(
                       onTap: () {
                         setState(() {
+                          getSubCategories(
+                              mainCategoryList[index].categoryId ?? 0);
                           selectedIndex = index;
                           _pageController.jumpToPage(index);
                         });
@@ -233,11 +245,11 @@ class _CategoryScreenState extends BaseStatefulState<CategoryScreen> {
                                             padding: const EdgeInsets.all(2),
                                             child: CachedNetworkImage(
                                                 imageUrl:
-                                                    "https://dev.lenzcamera.com/webadmin/${categoryList[index].imageUrl}"),
+                                                    "https://dev.lenzcamera.com/webadmin/${mainCategoryList[index].imageUrl}"),
                                           ),
                                         ),
                                         Text(
-                                          categoryList[index].catName,
+                                          mainCategoryList[index].catName,
                                           maxLines: 2,
                                           style: TextStyle(
                                               fontFamily: 'Intro',
@@ -273,22 +285,23 @@ class _CategoryScreenState extends BaseStatefulState<CategoryScreen> {
                       child: Padding(
                         padding:
                             const EdgeInsets.only(left: 10, right: 10, top: 20),
-                        child: StaggeredGridView.countBuilder(
+                        child:  (subCategoryList.isNotEmpty)
+                                ? StaggeredGridView.countBuilder(
                           //physics: NeverScrollableScrollPhysics(),
                           crossAxisCount: 2,
-                          itemCount: categoryList.length,
+                          itemCount: subCategoryList.length,
                           crossAxisSpacing: 0,
                           mainAxisSpacing: 0,
                           itemBuilder: (context, index) {
                             return InkWell(
                               onTap: (() {
-                                // Navigator.push(
-                                //     context,
-                                //     MaterialPageRoute(
-                                //         builder: (context) =>
-                                //             ProductDetailsScreen()));
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            SearchScreen()));
                               }),
-                              child: Card(
+                              child:Card(
                                 elevation: 2,
                                 // shape: RoundedRectangleBorder(),
                                 child: Padding(
@@ -307,13 +320,13 @@ class _CategoryScreenState extends BaseStatefulState<CategoryScreen> {
                                             ),
                                             child: CachedNetworkImage(
                                                 imageUrl:
-                                                    "https://dev.lenzcamera.com/webadmin/${categoryList[index].imageUrl}"),
+                                                    "https://dev.lenzcamera.com/webadmin/${subCategoryList[index].imageUrl}"),
                                           ),
                                         ],
                                       ),
                                       const SizedBox(height: 10),
                                       Text(
-                                        categoryList[index].catName,
+                                        subCategoryList[index].catName,
                                         maxLines: 1,
                                         style: const TextStyle(fontSize: 12),
                                         overflow: TextOverflow.ellipsis,
@@ -326,7 +339,7 @@ class _CategoryScreenState extends BaseStatefulState<CategoryScreen> {
                             );
                           },
                           staggeredTileBuilder: (index) => StaggeredTile.fit(1),
-                        ),
+                        ):Center(child: Text("No Items Available")),
                       ),
                     ),
                   ],

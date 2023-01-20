@@ -12,7 +12,6 @@ class SessionsManager {
 
   static void saveUserToken(String data) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-
     prefs.setString(userKey, data);
   }
 

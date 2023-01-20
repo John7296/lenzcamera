@@ -181,7 +181,7 @@ class DataManager {
     return false;
   }
 
-    void location(String search) {
+      void location(String search) {
     NetworkManager.shared
         .custLocation(search)
         .then((BaseResponse<List<Location>> response) {
@@ -192,6 +192,8 @@ class DataManager {
       print(e.toString());
     });
   }
+
+
 
   void clearSession() {
     NetworkManager.shared.userToken = "";

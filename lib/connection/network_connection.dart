@@ -84,8 +84,7 @@ abstract class NetworkConnection {
 
   @FormUrlEncoded()
   @POST("customer/ChangePassword")
-  Future<BaseResponse> changePassword(
-      @Body() Map<String, dynamic> map);
+  Future<BaseResponse> changePassword(@Body() Map<String, dynamic> map);
 
   @FormUrlEncoded()
   @POST("Product/Search")
@@ -125,13 +124,10 @@ abstract class NetworkConnection {
     @Body() Map<String, dynamic> map,
   );
 
- @FormUrlEncoded()
+  @FormUrlEncoded()
   @GET("/Product/ProductReview")
   Future<BaseResponse<ReviewResponse>> productReview(
-    @Query("urlKey") String urlKey,
-     @Query("CustId") int userId
-  );
- 
+      @Query("urlKey") String urlKey, @Query("CustId") int userId);
 
   @FormUrlEncoded()
   @GET('CompanyPolicy')

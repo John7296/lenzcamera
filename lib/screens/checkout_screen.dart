@@ -132,6 +132,7 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                     SizedBox(width: 150),
                                     TextButton(
                                       onPressed: () {
+                                      
                                         showModalBottomSheet(
                                             context: context,
                                             builder: (BuildContext context) {
@@ -257,7 +258,7 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                                     )
                                                   ]);
                                             }).then((value) {
-                                          setState(() {});
+                                         
                                         });
                                       },
                                       child: Text(
