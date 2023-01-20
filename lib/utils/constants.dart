@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 const bool kDedebug = true;
 
 //Base Url
-const imageBaseUrl = "https://dev.lenzcamera.com/webadmin/";
+const String imageBaseUrl = "https://dev.lenzcamera.com/webadmin/";
 
 
 // FONT FAMILY

@@ -37,8 +37,9 @@ class _CategoryScreenState extends BaseStatefulState<CategoryScreen> {
   void initState() {
     super.initState();
     Future.delayed(Duration(milliseconds: 500), () {
+      getSubCategories(0);
       getCategories();
-      
+       
     });
    
   }
@@ -48,8 +49,8 @@ class _CategoryScreenState extends BaseStatefulState<CategoryScreen> {
     NetworkManager.shared
         .getTopCategories()
         .then((BaseResponse<List<TopCategories>> response) {
-           getSubCategories(0);
-      hideLoader();
+          
+      // hideLoader();
       mainCategoryList.clear();
       // levelTwoList.clear();
       setState(() {
@@ -69,7 +70,7 @@ class _CategoryScreenState extends BaseStatefulState<CategoryScreen> {
 
   void getSubCategories(int catId) {
     // print("cattID ${catId}");
-    showLoader();
+    // showLoader();
     NetworkManager.shared
         .getTopCategories()
         .then((BaseResponse<List<TopCategories>> response) {

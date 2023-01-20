@@ -191,11 +191,13 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Container(
-          height: 100,
-          width: 200,
-          child: Image(
-            image: AssetImage("assets/images/logo_lenzcamera.png"),
+        title: Center(
+          child: Container(
+            height: 80,
+            width: 150,
+            child: Image(
+              image: AssetImage("assets/images/logo_lenzcamera_white.png"),
+            ),
           ),
         ),
         actions: [
@@ -215,16 +217,9 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                 Positioned(
                   right: 5,
                   top: 5,
-                  child: new Container(
-                    padding: EdgeInsets.all(2),
-                    decoration: new BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    constraints: BoxConstraints(
-                      minWidth: 14,
-                      minHeight: 14,
-                    ),
+                  child:  
+                  CircleAvatar(
+                    radius: 8,
                     child: Text(
                       DataManager.shared.wishListItems.length.toString(),
                       style: TextStyle(
@@ -251,16 +246,8 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                 Positioned(
                   right: 5,
                   top: 5,
-                  child: Container(
-                    padding: EdgeInsets.all(2),
-                    decoration: new BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    constraints: BoxConstraints(
-                      minWidth: 14,
-                      minHeight: 14,
-                    ),
+                  child: CircleAvatar(
+                    radius: 8,
                     child: Text(
                       DataManager.shared.cartItemsList.length.toString(),
                       style: TextStyle(
@@ -270,7 +257,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                       textAlign: TextAlign.center,
                     ),
                   ),
-                )
+                ),
             ],
           ),
         ],
