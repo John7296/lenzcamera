@@ -142,6 +142,7 @@ class _FilterScreenState extends State<FilterScreen> {
                             // This is called when the user selects an item.
                             setState(() {
                               selectedCategory = value;
+                              print("valueeee${value!.catId}");
                             });
                           },
                           items: _categoryList.map<DropdownMenuItem<Category>>(

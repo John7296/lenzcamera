@@ -18,11 +18,9 @@ import 'package:sizer/sizer.dart';
 
 class SearchScreen extends StatefulWidget {
   //  final SearchProducts? product;
+ 
 
-  SearchScreen({
-    Key? key,
-    //  this.product
-  }) : super(key: key);
+  SearchScreen();
   @override
   State<SearchScreen> createState() => _SearchScreenState();
 }
@@ -40,45 +38,11 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
   void initState() {
     super.initState();
     Future.delayed(Duration(milliseconds: 500), (() {
-      searchProducts();
+      searchProducts(0);
     }));
   }
 
-  // void searchProducts() {
-  //   showLoader();
-
-  //   isSearchStarted = true;
-
-  //   NetworkManager.shared.searchProducts(<String, dynamic>{
-  //     "pagesize": 20,
-  //     "custId": NetworkManager.shared.userId,
-  //     "currentpage": currentPage,
-  //     "filtervalues":
-  //             "${DataManager.shared.filterData?.brand?.attrId}, ${DataManager.shared.filterData?.manufacturer?.attrId},  ${DataManager.shared.filterData?.lensMount?.attrId}"
-  //         ,
-  //     "guestId": "",
-  //     "maxPrice": DataManager.shared.filterData?.maxPrice ,
-  //     "minPrice": DataManager.shared.filterData?.minPrice,
-  //     "pincode": 8,
-  //     "filter": {
-  //       "category": DataManager.shared.filterData?.category?.catId ?? '',
-  //     },
-  //     "sortorder": {"field": "price", "direction": "relevence"},
-  //     "searchstring": _searchString,
-  //   }).then((BaseResponse<SearchProductsResponse> response) {
-  //     hideLoader();
-  //     setState(() {
-  //       // isLoading = false;
-  //       _products.clear();
-  //       _products.addAll(response.data!.products!);
-  //     });
-  //   }).catchError((e) {
-  //     hideLoader();
-  //     print(e.toString());
-  //   });
-  // }
-
-  void searchProducts() {
+  void searchProducts(cattId) {
     showLoader();
 
     isSearchStarted = true;
@@ -97,7 +61,8 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
       "minPrice": DataManager.shared.filterData?.minPrice ?? 0,
       "pincode": 8,
       "filter": {
-        "category": DataManager.shared.filterData?.category?.catId ?? '',
+        "category": NetworkManager.shared.catUrlKey,
+        // DataManager.shared.filterData?.category?.catId ?? '',
       },
       "sortorder": {"field": "prName", "direction": "default"},
       "searchstring": _searchString,
@@ -130,8 +95,10 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
               color: Colors.white,
             ),
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => HomeScreen()));
+              // Navigator.push(context,
+              //     MaterialPageRoute(builder: (context) => HomeScreen()));
+
+              Navigator.pop(context);
             },
           ),
           backgroundColor: Colors.grey.shade700,
@@ -235,7 +202,7 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
                         _searchString = value;
                       },
                       onSubmitted: (value) {
-                        searchProducts();
+                        searchProducts(0);
                       },
                       decoration: const InputDecoration(
                           border: InputBorder.none,
@@ -261,7 +228,7 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
                                           builder: (context) => FilterScreen()))
                                   .then(
                                 (value) {
-                                  searchProducts();
+                                  searchProducts(0);
                                 },
                               );
                             },
@@ -279,10 +246,7 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
             child: Container(
               height: 600,
               color: Colors.grey.shade100,
-              child:
-                  // isLoading
-                  //     ? Center(child: CircularProgressIndicator())
-                  //     :
+              child:(_products.isNotEmpty)?
                   ListView.builder(
                       itemCount: _products.length,
                       itemBuilder: (BuildContext context, int index) {
@@ -669,7 +633,7 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
                             ],
                           ),
                         );
-                      }),
+                      }):Center(child: Text("Oh.. Oh.. No Items Available..!")),
             ),
           ),
         ]),
