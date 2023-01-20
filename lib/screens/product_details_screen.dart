@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
@@ -175,78 +177,19 @@ class _ProductDetailsScreenState
                   )
               ],
             ),
-            // IconButton(
-            //     onPressed: () {
-            //       Navigator.push(
-            //           context,
-            //           MaterialPageRoute(
-            //               builder: (context) => WishlistScreen()));
-            //     },
-            //     icon:
-            //         Icon(Icons.favorite_border_outlined, color: Colors.white)),
-            // SizedBox(width: 20),
-            // IconButton(
-            //     onPressed: () {
-            //       Navigator.push(context,
-            //           MaterialPageRoute(builder: (context) => CartScreen()));
-            //     },
-            //     icon: Icon(Icons.shopping_cart_outlined, color: Colors.white)),
-            // SizedBox(width: 20),
+            
           ],
         ),
         body: Column(
           children: [
             Expanded(
               child: Container(
-                margin: EdgeInsets.only(bottom: 30),
+                margin: EdgeInsets.only(bottom: 5),
                 child: SingleChildScrollView(
                   child: Padding(
-                    padding: const EdgeInsets.only(bottom: 65),
+                    padding: const EdgeInsets.only(bottom: 5),
                     child: Column(
                       children: [
-                        //                       CarouselSlider(
-                        //                         options: CarouselOptions(
-                        //   autoPlay: true,
-                        //   //pauseAutoPlayOnTouch: Duration(seconds: 5),
-                        //   height:200
-                        //                         ),
-                        //   items: <Widget>[
-                        //     for (var i = 0; i <widget.popularproducts!.productImages!.length; i++)
-                        //       Container(
-                        //           margin: const EdgeInsets.only(top: 20.0, left: 20.0),
-                        //           decoration: BoxDecoration(
-                        //             image: DecorationImage(
-                        //               image: NetworkImage(productImages[i].toString()),
-                        //               fit: BoxFit.fitHeight,
-                        //             ),
-                        //             // border:
-                        //             //     Border.all(color: Theme.of(context).accentColor),
-                        //             borderRadius: BorderRadius.circular(32.0),
-                        //           ),
-                        //         ),
-                        //   ],
-                        // ),
-
-                        // Padding(
-                        //   padding: const EdgeInsets.only(top: 50),
-                        //   child: InkWell(
-                        //     onTap: (){
-
-                        //        Navigator.push(
-                        //             context,
-                        //             MaterialPageRoute(
-                        //                 builder: (context) => ProductImagesScreen(widget.popularproducts)));
-
-                        //     },
-                        //     child: Container(
-                        //       height: 200,
-                        //       width: 200,
-                        //       child: CachedNetworkImage(
-                        //           imageUrl:
-                        //               "https://dev.lenzcamera.com/webadmin/${widget.popularproducts?.imageUrl}"),
-                        //     ),
-                        //   ),
-                        // ),
 
                         CarouselSlider.builder(
                           options: CarouselOptions(
@@ -373,54 +316,80 @@ class _ProductDetailsScreenState
                         Padding(
                           padding: const EdgeInsets.only(
                               left: 24, right: 24, top: 5, bottom: 5),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                          child: Row(
                             children: [
-                              Text(
-                                widget.popularproducts?.shortDescription ?? '',
-                                // "Canon EF 16-35mm f/2.8L III USM Lens  ",
-                                style: TextStyle(
-                                    color: Color(0xff70706e),
-                                    fontSize: 10,
-                                    fontFamily: 'Intro',
-                                    fontWeight: FontWeight.w600),
-                                maxLines: 8,
-                              ),
-                              SizedBox(height: 7),
-                              Align(
-                                  alignment: Alignment.topLeft,
-                                  child: Text(
-                                    widget.popularproducts?.catName ?? '',
-                                    // "DSLR Lenses",
-                                    style: TextStyle(
-                                        color: Color(0xff5aa567),
-                                        fontSize: 10,
-                                        fontFamily: 'Intro',
-                                        fontWeight: FontWeight.w600),
-                                  )),
-                              Align(
-                                  alignment: Alignment.centerRight,
-                                  child: IconButton(
-                                    onPressed: () {
-                                      Share.share(
-                                          "https://dev.lenzcamera.com/product/ ${widget.popularproducts?.urlKey ?? ''}");
-                                    },
-                                    icon: Icon(
-                                      Icons.share,
-                                      color: Color(0xff70706e),
-                                    ),
-                                  )),
-                              Align(
-                                  alignment: Alignment.topLeft,
-                                  child: Text(
-                                      "QAR ${widget.popularproducts?.unitPrice}",
-
-                                      // "QAR 6899.00",
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    width:320,
+                                    child: Text(
+                                      widget.popularproducts?.shortDescription ?? '',
+                                      // "Canon EF 16-35mm f/2.8L III USM Lens  ",
                                       style: TextStyle(
                                           color: Color(0xff70706e),
-                                          fontSize: 17,
+                                          fontSize: 10,
                                           fontFamily: 'Intro',
-                                          fontWeight: FontWeight.w600))),
+                                            wordSpacing: 2,
+                                            height: 1.5,
+                                          fontWeight: FontWeight.w600),
+                                      maxLines: 15,
+                                    ),
+                                  ),
+                                  SizedBox(height: 10),
+                                  Align(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(
+                                        widget.popularproducts?.catName ?? '',
+                                        // "DSLR Lenses",
+                                        style: TextStyle(
+                                            color: Color(0xff5aa567),
+                                            fontSize: 10,
+                                            fontFamily: 'Intro',
+                                  
+                                            fontWeight: FontWeight.w600),
+                                      )),
+                                  // Align(
+                                  //     alignment: Alignment.centerRight,
+                                  //     child: IconButton(
+                                  //       onPressed: () {
+                                  //         Share.share(
+                                  //             "https://dev.lenzcamera.com/product/ ${widget.popularproducts?.urlKey ?? ''}");
+                                  //       },
+                                  //       icon: Icon(
+                                  //         Icons.share,
+                                  //         color: Color(0xff70706e),
+                                  //       ),
+                                  //     )),
+
+                                  SizedBox(height: 25),
+                                  Align(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(
+                                          "QAR ${widget.popularproducts?.unitPrice}",
+
+                                          // "QAR 6899.00",
+                                          style: TextStyle(
+                                              color: Color(0xff70706e),
+                                              fontSize: 17,
+                                              fontFamily: 'Intro',
+                                              fontWeight: FontWeight.w600))),
+                                ],
+                              ),
+
+                              Expanded(
+                                child: Column(children: [
+                                  IconButton(
+                                          onPressed: () {
+                                            Share.share(
+                                                "https://dev.lenzcamera.com/product/ ${widget.popularproducts?.urlKey ?? ''}");
+                                          },
+                                          icon: Icon(
+                                            Icons.share,
+                                            color: Color(0xff70706e),
+                                          ),),
+                                ],),
+                              )
                             ],
                           ),
                         ),
@@ -536,6 +505,7 @@ class _ProductDetailsScreenState
                                       style: TextStyle(
                                           color: Color(0xff70706e),
                                           fontSize: 15,
+                                        
                                           fontFamily: "Intro",
                                           fontWeight: FontWeight.w600)),
                                 ],
@@ -563,7 +533,8 @@ class _ProductDetailsScreenState
                                       widget.popularproducts?.description ?? "",
                                   style: {
                                     "body": Style(
-                                      fontSize: FontSize(15.0),
+                                      lineHeight: LineHeight.number(1.2),
+                                      fontSize: FontSize(13.0),
                                       fontFamily: "Intro",
                                     ),
                                   },
@@ -608,7 +579,7 @@ class _ProductDetailsScreenState
                                 children: [
                                   Expanded(
                                     child: Container(
-                                      height: 240,
+                                      height: 242,
                                       //color: Colors.green,
                                       child: ListView.builder(
                                           scrollDirection: Axis.horizontal,
@@ -627,13 +598,15 @@ class _ProductDetailsScreenState
                                                           padding:
                                                               const EdgeInsets
                                                                       .only(
-                                                                  top: 10),
+                                                                  top: 18),
                                                           child: Container(
                                                               width: 100,
-                                                              height: 100,
+                                                              height: 110,
                                                               child: CachedNetworkImage(
                                                                   imageUrl:
-                                                                      "https://dev.lenzcamera.com/webadmin/${relatedproducts[index].imageUrl}")
+                                                                      "https://dev.lenzcamera.com/webadmin/${relatedproducts[index].imageUrl}",
+                                                                      fit: BoxFit.fill,
+                                                                      )
 
                                                               // Image(
                                                               //     image: AssetImage(
@@ -641,11 +614,8 @@ class _ProductDetailsScreenState
                                                               ),
                                                         ),
                                                       ),
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .only(
-                                                                left: 120),
+                                                      Align(
+                                                        alignment: Alignment.topRight,
                                                         child: IconButton(
                                                             onPressed: () {
                                                               setState(() {
@@ -695,26 +665,29 @@ class _ProductDetailsScreenState
                                                       child: Align(
                                                           alignment:
                                                               Alignment.center,
-                                                          child: Text(
-                                                            relatedproducts[
-                                                                        index]
-                                                                    .prName ??
-                                                                '',
+                                                          child: Container(
+                                                            height: 30,
+                                                            child: Text(
+                                                              relatedproducts[
+                                                                          index]
+                                                                      .prName ??
+                                                                  '',
 
-                                                            //  "CANON EF 16-35 MM F/4L IS USM ",
-                                                            style: TextStyle(
-                                                                fontSize: 15,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w300,
-                                                                fontFamily:
-                                                                    "Intro"),
-                                                            maxLines: 2,
-                                                            overflow:
-                                                                TextOverflow
-                                                                    .ellipsis,
-                                                            textAlign:
-                                                                TextAlign.left,
+                                                              //  "CANON EF 16-35 MM F/4L IS USM ",
+                                                              style: TextStyle(
+                                                                  fontSize: 15,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w300,
+                                                                  fontFamily:
+                                                                      "Intro"),
+                                                              maxLines: 2,
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                              textAlign:
+                                                                  TextAlign.center,
+                                                            ),
                                                           )),
                                                     ),
                                                     Align(
@@ -737,18 +710,34 @@ class _ProductDetailsScreenState
                                                                   color: Color(
                                                                       0xff70706e))),
                                                         )),
-                                                    SizedBox(height: 4),
+                                                    SizedBox(height: 7),
 
                                                     if (relatedproducts[index]
                                                         .isCartUpdateProgress!)
-                                                      SizedBox(
-                                                          height: 10,
-                                                          width: 10,
-                                                          child:
-                                                              CircularProgressIndicator(
+                                                         Container(
+                                                    width: 160,
+                                                    height: 30,
+                                                    decoration: BoxDecoration(
+                                                      color:Colors.yellow,
+                                                      borderRadius: BorderRadius.circular(5)
+                                                    ),
+                                                    child: Center(
+                                                      child: Padding(
+                                                        padding: const EdgeInsets.only(left:75, right:75, top:10, bottom:10),
+                                                        child: CircularProgressIndicator(
                                                             strokeWidth: 2,
-                                                            color: Colors.grey,
-                                                          )),
+                                                          ),
+                                                      ),
+                                                    )
+                                                  ),
+                                                      // SizedBox(
+                                                      //     height: 10,
+                                                      //     width: 10,
+                                                      //     child:
+                                                      //         CircularProgressIndicator(
+                                                      //       strokeWidth: 2,
+                                                      //       color: Colors.grey,
+                                                      //     )),
                                                     if (relatedproducts[index]
                                                             .isCartUpdateProgress ==
                                                         false)
@@ -954,7 +943,7 @@ class _ProductDetailsScreenState
               ),
             ),
 
-            //   if (widget.popularproducts!.isCartUpdateProgress!)
+           //   if (widget.popularproducts!.isCartUpdateProgress==false)
             //  SizedBox(
             //                   height: 30,
             //                   width: 30,
@@ -987,6 +976,7 @@ class _ProductDetailsScreenState
                                 backgroundColor: Color(0xffec3436),
                               ),
                               onPressed: () {
+                               
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
@@ -1008,28 +998,15 @@ class _ProductDetailsScreenState
                               ),
                             ),
                           ),
-                          SizedBox(width: 20),
-                          if (widget.popularproducts!.isCartUpdateProgress!)
-                            Padding(
-                              padding: const EdgeInsets.only(left: 60),
-                              child: SizedBox(
-                                  // height: 30,
-                                  // width: 30,
-                                  height: 15.h,
-                                  width: 15.w,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(10),
-                                    child: CircularProgressIndicator(
-                                      strokeWidth: 2,
-                                      color: Colors.grey,
-                                    ),
-                                  )),
-                            ),
-                          if (widget.popularproducts!.isCartUpdateProgress ==
-                              false)
-                            if (widget.popularproducts!.isAddedtoCart())
+                        
+                            Spacer(),
+
+                            
+
+                            if(widget.popularproducts!.isAddedtoCart())
                               Row(
                                 children: [
+                                  
                                   InkWell(
                                     onTap: () {
                                       DataManager.shared.updateItemToCart(
@@ -1040,7 +1017,9 @@ class _ProductDetailsScreenState
                                         setState(() {});
                                       });
                                     },
-                                    child: Container(
+                                    child: 
+                                    
+                                    Container(
                                       width: 40,
                                       height: 30,
                                       // width: 40,
@@ -1115,6 +1094,7 @@ class _ProductDetailsScreenState
                         onPressed: () {
                           DataManager.shared.updateItemToCart(
                               widget.popularproducts!, 1, onUpdate: () {
+                               
                             setState(() {});
                           }, onUpdateStarted: () {
                             setState(() {});
