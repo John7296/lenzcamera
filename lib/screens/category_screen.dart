@@ -38,8 +38,9 @@ class _CategoryScreenState extends BaseStatefulState<CategoryScreen> {
     super.initState();
     Future.delayed(Duration(milliseconds: 500), () {
       getCategories();
-      getSubCategories(0);
+      
     });
+   
   }
 
   void getCategories() {
@@ -47,6 +48,7 @@ class _CategoryScreenState extends BaseStatefulState<CategoryScreen> {
     NetworkManager.shared
         .getTopCategories()
         .then((BaseResponse<List<TopCategories>> response) {
+           getSubCategories(0);
       hideLoader();
       mainCategoryList.clear();
       // levelTwoList.clear();
@@ -182,9 +184,9 @@ class _CategoryScreenState extends BaseStatefulState<CategoryScreen> {
           backgroundColor: Colors.grey.shade700,
           leading: IconButton(
             onPressed: () {
-              getCategories();
-              // Navigator.push(context,
-              //     MaterialPageRoute(builder: (context) => HomeScreen()));
+              // getCategories();
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => HomeScreen()));
             },
             icon: Icon(Icons.arrow_back_ios),
           ),
