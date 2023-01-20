@@ -46,6 +46,7 @@ class NetworkManager {
   late String otp;
   late String otpurlkey;
   late int userId;
+  late String catUrlKey;
 
   init() {
     dio = Dio();
@@ -165,18 +166,15 @@ class NetworkManager {
     return call(networkConnection.addReview(map));
   }
 
-
   // Future<BaseResponse<ReviewResponse>> productReview(Map<String, dynamic> map) {
   //   return call(networkConnection.productReview(CustId, map["urlKey"]));
   // }
 
-    Future<BaseResponse<ReviewResponse>> productReview(Map<String, dynamic> map){
+  Future<BaseResponse<ReviewResponse>> productReview(Map<String, dynamic> map) {
     return call(networkConnection.productReview(map["urlKey"], userId));
   }
 
-
-
-  Future<BaseResponse> verifyOtp(Map<String, dynamic> map) {  
+  Future<BaseResponse> verifyOtp(Map<String, dynamic> map) {
     return call(
         networkConnection.verifyOtp(int.parse(map['OTP']), map['OtpUrlKey']));
   }

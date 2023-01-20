@@ -285,61 +285,68 @@ class _CategoryScreenState extends BaseStatefulState<CategoryScreen> {
                       child: Padding(
                         padding:
                             const EdgeInsets.only(left: 10, right: 10, top: 20),
-                        child:  (subCategoryList.isNotEmpty)
-                                ? StaggeredGridView.countBuilder(
-                          //physics: NeverScrollableScrollPhysics(),
-                          crossAxisCount: 2,
-                          itemCount: subCategoryList.length,
-                          crossAxisSpacing: 0,
-                          mainAxisSpacing: 0,
-                          itemBuilder: (context, index) {
-                            return InkWell(
-                              onTap: (() {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            SearchScreen()));
-                              }),
-                              child:Card(
-                                elevation: 2,
-                                // shape: RoundedRectangleBorder(),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8),
-                                  child: Column(
-                                    children: [
-                                      Stack(
-                                        children: [
-                                          Container(
-                                            height: 120,
-                                            width: double.infinity,
-                                            clipBehavior: Clip.antiAlias,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(0),
+                        child: (subCategoryList.isNotEmpty)
+                            ? StaggeredGridView.countBuilder(
+                                //physics: NeverScrollableScrollPhysics(),
+                                crossAxisCount: 2,
+                                itemCount: subCategoryList.length,
+                                crossAxisSpacing: 0,
+                                mainAxisSpacing: 0,
+                                itemBuilder: (context, index) {
+                                  return InkWell(
+                                    onTap: (() {
+                                    
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  SearchScreen()));
+                                                    NetworkManager.shared.catUrlKey =
+                                          subCategoryList[index].catUrlKey;
+                                    }),
+                                    child: Card(
+                                      elevation: 2,
+                                      // shape: RoundedRectangleBorder(),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8),
+                                        child: Column(
+                                          children: [
+                                            Stack(
+                                              children: [
+                                                Container(
+                                                  height: 120,
+                                                  width: double.infinity,
+                                                  clipBehavior: Clip.antiAlias,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            0),
+                                                  ),
+                                                  child: CachedNetworkImage(
+                                                      imageUrl:
+                                                          "https://dev.lenzcamera.com/webadmin/${subCategoryList[index].imageUrl}"),
+                                                ),
+                                              ],
                                             ),
-                                            child: CachedNetworkImage(
-                                                imageUrl:
-                                                    "https://dev.lenzcamera.com/webadmin/${subCategoryList[index].imageUrl}"),
-                                          ),
-                                        ],
+                                            const SizedBox(height: 10),
+                                            Text(
+                                              subCategoryList[index].catName,
+                                              maxLines: 1,
+                                              style:
+                                                  const TextStyle(fontSize: 12),
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                            const SizedBox(height: 5),
+                                          ],
+                                        ),
                                       ),
-                                      const SizedBox(height: 10),
-                                      Text(
-                                        subCategoryList[index].catName,
-                                        maxLines: 1,
-                                        style: const TextStyle(fontSize: 12),
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                      const SizedBox(height: 5),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
-                          staggeredTileBuilder: (index) => StaggeredTile.fit(1),
-                        ):Center(child: Text("No Items Available")),
+                                    ),
+                                  );
+                                },
+                                staggeredTileBuilder: (index) =>
+                                    StaggeredTile.fit(1),
+                              )
+                            : Center(child: Text("No Items Available")),
                       ),
                     ),
                   ],
