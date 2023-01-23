@@ -9,6 +9,7 @@ import 'package:lenzcamera/screens/change_password_screen.dart';
 import 'package:lenzcamera/screens/home_screen.dart';
 import 'package:lenzcamera/screens/login_screen.dart';
 import 'package:lenzcamera/screens/reset_password_screen.dart';
+import 'package:lenzcamera/utils/constants.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class OtpScreen extends StatefulWidget {
@@ -61,7 +62,7 @@ class _OtpScreenState extends BaseStatefulState<OtpScreen> {
               Navigator.pop(context);
             },
           ),
-          backgroundColor: Color(0xff474747),
+          backgroundColor: kappBar,
         ),
         body: Padding(
           padding: const EdgeInsets.only(left: 24, right: 24),

@@ -6,6 +6,7 @@ import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/company_policy.dart';
 import 'package:lenzcamera/screens/home_screen.dart';
+import 'package:lenzcamera/utils/constants.dart';
 
 class PrivacyPolicyScreen extends StatefulWidget {
   const PrivacyPolicyScreen({super.key});
@@ -61,7 +62,7 @@ class _PrivacyPolicyScreenState extends BaseStatefulState<PrivacyPolicyScreen> {
         //     icon: Icon(Icons.shopping_cart),
         //   ),
         // ],
-        backgroundColor: Colors.grey.shade700,
+        backgroundColor: kappBar,
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);

@@ -12,6 +12,7 @@ import 'package:lenzcamera/screens/home_screen.dart';
 import 'package:lenzcamera/screens/order_details_screen.dart';
 import 'package:lenzcamera/screens/profile_screen.dart';
 import 'package:lenzcamera/screens/wishlist_screen.dart';
+import 'package:lenzcamera/utils/constants.dart';
 
 class OrderScreen extends StatefulWidget {
   const OrderScreen({super.key});
@@ -140,7 +141,7 @@ class _OrderScreenState extends BaseStatefulState<OrderScreen> {
             ],
           ),
         ],
-        backgroundColor: Colors.grey.shade700,
+        backgroundColor: kappBar,
         leading: IconButton(
           onPressed: () {
             Navigator.push(

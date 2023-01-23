@@ -9,6 +9,7 @@ import 'package:lenzcamera/model/order_list.dart';
 import 'package:lenzcamera/screens/home_screen.dart';
 import 'package:lenzcamera/screens/order_details_screen.dart';
 import 'package:lenzcamera/screens/order_screen.dart';
+import 'package:lenzcamera/utils/constants.dart';
 
 class OrderSuccessScreen extends StatefulWidget {
   OrderSuccessScreen();
@@ -80,7 +81,7 @@ class _OrderSuccessScreenState extends BaseStatefulState<OrderSuccessScreen> {
         // ),
       ),
           ],
-          backgroundColor: Colors.grey.shade700,
+          backgroundColor: kappBar,
           leading: IconButton(
             onPressed: () {
               Navigator.push(context,

@@ -10,6 +10,7 @@ import 'package:lenzcamera/model/cart_details.dart';
 import 'package:lenzcamera/model/product.dart';
 import 'package:lenzcamera/screens/checkout_screen.dart';
 import 'package:lenzcamera/screens/home_screen.dart';
+import 'package:lenzcamera/utils/constants.dart';
 import 'package:sizer/sizer.dart';
 
 class CartScreen extends StatefulWidget {
@@ -88,7 +89,7 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                 context, MaterialPageRoute(builder: (context) => HomeScreen()));
           },
         ),
-        backgroundColor: Colors.grey.shade700,
+        backgroundColor: kappBar,
       ),
       body: (cartItemsList.isNotEmpty)
           ? Column(

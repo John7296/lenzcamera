@@ -10,6 +10,7 @@ import 'package:lenzcamera/model/product.dart';
 import 'package:lenzcamera/screens/cart_screen.dart';
 import 'package:lenzcamera/screens/home_screen.dart';
 import 'package:lenzcamera/screens/search_screen.dart';
+import 'package:lenzcamera/utils/constants.dart';
 import 'package:lenzcamera/widgets/wishlist_item_widget.dart';
 
 import 'package:sizer/sizer.dart';
@@ -140,7 +141,7 @@ class _WishlistScreenState extends BaseStatefulState<WishlistScreen> {
             ],
           ),
         ],
-        backgroundColor: Colors.grey.shade700,
+        backgroundColor: kappBar,
         leading: IconButton(
           onPressed: () {
             Navigator.push(

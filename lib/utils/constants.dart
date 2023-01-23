@@ -5,11 +5,9 @@ const bool kDedebug = true;
 //Base Url
 const String imageBaseUrl = "https://dev.lenzcamera.com/webadmin/";
 
-
 // FONT FAMILY
 
 const String kFontFamily = "Intro";
-
 
 // COLOR
 
@@ -27,3 +25,5 @@ Map<int, Color> accentColor = {
 };
 
 MaterialColor kAccentMaterialColor = MaterialColor(0xffFD425B, accentColor);
+
+Color kappBar = Colors.grey.shade700;

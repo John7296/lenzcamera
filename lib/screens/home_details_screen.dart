@@ -219,6 +219,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                   top: 5,
                   child:  
                   CircleAvatar(
+                    backgroundColor: Colors.red,
                     radius: 8,
                     child: Text(
                       DataManager.shared.wishListItems.length.toString(),
@@ -247,6 +248,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                   right: 5,
                   top: 5,
                   child: CircleAvatar(
+                    backgroundColor: Colors.red,
                     radius: 8,
                     child: Text(
                       DataManager.shared.cartItemsList.length.toString(),
@@ -261,6 +263,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
             ],
           ),
         ],
+       
         backgroundColor: Colors.grey.shade700,
         // leading: IconButton(
         //   onPressed: () {},

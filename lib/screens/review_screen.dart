@@ -9,6 +9,7 @@ import 'package:lenzcamera/model/product.dart';
 import 'package:lenzcamera/model/product_review.dart';
 import 'package:lenzcamera/model/review_details.dart';
 import 'package:lenzcamera/model/review_response.dart';
+import 'package:lenzcamera/utils/constants.dart';
 
 import 'package:sizer/sizer.dart';
 
@@ -76,7 +77,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
             Navigator.pop(context);
           },
         ),
-        backgroundColor: Colors.black,
+        backgroundColor: kappBar,
       ),
       body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         SizedBox(height: 20),

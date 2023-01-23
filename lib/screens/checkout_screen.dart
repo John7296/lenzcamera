@@ -9,6 +9,7 @@ import 'package:lenzcamera/model/product.dart';
 import 'package:lenzcamera/screens/add_new_address_screen.dart';
 import 'package:lenzcamera/screens/address_screen.dart';
 import 'package:lenzcamera/screens/order_success.dart';
+import 'package:lenzcamera/utils/constants.dart';
 
 class CheckoutScreen extends StatefulWidget {
   CheckoutScreen(this.grandTotal, this.subTotal, this.context);
@@ -90,7 +91,7 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
             Navigator.pop(context);
           },
         ),
-        backgroundColor: Colors.grey.shade700,
+        backgroundColor: kappBar,
       ),
       body: Padding(
         padding: const EdgeInsets.only(left: 15, right: 15, top: 15),

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/screens/login_screen.dart';
+import 'package:lenzcamera/utils/constants.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
 
@@ -89,7 +90,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
           MaterialPageRoute(builder: (context) => LoginScreen()));
           },
         ),
-        backgroundColor: Colors.black,
+        backgroundColor: kappBar,
       ),
       body: Padding(
         padding: EdgeInsets.only(left: 24, right: 24, top:250),

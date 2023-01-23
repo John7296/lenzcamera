@@ -48,32 +48,6 @@ class _RecentProductsScreenState
     });
   }
 
-  // void addToWishlist(Product product) {
-  //   NetworkManager.shared
-  //       .addToWishlist(<String, dynamic>{
-  //         "urlKey": product.urlKey,
-  //         "custId": 386,
-  //         "guestId": 1,
-  //       })
-  //       .then((BaseResponse response) {})
-  //       .catchError((e) {
-  //         print(e.toString());
-  //       });
-  // }
-
-  // void removeFromWishlist(Product product) {
-  //   NetworkManager.shared
-  //       .removeFromWishlist(<String, dynamic>{
-  //         "urlKey": product.urlKey,
-  //         "custId": 386,
-  //         "guestId": 1,
-  //       })
-  //       .then((BaseResponse response) {})
-  //       .catchError((e) {
-  //         print(e.toString());
-  //       });
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -103,16 +77,9 @@ class _RecentProductsScreenState
                 Positioned(
                   right: 5,
                   top: 5,
-                  child: new Container(
-                    padding: EdgeInsets.all(2),
-                    decoration: new BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    constraints: BoxConstraints(
-                      minWidth: 14,
-                      minHeight: 14,
-                    ),
+                  child: CircleAvatar(
+                    backgroundColor: Colors.red,
+                    radius: 8,
                     child: Text(
                       DataManager.shared.wishListItems.length.toString(),
                       style: TextStyle(
@@ -139,16 +106,9 @@ class _RecentProductsScreenState
                 Positioned(
                   right: 5,
                   top: 5,
-                  child: new Container(
-                    padding: EdgeInsets.all(2),
-                    decoration: new BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    constraints: BoxConstraints(
-                      minWidth: 14,
-                      minHeight: 14,
-                    ),
+                  child: CircleAvatar(
+                    backgroundColor: Colors.red,
+                    radius: 8,
                     child: Text(
                       DataManager.shared.cartItemsList.length.toString(),
                       style: TextStyle(
@@ -158,7 +118,7 @@ class _RecentProductsScreenState
                       textAlign: TextAlign.center,
                     ),
                   ),
-                )
+                ),
             ],
           ),
         ],
@@ -172,264 +132,277 @@ class _RecentProductsScreenState
       ),
       backgroundColor: Colors.grey.shade100,
       body: Padding(
-        padding:  EdgeInsets.all(0.5.h),
+        padding: EdgeInsets.symmetric(horizontal: 0.5.h, vertical: 0.5.h),
         child: GridView.builder(
           // physics: NeverScrollableScrollPhysics(),
           itemCount: recentProductsList.length,
-          gridDelegate:
-              SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              mainAxisSpacing: .5.h, crossAxisSpacing: .5.h, crossAxisCount: 2),
           itemBuilder: (BuildContext context, int index) {
             return InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          ProductDetailsScreen(recentProductsList[index]),
-                    ),
-                  );
-                },
-                child: Padding(
-                  padding: EdgeInsets.all(0.4.h),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(.5.h)),
-                        color: Colors.white),
-                    child: Column(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        ProductDetailsScreen(recentProductsList[index]),
+                  ),
+                );
+              },
+              child: Card(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Stack(
                       children: [
-                        Stack(
+                        Column(
                           children: [
                             Container(
-                              height: 14.5.h,
-
+                              height: 14.h,
                               // color: Colors.red,
                               child: Center(
                                 child: FadeInImage.assetNetwork(
                                     height: 20.h,
                                     width: 20.h,
-                                    placeholder: 'assets/images/placeholder.png',
+                                    placeholder:
+                                        'assets/images/placeholder.png',
                                     placeholderFit: BoxFit.contain,
                                     image:
                                         "https://dev.lenzcamera.com/webadmin/${recentProductsList[index].imageUrl}",
                                     fit: BoxFit.contain),
                               ),
                             ),
-                            Align(
-                              alignment: Alignment.topRight,
-                              child: IconButton(
-                                onPressed: () {
-                                  setState(() {
-                                    if (recentProductsList[index].isWhishlisted ==
-                                        true) {
-                                      DataManager.shared.removeFromWishlist(
-                                          recentProductsList[index]);
-                                      recentProductsList[index].isWhishlisted =
-                                          false;
-                                    } else {
-                                      DataManager.shared.addToWishlist(
-                                          recentProductsList[index]);
-                                      recentProductsList[index].isWhishlisted =
-                                          true;
-                                    }
-                                  });
-                                },
-                                icon: Icon(
-                                  Icons.favorite,
-                                  size: 3.h,
-                                  color: DataManager.shared
-                                          .iswishListed(recentProductsList[index])
-                                      ? Colors.red
-                                      : Colors.grey,
-                                ),
+                            Container(
+                              height: 3.5.h,
+                              child: Text(
+                                recentProductsList[index].prName ?? '',
+                                maxLines: 2,
+                                style: TextStyle(
+                                    fontSize: 10.sp, fontFamily: 'Intro'),
+                                textAlign: TextAlign.center,
+                                overflow: TextOverflow.ellipsis,
                               ),
                             ),
-                          ],
-                        ),
-                        // SizedBox(height: 5),
-                        Container(
-                          height: 3.5.h,
-                          // color: Colors.green,
-                          child: Text(
-                            recentProductsList[index].prName ?? '',
-                            maxLines: 2,
-                            style:
-                                TextStyle(fontSize: 10.sp, fontFamily: 'Intro'),
-                            textAlign: TextAlign.center,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                        Container(
-                          height: 2.5.h,
-                          // color: Colors.yellow,
-                          child: Text(
-                            "QAR ${recentProductsList[index].unitPrice}",
-                            style: TextStyle(
-                                fontSize: 10.sp,
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'Intro',
-                                color: Colors.grey),
-                          ),
-                        ),
-                        if (recentProductsList[index].isCartUpdateProgress!)
-                          Container(
-
-                              // color:Colors.yellow,
-                              height: 3.h,
-                              width: 3.h,
-                              child: Padding(
-                                padding: EdgeInsets.all(0.6.h),
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 2,
-                                  color: Colors.grey,
-                                ),
-                              )),
-                        if (recentProductsList[index].isCartUpdateProgress ==
-                            false)
-                          Container(
-                            // width: 160,
-                            height: 4.h,
-                            child: recentProductsList[index].isAddedtoCart()
-                                ? Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      InkWell(
-                                        onTap: () {
-                                          DataManager.shared.updateItemToCart(
-                                              recentProductsList[index], 4,
-                                              onUpdate: () {
-                                            setState(() {});
-                                          }, onUpdateStarted: () {
-                                            setState(() {});
-                                          });
-                                        },
-                                        child: Container(
-                                          width: 15.w,
-                                          // height: 15.h,
-                                          decoration: BoxDecoration(
-                                              color: Color(0xff70726f),
-                                              borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(5),
-                                                bottomLeft: Radius.circular(5),
+                            Container(
+                              height: 2.h,
+                              child: Text(
+                                "QAR ${recentProductsList[index].unitPrice}",
+                                style: TextStyle(
+                                    fontSize: 10.sp,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'Intro',
+                                    color: Colors.grey),
+                              ),
+                            ),
+                            if (recentProductsList[index].isCartUpdateProgress!)
+                              Container(
+                                  // color:Colors.yellow,
+                                  height: 4.h,
+                                  width: 5.w,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 5, vertical: 10),
+                                    child: CircularProgressIndicator(
+                                      strokeWidth: 2,
+                                      color: Colors.grey,
+                                    ),
+                                  )),
+                            if (recentProductsList[index]
+                                    .isCartUpdateProgress ==
+                                false)
+                              Container(
+                                // width: 160,
+                                height: 4.h,
+                                child: recentProductsList[index].isAddedtoCart()
+                                    ? Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          InkWell(
+                                            onTap: () {
+                                              DataManager.shared
+                                                  .updateItemToCart(
+                                                      recentProductsList[index],
+                                                      4, onUpdate: () {
+                                                setState(() {});
+                                              }, onUpdateStarted: () {
+                                                setState(() {});
+                                              });
+                                            },
+                                            child: Container(
+                                              width: 15.w,
+                                              // height: 15.h,
+                                              decoration: BoxDecoration(
+                                                  color: Color(0xff70726f),
+                                                  borderRadius:
+                                                      BorderRadius.only(
+                                                    topLeft: Radius.circular(5),
+                                                    bottomLeft:
+                                                        Radius.circular(5),
+                                                  )),
+                                              child: Center(
+                                                  child: Icon(
+                                                Icons.remove,
+                                                color: Colors.black,
+                                                size: 12,
                                               )),
-                                          child: Center(
+                                            ),
+                                          ),
+                                          Container(
+                                            width: 15.w,
+                                            // height: 20,
+                                            decoration: BoxDecoration(
+                                              color: Color(0xffe3e3e3),
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                recentProductsList[index]
+                                                    .qty!
+                                                    .toStringAsFixed(0),
+                                                style: TextStyle(
+                                                    fontFamily: 'Intro',
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.black),
+                                              ),
+                                            ),
+                                          ),
+                                          InkWell(
+                                            onTap: () {
+                                              DataManager.shared
+                                                  .updateItemToCart(
+                                                      recentProductsList[index],
+                                                      3, onUpdate: () {
+                                                setState(() {});
+                                              }, onUpdateStarted: () {
+                                                setState(() {});
+                                              });
+                                            },
+                                            child: Container(
+                                              width: 15.w,
+                                              height: 4.h,
+                                              decoration: BoxDecoration(
+                                                  color: Color(0xffe83031),
+                                                  borderRadius:
+                                                      BorderRadius.only(
+                                                    topRight:
+                                                        Radius.circular(5),
+                                                    bottomRight:
+                                                        Radius.circular(5),
+                                                  )),
                                               child: Icon(
-                                            Icons.remove,
-                                            color: Colors.black,
-                                            size: 12,
-                                          )),
-                                        ),
-                                      ),
-                                      Container(
-                                        width: 15.w,
-                                        // height: 20,
-                                        decoration: BoxDecoration(
-                                          color: Color(0xffe3e3e3),
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            recentProductsList[index]
-                                                .qty!
-                                                .toStringAsFixed(0),
-                                            style: TextStyle(
-                                                fontFamily: 'Intro',
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.black),
+                                                Icons.add,
+                                                color: Colors.black,
+                                                size: 12,
+                                              ),
+                                            ),
                                           ),
-                                        ),
-                                      ),
-                                      InkWell(
-                                        onTap: () {
-                                          DataManager.shared.updateItemToCart(
-                                              recentProductsList[index], 3,
-                                              onUpdate: () {
-                                            setState(() {});
-                                          }, onUpdateStarted: () {
-                                            setState(() {});
-                                          });
-                                        },
-                                        child: Container(
-                                          width: 15.w,
-                                          height: 4.h,
-                                          decoration: BoxDecoration(
-                                              color: Color(0xffe83031),
-                                              borderRadius: BorderRadius.only(
-                                                topRight: Radius.circular(5),
-                                                bottomRight: Radius.circular(5),
-                                              )),
-                                          child: Icon(
-                                            Icons.add,
-                                            color: Colors.black,
-                                            size: 12,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  )
-                                : ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                        elevation: 0,
-                                        backgroundColor:
-                                            (recentProductsList[index]
+                                        ],
+                                      )
+                                    : Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 5, right: 5),
+                                        child: ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                              elevation: 0,
+                                              backgroundColor:
+                                                  (recentProductsList[index]
+                                                              .stockAvailability!
+                                                              .length ==
+                                                          12)
+                                                      ? Colors.grey.shade300
+                                                      : Colors.yellow),
+                                          onPressed: () {
+                                            if (recentProductsList[index]
+                                                    .stockAvailability!
+                                                    .length !=
+                                                12)
+                                              DataManager.shared
+                                                  .updateItemToCart(
+                                                      recentProductsList[index],
+                                                      1, onUpdate: () {
+                                                setState(() {});
+                                              }, onUpdateStarted: () {
+                                                setState(() {});
+                                              });
+                                            // Navigator.push(
+                                            //     context,
+                                            //     MaterialPageRoute(
+                                            //         builder: (context) =>
+                                            //             CartScreen()));
+                                          },
+                                          child: Center(
+                                            child: (recentProductsList[index]
                                                         .stockAvailability!
                                                         .length ==
                                                     12)
-                                                ? Colors.grey.shade300
-                                                : Colors.yellow),
-                                    onPressed: () {
-                                      if (recentProductsList[index]
-                                              .stockAvailability!
-                                              .length !=
-                                          12)
-                                        // print(recentProductsList[
-                                        //         index]
-                                        //     .urlKey);
-
-                                        DataManager.shared.updateItemToCart(
-                                            recentProductsList[index], 1,
-                                            onUpdate: () {
-                                          setState(() {});
-                                        }, onUpdateStarted: () {
-                                          setState(() {});
-                                        });
-                                      // Navigator.push(
-                                      //     context,
-                                      //     MaterialPageRoute(
-                                      //         builder: (context) =>
-                                      //             CartScreen()));
-                                    },
-                                    child: Center(
-                                      child: (recentProductsList[index]
-                                                  .stockAvailability!
-                                                  .length ==
-                                              12)
-                                          ? Text(
-                                              "OUT OF STOCK",
-                                              style: TextStyle(
-                                                  fontFamily: 'Intro',
-                                                  fontSize: 1.5.h,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.grey.shade700),
-                                            )
-                                          : Text(
-                                              "ADD",
-                                              style: TextStyle(
-                                                  fontFamily: 'Intro',
-                                                  fontSize: 10.sp,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.black),
-                                            ),
-                                    ),
-                                  ),
+                                                ? Text(
+                                                    "OUT OF STOCK",
+                                                    style: TextStyle(
+                                                        fontFamily: 'Intro',
+                                                        fontSize: 1.5.h,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Colors
+                                                            .grey.shade700),
+                                                  )
+                                                : Text(
+                                                    "ADD",
+                                                    style: TextStyle(
+                                                        fontFamily: 'Intro',
+                                                        fontSize: 10.sp,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Colors.black),
+                                                  ),
+                                          ),
+                                        ),
+                                      ),
+                              ),
+                          ],
+                        ),
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                if (recentProductsList[index].isWhishlisted ==
+                                    true) {
+                                  DataManager.shared.removeFromWishlist(
+                                      recentProductsList[index]);
+                                  recentProductsList[index].isWhishlisted =
+                                      false;
+                                } else {
+                                  DataManager.shared
+                                      .addToWishlist(recentProductsList[index]);
+                                  recentProductsList[index].isWhishlisted =
+                                      true;
+                                }
+                              });
+                            },
+                            icon: Icon(
+                              Icons.favorite,
+                              size: 3.h,
+                              color: DataManager.shared
+                                      .iswishListed(recentProductsList[index])
+                                  ? Colors.red
+                                  : Colors.grey,
+                            ),
                           ),
+                        ),
                       ],
                     ),
-                  ),
-                ));
+                    // SizedBox(height: 1.h),
+
+                    // SizedBox(height: 1.h),
+                  ],
+                ),
+              ),
+            );
           },
         ),
       ),
 
-      //SizedBox(height: 50),
+      // SizedBox(height: 50),
     );
   }
 

@@ -17,16 +17,16 @@ import 'package:lenzcamera/screens/wishlist_screen.dart';
 import 'package:lenzcamera/utils/constants.dart';
 import 'package:sizer/sizer.dart';
 
-class SearchScreen extends StatefulWidget {
+class SearchScreenCat extends StatefulWidget {
   //  final SearchProducts? product;
  
 
-  SearchScreen();
+  SearchScreenCat();
   @override
-  State<SearchScreen> createState() => _SearchScreenState();
+  State<SearchScreenCat> createState() => _SearchScreenCatState();
 }
 
-class _SearchScreenState extends BaseStatefulState<SearchScreen> {
+class _SearchScreenCatState extends BaseStatefulState<SearchScreenCat> {
   String? _searchString = "";
   // bool isLoading = true;
   bool isPaging = false;
@@ -62,9 +62,8 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
       "minPrice": DataManager.shared.filterData?.minPrice ?? 0,
       "pincode": 8,
       "filter": {
-        "category": 
-        // NetworkManager.shared.catUrlKey,
-        DataManager.shared.filterData?.category?.catId ?? '',
+        "category": NetworkManager.shared.catUrlKey,
+        // DataManager.shared.filterData?.category?.catId ?? '',
       },
       "sortorder": {"field": "prName", "direction": "default"},
       "searchstring": _searchString,
@@ -121,19 +120,25 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
                   Positioned(
                     right: 5,
                     top: 5,
-                    child:  
-                CircleAvatar(
-                  backgroundColor: Colors.red,
-                    radius: 8,
-                    child: Text(
-                      DataManager.shared.wishListItems.length.toString(),
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 10,
+                    child: new Container(
+                      padding: EdgeInsets.all(2),
+                      decoration: new BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(6),
                       ),
-                      textAlign: TextAlign.center,
+                      constraints: BoxConstraints(
+                        minWidth: 14,
+                        minHeight: 14,
+                      ),
+                      child: Text(
+                        DataManager.shared.wishListItems.length.toString(),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 10,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
-                  ),
                   )
               ],
             ),
@@ -151,18 +156,25 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
                   Positioned(
                     right: 5,
                     top: 5,
-                    child: CircleAvatar(
-                      backgroundColor: Colors.red,
-                    radius: 8,
-                    child: Text(
-                      DataManager.shared.cartItemsList.length.toString(),
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 10,
+                    child: new Container(
+                      padding: EdgeInsets.all(2),
+                      decoration: new BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(6),
                       ),
-                      textAlign: TextAlign.center,
+                      constraints: BoxConstraints(
+                        minWidth: 14,
+                        minHeight: 14,
+                      ),
+                      child: Text(
+                        DataManager.shared.cartItemsList.length.toString(),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 10,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
-                  ),
                   )
               ],
             ),
