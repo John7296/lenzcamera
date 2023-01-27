@@ -8,6 +8,7 @@ import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/product.dart';
 import 'package:lenzcamera/model/product.dart';
 import 'package:lenzcamera/screens/review_screen.dart';
+import 'package:lenzcamera/utils/constants.dart';
 
 class WriteReviewScreen extends StatefulWidget{
 
@@ -68,7 +69,7 @@ class _WriteReviewScreenState extends BaseStatefulState<WriteReviewScreen> {
                 Navigator.pop(context);
             },
           ),
-          backgroundColor: Colors.black,
+          backgroundColor: kappBar,
         ),
 
         body: SingleChildScrollView(

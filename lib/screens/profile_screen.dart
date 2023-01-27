@@ -18,6 +18,7 @@ import 'package:lenzcamera/screens/edit_profile_screen.dart';
 import 'package:lenzcamera/screens/home_screen.dart';
 import 'package:lenzcamera/screens/order_screen.dart';
 import 'package:lenzcamera/screens/wishlist_screen.dart';
+import 'package:lenzcamera/utils/constants.dart';
 import 'package:sizer/sizer.dart';
 
 import 'package:sizer/sizer.dart';
@@ -65,8 +66,10 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
           appBar: AppBar(
             centerTitle: true,
             title: Text("My Profile"),
-            titleTextStyle:
-                TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold,fontFamily: 'Intro'),
+            titleTextStyle: TextStyle(
+                fontSize: 14.sp,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Intro'),
             leading: IconButton(
               icon: const Icon(
                 Icons.arrow_back_ios_new_sharp,
@@ -77,7 +80,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                     MaterialPageRoute(builder: (context) => HomeScreen()));
               },
             ),
-            backgroundColor: Colors.grey.shade700,
+            backgroundColor: kappBar,
             actions: [
               Stack(
                 children: [
@@ -95,16 +98,9 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                     Positioned(
                       right: 5,
                       top: 5,
-                      child: new Container(
-                        padding: EdgeInsets.all(2),
-                        decoration: new BoxDecoration(
-                          color: Colors.red,
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                        constraints: BoxConstraints(
-                          minWidth: 14,
-                          minHeight: 14,
-                        ),
+                      child: CircleAvatar(
+                        backgroundColor: Colors.red,
+                        radius: 8,
                         child: Text(
                           DataManager.shared.wishListItems.length.toString(),
                           style: TextStyle(
@@ -133,16 +129,9 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                     Positioned(
                       right: 5,
                       top: 5,
-                      child: new Container(
-                        padding: EdgeInsets.all(2),
-                        decoration: new BoxDecoration(
-                          color: Colors.red,
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                        constraints: BoxConstraints(
-                          minWidth: 14,
-                          minHeight: 14,
-                        ),
+                      child: CircleAvatar(
+                        backgroundColor: Colors.red,
+                        radius: 8,
                         child: Text(
                           DataManager.shared.cartItemsList.length.toString(),
                           style: TextStyle(
@@ -162,7 +151,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
             Container(
               // color: Colors.amber,
               // height: 250,
-               height: 36.h,
+              height: 36.h,
               width: MediaQuery.of(context).size.width,
               child: Column(
                 children: [
@@ -183,12 +172,18 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                   ),
                   Text(
                     userProfile?.custName ?? '',
-                    style: TextStyle(fontWeight: FontWeight.w500,fontFamily: 'Intro',fontSize: 10.sp),
+                    style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontFamily: 'Intro',
+                        fontSize: 10.sp),
                   ),
                   Text(
                     userProfile?.emailId ?? '',
                     style: TextStyle(
-                        color: Colors.red, fontWeight: FontWeight.w500,fontFamily: 'Intro',fontSize: 10.sp),
+                        color: Colors.red,
+                        fontWeight: FontWeight.w500,
+                        fontFamily: 'Intro',
+                        fontSize: 10.sp),
                   ),
                 ],
               ),
@@ -198,7 +193,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
             ),
             Expanded(
               child: Container(
-                   height: 600,
+                  height: 600,
                   color: Colors.grey.shade100,
                   child: ListView(
                     children: [
@@ -209,9 +204,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                               MaterialPageRoute(
                                   builder: (context) =>
                                       EditProfileScreen())).then(((value) {
-                            setState(() {
-                              
-                            });
+                            setState(() {});
                           }));
                         }),
                         child: Padding(
@@ -235,7 +228,6 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                                 padding: const EdgeInsets.all(10),
                                 child: Text(
                                   "Profile, phone, email",
-
                                   style: TextStyle(
                                       fontSize: 12,
                                       fontFamily: "Intro",
@@ -289,7 +281,6 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                               subtitle: Padding(
                                 padding: const EdgeInsets.all(10),
                                 child: Text("Change your password",
-
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontFamily: "Intro",

@@ -12,6 +12,7 @@ import 'package:lenzcamera/model/filter_data.dart';
 
 import 'package:lenzcamera/model/product.dart';
 import 'package:lenzcamera/model/search_filter_response.dart';
+import 'package:lenzcamera/utils/constants.dart';
 
 //List<String> _categories = <String>['Canon', 'Nikon', 'Sigma', 'Tamron'];
 
@@ -105,7 +106,7 @@ class _FilterScreenState extends State<FilterScreen> {
             Navigator.pop(context);
           },
         ),
-        backgroundColor: Colors.black,
+        backgroundColor: kappBar,
       ),
       body: Padding(
         padding: const EdgeInsets.only(left: 24, right: 24),

@@ -10,6 +10,7 @@ import 'package:lenzcamera/screens/home_screen.dart';
 import 'package:lenzcamera/screens/login_screen.dart';
 import 'package:lenzcamera/screens/otp_screen.dart';
 import 'package:lenzcamera/screens/verify_forgot_pwd_otp_screen.dart';
+import 'package:lenzcamera/utils/constants.dart';
 import 'package:lenzcamera/utils/helper.dart';
 import 'package:lenzcamera/base/base_stateful_state.dart';
 
@@ -87,7 +88,7 @@ class _ForgotPasswordScreenState extends BaseStatefulState<ForgotPasswordScreen>
 
             },
           ),
-          backgroundColor: Colors.black,
+          backgroundColor: kappBar,
         ),
         body: Padding(
           padding: const EdgeInsets.only(left: 24, right: 24),

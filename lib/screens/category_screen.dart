@@ -14,7 +14,9 @@ import 'package:lenzcamera/model/top_categories.dart';
 import 'package:lenzcamera/screens/cart_screen.dart';
 import 'package:lenzcamera/screens/home_screen.dart';
 import 'package:lenzcamera/screens/product_details_screen.dart';
+import 'package:lenzcamera/screens/search_cat.dart';
 import 'package:lenzcamera/screens/search_screen.dart';
+import 'package:lenzcamera/utils/constants.dart';
 import 'package:sizer/sizer.dart';
 
 class CategoryScreen extends StatefulWidget {
@@ -37,8 +39,9 @@ class _CategoryScreenState extends BaseStatefulState<CategoryScreen> {
   void initState() {
     super.initState();
     Future.delayed(Duration(milliseconds: 500), () {
+      getSubCategories(0);
       getCategories();
-      
+       
     });
    
   }
@@ -48,8 +51,8 @@ class _CategoryScreenState extends BaseStatefulState<CategoryScreen> {
     NetworkManager.shared
         .getTopCategories()
         .then((BaseResponse<List<TopCategories>> response) {
-           getSubCategories(0);
-      hideLoader();
+          
+      // hideLoader();
       mainCategoryList.clear();
       // levelTwoList.clear();
       setState(() {
@@ -69,7 +72,7 @@ class _CategoryScreenState extends BaseStatefulState<CategoryScreen> {
 
   void getSubCategories(int catId) {
     // print("cattID ${catId}");
-    showLoader();
+    // showLoader();
     NetworkManager.shared
         .getTopCategories()
         .then((BaseResponse<List<TopCategories>> response) {
@@ -106,41 +109,6 @@ class _CategoryScreenState extends BaseStatefulState<CategoryScreen> {
             ),
           ),
           actions: [
-            //    Stack(
-            //   children: [
-            //     IconButton(
-            //     onPressed: () {
-            //       Navigator.push(context,
-            //           MaterialPageRoute(builder: (context) => WishlistScreen()));
-            //       // getBanners();
-            //     },
-            //     icon: Icon(Icons.favorite_border),
-            //   ),
-            //   if (DataManager.shared.wishListItems.isNotEmpty)
-            //   Positioned(
-            //       right: 5,
-            //       top: 5,
-            //       child: new Container(
-            //         padding: EdgeInsets.all(2),
-            //         decoration: new BoxDecoration(
-            //           color: Colors.red,
-            //           borderRadius: BorderRadius.circular(6),
-            //         ),
-            //         constraints: BoxConstraints(
-            //           minWidth: 14,
-            //           minHeight: 14,
-            //         ),
-            //         child: Text(
-            //           DataManager.shared.wishListItems.length.toString(),
-            //           style: TextStyle(
-            //             color: Colors.white,
-            //             fontSize:10,
-            //           ),
-            //           textAlign: TextAlign.center,
-            //         ),
-            //       ),)
-            //   ],
-            // ),
             Stack(
               children: [
                 IconButton(
@@ -158,30 +126,23 @@ class _CategoryScreenState extends BaseStatefulState<CategoryScreen> {
                   Positioned(
                     right: 5,
                     top: 5,
-                    child: new Container(
-                      padding: EdgeInsets.all(2),
-                      decoration: new BoxDecoration(
-                        color: Colors.red,
-                        borderRadius: BorderRadius.circular(6),
+                    child: CircleAvatar(
+                      backgroundColor: Colors.red,
+                    radius: 8,
+                    child: Text(
+                      DataManager.shared.cartItemsList.length.toString(),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 10,
                       ),
-                      constraints: BoxConstraints(
-                        minWidth: 14,
-                        minHeight: 14,
-                      ),
-                      child: Text(
-                        DataManager.shared.cartItemsList.length.toString(),
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 10,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
+                      textAlign: TextAlign.center,
                     ),
+                  ),
                   )
               ],
             ),
           ],
-          backgroundColor: Colors.grey.shade700,
+          backgroundColor: kappBar,
           leading: IconButton(
             onPressed: () {
               // getCategories();
@@ -191,7 +152,7 @@ class _CategoryScreenState extends BaseStatefulState<CategoryScreen> {
             icon: Icon(Icons.arrow_back_ios),
           ),
         ),
-        backgroundColor: Colors.grey.shade100,
+        backgroundColor: Colors.grey.shade200,
         body: SafeArea(
           child: Row(
             children: [
@@ -302,7 +263,7 @@ class _CategoryScreenState extends BaseStatefulState<CategoryScreen> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  SearchScreen()));
+                                                  SearchScreenCat()));
                                                     NetworkManager.shared.catUrlKey =
                                           subCategoryList[index].catUrlKey;
                                     }),

@@ -9,6 +9,7 @@ import 'package:lenzcamera/model/customer.dart';
 import 'package:lenzcamera/model/customer_details.dart';
 import 'package:lenzcamera/model/login_customer.dart';
 import 'package:lenzcamera/screens/home_screen.dart';
+import 'package:lenzcamera/utils/constants.dart';
 import 'package:lenzcamera/utils/helper.dart';
 import 'package:lenzcamera/utils/sessions_manager.dart';
 import 'package:sizer/sizer.dart';
@@ -124,7 +125,7 @@ void onSendButtonTapped() {
                 context, MaterialPageRoute(builder: (context) => HomeScreen()));
             },
           ),
-          backgroundColor: Colors.black,
+          backgroundColor: kappBar,
 
     ),
      body: Container(

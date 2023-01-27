@@ -12,6 +12,7 @@ import 'package:lenzcamera/model/single_order_detail.dart';
 import 'package:lenzcamera/screens/home_screen.dart';
 import 'package:lenzcamera/model/order_product_detail.dart';
 import 'package:lenzcamera/screens/order_screen.dart';
+import 'package:lenzcamera/utils/constants.dart';
 
 class OrderDetailScreen extends StatefulWidget {
   final OrderList orderList;
@@ -107,7 +108,7 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
             icon: Icon(Icons.shopping_cart),
           ),
         ],
-        backgroundColor: Colors.grey.shade700,
+        backgroundColor: kappBar,
         leading: IconButton(
           onPressed: () {
             Navigator.push(context,

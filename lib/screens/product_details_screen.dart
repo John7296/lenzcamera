@@ -19,6 +19,7 @@ import 'package:lenzcamera/screens/product_images_screen.dart';
 import 'package:lenzcamera/screens/review_screen.dart';
 import 'package:lenzcamera/screens/wishlist_screen.dart';
 import 'package:lenzcamera/screens/write_review_screen.dart';
+import 'package:lenzcamera/utils/constants.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:sizer/sizer.dart';
 
@@ -100,7 +101,7 @@ class _ProductDetailsScreenState
               Navigator.pop(context);
             },
           ),
-          backgroundColor: Colors.grey.shade700,
+          backgroundColor: kappBar,
           actions: [
             Stack(
               children: [

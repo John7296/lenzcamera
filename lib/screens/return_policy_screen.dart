@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:lenzcamera/screens/home_screen.dart';
+import 'package:lenzcamera/utils/constants.dart';
 
 class ReturnPolicyScreen extends StatefulWidget {
   const ReturnPolicyScreen({super.key});
@@ -29,7 +30,7 @@ class _ReturnPolicyScreenState extends State<ReturnPolicyScreen> {
         //     icon: Icon(Icons.shopping_cart),
         //   ),
         // ],
-        backgroundColor: Colors.grey.shade700,
+        backgroundColor: kappBar,
         leading: IconButton(
           onPressed: () { 
             Navigator.push(

@@ -7,6 +7,7 @@ import 'package:lenzcamera/screens/forgot_password_screen.dart';
 import 'package:lenzcamera/screens/home_screen.dart';
 import 'package:lenzcamera/screens/login_screen.dart';
 import 'package:lenzcamera/screens/reset_password_screen.dart';
+import 'package:lenzcamera/utils/constants.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class VerifyForgotPwddOtpScreen extends StatefulWidget{
@@ -88,7 +89,7 @@ class _VerifyForgotPwddOtpScreenState extends State<VerifyForgotPwddOtpScreen> {
           MaterialPageRoute(builder: (context) => LoginScreen()));
             },
           ),
-          backgroundColor: Color(0xff474747),
+          backgroundColor: kappBar,
         ),
         body: Padding(
           padding: const EdgeInsets.only(left: 24, right: 24),

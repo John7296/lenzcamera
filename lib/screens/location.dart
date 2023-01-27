@@ -8,6 +8,7 @@ import 'package:lenzcamera/model/city_list.dart';
 import 'package:lenzcamera/model/state_list.dart';
 import 'package:lenzcamera/model/user_location.dart';
 import 'package:lenzcamera/screens/home_screen.dart';
+import 'package:lenzcamera/utils/constants.dart';
 
 class LocationSelectScreen extends StatefulWidget {
   LocationSelectScreen({Key? key, this.title}) : super(key: key);
@@ -57,7 +58,7 @@ class _LocationSelectScreenState extends State<LocationSelectScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.grey.shade700,
+        backgroundColor: kappBar,
         title: Text(widget.title ?? ''),
       ),
       body: SingleChildScrollView(
