@@ -61,7 +61,7 @@ class _LoginScreenState extends BaseStatefulState<LoginScreen> {
     }).catchError((e) {
       showFlashMsg(e.toString());
       print(e);
-      showFlashMsg(e.Message!);
+      showFlashMsg("Invalid Username/Password");
     });
   }
 
@@ -220,7 +220,7 @@ class _LoginScreenState extends BaseStatefulState<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Dont't have an account? ",
+                      "Don't have an account? ",
                       style: TextStyle(fontSize: 14, 
                       fontFamily: 'Intro',
                       color: Color(0xff757575)),

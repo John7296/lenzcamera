@@ -9,6 +9,7 @@ import 'package:lenzcamera/model/customer.dart';
 import 'package:lenzcamera/model/customer_details.dart';
 import 'package:lenzcamera/model/login_customer.dart';
 import 'package:lenzcamera/screens/home_screen.dart';
+import 'package:lenzcamera/screens/profile_screen.dart';
 import 'package:lenzcamera/utils/constants.dart';
 import 'package:lenzcamera/utils/helper.dart';
 import 'package:lenzcamera/utils/sessions_manager.dart';
@@ -121,8 +122,10 @@ void onSendButtonTapped() {
             ),
             onPressed: () {
 
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => HomeScreen()));
+              Navigator.pop(context);
+
+            // Navigator.push(
+            //     context, MaterialPageRoute(builder: (context) => ProfileScreen()));
             },
           ),
           backgroundColor: kappBar,
@@ -132,7 +135,8 @@ void onSendButtonTapped() {
       color: Colors.white,
        child: Stack(
          children:[ Padding(
-           padding: EdgeInsets.symmetric(vertical:3.h, horizontal: 6.w),
+           padding: EdgeInsets.only(left:24, right:24 , top: 30),
+           //symmetric(vertical:3.h, horizontal: 6.w),
           //  left:24, right:24 , top: 30
            child: Container(
             margin: EdgeInsets.only(bottom:70),
@@ -159,7 +163,7 @@ void onSendButtonTapped() {
                              children: [
                                Padding(
                                  padding: const EdgeInsets.only(left:10),
-                                 child: Text("Office",style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: Color(0xff70706f)), ),
+                                 child: Text("Office:",style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: Color(0xff70706f)), ),
                                ),
                              ],
                            ),
@@ -187,14 +191,14 @@ void onSendButtonTapped() {
                             padding: const EdgeInsets.only(left:15, top:5),
                             child: Row(
                               children: [
-                                Text("Qatar,",style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, fontFamily: "Intro", color: Color(0xff70706f)),maxLines: 3, ),
+                                Text("Qatar",style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, fontFamily: "Intro", color: Color(0xff70706f)),maxLines: 3, ),
                               ],
                             ),
                           ),
                       
                       
                          Padding(
-                           padding: const EdgeInsets.only(left:15, top:20),
+                           padding: const EdgeInsets.only(left:15, top:25),
                            child: Row(
                              children: [
                                Text("info@demo.com",style: TextStyle(fontSize: 15,  fontFamily: "Intro",fontWeight: FontWeight.w600, color: Color(0xffd0393f)),maxLines: 3, ),
@@ -203,7 +207,7 @@ void onSendButtonTapped() {
                          ),
                
                          Padding(
-                           padding: const EdgeInsets.only(left:15, top:20),
+                           padding: const EdgeInsets.only(left:15, top:25),
                            child: Row(
                              children: [
                                Text("+974 5578 2553",style: TextStyle(fontSize: 15,  fontFamily: "Intro",fontWeight: FontWeight.w600, color: Color(0xffd0393f)),maxLines: 3, ),
@@ -221,8 +225,8 @@ void onSendButtonTapped() {
                         
                        Container(
                          child: Padding(
-                           padding:  EdgeInsets.symmetric(vertical: 1.h,horizontal: 5.w ),
-                          //  top: 10, right:24
+                           padding:  EdgeInsets.only( top: 5, right:24),
+                            //top: 10, right:24
                            child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
@@ -282,7 +286,7 @@ void onSendButtonTapped() {
                             border: OutlineInputBorder(
                               borderSide: BorderSide(color: Color(0xffb0b0b0)),
                             ),
-                            labelText: " ",
+                            labelText: "",
                           ),
                           controller: _emailController,
                           validator: (val) {
@@ -291,7 +295,7 @@ void onSendButtonTapped() {
                                       }
                                       else {
                                           if (!Helper.validateEmail(val)) {
-                                            return "Please enter a valid email";
+                                            return "Please enter a valid Email";
                                           }
                                         }
                                       return null;
@@ -319,16 +323,23 @@ void onSendButtonTapped() {
                             border: OutlineInputBorder(
                               borderSide: BorderSide(color: Color(0xffb0b0b0)),
                             ),
-                            labelText: " ",
+                            labelText: "",
                           ),
                           
                           controller: _phoneController,
                           validator: (val) {
-                                      if (val!.isEmpty)
-                                        return "Enter your phoneNo";
-                                        if(val!=_phoneController.text){
-                                          return "Enter a valid number";
+                                      if (val!.isEmpty){
+                                        return "Enter your PhoneNo";
+                                      }
+                                        else{
+                                           if (!Helper.validatePhone(val)) {
+                                            return "Please enter a valid PhoneNumber";
+                                          }
+
                                         }
+                                        // if(val!=_phoneController.text){
+                                        //   return "Enter a valid number";
+                                        // }
                                     }
                           
                           
@@ -356,12 +367,12 @@ void onSendButtonTapped() {
                             border: OutlineInputBorder(
                               borderSide: BorderSide(color: Color(0xffb0b0b0)),
                             ),
-                            labelText: " ",
+                            labelText: "",
                           ),
                           controller: _titleController,
                           validator: (val) {
                                       if (val!.isEmpty)
-                                        return "Enter title";
+                                        return "Enter Title";
                                       return null;
                                     }
                           
@@ -389,12 +400,13 @@ void onSendButtonTapped() {
                             border: OutlineInputBorder(
                               borderSide: BorderSide(color: Color(0xffb0b0b0)),
                             ),
-                            labelText: " ",
+                            labelText: "",
+                            
                           ),
                           controller: _messageController,
                           validator: (val) {
                                       if (val!.isEmpty)
-                                        return "Enter your message";
+                                        return "Enter your Message";
                                       return null;
                                     },
                                     maxLines: 3,
@@ -402,7 +414,7 @@ void onSendButtonTapped() {
                           ),
                         ),
                    
-                     SizedBox(height: 200),
+                     SizedBox(height: 50),
                      ]
                   ),
                 ),

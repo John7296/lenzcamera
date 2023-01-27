@@ -92,12 +92,18 @@ class _ProductImagesScreenState extends BaseStatefulState<ProductImagesScreen> {
                     padding: const EdgeInsets.only(top:100),
                     child: Container(
                       height: 300,
-                       child: 
+                       child:
                        PhotoView(imageProvider: 
                        CachedNetworkImageProvider("https://dev.lenzcamera.com/webadmin/${_productImages[_index ?? 0].imageUrl}"),
                         backgroundDecoration: BoxDecoration(color: Colors.transparent),
                        
                        ),
+                      //  : Container(
+                      //   height: 150,
+                      //   width: 150,
+                      //   child: Image(image: AssetImage("assets/images/lens.png"),
+                      //   fit: BoxFit.fill,),
+                      //  )
                       
                       //height: 300,
                      // width: 300,
@@ -151,9 +157,14 @@ class _ProductImagesScreenState extends BaseStatefulState<ProductImagesScreen> {
                                 child: Container(
                                     height: 100,
                                     width: 100,
-                                    child: CachedNetworkImage(
+                                    child: _productImages.isNotEmpty?
+                                    
+                                    CachedNetworkImage(
                                         imageUrl:
-                                            "https://dev.lenzcamera.com/webadmin/${_productImages[index].imageUrl}")),
+                                            "https://dev.lenzcamera.com/webadmin/${_productImages[index].imageUrl}")
+                                            : Image(image: AssetImage("assets/images/lens.png"),)
+                                            )
+                                            
                               ),
                             ),
                           ],

@@ -49,25 +49,49 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
     isSearchStarted = true;
 
     NetworkManager.shared.searchProducts(<String, dynamic>{
-      "pagesize": 20,
-      "custId": NetworkManager.shared.userId,
-      "currentpage": currentPage,
-      "filtervalues": (DataManager.shared.filterData?.brand != null ||
+
+    "currentpage": 1,
+    "custId": NetworkManager.shared.userId,
+    "filter": {
+        "category":DataManager.shared.filterData?.category?.catUrlKey??''
+    },
+    "filtervalues": (DataManager.shared.filterData?.brand != null ||
               DataManager.shared.filterData?.manufacturer != null ||
               DataManager.shared.filterData?.lensMount != null)
-          ? "${DataManager.shared.filterData?.brand?.attrId??""} ${DataManager.shared.filterData?.manufacturer?.attrId??""}  ${DataManager.shared.filterData?.lensMount?.attrId??""}"
+          ? "${DataManager.shared.filterData?.brand?.attrId??""}, ${DataManager.shared.filterData?.manufacturer?.attrId??""},  ${DataManager.shared.filterData?.lensMount?.attrId??""}"
           :'',
-      "guestId": "",
-      "maxPrice": DataManager.shared.filterData?.maxPrice ?? 1000000,
-      "minPrice": DataManager.shared.filterData?.minPrice ?? 0,
-      "pincode": 8,
-      "filter": {
-        "category": 
-        // NetworkManager.shared.catUrlKey,
-        DataManager.shared.filterData?.category?.catId ?? '',
-      },
-      "sortorder": {"field": "prName", "direction": "default"},
-      "searchstring": _searchString,
+    "guestId": null,
+    "maxPrice": "1000000",
+    "minPrice": "0",
+    "pagesize": 20,
+    "pincode": 8,
+    "searchstring": "",
+    "sortorder": {
+        "direction": "default",
+        "field": "prName"
+    },
+    "status": false
+      // "pagesize": 20,
+      // "custId": NetworkManager.shared.userId,
+      // "currentpage": currentPage,
+      // "filtervalues": (DataManager.shared.filterData?.brand != null ||
+      //         DataManager.shared.filterData?.manufacturer != null ||
+      //         DataManager.shared.filterData?.lensMount != null)
+      //     ? "${DataManager.shared.filterData?.brand?.attrId??""}, ${DataManager.shared.filterData?.manufacturer?.attrId??""},  ${DataManager.shared.filterData?.lensMount?.attrId??""}"
+      //     :'',
+      // "guestId": "",
+      // "maxPrice": DataManager.shared.filterData?.maxPrice ?? 1000000,
+      // "minPrice": DataManager.shared.filterData?.minPrice ?? 0,
+      // "pincode": 8,
+      // "filter": {
+      //   "category": "dslr-lenses"
+      //   // NetworkManager.shared.catUrlKey,
+      //  // DataManager.shared.filterData?.category?.catId?? '',
+        
+      // },
+      // "sortorder": {"field": "prName", "direction": "default"},
+      // "searchstring": _searchString,
+      // "status" : false
     }).then((BaseResponse<SearchProductsResponse> response) {
       hideLoader();
       setState(() {
@@ -97,10 +121,10 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
               color: Colors.white,
             ),
             onPressed: () {
-              // Navigator.push(context,
-              //     MaterialPageRoute(builder: (context) => HomeScreen()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => HomeScreen()));
 
-              Navigator.pop(context);
+              // Navigator.pop(context);
             },
           ),
           backgroundColor: kappBar,

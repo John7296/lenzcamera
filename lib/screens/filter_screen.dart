@@ -55,10 +55,10 @@ class _FilterScreenState extends State<FilterScreen> {
     NetworkManager.shared.searchFilter(<String, dynamic>{
       "currentpage": 1,
       "custId": NetworkManager.shared.userId,
-      "filter": {"category": "dslr-lenses"},
+      "filter": {"category":selectedCategory?.catName.toString()},
       "filtervalues": null,
       "guestId": null,
-      "maxPrice": "1000000",
+      "maxPrice": "100000",
       "minPrice": "0",
       "pagesize": 20,
       "searchstring": "",
@@ -381,6 +381,7 @@ class _FilterScreenState extends State<FilterScreen> {
                           filterData.lensMount = selectedLens;
 
                           DataManager.shared.filterData = filterData;
+                          
 
                           Navigator.pop(context);
                         },
