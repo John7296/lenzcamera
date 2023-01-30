@@ -212,6 +212,9 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                         if (val == _passwordController.text) {
                           return ("Old password cannot be set as new password");
                         }
+                        if(val.length<8){
+                          return "Must be  more than 8 character";
+                        }
                       }),
                 ),
                 SizedBox(height: 12),

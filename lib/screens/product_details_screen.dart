@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
@@ -138,7 +140,6 @@ class _ProductDetailsScreenState
                   )
               ],
             ),
-
             Stack(
               children: [
                 IconButton(
@@ -198,78 +199,38 @@ class _ProductDetailsScreenState
           children: [
             Expanded(
               child: Container(
-                margin: EdgeInsets.only(bottom: 30),
+                margin: EdgeInsets.only(bottom: 5),
                 child: SingleChildScrollView(
                   child: Padding(
-                    padding: const EdgeInsets.only(bottom: 65),
+                    padding: const EdgeInsets.only(bottom: 5),
                     child: Column(
                       children: [
-                        //                       CarouselSlider(
-                        //                         options: CarouselOptions(
-                        //   autoPlay: true,
-                        //   //pauseAutoPlayOnTouch: Duration(seconds: 5),
-                        //   height:200
-                        //                         ),
-                        //   items: <Widget>[
-                        //     for (var i = 0; i <widget.popularproducts!.productImages!.length; i++)
-                        //       Container(
-                        //           margin: const EdgeInsets.only(top: 20.0, left: 20.0),
-                        //           decoration: BoxDecoration(
-                        //             image: DecorationImage(
-                        //               image: NetworkImage(productImages[i].toString()),
-                        //               fit: BoxFit.fitHeight,
-                        //             ),
-                        //             // border:
-                        //             //     Border.all(color: Theme.of(context).accentColor),
-                        //             borderRadius: BorderRadius.circular(32.0),
-                        //           ),
-                        //         ),
-                        //   ],
-                        // ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 50),
-                          child: InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => ProductImagesScreen(
-                                          widget.popularproducts)));
-                            },
-                            child: Container(
-                              height: 200,
-                              width: 200,
-                              child: CachedNetworkImage(
-                                  imageUrl:
-                                      "https://dev.lenzcamera.com/webadmin/${widget.popularproducts?.imageUrl}"),
-                            ),
+                        CarouselSlider.builder(
+                          options: CarouselOptions(
+                            enableInfiniteScroll: false,
+                            height: 200.0,
+                            autoPlay: false,
                           ),
+                          itemCount: productImages.length,
+                          itemBuilder: (context, itemIndex, realIndex) {
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              ProductImagesScreen(
+                                                  widget.popularproducts)));
+                                },
+                                child: CachedNetworkImage(
+                                    imageUrl:
+                                        "https://dev.lenzcamera.com/webadmin/${productImages[itemIndex].imageUrl}"),
+                              ),
+                            );
+                          },
                         ),
-                        // CarouselSlider.builder(
-                        //   options: CarouselOptions(
-                        //     height: 200.0,
-                        //     autoPlay: false,
-                        //   ),
-                        //   itemCount: 1,
-                        //   itemBuilder: (context, itemIndex, realIndex) {
-                        //     return Padding(
-                        //       padding: const EdgeInsets.all(8.0),
-                        //       child:
-                        //       // CachedNetworkImage(
-                        //       //     imageUrl:
-                        //       //         "https://dev.lenzcamera.com/webadmin/${widget.popularproducts?.imageUrl}"),
-                        //       // FadeInImage.assetNetwork(
-                        //       //   placeholder: 'assets/images/placeholder.jpg',
-                        //       //   image: "https://dev.lenzcamera.com/webadmin/${widget.popularproducts?.imageUrl??''}",
-                        //       //   fit: BoxFit.cover),
-                        //           Image(
-                        //         image: AssetImage("assets/images/camerabanner.png"),
-                        //         fit: BoxFit.fill,
-                        //         width: MediaQuery.of(context).size.width,
-                        //       ),
-                        //     );
-                        //   },
-                        // ),
 
                         Padding(
                           padding: const EdgeInsets.only(right: 24),
@@ -368,51 +329,83 @@ class _ProductDetailsScreenState
                         Padding(
                           padding: const EdgeInsets.only(
                               left: 24, right: 24, top: 5, bottom: 5),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                          child: Row(
                             children: [
-                              Text(
-                                widget.popularproducts?.shortDescription ?? '',
-                                // "Canon EF 16-35mm f/2.8L III USM Lens  ",
-                                style: TextStyle(
-                                    color: Color(0xff70706e),
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.w600),
-                                maxLines: 8,
-                              ),
-                              SizedBox(height: 7),
-                              Align(
-                                  alignment: Alignment.topLeft,
-                                  child: Text(
-                                    widget.popularproducts?.catName ?? '',
-                                    // "DSLR Lenses",
-                                    style: TextStyle(
-                                        color: Color(0xff5aa567),
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w600),
-                                  )),
-                              Align(
-                                  alignment: Alignment.centerRight,
-                                  child: IconButton(
-                                    onPressed: () {
-                                      Share.share(
-                                          "https://dev.lenzcamera.com/product/ ${widget.popularproducts?.urlKey ?? ''}");
-                                    },
-                                    icon: Icon(
-                                      Icons.share,
-                                      color: Color(0xff70706e),
-                                    ),
-                                  )),
-                              Align(
-                                  alignment: Alignment.topLeft,
-                                  child: Text(
-                                      "QAR ${widget.popularproducts?.unitPrice}",
-
-                                      // "QAR 6899.00",
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    width: 320,
+                                    child: Text(
+                                      widget.popularproducts
+                                              ?.shortDescription ??
+                                          '',
+                                      // "Canon EF 16-35mm f/2.8L III USM Lens  ",
                                       style: TextStyle(
                                           color: Color(0xff70706e),
-                                          fontSize: 17,
-                                          fontWeight: FontWeight.w600)))
+                                          fontSize: 10,
+                                          fontFamily: 'Intro',
+                                          wordSpacing: 2,
+                                          height: 1.5,
+                                          fontWeight: FontWeight.w600),
+                                      maxLines: 15,
+                                    ),
+                                  ),
+                                  SizedBox(height: 10),
+                                  Align(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(
+                                        widget.popularproducts?.catName ?? '',
+                                        // "DSLR Lenses",
+                                        style: TextStyle(
+                                            color: Color(0xff5aa567),
+                                            fontSize: 10,
+                                            fontFamily: 'Intro',
+                                            fontWeight: FontWeight.w600),
+                                      )),
+                                  // Align(
+                                  //     alignment: Alignment.centerRight,
+                                  //     child: IconButton(
+                                  //       onPressed: () {
+                                  //         Share.share(
+                                  //             "https://dev.lenzcamera.com/product/ ${widget.popularproducts?.urlKey ?? ''}");
+                                  //       },
+                                  //       icon: Icon(
+                                  //         Icons.share,
+                                  //         color: Color(0xff70706e),
+                                  //       ),
+                                  //     )),
+
+                                  SizedBox(height: 25),
+                                  Align(
+                                      alignment: Alignment.topLeft,
+                                      child: Text(
+                                          "QAR ${widget.popularproducts?.unitPrice}",
+
+                                          // "QAR 6899.00",
+                                          style: TextStyle(
+                                              color: Color(0xff70706e),
+                                              fontSize: 17,
+                                              fontFamily: 'Intro',
+                                              fontWeight: FontWeight.w600))),
+                                ],
+                              ),
+                              Expanded(
+                                child: Column(
+                                  children: [
+                                    IconButton(
+                                      onPressed: () {
+                                        Share.share(
+                                            "https://dev.lenzcamera.com/product/ ${widget.popularproducts?.urlKey ?? ''}");
+                                      },
+                                      icon: Icon(
+                                        Icons.share,
+                                        color: Color(0xff70706e),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
                             ],
                           ),
                         ),
@@ -420,78 +413,105 @@ class _ProductDetailsScreenState
                         // (widget.popularproducts?.IsReviewAvgrating!> 1)
 
                         Divider(
-                          thickness: 9,
+                          thickness: 5,
                           color: Color(0xffe3e3e3),
                         ),
-                        SizedBox(height: 5),
-                        Padding(
-                            padding:
-                                const EdgeInsets.only(bottom: 5, right: 24),
-                            child: Align(
-                                alignment: Alignment.centerRight,
-                                child:
-                                    // widget.popularproducts?.IsReviewAvgrating>=
-                                    // ?
-                                    Container(
-                                        //height: 27,
-                                        width: 85,
-                                        child: ElevatedButton(
-                                          style: ElevatedButton.styleFrom(
-                                            backgroundColor: Color(0xffec3436),
-                                          ),
-                                          onPressed: () {
-                                            setState(() {});
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        ReviewScreen(widget
-                                                            .popularproducts)));
-                                          },
-                                          child: Text(
-                                            "Reviews",
-                                            style: TextStyle(
-                                                fontSize: 10,
-                                                color: Colors.white,
-                                                fontFamily: "Intro",
-                                                fontWeight: FontWeight.w600),
-                                            maxLines: 1,
-                                          ),
-                                        ))
-                                // Container(
-                                //   width: 95,
-                                //   child: ElevatedButton(
-                                //       style: ElevatedButton.styleFrom(
-                                //         backgroundColor: Color(0xffec3436),
-                                //       ),
-                                //       onPressed: () {
-                                //         setState(() {});
-                                //         Navigator.push(
-                                //             context,
-                                //             MaterialPageRoute(
-                                //                 builder: (context) =>
-                                //                     WriteReviewScreen(widget.popularproducts)));
-                                //       },
-                                //       child: Text(
-                                //         "Write Review",
-                                //         style: TextStyle(
-                                //             fontSize: 10,
-                                //             color: Colors.white,
-                                //             fontFamily: "Intro",
-                                //             fontWeight: FontWeight.w600),
-                                //         maxLines: 1,
-                                //       ),
-                                //     ),
-                                )),
 
-                        //  ),
-                        Divider(
-                          thickness: 9,
-                          color: Color(0xffe3e3e3),
-                        ),
+                        //SizedBox(height: 5),
+
+                        //       Divider(
+                        //   thickness: 9,
+                        //   color: Color(0xffe3e3e3),
+                        // ),
+                        if (widget.popularproducts?.IsReviewAvgrating != 0.0)
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(right: 24),
+                                child: Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Container(
+                                      //height: 27,
+                                      width: 85,
+                                      child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: Color(0xffec3436),
+                                        ),
+                                        onPressed: () {
+                                          setState(() {});
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      ReviewScreen(widget
+                                                          .popularproducts)));
+                                        },
+                                        child: Text(
+                                          "Reviews",
+                                          style: TextStyle(
+                                              fontSize: 10,
+                                              color: Colors.white,
+                                              fontFamily: "Intro",
+                                              fontWeight: FontWeight.w600),
+                                          maxLines: 1,
+                                        ),
+                                      )),
+                                ),
+                              ),
+                              Divider(
+                                thickness: 9,
+                                color: Color(0xffe3e3e3),
+                              ),
+                            ],
+                          ),
+
+                        if (widget.popularproducts?.Reviewstatus != 0)
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(right: 24),
+                                child: Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Container(
+                                      //height: 27,
+                                      width: 95,
+                                      child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: Color(0xffec3436),
+                                        ),
+                                        onPressed: () {
+                                          setState(() {});
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      WriteReviewScreen(widget
+                                                          .popularproducts)));
+                                        },
+                                        child: Text(
+                                          "Write Review",
+                                          style: TextStyle(
+                                              fontSize: 10,
+                                              color: Colors.white,
+                                              fontFamily: "Intro",
+                                              fontWeight: FontWeight.w600),
+                                          maxLines: 1,
+                                        ),
+                                      )),
+                                ),
+                              ),
+                              // Divider(
+                              //   thickness: 5,
+                              //   color: Color(0xffe3e3e3),
+                              // ),
+                            ],
+                          ),
+
                         Padding(
                           padding: const EdgeInsets.only(
-                              left: 24, right: 24, top: 10, bottom: 5),
+                              left: 24, right: 24, top: 15, bottom: 5),
                           child: Column(
                             children: [
                               Row(
@@ -522,12 +542,14 @@ class _ProductDetailsScreenState
                               SizedBox(height: 10),
                               Padding(
                                 padding: const EdgeInsets.only(left: 12),
-                                child: Html(
-                                  data:
+                                child:
+                                 Html(
+                                  data: 
                                       widget.popularproducts?.description ?? "",
                                   style: {
                                     "body": Style(
-                                      fontSize: FontSize(15.0),
+                                      lineHeight: LineHeight.number(1.2),
+                                      fontSize: FontSize(13.0),
                                       fontFamily: "Intro",
                                     ),
                                   },
@@ -572,334 +594,375 @@ class _ProductDetailsScreenState
                                 children: [
                                   Expanded(
                                     child: Container(
-                                      height: 240,
+                                      height: 242,
                                       //color: Colors.green,
                                       child: ListView.builder(
                                           scrollDirection: Axis.horizontal,
                                           itemCount: relatedproducts.length,
                                           itemBuilder: (BuildContext context,
                                               int index) {
-                                            return Card(
-                                              child: Container(
-                                                width: 180,
-                                                // color: Colors.blue,
-                                                child: Column(
-                                                  children: [
-                                                    Stack(children: [
-                                                      Center(
-                                                        child: Padding(
+                                            return InkWell(
+                                              onTap: () {
+                                                Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      ProductDetailsScreen(relatedproducts[index])));
+                                              },
+                                              child: Card(
+                                                child: Container(
+                                                  width: 180,
+                                                  // color: Colors.blue,
+                                                  child: Column(
+                                                    children: [
+                                                      Stack(children: [
+                                                        Center(
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .only(
+                                                                    top: 18),
+                                                            child: Container(
+                                                                width: 100,
+                                                                height: 110,
+                                                                child:
+                                                                    CachedNetworkImage(
+                                                                  imageUrl:
+                                                                      "https://dev.lenzcamera.com/webadmin/${relatedproducts[index].imageUrl}",
+                                                                  fit:
+                                                                      BoxFit.fill,
+                                                                )
+                                            
+                                                                // Image(
+                                                                //     image: AssetImage(
+                                                                //         "assets/images/lens.png")),
+                                                                ),
+                                                          ),
+                                                        ),
+                                                        Align(
+                                                          alignment:
+                                                              Alignment.topRight,
+                                                          child: IconButton(
+                                                              onPressed: () {
+                                                                setState(() {
+                                                                  if (relatedproducts[
+                                                                              index]
+                                                                          .isWhishlisted ==
+                                                                      true) {
+                                                                    DataManager
+                                                                        .shared
+                                                                        .removeFromWishlist(
+                                                                            relatedproducts[
+                                                                                index]);
+                                                                    relatedproducts[
+                                                                            index]
+                                                                        .isWhishlisted = false;
+                                                                  } else {
+                                                                    DataManager
+                                                                        .shared
+                                                                        .addToWishlist(
+                                                                            relatedproducts[
+                                                                                index]);
+                                                                    relatedproducts[
+                                                                            index]
+                                                                        .isWhishlisted = true;
+                                                                  }
+                                                                });
+                                                              },
+                                                              icon: Icon(
+                                                                Icons.favorite,
+                                                                color: DataManager
+                                                                        .shared
+                                                                        .iswishListed(
+                                                                            relatedproducts[
+                                                                                index])
+                                                                    ? Colors.red
+                                                                    : Color(
+                                                                        0xff70706e),
+                                                              )),
+                                                        ),
+                                                      ]),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets.only(
+                                                                top: 10,
+                                                                left: 10,
+                                                                right: 10),
+                                                        child: Align(
+                                                            alignment:
+                                                                Alignment.center,
+                                                            child: Container(
+                                                              height: 30,
+                                                              child: Text(
+                                                                relatedproducts[
+                                                                            index]
+                                                                        .prName ??
+                                                                    '',
+                                            
+                                                                //  "CANON EF 16-35 MM F/4L IS USM ",
+                                                                style: TextStyle(
+                                                                    fontSize: 15,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w300,
+                                                                    fontFamily:
+                                                                        "Intro"),
+                                                                maxLines: 2,
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .center,
+                                                              ),
+                                                            )),
+                                                      ),
+                                                      Align(
+                                                          alignment:
+                                                              Alignment.center,
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .only(top: 7),
+                                                            child: Text(
+                                                                "QAR ${relatedproducts[index].unitPrice}",
+                                                                //  "QAR 39999.00",
+                                                                style: TextStyle(
+                                                                    fontSize: 12,
+                                                                    fontFamily:
+                                                                        "Intro",
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600,
+                                                                    color: Color(
+                                                                        0xff70706e))),
+                                                          )),
+                                                      SizedBox(height: 7),
+                                            
+                                                      if (relatedproducts[index]
+                                                          .isCartUpdateProgress!)
+                                                        Container(
+                                                            width: 160,
+                                                            height: 30,
+                                                            decoration: BoxDecoration(
+                                                                color:
+                                                                    Colors.yellow,
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            5)),
+                                                            child: Center(
+                                                              child: Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .only(
+                                                                        left: 75,
+                                                                        right: 75,
+                                                                        top: 10,
+                                                                        bottom:
+                                                                            10),
+                                                                child:
+                                                                    CircularProgressIndicator(
+                                                                  strokeWidth: 2,
+                                                                ),
+                                                              ),
+                                                            )),
+                                                      // SizedBox(
+                                                      //     height: 10,
+                                                      //     width: 10,
+                                                      //     child:
+                                                      //         CircularProgressIndicator(
+                                                      //       strokeWidth: 2,
+                                                      //       color: Colors.grey,
+                                                      //     )),
+                                                      if (relatedproducts[index]
+                                                              .isCartUpdateProgress ==
+                                                          false)
+                                                        Padding(
                                                           padding:
                                                               const EdgeInsets
                                                                       .only(
-                                                                  top: 10),
+                                                                  left: 10,
+                                                                  right: 10,
+                                                                  bottom: 10),
                                                           child: Container(
-                                                              width: 100,
-                                                              height: 100,
-                                                              child: CachedNetworkImage(
-                                                                  imageUrl:
-                                                                      "https://dev.lenzcamera.com/webadmin/${relatedproducts[index].imageUrl}")
-
-                                                              // Image(
-                                                              //     image: AssetImage(
-                                                              //         "assets/images/lens.png")),
-                                                              ),
-                                                        ),
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .only(
-                                                                left: 120),
-                                                        child: IconButton(
-                                                            onPressed: () {
-                                                              setState(() {
-                                                                if (relatedproducts[
-                                                                            index]
-                                                                        .isWhishlisted ==
-                                                                    true) {
-                                                                  DataManager
-                                                                      .shared
-                                                                      .removeFromWishlist(
-                                                                          relatedproducts[
-                                                                              index]);
-                                                                  relatedproducts[
-                                                                          index]
-                                                                      .isWhishlisted = false;
-                                                                } else {
-                                                                  DataManager
-                                                                      .shared
-                                                                      .addToWishlist(
-                                                                          relatedproducts[
-                                                                              index]);
-                                                                  relatedproducts[
-                                                                          index]
-                                                                      .isWhishlisted = true;
-                                                                }
-                                                              });
-                                                            },
-                                                            icon: Icon(
-                                                              Icons.favorite,
-                                                              color: DataManager
-                                                                      .shared
-                                                                      .iswishListed(
-                                                                          relatedproducts[
-                                                                              index])
-                                                                  ? Colors.red
-                                                                  : Color(
-                                                                      0xff70706e),
-                                                            )),
-                                                      ),
-                                                    ]),
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                              top: 10,
-                                                              left: 10,
-                                                              right: 10),
-                                                      child: Align(
-                                                          alignment:
-                                                              Alignment.center,
-                                                          child: Text(
-                                                            relatedproducts[
+                                                            // width: 160,
+                                                            height: 30,
+                                                            child: relatedproducts[
                                                                         index]
-                                                                    .prName ??
-                                                                '',
-
-                                                            //  "CANON EF 16-35 MM F/4L IS USM ",
-                                                            style: TextStyle(
-                                                                fontSize: 15,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w300,
-                                                                fontFamily:
-                                                                    "Intro"),
-                                                            maxLines: 2,
-                                                            overflow:
-                                                                TextOverflow
-                                                                    .ellipsis,
-                                                            textAlign:
-                                                                TextAlign.left,
-                                                          )),
-                                                    ),
-                                                    Align(
-                                                        alignment:
-                                                            Alignment.center,
-                                                        child: Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .only(top: 7),
-                                                          child: Text(
-                                                              "QAR ${relatedproducts[index].unitPrice}",
-                                                              //  "QAR 39999.00",
-                                                              style: TextStyle(
-                                                                  fontSize: 12,
-                                                                  fontFamily:
-                                                                      "Intro",
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600,
-                                                                  color: Color(
-                                                                      0xff70706e))),
-                                                        )),
-                                                    SizedBox(height: 4),
-
-                                                    if (relatedproducts[index]
-                                                        .isCartUpdateProgress!)
-                                                      SizedBox(
-                                                          height: 10,
-                                                          width: 10,
-                                                          child:
-                                                              CircularProgressIndicator(
-                                                            strokeWidth: 2,
-                                                            color: Colors.grey,
-                                                          )),
-                                                    if (relatedproducts[index]
-                                                            .isCartUpdateProgress ==
-                                                        false)
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .only(
-                                                                left: 10,
-                                                                right: 10,
-                                                                bottom: 10),
-                                                        child: Container(
-                                                          // width: 160,
-                                                          height: 30,
-                                                          child: relatedproducts[
-                                                                      index]
-                                                                  .isAddedtoCart()
-                                                              ? Row(
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .center,
-                                                                  children: [
-                                                                    InkWell(
-                                                                      onTap:
-                                                                          () {
-                                                                        DataManager.shared.updateItemToCart(
-                                                                            relatedproducts[
-                                                                                index],
-                                                                            4,
-                                                                            onUpdate:
-                                                                                () {
-                                                                          setState(
-                                                                              () {});
-                                                                        }, onUpdateStarted:
-                                                                                () {
-                                                                          setState(
-                                                                              () {});
-                                                                        });
-                                                                      },
-                                                                      child:
-                                                                          Container(
-                                                                        width:
-                                                                            40,
-                                                                        height:
-                                                                            30,
-                                                                        decoration: BoxDecoration(
-                                                                            color: Color(0xff70726f),
-                                                                            borderRadius: BorderRadius.only(
-                                                                              topLeft: Radius.circular(5),
-                                                                              bottomLeft: Radius.circular(5),
-                                                                            )),
-                                                                        child: Center(
-                                                                            child: Icon(
-                                                                          Icons
-                                                                              .remove,
-                                                                          color:
-                                                                              Colors.white,
-                                                                          size:
-                                                                              12,
-                                                                        )),
-                                                                      ),
-                                                                    ),
-                                                                    Container(
-                                                                      width: 80,
-                                                                      height:
-                                                                          30,
-                                                                      decoration:
-                                                                          BoxDecoration(
-                                                                        color: Color(
-                                                                            0xffe3e3e3),
-                                                                      ),
-                                                                      child: Center(
-                                                                          child: Text(
-                                                                        relatedproducts[index]
-                                                                            .qty!
-                                                                            .toStringAsFixed(0),
-                                                                        style: TextStyle(
-                                                                            color:
-                                                                                Colors.black),
-                                                                      )),
-                                                                    ),
-                                                                    InkWell(
-                                                                      onTap:
-                                                                          () {
-                                                                        DataManager.shared.updateItemToCart(
-                                                                            relatedproducts[
-                                                                                index],
-                                                                            3,
-                                                                            onUpdate:
-                                                                                () {
-                                                                          setState(
-                                                                              () {});
-                                                                        }, onUpdateStarted:
-                                                                                () {
-                                                                          setState(
-                                                                              () {});
-                                                                        });
-                                                                      },
-                                                                      child: Container(
-                                                                          width: 40,
-                                                                          height: 30,
+                                                                    .isAddedtoCart()
+                                                                ? Row(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .center,
+                                                                    children: [
+                                                                      InkWell(
+                                                                        onTap:
+                                                                            () {
+                                                                          DataManager.shared.updateItemToCart(
+                                                                              relatedproducts[
+                                                                                  index],
+                                                                              4,
+                                                                              onUpdate:
+                                                                                  () {
+                                                                            setState(
+                                                                                () {});
+                                                                          }, onUpdateStarted:
+                                                                                  () {
+                                                                            setState(
+                                                                                () {});
+                                                                          });
+                                                                        },
+                                                                        child:
+                                                                            Container(
+                                                                          width:
+                                                                              40,
+                                                                          height:
+                                                                              30,
                                                                           decoration: BoxDecoration(
-                                                                              color: Color(0xffe83031),
+                                                                              color: Color(0xff70726f),
                                                                               borderRadius: BorderRadius.only(
-                                                                                topRight: Radius.circular(5),
-                                                                                bottomRight: Radius.circular(5),
+                                                                                topLeft: Radius.circular(5),
+                                                                                bottomLeft: Radius.circular(5),
                                                                               )),
-                                                                          child: Icon(
-                                                                            Icons.add,
+                                                                          child: Center(
+                                                                              child: Icon(
+                                                                            Icons
+                                                                                .remove,
                                                                             color:
                                                                                 Colors.white,
                                                                             size:
                                                                                 12,
                                                                           )),
+                                                                        ),
+                                                                      ),
+                                                                      Container(
+                                                                        width: 80,
+                                                                        height:
+                                                                            30,
+                                                                        decoration:
+                                                                            BoxDecoration(
+                                                                          color: Color(
+                                                                              0xffe3e3e3),
+                                                                        ),
+                                                                        child: Center(
+                                                                            child: Text(
+                                                                          relatedproducts[index]
+                                                                              .qty!
+                                                                              .toStringAsFixed(0),
+                                                                          style: TextStyle(
+                                                                              color:
+                                                                                  Colors.black),
+                                                                        )),
+                                                                      ),
+                                                                      InkWell(
+                                                                        onTap:
+                                                                            () {
+                                                                          DataManager.shared.updateItemToCart(
+                                                                              relatedproducts[
+                                                                                  index],
+                                                                              3,
+                                                                              onUpdate:
+                                                                                  () {
+                                                                            setState(
+                                                                                () {});
+                                                                          }, onUpdateStarted:
+                                                                                  () {
+                                                                            setState(
+                                                                                () {});
+                                                                          });
+                                                                        },
+                                                                        child: Container(
+                                                                            width: 40,
+                                                                            height: 30,
+                                                                            decoration: BoxDecoration(
+                                                                                color: Color(0xffe83031),
+                                                                                borderRadius: BorderRadius.only(
+                                                                                  topRight: Radius.circular(5),
+                                                                                  bottomRight: Radius.circular(5),
+                                                                                )),
+                                                                            child: Icon(
+                                                                              Icons.add,
+                                                                              color:
+                                                                                  Colors.white,
+                                                                              size:
+                                                                                  12,
+                                                                            )),
+                                                                      ),
+                                                                    ],
+                                                                  )
+                                                                : ElevatedButton(
+                                                                    style: ElevatedButton
+                                                                        .styleFrom(
+                                                                      elevation:
+                                                                          0,
+                                                                      backgroundColor:
+                                                                          Colors
+                                                                              .yellow,
                                                                     ),
-                                                                  ],
-                                                                )
-                                                              : ElevatedButton(
-                                                                  style: ElevatedButton
-                                                                      .styleFrom(
-                                                                    elevation:
-                                                                        0,
-                                                                    backgroundColor:
-                                                                        Colors
-                                                                            .yellow,
+                                                                    onPressed:
+                                                                        () {
+                                                                      DataManager.shared.updateItemToCart(
+                                                                          relatedproducts[
+                                                                              index],
+                                                                          1,
+                                                                          onUpdate:
+                                                                              () {
+                                                                        setState(
+                                                                            () {});
+                                                                      }, onUpdateStarted:
+                                                                              () {
+                                                                        setState(
+                                                                            () {});
+                                                                      });
+                                                                    },
+                                                                    child: Center(
+                                                                        child:
+                                                                            Text(
+                                                                      "ADD",
+                                                                      style: TextStyle(
+                                                                          fontFamily:
+                                                                              "Intro",
+                                                                          fontWeight:
+                                                                              FontWeight
+                                                                                  .w600,
+                                                                          fontSize:
+                                                                              15,
+                                                                          color: Colors
+                                                                              .black),
+                                                                    )),
                                                                   ),
-                                                                  onPressed:
-                                                                      () {
-                                                                    DataManager.shared.updateItemToCart(
-                                                                        relatedproducts[
-                                                                            index],
-                                                                        1,
-                                                                        onUpdate:
-                                                                            () {
-                                                                      setState(
-                                                                          () {});
-                                                                    }, onUpdateStarted:
-                                                                            () {
-                                                                      setState(
-                                                                          () {});
-                                                                    });
-                                                                  },
-                                                                  child: Center(
-                                                                      child:
-                                                                          Text(
-                                                                    "ADD",
-                                                                    style: TextStyle(
-                                                                        fontFamily:
-                                                                            "Intro",
-                                                                        fontWeight:
-                                                                            FontWeight
-                                                                                .w600,
-                                                                        fontSize:
-                                                                            15,
-                                                                        color: Colors
-                                                                            .black),
-                                                                  )),
-                                                                ),
+                                                          ),
                                                         ),
-                                                      ),
-
-                                                    //     .updateItemToCart(
-                                                    //         relatedproducts[
-                                                    //             index],
-                                                    //         1, onUpdate: () {
-                                                    //   setState(() {});
-                                                    // }, onUpdateStarted: () {
-                                                    //   setState(() {});
-                                                    // });
-                                                    //           // Navigator.push(
-                                                    //           //     context,
-                                                    //           //     MaterialPageRoute(
-                                                    //           //         builder:
-                                                    //           //             (context) =>
-                                                    //           //                 CartScreen()));
-                                                    //         },
-                                                    //         child: Center(
-                                                    //             child: Text(
-                                                    //           "ADD",
-                                                    //           style: TextStyle(
-                                                    //               fontSize: 18,
-                                                    //               color: Colors
-                                                    //                   .black),
-                                                    //         )),
-                                                    //       ),
-                                                    //     ),
-                                                    //   ),
-                                                  ],
+                                            
+                                                      //     .updateItemToCart(
+                                                      //         relatedproducts[
+                                                      //             index],
+                                                      //         1, onUpdate: () {
+                                                      //   setState(() {});
+                                                      // }, onUpdateStarted: () {
+                                                      //   setState(() {});
+                                                      // });
+                                                      //           // Navigator.push(
+                                                      //           //     context,
+                                                      //           //     MaterialPageRoute(
+                                                      //           //         builder:
+                                                      //           //             (context) =>
+                                                      //           //                 CartScreen()));
+                                                      //         },
+                                                      //         child: Center(
+                                                      //             child: Text(
+                                                      //           "ADD",
+                                                      //           style: TextStyle(
+                                                      //               fontSize: 18,
+                                                      //               color: Colors
+                                                      //                   .black),
+                                                      //         )),
+                                                      //       ),
+                                                      //     ),
+                                                      //   ),
+                                                    ],
+                                                  ),
                                                 ),
                                               ),
                                             );
@@ -929,11 +992,16 @@ class _ProductDetailsScreenState
             //                       color: Colors.grey,
             //                     ),
             //                   )),
-            //                   if (widget.popularproducts!.isCartUpdateProgress ==
-            //                 false)
+                            
+
+          
             Padding(
-              padding: const EdgeInsets.only(left: 24, right: 24, bottom: 10),
-              child: Container(
+              padding: const EdgeInsets.only(left: 24,right:24, bottom: 10),
+
+              
+              child: 
+            
+              Container(  
                 // width: 160,
                 height: 5.h,
                 //height: 40,
@@ -972,100 +1040,115 @@ class _ProductDetailsScreenState
                               ),
                             ),
                           ),
-                          SizedBox(width: 20),
+
+                           Spacer(),
+                         
                           if (widget.popularproducts!.isCartUpdateProgress!)
-                            Padding(
-                              padding: const EdgeInsets.only(left: 60),
-                              child: SizedBox(
-                                  // height: 30,
-                                  // width: 30,
-                                  height: 15.h,
-                                  width: 15.w,
+                            Container(
+                                width: 140,
+                                height: 35,
+                                decoration: BoxDecoration(
+                                    color: Colors.green,
+                                    borderRadius: BorderRadius.circular(5)),
+                                child: Center(
                                   child: Padding(
-                                    padding: const EdgeInsets.all(10),
+                                    padding: const EdgeInsets.only(
+                                        left: 60,
+                                        right: 60,
+                                        top: 10,
+                                        bottom: 10),
                                     child: CircularProgressIndicator(
                                       strokeWidth: 2,
-                                      color: Colors.grey,
-                                    ),
-                                  )),
-                            ),
-                          if (widget.popularproducts!.isCartUpdateProgress ==
-                              false)
-                            if (widget.popularproducts!.isAddedtoCart())
-                              Row(
-                                children: [
-                                  InkWell(
-                                    onTap: () {
-                                      DataManager.shared.updateItemToCart(
-                                          widget.popularproducts!, 4,
-                                          onUpdate: () {
-                                        setState(() {});
-                                      }, onUpdateStarted: () {
-                                        setState(() {});
-                                      });
-                                    },
-                                    child: Container(
-                                      width: 40,
-                                      height: 30,
-                                      // width: 40,
-                                      // height: 30,
-                                      decoration: BoxDecoration(
-                                        color: Color(0xff70726f),
-                                        borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(5),
-                                          bottomLeft: Radius.circular(5),
-                                        ),
-                                      ),
-                                      child: Center(
-                                        child: Icon(
-                                          Icons.remove,
-                                          color: Colors.white,
-                                          size: 12,
-                                        ),
-                                      ),
+                                      color: Colors.white,
                                     ),
                                   ),
-                                  Container(
-                                    width: 60,
-                                    height: 30,
-                                    decoration: BoxDecoration(
-                                      color: Color(0xffe3e3e3),
-                                    ),
-                                    child: Center(
-                                        child: Text(
-                                      widget.popularproducts!.qty!
-                                          .toStringAsFixed(0),
-                                      style: TextStyle(color: Colors.black),
-                                    )),
-                                  ),
-                                  InkWell(
-                                    onTap: () {
-                                      DataManager.shared.updateItemToCart(
-                                          widget.popularproducts!, 3,
-                                          onUpdate: () {
-                                        setState(() {});
-                                      }, onUpdateStarted: () {
-                                        setState(() {});
-                                      });
-                                    },
-                                    child: Container(
+                                )),
+
+                                // Spacer(),
+                          if (
+                            widget.popularproducts!.isCartUpdateProgress ==
+                                  false &&
+                              widget.popularproducts!.isAddedtoCart())
+                            Container(
+                                height: 30,
+                                width: 170,
+                                child:
+                                
+                                 Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    InkWell(
+                                      onTap: () {
+                                        DataManager.shared.updateItemToCart(
+                                            widget.popularproducts!, 4,
+                                            onUpdate: () {
+                                          setState(() {});
+                                        }, onUpdateStarted: () {
+                                          setState(() {});
+                                        });
+                                      },
+                                      child: Container(
                                         width: 40,
                                         height: 30,
+                                        // width: 40,
+                                        // height: 30,
                                         decoration: BoxDecoration(
-                                          color: Color(0xffe83031),
+                                          color: Color(0xff70726f),
                                           borderRadius: BorderRadius.only(
-                                            topRight: Radius.circular(5),
-                                            bottomRight: Radius.circular(5),
+                                            topLeft: Radius.circular(5),
+                                            bottomLeft: Radius.circular(5),
                                           ),
                                         ),
-                                        child: Icon(
-                                          Icons.add,
-                                          color: Colors.white,
-                                          size: 12,
-                                        )),
-                                  ),
-                                ],
-                              ),
+                                        child: Center(
+                                          child: Icon(
+                                            Icons.remove,
+                                            color: Colors.white,
+                                            size: 12,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      width: 60,
+                                      height: 30,
+                                      decoration: BoxDecoration(
+                                        color: Color(0xffe3e3e3),
+                                      ),
+                                      child: Center(
+                                          child: Text(
+                                        widget.popularproducts!.qty!
+                                            .toStringAsFixed(0),
+                                        style: TextStyle(color: Colors.black),
+                                      )),
+                                    ),
+                                    InkWell(
+                                      onTap: () {
+                                        DataManager.shared.updateItemToCart(
+                                            widget.popularproducts!, 3,
+                                            onUpdate: () {
+                                          setState(() {});
+                                        }, onUpdateStarted: () {
+                                          setState(() {});
+                                        });
+                                      },
+                                      child: Container(
+                                          width: 40,
+                                          height: 30,
+                                          decoration: BoxDecoration(
+                                            color: Color(0xffe83031),
+                                            borderRadius: BorderRadius.only(
+                                              topRight: Radius.circular(5),
+                                              bottomRight: Radius.circular(5),
+                                            ),
+                                          ),
+                                          child: Icon(
+                                            Icons.add,
+                                            color: Colors.white,
+                                            size: 12,
+                                          )),
+                                    ),
+                                  ],
+                                )),
                         ],
                       )
                     : ElevatedButton(
@@ -1084,7 +1167,9 @@ class _ProductDetailsScreenState
                             setState(() {});
                           });
                         },
-                        child: Center(
+                        child: 
+                        
+                        Center(
                           child: (widget.popularproducts!.stockAvailability
                                       ?.length ==
                                   12)

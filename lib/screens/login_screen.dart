@@ -63,7 +63,7 @@ class _LoginScreenState extends BaseStatefulState<LoginScreen> {
     }).catchError((e) {
       showFlashMsg(e.toString());
       print(e);
-      showFlashMsg(e.Message!);
+      showFlashMsg("Invalid Username/Password");
     });
   }
 
@@ -119,7 +119,8 @@ class _LoginScreenState extends BaseStatefulState<LoginScreen> {
                     SizedBox(height: 12),
                     Container(
                       // height: 40,
-                      child: TextFormField(
+                      child: 
+                      TextFormField(
                           controller: _usernameController,
                           validator: (val) {
                             if (val!.isEmpty) return "Enter Mobile/Email";
@@ -177,7 +178,7 @@ class _LoginScreenState extends BaseStatefulState<LoginScreen> {
                           obscureText: _obscureText,
                           controller: _passwordController,
                           validator: (val) {
-                            if (val!.isEmpty) return "Enter your password";
+                            if (val!.isEmpty) return "Enter your Password";
                             return null;
                           }),
                     ),

@@ -3,8 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:lenzcamera/base/base_stateful_state.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
+import 'package:lenzcamera/model/details.dart';
 import 'package:lenzcamera/model/product.dart';
 import 'package:lenzcamera/model/product_review.dart';
 import 'package:lenzcamera/model/review_details.dart';
@@ -21,12 +23,12 @@ class ReviewScreen extends StatefulWidget {
   State<ReviewScreen> createState() => _ReviewScreenState();
 }
 
-class _ReviewScreenState extends State<ReviewScreen> {
+class _ReviewScreenState extends BaseStatefulState<ReviewScreen> {
   double rating = 0.0;
 
-  List<ReviewDetails> review = [];
+   List<Details> review = [];
 
-  // List<ProductReview> prodrev = [];
+   List<ProductReview> prodrev = [];
 
   List<ReviewDetails> revdetails = [];
 
@@ -38,19 +40,58 @@ class _ReviewScreenState extends State<ReviewScreen> {
     }));
   }
 
-  void productReview() {
-    NetworkManager.shared.productReview(<String, dynamic>{
-      "CustId": NetworkManager.shared.userId,
-      "urlKey": widget.products?.urlKey ?? '',
-    }).then((BaseResponse<ReviewResponse> response) {
-      setState(() {
-        review.clear();
-        review.addAll(response.data!.reviewDetails!);
+  // void productReview() {
+  //   NetworkManager.shared
+  //       .productReview(widget.products?.urlKey??'',
+          
+  //         NetworkManager.shared.userId,
+          
+  //       ).then((BaseResponse<ReviewResponse> response) {
+  //     setState(() {
+       
+  //       revdetails.clear();
+  //       revdetails.addAll(response.data!.reviewDetails!);
 
-        print(",,,,,,,,,,,,,,,,,");
-        print(widget.products?.urlKey);
-        print(response.data?.reviewDetails?.first.rating);
-      });
+  //        review.clear();
+  //       review.addAll(response.data!.details!);
+
+  //      print(",,,,,,,,,,,,,,,,,");
+  //     print(widget.products?.urlKey);
+  //     print(response.data?.details?.first.reviewerEmail);
+  //     });   
+  //   }).catchError((e) {
+  //    // hideLoader();
+  //     print(e.toString());
+  //   });
+  // }
+
+
+   void productReview() {
+        showLoader();
+    NetworkManager.shared
+        .productReview(<String, dynamic>{
+          
+          "CustId": NetworkManager.shared.userId,
+          "urlKey" : widget.products?.urlKey
+          
+        }).then((BaseResponse<ReviewResponse> response) {
+
+          hideLoader();
+      setState(() {
+       
+        revdetails.clear();
+        revdetails.addAll(response.data!.reviewDetails!);
+
+        // review.clear();
+        // review.addAll(response.data!.details!);
+
+       print(",,,,,,,,,,,,,,,,,");
+      print(widget.products?.urlKey);
+      print(response.data?.reviewDetails?.first.reviewerEmail);
+      print(revdetails.length);
+
+      // print(response.data?.details?.first.dateOfReview);
+      });   
     }).catchError((e) {
       // hideLoader();
       print(e.toString());
@@ -189,10 +230,12 @@ class _ReviewScreenState extends State<ReviewScreen> {
               ],
             ),
             Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Padding(
-                  padding: EdgeInsets.only(left: 25.w, top: 20),
+                  padding: EdgeInsets.only( top: 20),
                   child: Row(
+                    // mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       RatingBarIndicator(
                         rating: 5,
@@ -217,11 +260,11 @@ class _ReviewScreenState extends State<ReviewScreen> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(left: 25.w, top: 3),
+                  padding: EdgeInsets.only( top: 3),
                   child: Row(
                     children: [
                       RatingBarIndicator(
-                        rating: 5,
+                        rating: 4,
                         itemBuilder: (context, index) => Icon(
                           Icons.star,
                           color: Colors.amber,
@@ -243,11 +286,11 @@ class _ReviewScreenState extends State<ReviewScreen> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(left: 25.w, top: 3),
+                  padding:  EdgeInsets.only( top: 3),
                   child: Row(
                     children: [
                       RatingBarIndicator(
-                        rating: 5,
+                        rating: 3,
                         itemBuilder: (context, index) => Icon(
                           Icons.star,
                           color: Colors.amber,
@@ -269,7 +312,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(left: 25.w, top: 3),
+                  padding:  EdgeInsets.only( top: 3),
                   child: Row(
                     children: [
                       RatingBarIndicator(
@@ -295,7 +338,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(left: 25.w, top: 3),
+                  padding: EdgeInsets.only( top: 3),
                   child: Row(
                     children: [
                       RatingBarIndicator(
@@ -324,10 +367,10 @@ class _ReviewScreenState extends State<ReviewScreen> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(left: 200, top: 5),
+                      padding: const EdgeInsets.only(left: 220, top: 5),
                       child: Text(
-                        "${''} Reviews",
-                        style: TextStyle(),
+                        "${'2'} Reviews",
+                        style: TextStyle(fontFamily: 'Intro'),
                       ),
                     )
                   ],
@@ -352,42 +395,62 @@ class _ReviewScreenState extends State<ReviewScreen> {
                 // color: Colors.green,
                 child: ListView.builder(
                     scrollDirection: Axis.vertical,
-                    itemCount: 1,
+                  
+                    itemCount: revdetails.length,
                     itemBuilder: (BuildContext context, int index) {
-                      print("----------------");
-                      print(revdetails.length);
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
                             height: 100,
-                            width: 300,
+                             width: 380,
                             // color: Colors.green,
                             child: ListTile(
                               leading: Container(
                                 child: CircleAvatar(
                                     backgroundColor: Color(0xffec3436)),
                               ),
-                              title: Text("jibin_intertoons_QC",
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w600)),
-                              subtitle: Text("2022-09-15T12:02:16.25",
+                              title: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(revdetails[index].reviewerName??'',
+                                    // "jibin_intertoons_QC",
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          fontFamily: 'Intro',
+                                          fontWeight: FontWeight.w600)),
+                                       Text("( ${revdetails[index].rating??''} )",
+                              // textAlign: TextAlign.end,
+                                //"(5)",
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    fontFamily: 'Intro',
+                                    fontWeight: FontWeight.w600),),
+                                     
+                                ],
+                              ),
+
+                                  
+                              subtitle: Text(revdetails[index].dateOfReview??'',
+                                // "2022-09-15T12:02:16.25",
                                   style: TextStyle(
                                       fontSize: 10,
                                       fontWeight: FontWeight.w600,
                                       color: Colors.grey[400])),
-                              trailing: Text(
-                                "(5)",
-                                style: TextStyle(
-                                    fontSize: 15, fontWeight: FontWeight.w600),
-                              ),
+                              // trailing: Text("( ${revdetails[index].rating??''} )",
+                              // // textAlign: TextAlign.end,
+                              //   //"(5)",
+                              //   style: TextStyle(
+                              //       fontSize: 15,
+                              //       fontFamily: 'Intro',
+                              //       fontWeight: FontWeight.w600),
+                              // ),
                             ),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(left: 20),
-                            child: Text(
-                              "good product",
+                            child: Text(revdetails[index].reviewDetails??'',
+                              //"good product",
                               style: TextStyle(
                                   fontSize: 15, fontWeight: FontWeight.w600),
                             ),
@@ -451,5 +514,11 @@ class _ReviewScreenState extends State<ReviewScreen> {
         // )
       ]),
     );
+  }
+  
+  @override
+  bool isAuthenticationRequired() {
+    // TODO: implement isAuthenticationRequired
+    throw UnimplementedError();
   }
 }
