@@ -15,55 +15,51 @@ import 'package:lenzcamera/utils/helper.dart';
 import 'package:lenzcamera/base/base_stateful_state.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
-
   BaseResponse? response;
   ForgotPasswordScreen(this.response);
   @override
   State<ForgotPasswordScreen> createState() => _ForgotPasswordScreenState();
 }
 
-class _ForgotPasswordScreenState extends BaseStatefulState<ForgotPasswordScreen> {
-
-    final GlobalKey<FormState> _form = GlobalKey<FormState>();
+class _ForgotPasswordScreenState
+    extends BaseStatefulState<ForgotPasswordScreen> {
+  final GlobalKey<FormState> _form = GlobalKey<FormState>();
 
   final _emailController = TextEditingController();
 
-   bool emailSent = false;
+  bool emailSent = false;
   bool isMobileNumber = false;
 
-@override
+  @override
   void initState() {
     super.initState();
   }
 
-   void forgotPasswordOTPSend() {
-
-      if (!_form.currentState!.validate()) {
+  void forgotPasswordOTPSend() {
+    if (!_form.currentState!.validate()) {
       return;
     }
 
     showLoader();
-    NetworkManager.shared.forgotPasswordOTPSend(_emailController.text, "").then((BaseResponse response) {
-
-       hideLoader();
+    NetworkManager.shared
+        .forgotPasswordOTPSend(_emailController.text, "")
+        .then((BaseResponse response) {
+      hideLoader();
       print(_emailController.text);
       setState(() {
         emailSent = true;
       });
-       Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                      builder: (context) =>
-                      VerifyForgotPwddOtpScreen(response.data)));
-     
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) => VerifyForgotPwddOtpScreen(response.data)));
     }).catchError((e) {
-       hideLoader();
+      hideLoader();
       showFlashMsg(e.toString());
       print(e);
       showFlashMsg(e.Message!);
     });
   }
-  
 
   @override
   Widget build(BuildContext context) {
@@ -73,19 +69,16 @@ class _ForgotPasswordScreenState extends BaseStatefulState<ForgotPasswordScreen>
         appBar: AppBar(
           centerTitle: true,
           title: Text("Forgot Password"),
-          titleTextStyle: TextStyle(fontSize: 14,  fontFamily: "Intro",fontWeight: FontWeight.w600),
+          titleTextStyle: TextStyle(
+              fontSize: 14, fontFamily: "Intro", fontWeight: FontWeight.w600),
           leading: IconButton(
             icon: const Icon(
               Icons.arrow_back_ios_new_sharp,
               color: Colors.white,
             ),
             onPressed: () {
-                Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                      builder: (context) =>
-                   LoginScreen()));
-
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => LoginScreen()));
             },
           ),
           backgroundColor: kappBar,
@@ -101,7 +94,9 @@ class _ForgotPasswordScreenState extends BaseStatefulState<ForgotPasswordScreen>
                   Center(
                     child: Container(
                         width: 220,
-                        child: Image(image: AssetImage("assets/images/logo_lenzcamera.png"))),
+                        child: Image(
+                            image: AssetImage(
+                                "assets/images/logo_lenzcamera.png"))),
                   ),
                   SizedBox(height: 50),
                   Align(
@@ -111,40 +106,41 @@ class _ForgotPasswordScreenState extends BaseStatefulState<ForgotPasswordScreen>
                       style: TextStyle(
                           color: Color(0xff747474),
                           fontWeight: FontWeight.w600,
-                         fontFamily: 'Intro',
+                          fontFamily: 'Intro',
                           fontSize: 12),
                     ),
                   ),
                   SizedBox(height: 12),
                   Container(
-                  //  height: 40,
+                    //  height: 40,
                     child: TextFormField(
-                       enabled: !emailSent,
+                        enabled: !emailSent,
                         decoration: InputDecoration(
-                           contentPadding:
-                       EdgeInsets.only(left:10, top:5, bottom:5),
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xffb0b0b0)),
-                      ),
-                      labelText: "",
-                    ),
-                     controller: _emailController,
-                                      validator: (val) {
-                                        if (isMobileNumber) {
-                                          if (val!.isEmpty)
-                                            return "Enter Mobile/Email";
-                                        } else {
-                                          if (!Helper.validateEmail(val!)) {
-                                            return "Enter Valid Email";
-                                          }
-                                        }
-            
-                                        return null;
-                                      }               
-                    ),
+                          contentPadding:
+                              EdgeInsets.only(left: 10, top: 5, bottom: 5),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Color(0xffb0b0b0)),
+                          ),
+                          labelText: "",
+                        ),
+                        controller: _emailController,
+                        validator: (val) {
+                          if (val!.isEmpty) {
+                            return "Enter Mobile/Email";
+                          } 
+                          // else if (val != Helper.validatePhone(val)) {
+                          //   return "Enter Valid Mobile";
+                          // }
+                          else if (val != Helper.validateEmail(val)) {
+                            return "Enter Valid Email";
+                          }
+
+                          // }
+
+                          return "Enter Valid Mobile";
+                        }),
                   ),
                   SizedBox(height: 25),
-                
                   Container(
                     height: 50,
                     child: ElevatedButton(
@@ -152,22 +148,23 @@ class _ForgotPasswordScreenState extends BaseStatefulState<ForgotPasswordScreen>
                         backgroundColor: Color(0xffec3436),
                       ),
                       onPressed: () {
-            
-                          
-                            forgotPasswordOTPSend();
-                          
+                        forgotPasswordOTPSend();
+
                         // Navigator.push(
                         // context,
                         // MaterialPageRoute(
                         // builder: (context) =>
                         // OtpScreen()));
-                      
                       },
                       child: Center(
                           child: Text(
-                            "Send OTP",
-                            style: TextStyle(fontSize: 20, fontFamily: 'Intro', fontWeight: FontWeight.w600,color: Colors.white),
-                          )),
+                        "Send OTP",
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontFamily: 'Intro',
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white),
+                      )),
                     ),
                   ),
                 ],
@@ -178,7 +175,7 @@ class _ForgotPasswordScreenState extends BaseStatefulState<ForgotPasswordScreen>
       ),
     );
   }
-  
+
   @override
   bool isAuthenticationRequired() {
     // TODO: implement isAuthenticationRequired

@@ -21,8 +21,6 @@ class ProductImagesScreen extends StatefulWidget {
 }
 
 class _ProductImagesScreenState extends BaseStatefulState<ProductImagesScreen> {
-
-
   List<ProductImages> _productImages = [];
 
   int? _index;
@@ -35,7 +33,7 @@ class _ProductImagesScreenState extends BaseStatefulState<ProductImagesScreen> {
       'urlKey': widget.products?.urlKey,
       ' pincode': 8,
     }).then((BaseResponse<Product> response) {
-       hideLoader();
+      hideLoader();
       setState(() {
         _productImages.clear();
         _productImages.addAll(response.data!.productImages!);
@@ -43,11 +41,10 @@ class _ProductImagesScreenState extends BaseStatefulState<ProductImagesScreen> {
         print("hhhhhhhhhhhhhhhhhhhhhhhhh");
         print(widget.products?.urlKey);
 
-          print(_productImages.length);
-      
+        print(_productImages.length);
       });
     }).catchError((e) {
-       hideLoader();
+      hideLoader();
       print(e.toString());
     });
   }
@@ -55,11 +52,10 @@ class _ProductImagesScreenState extends BaseStatefulState<ProductImagesScreen> {
   @override
   void initState() {
     super.initState();
-   Future.delayed(Duration(milliseconds: 700), (() {
+    Future.delayed(Duration(milliseconds: 700), (() {
       getSingleProductDetails();
     }));
     _index == null;
-    
   }
 
   @override
@@ -85,50 +81,51 @@ class _ProductImagesScreenState extends BaseStatefulState<ProductImagesScreen> {
         ),
         body: Column(
           children: [
-            Column(
-              children: [
-                Center(
-                  child: Padding(
-                    padding: const EdgeInsets.only(top:100),
-                    child: Container(
-                      height: 300,
-                       child:
-                       PhotoView(imageProvider: 
-                       CachedNetworkImageProvider("https://dev.lenzcamera.com/webadmin/${_productImages[_index ?? 0].imageUrl}"),
-                        backgroundDecoration: BoxDecoration(color: Colors.transparent),
-                       
-                       ),
-                      //  : Container(
-                      //   height: 150,
-                      //   width: 150,
-                      //   child: Image(image: AssetImage("assets/images/lens.png"),
-                      //   fit: BoxFit.fill,),
-                      //  )
-                      
-                      //height: 300,
-                     // width: 300,
-              //           child: InteractiveViewer(
-              //             scaleEnabled: true,
-              //  clipBehavior: Clip.none,
-              //           boundaryMargin: EdgeInsets.all(10.0),
-              //         minScale: minScale,
-              //         maxScale:4,
-              //         onInteractionEnd: (details) {
-              //            resetAnimation();
-              //            },
-                      // child: CachedNetworkImage(
-                      //   imageUrl:
-                      //       "https://dev.lenzcamera.com/webadmin/${_productImages[_index ?? 0].imageUrl}",
-                      // ),
-                    )
+            if (_productImages.isNotEmpty)
+              Column(
+                children: [
+                  Center(
+                    child: Padding(
+                        padding: const EdgeInsets.only(top: 100),
+                        child: Container(
+                          height: 300,
+                          child: PhotoView(
+                            imageProvider: CachedNetworkImageProvider(
+                                "https://dev.lenzcamera.com/webadmin/${_productImages[_index ?? 0].imageUrl}"),
+                            backgroundDecoration:
+                                BoxDecoration(color: Colors.transparent),
+                          ),
+                          //  : Container(
+                          //   height: 150,
+                          //   width: 150,
+                          //   child: Image(image: AssetImage("assets/images/lens.png"),
+                          //   fit: BoxFit.fill,),
+                          //  )
+
+                          //height: 300,
+                          // width: 300,
+                          //           child: InteractiveViewer(
+                          //             scaleEnabled: true,
+                          //  clipBehavior: Clip.none,
+                          //           boundaryMargin: EdgeInsets.all(10.0),
+                          //         minScale: minScale,
+                          //         maxScale:4,
+                          //         onInteractionEnd: (details) {
+                          //            resetAnimation();
+                          //            },
+                          // child: CachedNetworkImage(
+                          //   imageUrl:
+                          //       "https://dev.lenzcamera.com/webadmin/${_productImages[_index ?? 0].imageUrl}",
+                          // ),
+                        )
                         //  child: InteractiveViewer(
 
                         //    child: CachedNetworkImage(imageUrl: "https://dev.lenzcamera.com/webadmin/${_productImages[index].imageUrl}"),),
-                      //  ),
+                        //  ),
+                        ),
                   ),
-                ),
-              ],
-            ),
+                ],
+              ),
             Expanded(
               child: Align(
                 alignment: Alignment.bottomLeft,
@@ -139,7 +136,7 @@ class _ProductImagesScreenState extends BaseStatefulState<ProductImagesScreen> {
                   child: ListView.builder(
                       itemCount: _productImages.length,
                       scrollDirection: Axis.horizontal,
-                    
+
                       //shrinkWrap: true,
                       itemBuilder: (BuildContext context, int index) {
                         return Row(
@@ -147,25 +144,22 @@ class _ProductImagesScreenState extends BaseStatefulState<ProductImagesScreen> {
                             Container(
                               width: 120,
                               child: InkWell(
-                                onTap: () {
-                                  setState(() {
-                                    _index = index;
-    
-
-                                  });
-                                },
-                                child: Container(
-                                    height: 100,
-                                    width: 100,
-                                    child: _productImages.isNotEmpty?
-                                    
-                                    CachedNetworkImage(
-                                        imageUrl:
-                                            "https://dev.lenzcamera.com/webadmin/${_productImages[index].imageUrl}")
-                                            : Image(image: AssetImage("assets/images/lens.png"),)
-                                            )
-                                            
-                              ),
+                                  onTap: () {
+                                    setState(() {
+                                      _index = index;
+                                    });
+                                  },
+                                  child: Container(
+                                      height: 100,
+                                      width: 100,
+                                      child: _productImages.isNotEmpty
+                                          ? CachedNetworkImage(
+                                              imageUrl:
+                                                  "https://dev.lenzcamera.com/webadmin/${_productImages[index].imageUrl}")
+                                          : Image(
+                                              image: AssetImage(
+                                                  "assets/images/lens.png"),
+                                            ))),
                             ),
                           ],
                         );
@@ -178,11 +172,10 @@ class _ProductImagesScreenState extends BaseStatefulState<ProductImagesScreen> {
       ),
     );
   }
-  
+
   @override
   bool isAuthenticationRequired() {
     // TODO: implement isAuthenticationRequired
     throw UnimplementedError();
   }
-
 }
