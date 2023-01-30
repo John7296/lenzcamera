@@ -133,6 +133,7 @@ class DataManager {
         .then((BaseResponse<List<Product>> response) {
       wishListItems.clear();
       wishListItems.addAll(response.data!);
+      print("DMWList ${wishListItems.length.toString()}");
     }).catchError((e) {
       print(e.toString());
     });
@@ -157,15 +158,13 @@ class DataManager {
     wishListItems.removeWhere((item) => item.productId == product.productId);
     NetworkManager.shared
         .removeFromWishlist(
-           NetworkManager.shared.userId,
-           "",
-           product.urlKey!,
-        )
+      NetworkManager.shared.userId,
+      "",
+      product.urlKey!,
+    )
         .then((BaseResponse response) {
-
-           //onWishlistUpdated!(response.message!);
-        })
-        .catchError((e) {
+      //onWishlistUpdated!(response.message!);
+    }).catchError((e) {
       print(e.toString());
     });
   }
@@ -181,19 +180,16 @@ class DataManager {
     return false;
   }
 
-      void location(String search) {
+  void location(String search) {
     NetworkManager.shared
         .custLocation(search)
         .then((BaseResponse<List<Location>> response) {
-        locationList.clear();
-        locationList.addAll(response.data!);
-      
+      locationList.clear();
+      locationList.addAll(response.data!);
     }).catchError((e) {
       print(e.toString());
     });
   }
-
-
 
   void clearSession() {
     NetworkManager.shared.userToken = "";

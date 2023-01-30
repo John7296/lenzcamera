@@ -54,10 +54,12 @@ class _LoginScreenState extends BaseStatefulState<LoginScreen> {
       NetworkManager.shared.userId = response.data?.customerId ?? 0;
 
       NetworkManager.shared.refreshTokens();
-      
-      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (BuildContext context) {
-        return HomeScreen();
-      },),(route) => false);
+
+      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+        builder: (BuildContext context) {
+          return HomeScreen();
+        },
+      ), (route) => false);
     }).catchError((e) {
       showFlashMsg(e.toString());
       print(e);
@@ -110,7 +112,7 @@ class _LoginScreenState extends BaseStatefulState<LoginScreen> {
                         "Email Or Mobile Number",
                         style: TextStyle(
                             color: Color(0xff747474),
-                            fontWeight: FontWeight.bold,fontFamily: 'Intro',
+                            fontWeight: FontWeight.bold,
                             fontSize: 12),
                       ),
                     ),
@@ -140,17 +142,17 @@ class _LoginScreenState extends BaseStatefulState<LoginScreen> {
                         "Password",
                         style: TextStyle(
                             color: Color(0xff747474),
-                            fontWeight: FontWeight.bold,fontFamily: 'Intro',
+                            fontWeight: FontWeight.bold,
                             fontSize: 12),
                       ),
                     ),
                     SizedBox(height: 12),
                     Container(
-                     // height: 40,
+                      // height: 40,
                       child: TextFormField(
                           decoration: InputDecoration(
-                            contentPadding:EdgeInsets.
-                                symmetric(vertical: 10, horizontal: 10),
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 10),
                             border: OutlineInputBorder(
                               borderSide: BorderSide(color: Color(0xffb0b0b0)),
                             ),
@@ -194,7 +196,10 @@ class _LoginScreenState extends BaseStatefulState<LoginScreen> {
                     child: Center(
                         child: Text(
                       "Sign In",
-                      style: TextStyle(fontSize: 20, fontFamily: 'Intro', fontWeight: FontWeight.w600, color: Colors.white),
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white),
                     )),
                   ),
                 ),
@@ -212,7 +217,7 @@ class _LoginScreenState extends BaseStatefulState<LoginScreen> {
                       "Forgot Password?",
                       style: TextStyle(
                           color: Color(0xff454545),
-                          fontWeight: FontWeight.bold,fontFamily: 'Intro',
+                          fontWeight: FontWeight.bold,
                           fontSize: 14),
                     ))),
                 Row(
@@ -220,9 +225,7 @@ class _LoginScreenState extends BaseStatefulState<LoginScreen> {
                   children: [
                     Text(
                       "Dont't have an account? ",
-                      style: TextStyle(fontSize: 14, 
-                      fontFamily: 'Intro',
-                      color: Color(0xff757575)),
+                      style: TextStyle(fontSize: 14, color: Color(0xff757575)),
                     ),
                     SizedBox(),
                     TextButton(
@@ -237,7 +240,7 @@ class _LoginScreenState extends BaseStatefulState<LoginScreen> {
                         style: TextStyle(
                             decoration: TextDecoration.underline,
                             fontSize: 16,
-                            fontWeight: FontWeight.bold,fontFamily: 'Intro',
+                            fontWeight: FontWeight.bold,
                             color: Color(0xffec3436)),
                       ),
                     ),

@@ -13,7 +13,7 @@ class _NetworkConnection implements NetworkConnection {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'https://dev.lenzcamera.com/api/api/v2/';
+    baseUrl ??= 'https://wpr.intertoons.net/lenzcameraapi/api/v2/';
   }
 
   final Dio _dio;

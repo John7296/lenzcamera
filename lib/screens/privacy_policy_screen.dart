@@ -17,29 +17,30 @@ class PrivacyPolicyScreen extends StatefulWidget {
 
 class _PrivacyPolicyScreenState extends BaseStatefulState<PrivacyPolicyScreen> {
   List<CompanyPolicy> companyPolicyList = [];
-  bool isLoading = false;
+  // bool isLoading = false;
 
   @override
   void initState() {
     super.initState();
-
+    // Future.delayed(Duration(milliseconds: 500), () {
     getPrivacyPolicy();
+    // });
   }
 
   void getPrivacyPolicy() {
-    showLoader();
+    // showLoader();
 
     NetworkManager.shared
         .getCompanyPolicy()
         .then((BaseResponse<List<CompanyPolicy>> response) {
-      hideLoader();
+      // hideLoader();
       setState(() {
-        isLoading = false;
+        // isLoading = false;
         companyPolicyList.clear();
         companyPolicyList.addAll(response.data!);
       });
     }).catchError((e) {
-      hideLoader();
+      // hideLoader();
       print(e.toString());
     });
   }
@@ -62,7 +63,7 @@ class _PrivacyPolicyScreenState extends BaseStatefulState<PrivacyPolicyScreen> {
         //     icon: Icon(Icons.shopping_cart),
         //   ),
         // ],
-        backgroundColor: kappBar,
+        backgroundColor: kappBarColor,
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
@@ -86,6 +87,7 @@ class _PrivacyPolicyScreenState extends BaseStatefulState<PrivacyPolicyScreen> {
               ],
             ),
           ),
+
           Padding(
             padding: const EdgeInsets.all(10),
             child: Text(companyPolicyList.first.value ?? ''),

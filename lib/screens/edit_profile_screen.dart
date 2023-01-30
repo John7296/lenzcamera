@@ -107,10 +107,10 @@ class _EditProfileScreen extends BaseStatefulState<EditProfileScreen> {
                             child: Padding(
                               padding: const EdgeInsets.only(bottom: 10),
                               child: Text(
-                                'User Name*',
+                                'UserName',
                                 style: TextStyle(
-                                    color: Colors.grey.shade600,
-                                    fontFamily: 'Intro'),
+                                  color: Colors.grey.shade600,
+                                ),
                               ),
                             )),
                         Container(
@@ -123,7 +123,7 @@ class _EditProfileScreen extends BaseStatefulState<EditProfileScreen> {
                                 ),
                             controller: _userNameController,
                             validator: (value) {
-                              if (value!.isEmpty) return "Enter UserNmae";
+                              if (value!.isEmpty) return "Enter UserName";
                               return null;
                             },
                           ),
@@ -135,8 +135,8 @@ class _EditProfileScreen extends BaseStatefulState<EditProfileScreen> {
                               padding: const EdgeInsets.only(bottom: 10),
                               child: Text('Email ID',
                                   style: TextStyle(
-                                      color: Colors.grey.shade600,
-                                      fontFamily: 'Intro')),
+                                    color: Colors.grey.shade600,
+                                  )),
                             )),
                         Container(
                           height: 60,
@@ -147,13 +147,16 @@ class _EditProfileScreen extends BaseStatefulState<EditProfileScreen> {
                                 // labelText: 'Mobile'
                                 ),
                             controller: _emailIdController,
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return "Enter Email";
-                                } if (!RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(value)){
-                                  return 'Enter valid Email';
-                                }
-                              },
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "Enter Email";
+                              }
+                              if (!RegExp(
+                                      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                  .hasMatch(value)) {
+                                return 'Enter valid Email';
+                              }
+                            },
                           ),
                         ),
                         SizedBox(height: 5),
@@ -163,8 +166,8 @@ class _EditProfileScreen extends BaseStatefulState<EditProfileScreen> {
                               padding: const EdgeInsets.only(bottom: 10),
                               child: Text('Mobile',
                                   style: TextStyle(
-                                      color: Colors.grey.shade600,
-                                      fontFamily: 'Intro')),
+                                    color: Colors.grey.shade600,
+                                  )),
                             )),
                         Container(
                           height: 60,
@@ -175,12 +178,12 @@ class _EditProfileScreen extends BaseStatefulState<EditProfileScreen> {
                                 // labelText: 'Mobile'
                                 ),
                             controller: _mobileController,
-                              validator: (value) {
+                            validator: (value) {
                               if (value!.isEmpty) {
                                 return 'Enter Mobile Number';
                               }
-                              if (value.length < 8) {
-                                return 'Enter valid phone number';
+                              if (value.length != 8) {
+                                return 'Enter Valid Phone Number';
                               }
                               return null;
                             },
@@ -199,14 +202,14 @@ class _EditProfileScreen extends BaseStatefulState<EditProfileScreen> {
                                 Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) =>
-                                            ProfileScreen()));
+                                        builder: (context) => ProfileScreen()));
                               }
                             },
                             child: Text(
                               'Update',
-                              style:
-                                  TextStyle(fontSize: 20, fontFamily: 'Intro'),
+                              style: TextStyle(
+                                fontSize: 20,
+                              ),
                             ),
                             style: ButtonStyle(
                               backgroundColor:

@@ -81,7 +81,9 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
         centerTitle: true,
         title: Text("Checkout"),
         titleTextStyle: TextStyle(
-            fontSize: 14, fontWeight: FontWeight.bold, fontFamily: 'Intro'),
+          fontSize: 14,
+          fontWeight: FontWeight.bold,
+        ),
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back_ios_new_sharp,
@@ -91,7 +93,7 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
             Navigator.pop(context);
           },
         ),
-        backgroundColor: kappBar,
+        backgroundColor: kappBarColor,
       ),
       body: Padding(
         padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
@@ -120,218 +122,15 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                       Icons.location_on,
                                       color: Color(0xff717171),
                                     ),
-                                    SizedBox(width: 5),
+                                    SizedBox(width: 10),
                                     Expanded(
                                         child: Text(
                                       "Delivery to",
                                       style: TextStyle(
-                                          color: Color(0xff717171),
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: 'Intro'),
-                                    )),
-                                    SizedBox(width: 150),
-                                    TextButton(
-                                      onPressed: () {
-                                      
-                                        showModalBottomSheet(
-                                            context: context,
-                                            builder: (BuildContext context) {
-                                              return Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Row(
-                                                      children: [
-                                                        Padding(
-                                                          padding: EdgeInsets
-                                                              .symmetric(
-                                                                  horizontal:
-                                                                      20.0),
-                                                          child: TextButton(
-                                                              onPressed: () {
-                                                                Navigator.push(
-                                                                    context,
-                                                                    MaterialPageRoute(
-                                                                        builder:
-                                                                            (context) =>
-                                                                                AddNewAddressScreen()));
-                                                              },
-                                                              child: Text(
-                                                                "+Add New Address",
-                                                                style: TextStyle(
-                                                                    color: Colors
-                                                                        .red,
-                                                                    fontSize:
-                                                                        14),
-                                                              )),
-                                                        ),
-                                                        SizedBox(
-                                                          width: 10,
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Divider(
-                                                      thickness: 2,
-                                                      indent: 10,
-                                                      endIndent: 10,
-                                                    ),
-                                                    Expanded(
-                                                      child: Container(
-                                                        height: 600,
-                                                        color: Colors
-                                                            .grey.shade100,
-                                                        child: ListView.builder(
-                                                            itemCount:
-                                                                addressList
-                                                                    .length,
-                                                            itemBuilder:
-                                                                (BuildContext
-                                                                        context,
-                                                                    int index) {
-                                                              return Padding(
-                                                                padding:
-                                                                    const EdgeInsets
-                                                                            .all(
-                                                                        8.0),
-                                                                child: InkWell(
-                                                                  onTap: () {
-                                                                    selectedShippingAddress =
-                                                                        addressList[
-                                                                            index];
-                                                                    Navigator.pop(
-                                                                        context);
-                                                                  },
-                                                                  child:
-                                                                      Container(
-                                                                    height: 100,
-                                                                    width: 400,
-                                                                    decoration:
-                                                                        BoxDecoration(
-                                                                      color: Colors
-                                                                          .white,
-                                                                      borderRadius:
-                                                                          BorderRadius.all(
-                                                                              Radius.circular(5)),
-                                                                    ),
-                                                                    child: Row(
-                                                                      children: [
-                                                                        Padding(
-                                                                          padding:
-                                                                              const EdgeInsets.all(10),
-                                                                          child:
-                                                                              Column(
-                                                                            crossAxisAlignment:
-                                                                                CrossAxisAlignment.start,
-                                                                            children: [
-                                                                              Text(addressList[index].firstName ?? ''),
-                                                                              Text(addressList[index].lastName ?? ''),
-                                                                              Text(addressList[index].addLine1 ?? ''),
-                                                                              Text(addressList[index].addLine2 ?? ''),
-                                                                              Text(addressList[index].country ?? ''),
-                                                                            ],
-                                                                          ),
-                                                                        ),
-                                                                        // Spacer(),
-                                                                        // Column(
-                                                                        //   children: [
-                                                                        //     IconButton(
-                                                                        //       onPressed: () {
-                                                                        //         Navigator.push(context, MaterialPageRoute(builder: (context) => AddNewAddressScreen()));
-                                                                        //       },
-                                                                        //       icon: Icon(Icons.draw, color: Colors.grey),
-                                                                        //     ),
-                                                                        //     IconButton(
-                                                                        //       onPressed: () {
-                                                                        //         // deleteAddress(addressList[index]);
-                                                                        //       },
-                                                                        //       icon: Icon(Icons.delete_outline, color: Colors.red),
-                                                                        //     ),
-                                                                        //   ],
-                                                                        // )
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              );
-                                                            }),
-                                                      ),
-                                                    )
-                                                  ]);
-                                            }).then((value) {
-                                         
-                                        });
-                                      },
-                                      child: Text(
-                                        "CHANGE",
-                                        style: TextStyle(
-                                          color: Colors.red,
-                                        ),
+                                        color: Color(0xff717171),
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold,
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 44),
-                                child: Text(
-                                  selectedShippingAddress?.addLine1 ?? '',
-                                  style: TextStyle(
-                                      color: Color(0xff717171),
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: 'Intro'),
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 44, top: 5),
-                                child: Text(
-                                  selectedShippingAddress?.addLine2 ?? '',
-                                  style: TextStyle(
-                                      color: Color(0xff717171), fontSize: 12),
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 44, top: 5),
-                                child: Text(
-                                  addressList.first.country ?? '',
-                                  style: TextStyle(
-                                      color: Color(0xff717171), fontSize: 12),
-                                ),
-                              ),
-                            ]),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Card(
-                      elevation: 2,
-                      child: Container(
-                        height: 130,
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 10, top: 10, right: 20),
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      Icons.location_on,
-                                      color: Color(0xff717171),
-                                    ),
-                                    SizedBox(width: 10),
-                                    Expanded(
-                                        child: Text(
-                                      "Billing to",
-                                      style: TextStyle(
-                                          color: Color(0xff717171),
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: 'Intro'),
                                     )),
                                     SizedBox(width: 150),
                                     TextButton(
@@ -471,6 +270,7 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                         ),
                                       ),
                                     ),
+                                  
                                   ],
                                 ),
                               ),
@@ -479,10 +279,10 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                 child: Text(
                                   selectedBillingAddress?.firstName ?? '',
                                   style: TextStyle(
-                                      color: Color(0xff717171),
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: 'Intro'),
+                                    color: Color(0xff717171),
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
                               Padding(
@@ -506,6 +306,211 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                             ]),
                       ),
                     ),
+                    
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Card(
+                      elevation: 2,
+                      child: Container(
+                        height: 130,
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 10, top: 10, right: 20),
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.location_on,
+                                      color: Color(0xff717171),
+                                    ),
+                                    SizedBox(width: 10),
+                                    Expanded(
+                                        child: Text(
+                                      "Billing to",
+                                      style: TextStyle(
+                                        color: Color(0xff717171),
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    )),
+                                    SizedBox(width: 150),
+                                    TextButton(
+                                      onPressed: () {
+                                        showModalBottomSheet(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Row(
+                                                      children: [
+                                                        Padding(
+                                                          padding: EdgeInsets
+                                                              .symmetric(
+                                                                  horizontal:
+                                                                      20.0),
+                                                          child: TextButton(
+                                                              onPressed: () {
+                                                                Navigator.push(
+                                                                    context,
+                                                                    MaterialPageRoute(
+                                                                        builder:
+                                                                            (context) =>
+                                                                                AddNewAddressScreen()));
+                                                              },
+                                                              child: Text(
+                                                                "+Add New Address",
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .red,
+                                                                    fontSize:
+                                                                        14),
+                                                              )),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 10,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    Divider(
+                                                      thickness: 2,
+                                                      indent: 10,
+                                                      endIndent: 10,
+                                                    ),
+                                                    Expanded(
+                                                      child: Container(
+                                                        height: 600,
+                                                        color: Colors
+                                                            .grey.shade100,
+                                                        child: ListView.builder(
+                                                            itemCount:
+                                                                addressList
+                                                                    .length,
+                                                            itemBuilder:
+                                                                (BuildContext
+                                                                        context,
+                                                                    int index) {
+                                                              return Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .all(
+                                                                        8.0),
+                                                                child: InkWell(
+                                                                  onTap: () {
+                                                                    selectedBillingAddress =
+                                                                        addressList[
+                                                                            index];
+                                                                    Navigator.pop(
+                                                                        context);
+                                                                  },
+                                                                  child:
+                                                                      Container(
+                                                                    height: 100,
+                                                                    width: 400,
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      color: Colors
+                                                                          .white,
+                                                                      borderRadius:
+                                                                          BorderRadius.all(
+                                                                              Radius.circular(5)),
+                                                                    ),
+                                                                    child: Row(
+                                                                      children: [
+                                                                        Padding(
+                                                                          padding:
+                                                                              const EdgeInsets.all(10),
+                                                                          child:
+                                                                              Column(
+                                                                            crossAxisAlignment:
+                                                                                CrossAxisAlignment.start,
+                                                                            children: [
+                                                                              Text(addressList[index].firstName ?? ''),
+                                                                              Text(addressList[index].lastName ?? ''),
+                                                                              Text(addressList[index].addLine1 ?? ''),
+                                                                              Text(addressList[index].addLine2 ?? ''),
+                                                                              Text(addressList[index].country ?? ''),
+                                                                            ],
+                                                                          ),
+                                                                        ),
+                                                                        // Spacer(),
+                                                                        // Column(
+                                                                        //   children: [
+                                                                        //     IconButton(
+                                                                        //       onPressed: () {
+                                                                        //         Navigator.push(context, MaterialPageRoute(builder: (context) => AddNewAddressScreen()));
+                                                                        //       },
+                                                                        //       icon: Icon(Icons.draw, color: Colors.grey),
+                                                                        //     ),
+                                                                        //     IconButton(
+                                                                        //       onPressed: () {
+                                                                        //         // deleteAddress(addressList[index]);
+                                                                        //       },
+                                                                        //       icon: Icon(Icons.delete_outline, color: Colors.red),
+                                                                        //     ),
+                                                                        //   ],
+                                                                        // )
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              );
+                                                            }),
+                                                      ),
+                                                    )
+                                                  ]);
+                                            }).then((value) {
+                                          setState(() {});
+                                        });
+                                      },
+                                      child: Text(
+                                        "CHANGE",
+                                        style: TextStyle(
+                                          color: Colors.red,
+                                        ),
+                                      ),
+                                    ),
+                                  
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 44),
+                                child: Text(
+                                  selectedBillingAddress?.firstName ?? '',
+                                  style: TextStyle(
+                                    color: Color(0xff717171),
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 44, top: 5),
+                                child: Text(
+                                  selectedBillingAddress?.addLine2 ?? '',
+                                  style: TextStyle(
+                                      color: Color(0xff717171), fontSize: 12),
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 44, top: 5),
+                                child: Text(
+                                  addressList.first.country ?? '',
+                                  style: TextStyle(
+                                      color: Color(0xff717171), fontSize: 12),
+                                ),
+                              ),
+                            ]),
+                      ),
+                    ),
+                    
                     SizedBox(
                       height: 10,
                     ),
@@ -559,10 +564,10 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                   Text(
                                     "Choose Payment",
                                     style: TextStyle(
-                                        color: Color(0xff717171),
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: 'Intro'),
+                                      color: Color(0xff717171),
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                   SizedBox(width: 10),
                                 ],
@@ -578,9 +583,9 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                               BorderRadius.circular(15)),
                                       value: cod,
                                       onChanged: (value) {
-                                        setState(() {
-                                          cod = false;
-                                        });
+                                        // setState(() {
+                                          cod = true;
+                                        // });
                                       },
                                       activeColor: Colors.red,
                                       checkColor: Colors.white,
@@ -622,10 +627,10 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                   Text(
                                     "Cart Summary",
                                     style: TextStyle(
-                                        color: Color(0xff717171),
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: 'Intro'),
+                                      color: Color(0xff717171),
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                   SizedBox(width: 10),
                                 ],
@@ -639,10 +644,10 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                         child: Text(
                                       "Subtotal: ",
                                       style: TextStyle(
-                                          color: Color(0xff717171),
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: 'Intro'),
+                                        color: Color(0xff717171),
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     )),
 
                                     //  SizedBox(width: 160),
@@ -650,10 +655,10 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                       // "",
                                       "QAR ${widget.subTotal}",
                                       style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: 'Intro'),
+                                        color: Colors.black,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -674,10 +679,10 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                         child: Text(
                                       "Total ",
                                       style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: 'Intro'),
+                                        color: Colors.black,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     )),
 
                                     //  SizedBox(width: 175),
@@ -685,10 +690,10 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                       "QAR ${widget.grandTotal}",
                                       // "",
                                       style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: 'Intro'),
+                                        color: Colors.black,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -709,7 +714,7 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                     Card(
                       elevation: 2,
                       child: Container(
-                        height: 170,
+                        height: 200,
                         child: Column(
                           children: [
                             Padding(
@@ -720,14 +725,14 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                   SizedBox(width: 10),
                                   Text("Order Note",
                                       style: TextStyle(
-                                          color: Color(0xff717171),
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: 'Intro'))
+                                        color: Color(0xff717171),
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold,
+                                      ))
                                 ],
                               ),
                             ),
-                            SizedBox(height: 50),
+                            SizedBox(height: 10),
                             Padding(
                               padding: const EdgeInsets.only(left: 10),
                               child: TextField(
@@ -769,7 +774,9 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                       child: Text(
                     "PLACE ORDER",
                     style: TextStyle(
-                        fontSize: 16, color: Colors.white, fontFamily: 'Intro'),
+                      fontSize: 16,
+                      color: Colors.white,
+                    ),
                   )),
                 ),
               ),

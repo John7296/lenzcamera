@@ -41,9 +41,7 @@ class _CategoryScreenState extends BaseStatefulState<CategoryScreen> {
     Future.delayed(Duration(milliseconds: 500), () {
       getSubCategories(0);
       getCategories();
-       
     });
-   
   }
 
   void getCategories() {
@@ -51,7 +49,6 @@ class _CategoryScreenState extends BaseStatefulState<CategoryScreen> {
     NetworkManager.shared
         .getTopCategories()
         .then((BaseResponse<List<TopCategories>> response) {
-          
       // hideLoader();
       mainCategoryList.clear();
       // levelTwoList.clear();
@@ -103,9 +100,9 @@ class _CategoryScreenState extends BaseStatefulState<CategoryScreen> {
             child: Text(
               'Category',
               style: TextStyle(
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'Intro'),
+                fontSize: kappBarColorFontSize.sp,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
           actions: [
@@ -113,11 +110,11 @@ class _CategoryScreenState extends BaseStatefulState<CategoryScreen> {
               children: [
                 IconButton(
                   onPressed: () {
-                    Future.delayed(Duration(milliseconds: 500), () {
-                      getCategories();
-                    });
-                    // Navigator.push(context,
-                    //     MaterialPageRoute(builder: (context) => CartScreen()));
+                    // Future.delayed(Duration(milliseconds: 500), () {
+                    //   getCategories();
+                    // });
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => CartScreen()));
                     // getBanners();
                   },
                   icon: Icon(Icons.shopping_cart),
@@ -128,21 +125,21 @@ class _CategoryScreenState extends BaseStatefulState<CategoryScreen> {
                     top: 5,
                     child: CircleAvatar(
                       backgroundColor: Colors.red,
-                    radius: 8,
-                    child: Text(
-                      DataManager.shared.cartItemsList.length.toString(),
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 10,
+                      radius: 8,
+                      child: Text(
+                        DataManager.shared.cartItemsList.length.toString(),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 10,
+                        ),
+                        textAlign: TextAlign.center,
                       ),
-                      textAlign: TextAlign.center,
                     ),
-                  ),
                   )
               ],
             ),
           ],
-          backgroundColor: kappBar,
+          backgroundColor: kappBarColor,
           leading: IconButton(
             onPressed: () {
               // getCategories();
@@ -214,9 +211,7 @@ class _CategoryScreenState extends BaseStatefulState<CategoryScreen> {
                                         Text(
                                           mainCategoryList[index].catName,
                                           maxLines: 2,
-                                          style: TextStyle(
-                                              fontFamily: 'Intro',
-                                              fontSize: 10.sp),
+                                          style: TextStyle(fontSize: 10.sp),
                                           textAlign: TextAlign.center,
                                         ),
                                       ],
@@ -258,13 +253,12 @@ class _CategoryScreenState extends BaseStatefulState<CategoryScreen> {
                                 itemBuilder: (context, index) {
                                   return InkWell(
                                     onTap: (() {
-                                    
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
                                                   SearchScreenCat()));
-                                                    NetworkManager.shared.catUrlKey =
+                                      NetworkManager.shared.catUrlKey =
                                           subCategoryList[index].catUrlKey;
                                     }),
                                     child: Card(

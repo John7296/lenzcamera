@@ -58,7 +58,7 @@ class _LocationSelectScreenState extends State<LocationSelectScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: kappBar,
+        backgroundColor: kappBarColor,
         title: Text(widget.title ?? ''),
       ),
       body: SingleChildScrollView(

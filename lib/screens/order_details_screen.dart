@@ -94,8 +94,7 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
           padding: const EdgeInsets.only(left: 50),
           child: Text(
             'Orders Details',
-            style: TextStyle(
-                fontFamily: 'Intro', fontWeight: FontWeight.bold, fontSize: 15),
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
           ),
         ),
         actions: [
@@ -108,7 +107,7 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
             icon: Icon(Icons.shopping_cart),
           ),
         ],
-        backgroundColor: kappBar,
+        backgroundColor: kappBarColor,
         leading: IconButton(
           onPressed: () {
             Navigator.push(context,
@@ -147,16 +146,15 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
                           Text(
                             'ORDER DETAILS',
                             style: TextStyle(
-                                color: Colors.red,
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'Intro'),
+                              color: Colors.red,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                           Spacer(),
                           Text(
                             "#: ${widget.orderList.orderNumber ?? ''}",
                             style: TextStyle(
                                 fontSize: 12,
-                                fontFamily: 'Intro',
                                 color: Colors.grey,
                                 fontWeight: FontWeight.bold),
                           ),
@@ -173,7 +171,6 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
                             'Status:${widget.orderList.status}',
                             style: TextStyle(
                                 fontSize: 12,
-                                fontFamily: 'Intro',
                                 fontWeight: FontWeight.bold,
                                 color: Colors.grey),
                           ),
@@ -319,7 +316,6 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
                                                     .toStringAsFixed(0),
                                             style: TextStyle(
                                                 fontSize: 20,
-                                                fontFamily: 'Intro',
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors.grey),
                                           ))
@@ -371,7 +367,6 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
                           Text('Sub Total:',
                               style: TextStyle(
                                   fontSize: 12,
-                                  fontFamily: 'Intro',
                                   color: Colors.grey,
                                   fontWeight: FontWeight.bold)),
                           Spacer(),
@@ -379,7 +374,6 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
                               // 'QAR ${singleItemList.first.itemTotal.toString()}',
                               style: TextStyle(
                                   fontSize: 12,
-                                  fontFamily: 'Intro',
                                   color: Colors.grey,
                                   fontWeight: FontWeight.bold)),
                         ],
@@ -393,7 +387,6 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
                           Text('Shipping(+):',
                               style: TextStyle(
                                   fontSize: 12,
-                                  fontFamily: 'Intro',
                                   color: Colors.grey,
                                   fontWeight: FontWeight.bold)),
                           Spacer(),
@@ -401,7 +394,6 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
                               // 'QAR ${widget.orderList.}',
                               style: TextStyle(
                                   fontSize: 12,
-                                  fontFamily: 'Intro',
                                   color: Colors.grey,
                                   fontWeight: FontWeight.bold)),
                         ],
@@ -422,7 +414,6 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
                           Text(
                             'Order Total:',
                             style: TextStyle(
-                                fontFamily: 'Intro',
                                 color: Colors.grey,
                                 fontWeight: FontWeight.bold),
                           ),
@@ -431,9 +422,7 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
                             "QAR ${widget.orderList.orderAmount}",
                             // 'QAR ${singleItemList.first.itemTotal.toString()}',
                             style: TextStyle(
-                                color: Colors.red,
-                                fontFamily: 'Intro',
-                                fontWeight: FontWeight.bold),
+                                color: Colors.red, fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),

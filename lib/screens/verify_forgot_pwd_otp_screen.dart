@@ -10,23 +10,22 @@ import 'package:lenzcamera/screens/reset_password_screen.dart';
 import 'package:lenzcamera/utils/constants.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-class VerifyForgotPwddOtpScreen extends StatefulWidget{
-
+class VerifyForgotPwddOtpScreen extends StatefulWidget {
 // BaseResponse? response;
 //  verifyForgotPwddOtpScreen(this.response);
-VerifyForgotPwddOtpScreen(this.data);
-String data;
+  VerifyForgotPwddOtpScreen(this.data);
+  String data;
 
   @override
-  State<VerifyForgotPwddOtpScreen> createState() => _VerifyForgotPwddOtpScreenState();
+  State<VerifyForgotPwddOtpScreen> createState() =>
+      _VerifyForgotPwddOtpScreenState();
 }
 
 class _VerifyForgotPwddOtpScreenState extends State<VerifyForgotPwddOtpScreen> {
+  final _otpController = TextEditingController();
+  bool emailSent = false;
 
-    final _otpController = TextEditingController();
-     bool emailSent = false;
-     
- void showFlashMsg(String msg, {Color color = const Color(0xFF272532)}) {
+  void showFlashMsg(String msg, {Color color = const Color(0xFF272532)}) {
     showFlash(
       context: context,
       duration: const Duration(seconds: 4),
@@ -36,11 +35,11 @@ class _VerifyForgotPwddOtpScreenState extends State<VerifyForgotPwddOtpScreen> {
           behavior: FlashBehavior.floating,
           position: FlashPosition.bottom,
           boxShadows: kElevationToShadow[2],
-         // backgroundColor: Colors.grey,
+          // backgroundColor: Colors.grey,
           reverseAnimationCurve: Curves.easeInCirc,
           forwardAnimationCurve: Curves.easeInOutBack,
           margin: const EdgeInsets.all(8.0),
-          borderRadius: BorderRadius.circular(6.0),    
+          borderRadius: BorderRadius.circular(6.0),
           horizontalDismissDirection: HorizontalDismissDirection.horizontal,
           child: FlashBar(
             content: Text(
@@ -52,26 +51,28 @@ class _VerifyForgotPwddOtpScreenState extends State<VerifyForgotPwddOtpScreen> {
       },
     );
   }
-    
+
   void verifyForgotPasswordOtp() {
     NetworkManager.shared.verifyForgotPasswordOTP(<String, dynamic>{
       "OTP": _otpController.text,
-      "OtpUrlKey":widget.data,
+      "OtpUrlKey": widget.data,
     }).then((BaseResponse response) {
       print("-----------------");
       print(_otpController.text);
       showFlashMsg(response.message!);
-      Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (context) => ResetPasswordScreen(response.data!)));
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) => ResetPasswordScreen(response.data!)));
     }).catchError((e) {
-
       showFlashMsg(e.toString());
       print(e);
       showFlashMsg(e.Message!);
     });
   }
+
   @override
- Widget build(BuildContext context) {
+  Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -85,11 +86,11 @@ class _VerifyForgotPwddOtpScreenState extends State<VerifyForgotPwddOtpScreen> {
               color: Colors.white,
             ),
             onPressed: () {
-             Navigator.push(context,
-          MaterialPageRoute(builder: (context) => LoginScreen()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => LoginScreen()));
             },
           ),
-          backgroundColor: kappBar,
+          backgroundColor: kappBarColor,
         ),
         body: Padding(
           padding: const EdgeInsets.only(left: 24, right: 24),
@@ -105,7 +106,6 @@ class _VerifyForgotPwddOtpScreenState extends State<VerifyForgotPwddOtpScreen> {
                               AssetImage("assets/images/logo_lenzcamera.png"))),
                 ),
                 SizedBox(height: 50),
-
                 PinCodeTextField(
                     appContext: context,
                     pastedTextStyle: TextStyle(
@@ -132,7 +132,6 @@ class _VerifyForgotPwddOtpScreenState extends State<VerifyForgotPwddOtpScreen> {
                       }
                       return null;
                     }),
-               
                 SizedBox(height: 35),
                 Container(
                   height: 40,
@@ -141,13 +140,15 @@ class _VerifyForgotPwddOtpScreenState extends State<VerifyForgotPwddOtpScreen> {
                       backgroundColor: Color(0xffec3436),
                     ),
                     onPressed: () {
-                      
                       verifyForgotPasswordOtp();
                     },
                     child: Center(
                         child: Text(
                       "Submit OTP",
-                      style: TextStyle(fontSize: 20, fontFamily: 'Intro', fontWeight: FontWeight.w600, color: Colors.white),
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white),
                     )),
                   ),
                 ),

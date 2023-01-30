@@ -45,9 +45,13 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
     )
         .then((BaseResponse<CartResponse> response) {
       hideLoader();
+      // showFlashMsg(response.message.toString());
       setState(() {
         cartItemsList.clear();
-        cartItemsList.addAll(response.data!.cartItems!);
+        if (response.data!.cartItems!.isNotEmpty) {
+          cartItemsList.addAll(response.data!.cartItems!);
+        }
+
         if (response.data!.cartItems!.first.subTotal != null) {
           subtotal = response.data!.cartItems!.first.subTotal;
         }
@@ -64,7 +68,7 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
         print(grandtotal.toString());
       });
     }).catchError((e) {
-      showFlashMsg('Your Cart Is Empty');
+      showFlashMsg(e.toString());
       hideLoader();
       print(e.toString());
     });
@@ -78,18 +82,21 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
         centerTitle: true,
         title: Text("Cart"),
         titleTextStyle: TextStyle(
-            fontSize: 14.sp, fontWeight: FontWeight.bold, fontFamily: 'Intro'),
+          fontSize: 14.sp,
+          fontWeight: FontWeight.bold,
+        ),
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back_ios_new_sharp,
             color: Colors.white,
           ),
           onPressed: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => HomeScreen()));
+            // Navigator.push(
+            //     context, MaterialPageRoute(builder: (context) => HomeScreen()));
+            Navigator.of(context).pop();
           },
         ),
-        backgroundColor: kappBar,
+        backgroundColor: kappBarColor,
       ),
       body: (cartItemsList.isNotEmpty)
           ? Column(
@@ -165,9 +172,9 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                                                 cartItemsList[index].prName ??
                                                     '',
                                                 style: TextStyle(
-                                                    fontSize: 10.sp,
-                                                    // fontWeight: FontWeight.bold,
-                                                    fontFamily: 'Intro'),
+                                                  fontSize: 10.sp,
+                                                  // fontWeight: FontWeight.bold,
+                                                ),
                                                 maxLines: 2,
                                               ),
                                             ),
@@ -180,7 +187,6 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                                               "QAR${cartItemsList[index].unitPrice}",
                                               style: TextStyle(
                                                   fontWeight: FontWeight.bold,
-                                                  fontFamily: 'Intro',
                                                   color: Colors.grey),
                                             ),
                                           ),
@@ -227,11 +233,17 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                                                               .removeFromCart(
                                                                   cartItemsList[
                                                                       index]);
+                                                          Navigator.push(
+                                                              context,
+                                                              MaterialPageRoute(
+                                                                  builder:
+                                                                      (context) =>
+                                                                          CartScreen()));
+                                                          // Navigator.pop(
+                                                          // context);
+                                                          // showFlashMsg(
+                                                          //     "Item Removed Successfully");
                                                           getCart();
-                                                          Navigator.pop(
-                                                              context);
-                                                          showFlashMsg(
-                                                              "Item Removed Successfully");
                                                         },
                                                         style: ButtonStyle(
                                                             backgroundColor:
@@ -346,7 +358,10 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                                                               setState(() {});
                                                             },
                                                           );
-                                                          getCart();
+
+                                                          setState(() {
+                                                            getCart();
+                                                          });
                                                         },
                                                         child: Container(
                                                             width: 30,
@@ -413,9 +428,9 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                                   child: Text(
                                 "Subtotal: ",
                                 style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: 'Intro'),
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               )),
                               // SizedBox(
                               //   width: 220,
@@ -424,9 +439,9 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                                 Text(
                                   "QAR ${subtotal.toString()}",
                                   style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: 'Intro'),
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                             ],
                           ),
@@ -440,9 +455,9 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                                   child: Text(
                                 "Delivery: ",
                                 style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: 'Intro'),
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               )),
                               //  SizedBox(
                               //           width: 240,
@@ -451,9 +466,9 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                                 Text(
                                   "QAR ${deliveryamount.toString()}",
                                   style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: 'Intro'),
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                             ],
                           ),
@@ -502,18 +517,18 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                             child: Text(
                           "Total: ",
                           style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'Intro'),
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                          ),
                         )),
                         if (cartItemsList.isNotEmpty)
                           Text(
                             // "",
                             "QAR ${grandtotal.toString()}",
                             style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                fontFamily: 'Intro'),
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                       ]),
                     ),
@@ -545,9 +560,9 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                           child: Text(
                         "PROCEED TO CHECKOUT",
                         style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.white,
-                            fontFamily: 'Intro'),
+                          fontSize: 20,
+                          color: Colors.white,
+                        ),
                       )),
                     ),
                   ),

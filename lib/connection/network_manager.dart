@@ -300,18 +300,24 @@ class NetworkManager {
 
             if (error.response?.statusCode == 401 ||
                 error.response?.statusCode == 400) {
-              if (error.response!.data["Data"] is Iterable) {
-                for (Map m in error.response!.data["Data"]) {
-                  _errorMessage = _errorMessage + m["Message"] + "\n";
+              if (error.response!.data["data"] is Iterable) {
+                for (Map m in error.response!.data["data"]) {
+                  _errorMessage = _errorMessage + m["message"] + "\n";
                 }
               } else {
-                _errorMessage = "${error.response!.data["Message"] ?? ""}";
+                _errorMessage = "${error.response!.data["message"] ?? ""}";
               }
               _errorMessage = _errorMessage.trim() == ""
                   ? "Unknown error"
                   : _errorMessage.trim();
               throw (_errorMessage);
             }
+
+            // if (error.response!.statusCode == 400 ||
+            //     error.response!.data["data"] == null) {
+            //   _errorMessage = error.response!.data["message"];
+            //   print(error.response!.data["data"]);
+            // }
 
             if (error.response?.statusCode == 500) {
               try {
@@ -324,7 +330,6 @@ class NetworkManager {
                 }
               } catch (e) {}
             }
-
             _errorMessage = "${error.response!.data["message"] ?? ""}";
 
             error.response!.data["errors"]?.forEach((k, v) {

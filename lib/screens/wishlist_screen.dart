@@ -11,7 +11,7 @@ import 'package:lenzcamera/screens/cart_screen.dart';
 import 'package:lenzcamera/screens/home_screen.dart';
 import 'package:lenzcamera/screens/search_screen.dart';
 import 'package:lenzcamera/utils/constants.dart';
-import 'package:lenzcamera/widgets/wishlist_item_widget.dart';
+import 'package:lenzcamera/widgets/appbar_notification_widget.dart';
 
 import 'package:sizer/sizer.dart';
 
@@ -63,25 +63,28 @@ class _WishlistScreenState extends BaseStatefulState<WishlistScreen> {
     )
         .then((BaseResponse response) {
       // DataManager.shared.getWishList();
+      showFlashMsg(response.message.toString());
       NetworkManager.shared
           .getWishList()
           .then((BaseResponse<List<Product>> response) {
         hideLoader();
+        // showFlashMsg(response.message.toString());
         // print(response.data);
         setState(() {
           wishListItems.clear();
           wishListItems.addAll(response.data!);
-          print("length${wishListItems.length}");
+          // print("length${wishListItems.length}");
         });
         hideLoader();
       }).catchError((e) {
-        showFlashMsg('No Items in your wishlist');
-        // hideLoader();
-        print(e.toString());
+        showFlashMsg(e.toString());
+        hideLoader();
+        print("error1${e.toString()}");
       });
     }).catchError((e) {
+      showFlashMsg(e.toString());
       hideLoader();
-      print(e.toString());
+      print("error2 ${e.toString()}");
     });
   }
 
@@ -93,7 +96,10 @@ class _WishlistScreenState extends BaseStatefulState<WishlistScreen> {
           padding: const EdgeInsets.only(left: 80),
           child: Text(
             'Wishlist',
-            style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold,fontFamily: 'Intro'),
+            style: TextStyle(
+              fontSize: 14.sp,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
         actions: [
@@ -108,6 +114,9 @@ class _WishlistScreenState extends BaseStatefulState<WishlistScreen> {
             children: [
               IconButton(
                 onPressed: () {
+                  // Future.delayed(Duration(milliseconds: 500), () {
+                  //   getCategories();
+                  // });
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => CartScreen()));
                   // getBanners();
@@ -118,16 +127,9 @@ class _WishlistScreenState extends BaseStatefulState<WishlistScreen> {
                 Positioned(
                   right: 5,
                   top: 5,
-                  child: new Container(
-                    padding: EdgeInsets.all(2),
-                    decoration: new BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    constraints: BoxConstraints(
-                      minWidth: 14,
-                      minHeight: 14,
-                    ),
+                  child: CircleAvatar(
+                    backgroundColor: Colors.red,
+                    radius: 8,
                     child: Text(
                       DataManager.shared.cartItemsList.length.toString(),
                       style: TextStyle(
@@ -141,7 +143,7 @@ class _WishlistScreenState extends BaseStatefulState<WishlistScreen> {
             ],
           ),
         ],
-        backgroundColor: kappBar,
+        backgroundColor: kappBarColor,
         leading: IconButton(
           onPressed: () {
             Navigator.push(
@@ -210,7 +212,7 @@ class _WishlistScreenState extends BaseStatefulState<WishlistScreen> {
                                   child: Text(
                                     // 'CANON EF 16-35 MM F/4L IS USM',
                                     wishListItems[index].prName ?? '',
-                                    style: TextStyle(fontFamily: 'Intro'),
+                                    style: TextStyle(),
                                     maxLines: 2,
                                   ),
                                 ),
@@ -272,12 +274,17 @@ class _WishlistScreenState extends BaseStatefulState<WishlistScreen> {
               padding: EdgeInsets.symmetric(vertical: 2.h, horizontal: 5.w),
               // all(13.0)
             )
-          : Container(
-              height: 600,
-              // width: 200,
-              child: Image(
-                image: AssetImage("assets/images/empty_wishlist.png"),
-              ),
+          : Column(
+              children: [
+                Container(
+                  height: 600,
+                  // width: 200,
+                  child: Image(
+                    image: AssetImage("assets/images/empty_wishlist.png"),
+                  ),
+                ),
+                Text("Your Wishlist is currently empty...!")
+              ],
             ),
     );
   }

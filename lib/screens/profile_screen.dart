@@ -19,6 +19,8 @@ import 'package:lenzcamera/screens/home_screen.dart';
 import 'package:lenzcamera/screens/order_screen.dart';
 import 'package:lenzcamera/screens/wishlist_screen.dart';
 import 'package:lenzcamera/utils/constants.dart';
+import 'package:lenzcamera/widgets/appbar_notification_widget.dart';
+import 'package:lenzcamera/widgets/profile_page_widget.dart';
 import 'package:sizer/sizer.dart';
 
 import 'package:sizer/sizer.dart';
@@ -48,6 +50,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
 
     NetworkManager.shared.getProfile().then((BaseResponse<Profile> response) {
       hideLoader();
+      // showFlashMsg(response.message!);
       setState(() {
         userProfile = response.data;
       });
@@ -60,504 +63,167 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: Scaffold(
-          appBar: AppBar(
-            centerTitle: true,
-            title: Text("My Profile"),
-            titleTextStyle: TextStyle(
-                fontSize: 14.sp,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'Intro'),
-            leading: IconButton(
-              icon: const Icon(
-                Icons.arrow_back_ios_new_sharp,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => HomeScreen()));
-              },
-            ),
-            backgroundColor: kappBar,
-            actions: [
-              Stack(
-                children: [
-                  IconButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => WishlistScreen()));
-                      // getBanners();
-                    },
-                    icon: Icon(Icons.favorite_border),
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text("My Profile"),
+        titleTextStyle: TextStyle(
+          fontSize: kappBarColorFontSize.sp,
+          fontWeight: FontWeight.bold,
+        ),
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back_ios_new_sharp,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => HomeScreen()));
+          },
+        ),
+        backgroundColor: kappBarColor,
+        actions: [
+          AppBarNotificationWidget(),
+        ],
+      ),
+      backgroundColor: Colors.grey.shade100,
+      body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Container(
+          // color: Colors.amber,
+          // height: 250,
+          height: 36.h,
+          width: MediaQuery.of(context).size.width,
+          child: Column(
+            children: [
+              Container(
+                margin: EdgeInsets.fromLTRB(120, 43, 120, 10),
+                decoration: BoxDecoration(
+                  border: Border.all(width: 5, color: Colors.black),
+                  borderRadius: BorderRadius.all(Radius.circular(45)),
+                ),
+                child: Container(
+                  height: 150,
+                  width: 200,
+                  child: Icon(
+                    Icons.person_outline,
+                    size: 100,
                   ),
-                  if (DataManager.shared.wishListItems.isNotEmpty)
-                    Positioned(
-                      right: 5,
-                      top: 5,
-                      child: CircleAvatar(
-                        backgroundColor: Colors.red,
-                        radius: 8,
-                        child: Text(
-                          DataManager.shared.wishListItems.length.toString(),
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 10,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    )
-                ],
+                ),
               ),
-              Stack(
-                children: [
-                  IconButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => CartScreen()));
-                      // getBanners();
-                    },
-                    icon: Icon(Icons.shopping_cart),
-                  ),
-                  if (DataManager.shared.cartItemsList.isNotEmpty)
-                    Positioned(
-                      right: 5,
-                      top: 5,
-                      child: CircleAvatar(
-                        backgroundColor: Colors.red,
-                        radius: 8,
-                        child: Text(
-                          DataManager.shared.cartItemsList.length.toString(),
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 10,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    )
-                ],
+              Text(
+                userProfile?.custName ?? '',
+                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 10.sp),
+              ),
+              Text(
+                userProfile?.emailId ?? '',
+                style: TextStyle(
+                    color: Colors.red,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 10.sp),
               ),
             ],
           ),
-          backgroundColor: Colors.grey.shade100,
-          body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Container(
-              // color: Colors.amber,
-              // height: 250,
-              height: 36.h,
-              width: MediaQuery.of(context).size.width,
-              child: Column(
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        Expanded(
+          child: Container(
+              height: 600,
+              color: Colors.grey.shade100,
+              child: ListView(
                 children: [
-                  Container(
-                    margin: EdgeInsets.fromLTRB(120, 43, 120, 10),
-                    decoration: BoxDecoration(
-                      border: Border.all(width: 5, color: Colors.black),
-                      borderRadius: BorderRadius.all(Radius.circular(45)),
-                    ),
-                    child: Container(
-                      height: 150,
-                      width: 200,
-                      child: Icon(
-                        Icons.person_outline,
-                        size: 100,
-                      ),
-                    ),
+                  InkWell(
+                      onTap: (() {
+                        Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => EditProfileScreen()))
+                            .then(((value) {
+                          setState(() {});
+                        }));
+                      }),
+                      child: ProfilePageWidget('Personal',
+                          'Profile, phone, email', Icon(Icons.person))),
+                  SizedBox(
+                    height: 10,
                   ),
-                  Text(
-                    userProfile?.custName ?? '',
-                    style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontFamily: 'Intro',
-                        fontSize: 10.sp),
+                  InkWell(
+                      onTap: (() {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ChangePasswordScreen()));
+                      }),
+                      child: ProfilePageWidget('Change Password',
+                          'Change your password', Icon(Icons.remove_red_eye))),
+                  SizedBox(
+                    height: 10,
                   ),
-                  Text(
-                    userProfile?.emailId ?? '',
-                    style: TextStyle(
-                        color: Colors.red,
-                        fontWeight: FontWeight.w500,
-                        fontFamily: 'Intro',
-                        fontSize: 10.sp),
+                  InkWell(
+                      onTap: (() {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => AddressScreen()));
+                      }),
+                      child: ProfilePageWidget('Address Book',
+                          'Add, Edit, Delete', Icon(Icons.location_city))),
+                  SizedBox(
+                    height: 10,
                   ),
+                  InkWell(
+                      onTap: (() {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => OrderScreen()));
+                      }),
+                      child: ProfilePageWidget(
+                          "My Orders",
+                          'View, Track, Update',
+                          Icon(Icons.card_giftcard_outlined))),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  InkWell(
+                      onTap: (() {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => WishlistScreen()));
+                      }),
+                      child: ProfilePageWidget('My Wishlist',
+                          'View, Update, Remove', Icon(Icons.favorite))),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  InkWell(
+                      onTap: (() {
+                        showFlashMsg('Wallet is Not Available');
+                      }),
+                      child: ProfilePageWidget(
+                          'My Wallet', 'View, Recharge', Icon(Icons.money))),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  InkWell(
+                      onTap: (() {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ContactUsScreen()));
+                      }),
+                      child: ProfilePageWidget(
+                          'Support', 'Contact, Mail', Icon(Icons.mail))),
+                  SizedBox(
+                    height: 20,
+                  )
                 ],
-              ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Expanded(
-              child: Container(
-                  height: 600,
-                  color: Colors.grey.shade100,
-                  child: ListView(
-                    children: [
-                      InkWell(
-                        onTap: (() {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      EditProfileScreen())).then(((value) {
-                            setState(() {});
-                          }));
-                        }),
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 20, right: 20),
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Colors.white),
-                            child: ListTile(
-                              title: Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Text(
-                                  "Personal",
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontFamily: "Intro",
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                              subtitle: Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Text(
-                                  "Profile, phone, email",
-                                  style: TextStyle(
-                                      fontSize: 12,
-                                      fontFamily: "Intro",
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                              leading: Container(
-                                height: 60,
-                                width: 60,
-                                child: Icon(Icons.person),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: Colors.grey.shade300),
-                              ),
-                              trailing: IconButton(
-                                onPressed: () {},
-                                icon: Icon(Icons.arrow_forward_ios),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      InkWell(
-                        onTap: (() {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      ChangePasswordScreen()));
-                        }),
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 20, right: 20),
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Colors.white),
-                            child: ListTile(
-                              title: Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Text(
-                                  "Change Password",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: "Intro",
-                                      fontSize: 15),
-                                ),
-                              ),
-                              subtitle: Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Text("Change your password",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: "Intro",
-                                        fontSize: 12)),
-                              ),
-                              leading: Container(
-                                height: 60,
-                                width: 60,
-                                child: Icon(Icons.remove_red_eye),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: Colors.grey.shade300),
-                              ),
-                              trailing: IconButton(
-                                onPressed: () {},
-                                icon: Icon(Icons.arrow_forward_ios),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      InkWell(
-                        onTap: (() {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => AddressScreen()));
-                        }),
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 20, right: 20),
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Colors.white),
-                            child: ListTile(
-                              title: Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Text("Address Book",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: "Intro",
-                                        fontSize: 15)),
-                              ),
-                              subtitle: Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Text("Add, Edit, Delete",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: "Intro",
-                                        fontSize: 12)),
-                              ),
-                              leading: Container(
-                                height: 60,
-                                width: 60,
-                                child: Icon(Icons.location_city),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: Colors.grey.shade300),
-                              ),
-                              trailing: IconButton(
-                                onPressed: () {},
-                                icon: Icon(Icons.arrow_forward_ios),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      InkWell(
-                        onTap: (() {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => OrderScreen()));
-                        }),
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 20, right: 20),
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Colors.white),
-                            child: ListTile(
-                              title: Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Text("My Orders",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: "Intro",
-                                        fontSize: 15)),
-                              ),
-                              subtitle: Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Text("View, Track, Update",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: "Intro",
-                                        fontSize: 12)),
-                              ),
-                              leading: Container(
-                                height: 60,
-                                width: 60,
-                                child: Icon(Icons.card_giftcard_outlined),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: Colors.grey.shade300),
-                              ),
-                              trailing: IconButton(
-                                onPressed: () {},
-                                icon: Icon(Icons.arrow_forward_ios),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      InkWell(
-                        onTap: (() {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => WishlistScreen()));
-                        }),
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 20, right: 20),
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Colors.white),
-                            child: ListTile(
-                              title: Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Text("My Wishlist",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: "Intro",
-                                        fontSize: 15)),
-                              ),
-                              subtitle: Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Text("View, Update, Remove",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: "Intro",
-                                        fontSize: 12)),
-                              ),
-                              leading: Container(
-                                height: 60,
-                                width: 60,
-                                child: Icon(Icons.favorite),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: Colors.grey.shade300),
-                              ),
-                              trailing: IconButton(
-                                onPressed: () {},
-                                icon: Icon(Icons.arrow_forward_ios),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      InkWell(
-                        onTap: (() {
-                          showFlashMsg('Wallet is Not Available');
-                          // Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //         builder: (context) => EditProfileScreen()));
-                        }),
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 20, right: 20),
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Colors.white),
-                            child: ListTile(
-                              title: Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Text("My Wallet",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: "Intro",
-                                        fontSize: 15)),
-                              ),
-                              subtitle: Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Text("View, Recharge",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: "Intro",
-                                        fontSize: 12)),
-                              ),
-                              leading: Container(
-                                height: 60,
-                                width: 60,
-                                child: Icon(Icons.money),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: Colors.grey.shade300),
-                              ),
-                              trailing: IconButton(
-                                onPressed: () {
-                                  showFlashMsg('Wallet is Not Available');
-                                },
-                                icon: Icon(Icons.arrow_forward_ios),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      InkWell(
-                        onTap: (() {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ContactUsScreen()));
-                        }),
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 20, right: 20),
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Colors.white),
-                            child: ListTile(
-                              title: Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Text("Support",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: "Intro",
-                                        fontSize: 15)),
-                              ),
-                              subtitle: Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Text("Contact, Mail",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: "Intro",
-                                        fontSize: 12)),
-                              ),
-                              leading: Container(
-                                height: 60,
-                                width: 60,
-                                child: Icon(Icons.mail),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: Colors.grey.shade300),
-                              ),
-                              trailing: IconButton(
-                                onPressed: () {},
-                                icon: Icon(Icons.arrow_forward_ios),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      )
-                    ],
-                  )),
-            )
-          ]),
-        ));
+              )),
+        ),
+      ]),
+    );
   }
 
   @override

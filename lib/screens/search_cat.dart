@@ -19,7 +19,6 @@ import 'package:sizer/sizer.dart';
 
 class SearchScreenCat extends StatefulWidget {
   //  final SearchProducts? product;
- 
 
   SearchScreenCat();
   @override
@@ -102,7 +101,7 @@ class _SearchScreenCatState extends BaseStatefulState<SearchScreenCat> {
               Navigator.pop(context);
             },
           ),
-          backgroundColor: kappBar,
+          backgroundColor: kappBarColor,
           actions: [
             Stack(
               children: [
@@ -175,7 +174,7 @@ class _SearchScreenCatState extends BaseStatefulState<SearchScreenCat> {
                         textAlign: TextAlign.center,
                       ),
                     ),
-                  )
+                  ),
               ],
             ),
           ],
@@ -247,8 +246,8 @@ class _SearchScreenCatState extends BaseStatefulState<SearchScreenCat> {
             child: Container(
               height: 600,
               color: Colors.grey.shade100,
-              child:(_products.isNotEmpty)?
-                  ListView.builder(
+              child: (_products.isNotEmpty)
+                  ? ListView.builder(
                       itemCount: _products.length,
                       itemBuilder: (BuildContext context, int index) {
                         return InkWell(
@@ -603,7 +602,8 @@ class _SearchScreenCatState extends BaseStatefulState<SearchScreenCat> {
                             ],
                           ),
                         );
-                      }):Center(child: Text("Oh.. Oh.. No Items Available..!")),
+                      })
+                  : Center(child: Text("Oh.. Oh.. No Items Available..!")),
             ),
           ),
         ]),

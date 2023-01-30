@@ -19,7 +19,6 @@ import 'package:sizer/sizer.dart';
 
 class SearchScreen extends StatefulWidget {
   //  final SearchProducts? product;
- 
 
   SearchScreen();
   @override
@@ -62,9 +61,9 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
       "minPrice": DataManager.shared.filterData?.minPrice ?? 0,
       "pincode": 8,
       "filter": {
-        "category": 
-        // NetworkManager.shared.catUrlKey,
-        DataManager.shared.filterData?.category?.catId ?? '',
+        "category":
+            // NetworkManager.shared.catUrlKey,
+            DataManager.shared.filterData?.category?.catId ?? '',
       },
       "sortorder": {"field": "prName", "direction": "default"},
       "searchstring": _searchString,
@@ -103,7 +102,7 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
               Navigator.pop(context);
             },
           ),
-          backgroundColor: kappBar,
+          backgroundColor: kappBarColor,
           actions: [
             Stack(
               children: [
@@ -121,19 +120,18 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
                   Positioned(
                     right: 5,
                     top: 5,
-                    child:  
-                CircleAvatar(
-                  backgroundColor: Colors.red,
-                    radius: 8,
-                    child: Text(
-                      DataManager.shared.wishListItems.length.toString(),
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 10,
+                    child: CircleAvatar(
+                      backgroundColor: Colors.red,
+                      radius: 8,
+                      child: Text(
+                        DataManager.shared.wishListItems.length.toString(),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 10,
+                        ),
+                        textAlign: TextAlign.center,
                       ),
-                      textAlign: TextAlign.center,
                     ),
-                  ),
                   )
               ],
             ),
@@ -153,16 +151,16 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
                     top: 5,
                     child: CircleAvatar(
                       backgroundColor: Colors.red,
-                    radius: 8,
-                    child: Text(
-                      DataManager.shared.cartItemsList.length.toString(),
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 10,
+                      radius: 8,
+                      child: Text(
+                        DataManager.shared.cartItemsList.length.toString(),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 10,
+                        ),
+                        textAlign: TextAlign.center,
                       ),
-                      textAlign: TextAlign.center,
                     ),
-                  ),
                   )
               ],
             ),
@@ -235,8 +233,8 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
             child: Container(
               height: 600,
               color: Colors.grey.shade100,
-              child:(_products.isNotEmpty)?
-                  ListView.builder(
+              child: (_products.isNotEmpty)
+                  ? ListView.builder(
                       itemCount: _products.length,
                       itemBuilder: (BuildContext context, int index) {
                         return InkWell(
@@ -591,7 +589,8 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
                             ],
                           ),
                         );
-                      }):Center(child: Text("Oh.. Oh.. No Items Available..!")),
+                      })
+                  : Center(child: Text("Oh.. Oh.. No Items Available..!")),
             ),
           ),
         ]),
