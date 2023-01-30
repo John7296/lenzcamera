@@ -61,8 +61,7 @@ class _OrderScreenState extends BaseStatefulState<OrderScreen> {
           padding: const EdgeInsets.only(left: 50),
           child: Text(
             'My Orders',
-            style: TextStyle(
-                fontFamily: 'Intro', fontWeight: FontWeight.bold, fontSize: 15),
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
           ),
         ),
         actions: [
@@ -141,7 +140,7 @@ class _OrderScreenState extends BaseStatefulState<OrderScreen> {
             ],
           ),
         ],
-        backgroundColor: kappBar,
+        backgroundColor: kappBarColor,
         leading: IconButton(
           onPressed: () {
             Navigator.push(
@@ -152,206 +151,212 @@ class _OrderScreenState extends BaseStatefulState<OrderScreen> {
         ),
       ),
       backgroundColor: Colors.grey.shade100,
-      body: (orderList.isNotEmpty)?ListView.builder(
-        itemCount: orderList.length,
-        itemBuilder: (BuildContext context, int index) {
-          return Column(
-            children: [
-              InkWell(
-                onTap: () {
-
-                  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
-                  builder: (BuildContext context) {
-                    return OrderDetailScreen(orderList[index]);
-                  },
-                ), (route) => false);
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) => OrderDetailScreen(orderList[index]),
-                  //   ),
-                  // );
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Container(
-                    height: 100,
-                    width: 400,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(5)),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey,
-                          offset: Offset(0.0, 1.0), //(x,y)
-                          blurRadius: 6.0,
-                        ),
-                      ],
-                    ),
-                    child: Row(
-                      children: [
-                        Column(
-                          // mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Stack(
-                                  children: [
-                                    Padding(
-                                        padding: const EdgeInsets.only(
-                                            top: 20, left: 5),
-                                        child: Container(
-                                          height: 50,
-                                          width: 50,
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(5.0),
-                                            child: FadeInImage.assetNetwork(
-                                                height: 250,
-                                                width: double.infinity,
-                                                placeholder:
-                                                    'assets/images/placeholder.png',
-                                                image:
-                                                    "https://dev.lenzcamera.com/webadmin/${orderList[index].ProductImgUrl}",
-                                                fit: BoxFit.cover),
-                                          ),
-                                          // CachedNetworkImage(
-                                          //     imageUrl:
-                                          //         "https://dev.lenzcamera.com/webadmin/${orderList[index].ProductImgUrl}"),
-                                        )),
-                                    Container(
-                                      height: 16,
-                                      width: 60,
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(5)),
-                                          color: (orderList[index]
-                                                      .IsCanCancelOrder ==
-                                                  false)
-                                              ? Colors.red
-                                              : Colors.grey.shade800),
-                                      child: Center(
-                                        child: (orderList[index]
-                                                    .IsCanCancelOrder ==
-                                                false)
-                                            ? Text(
-                                                'Cancelled',
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 8,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              )
-                                            : Text(
-                                                'Placed',
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 8,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                      ),
-                                    ),
-                                  ],
-                                )),
-                          ],
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(top: 5),
-                              child: Container(
-                                width: 200,
-                                child: Text(
-                                  // 'CANON EF 16-35 MM F/4L IS USM',
-                                  orderList[index].orderNumber ?? '',
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                  maxLines: 2,
-                                ),
+      body: (orderList.isNotEmpty)
+          ? ListView.builder(
+              itemCount: orderList.length,
+              itemBuilder: (BuildContext context, int index) {
+                return Column(
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+                          builder: (BuildContext context) {
+                            return OrderDetailScreen(orderList[index]);
+                          },
+                        ), (route) => false);
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //     builder: (context) => OrderDetailScreen(orderList[index]),
+                        //   ),
+                        // );
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Container(
+                          height: 100,
+                          width: 400,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.all(Radius.circular(5)),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey,
+                                offset: Offset(0.0, 1.0), //(x,y)
+                                blurRadius: 6.0,
                               ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 5),
-                              child: Row(
+                            ],
+                          ),
+                          child: Row(
+                            children: [
+                              Column(
+                                // mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    orderList[index].ProductCount ?? '',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  ),
-                                  Text(
-                                    ' Item(s)',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  ),
+                                  Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Stack(
+                                        children: [
+                                          Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 20, left: 5),
+                                              child: Container(
+                                                height: 50,
+                                                width: 50,
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          5.0),
+                                                  child: FadeInImage.assetNetwork(
+                                                      height: 250,
+                                                      width: double.infinity,
+                                                      placeholder:
+                                                          'assets/images/placeholder.png',
+                                                      image:
+                                                          "https://dev.lenzcamera.com/webadmin/${orderList[index].ProductImgUrl}",
+                                                      fit: BoxFit.cover),
+                                                ),
+                                                // CachedNetworkImage(
+                                                //     imageUrl:
+                                                //         "https://dev.lenzcamera.com/webadmin/${orderList[index].ProductImgUrl}"),
+                                              )),
+                                          Container(
+                                            height: 16,
+                                            width: 60,
+                                            decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(5)),
+                                                color: (orderList[index]
+                                                            .IsCanCancelOrder ==
+                                                        false)
+                                                    ? Colors.red
+                                                    : Colors.grey.shade800),
+                                            child: Center(
+                                              child: (orderList[index]
+                                                          .IsCanCancelOrder ==
+                                                      false)
+                                                  ? Text(
+                                                      'Cancelled',
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 8,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    )
+                                                  : Text(
+                                                      'Placed',
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 8,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                            ),
+                                          ),
+                                        ],
+                                      )),
                                 ],
                               ),
-                            ),
-                            Row(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 25),
-                                  child: Text(
-                                    orderList[index].orderDate.toString().replaceAll("T","   "),
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 12,
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 5),
+                                    child: Container(
+                                      width: 200,
+                                      child: Text(
+                                        // 'CANON EF 16-35 MM F/4L IS USM',
+                                        orderList[index].orderNumber ?? '',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                        maxLines: 2,
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 5),
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          orderList[index].ProductCount ?? '',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        Text(
+                                          ' Item(s)',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Row(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 25),
+                                        child: Text(
+                                          orderList[index]
+                                              .orderDate
+                                              .toString()
+                                              .replaceAll("T", "   "),
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 12,
+                                              color: Colors.grey),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 25, top: 25),
+                                        child: Text(
+                                            "QAR${orderList[index].orderAmount.toString()}",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 14,
+                                                color: Colors.grey.shade600)),
+                                      )
+                                    ],
+                                  )
+                                ],
+                              ),
+                              SizedBox(width: 10),
+                              Column(
+                                children: [
+                                  SizedBox(
+                                    height: 25,
+                                  ),
+                                  IconButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              OrderDetailScreen(
+                                                  orderList[index]),
+                                        ),
+                                      );
+                                    },
+                                    icon: Icon(Icons.arrow_forward,
                                         color: Colors.grey),
                                   ),
-                                ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.only(left: 25, top: 25),
-                                  child: Text(
-                                      "QAR${orderList[index].orderAmount.toString()}",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 14,
-                                          color: Colors.grey.shade600)),
-                                )
-                              ],
-                            )
-                          ],
+                                ],
+                              )
+                            ],
+                          ),
                         ),
-                        SizedBox(width: 10),
-                        Column(
-                          children: [
-                            SizedBox(
-                              height: 25,
-                            ),
-                            IconButton(
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        OrderDetailScreen(
-                                          orderList[index]),
-                                  ),
-                                );
-                              },
-                              icon:
-                                  Icon(Icons.arrow_forward, color: Colors.grey),
-                            ),
-                          ],
-                        )
-                      ],
+                      ),
                     ),
-                  ),
-                ),
+                  ],
+                );
+              },
+            )
+          : Container(
+              height: 600,
+              // width: 200,
+              child: Image(
+                image: AssetImage("assets/images/no_order.png"),
               ),
-            ],
-          );
-        },
-      ):Container(
-          height: 600,
-          // width: 200,
-          child: Image(
-            image: AssetImage("assets/images/no_order.png"),
-          ),
-        ),
+            ),
     );
   }
 

@@ -62,7 +62,7 @@ class _OtpScreenState extends BaseStatefulState<OtpScreen> {
               Navigator.pop(context);
             },
           ),
-          backgroundColor: kappBar,
+          backgroundColor: kappBarColor,
         ),
         body: Padding(
           padding: const EdgeInsets.only(left: 24, right: 24),

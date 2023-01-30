@@ -30,14 +30,14 @@ class _ReviewScreenState extends BaseStatefulState<ReviewScreen> {
 
    List<ProductReview> prodrev = [];
 
-  List<ReviewDetails> revdetails= [];
+  List<ReviewDetails> revdetails = [];
 
   @override
   void initState() {
     super.initState();
-     Future.delayed(Duration(milliseconds: 500), (() {
+    Future.delayed(Duration(milliseconds: 500), (() {
       productReview();
-     }));
+    }));
   }
 
   // void productReview() {
@@ -93,7 +93,7 @@ class _ReviewScreenState extends BaseStatefulState<ReviewScreen> {
       // print(response.data?.details?.first.dateOfReview);
       });   
     }).catchError((e) {
-     // hideLoader();
+      // hideLoader();
       print(e.toString());
     });
   }
@@ -104,8 +104,7 @@ class _ReviewScreenState extends BaseStatefulState<ReviewScreen> {
       appBar: AppBar(
         centerTitle: true,
         title: Text("Reviews"),
-        titleTextStyle: TextStyle(
-            fontSize: 14, fontFamily: 'Intro', fontWeight: FontWeight.w600),
+        titleTextStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back_ios_new_sharp,
@@ -115,7 +114,7 @@ class _ReviewScreenState extends BaseStatefulState<ReviewScreen> {
             Navigator.pop(context);
           },
         ),
-        backgroundColor: kappBar,
+        backgroundColor: kappBarColor,
       ),
       body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         SizedBox(height: 20),
@@ -150,9 +149,7 @@ class _ReviewScreenState extends BaseStatefulState<ReviewScreen> {
                       child: Text(
                         widget.products?.prName ?? '',
                         style: TextStyle(
-                            fontSize: 20,
-                            fontFamily: 'Intro',
-                            fontWeight: FontWeight.w600),
+                            fontSize: 20, fontWeight: FontWeight.w600),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -170,9 +167,7 @@ class _ReviewScreenState extends BaseStatefulState<ReviewScreen> {
                       child: Text("QAR ${widget.products?.unitPrice}",
                           // "QAR 600",
                           style: TextStyle(
-                              fontSize: 20,
-                              fontFamily: 'Intro',
-                              fontWeight: FontWeight.w600)),
+                              fontSize: 20, fontWeight: FontWeight.w600)),
                     ),
                   ],
                 ),
@@ -212,10 +207,7 @@ class _ReviewScreenState extends BaseStatefulState<ReviewScreen> {
         Padding(
           padding: const EdgeInsets.only(left: 24, top: 30),
           child: Text("All Reviews",
-              style: TextStyle(
-                  fontSize: 15,
-                  fontFamily: 'Intro',
-                  fontWeight: FontWeight.w600)),
+              style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600)),
         ),
 
         Row(
@@ -226,18 +218,14 @@ class _ReviewScreenState extends BaseStatefulState<ReviewScreen> {
                 Padding(
                   padding: const EdgeInsets.only(left: 40, top: 20),
                   child: Text("4",
-                      style: TextStyle(
-                          fontSize: 50,
-                          fontFamily: 'Intro',
-                          fontWeight: FontWeight.w600)),
+                      style:
+                          TextStyle(fontSize: 50, fontWeight: FontWeight.w600)),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 25),
                   child: Text(" Out of 5",
-                      style: TextStyle(
-                          fontSize: 15,
-                          fontFamily: 'Intro',
-                          fontWeight: FontWeight.w400)),
+                      style:
+                          TextStyle(fontSize: 15, fontWeight: FontWeight.w400)),
                 ),
               ],
             ),
@@ -391,15 +379,14 @@ class _ReviewScreenState extends BaseStatefulState<ReviewScreen> {
             ),
           ],
         ),
-        SizedBox(height:20),
+        SizedBox(height: 20),
         Divider(
           indent: 24,
           endIndent: 24,
           color: Colors.grey[400],
           thickness: 2,
         ),
-         
-        
+
         Row(
           children: [
             Expanded(
@@ -448,7 +435,6 @@ class _ReviewScreenState extends BaseStatefulState<ReviewScreen> {
                                 // "2022-09-15T12:02:16.25",
                                   style: TextStyle(
                                       fontSize: 10,
-                                      fontFamily: 'Intro',
                                       fontWeight: FontWeight.w600,
                                       color: Colors.grey[400])),
                               // trailing: Text("( ${revdetails[index].rating??''} )",
@@ -466,9 +452,7 @@ class _ReviewScreenState extends BaseStatefulState<ReviewScreen> {
                             child: Text(revdetails[index].reviewDetails??'',
                               //"good product",
                               style: TextStyle(
-                                  fontSize: 15,
-                                  fontFamily: 'Intro',
-                                  fontWeight: FontWeight.w600),
+                                  fontSize: 15, fontWeight: FontWeight.w600),
                             ),
                           ),
                           SizedBox(height: 5),
@@ -495,11 +479,11 @@ class _ReviewScreenState extends BaseStatefulState<ReviewScreen> {
         //               children: [
         //                 Text("jibin_intertoons_QC",
         //                     style: TextStyle(
-        //                         fontSize: 15, fontFamily: 'Intro',fontWeight: FontWeight.w600)),
+        //                         fontSize: 15,  fontWeight: FontWeight.w600)),
         //                 SizedBox(width: 100),
         //                 Text("(5)",
         //                     style: TextStyle(
-        //                         fontSize: 15, fontFamily: 'Intro',fontWeight: FontWeight.w600)),
+        //                         fontSize: 15,  fontWeight: FontWeight.w600)),
         //               ],
         //             ),
         //             SizedBox(
@@ -510,7 +494,7 @@ class _ReviewScreenState extends BaseStatefulState<ReviewScreen> {
         //                 Text("15 Sept 2022",
         //                     style: TextStyle(
         //                         fontSize: 10,
-        //                         fontWeight: FontWeight.w600,fontFamily: 'Intro',
+        //                         fontWeight: FontWeight.w600,
         //                         color: Colors.grey[400])),
         //               ],
         //             )
@@ -524,7 +508,7 @@ class _ReviewScreenState extends BaseStatefulState<ReviewScreen> {
         //   padding: const EdgeInsets.only(left: 24, top: 30),
         //   child: Text("good product",
         //       style: TextStyle(
-        //           fontSize: 12,fontFamily: 'Intro',
+        //           fontSize: 12,
         //           fontWeight: FontWeight.w500,
         //           color: Colors.grey[400])),
         // )

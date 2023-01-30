@@ -30,11 +30,12 @@ class _ReturnPolicyScreenState extends State<ReturnPolicyScreen> {
         //     icon: Icon(Icons.shopping_cart),
         //   ),
         // ],
-        backgroundColor: kappBar,
+        backgroundColor: kappBarColor,
         leading: IconButton(
-          onPressed: () { 
+          onPressed: () {
             Navigator.push(
-                context, MaterialPageRoute(builder: (context) => HomeScreen()));},
+                context, MaterialPageRoute(builder: (context) => HomeScreen()));
+          },
           icon: Icon(Icons.arrow_back_ios),
         ),
       ),
@@ -45,25 +46,25 @@ class _ReturnPolicyScreenState extends State<ReturnPolicyScreen> {
           Padding(
             padding: const EdgeInsets.all(10),
             child: Container(
-                                width: 400,
-                                height: 50,
-                                child: ElevatedButton(onPressed: () {
-                                  Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => HomeScreen()));
-                                  }, child: Text('Back',style: TextStyle(fontSize: 20),),
-                                  style: ButtonStyle(
-                                    backgroundColor:
-                                    MaterialStateProperty.all(
-                                         Colors.red),
-                                    shape: MaterialStateProperty.all(
-                                        RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(5),
-                                        )),
-                                  ),
-                                ),
-                              ),
+              width: 400,
+              height: 50,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => HomeScreen()));
+                },
+                child: Text(
+                  'Back',
+                  style: TextStyle(fontSize: 20),
+                ),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.red),
+                  shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5),
+                  )),
+                ),
+              ),
+            ),
           ),
         ],
       ),

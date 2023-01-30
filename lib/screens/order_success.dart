@@ -59,29 +59,26 @@ class _OrderSuccessScreenState extends BaseStatefulState<OrderSuccessScreen> {
             padding: const EdgeInsets.only(left: 50),
             child: Text(
               'Order Success',
-              style: TextStyle(
-                  fontFamily: 'Intro',
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
             ),
           ),
           actions: [
-           AppBar(
-        title: Container(
-          height: 100,
-          width: 180,
-          child: Image(
-            image: AssetImage("assets/images/logo_lenzcamera.png"),
-          ),
-        ),
-        backgroundColor: Colors.grey.shade700,
-        // leading: IconButton(
-        //   onPressed: () {},
-        //   icon: Icon(Icons.arrow_back_ios),
-        // ),
-      ),
+            AppBar(
+              title: Container(
+                height: 100,
+                width: 180,
+                child: Image(
+                  image: AssetImage("assets/images/logo_lenzcamera.png"),
+                ),
+              ),
+              backgroundColor: Colors.grey.shade700,
+              // leading: IconButton(
+              //   onPressed: () {},
+              //   icon: Icon(Icons.arrow_back_ios),
+              // ),
+            ),
           ],
-          backgroundColor: kappBar,
+          backgroundColor: kappBarColor,
           leading: IconButton(
             onPressed: () {
               Navigator.push(context,
@@ -107,20 +104,26 @@ class _OrderSuccessScreenState extends BaseStatefulState<OrderSuccessScreen> {
                     ),
                   ),
                 ),
-                Text("Order Placed Successfully",style: TextStyle(fontFamily: 'Intro'),),
+                Text(
+                  "Order Placed Successfully",
+                  style: TextStyle(),
+                ),
                 SizedBox(height: 10),
-                Text("Please check your Email, SMS",style: TextStyle(fontFamily: 'Intro'),),
+                Text(
+                  "Please check your Email, SMS",
+                  style: TextStyle(),
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Your Order Number:",style: TextStyle(fontFamily: 'Intro')),
+                    Text("Your Order Number:", style: TextStyle()),
                     TextButton(
                       onPressed: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => OrderDetailScreen(
-                                orderList.first),
+                            builder: (context) =>
+                                OrderDetailScreen(orderList.first),
                           ),
                         );
 
@@ -132,9 +135,11 @@ class _OrderSuccessScreenState extends BaseStatefulState<OrderSuccessScreen> {
                       },
                       child: Text(
                         orderList.first.orderNumber.toString(),
-                        style: TextStyle(color: Colors.red,fontFamily: 'Intro'),
+                        style: TextStyle(
+                          color: Colors.red,
+                        ),
                       ),
-                      // Text(orderList.first.orderNumber ?? '',style: TextStyle(color: Colors.red,fontFamily: 'Intro'),
+                      // Text(orderList.first.orderNumber ?? '',style: TextStyle(color: Colors.red,  ),
                     ),
                   ],
                 ),
@@ -164,9 +169,9 @@ class _OrderSuccessScreenState extends BaseStatefulState<OrderSuccessScreen> {
                               child: Text(
                             "CONTINUE SHOPPING",
                             style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.white,
-                                fontFamily: 'Intro'),
+                              fontSize: 16,
+                              color: Colors.white,
+                            ),
                           )),
                         ),
                       ),
@@ -184,10 +189,8 @@ class _OrderSuccessScreenState extends BaseStatefulState<OrderSuccessScreen> {
                     // )),
                   ),
                 )
-              
               ],
             )
-            
           ],
         ),
       ),

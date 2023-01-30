@@ -84,14 +84,13 @@ class _ProductDetailsScreenState
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(fontFamily: 'Intro'),
+      theme: ThemeData(),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
           centerTitle: true,
           title: Text("Product Details"),
-          titleTextStyle: TextStyle(
-              fontSize: 14, fontFamily: 'Intro', fontWeight: FontWeight.w600),
+          titleTextStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
           leading: IconButton(
             icon: const Icon(
               Icons.arrow_back_ios_new_sharp,
@@ -101,7 +100,7 @@ class _ProductDetailsScreenState
               Navigator.pop(context);
             },
           ),
-          backgroundColor: kappBar,
+          backgroundColor: kappBarColor,
           actions: [
             Stack(
               children: [
@@ -177,6 +176,23 @@ class _ProductDetailsScreenState
                   )
               ],
             ),
+            // IconButton(
+            //     onPressed: () {
+            //       Navigator.push(
+            //           context,
+            //           MaterialPageRoute(
+            //               builder: (context) => WishlistScreen()));
+            //     },
+            //     icon:
+            //         Icon(Icons.favorite_border_outlined, color: Colors.white)),
+            // SizedBox(width: 20),
+            // IconButton(
+            //     onPressed: () {
+            //       Navigator.push(context,
+            //           MaterialPageRoute(builder: (context) => CartScreen()));
+            //     },
+            //     icon: Icon(Icons.shopping_cart_outlined, color: Colors.white)),
+            // SizedBox(width: 20),
           ],
         ),
         body: Column(
@@ -267,7 +283,6 @@ class _ProductDetailsScreenState
                                     style: TextStyle(
                                         color: Color(0xff70706e),
                                         fontSize: 20,
-                                        fontFamily: 'Intro',
                                         fontWeight: FontWeight.w600),
                                     maxLines: 2,
                                   ),
@@ -394,6 +409,8 @@ class _ProductDetailsScreenState
                             ],
                           ),
                         ),
+
+                        // (widget.popularproducts?.IsReviewAvgrating!> 1)
 
                         Divider(
                           thickness: 5,
@@ -964,7 +981,7 @@ class _ProductDetailsScreenState
               ),
             ),
 
-            //   if (widget.popularproducts!.isCartUpdateProgress==true)
+            //   if (widget.popularproducts!.isCartUpdateProgress!)
             //  SizedBox(
             //                   height: 30,
             //                   width: 30,

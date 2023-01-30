@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 const bool kDedebug = true;
 
@@ -6,11 +7,9 @@ const bool kDedebug = true;
 const String imageBaseUrl = "https://dev.lenzcamera.com/webadmin/";
 
 // FONT FAMILY
-
 const String kFontFamily = "Intro";
 
 // COLOR
-
 Map<int, Color> accentColor = {
   50: Color.fromRGBO(253, 66, 91, .1),
   100: Color.fromRGBO(253, 66, 91, .2),
@@ -26,4 +25,8 @@ Map<int, Color> accentColor = {
 
 MaterialColor kAccentMaterialColor = MaterialColor(0xffFD425B, accentColor);
 
-Color kappBar = Colors.grey.shade700;
+Color kappBarColor = Colors.grey.shade700;
+
+//FONT SIZES
+const double kFontSize_16 = 16;
+const double kappBarColorFontSize = 12;

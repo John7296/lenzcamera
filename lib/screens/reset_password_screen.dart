@@ -7,7 +7,6 @@ import 'package:lenzcamera/screens/login_screen.dart';
 import 'package:lenzcamera/utils/constants.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
-
   ResetPasswordScreen(this.OtpUrlKey);
   String OtpUrlKey;
   @override
@@ -15,17 +14,15 @@ class ResetPasswordScreen extends StatefulWidget {
 }
 
 class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
-
-    final GlobalKey<FormState> _form = GlobalKey<FormState>();
+  final GlobalKey<FormState> _form = GlobalKey<FormState>();
 
   final _passwordController = TextEditingController();
   final _confirmpwdController = TextEditingController();
 
-  bool _obscureText= true;
-  bool  _obscureText1= true;
+  bool _obscureText = true;
+  bool _obscureText1 = true;
 
-
-   void showFlashMsg(String msg, {Color color = const Color(0xFF272532)}) {
+  void showFlashMsg(String msg, {Color color = const Color(0xFF272532)}) {
     showFlash(
       context: context,
       duration: const Duration(seconds: 4),
@@ -35,11 +32,11 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
           behavior: FlashBehavior.floating,
           position: FlashPosition.bottom,
           boxShadows: kElevationToShadow[2],
-         // backgroundColor: Colors.grey,
+          // backgroundColor: Colors.grey,
           reverseAnimationCurve: Curves.easeInCirc,
           forwardAnimationCurve: Curves.easeInOutBack,
           margin: const EdgeInsets.all(8.0),
-          borderRadius: BorderRadius.circular(6.0),    
+          borderRadius: BorderRadius.circular(6.0),
           horizontalDismissDirection: HorizontalDismissDirection.horizontal,
           child: FlashBar(
             content: Text(
@@ -51,26 +48,20 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
       },
     );
   }
-  
-  void resetPassword(){
-      if (!_form.currentState!.validate()) {
+
+  void resetPassword() {
+    if (!_form.currentState!.validate()) {
       return;
     }
-   
-   NetworkManager.shared.resetPassword(<String, dynamic>{
-        "OtpUrlKey" : widget.OtpUrlKey,
-        "password" : _passwordController.text
-       }).then((BaseResponse response) {
 
-        showFlashMsg(response.message!);
-     Navigator.pushReplacement(
-                    context,
-                      MaterialPageRoute(
-                      builder: (context) =>
-                      LoginScreen()));
-    }).catchError((Object obj) {
-    });
-
+    NetworkManager.shared.resetPassword(<String, dynamic>{
+      "OtpUrlKey": widget.OtpUrlKey,
+      "password": _passwordController.text
+    }).then((BaseResponse response) {
+      showFlashMsg(response.message!);
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => LoginScreen()));
+    }).catchError((Object obj) {});
   }
 
   @override
@@ -79,21 +70,22 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
       appBar: AppBar(
         centerTitle: true,
         title: Text("Reset Password"),
-        titleTextStyle: TextStyle(fontSize: 14,  fontFamily: "Intro",fontWeight: FontWeight.w600),
+        titleTextStyle: TextStyle(
+            fontSize: 14, fontFamily: "Intro", fontWeight: FontWeight.w600),
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back_ios_new_sharp,
             color: Colors.white,
           ),
           onPressed: () {
-             Navigator.push(context,
-          MaterialPageRoute(builder: (context) => LoginScreen()));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => LoginScreen()));
           },
         ),
-        backgroundColor: kappBar,
+        backgroundColor: kappBarColor,
       ),
       body: Padding(
-        padding: EdgeInsets.only(left: 24, right: 24, top:250),
+        padding: EdgeInsets.only(left: 24, right: 24, top: 250),
         child: Form(
           key: _form,
           child: SingleChildScrollView(
@@ -110,11 +102,11 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
               ),
               SizedBox(height: 12),
               Container(
-               // height: 50,
+                // height: 50,
                 child: TextFormField(
                     decoration: InputDecoration(
-                       contentPadding:
-                     EdgeInsets.only(left:10, top:5, bottom:5),
+                      contentPadding:
+                          EdgeInsets.only(left: 10, top: 5, bottom: 5),
                       border: OutlineInputBorder(
                         borderSide: BorderSide(color: Color(0xffb0b0b0)),
                       ),
@@ -122,10 +114,10 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                       suffixIcon: Padding(
                         padding: const EdgeInsets.only(right: 20),
                         child: IconButton(
-                         icon: Icon(
-                                  _obscureText?
-                                  Icons.visibility
-                              : Icons.visibility_off,
+                          icon: Icon(
+                            _obscureText
+                                ? Icons.visibility
+                                : Icons.visibility_off,
                             color: Color(0xff6e6e6c),
                           ),
                           onPressed: () {
@@ -136,7 +128,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                         ),
                       ),
                     ),
-                    obscureText:_obscureText,
+                    obscureText: _obscureText,
                     controller: _passwordController,
                     validator: (val) {
                       if (val!.isEmpty) {
@@ -156,17 +148,16 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   style: TextStyle(
                       color: Color(0xff747474),
                       fontWeight: FontWeight.w600,
-                     fontFamily: 'Intro',
                       fontSize: 12),
                 ),
               ),
               SizedBox(height: 12),
               Container(
-              //  height: 50,
+                //  height: 50,
                 child: TextFormField(
                     decoration: InputDecoration(
-                       contentPadding:
-                     EdgeInsets.only(left:10, top:5, bottom:5),
+                      contentPadding:
+                          EdgeInsets.only(left: 10, top: 5, bottom: 5),
                       border: OutlineInputBorder(
                         borderSide: BorderSide(color: Color(0xffb0b0b0)),
                       ),
@@ -174,15 +165,15 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                       suffixIcon: Padding(
                         padding: const EdgeInsets.only(right: 20),
                         child: IconButton(
-                            icon: Icon(
-                                  _obscureText1?
-                                  Icons.visibility
-                              : Icons.visibility_off,
+                          icon: Icon(
+                            _obscureText1
+                                ? Icons.visibility
+                                : Icons.visibility_off,
                             color: Color(0xff6e6e6c),
                           ),
                           onPressed: () {
                             setState(() {
-                              _obscureText1=!_obscureText1;
+                              _obscureText1 = !_obscureText1;
                             });
                           },
                         ),
@@ -211,7 +202,6 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                     backgroundColor: Color(0xffec3436),
                   ),
                   onPressed: () {
-                  
                     print("hhhhhhhhhhhhhhhh");
                     resetPassword();
                     // Navigator.push(context,
@@ -220,7 +210,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   child: Center(
                       child: Text(
                     "Submit Password",
-                    style: TextStyle(fontSize: 20,  fontFamily: "Intro",color: Colors.white),
+                    style: TextStyle(
+                        fontSize: 20, fontFamily: "Intro", color: Colors.white),
                   )),
                 ),
               ),

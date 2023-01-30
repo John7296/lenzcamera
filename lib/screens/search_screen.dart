@@ -123,7 +123,7 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
               // Navigator.pop(context);
             },
           ),
-          backgroundColor: kappBar,
+          backgroundColor: kappBarColor,
           actions: [
             Stack(
               children: [

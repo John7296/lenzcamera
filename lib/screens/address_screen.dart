@@ -110,7 +110,9 @@ class _AddressScreenState extends BaseStatefulState<AddressScreen> {
                     child: Text(
                       "+Add New Address",
                       style: TextStyle(
-                          color: Colors.red, fontSize: 14, fontFamily: 'Intro'),
+                        color: Colors.red,
+                        fontSize: 14,
+                      ),
                     )),
               ),
               SizedBox(
@@ -148,20 +150,15 @@ class _AddressScreenState extends BaseStatefulState<AddressScreen> {
                                 children: [
                                   Text(addressList[index].firstName ?? '',
                                       style: TextStyle(
-                                          fontFamily: 'Intro',
                                           fontWeight: FontWeight.bold)),
                                   Text(addressList[index].lastName ?? '',
-                                      style: TextStyle(
-                                          fontFamily: 'Intro', fontSize: 12)),
+                                      style: TextStyle(fontSize: 12)),
                                   Text(addressList[index].addLine1 ?? '',
-                                      style: TextStyle(
-                                          fontFamily: 'Intro', fontSize: 12)),
+                                      style: TextStyle(fontSize: 12)),
                                   Text(addressList[index].addLine2 ?? '',
-                                      style: TextStyle(
-                                          fontFamily: 'Intro', fontSize: 12)),
+                                      style: TextStyle(fontSize: 12)),
                                   Text(addressList[index].country ?? '',
-                                      style: TextStyle(
-                                          fontFamily: 'Intro', fontSize: 12)),
+                                      style: TextStyle(fontSize: 12)),
                                 ],
                               ),
                             ),

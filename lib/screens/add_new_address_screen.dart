@@ -153,10 +153,7 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
               padding: const EdgeInsets.only(left: 50),
               child: Text(
                 'Add New Address',
-                style: TextStyle(
-                    fontFamily: 'Intro',
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
             ),
             leading: IconButton(
@@ -187,7 +184,7 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
                                   style: TextStyle(
                                       color: Colors.grey.shade600,
                                       fontWeight: FontWeight.bold,
-                                      fontFamily: 'Intro'),
+                                        ),
                                 ),
                               )),
                           Container(
@@ -218,7 +215,7 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
                                     style: TextStyle(
                                         color: Colors.grey.shade600,
                                         fontWeight: FontWeight.bold,
-                                        fontFamily: 'Intro')),
+                                          )),
                               )),
                           Container(
                             height: 60,
@@ -244,7 +241,7 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
                                     style: TextStyle(
                                         color: Colors.grey.shade600,
                                         fontWeight: FontWeight.bold,
-                                        fontFamily: 'Intro')),
+                                          )),
                               )),
                           Container(
                             height: 60,
@@ -270,7 +267,7 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
                                     style: TextStyle(
                                         color: Colors.grey.shade600,
                                         fontWeight: FontWeight.bold,
-                                        fontFamily: 'Intro')),
+                                          )),
                               )),
                           Container(
                             height: 60,
@@ -296,7 +293,7 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
                                     style: TextStyle(
                                         color: Colors.grey.shade600,
                                         fontWeight: FontWeight.bold,
-                                        fontFamily: 'Intro')),
+                                          )),
                               )),
                           Container(
                             height: 60,
@@ -322,7 +319,7 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
                                     style: TextStyle(
                                         color: Colors.grey.shade600,
                                         fontWeight: FontWeight.bold,
-                                        fontFamily: 'Intro')),
+                                          )),
                               )),
                           Container(
                             height: 60,
@@ -464,7 +461,7 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 12,
-                                    fontFamily: 'Intro'),
+                                      ),
                               ),
                             ],
                           ),
@@ -485,7 +482,7 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 12,
-                                    fontFamily: 'Intro'),
+                                      ),
                               ),
                             ],
                           ),
@@ -497,7 +494,7 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
                                     style: TextStyle(
                                         color: Colors.grey.shade600,
                                         fontWeight: FontWeight.bold,
-                                        fontFamily: 'Intro')),
+                                          )),
                               )),
                           Container(
                             height: 60,

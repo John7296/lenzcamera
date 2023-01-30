@@ -106,7 +106,7 @@ class _FilterScreenState extends State<FilterScreen> {
             Navigator.pop(context);
           },
         ),
-        backgroundColor: kappBar,
+        backgroundColor: kappBarColor,
       ),
       body: Padding(
         padding: const EdgeInsets.only(left: 24, right: 24),

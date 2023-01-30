@@ -37,6 +37,8 @@ import 'package:lenzcamera/screens/return_policy_screen.dart';
 import 'package:lenzcamera/screens/search_screen.dart';
 import 'package:lenzcamera/screens/wishlist_screen.dart';
 import 'package:lenzcamera/utils/sessions_manager.dart';
+import 'package:lenzcamera/widgets/appbar_notification_widget.dart';
+import 'package:lenzcamera/widgets/drawer_widget.dart';
 import 'package:sizer/sizer.dart';
 
 class HomeDetailsScreen extends StatefulWidget {
@@ -53,13 +55,10 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
   List<Product> recentProductsList = [];
   List<Product> relatedProductsList = [];
   List<Banners> bannerList = [];
-
   String? cartItemId;
-
   var _searchController = TextEditingController();
   String? search = '';
   String? selectedPlace;
-
   Product? featuredProducts;
   Product? products;
 
@@ -130,7 +129,6 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
         .then((BaseResponse<List<Product>> response) {
       // showFlashMsg(response.message!);
       DataManager.shared.getCart();
-
       setState(() {
         popularProductsList.clear();
         popularProductsList.addAll(response.data!);
@@ -201,69 +199,8 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
           ),
         ),
         actions: [
-          Stack(
-            children: [
-              IconButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => WishlistScreen()));
-                  // getBanners();
-                },
-                icon: Icon(Icons.favorite_border),
-              ),
-              if (DataManager.shared.wishListItems.isNotEmpty)
-                Positioned(
-                  right: 5,
-                  top: 5,
-                  child:  
-                  CircleAvatar(
-                    backgroundColor: Colors.red,
-                    radius: 8,
-                    child: Text(
-                      DataManager.shared.wishListItems.length.toString(),
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 10,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                )
-            ],
-          ),
-          Stack(
-            children: [
-              IconButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => CartScreen()));
-                  // getBanners();
-                },
-                icon: Icon(Icons.shopping_cart),
-              ),
-              if (DataManager.shared.cartItemsList.isNotEmpty)
-                Positioned(
-                  right: 5,
-                  top: 5,
-                  child: CircleAvatar(
-                    backgroundColor: Colors.red,
-                    radius: 8,
-                    child: Text(
-                      DataManager.shared.cartItemsList.length.toString(),
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 10,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ),
-            ],
-          ),
+          AppBarNotificationWidget(),
         ],
-       
         backgroundColor: Colors.grey.shade700,
         // leading: IconButton(
         //   onPressed: () {},
@@ -290,9 +227,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                       child: Text(
                         selectedPlace ?? '',
                         style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'Intro',
-                            fontSize: 10.sp),
+                            fontWeight: FontWeight.bold, fontSize: 10.sp),
                       ),
                     ),
                   ),
@@ -302,112 +237,15 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                     child: TextButton(
                         onPressed: () {
                           DataManager.shared.location(_searchController.text);
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              List<Location> locationList = [];
-                              // return object of type Dialog
-                              return StatefulBuilder(
-                                  builder: (context, setState) {
-                                return AlertDialog(
-                                  title: Container(
-                                    height: 35.h,
-                                    // width: 50.h,
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        SizedBox(
-                                          height: 5.h,
-                                          child: TextFormField(
-                                            decoration: InputDecoration(
-                                                border: OutlineInputBorder(),
-                                                contentPadding:
-                                                    EdgeInsets.all(5)
-                                                // labelText: 'Mobile'
-                                                ),
-                                            controller: _searchController,
-                                            onChanged: (value) {
-                                              NetworkManager.shared
-                                                  .custLocation(value)
-                                                  .then((BaseResponse<
-                                                          List<Location>>
-                                                      response) {
-                                                locationList.clear();
-                                                locationList
-                                                    .addAll(response.data!);
-                                                setState(() {});
-                                              }).catchError((e) {
-                                                print(e.toString());
-                                              });
-                                            },
-                                          ),
-                                        ),
-                                        SizedBox(height: 0.5.h),
-                                        SizedBox(
-                                          height: 25.h,
-                                          width: 30.h,
-                                          child: ListView.separated(
-                                            shrinkWrap: true,
-                                            itemCount: locationList.length,
-                                            itemBuilder: (context, index) {
-                                              return InkWell(
-                                                  onTap: () {
-                                                    selectedPlace = DataManager
-                                                            .shared
-                                                            .locationList[index]
-                                                            .place ??
-                                                        '';
-                                                    print(DataManager
-                                                        .shared
-                                                        .locationList[index]
-                                                        .pincodeId);
-
-                                                    Navigator.of(context).pop();
-                                                  },
-                                                  child: Text(
-                                                    locationList[index].place ??
-                                                        '',
-                                                    style:
-                                                        TextStyle(fontSize: 15),
-                                                  ));
-                                            },
-                                            separatorBuilder: (context, index) {
-                                              return Divider();
-                                            },
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  actions: [
-                                    ElevatedButton(
-                                      style: ButtonStyle(
-                                          backgroundColor:
-                                              MaterialStateProperty.all(
-                                                  Colors.grey.shade700)),
-                                      child: Text("close"),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                        DataManager.shared
-                                            .location(_searchController.text);
-                                      },
-                                    ),
-                                  ],
-                                );
-                              });
-                            },
-                          );
+                          showDialogue();
                         },
                         child: Text(
                           'Change',
                           style: TextStyle(
-                              color: Colors.red,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 10.sp,
-                              fontFamily: 'Intro'),
+                            color: Colors.red,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 10.sp,
+                          ),
                         )),
                   ),
                 ],
@@ -437,10 +275,10 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                             child: Text(
                               "SEARCH PRODUCTS",
                               style: TextStyle(
-                                  fontSize: 10.sp,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.grey.shade700,
-                                  fontFamily: 'Intro'),
+                                fontSize: 10.sp,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey.shade700,
+                              ),
                             ),
                           ),
                         ],
@@ -496,50 +334,58 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                       children: [
                         Padding(
                           padding: EdgeInsets.all(0.5.h),
-                          child: Container(
-                            width: 15.h,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(5),
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => SearchScreen()));
+                            },
+                            child: Container(
+                              width: 15.h,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(5),
+                                ),
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey,
+                                    offset: Offset(0.0, 1.0), //(x,y)
+                                    blurRadius: 3.0,
+                                  ),
+                                ],
                               ),
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey,
-                                  offset: Offset(0.0, 1.0), //(x,y)
-                                  blurRadius: 3.0,
-                                ),
-                              ],
-                            ),
-                            height: 20.h,
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(5),
-                                  child: FadeInImage.assetNetwork(
-                                      height: 15.h,
-                                      width: 25.w,
-                                      placeholder:
-                                          'assets/images/placeholder.png',
-                                      placeholderFit: BoxFit.contain,
-                                      image:
-                                          "https://dev.lenzcamera.com/webadmin/${categoryList[index].imageUrl}",
-                                      fit: BoxFit.contain),
-                                ),
-                                Spacer(),
-                                Padding(
-                                  padding: const EdgeInsets.all(5),
-                                  child: Text(
-                                    categoryList[index].catName ?? '',
-                                    style: TextStyle(
+                              height: 20.h,
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(5),
+                                    child: FadeInImage.assetNetwork(
+                                        height: 15.h,
+                                        width: 25.w,
+                                        placeholder:
+                                            'assets/images/placeholder.png',
+                                        placeholderFit: BoxFit.contain,
+                                        image:
+                                            "https://dev.lenzcamera.com/webadmin/${categoryList[index].imageUrl}",
+                                        fit: BoxFit.contain),
+                                  ),
+                                  Spacer(),
+                                  Padding(
+                                    padding: const EdgeInsets.all(5),
+                                    child: Text(
+                                      categoryList[index].catName ?? '',
+                                      style: TextStyle(
                                         fontSize: 10.sp,
                                         // fontWeight: FontWeight.bold,
-                                        fontFamily: 'Intro'),
-                                    maxLines: 1,
-                                    textAlign: TextAlign.center,
+                                      ),
+                                      maxLines: 1,
+                                      textAlign: TextAlign.center,
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -563,9 +409,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                         Text(
                           'Featured Products',
                           style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'Intro',
-                              fontSize: 12.sp),
+                              fontWeight: FontWeight.bold, fontSize: 12.sp),
                         ),
                         Spacer(),
                         TextButton(
@@ -579,10 +423,10 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                             child: Text(
                               'View All ➜',
                               style: TextStyle(
-                                  color: Colors.red,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 12.sp,
-                                  fontFamily: 'Intro'),
+                                color: Colors.red,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 12.sp,
+                              ),
                             )),
                       ],
                     ),
@@ -679,8 +523,8 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                           featuredList[index].prName ?? '',
                                           maxLines: 2,
                                           style: const TextStyle(
-                                              fontSize: 12,
-                                              fontFamily: 'Intro'),
+                                            fontSize: 12,
+                                          ),
                                           textAlign: TextAlign.center,
                                           overflow: TextOverflow.ellipsis,
                                         ),
@@ -693,7 +537,6 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                           style: const TextStyle(
                                               fontSize: 12,
                                               fontWeight: FontWeight.bold,
-                                              fontFamily: 'Intro',
                                               color: Colors.grey),
                                         ),
                                       ),
@@ -1012,9 +855,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                         Text(
                           'Popular Products',
                           style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'Intro',
-                              fontSize: 12.sp),
+                              fontWeight: FontWeight.bold, fontSize: 12.sp),
                         ),
                         Spacer(),
                         TextButton(
@@ -1030,7 +871,6 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                               style: TextStyle(
                                   color: Colors.red,
                                   fontWeight: FontWeight.bold,
-                                  fontFamily: 'Intro',
                                   fontSize: 12.sp),
                             )),
                       ],
@@ -1133,8 +973,8 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                 '',
                                             maxLines: 2,
                                             style: TextStyle(
-                                                fontSize: 10.sp,
-                                                fontFamily: 'Intro'),
+                                              fontSize: 10.sp,
+                                            ),
                                             overflow: TextOverflow.ellipsis,
                                             textAlign: TextAlign.center,
                                           ),
@@ -1148,7 +988,6 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                             style: TextStyle(
                                                 fontSize: 10.sp,
                                                 fontWeight: FontWeight.bold,
-                                                fontFamily: 'Intro',
                                                 color: Colors.grey),
                                           ),
                                         ),
@@ -1381,9 +1220,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                         child: Text(
                           'Recent Products',
                           style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'Intro',
-                              fontSize: 12.sp),
+                              fontWeight: FontWeight.bold, fontSize: 12.sp),
                         ),
                       ),
                       Spacer(),
@@ -1403,7 +1240,6 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                               style: TextStyle(
                                   color: Colors.red,
                                   fontWeight: FontWeight.bold,
-                                  fontFamily: 'Intro',
                                   fontSize: 12.sp),
                             )),
                       )
@@ -1497,8 +1333,8 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                         recentProductsList[index].prName ?? '',
                                         maxLines: 2,
                                         style: TextStyle(
-                                            fontSize: 10.sp,
-                                            fontFamily: 'Intro'),
+                                          fontSize: 10.sp,
+                                        ),
                                         overflow: TextOverflow.ellipsis,
                                         textAlign: TextAlign.center,
                                       ),
@@ -1512,7 +1348,6 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                         style: TextStyle(
                                             fontSize: 10.sp,
                                             fontWeight: FontWeight.bold,
-                                            fontFamily: 'Intro',
                                             color: Colors.grey),
                                       ),
                                     ),
@@ -1589,7 +1424,6 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                                                             .qty!
                                                             .toStringAsFixed(0),
                                                         style: TextStyle(
-                                                            fontFamily: 'Intro',
                                                             fontWeight:
                                                                 FontWeight.bold,
                                                             color:
@@ -1711,170 +1545,97 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
             SizedBox(
               height: 20,
             ),
-            //     IndexedStack(
-            //   index: selesctedindex,
-            //   children: datas,
-            // ),
           ],
         ),
       ),
       // ),
-      drawer: Drawer(
-        backgroundColor: Colors.white,
-        child: ListView(
-          children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.grey,
-              ), //BoxDecoration
-              child: UserAccountsDrawerHeader(
-                decoration: BoxDecoration(
-                  color: Colors.grey,
-                ),
+      drawer: DrawerWidget(),
+    );
+  }
 
-                accountName: Text(
-                  "Welcome User",
-                  style: TextStyle(
-                      fontSize: 18,
-                      fontFamily: 'Intro',
-                      fontWeight: FontWeight.bold),
-                ),
-                accountEmail: Text(""),
-                // currentAccountPictureSize: Size.square(50),
-                // currentAccountPicture: CircleAvatar(
-                //   backgroundColor: Colors.grey,
-                //   child: Text(
-                //     "W",
-                //     style: TextStyle(fontSize: 30.0, color: Colors.black),
-                //   ), //Text
-                // ), //circleAvatar
-              ), //UserAccountDrawerHeader
-            ), //DrawerHeader
-            ListTile(
-              leading: const Icon(Icons.home_outlined),
-              title: const Text("Home",
-                  style: TextStyle(
-                      fontFamily: 'Intro',
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12)),
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => HomeScreen()));
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.free_cancellation),
-              title: const Text("Shop By Category",
-                  style: TextStyle(
-                      fontFamily: 'Intro',
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12)),
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => CategoryScreen()));
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.person),
-              title: const Text('My Profile ',
-                  style: TextStyle(
-                      fontFamily: 'Intro',
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12)),
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ProfileScreen()));
-              },
-            ),
+  Future showDialogue() {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        List<Location> locationList = [];
+        // return object of type Dialog
+        return StatefulBuilder(builder: (context, setState) {
+          return AlertDialog(
+            title: Container(
+              height: 35.h,
+              // width: 50.h,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: 5.h,
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          contentPadding: EdgeInsets.all(5)
+                          // labelText: 'Mobile'
+                          ),
+                      controller: _searchController,
+                      onChanged: (value) {
+                        NetworkManager.shared
+                            .custLocation(value)
+                            .then((BaseResponse<List<Location>> response) {
+                          locationList.clear();
+                          locationList.addAll(response.data!);
+                          setState(() {});
+                        }).catchError((e) {
+                          print(e.toString());
+                        });
+                      },
+                    ),
+                  ),
+                  SizedBox(height: 0.5.h),
+                  SizedBox(
+                    height: 25.h,
+                    width: 30.h,
+                    child: ListView.separated(
+                      shrinkWrap: true,
+                      itemCount: locationList.length,
+                      itemBuilder: (context, index) {
+                        return InkWell(
+                            onTap: () {
+                              selectedPlace = DataManager
+                                      .shared.locationList[index].place ??
+                                  '';
+                              print(DataManager
+                                  .shared.locationList[index].pincodeId);
 
-            ListTile(
-              leading: const Icon(Icons.favorite_border_outlined),
-              title: const Text("My Wishlist",
-                  style: TextStyle(
-                      fontFamily: 'Intro',
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12)),
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => WishlistScreen()));
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.location_on),
-              title: const Text("My Address",
-                  style: TextStyle(
-                      fontFamily: 'Intro',
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12)),
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => AddressScreen()));
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.call),
-              title: const Text("Contact Us",
-                  style: TextStyle(
-                      fontFamily: 'Intro',
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12)),
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ContactUsScreen()));
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.tab_outlined),
-              title: const Text("Privacy Policy",
-                  style: TextStyle(
-                      fontFamily: 'Intro',
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12)),
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => PrivacyPolicyScreen()));
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.location_on),
-              title: const Text("Return Policy",
-                  style: TextStyle(
-                      fontFamily: 'Intro',
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12)),
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ReturnPolicyScreen()));
-              },
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            ListTile(
-              leading: const Icon(Icons.logout),
-              title: const Text(
-                'LogOut',
-                style: TextStyle(
-                    fontFamily: 'Intro',
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12),
+                              Navigator.of(context).pop();
+                            },
+                            child: Text(
+                              locationList[index].place ?? '',
+                              style: TextStyle(fontSize: 15),
+                            ));
+                      },
+                      separatorBuilder: (context, index) {
+                        return Divider();
+                      },
+                    ),
+                  ),
+                ],
               ),
-              onTap: () {
-                SessionsManager.clearSession();
-                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
-                  builder: (BuildContext context) {
-                    return LoginScreen();
-                  },
-                ), (route) => false);
-              },
             ),
-          ],
-        ),
-      ),
+            actions: [
+              ElevatedButton(
+                style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all(Colors.grey.shade700)),
+                child: Text("close"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  DataManager.shared.location(_searchController.text);
+                },
+              ),
+            ],
+          );
+        });
+      },
     );
   }
 

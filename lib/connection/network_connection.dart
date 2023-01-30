@@ -31,7 +31,7 @@ import 'package:dio/dio.dart';
 
 part 'network_connection.g.dart';
 
-@RestApi(baseUrl: 'https://dev.lenzcamera.com/api/api/v2/')
+@RestApi(baseUrl: 'https://wpr.intertoons.net/lenzcameraapi/api/v2/')
 abstract class NetworkConnection {
   factory NetworkConnection(Dio dio, {String? baseUrl}) {
     if (kDedebug) {
