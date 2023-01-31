@@ -24,7 +24,7 @@ class FilterScreen extends StatefulWidget {
 class _FilterScreenState extends State<FilterScreen> {
   bool? isExpanded;
 
-  double _startValue = 499;
+  double _startValue = 800;
   double _endValue = 7999;
 
   Category? selectedCategory;
@@ -186,7 +186,7 @@ class _FilterScreenState extends State<FilterScreen> {
                           showValueIndicator: ShowValueIndicator.always,
                         ),
                         child: RangeSlider(
-                          min: 499,
+                          min: 800,
                           max: 8200,
                           divisions: 8200,
                           activeColor: Color(0xffea3438),
@@ -348,7 +348,7 @@ class _FilterScreenState extends State<FilterScreen> {
                       onPressed: () {
                         setState(() {
                           selectedCategory = null;
-                          _startValue = 499;
+                          _startValue = 800;
                           _endValue = 7999;
                           selectedBrand = null;
                           selectedManufacturer = null;

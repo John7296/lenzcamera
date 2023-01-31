@@ -57,6 +57,7 @@ class _ForgotPasswordScreenState
       hideLoader();
       showFlashMsg(e.toString());
       print(e);
+
       showFlashMsg(e.Message!);
     });
   }
@@ -81,7 +82,7 @@ class _ForgotPasswordScreenState
                   MaterialPageRoute(builder: (context) => LoginScreen()));
             },
           ),
-          backgroundColor: kappBar,
+          backgroundColor: kappBarColor,
         ),
         body: Padding(
           padding: const EdgeInsets.only(left: 24, right: 24),
@@ -125,20 +126,28 @@ class _ForgotPasswordScreenState
                         ),
                         controller: _emailController,
                         validator: (val) {
-                          if (val!.isEmpty) {
-                            return "Enter Mobile/Email";
-                          } 
-                          // else if (val != Helper.validatePhone(val)) {
-                          //   return "Enter Valid Mobile";
-                          // }
-                          else if (val != Helper.validateEmail(val)) {
-                            return "Enter Valid Email";
-                          }
+                        
+                              if(val!.isEmpty){
+                                return "Enter Email/Mobile Number";
+                              }
+                             
+                              else if(val!=Helper.validateEmail(val)){
+                                return "Enter valid Email";
+                              }
+                              //  else if(val!=Helper.validatePhone(val)){
+                              //   return "Enter valid Phone";
+                              // }
 
-                          // }
+                              // else{
+                              //   return  null;
+                              // }
+                             
 
-                          return "Enter Valid Mobile";
-                        }),
+                          return null;
+                        },
+                        
+                        
+                        ),
                   ),
                   SizedBox(height: 25),
                   Container(

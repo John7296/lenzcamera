@@ -65,9 +65,14 @@ class _VerifyForgotPwddOtpScreenState extends State<VerifyForgotPwddOtpScreen> {
           MaterialPageRoute(
               builder: (context) => ResetPasswordScreen(response.data!)));
     }).catchError((e) {
-      showFlashMsg(e.toString());
+      //showFlashMsg(e.toString());
       print(e);
-      showFlashMsg(e.Message!);
+
+       if(_otpController.text.isEmpty){
+                    showFlashMsg("Enter OTP");
+                  }
+     else showFlashMsg("Invalid OTP");
+      //showFlashMsg(e.Message!);
     });
   }
 

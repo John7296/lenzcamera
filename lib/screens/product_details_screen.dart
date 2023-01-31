@@ -283,6 +283,7 @@ class _ProductDetailsScreenState
                                     style: TextStyle(
                                         color: Color(0xff70706e),
                                         fontSize: 20,
+                                         fontFamily: 'Intro',
                                         fontWeight: FontWeight.w600),
                                     maxLines: 2,
                                   ),
@@ -466,7 +467,7 @@ class _ProductDetailsScreenState
                             ],
                           ),
 
-                        if (widget.popularproducts?.Reviewstatus != 0)
+                        if (widget.popularproducts?.Reviewstatus != 0.0)
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
@@ -981,31 +982,53 @@ class _ProductDetailsScreenState
               ),
             ),
 
-            //   if (widget.popularproducts!.isCartUpdateProgress!)
-            //  SizedBox(
-            //                   height: 30,
-            //                   width: 30,
-            //                   child: Padding(
-            //                     padding: const EdgeInsets.all(10),
-            //                     child: CircularProgressIndicator(
-            //                       strokeWidth: 2,
-            //                       color: Colors.grey,
-            //                     ),
-            //                   )),
-                            
-
           
+
+          if(widget.popularproducts?.isCartUpdateProgress==true)
+
             Padding(
               padding: const EdgeInsets.only(left: 24,right:24, bottom: 10),
 
-              
+              child: Container(
+                height: 40,
+                 decoration: BoxDecoration(
+                                                                  color:
+                                                                      Color(0xffec3436),
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              5)),
+                                                              child: Center(
+                                                                child: Padding(
+                                                                  padding:
+                                                                      const EdgeInsets
+                                                                              .only(
+                                                                          left: 110,
+                                                                          right: 110,
+                                                                          top: 10,
+                                                                          bottom:
+                                                                              10),
+                                                                  child:
+                                                                      CircularProgressIndicator(
+                                                                    strokeWidth: 2,
+                                                                  ),
+                                                                ),
+                                                              )
+              ),
+            ),
+                            
+       if(widget.popularproducts?.isCartUpdateProgress==false)                
+            Padding(
+              padding: const EdgeInsets.only(left: 24,right:24, bottom: 10),
+
+            
               child: 
             
               Container(  
                 // width: 160,
                 height: 5.h,
                 //height: 40,
-                child: widget.popularproducts!.isAddedtoCart()
+                child: widget.popularproducts!.isAddedtoCart() 
                     ? Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -1043,7 +1066,7 @@ class _ProductDetailsScreenState
 
                            Spacer(),
                          
-                          if (widget.popularproducts!.isCartUpdateProgress!)
+                          if (widget.popularproducts!.isCartUpdateProgress==true)
                             Container(
                                 width: 140,
                                 height: 35,
@@ -1072,8 +1095,8 @@ class _ProductDetailsScreenState
                             Container(
                                 height: 30,
                                 width: 170,
-                                child:
-                                
+                                child: 
+                               
                                  Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
