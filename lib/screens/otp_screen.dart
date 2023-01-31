@@ -31,7 +31,7 @@ class _OtpScreenState extends BaseStatefulState<OtpScreen> {
       "OtpUrlKey": widget.otpUrlKey
     }).then((BaseResponse response) {
       hideLoader();
-      showFlashMsg("Account Created Successfully..!");
+      showFlashMsg(response.message!);
 
       Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
         builder: (BuildContext context) {
@@ -39,7 +39,7 @@ class _OtpScreenState extends BaseStatefulState<OtpScreen> {
         },
       ), (route) => false);
     }).catchError((e) {
-      showLoader();
+      hideLoader();
       showFlashMsg(e.toString());
     });
   }
@@ -78,7 +78,7 @@ class _OtpScreenState extends BaseStatefulState<OtpScreen> {
                               AssetImage("assets/images/logo_lenzcamera.png"))),
                 ),
                 SizedBox(height: 50),
-
+          
                 PinCodeTextField(
                     appContext: context,
                     pastedTextStyle: TextStyle(
@@ -98,23 +98,27 @@ class _OtpScreenState extends BaseStatefulState<OtpScreen> {
                       activeFillColor: Colors.white,
                     ),
                     controller: _otpController,
-                    validator: (val) {
+                    validator: (value) {
                       if (!emailSent) return null;
-                      if (val!.isEmpty) {
-                        return "Enter the OTP";
+                      if (value!.isEmpty) {
+                        return "Please enter OTP";
+                      } else if (value.length != 5) {
+                        return "Please enter valid OTP";
+                      } else {
+                        return null;
                       }
-                      return null;
                     }),
                 //  OtpTextField(
-
+          
                 //  numberOfFields: 5,
                 //    enabledBorderColor: Color(0xffce443a),
                 //    focusedBorderColor: Color(0xff474747),
                 //    showFieldAsBox: true,
                 //    fieldWidth: 60,
-
+          
                 //  ),
                 SizedBox(height: 35),
+          
                 Container(
                   height: 40,
                   child: ElevatedButton(
@@ -122,11 +126,16 @@ class _OtpScreenState extends BaseStatefulState<OtpScreen> {
                       backgroundColor: Color(0xffec3436),
                     ),
                     onPressed: () {
-                      verifyRegisterOtp();
+                      if (_otpController.text.isNotEmpty) {
+                        verifyRegisterOtp();
+                      } else {
+                        showFlashMsg('Please Enter OTP');
+                      }
+          
                       // ScaffoldMessenger.of(context).showSnackBar();
-
+          
                       //verifyForgotPasswordOtp();
-
+          
                       //            Navigator.pushReplacement(
                       // context, MaterialPageRoute(builder: (context)=>ResetPasswordScreen()));
                     },
@@ -150,4 +159,5 @@ class _OtpScreenState extends BaseStatefulState<OtpScreen> {
     // TODO: implement isAuthenticationRequired
     throw UnimplementedError();
   }
+
 }

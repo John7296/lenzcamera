@@ -12,7 +12,7 @@ import 'package:lenzcamera/screens/product_details_screen.dart';
 import 'package:lenzcamera/screens/wishlist_screen.dart';
 import 'package:lenzcamera/utils/constants.dart';
 import 'package:lenzcamera/widgets/appbar_notification_widget.dart';
-import 'package:lenzcamera/widgets/viewall_products_widget.dart';
+import 'package:lenzcamera/widgets/product_card_widget.dart';
 import 'package:sizer/sizer.dart';
 
 class FeaturedProductsScreen extends StatefulWidget {
@@ -74,7 +74,7 @@ class _FeaturedProductsScreenState
         ),
       ),
       backgroundColor: Colors.grey.shade100,
-      body: ViewAllPageWidget(featuredList),
+      body: ProductCardWidget(productsList: featuredList, productsListCount: featuredList.length,),
     );
   }
 

@@ -114,7 +114,7 @@ class DataManager {
         .then((BaseResponse response) {
       getCart(product: product);
     }).catchError((e) {
-      // print(e.toString());
+      print(e.toString());
     });
   }
 
