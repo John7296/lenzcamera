@@ -11,7 +11,7 @@ import 'package:lenzcamera/screens/cart_screen.dart';
 import 'package:lenzcamera/screens/product_details_screen.dart';
 import 'package:lenzcamera/screens/wishlist_screen.dart';
 import 'package:lenzcamera/widgets/appbar_notification_widget.dart';
-import 'package:lenzcamera/widgets/viewall_products_widget.dart';
+import 'package:lenzcamera/widgets/product_card_widget.dart';
 import 'package:sizer/sizer.dart';
 
 class RecentProductsScreen extends StatefulWidget {
@@ -73,7 +73,7 @@ class _RecentProductsScreenState
         ),
       ),
       backgroundColor: Colors.grey.shade100,
-      body: ViewAllPageWidget(recentProductsList),
+      body: ProductCardWidget(productsList: recentProductsList, productsListCount:recentProductsList.length,),
     );
   }
 

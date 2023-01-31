@@ -49,8 +49,6 @@ class NetworkManager {
   late String otpurlkey;
   late int userId;
   late String catUrlKey;
-  
-
 
   init() {
     dio = Dio();
@@ -296,26 +294,29 @@ class NetworkManager {
             _errorMessage = "Receive timeout in connection";
             break;
           case DioErrorType.response:
+            if (error.response!.statusCode == 400) {
+              _errorMessage = error.response!.data['Message'];
+            }
             // if (error.response?.statusCode == 401) {
             //   _errorMessage = "Session timeout";
             //   // DataManager.shared.onTokenExpired!();
             //   throw (_errorMessage);
             // }
 
-            if (error.response?.statusCode == 401 ||
-                error.response?.statusCode == 400) {
-              if (error.response!.data["data"] is Iterable) {
-                for (Map m in error.response!.data["data"]) {
-                  _errorMessage = _errorMessage + m["message"] + "\n";
-                }
-              } else {
-                _errorMessage = "${error.response!.data["message"] ?? ""}";
-              }
-              _errorMessage = _errorMessage.trim() == ""
-                  ? "Unknown error"
-                  : _errorMessage.trim();
-              throw (_errorMessage);
-            }
+            // if (error.response?.statusCode == 401 ||
+            //     error.response?.statusCode == 400) {
+            //   if (error.response!.data["data"] is Iterable) {
+            //     for (Map m in error.response!.data["data"]) {
+            //       _errorMessage = _errorMessage + m["message"] + "\n";
+            //     }
+            //   } else {
+            //     _errorMessage = "${error.response!.data["message"] ?? ""}";
+            //   }
+            //   _errorMessage = _errorMessage.trim() == ""
+            //       ? "Unknown error"
+            //       : _errorMessage.trim();
+            //   throw (_errorMessage);
+            // }
 
             // if (error.response!.statusCode == 400 ||
             //     error.response!.data["data"] == null) {
@@ -334,21 +335,19 @@ class NetworkManager {
                 }
               } catch (e) {}
             }
-            _errorMessage = "${error.response!.data["message"] ?? ""}";
+            _errorMessage = "${error.response!.data["Message"] ?? ""}";
 
             error.response!.data["errors"]?.forEach((k, v) {
               _errorMessage = _errorMessage + "${v[0] ?? ""}\n";
             });
-
             _errorMessage = _errorMessage.trim() == ""
-                ? "Unknown error"
+                ? error.response!.data['Message']
                 : _errorMessage.trim();
             break;
           case DioErrorType.sendTimeout:
             _errorMessage = "Receive timeout in send request";
             break;
         }
-
         throw (_errorMessage);
       }
 
