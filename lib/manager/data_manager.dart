@@ -1,5 +1,7 @@
 import 'package:flash/flash.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:lenzcamera/base/base_stateful_state.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/cart.dart';
@@ -8,7 +10,7 @@ import 'package:lenzcamera/model/product.dart';
 import 'package:lenzcamera/model/user_location.dart';
 import 'package:lenzcamera/utils/sessions_manager.dart';
 
-class DataManager {
+class DataManager extends BaseStatefulState {
   static final DataManager _singleton = DataManager._internal();
   DataManager._internal();
   static DataManager get shared => _singleton;
@@ -142,16 +144,15 @@ class DataManager {
   void addToWishlist(Product product) {
     wishListItems.add(product);
     // onWishlistUpdated = onChange;
-    NetworkManager.shared
-        .addToWishlist(<String, dynamic>{
-          "urlKey": product.urlKey,
-          "custId": NetworkManager.shared.userId,
-          "guestId": 0,
-        })
-        .then((BaseResponse response) {})
-        .catchError((e) {
-          print(e.toString());
-        });
+    NetworkManager.shared.addToWishlist(<String, dynamic>{
+      "urlKey": product.urlKey,
+      "custId": NetworkManager.shared.userId,
+      "guestId": 0,
+    }).then((BaseResponse response) {
+      showFlashMsg(response.message!);
+    }).catchError((e) {
+      print(e.toString());
+    });
   }
 
   void removeFromWishlist(Product product) {
@@ -164,6 +165,7 @@ class DataManager {
     )
         .then((BaseResponse response) {
       //onWishlistUpdated!(response.message!);
+      showFlashMsg(response.message!.toString());
     }).catchError((e) {
       print(e.toString());
     });
@@ -180,21 +182,33 @@ class DataManager {
     return false;
   }
 
-  void location(String search) {
-    NetworkManager.shared
-        .custLocation(search)
-        .then((BaseResponse<List<Location>> response) {
-      locationList.clear();
-      locationList.addAll(response.data!);
-    }).catchError((e) {
-      print(e.toString());
-    });
-  }
+  // void location(String search) {
+  //   NetworkManager.shared
+  //       .custLocation(search)
+  //       .then((BaseResponse<List<Location>> response) {
+  //     locationList.clear();
+  //     locationList.addAll(response.data!);
+  //   }).catchError((e) {
+  //     print(e.toString());
+  //   });
+  // }
 
   void clearSession() {
     NetworkManager.shared.userToken = "";
     NetworkManager.shared.userId = 0;
     SessionsManager.clearSession();
     wishListItems.clear();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    throw UnimplementedError();
+  }
+
+  @override
+  bool isAuthenticationRequired() {
+    // TODO: implement isAuthenticationRequired
+    throw UnimplementedError();
   }
 }

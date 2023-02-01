@@ -11,7 +11,7 @@ class OrderDetail {
   String? payMethod;
 
   @JsonKey(name: "subTotal")
-  String? subTotal;
+  double? subTotal;
 
   @JsonKey(name: "latitude")
   String? latitude;

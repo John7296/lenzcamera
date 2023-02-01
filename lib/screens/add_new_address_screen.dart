@@ -94,6 +94,7 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
       showFlashMsg(response.message!);
     }).catchError((e) {
       showFlashMsg(e.toString());
+      showFlashMsg(e.toString());
       print(e.toString());
     });
   }
@@ -129,7 +130,7 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
     NetworkManager.shared
         .getAddressList()
         .then((BaseResponse<List<AddressList>> response) {
-      // showFlashMsg(response.message!);
+      showFlashMsg(response.message!);
       hideLoader();
       setState(() {
         addressList.clear();
@@ -137,7 +138,7 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
       });
     }).catchError((e) {
       hideLoader();
-      showFlashMsg('Please Add Your Address');
+      showFlashMsg(e.toString());
       print(e.toString());
     });
   }
@@ -182,9 +183,9 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
                                 child: Text(
                                   'First Name',
                                   style: TextStyle(
-                                      color: Colors.grey.shade600,
-                                      fontWeight: FontWeight.bold,
-                                        ),
+                                    color: Colors.grey.shade600,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               )),
                           Container(
@@ -213,9 +214,9 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
                                 padding: const EdgeInsets.only(bottom: 10),
                                 child: Text('Last Name',
                                     style: TextStyle(
-                                        color: Colors.grey.shade600,
-                                        fontWeight: FontWeight.bold,
-                                          )),
+                                      color: Colors.grey.shade600,
+                                      fontWeight: FontWeight.bold,
+                                    )),
                               )),
                           Container(
                             height: 60,
@@ -239,9 +240,9 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
                                 padding: const EdgeInsets.only(bottom: 10),
                                 child: Text('Address Line 1',
                                     style: TextStyle(
-                                        color: Colors.grey.shade600,
-                                        fontWeight: FontWeight.bold,
-                                          )),
+                                      color: Colors.grey.shade600,
+                                      fontWeight: FontWeight.bold,
+                                    )),
                               )),
                           Container(
                             height: 60,
@@ -265,9 +266,9 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
                                 padding: const EdgeInsets.only(bottom: 10),
                                 child: Text('Address Line 2',
                                     style: TextStyle(
-                                        color: Colors.grey.shade600,
-                                        fontWeight: FontWeight.bold,
-                                          )),
+                                      color: Colors.grey.shade600,
+                                      fontWeight: FontWeight.bold,
+                                    )),
                               )),
                           Container(
                             height: 60,
@@ -291,9 +292,9 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
                                 padding: const EdgeInsets.only(bottom: 10),
                                 child: Text('Phone +974',
                                     style: TextStyle(
-                                        color: Colors.grey.shade600,
-                                        fontWeight: FontWeight.bold,
-                                          )),
+                                      color: Colors.grey.shade600,
+                                      fontWeight: FontWeight.bold,
+                                    )),
                               )),
                           Container(
                             height: 60,
@@ -305,7 +306,11 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
                                   ),
                               controller: _phoneController,
                               validator: (value) {
-                                if (value!.isEmpty) return "Enter Phone Number";
+                                if (value!.isEmpty) {
+                                  return "Enter Phone Number";
+                                } else if (value.length != 8) {
+                                  return "Enter Valid Phone Number";
+                                }
                                 return null;
                               },
                             ),
@@ -317,9 +322,9 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
                                 padding: const EdgeInsets.only(bottom: 10),
                                 child: Text('PinCode',
                                     style: TextStyle(
-                                        color: Colors.grey.shade600,
-                                        fontWeight: FontWeight.bold,
-                                          )),
+                                      color: Colors.grey.shade600,
+                                      fontWeight: FontWeight.bold,
+                                    )),
                               )),
                           Container(
                             height: 60,
@@ -341,27 +346,43 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
                               alignment: Alignment.topLeft,
                               child: Padding(
                                 padding: const EdgeInsets.only(bottom: 10),
-                                // child: Text('Mobile',
-                                //     style:
-                                //         TextStyle(color: Colors.grey.shade600)),
+                                child: Text('Country',
+                                    style: TextStyle(
+                                        color: Colors.grey.shade600,
+                                        fontWeight: FontWeight.bold)),
                               )),
                           Container(
-                            height: 60,
-                            child: TextFormField(
-                              decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  labelText: 'QATAR'),
-                              readOnly: true,
-                            ),
-                          ),
+                              width: MediaQuery.of(context).size.width,
+                              height: 52,
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.black26),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(5))),
+                              child: Row(
+                                children: [
+                                  Center(
+                                      child: Padding(
+                                    padding: EdgeInsets.only(left: 10),
+                                    child: Text("QATAR"),
+                                  )),
+                                ],
+                              )
+                              // TextFormField(
+                              //   decoration: InputDecoration(
+                              //       border: OutlineInputBorder(),
+                              //       labelText: 'QATAR'),
+                              //   readOnly: true,
+                              // ),
+                              ),
                           SizedBox(height: 10),
                           Align(
                               alignment: Alignment.topLeft,
                               child: Padding(
                                 padding: const EdgeInsets.only(bottom: 10),
-                                child: Text('',
-                                    style:
-                                        TextStyle(color: Colors.grey.shade600)),
+                                child: Text('State',
+                                    style: TextStyle(
+                                        color: Colors.grey.shade600,
+                                        fontWeight: FontWeight.bold)),
                               )),
                           Container(
                             height: 40,
@@ -459,9 +480,9 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
                               Text(
                                 'Make As Default Billing Address',
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 12,
-                                      ),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12,
+                                ),
                               ),
                             ],
                           ),
@@ -480,9 +501,9 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
                               Text(
                                 'Make As Default Shipping Address',
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 12,
-                                      ),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12,
+                                ),
                               ),
                             ],
                           ),
@@ -492,9 +513,9 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
                                 padding: const EdgeInsets.only(bottom: 10),
                                 child: Text('Landmark',
                                     style: TextStyle(
-                                        color: Colors.grey.shade600,
-                                        fontWeight: FontWeight.bold,
-                                          )),
+                                      color: Colors.grey.shade600,
+                                      fontWeight: FontWeight.bold,
+                                    )),
                               )),
                           Container(
                             height: 60,

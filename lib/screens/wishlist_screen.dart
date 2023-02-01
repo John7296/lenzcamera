@@ -146,8 +146,10 @@ class _WishlistScreenState extends BaseStatefulState<WishlistScreen> {
         backgroundColor: kappBarColor,
         leading: IconButton(
           onPressed: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => HomeScreen()));
+            // Navigator.push(
+            //     context, MaterialPageRoute(builder: (context) => HomeScreen()));
+            Navigator.of(context).pop();
+            getWishListProducts();
           },
           icon: Icon(Icons.arrow_back_ios),
         ),
@@ -155,7 +157,7 @@ class _WishlistScreenState extends BaseStatefulState<WishlistScreen> {
       backgroundColor: Colors.grey.shade100,
       body: (wishListItems.isNotEmpty)
           ? ListView.builder(
-              physics: const ClampingScrollPhysics(),
+              // physics: const ClampingScrollPhysics(),
               shrinkWrap: true,
               itemCount: wishListItems.length,
               itemBuilder: ((context, index) {

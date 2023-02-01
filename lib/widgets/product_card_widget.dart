@@ -11,7 +11,8 @@ class ProductCardWidget extends StatefulWidget {
   List<Product> productsList = [];
   int productsListCount;
   ScrollPhysics? physics;
-  ProductCardWidget({super.key, 
+  ProductCardWidget({
+    super.key,
     required this.productsList,
     required this.productsListCount,
     this.physics,
@@ -57,28 +58,31 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                           child: IconButton(
                             onPressed: () {
                               setState(() {
-                                if (widget.productsList[index].isWhishlisted ==
+                                if (widget.productsList[index].IsWishlisted ==
                                     true) {
                                   DataManager.shared.removeFromWishlist(
                                       widget.productsList[index]);
-                                  widget.productsList[index].isWhishlisted =
+                                  widget.productsList[index].IsWishlisted =
                                       false;
                                 } else {
                                   DataManager.shared.addToWishlist(
                                       widget.productsList[index]);
-                                  widget.productsList[index].isWhishlisted =
+                                  widget.productsList[index].IsWishlisted =
                                       true;
                                 }
+                                widget.productsList;
                                 // DataManager.shared
                                 //     .getWishList();
                               });
                             },
                             icon: Icon(
                               Icons.favorite,
-                              color: DataManager.shared
-                                      .iswishListed(widget.productsList[index])
-                                  ? Colors.red
-                                  : Colors.grey,
+                              color:
+                                  // widget.productsList[index].IsWishlisted!
+                                  DataManager.shared.iswishListed(
+                                          widget.productsList[index])
+                                      ? Colors.red
+                                      : Colors.grey,
                             ),
                           ),
                         ),

@@ -47,18 +47,18 @@ class _AddressScreenState extends BaseStatefulState<AddressScreen> {
   }
 
   Future<void> deleteAddress(index) async {
-    showLoader();
+    // showLoader();
     // print("indexID${index}");
     NetworkManager.shared
         .deleteAddress(index.toString())
         .then((BaseResponse response) {
-      hideLoader();
+      // hideLoader();
       showFlashMsg(response.message!);
       setState(() {
         getAddress();
       });
     }).catchError((e) {
-      hideLoader();
+      // hideLoader();
       showFlashMsg(e.toString());
       print(e.toString());
     });
@@ -184,12 +184,12 @@ class _AddressScreenState extends BaseStatefulState<AddressScreen> {
                                     // "addressId:${addressList[index].custAdressId}");
 
                                     deleteAddress(
-                                            addressList[index].custAdressId!)
-                                        .then(
-                                      (value) {
-                                        getAddress();
-                                      },
-                                    );
+                                            addressList[index].custAdressId!);
+                                      //   .then(
+                                      // (value) {
+                                      //   getAddress();
+                                      // },
+                                    // );
                                     // print(
                                     //     "Before:${addressList[index].custAdressId}");
 

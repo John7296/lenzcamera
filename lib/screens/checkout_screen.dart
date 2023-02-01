@@ -23,11 +23,12 @@ class CheckoutScreen extends StatefulWidget {
 class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
   List<Product> cartItemsList = [];
   List<AddressList> addressList = [];
-  List<OrderList> orderList = [];
+  List<AddressList> addresslist1 = [];
   bool umw = false;
   bool cod = true;
   AddressList? selectedShippingAddress;
   AddressList? selectedBillingAddress;
+  var orderDetails;
 
   final _orderNoteController = TextEditingController();
 
@@ -37,6 +38,7 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
     super.initState();
     Future.delayed(Duration(milliseconds: 500), () {
       address();
+      getCart();
     });
   }
 
@@ -50,11 +52,11 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
       setState(() {
         addressList.clear();
         addressList.addAll(response.data!);
+
       });
     }).catchError((e) {
       showFlashMsg('No Address Found, Please Add  your Address');
       hideLoader();
-      print(e.toString());
     });
   }
 
@@ -66,11 +68,39 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
       "orderNote": _orderNoteController,
       "payMethod": "COD",
     }).then((BaseResponse response) {
+      NetworkManager.shared.orderNum = response.data['orderNumber'];
+
       showFlashMsg(response.message!);
+
+      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+        builder: (BuildContext context) {
+          return OrderSuccessScreen();
+        },
+      ), (route) => false);
       // getCart(product: product);
     }).catchError((e) {
       showFlashMsg(e.toString());
-      print(e.toString());
+    });
+  }
+
+  void getCart() {
+    showLoader();
+    NetworkManager.shared
+        .getCart(
+      NetworkManager.shared.userId,
+      0,
+      8,
+    )
+        .then((BaseResponse<CartResponse> response) {
+      hideLoader();
+      // showFlashMsg(response.message.toString());
+      setState(() {
+        cartItemsList.clear();
+        cartItemsList.addAll(response.data!.cartItems!);
+      });
+    }).catchError((e) {
+      showFlashMsg(e.toString());
+      hideLoader();
     });
   }
 
@@ -197,9 +227,12 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                                                         8.0),
                                                                 child: InkWell(
                                                                   onTap: () {
-                                                                    selectedBillingAddress =
-                                                                        addressList[
-                                                                            index];
+                                                                    setState(
+                                                                        () {
+                                                                      selectedShippingAddress =
+                                                                          addressList[
+                                                                              index];
+                                                                    });
                                                                     Navigator.pop(
                                                                         context);
                                                                   },
@@ -260,6 +293,7 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                                     )
                                                   ]);
                                             }).then((value) {
+                                          
                                           setState(() {});
                                         });
                                       },
@@ -270,14 +304,15 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                         ),
                                       ),
                                     ),
-                                  
                                   ],
                                 ),
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 44),
                                 child: Text(
-                                  selectedBillingAddress?.firstName ?? '',
+                                  (selectedShippingAddress == null)
+                                      ? 'Name'
+                                      : selectedShippingAddress?.firstName ?? '',
                                   style: TextStyle(
                                     color: Color(0xff717171),
                                     fontSize: 14,
@@ -289,7 +324,9 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                 padding:
                                     const EdgeInsets.only(left: 44, top: 5),
                                 child: Text(
-                                  selectedBillingAddress?.addLine2 ?? '',
+                                  (selectedShippingAddress == null)
+                                      ? 'Shipping Address'
+                                      : selectedShippingAddress?.addLine1 ?? '',
                                   style: TextStyle(
                                       color: Color(0xff717171), fontSize: 12),
                                 ),
@@ -298,7 +335,9 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                 padding:
                                     const EdgeInsets.only(left: 44, top: 5),
                                 child: Text(
-                                  addressList.first.country ?? '',
+                                   (selectedShippingAddress == null)
+                                      ? 'Quatar'
+                                      : selectedShippingAddress?.country ?? '',
                                   style: TextStyle(
                                       color: Color(0xff717171), fontSize: 12),
                                 ),
@@ -306,7 +345,6 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                             ]),
                       ),
                     ),
-                    
                     SizedBox(
                       height: 10,
                     ),
@@ -474,14 +512,15 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                         ),
                                       ),
                                     ),
-                                  
                                   ],
                                 ),
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 44),
                                 child: Text(
-                                  selectedBillingAddress?.firstName ?? '',
+                                  (selectedBillingAddress == null)
+                                      ? 'Name'
+                                      : selectedBillingAddress?.firstName ?? '',
                                   style: TextStyle(
                                     color: Color(0xff717171),
                                     fontSize: 14,
@@ -493,7 +532,9 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                 padding:
                                     const EdgeInsets.only(left: 44, top: 5),
                                 child: Text(
-                                  selectedBillingAddress?.addLine2 ?? '',
+                                 (selectedBillingAddress == null)
+                                      ? 'Billing Address'
+                                      : selectedBillingAddress?.addLine1 ?? '',
                                   style: TextStyle(
                                       color: Color(0xff717171), fontSize: 12),
                                 ),
@@ -502,7 +543,9 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                 padding:
                                     const EdgeInsets.only(left: 44, top: 5),
                                 child: Text(
-                                  addressList.first.country ?? '',
+                                  (selectedBillingAddress == null)
+                                      ? 'Qatar'
+                                      : selectedBillingAddress?.country ?? '',
                                   style: TextStyle(
                                       color: Color(0xff717171), fontSize: 12),
                                 ),
@@ -510,7 +553,6 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                             ]),
                       ),
                     ),
-                    
                     SizedBox(
                       height: 10,
                     ),
@@ -584,7 +626,7 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                       value: cod,
                                       onChanged: (value) {
                                         // setState(() {
-                                          cod = true;
+                                        cod = true;
                                         // });
                                       },
                                       activeColor: Colors.red,
@@ -686,15 +728,16 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                     )),
 
                                     //  SizedBox(width: 175),
-                                    Text(
-                                      "QAR ${widget.grandTotal}",
-                                      // "",
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.bold,
+                                    if (cartItemsList.isNotEmpty)
+                                      Text(
+                                        "QAR ${cartItemsList.first.grandTotal}",
+                                        // "",
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
-                                    ),
                                   ],
                                 ),
                               ),
@@ -762,12 +805,6 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                     backgroundColor: Color(0xffec3436),
                   ),
                   onPressed: () {
-                    if (cartItemsList != null)
-                      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
-                        builder: (BuildContext context) {
-                          return OrderSuccessScreen();
-                        },
-                      ), (route) => false);
                     placeOrder();
                   },
                   child: Center(

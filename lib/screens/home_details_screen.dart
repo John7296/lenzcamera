@@ -56,6 +56,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
   List<Product> recentProductsList = [];
   List<Product> relatedProductsList = [];
   List<Banners> bannerList = [];
+  List<Location> locationList = [];
   String? cartItemId;
   var _searchController = TextEditingController();
   String? search = '';
@@ -70,7 +71,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
     Future.delayed(const Duration(milliseconds: 500), () {
       getTopCategories();
       _featuredProducts();
-      DataManager.shared.location(search!);
+      location(search!);
 
       // _updateDeviceToken();
     });
@@ -173,18 +174,18 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
     });
   }
 
-  // void location() {
-  //   NetworkManager.shared
-  //       .custLocation("m")
-  //       .then((BaseResponse<List<Location>> response) {
-  //     setState(() {
-  //       locationList.clear();
-  //       locationList.addAll(response.data!);
-  //     });
-  //   }).catchError((e) {
-  //     print(e.toString());
-  //   });
-  // }
+  void location(String search) {
+    NetworkManager.shared
+        .custLocation(search)
+        .then((BaseResponse<List<Location>> response) {
+      setState(() {
+        locationList.clear();
+        locationList.addAll(response.data!);
+      });
+    }).catchError((e) {
+      print(e.toString());
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -239,7 +240,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                       padding: EdgeInsets.all(0.5.h),
                       child: TextButton(
                           onPressed: () {
-                            DataManager.shared.location(_searchController.text);
+                            location(_searchController.text);
                             showDialogue();
                           },
                           child: Text(
@@ -1291,8 +1292,8 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                     child: TextFormField(
                       decoration: InputDecoration(
                           border: OutlineInputBorder(),
-                          contentPadding: EdgeInsets.all(5)
-                          // labelText: 'Mobile'
+                          contentPadding: EdgeInsets.all(5),
+                          labelText: 'Search Location'
                           ),
                       controller: _searchController,
                       onChanged: (value) {
@@ -1347,7 +1348,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                 child: Text("close"),
                 onPressed: () {
                   Navigator.of(context).pop();
-                  DataManager.shared.location(_searchController.text);
+                  location(_searchController.text);
                 },
               ),
             ],
@@ -1361,7 +1362,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
     await Future.delayed(Duration(seconds: 1));
     getTopCategories();
     _featuredProducts();
-    DataManager.shared.location(search!);
+    location(search!);
     DataManager.shared.getWishList();
     getBanners();
     popularProducts();

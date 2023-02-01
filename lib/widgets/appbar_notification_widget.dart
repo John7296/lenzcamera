@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/manager/data_manager.dart';
+import 'package:lenzcamera/model/base_response.dart';
+import 'package:lenzcamera/model/product.dart';
 import 'package:lenzcamera/screens/cart_screen.dart';
 import 'package:lenzcamera/screens/wishlist_screen.dart';
 
@@ -9,7 +12,8 @@ class AppBarNotificationWidget extends StatefulWidget {
   const AppBarNotificationWidget({super.key});
 
   @override
-  State<AppBarNotificationWidget> createState() => _AppBarNotificationWidgetState();
+  State<AppBarNotificationWidget> createState() =>
+      _AppBarNotificationWidgetState();
 }
 
 class _AppBarNotificationWidgetState extends State<AppBarNotificationWidget> {

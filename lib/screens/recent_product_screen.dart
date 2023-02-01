@@ -73,7 +73,10 @@ class _RecentProductsScreenState
         ),
       ),
       backgroundColor: Colors.grey.shade100,
-      body: ProductCardWidget(productsList: recentProductsList, productsListCount:recentProductsList.length,),
+      body: ProductCardWidget(
+        productsList: recentProductsList,
+        productsListCount: recentProductsList.length,
+      ),
     );
   }
 

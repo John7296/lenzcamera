@@ -43,6 +43,7 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
     NetworkManager.shared
         .orderDetails(widget.orderList.orderId!)
         .then((BaseResponse<SingleOrderDetail> response) {
+      // showFlashMsg(response.message!);
       hideLoader();
       setState(() {
         singleItemList.clear();
@@ -503,7 +504,7 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
               child: ElevatedButton(
                 onPressed: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => OrderScreen()));
+                      MaterialPageRoute(builder: (context) => HomeScreen()));
                 },
                 child: Text(
                   'Back',
