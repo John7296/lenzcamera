@@ -49,6 +49,7 @@ class NetworkManager {
   late String otpurlkey;
   late int userId;
   late String catUrlKey;
+  late String orderNum;
 
   init() {
     dio = Dio();

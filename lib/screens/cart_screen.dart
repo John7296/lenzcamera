@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flash/flash.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lenzcamera/base/base_stateful_state.dart';
@@ -48,24 +49,7 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
       // showFlashMsg(response.message.toString());
       setState(() {
         cartItemsList.clear();
-        if (response.data!.cartItems!.isNotEmpty) {
-          cartItemsList.addAll(response.data!.cartItems!);
-        }
-
-        if (response.data!.cartItems!.first.subTotal != null) {
-          subtotal = response.data!.cartItems!.first.subTotal;
-        }
-
-        if (response.data!.cartItems!.first.grandTotal != null) {
-          grandtotal = response.data!.cartItems!.first.grandTotal;
-        }
-
-        if (response.data!.cartItems!.first.deliveryAmount != null) {
-          deliveryamount = response.data!.cartItems!.first.deliveryAmount;
-        }
-
-        print(subtotal.toString());
-        print(grandtotal.toString());
+        cartItemsList.addAll(response.data!.cartItems!);
       });
     }).catchError((e) {
       showFlashMsg(e.toString());
@@ -91,9 +75,9 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
             color: Colors.white,
           ),
           onPressed: () {
-            // Navigator.push(
-            //     context, MaterialPageRoute(builder: (context) => HomeScreen()));
-            Navigator.of(context).pop();
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => HomeScreen()));
+            // Navigator.of(context).pop();
           },
         ),
         backgroundColor: kappBarColor,
@@ -159,13 +143,15 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                                         ],
                                       ),
                                       Padding(
-                                        padding: const EdgeInsets.only(left:10),
+                                        padding:
+                                            const EdgeInsets.only(left: 10),
                                         child: Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
                                             Padding(
-                                              padding: EdgeInsets.only(top: 2.h),
+                                              padding:
+                                                  EdgeInsets.only(top: 2.h),
                                               child: Container(
                                                 height: 5.h,
                                                 width: 39.5.w,
@@ -183,7 +169,8 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                                             ),
                                             Spacer(),
                                             Container(
-                                              margin: EdgeInsets.only(bottom: 15),
+                                              margin:
+                                                  EdgeInsets.only(bottom: 15),
                                               child: Text(
                                                 // 'QAR 8600.00',
                                                 "QAR${cartItemsList[index].unitPrice}",
@@ -196,11 +183,10 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                                           ],
                                         ),
                                       ),
-
                                       Expanded(
                                         child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.end,
-                                          
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.end,
                                           children: [
                                             IconButton(
                                               onPressed: () {
@@ -209,7 +195,7 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                                                   builder: (context) =>
                                                       AlertDialog(
                                                     title: Text(
-                                                      "Would you like to delete this item",
+                                                      "Would you like to delete this item ?",
                                                       style: TextStyle(
                                                           fontSize: 15),
                                                     ),
@@ -238,12 +224,23 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                                                               .removeFromCart(
                                                                   cartItemsList[
                                                                       index]);
-                                                          Navigator.push(
+                                                          Navigator.pushReplacement(
                                                               context,
                                                               MaterialPageRoute(
                                                                   builder:
                                                                       (context) =>
                                                                           CartScreen()));
+
+                                                          // Navigator
+                                                          //     .pushAndRemoveUntil(
+                                                          //         context,
+                                                          //         MaterialPageRoute(
+                                                          //   builder:
+                                                          //       (BuildContext
+                                                          //           context) {
+                                                          //     return CartScreen();
+                                                          //   },
+                                                          // ), (route) => false);
                                                           // Navigator.pop(
                                                           // context);
                                                           // showFlashMsg(
@@ -267,13 +264,15 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                                             ),
                                             Spacer(),
                                             Container(
-                                              margin: EdgeInsets.only(
-                                                  bottom: 8),
+                                              margin:
+                                                  EdgeInsets.only(bottom: 8),
                                               // bottom: 5, right: 5
                                               child: Padding(
-                                                padding: const EdgeInsets.only(right:15),
+                                                padding: const EdgeInsets.only(
+                                                    right: 15),
                                                 child: Row(
-                                                  mainAxisAlignment: MainAxisAlignment.end,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.end,
                                                   children: [
                                                     Row(
                                                       mainAxisAlignment:
@@ -317,7 +316,8 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                                                             child: Center(
                                                                 child: Icon(
                                                               Icons.remove,
-                                                              color: Colors.white,
+                                                              color:
+                                                                  Colors.white,
                                                               size: 12,
                                                             )),
                                                           ),
@@ -327,12 +327,13 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                                                           height: 30,
                                                           decoration:
                                                               BoxDecoration(
-                                                            color:
-                                                                Color(0xffe3e3e3),
+                                                            color: Color(
+                                                                0xffe3e3e3),
                                                           ),
                                                           child: Center(
                                                             child: Text(
-                                                              cartItemsList[index]
+                                                              cartItemsList[
+                                                                      index]
                                                                   .qty!
                                                                   .toStringAsFixed(
                                                                       0),
@@ -362,7 +363,14 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                                                                 setState(() {});
                                                               },
                                                             );
-                                                            getCart();
+                                                            (cartItemsList[index]
+                                                                        .qoh ==
+                                                                    cartItemsList[
+                                                                            index]
+                                                                        .qty)
+                                                                ? showFlashMsg(
+                                                                    'Already reached Maximum Quantity..!')
+                                                                : getCart();
                                                           },
                                                           child: Container(
                                                               width: 30,
@@ -375,16 +383,14 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                                                                           BorderRadius
                                                                               .only(
                                                                         topRight:
-                                                                            Radius.circular(
-                                                                                5),
+                                                                            Radius.circular(5),
                                                                         bottomRight:
-                                                                            Radius.circular(
-                                                                                5),
+                                                                            Radius.circular(5),
                                                                       )),
                                                               child: Icon(
                                                                 Icons.add,
-                                                                color:
-                                                                    Colors.white,
+                                                                color: Colors
+                                                                    .white,
                                                                 size: 12,
                                                               )),
                                                         ),
@@ -439,7 +445,7 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                               // ),
                               if (cartItemsList.isNotEmpty)
                                 Text(
-                                  "QAR ${subtotal.toString()}",
+                                  "QAR ${cartItemsList.first.subTotal.toString()}",
                                   style: TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.bold,
@@ -526,7 +532,7 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                         if (cartItemsList.isNotEmpty)
                           Text(
                             // "",
-                            "QAR ${grandtotal.toString()}",
+                            "QAR ${cartItemsList.first.grandTotal.toString()}",
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.bold,

@@ -74,7 +74,10 @@ class _FeaturedProductsScreenState
         ),
       ),
       backgroundColor: Colors.grey.shade100,
-      body: ProductCardWidget(productsList: featuredList, productsListCount: featuredList.length,),
+      body: ProductCardWidget(
+        productsList: featuredList,
+        productsListCount: featuredList.length,
+      ),
     );
   }
 

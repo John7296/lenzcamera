@@ -143,8 +143,8 @@ class _OrderScreenState extends BaseStatefulState<OrderScreen> {
         backgroundColor: kappBarColor,
         leading: IconButton(
           onPressed: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => HomeScreen()));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => ProfileScreen()));
             // Navigator.pop(context);
           },
           icon: Icon(Icons.arrow_back_ios),

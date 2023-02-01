@@ -236,20 +236,22 @@ class _CategoryScreenState extends BaseStatefulState<CategoryScreen> {
                 ),
               ),
               Expanded(
-                  child: isLoading
-                      ? Center(
-                          child: Container(
-                          height: 50,
-                          width: 50,
-                          child: Card(
-                              child: Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2.5,
-                            ),
-                          )),
-                        ))
-                      : PageView(
+                  child:
+                  //  isLoading
+                  //     ? Center(
+                  //         child: Container(
+                  //         height: 50,
+                  //         width: 50,
+                  //         child: Card(
+                  //             child: Padding(
+                  //           padding: const EdgeInsets.all(10),
+                  //           child: CircularProgressIndicator(
+                  //             strokeWidth: 2.5,
+                  //           ),
+                  //         )),
+                  //       ))
+                  //     : 
+                      PageView(
                           // controller: _pageController,
                           children: [
                             // for (var i = 0; i < pageCount; i++)

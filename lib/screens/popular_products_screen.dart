@@ -74,7 +74,10 @@ class _PopularProductsScreenState
         ),
       ),
       backgroundColor: Colors.grey.shade100,
-      body: ProductCardWidget(productsList: popularProductsList, productsListCount: popularProductsList.length,),
+      body: ProductCardWidget(
+        productsList: popularProductsList,
+        productsListCount: popularProductsList.length,
+      ),
     );
   }
 

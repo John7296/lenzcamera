@@ -91,22 +91,22 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
         Container(
           // color: Colors.amber,
           // height: 250,
-          height: 36.h,
+          height: 30.h,
           width: MediaQuery.of(context).size.width,
           child: Column(
             children: [
               Container(
-                margin: EdgeInsets.fromLTRB(120, 43, 120, 10),
+                margin: EdgeInsets.symmetric(horizontal: 7.h,vertical: 2.5.h),
                 decoration: BoxDecoration(
-                  border: Border.all(width: 5, color: Colors.black),
-                  borderRadius: BorderRadius.all(Radius.circular(45)),
+                  border: Border.all(width: 1.w, color: Colors.black),
+                  borderRadius: BorderRadius.all(Radius.circular(3.5.h)),
                 ),
                 child: Container(
-                  height: 150,
-                  width: 200,
+                  height: 20.h,
+                  width: 40.w,
                   child: Icon(
                     Icons.person_outline,
-                    size: 100,
+                    size: 20.h,
                   ),
                 ),
               ),
@@ -200,7 +200,7 @@ class _ProfileScreenState extends BaseStatefulState<ProfileScreen> {
                   ),
                   InkWell(
                       onTap: (() {
-                        showFlashMsg('Wallet is Not Available');
+                        showFlashMsg('Currently Unavailable');
                       }),
                       child: ProfilePageWidget(
                           'My Wallet', 'View, Recharge', Icon(Icons.money))),

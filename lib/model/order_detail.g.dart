@@ -9,7 +9,7 @@ part of 'order_detail.dart';
 OrderDetail _$OrderDetailFromJson(Map<String, dynamic> json) => OrderDetail(
       status: json['status'] as String?,
       payMethod: json['PayMethod'] as String?,
-      subTotal: json['subTotal'] as String?,
+      subTotal: (json['subTotal'] as num?)?.toDouble(),
       latitude: json['latitude'] as String?,
       longitude: json['longitude'] as String?,
       joborderItemsId: json['joborderItemsId'] as int?,

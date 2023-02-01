@@ -38,7 +38,6 @@ class _OrderSuccessScreenState extends BaseStatefulState<OrderSuccessScreen> {
       hideLoader();
       // print(response.data);
       setState(() {
-        // isLoading = false;
         orderList.clear();
         orderList.addAll(response.data!);
         // print(response.data!.first.catId);
@@ -55,37 +54,13 @@ class _OrderSuccessScreenState extends BaseStatefulState<OrderSuccessScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Padding(
-            padding: const EdgeInsets.only(left: 50),
+          title: Center(
             child: Text(
               'Order Success',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
             ),
           ),
-          actions: [
-            AppBar(
-              title: Container(
-                height: 100,
-                width: 180,
-                child: Image(
-                  image: AssetImage("assets/images/logo_lenzcamera.png"),
-                ),
-              ),
-              backgroundColor: Colors.grey.shade700,
-              // leading: IconButton(
-              //   onPressed: () {},
-              //   icon: Icon(Icons.arrow_back_ios),
-              // ),
-            ),
-          ],
           backgroundColor: kappBarColor,
-          leading: IconButton(
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => HomeScreen()));
-            },
-            icon: Icon(Icons.arrow_back_ios),
-          ),
         ),
         backgroundColor: Colors.white,
         body: Stack(
@@ -134,7 +109,7 @@ class _OrderSuccessScreenState extends BaseStatefulState<OrderSuccessScreen> {
                         // ), (route) => false);
                       },
                       child: Text(
-                        orderList.first.orderNumber.toString(),
+                        NetworkManager.shared.orderNum.toString(),
                         style: TextStyle(
                           color: Colors.red,
                         ),
