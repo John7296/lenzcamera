@@ -510,7 +510,7 @@ class _ProductDetailsScreenState
                                     alignment: Alignment.centerRight,
                                     child: Container(
                                         //height: 27,
-                                        width: 100,
+                                        width: 90,
                                         child: ElevatedButton(
                                           style: ElevatedButton.styleFrom(
                                             backgroundColor: Color(0xffec3436),
@@ -527,7 +527,7 @@ class _ProductDetailsScreenState
                                           child: Text(
                                             "Write Review",
                                             style: TextStyle(
-                                                fontSize: 8,
+                                                fontSize: 9,
                                                 color: Colors.white,
                                                 fontFamily: "Intro",
                                                 fontWeight: FontWeight.w600),
@@ -1068,15 +1068,15 @@ class _ProductDetailsScreenState
                               if (widget.popularproducts!.isCartUpdateProgress!)
                                 Container(
                                     width: 140,
-                                    height: 35,
+                                    height: 30,
                                     decoration: BoxDecoration(
                                         color: Colors.green,
                                         borderRadius: BorderRadius.circular(5)),
                                     child: Center(
                                       child: Padding(
                                         padding: const EdgeInsets.only(
-                                            left: 60,
-                                            right: 60,
+                                            left: 65,
+                                            right: 65,
                                             top: 10,
                                             bottom: 10),
                                         child: CircularProgressIndicator(
@@ -1093,7 +1093,7 @@ class _ProductDetailsScreenState
       
                                 Container(
                                     height: 30,
-                                    width: 169,
+                                    width: 140,
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.end,
                                       children: [
