@@ -44,181 +44,183 @@ class _WriteReviewScreenState extends BaseStatefulState<WriteReviewScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text("Write a Review"),
-          titleTextStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
-          leading: IconButton(
-            icon: const Icon(
-              Icons.arrow_back_ios_new_sharp,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-          backgroundColor: kappBarColor,
-        ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Center(
-                    child: Container(
-                      height: 200,
-                      width: 200,
-                      child: CachedNetworkImage(
-                          imageUrl:
-                              "https://dev.lenzcamera.com/webadmin/${widget.products?.imageUrl}"),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 24),
-                    child: Text(
-                      widget.products?.prName ?? '',
-                      // "GoPro Volta Battery Grip for HERO",
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                  Row(
-                    // mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 24, top: 10),
-                        child: Text("QAR ${widget.products?.unitPrice}",
-
-                            //"QAR 600",
-                            style: TextStyle(
-                                fontSize: 20,
-                                color: Color(0xff70706e),
-                                fontWeight: FontWeight.w600)),
-                      ),
-                    ],
-                  ),
-                ],
+    return SafeArea(
+      child: Scaffold(
+          appBar: AppBar(
+            centerTitle: true,
+            title: Text("Write a Review"),
+            titleTextStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+            leading: IconButton(
+              icon: const Icon(
+                Icons.arrow_back_ios_new_sharp,
+                color: Colors.white,
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 24, top: 15),
-                child: Row(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+            backgroundColor: kappBarColor,
+          ),
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    RatingBar.builder(
-                      itemSize: 35,
-                      initialRating: selectedRating,
-                      // minRating: 1,
-                      direction: Axis.horizontal,
-                      itemCount: 5,
-                      unratedColor: Color(0xffbec3c7),
-                      itemPadding: const EdgeInsets.symmetric(horizontal: 0.0),
-                      itemBuilder: (context, _) => const Icon(
-                        Icons.star,
-                        color: Color(0xfff3f30d),
+                    Center(
+                      child: Container(
+                        height: 200,
+                        width: 200,
+                        child: CachedNetworkImage(
+                            imageUrl:
+                                "https://dev.lenzcamera.com/webadmin/${widget.products?.imageUrl}"),
                       ),
-                      onRatingUpdate: (rating) {
-                        selectedRating = rating;
-                      },
                     ),
-                    // RatingBarIndicator(
-                    //   rating: 5,
-                    //   itemBuilder: (context, index) => Icon(
-                    //     Icons.star,
-                    //     color: Colors.grey,
-                    //   ),
-                    //   itemCount: 5,
-                    //   itemSize: 30.0,
-                    //   direction: Axis.horizontal,
-                    // ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 24),
+                      child: Text(
+                        widget.products?.prName ?? '',
+                        // "GoPro Volta Battery Grip for HERO",
+                        style:
+                            TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    Row(
+                      // mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 24, top: 10),
+                          child: Text("QAR ${widget.products?.unitPrice}",
+    
+                              //"QAR 600",
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  color: Color(0xff70706e),
+                                  fontWeight: FontWeight.w600)),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 24, right: 24, top: 20),
-                child: Container(
-                  height: 40,
-                  child: TextFormField(
+                Padding(
+                  padding: const EdgeInsets.only(left: 24, top: 15),
+                  child: Row(
+                    children: [
+                      RatingBar.builder(
+                        itemSize: 35,
+                        initialRating: selectedRating,
+                        // minRating: 1,
+                        direction: Axis.horizontal,
+                        itemCount: 5,
+                        unratedColor: Color(0xffbec3c7),
+                        itemPadding: const EdgeInsets.symmetric(horizontal: 0.0),
+                        itemBuilder: (context, _) => const Icon(
+                          Icons.star,
+                          color: Color(0xfff3f30d),
+                        ),
+                        onRatingUpdate: (rating) {
+                          selectedRating = rating;
+                        },
+                      ),
+                      // RatingBarIndicator(
+                      //   rating: 5,
+                      //   itemBuilder: (context, index) => Icon(
+                      //     Icons.star,
+                      //     color: Colors.grey,
+                      //   ),
+                      //   itemCount: 5,
+                      //   itemSize: 30.0,
+                      //   direction: Axis.horizontal,
+                      // ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 24, right: 24, top: 20),
+                  child: Container(
+                    height: 40,
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(color: Color(0xff878787)),
+                        ),
+                        hintText: "Title",
+                        hintStyle: TextStyle(
+                            color: Colors.black,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w500),
+                        suffixIcon: Padding(
+                          padding: const EdgeInsets.only(right: 20),
+                        ),
+                      ),
+                      controller: _reviewtitleController,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 24, right: 24, top: 20),
+                  child: TextField(
+                    maxLines: 7,
                     decoration: InputDecoration(
+                      hintText: "Write Your Review",
                       border: OutlineInputBorder(
                         borderSide: BorderSide(color: Color(0xff878787)),
                       ),
-                      hintText: "Title",
+    
                       hintStyle: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w500),
-                      suffixIcon: Padding(
-                        padding: const EdgeInsets.only(right: 20),
+                        color: Colors.black,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      //
+                    ),
+                    controller: _reviewController,
+                  ),
+                ),
+                Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 24, top: 5),
+                      child: Text(
+                        "Maximum 250 Characters",
+                        style: TextStyle(color: Color(0xff878787), fontSize: 10),
                       ),
                     ),
-                    controller: _reviewtitleController,
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 24, right: 24, top: 20),
+                  child: Container(
+                    height: 40,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color(0xffec3436),
+                      ),
+                      onPressed: () {
+                        addReview();
+                        // Navigator.push(
+                        // context,
+                        // MaterialPageRoute(
+                        // builder: (context) =>
+                        // ReviewScreen()));
+                      },
+                      child: Center(
+                          child: Text(
+                        "Submit",
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white),
+                      )),
+                    ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 24, right: 24, top: 20),
-                child: TextField(
-                  maxLines: 7,
-                  decoration: InputDecoration(
-                    hintText: "Write Your Review",
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(color: Color(0xff878787)),
-                    ),
-
-                    hintStyle: TextStyle(
-                      color: Colors.black,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w500,
-                    ),
-                    //
-                  ),
-                  controller: _reviewController,
-                ),
-              ),
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 24, top: 5),
-                    child: Text(
-                      "Maximum 250 Characters",
-                      style: TextStyle(color: Color(0xff878787), fontSize: 10),
-                    ),
-                  ),
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 24, right: 24, top: 20),
-                child: Container(
-                  height: 40,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xffec3436),
-                    ),
-                    onPressed: () {
-                      addReview();
-                      // Navigator.push(
-                      // context,
-                      // MaterialPageRoute(
-                      // builder: (context) =>
-                      // ReviewScreen()));
-                    },
-                    child: Center(
-                        child: Text(
-                      "Submit",
-                      style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white),
-                    )),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ));
+              ],
+            ),
+          )),
+    );
   }
 
   @override

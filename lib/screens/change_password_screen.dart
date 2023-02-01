@@ -273,8 +273,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                         if (val!.isEmpty) return "Retype the password";
                         if (val != _newPasswordController.text)
                           return "Passwords should be same";
-                        if (val.length < 6)
-                          return "Minimum 6 characters required";
+                        
                         return null;
                       }),
                 ),

@@ -30,6 +30,12 @@ class _ForgotPasswordScreenState
   bool emailSent = false;
   bool isMobileNumber = false;
 
+  
+bool isPhone(String input) =>
+    RegExp(r'^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$')
+        .hasMatch(input);
+
+
   @override
   void initState() {
     super.initState();
@@ -131,9 +137,13 @@ class _ForgotPasswordScreenState
                                 return "Enter Email/Mobile Number";
                               }
                              
-                              else if(val!=Helper.validateEmail(val)){
-                                return "Enter valid Email";
+                              else if(!Helper.validateEmail(val) && (!isPhone(val))){
+                                return "Enter valid Email or Phone Number";
                               }
+
+                              // else if(isPhone(val)){
+                              //   return "Enter a valid phone";
+                              // }
                               //  else if(val!=Helper.validatePhone(val)){
                               //   return "Enter valid Phone";
                               // }

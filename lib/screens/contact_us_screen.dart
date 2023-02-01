@@ -109,8 +109,10 @@ class _ContactUsScreenState extends BaseStatefulState<ContactUsScreen> {
             color: Colors.white,
           ),
           onPressed: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => HomeScreen()));
+
+            Navigator.pop(context);
+            // Navigator.push(
+            //     context, MaterialPageRoute(builder: (context) => HomeScreen()));
           },
         ),
         backgroundColor: kappBarColor,
@@ -122,7 +124,7 @@ class _ContactUsScreenState extends BaseStatefulState<ContactUsScreen> {
             padding: EdgeInsets.symmetric(vertical: 3.h, horizontal: 6.w),
             //  left:24, right:24 , top: 30
             child: Container(
-              margin: EdgeInsets.only(bottom: 70),
+              margin: EdgeInsets.only(bottom: 50),
               child: SingleChildScrollView(
                 child: Column(
                   children: [
@@ -245,8 +247,7 @@ class _ContactUsScreenState extends BaseStatefulState<ContactUsScreen> {
                             children: [
                               Container(
                                 child: Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: 1.h, horizontal: 5.w),
+                                  padding: EdgeInsets.only( right:24),
                                   //  top: 10, right:24
                                   child: Row(
                                       mainAxisAlignment: MainAxisAlignment.end,
@@ -328,7 +329,7 @@ class _ContactUsScreenState extends BaseStatefulState<ContactUsScreen> {
                                   borderSide:
                                       BorderSide(color: Color(0xffb0b0b0)),
                                 ),
-                                labelText: " ",
+                                labelText: "",
                               ),
                               controller: _emailController,
                               validator: (val) {
@@ -367,7 +368,7 @@ class _ContactUsScreenState extends BaseStatefulState<ContactUsScreen> {
                                   borderSide:
                                       BorderSide(color: Color(0xffb0b0b0)),
                                 ),
-                                labelText: " ",
+                                labelText: "",
                               ),
                               controller: _phoneController,
                               validator: (val) {
@@ -402,7 +403,7 @@ class _ContactUsScreenState extends BaseStatefulState<ContactUsScreen> {
                                   borderSide:
                                       BorderSide(color: Color(0xffb0b0b0)),
                                 ),
-                                labelText: " ",
+                                labelText: "",
                               ),
                               controller: _titleController,
                               validator: (val) {
@@ -435,7 +436,7 @@ class _ContactUsScreenState extends BaseStatefulState<ContactUsScreen> {
                                 borderSide:
                                     BorderSide(color: Color(0xffb0b0b0)),
                               ),
-                              labelText: " ",
+                              labelText: "",
                             ),
                             controller: _messageController,
                             validator: (val) {
@@ -445,7 +446,7 @@ class _ContactUsScreenState extends BaseStatefulState<ContactUsScreen> {
                             maxLines: 3,
                           ),
                         ),
-                        SizedBox(height: 200),
+                        SizedBox(height: 30),
                       ]),
                     ),
                   ],
