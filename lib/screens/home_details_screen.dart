@@ -59,7 +59,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
   List<Location> locationList = [];
   String? cartItemId;
   var _searchController = TextEditingController();
-  String? search = '';
+  String? search;
   String? selectedPlace;
   Product? featuredProducts;
   Product? products;
@@ -162,7 +162,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
         .getBanner(
       NetworkManager.shared.userId,
       0,
-      8,
+      NetworkManager.shared.pincodeId,
     )
         .then((BaseResponse<MainBanner> response) {
       setState(() {
@@ -229,7 +229,10 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                       child: Padding(
                         padding: const EdgeInsets.all(5),
                         child: Text(
-                          selectedPlace ?? '',
+                          // NetworkManager.shared.place,
+                          (selectedPlace == null)
+                              ? NetworkManager.shared.place
+                              : selectedPlace ?? '--------',
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 10.sp),
                         ),
@@ -1272,7 +1275,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
     );
   }
 
-  Future showDialogue() {
+   showDialogue() {
     return showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -1293,8 +1296,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                       decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           contentPadding: EdgeInsets.all(5),
-                          labelText: 'Search Location'
-                          ),
+                          labelText: 'Search Location'),
                       controller: _searchController,
                       onChanged: (value) {
                         NetworkManager.shared
@@ -1315,20 +1317,35 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                     width: 30.h,
                     child: ListView.separated(
                       shrinkWrap: true,
-                      itemCount: locationList.length,
+                      itemCount:
+                          (locationList.isNotEmpty) ? locationList.length : 1,
                       itemBuilder: (context, index) {
                         return InkWell(
                             onTap: () {
-                              selectedPlace = DataManager
-                                      .shared.locationList[index].place ??
-                                  '';
-                              print(DataManager
-                                  .shared.locationList[index].pincodeId);
+                              selectedPlace = locationList[index].place ?? '';
+
+                              NetworkManager.shared.pincodeId =
+                                  locationList[index].pincodeId!;
+                              SessionsManager.saveUserPlace(
+                                  locationList[index].place ?? '');
+
+                              NetworkManager.shared.place =
+                                  locationList[index].place!;
+
+                              NetworkManager.shared.refreshTokens();
+
+                              // print(
+                              //     "pincode${NetworkManager.shared.pincodeId}");
+                              // print(
+                              //     "pincode${NetworkManager.shared.place}");
+                              _searchController.clear();
 
                               Navigator.of(context).pop();
                             },
                             child: Text(
-                              locationList[index].place ?? '',
+                              (locationList.isNotEmpty)
+                                  ? locationList[index].place ?? ''
+                                  : NetworkManager.shared.place,
                               style: TextStyle(fontSize: 15),
                             ));
                       },
@@ -1347,6 +1364,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                         MaterialStateProperty.all(Colors.grey.shade700)),
                 child: Text("close"),
                 onPressed: () {
+                  _searchController.clear();
                   Navigator.of(context).pop();
                   location(_searchController.text);
                 },

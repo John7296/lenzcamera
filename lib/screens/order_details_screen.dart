@@ -67,6 +67,8 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
       // hideLoader();
       showFlashMsg(response.message!);
       // Navigator.pop(context)
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => OrderScreen()));
     }).catchError((e) {
       // showLoader();
       showFlashMsg(e.toString());
@@ -74,7 +76,7 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
   }
 
   void getOrderList() {
-    showLoader();
+    // showLoader();
     NetworkManager.shared
         .getOrderList()
         .then((BaseResponse<List<OrderList>> response) {
@@ -257,85 +259,82 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
             child: ListView.builder(
                 itemCount: singleItemList.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return Container(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        height: 80,
-                        width: 400,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.all(Radius.circular(5)),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey,
-                              offset: Offset(0.0, 1.0), //(x,y)
-                              blurRadius: 1.0,
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      height: 80,
+                      width: 400,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(5)),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey,
+                            offset: Offset(0.0, 1.0), //(x,y)
+                            blurRadius: 1.0,
+                          ),
+                        ],
+                      ),
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: CachedNetworkImage(
+                              imageUrl:
+                                  "https://dev.lenzcamera.com/webadmin/${singleItemList[index].imageUrl}",
+                              height: 50,
+                              width: 50,
                             ),
-                          ],
-                        ),
-                        child: Row(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: CachedNetworkImage(
-                                imageUrl:
-                                    "https://dev.lenzcamera.com/webadmin/${singleItemList[index].imageUrl}",
-                                height: 50,
-                                width: 50,
-                              ),
-                            ),
-                            Container(
-                              width: 280,
-                              child: Column(
-                                  // mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Row(
-                                        children: [
-                                          Container(
-                                            height: 30,
-                                            width: 160,
-                                            child: Text(
-                                              singleItemList[index].prName ??
-                                                  '',
-                                              style: TextStyle(
-                                                color: Colors.grey.shade600,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                              maxLines: 2,
-                                            ),
-                                          ),
-                                          Spacer(),
-                                          Container(
-                                              child: Text(
-                                            'x ' +
-                                                singleItemList[index]
-                                                    .qty!
-                                                    .toStringAsFixed(0),
+                          ),
+                          Container(
+                            width: 280,
+                            child: Column(
+                                // mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Row(
+                                      children: [
+                                        Container(
+                                          height: 30,
+                                          width: 160,
+                                          child: Text(
+                                            singleItemList[index].prName ?? '',
                                             style: TextStyle(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.grey),
-                                          ))
-                                        ],
-                                      ),
+                                              color: Colors.grey.shade600,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                            maxLines: 2,
+                                          ),
+                                        ),
+                                        Spacer(),
+                                        Container(
+                                            child: Text(
+                                          'x ' +
+                                              singleItemList[index]
+                                                  .qty!
+                                                  .toStringAsFixed(0),
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.grey),
+                                        ))
+                                      ],
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Text(
-                                        "QAR ${singleItemList[index].productPrice.toString()}",
-                                        style: TextStyle(
-                                            color: Colors.grey.shade600,
-                                            fontWeight: FontWeight.bold),
-                                      ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      "QAR ${singleItemList[index].productPrice.toString()}",
+                                      style: TextStyle(
+                                          color: Colors.grey.shade600,
+                                          fontWeight: FontWeight.bold),
                                     ),
-                                  ]),
-                            ),
-                          ],
-                        ),
+                                  ),
+                                ]),
+                          ),
+                        ],
                       ),
                     ),
                   );
@@ -469,10 +468,6 @@ class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
                           onPressed: () {
                             cancelOrder();
                             // Navigator.pop(context);
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => OrderScreen()));
                           },
                           child: Text('Ok'),
                           style: ButtonStyle(

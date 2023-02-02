@@ -4,6 +4,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 class SessionsManager {
   static const String userKey = "userKey";
   static const String userId = "userId";
+  static const String place = "place";
+  static const String pincodeId = "pincodeId";
 
   static Future<String?> getUserToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -18,7 +20,6 @@ class SessionsManager {
   static void saveUserId(int data) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setInt(userId, data);
-    
   }
 
   static Future<int?> getUserId() async {
@@ -31,9 +32,28 @@ class SessionsManager {
     return prefs.containsKey(userKey);
   }
 
-   static void clearSession() async {
+  static void clearSession() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.clear();
-    
   }
+    static Future<String?> getPlace() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(place);
+  }
+
+  static void saveUserPlace(String data) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString(place, data);
+  }
+
+    static void savePincode(int data) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt(pincodeId, data);
+  }
+
+  static Future<int?> getPincode() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getInt(pincodeId);
+  }
+
 }

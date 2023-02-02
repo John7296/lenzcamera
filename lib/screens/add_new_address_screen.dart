@@ -7,9 +7,11 @@ import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/city_list.dart';
 import 'package:lenzcamera/model/state_list.dart';
 import 'package:lenzcamera/screens/address_screen.dart';
+import 'package:lenzcamera/screens/checkout_screen.dart';
 
 class AddNewAddressScreen extends StatefulWidget {
-  const AddNewAddressScreen({Key? key}) : super(key: key);
+  bool fromCheckout;
+  AddNewAddressScreen({this.fromCheckout = true, super.key});
 
   @override
   State<AddNewAddressScreen> createState() => _AddNewAddressScreenState();
@@ -160,7 +162,16 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
             leading: IconButton(
               icon: Icon(Icons.arrow_back_ios),
               onPressed: () {
-                Navigator.pop(context);
+                (widget.fromCheckout == false)
+                    ? Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                CheckoutScreen(0, 0, context)))
+                    : Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => AddressScreen()));
               },
             ),
           ),
