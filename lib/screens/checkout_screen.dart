@@ -740,15 +740,15 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
 
                                     //  SizedBox(width: 175),
                                     // if (cartItemsList.isNotEmpty)
-                                      Text(
-                                        "QAR ${widget.grandTotal}",
-                                        // "",
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold,
-                                        ),
+                                    Text(
+                                      "QAR ${widget.grandTotal}",
+                                      // "",
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold,
                                       ),
+                                    ),
                                   ],
                                 ),
                               ),
