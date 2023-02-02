@@ -69,6 +69,7 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
   }
 
   void placeOrder() {
+    showLoader();
     NetworkManager.shared.placeOrder(<String, dynamic>{
       "custBillAdressId": addressList.first.custAdressId,
       "custId": NetworkManager.shared.userId,
@@ -76,6 +77,7 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
       "orderNote": _orderNoteController,
       "payMethod": "COD",
     }).then((BaseResponse response) {
+      hideLoader();
       NetworkManager.shared.orderNum = response.data['orderNumber'];
 
       showFlashMsg(response.message!);
@@ -87,6 +89,7 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
       ), (route) => false);
       // getCart(product: product);
     }).catchError((e) {
+      hideLoader();
       showFlashMsg(e.toString());
     });
   }
