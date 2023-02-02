@@ -242,6 +242,11 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                                     }, onUpdateStarted: () {
                                       setState(() {});
                                     });
+                                  // (widget.productsList[index].qoh ==
+                                  //         widget.productsList[index].qty)
+                                  //     ? Text(
+                                  //         'Already reached Maximum Quantity..!')
+                                  //     : DataManager.shared.cartItemsList;
                                   // Navigator.push(
                                   //     context,
                                   //     MaterialPageRoute(

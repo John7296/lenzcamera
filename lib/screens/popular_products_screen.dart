@@ -74,9 +74,12 @@ class _PopularProductsScreenState
         ),
       ),
       backgroundColor: Colors.grey.shade100,
-      body: ProductCardWidget(
-        productsList: popularProductsList,
-        productsListCount: popularProductsList.length,
+      body: RefreshIndicator(
+        onRefresh: _refreshPage,
+        child: ProductCardWidget(
+          productsList: popularProductsList,
+          productsListCount: popularProductsList.length,
+        ),
       ),
     );
   }
@@ -85,5 +88,9 @@ class _PopularProductsScreenState
   bool isAuthenticationRequired() {
     // TODO: implement isAuthenticationRequired
     throw UnimplementedError();
+  }
+   Future<void> _refreshPage() async {
+    await Future.delayed(Duration(seconds: 1));
+   _popularProducts();
   }
 }

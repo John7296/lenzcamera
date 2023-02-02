@@ -24,7 +24,7 @@ class OrderDetailScreen extends StatefulWidget {
 }
 
 class _OrderDetailScreenState extends BaseStatefulState<OrderDetailScreen> {
-  List<OrderList> orderList = [];
+  // List<OrderList> orderList = [];
   List<OrderProductDetail> singleItemList = [];
 
   @override

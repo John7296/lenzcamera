@@ -1275,7 +1275,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
     );
   }
 
-   showDialogue() {
+  showDialogue() {
     return showDialog(
       context: context,
       builder: (BuildContext context) {
