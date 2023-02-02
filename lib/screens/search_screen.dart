@@ -49,7 +49,7 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
     setState(() {
       isLoading = true;
       _searchString="";
-      
+       
       
     });
 
