@@ -28,32 +28,6 @@ class _ContactUsScreenState extends BaseStatefulState<ContactUsScreen> {
   final _messageController = TextEditingController();
   // LoginCustomer? user;
 
-  void showFlashMsg(String msg, {Color color = const Color(0xFF272532)}) {
-    showFlash(
-      context: context,
-      duration: const Duration(seconds: 4),
-      builder: (context, controller) {
-        return Flash(
-          controller: controller,
-          behavior: FlashBehavior.floating,
-          position: FlashPosition.bottom,
-          boxShadows: kElevationToShadow[2],
-          // backgroundColor: Colors.grey,
-          reverseAnimationCurve: Curves.easeInCirc,
-          forwardAnimationCurve: Curves.easeInOutBack,
-          margin: const EdgeInsets.all(8.0),
-          borderRadius: BorderRadius.circular(6.0),
-          horizontalDismissDirection: HorizontalDismissDirection.horizontal,
-          child: FlashBar(
-            content: Text(
-              msg,
-              style: const TextStyle(fontSize: 15.0, color: Colors.black),
-            ),
-          ),
-        );
-      },
-    );
-  }
 
   void customerDetails() {
     if (!_form.currentState!.validate()) {
@@ -146,10 +120,10 @@ class _ContactUsScreenState extends BaseStatefulState<ContactUsScreen> {
                                     Padding(
                                       padding: const EdgeInsets.only(left: 10),
                                       child: Text(
-                                        "Office",
+                                        "Office:",
                                         style: TextStyle(
                                             fontSize: 20,
-                                            fontWeight: FontWeight.w600,
+                                            fontWeight: FontWeight.w800,
                                             color: Color(0xff70706f)),
                                       ),
                                     ),

@@ -257,9 +257,21 @@ class _ProductDetailsScreenState
                                                 ProductImagesScreen(
                                                     widget.popularproducts)));
                                   },
-                                  child: CachedNetworkImage(
-                                      imageUrl:
-                                          "https://dev.lenzcamera.com/webadmin/${productImages[itemIndex].imageUrl}"),
+                                  child: FadeInImage.assetNetwork(
+                                                  height: 200,
+                                                  width: double.infinity,
+                                                  placeholder:
+                                                      'assets/images/placeholder.png',
+                                                  placeholderFit:
+                                                      BoxFit.contain,
+                                                  image:
+                                                      "https://dev.lenzcamera.com/webadmin/${productImages[itemIndex].imageUrl}",
+                                                  // fit: BoxFit.contain
+                                                  ),
+                                  
+                                  // CachedNetworkImage(
+                                  //     imageUrl:
+                                  //         "https://dev.lenzcamera.com/webadmin/${productImages[itemIndex].imageUrl}"),
                                 ),
                               );
                             },
@@ -510,7 +522,7 @@ class _ProductDetailsScreenState
                                     alignment: Alignment.centerRight,
                                     child: Container(
                                         //height: 27,
-                                        width: 90,
+                                        width: 100,
                                         child: ElevatedButton(
                                           style: ElevatedButton.styleFrom(
                                             backgroundColor: Color(0xffec3436),
@@ -803,6 +815,7 @@ class _ProductDetailsScreenState
                                                                       CircularProgressIndicator(
                                                                     strokeWidth:
                                                                         2,
+                                                                        color: Colors.white,
                                                                   ),
                                                                 ),
                                                               )),
@@ -1188,26 +1201,44 @@ class _ProductDetailsScreenState
                                 setState(() {});
                               });
                             },
-                            child: Center(
-                              child: (widget.popularproducts!.stockAvailability
-                                          ?.length ==
-                                      12)
-                                  ? Text(
-                                      "OUT OF STOCK",
-                                      style: TextStyle(
-                                          fontFamily: "Intro",
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 12,
-                                          color: Colors.black),
-                                    )
-                                  : Text(
-                                      "Add To Cart",
-                                      style: TextStyle(
-                                          fontFamily: "Intro",
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 15,
-                                          color: Colors.white),
-                                    ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Center(
+                                  child: (widget.popularproducts!.stockAvailability
+                                              ?.length ==
+                                          12)
+                                      ? Text(
+                                          "OUT OF STOCK",
+                                          style: TextStyle(
+                                              fontFamily: "Intro",
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 12,
+                                              color: Colors.black),
+                                        )
+                                      : Text(
+                                          "Add To Cart",
+                                          style: TextStyle(
+                                              fontFamily: "Intro",
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 15,
+                                              color: Colors.white),
+                                        ),
+                                ),
+
+                                if (widget.popularproducts!.isCartUpdateProgress!)
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10.0),
+                          child: SizedBox(
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2,
+                              color: Colors.white,
+                            ),
+                            height: 12,
+                            width: 12,
+                          ),
+                        ),
+                              ],
                             ),
                           ),
                   ),

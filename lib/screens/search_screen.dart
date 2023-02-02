@@ -28,7 +28,7 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends BaseStatefulState<SearchScreen> {
   String? _searchString = "";
-  // bool isLoading = true;
+ bool isLoading = true;
   bool isPaging = false;
   bool isSearchStarted = false;
   int currentPage = 1;
@@ -40,11 +40,18 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
     super.initState();
     Future.delayed(Duration(milliseconds: 500), (() {
       searchProducts(0);
+      
     }));
   }
 
   void searchProducts(cattId) {
     showLoader();
+    setState(() {
+      isLoading = true;
+      _searchString="";
+      
+      
+    });
 
     isSearchStarted = true;
 
@@ -57,11 +64,11 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
       "filtervalues": (DataManager.shared.filterData?.brand != null ||
               DataManager.shared.filterData?.manufacturer != null ||
               DataManager.shared.filterData?.lensMount != null)
-          ? "${DataManager.shared.filterData?.brand?.attrValueId ?? ""} ${DataManager.shared.filterData?.manufacturer?.attrValueId ?? ""} ${DataManager.shared.filterData?.lensMount?.attrValueId ?? ""}"
+          ? "${DataManager.shared.filterData?.brand?.attrValueId ?? ""}, ${DataManager.shared.filterData?.manufacturer?.attrValueId ?? ""}, ${DataManager.shared.filterData?.lensMount?.attrValueId ?? ""}"
           : '',
       "guestId": null,
-      "maxPrice": "1000000",
-      "minPrice": "0",
+      "maxPrice": DataManager.shared.filterData?.maxPrice?.toInt() ?? 1000000,
+      "minPrice": DataManager.shared.filterData?.minPrice?.toInt() ?? 0,
       "pagesize": 20,
       "pincode": 8, 
       "searchstring": _searchString,
@@ -180,6 +187,7 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
                                     .then(
                                   (value) {
                                     searchProducts(0);
+                                    _searchString="";
                                   },
                                 );
                               },
@@ -246,11 +254,25 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
                                                   width: 100,
                                                   // height: 13.h,
                                                   // width: 15.h,
-                                                  child: CachedNetworkImage(
-                                                    imageUrl:
-                                                        "https://dev.lenzcamera.com/webadmin/${_products[index].imageUrl}",
-                                                    fit: BoxFit.fill,
-                                                  ),
+                                                  child: 
+                                                  
+                                                  // CachedNetworkImage(
+                                                  //   imageUrl:
+                                                  //       "https://dev.lenzcamera.com/webadmin/${_products[index].imageUrl}",
+                                                  //   fit: BoxFit.fill,
+                                                  // ),
+
+                                                  FadeInImage.assetNetwork(
+                                                  height: 200,
+                                                  width: double.infinity,
+                                                  placeholder:
+                                                      'assets/images/placeholder.png',
+                                                  placeholderFit:
+                                                      BoxFit.contain,
+                                                  image:
+                                                      "https://dev.lenzcamera.com/webadmin/${_products[index].imageUrl}",
+                                                  fit: BoxFit.contain),
+                                            
                                                 ),
                                               ),
                                             ),
@@ -282,6 +304,7 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
                                                           fontSize: 15,
                                                           fontWeight:
                                                               FontWeight.w400,
+                                                              overflow: TextOverflow.ellipsis
                                                         ),
                                                         maxLines: 2,
                                                       ),
@@ -403,6 +426,7 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
                                                             child:
                                                                 CircularProgressIndicator(
                                                               strokeWidth: 2,
+                                                              color: Colors.white,
                                                             ),
                                                           ),
                                                         )),
@@ -576,7 +600,7 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
                                                                             "OUT OF STOCK",
                                                                             style: TextStyle(
                                                                                 fontSize:
-                                                                                    8,
+                                                                                    7,
                                                                                 fontFamily:
                                                                                     "Intro",
                                                                                 fontWeight:

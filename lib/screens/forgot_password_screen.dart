@@ -51,6 +51,9 @@ bool isPhone(String input) =>
         .forgotPasswordOTPSend(_emailController.text, "")
         .then((BaseResponse response) {
       hideLoader();
+       showFlashMsg("OTP has sent");
+      
+
       print(_emailController.text);
       setState(() {
         emailSent = true;

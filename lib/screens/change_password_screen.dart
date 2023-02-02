@@ -1,6 +1,7 @@
 import 'package:flash/flash.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lenzcamera/base/base_stateful_state.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/model/login_customer.dart';
@@ -16,7 +17,7 @@ class ChangePasswordScreen extends StatefulWidget {
   State<ChangePasswordScreen> createState() => _ChangePasswordScreenState();
 }
 
-class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
+class _ChangePasswordScreenState extends BaseStatefulState<ChangePasswordScreen> {
   final GlobalKey<FormState> _form = GlobalKey<FormState>();
 
   final _passwordController = TextEditingController();
@@ -29,32 +30,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   bool _obscureText1 = true;
   bool _obscureText2 = true;
 
-  void showFlashMsg(String msg, {Color color = const Color(0xFF272532)}) {
-    showFlash(
-      context: context,
-      duration: const Duration(seconds: 4),
-      builder: (context, controller) {
-        return Flash(
-          controller: controller,
-          behavior: FlashBehavior.floating,
-          position: FlashPosition.bottom,
-          boxShadows: kElevationToShadow[2],
-          // backgroundColor: Colors.grey,
-          reverseAnimationCurve: Curves.easeInCirc,
-          forwardAnimationCurve: Curves.easeInOutBack,
-          margin: const EdgeInsets.all(8.0),
-          borderRadius: BorderRadius.circular(6.0),
-          horizontalDismissDirection: HorizontalDismissDirection.horizontal,
-          child: FlashBar(
-            content: Text(
-              msg,
-              style: const TextStyle(fontSize: 15.0, color: Colors.black),
-            ),
-          ),
-        );
-      },
-    );
-  }
+
 
   void onChangeButtonTapped() {
     if (!_form.currentState!.validate()) {
@@ -316,5 +292,11 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         ),
       ),
     );
+  }
+  
+  @override
+  bool isAuthenticationRequired() {
+    // TODO: implement isAuthenticationRequired
+    throw UnimplementedError();
   }
 }
