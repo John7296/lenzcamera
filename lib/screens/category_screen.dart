@@ -245,8 +245,8 @@ class _CategoryScreenState extends BaseStatefulState<CategoryScreen> {
                   //         child: Card(
                   //             child: Padding(
                   //           padding: const EdgeInsets.all(10),
-                  //           child: CircularProgressIndicator(
-                  //             strokeWidth: 2.5,
+                  //           child: LinearProgressIndicator(
+                              
                   //           ),
                   //         )),
                   //       ))
@@ -332,15 +332,17 @@ class _CategoryScreenState extends BaseStatefulState<CategoryScreen> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
-                                          Image(
-                                            image: AssetImage(
-                                                "assets/images/no_items_found.png"),
-                                            fit: BoxFit.fitHeight,
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.7,
-                                          ),
+                                          // Image(
+                                          //   image: AssetImage(
+                                          //       "assets/images/no_items_found.png"),
+                                          //   fit: BoxFit.fitHeight,
+                                          //   height: MediaQuery.of(context)
+                                          //           .size
+                                          //           .height *
+                                          //       0.7,
+                                          // ),
+                                          Text('Oh oh no Items Available..!'),
+                                          SizedBox(height: 50),
                                           Container(
                                             width: 400,
                                             height: 50,

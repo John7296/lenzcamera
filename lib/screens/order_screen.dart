@@ -13,6 +13,7 @@ import 'package:lenzcamera/screens/order_details_screen.dart';
 import 'package:lenzcamera/screens/profile_screen.dart';
 import 'package:lenzcamera/screens/wishlist_screen.dart';
 import 'package:lenzcamera/utils/constants.dart';
+import 'package:lenzcamera/widgets/appbar_notification_widget.dart';
 
 class OrderScreen extends StatefulWidget {
   const OrderScreen({super.key});
@@ -65,80 +66,7 @@ class _OrderScreenState extends BaseStatefulState<OrderScreen> {
           ),
         ),
         actions: [
-          Stack(
-            children: [
-              IconButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => WishlistScreen()));
-                  // getBanners();
-                },
-                icon: Icon(Icons.favorite_border),
-              ),
-              if (DataManager.shared.wishListItems.isNotEmpty)
-                Positioned(
-                  right: 5,
-                  top: 5,
-                  child: new Container(
-                    padding: EdgeInsets.all(2),
-                    decoration: new BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    constraints: BoxConstraints(
-                      minWidth: 14,
-                      minHeight: 14,
-                    ),
-                    child: Text(
-                      DataManager.shared.wishListItems.length.toString(),
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 10,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                )
-            ],
-          ),
-          Stack(
-            children: [
-              IconButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => CartScreen()));
-                  // getBanners();
-                },
-                icon: Icon(Icons.shopping_cart),
-              ),
-              if (DataManager.shared.cartItemsList.isNotEmpty)
-                Positioned(
-                  right: 5,
-                  top: 5,
-                  child: new Container(
-                    padding: EdgeInsets.all(2),
-                    decoration: new BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    constraints: BoxConstraints(
-                      minWidth: 14,
-                      minHeight: 14,
-                    ),
-                    child: Text(
-                      DataManager.shared.cartItemsList.length.toString(),
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 10,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                )
-            ],
-          ),
+          AppBarNotificationWidget(),
         ],
         backgroundColor: kappBarColor,
         leading: IconButton(
@@ -226,15 +154,14 @@ class _OrderScreenState extends BaseStatefulState<OrderScreen> {
                                             decoration: BoxDecoration(
                                                 borderRadius: BorderRadius.all(
                                                     Radius.circular(5)),
-                                                color: (orderList[index]
-                                                            .IsCanCancelOrder ==
-                                                        false)
-                                                    ? Colors.red
-                                                    : Colors.grey.shade800),
+                                                color:
+                                                    (orderList[index].status ==
+                                                            "Order Cancelled")
+                                                        ? Colors.red
+                                                        : Colors.grey.shade800),
                                             child: Center(
-                                              child: (orderList[index]
-                                                          .IsCanCancelOrder ==
-                                                      false)
+                                              child: (orderList[index].status ==
+                                                      "Order Cancelled")
                                                   ? Text(
                                                       'Cancelled',
                                                       style: TextStyle(

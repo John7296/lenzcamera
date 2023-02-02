@@ -8,6 +8,7 @@ import 'package:lenzcamera/model/base_response.dart';
 import 'package:lenzcamera/screens/add_new_address_screen.dart';
 import 'package:lenzcamera/screens/edit_address_screen.dart';
 import 'package:lenzcamera/screens/home_screen.dart';
+import 'package:lenzcamera/screens/profile_screen.dart';
 
 class AddressScreen extends StatefulWidget {
   const AddressScreen({super.key});
@@ -85,9 +86,9 @@ class _AddressScreenState extends BaseStatefulState<AddressScreen> {
         backgroundColor: Colors.grey.shade700,
         leading: IconButton(
           onPressed: () {
-            // Navigator.push(
-            //     context, MaterialPageRoute(builder: (context) => HomeScreen()));
-            Navigator.pop(context);
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => ProfileScreen()));
+            // Navigator.pop(context);
           },
           icon: Icon(Icons.arrow_back_ios),
         ),
@@ -184,11 +185,11 @@ class _AddressScreenState extends BaseStatefulState<AddressScreen> {
                                     // "addressId:${addressList[index].custAdressId}");
 
                                     deleteAddress(
-                                            addressList[index].custAdressId!);
-                                      //   .then(
-                                      // (value) {
-                                      //   getAddress();
-                                      // },
+                                        addressList[index].custAdressId!);
+                                    //   .then(
+                                    // (value) {
+                                    //   getAddress();
+                                    // },
                                     // );
                                     // print(
                                     //     "Before:${addressList[index].custAdressId}");

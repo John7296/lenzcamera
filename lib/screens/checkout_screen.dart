@@ -23,7 +23,9 @@ class CheckoutScreen extends StatefulWidget {
 class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
   List<Product> cartItemsList = [];
   List<AddressList> addressList = [];
-  List<AddressList> addresslist1 = [];
+  String? addLine1;
+  String? name;
+  String? country;
   bool umw = false;
   bool cod = true;
   AddressList? selectedShippingAddress;
@@ -47,12 +49,17 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
     NetworkManager.shared
         .getAddressList()
         .then((BaseResponse<List<AddressList>> response) {
-      // showFlashMsg(response.message!);
+      showFlashMsg(response.message!);
       hideLoader();
       setState(() {
         addressList.clear();
         addressList.addAll(response.data!);
 
+        for (var element in addressList) {
+          addLine1 = element.addLine1;
+          name = element.firstName;
+          country = element.country;
+        }
       });
     }).catchError((e) {
       showFlashMsg('No Address Found, Please Add  your Address');
@@ -121,6 +128,7 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
           ),
           onPressed: () {
             Navigator.pop(context);
+            // address();
           },
         ),
         backgroundColor: kappBarColor,
@@ -293,7 +301,6 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                                     )
                                                   ]);
                                             }).then((value) {
-                                          
                                           setState(() {});
                                         });
                                       },
@@ -311,8 +318,9 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                 padding: const EdgeInsets.only(left: 44),
                                 child: Text(
                                   (selectedShippingAddress == null)
-                                      ? 'Name'
-                                      : selectedShippingAddress?.firstName ?? '',
+                                      ? name??''
+                                      : selectedShippingAddress?.firstName ??
+                                          '',
                                   style: TextStyle(
                                     color: Color(0xff717171),
                                     fontSize: 14,
@@ -325,7 +333,7 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                     const EdgeInsets.only(left: 44, top: 5),
                                 child: Text(
                                   (selectedShippingAddress == null)
-                                      ? 'Shipping Address'
+                                      ? addLine1??''
                                       : selectedShippingAddress?.addLine1 ?? '',
                                   style: TextStyle(
                                       color: Color(0xff717171), fontSize: 12),
@@ -335,8 +343,8 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                 padding:
                                     const EdgeInsets.only(left: 44, top: 5),
                                 child: Text(
-                                   (selectedShippingAddress == null)
-                                      ? 'Quatar'
+                                  (selectedShippingAddress == null)
+                                      ? country??''
                                       : selectedShippingAddress?.country ?? '',
                                   style: TextStyle(
                                       color: Color(0xff717171), fontSize: 12),
@@ -519,7 +527,7 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                 padding: const EdgeInsets.only(left: 44),
                                 child: Text(
                                   (selectedBillingAddress == null)
-                                      ? 'Name'
+                                      ? name??''
                                       : selectedBillingAddress?.firstName ?? '',
                                   style: TextStyle(
                                     color: Color(0xff717171),
@@ -532,8 +540,8 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                 padding:
                                     const EdgeInsets.only(left: 44, top: 5),
                                 child: Text(
-                                 (selectedBillingAddress == null)
-                                      ? 'Billing Address'
+                                  (selectedBillingAddress == null)
+                                      ? addLine1??''
                                       : selectedBillingAddress?.addLine1 ?? '',
                                   style: TextStyle(
                                       color: Color(0xff717171), fontSize: 12),
@@ -544,7 +552,7 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                                     const EdgeInsets.only(left: 44, top: 5),
                                 child: Text(
                                   (selectedBillingAddress == null)
-                                      ? 'Qatar'
+                                      ? country??''
                                       : selectedBillingAddress?.country ?? '',
                                   style: TextStyle(
                                       color: Color(0xff717171), fontSize: 12),

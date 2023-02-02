@@ -15,7 +15,9 @@ import 'package:lenzcamera/utils/constants.dart';
 import 'package:sizer/sizer.dart';
 
 class CartScreen extends StatefulWidget {
-  CartScreen({super.key});
+  bool fromHome;
+
+  CartScreen({this.fromHome = true});
   @override
   State<CartScreen> createState() => _CartScreenState();
 }
@@ -46,7 +48,7 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
     )
         .then((BaseResponse<CartResponse> response) {
       hideLoader();
-      // showFlashMsg(response.message.toString());
+      // showFlashMsg(response.message!);
       setState(() {
         cartItemsList.clear();
         cartItemsList.addAll(response.data!.cartItems!);
@@ -75,8 +77,10 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
             color: Colors.white,
           ),
           onPressed: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => HomeScreen()));
+            (widget.fromHome)
+                ? Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => HomeScreen()))
+                : Navigator.popUntil(context, (route) => route.isFirst);
             // Navigator.of(context).pop();
           },
         ),
@@ -202,13 +206,32 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                                                     actions: [
                                                       ElevatedButton(
                                                         onPressed: () {
-                                                          // Navigator.push(
-                                                          //     context,
-                                                          //     MaterialPageRoute(
-                                                          //         builder: (context) =>
-                                                          //             CartScreen()));
-                                                          Navigator.pop(
-                                                              context);
+                                                          // if (widget
+                                                          //     .fromShowDialog)
+                                                          Navigator.pushReplacement(
+                                                              context,
+                                                              MaterialPageRoute(
+                                                                  builder:
+                                                                      (context) =>
+                                                                          CartScreen())).then(
+                                                              (value) {
+                                                            getCart();
+                                                          });
+
+                                                          // Navigator.of(context)
+                                                          //     .pop();
+                                                          // Navigator
+                                                          //     .pushAndRemoveUntil(
+                                                          //         context,
+                                                          //         MaterialPageRoute(
+                                                          //   builder:
+                                                          //       (BuildContext
+                                                          //           context) {
+                                                          //     return CartScreen();
+                                                          //   },
+                                                          // ),
+                                                          //         (route) =>
+                                                          //             false);
                                                         },
                                                         style: ButtonStyle(
                                                             backgroundColor:
@@ -472,7 +495,7 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                               //         ),
                               if (cartItemsList.isNotEmpty)
                                 Text(
-                                  "QAR ${deliveryamount.toString()}",
+                                  "QAR ${deliveryamount ?? 0}",
                                   style: TextStyle(
                                     fontSize: 12,
                                     fontWeight: FontWeight.bold,

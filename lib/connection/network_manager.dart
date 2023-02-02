@@ -50,6 +50,8 @@ class NetworkManager {
   late int userId;
   late String catUrlKey;
   late String orderNum;
+  late int pincodeId;
+  late String place;
 
   init() {
     dio = Dio();
@@ -64,7 +66,13 @@ class NetworkManager {
 
     SessionsManager.getUserId().then((value) {
       userId = value ?? 0;
-      print("UserIdNM${userId}");
+    });
+
+     SessionsManager.getPlace().then((value) {
+      place = value ?? '';
+    });
+        SessionsManager.getPincode().then((value) {
+      pincodeId = value??0;
     });
   }
 
@@ -151,7 +159,7 @@ class NetworkManager {
   Future<BaseResponse<Product>> getSingleProductDetails(
       Map<String, dynamic> map) {
     return call(
-        networkConnection.getSingleProductDetails(userId, 0, map['urlKey'], 8));
+        networkConnection.getSingleProductDetails(userId, 0, map['urlKey'], NetworkManager.shared.pincodeId));
   }
 
   //  Future<BaseResponse<ProductDetail>> getSingleProductDetails(

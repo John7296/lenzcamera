@@ -23,6 +23,7 @@ class DataManager extends BaseStatefulState {
   FilterData? filterData;
   List<Location> locationList = [];
 
+
   ValueChanged<String>? onWishlistUpdated;
 
   void updateItemToCart(Product product, int type,
@@ -61,7 +62,7 @@ class DataManager extends BaseStatefulState {
         .getCart(
       NetworkManager.shared.userId,
       0,
-      8,
+      NetworkManager.shared.pincodeId,
     )
         .then((BaseResponse<CartResponse> response) {
       cartItemsList.clear();
@@ -135,7 +136,6 @@ class DataManager extends BaseStatefulState {
         .then((BaseResponse<List<Product>> response) {
       wishListItems.clear();
       wishListItems.addAll(response.data!);
-      print("DMWList ${wishListItems.length.toString()}");
     }).catchError((e) {
       print(e.toString());
     });
@@ -181,17 +181,6 @@ class DataManager extends BaseStatefulState {
     }
     return false;
   }
-
-  // void location(String search) {
-  //   NetworkManager.shared
-  //       .custLocation(search)
-  //       .then((BaseResponse<List<Location>> response) {
-  //     locationList.clear();
-  //     locationList.addAll(response.data!);
-  //   }).catchError((e) {
-  //     print(e.toString());
-  //   });
-  // }
 
   void clearSession() {
     NetworkManager.shared.userToken = "";

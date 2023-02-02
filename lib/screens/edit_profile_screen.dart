@@ -78,7 +78,8 @@ class _EditProfileScreen extends BaseStatefulState<EditProfileScreen> {
           leading: IconButton(
             icon: Icon(Icons.arrow_back_ios),
             onPressed: () {
-              Navigator.pop(context);
+               Navigator.push(context,
+                MaterialPageRoute(builder: (context) => ProfileScreen()));
             },
           ),
         ),
