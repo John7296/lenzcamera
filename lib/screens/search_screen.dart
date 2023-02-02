@@ -48,7 +48,7 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
     showLoader();
     setState(() {
       isLoading = true;
-      _searchString="";
+     
        
       
     });
@@ -110,10 +110,12 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-    debugShowCheckedModeBanner: false,
-      home: SafeArea(
-        child: Scaffold(
+    return 
+    // MaterialApp(
+    // debugShowCheckedModeBanner: false,
+    //   home: SafeArea(
+    //     child: 
+        Scaffold(
           resizeToAvoidBottomInset: false,
           appBar: AppBar( 
            centerTitle: true,
@@ -641,9 +643,9 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
               ),
             ),
           ]),
-        ),
-      ),
-    );
+        );
+      // ),
+    // );
   }
 
   @override
