@@ -408,6 +408,7 @@ class _FilterScreenState extends State<FilterScreen> {
                           filterData.lensMount = selectedLens;
         
                           DataManager.shared.filterData = filterData;
+                          _searchString=null;
 
                           Navigator.pop(context);
 

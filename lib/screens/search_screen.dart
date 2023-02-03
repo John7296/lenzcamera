@@ -164,13 +164,15 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
                           _searchString = value;
                         },
                         onSubmitted: (value) {
-                          searchProducts(_searchString);
+
                           DataManager.shared.filterData?.manufacturer = null;
                           DataManager.shared.filterData?.brand = null;
                           DataManager.shared.filterData?.lensMount = null;
-                           DataManager.shared.filterData?.category = null;
-                            DataManager.shared.filterData?.maxPrice = 19999;
-                             DataManager.shared.filterData?.minPrice = 3;
+                          DataManager.shared.filterData?.category = null;
+                          DataManager.shared.filterData?.maxPrice = 19999;
+                         DataManager.shared.filterData?.minPrice = 3;
+                          searchProducts(_searchString);
+                          
                         
                         },
                         decoration: const InputDecoration(
