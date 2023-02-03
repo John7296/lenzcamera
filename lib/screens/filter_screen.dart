@@ -16,11 +16,15 @@ import 'package:lenzcamera/utils/constants.dart';
 //List<String> _categories = <String>['Canon', 'Nikon', 'Sigma', 'Tamron'];
 
 class FilterScreen extends StatefulWidget {
+
+
   @override
   State<FilterScreen> createState() => _FilterScreenState();
 }
 
 class _FilterScreenState extends State<FilterScreen> {
+
+  String? _searchString = "";
   bool? isExpanded;
 
   double _startValue = 3;
@@ -48,7 +52,9 @@ class _FilterScreenState extends State<FilterScreen> {
 
   void searchFilter() {
     setState(() {
+      _searchString=null;
       isLoading = true;
+       
     });
 
     NetworkManager.shared.searchFilter(<String, dynamic>{
@@ -67,6 +73,7 @@ class _FilterScreenState extends State<FilterScreen> {
     }).then((BaseResponse<SearchFilterResponse> response) {
       setState(() {
         isLoading = false;
+       
         _categoryList.clear();
         _attributeList.clear();
         _categoryList.addAll(response.data!.categoryList!);
@@ -77,6 +84,8 @@ class _FilterScreenState extends State<FilterScreen> {
       print(e.toString());
     });
   }
+
+
 
   List<Attribute> searchAttribute(String attName) {
     List<Attribute> attributeValues = [];
@@ -408,6 +417,7 @@ class _FilterScreenState extends State<FilterScreen> {
                            selectedCategory = null;
                           _startValue = 3;
                           _endValue = 19999;
+                           
 
                       
 

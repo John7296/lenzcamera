@@ -35,6 +35,8 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
 
   List<Product> _products = [];
 
+   var _searchstringController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
@@ -162,7 +164,14 @@ class _SearchScreenState extends BaseStatefulState<SearchScreen> {
                           _searchString = value;
                         },
                         onSubmitted: (value) {
-                          searchProducts(0);
+                          searchProducts(_searchString);
+                          DataManager.shared.filterData?.manufacturer = null;
+                          DataManager.shared.filterData?.brand = null;
+                          DataManager.shared.filterData?.lensMount = null;
+                           DataManager.shared.filterData?.category = null;
+                            DataManager.shared.filterData?.maxPrice = 19999;
+                             DataManager.shared.filterData?.minPrice = 3;
+                        
                         },
                         decoration: const InputDecoration(
                             border: InputBorder.none,

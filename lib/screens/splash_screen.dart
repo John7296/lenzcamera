@@ -30,16 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void _checkTokenAndNavigate() { 
-    //     SessionsManager.getUserToken().then((utoken) {
-    //      utoken = (utoken ?? "");
-    //       NetworkManager.shared.userKey =
-    //           utoken.isEmpty ? "" : "Bearer $utoken";
-    //       Timer(const Duration( seconds:2 ), () {
-    //     //        Navigator.push(
-    //     //   context, MaterialPageRoute(builder: (context)=>HomeScreen()));
-
-    //  // print(SessionsManager.userToken);
-
+  
     SessionsManager.getUserToken().then((value) {
       // print("///////");
       print(value);
@@ -54,30 +45,8 @@ class _SplashScreenState extends State<SplashScreen> {
       }
     });
 
-    // if(SessionsManager.userToken.isNotEmpty){
-
-    //    Navigator.push(
-    //   context, MaterialPageRoute(builder: (context)=>HomeScreen()));
-    // }
-
-    // else{
-    //  Navigator.push(
-    //   context, MaterialPageRoute(builder: (context)=>LoginScreen()));
-
-    // }
-    // SessionsManager.isLoggedIn().then((value) {
-    //   if (value) {
-    //      Navigator.push(
-    //        context, MaterialPageRoute(builder: (context)=>HomeScreen()));
-
-    //   } else {
-    //     Navigator.push(
-    //       context, MaterialPageRoute(builder: (context)=>HomeScreen()));
-    //   }
-
-    // });
-    // });
-    //       });
+    
+    
   }
 
   @override

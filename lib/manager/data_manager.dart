@@ -187,6 +187,7 @@ class DataManager extends BaseStatefulState {
     NetworkManager.shared.userId = 0;
     SessionsManager.clearSession();
     wishListItems.clear();
+
   }
 
   @override

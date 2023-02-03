@@ -93,7 +93,7 @@ class _ReviewScreenState extends BaseStatefulState<ReviewScreen> {
       // print(response.data?.details?.first.dateOfReview);
       });   
     }).catchError((e) {
-      // hideLoader();
+       hideLoader();
       print(e.toString());
     });
   }
