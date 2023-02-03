@@ -190,6 +190,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print("RegUserId${NetworkManager.shared.userId}");
     return Scaffold(
       appBar: AppBar(
         title: Center(
@@ -246,10 +247,10 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                           onPressed: () {
                             // location(_searchController.text);
                             // showDialogue();
-                                    Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ExploreScreen()));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ExploreScreen()));
                           },
                           child: Text(
                             'Change',

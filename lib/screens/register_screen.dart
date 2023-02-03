@@ -31,41 +31,8 @@ class _RegisterScreenState extends BaseStatefulState<RegisterScreen> {
 
   LoginCustomer? customer;
 
-  @override
-  void initState() {
-    super.initState();
-    // register();
-  }
-
-  // void showFlashMsg(String msg, {Color color = Colors.grey}) {
-  //   showFlash(
-  //     context: context,
-  //     duration: const Duration(seconds: 10),
-  //     builder: (context, controller) {
-  //       return Flash(
-  //         controller: controller,
-  //         behavior: FlashBehavior.floating,
-  //         position: FlashPosition.bottom,
-  //         boxShadows: kElevationToShadow[2],
-  //         backgroundColor: Colors.grey,
-  //         reverseAnimationCurve: Curves.easeInCirc,
-  //         forwardAnimationCurve: Curves.easeInOutBack,
-  //         margin: const EdgeInsets.all(8.0),
-  //         borderRadius: BorderRadius.circular(6.0),
-  //         horizontalDismissDirection: HorizontalDismissDirection.horizontal,
-  //         child: FlashBar(
-  //           content: Text(
-  //             msg,
-  //             style: const TextStyle(fontSize: 15, color: Colors.redAccent),
-  //           ),
-  //         ),
-  //       );
-  //     },
-  //   );
-  // }
-
   void register() {
-    // showLoader();
+    showLoader();
     if (!_form.currentState!.validate()) {
       return;
     }
@@ -80,9 +47,12 @@ class _RegisterScreenState extends BaseStatefulState<RegisterScreen> {
     NetworkManager.shared
         .newRegister(map)
         .then((BaseResponse<NewRegister> response) {
-      // hideLoader();
-      // showFlashMsg('Successfully Registered');
+      print("Customer--Id: ${response.data!.custId ?? 0}");
+      hideLoader();
+      showFlashMsg(response.message!);
       SessionsManager.saveUserId(response.data?.custId ?? 0);
+      NetworkManager.shared.userId = response.data!.custId ?? 0;
+      NetworkManager.shared.refreshTokens();
 
       print("Customer--Id: ${SessionsManager.userId}");
       Navigator.push(
@@ -92,9 +62,22 @@ class _RegisterScreenState extends BaseStatefulState<RegisterScreen> {
         ),
       );
     }).catchError((e) {
-      // hideLoader();
+      hideLoader();
       showFlashMsg(e.toString());
     });
+  }
+
+  void mergeCart() {
+    NetworkManager.shared
+        .userLogin(<String, dynamic>{
+          "custId": NetworkManager.shared.userId,
+          "guestId": NetworkManager.shared.guestId
+        })
+        .then((BaseResponse<LoginCustomer> response) {})
+        .catchError((e) {
+          showFlashMsg(e.toString());
+          print(e);
+        });
   }
 
   @override
@@ -352,6 +335,7 @@ class _RegisterScreenState extends BaseStatefulState<RegisterScreen> {
                                 ? null
                                 : () {
                                     register();
+                                    mergeCart();
                                   },
                             child: Text(
                               (isChecked == true)

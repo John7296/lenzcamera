@@ -67,6 +67,19 @@ class _LoginScreenState extends BaseStatefulState<LoginScreen> {
     });
   }
 
+  void mergeCart() {
+    NetworkManager.shared
+        .userLogin(<String, dynamic>{
+          "custId": NetworkManager.shared.userId,
+          "guestId": NetworkManager.shared.guestId
+        })
+        .then((BaseResponse<LoginCustomer> response) {})
+        .catchError((e) {
+          showFlashMsg(e.toString());
+          print(e);
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -119,8 +132,7 @@ class _LoginScreenState extends BaseStatefulState<LoginScreen> {
                     SizedBox(height: 12),
                     Container(
                       // height: 40,
-                      child: 
-                      TextFormField(
+                      child: TextFormField(
                           controller: _usernameController,
                           validator: (val) {
                             if (val!.isEmpty) return "Enter Mobile/Email";
@@ -193,6 +205,7 @@ class _LoginScreenState extends BaseStatefulState<LoginScreen> {
                     ),
                     onPressed: () {
                       onLoginButtonTapped();
+                      mergeCart();
                     },
                     child: Center(
                         child: Text(
