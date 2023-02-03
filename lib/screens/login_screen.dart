@@ -55,6 +55,8 @@ class _LoginScreenState extends BaseStatefulState<LoginScreen> {
 
       NetworkManager.shared.refreshTokens();
 
+      showFlashMsg(response.message!);
+
       Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
         builder: (BuildContext context) {
           return HomeScreen();
@@ -63,7 +65,8 @@ class _LoginScreenState extends BaseStatefulState<LoginScreen> {
     }).catchError((e) {
       showFlashMsg(e.toString());
       print(e);
-      showFlashMsg("Invalid Username/Password");
+     // showFlashMsg(e.message);
+     // showFlashMsg("Invalid Username/Password");
     });
   }
 
