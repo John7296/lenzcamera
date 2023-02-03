@@ -210,174 +210,179 @@ class _ReviewScreenState extends BaseStatefulState<ReviewScreen> {
               style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600)),
         ),
 
-        Row(
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 40, top: 20),
-                  child: Text("4",
-                      style:
-                          TextStyle(fontSize: 50, fontWeight: FontWeight.w600)),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 25),
-                  child: Text(" Out of 5",
-                      style:
-                          TextStyle(fontSize: 15, fontWeight: FontWeight.w400)),
-                ),
-              ],
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only( top: 20),
-                  child: Row(
-                    // mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      RatingBarIndicator(
-                        rating: 5,
-                        itemBuilder: (context, index) => Icon(
-                          Icons.star,
-                          color: Colors.amber,
-                        ),
-                        itemCount: 5,
-                        itemSize: 15.0,
-                        direction: Axis.horizontal,
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Container(width: 20, height: 5, color: Colors.black),
-                      Container(
-                        width: 100,
-                        height: 5,
-                        color: Colors.grey,
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only( top: 3),
-                  child: Row(
-                    children: [
-                      RatingBarIndicator(
-                        rating: 4,
-                        itemBuilder: (context, index) => Icon(
-                          Icons.star,
-                          color: Colors.amber,
-                        ),
-                        itemCount: 5,
-                        itemSize: 15.0,
-                        direction: Axis.horizontal,
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Container(width: 2, height: 5, color: Colors.black),
-                      Container(
-                        width: 118,
-                        height: 5,
-                        color: Colors.grey,
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding:  EdgeInsets.only( top: 3),
-                  child: Row(
-                    children: [
-                      RatingBarIndicator(
-                        rating: 3,
-                        itemBuilder: (context, index) => Icon(
-                          Icons.star,
-                          color: Colors.amber,
-                        ),
-                        itemCount: 5,
-                        itemSize: 15.0,
-                        direction: Axis.horizontal,
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Container(width: 20, height: 5, color: Colors.black),
-                      Container(
-                        width: 100,
-                        height: 5,
-                        color: Colors.grey,
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding:  EdgeInsets.only( top: 3),
-                  child: Row(
-                    children: [
-                      RatingBarIndicator(
-                        rating: 2,
-                        itemBuilder: (context, index) => Icon(
-                          Icons.star,
-                          color: Colors.amber,
-                        ),
-                        itemCount: 5,
-                        itemSize: 15.0,
-                        direction: Axis.horizontal,
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Container(width: 2, height: 5, color: Colors.black),
-                      Container(
-                        width: 118,
-                        height: 5,
-                        color: Colors.grey,
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only( top: 3),
-                  child: Row(
-                    children: [
-                      RatingBarIndicator(
-                        rating: 1,
-                        itemBuilder: (context, index) => Icon(
-                          Icons.star,
-                          color: Colors.amber,
-                        ),
-                        itemCount: 5,
-                        itemSize: 15.0,
-                        direction: Axis.horizontal,
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Container(width: 2, height: 5, color: Colors.black),
-                      Container(
-                        width: 118,
-                        height: 5,
-                        color: Colors.grey,
-                      ),
-                    ],
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+        Padding(
+          padding: const EdgeInsets.only(right:24),
+          child: Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left:14),
+                child: Column(
+                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(left: 220, top: 5),
-                      child: Text(
-                        "${'2'} Reviews",
-                        style: TextStyle(fontFamily: 'Intro'),
+                      padding: const EdgeInsets.only( top: 20),
+                      child: Center(
+                        child: Text("4",
+                            style:
+                                TextStyle(fontSize: 50, fontWeight: FontWeight.w600)),
                       ),
-                    )
+                    ),
+                    Text(" Out of 5",
+                        style:
+                            TextStyle(fontSize: 15, fontWeight: FontWeight.w400)),
                   ],
-                )
-              ],
-            ),
-          ],
+                ),
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only( top: 20),
+                    child: Row(
+                      // mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        RatingBarIndicator(
+                          rating: 5,
+                          itemBuilder: (context, index) => Icon(
+                            Icons.star,
+                            color: Colors.amber,
+                          ),
+                          itemCount: 5,
+                          itemSize: 15.0,
+                          direction: Axis.horizontal,
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Container(width: 20, height: 5, color: Colors.black),
+                        Container(
+                          width: 100,
+                          height: 5,
+                          color: Colors.grey,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only( top: 3),
+                    child: Row(
+                      children: [
+                        RatingBarIndicator(
+                          rating: 4,
+                          itemBuilder: (context, index) => Icon(
+                            Icons.star,
+                            color: Colors.amber,
+                          ),
+                          itemCount: 5,
+                          itemSize: 15.0,
+                          direction: Axis.horizontal,
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Container(width: 2, height: 5, color: Colors.black),
+                        Container(
+                          width: 118,
+                          height: 5,
+                          color: Colors.grey,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding:  EdgeInsets.only( top: 3),
+                    child: Row(
+                      children: [
+                        RatingBarIndicator(
+                          rating: 3,
+                          itemBuilder: (context, index) => Icon(
+                            Icons.star,
+                            color: Colors.amber,
+                          ),
+                          itemCount: 5,
+                          itemSize: 15.0,
+                          direction: Axis.horizontal,
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Container(width: 20, height: 5, color: Colors.black),
+                        Container(
+                          width: 100,
+                          height: 5,
+                          color: Colors.grey,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding:  EdgeInsets.only( top: 3),
+                    child: Row(
+                      children: [
+                        RatingBarIndicator(
+                          rating: 2,
+                          itemBuilder: (context, index) => Icon(
+                            Icons.star,
+                            color: Colors.amber,
+                          ),
+                          itemCount: 5,
+                          itemSize: 15.0,
+                          direction: Axis.horizontal,
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Container(width: 2, height: 5, color: Colors.black),
+                        Container(
+                          width: 118,
+                          height: 5,
+                          color: Colors.grey,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only( top: 3),
+                    child: Row(
+                      children: [
+                        RatingBarIndicator(
+                          rating: 1,
+                          itemBuilder: (context, index) => Icon(
+                            Icons.star,
+                            color: Colors.amber,
+                          ),
+                          itemCount: 5,
+                          itemSize: 15.0,
+                          direction: Axis.horizontal,
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Container(width: 2, height: 5, color: Colors.black),
+                        Container(
+                          width: 118,
+                          height: 5,
+                          color: Colors.grey,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 220, top: 5),
+                        child: Text(
+                          "${'2'} Reviews",
+                          style: TextStyle(fontFamily: 'Intro'),
+                        ),
+                      )
+                    ],
+                  )
+                ],
+              ),
+            ],
+          ),
         ),
         SizedBox(height: 20),
         Divider(

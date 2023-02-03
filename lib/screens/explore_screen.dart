@@ -16,9 +16,10 @@ class _ExploreScreenState extends State<ExploreScreen> {
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
+          
           children:[
               Padding(
-                padding: const EdgeInsets.only(top:350),
+                padding: const EdgeInsets.only(top:250),
                 child: Center(
                   child: Container(
                      width: 300,

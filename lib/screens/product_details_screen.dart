@@ -369,14 +369,14 @@ class _ProductDetailsScreenState
                           ),
                           Padding(
                             padding: const EdgeInsets.only(
-                                left: 24, right: 24, top: 5, bottom: 5),
+                                left: 24, right:24, top: 5, bottom: 5),
                             child: Row(
                               children: [
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Container(
-                                      width: 320,
+                                      width: 288,
                                       child: Text(
                                         widget.popularproducts
                                                 ?.shortDescription ??
@@ -433,6 +433,7 @@ class _ProductDetailsScreenState
                                 ),
                                 Expanded(
                                   child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
                                     children: [
                                       IconButton(
                                         onPressed: () {
@@ -627,7 +628,8 @@ class _ProductDetailsScreenState
 
                           Padding(
                             padding: const EdgeInsets.only(
-                                left: 24, right: 24, top: 5),
+                                // left: 24, right: 24,
+                                 top: 5),
                             child: Column(
                               children: [
                                 Row(
@@ -1039,7 +1041,7 @@ class _ProductDetailsScreenState
               //   ),
               //  if (widget.popularproducts?.isCartUpdateProgress == false)
               Padding(
-                padding: const EdgeInsets.only(left: 24, right: 24, bottom: 10),
+                padding: const EdgeInsets.only(left: 24,right:24, bottom: 10),
                 child: Container(
                   // width: 160,
                   height: 5.h,
@@ -1049,10 +1051,10 @@ class _ProductDetailsScreenState
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Container(
-                              width: 23.h,
-                              height: 20.h,
-                              // height: 40,
-                              //  width: 200,
+                              // width: 23.h,
+                              // height: 20.h,
+                              height: 50,
+                               width: 170,
                               child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Color(0xffec3436),

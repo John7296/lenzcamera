@@ -45,6 +45,7 @@ class _WishlistScreenState extends BaseStatefulState<WishlistScreen> {
         wishListItems.clear();
         wishListItems.addAll(response.data!);
         print("length${wishListItems.length}");
+      
       });
     }).catchError((e) {
       showFlashMsg('No Items in your wishlist');
