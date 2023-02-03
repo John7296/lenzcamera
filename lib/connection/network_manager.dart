@@ -69,17 +69,17 @@ class NetworkManager {
       userId = value ?? 0;
     });
 
-     SessionsManager.getPlace().then((value) {
+    SessionsManager.getPlace().then((value) {
       place = value ?? '';
     });
-        SessionsManager.getPincode().then((value) {
-      pincodeId = value??0;
+    SessionsManager.getPincode().then((value) {
+      pincodeId = value ?? 0;
     });
 
-      SessionsManager.getGuestId().then((value) {
+    SessionsManager.getGuestId().then((value) {
       guestId = value ?? 0;
+      print("guestIddd $guestId");
     });
-
   }
 
   Future<BaseResponse<List<Location>>> custLocation(String search) {
@@ -164,8 +164,11 @@ class NetworkManager {
 
   Future<BaseResponse<Product>> getSingleProductDetails(
       Map<String, dynamic> map) {
-    return call(
-        networkConnection.getSingleProductDetails(userId, NetworkManager.shared.guestId, map['urlKey'], NetworkManager.shared.pincodeId));
+    return call(networkConnection.getSingleProductDetails(
+        userId,
+        NetworkManager.shared.guestId,
+        map['urlKey'],
+        NetworkManager.shared.pincodeId));
   }
 
   //  Future<BaseResponse<ProductDetail>> getSingleProductDetails(
@@ -197,15 +200,18 @@ class NetworkManager {
   }
 
   Future<BaseResponse<List<Product>>> featuredProducts() {
-    return call(networkConnection.featuredProducts(userId, NetworkManager.shared.guestId));
+    return call(networkConnection.featuredProducts(
+        userId, NetworkManager.shared.guestId));
   }
 
   Future<BaseResponse<List<Product>>> popularProducts() {
-    return call(networkConnection.popularProducts(userId, NetworkManager.shared.guestId));
+    return call(networkConnection.popularProducts(
+        userId, NetworkManager.shared.guestId));
   }
 
   Future<BaseResponse<List<Product>>> recentProducts() {
-    return call(networkConnection.recentProducts(userId, NetworkManager.shared.guestId));
+    return call(networkConnection.recentProducts(
+        userId, NetworkManager.shared.guestId));
   }
 
   // Future<BaseResponse<List<Product>>> recentProducts(Map<String, dynamic> map) {
@@ -218,7 +224,8 @@ class NetworkManager {
   }
 
   Future<BaseResponse<List<Product>>> getWishList() {
-    return call(networkConnection.getWishList(userId, NetworkManager.shared.guestId));
+    return call(
+        networkConnection.getWishList(userId, NetworkManager.shared.guestId));
   }
 
   Future<BaseResponse> addToWishlist(Map<String, dynamic> map) {
@@ -280,6 +287,10 @@ class NetworkManager {
 
   Future<BaseResponse> cancelOrder(int orderId, int custId) {
     return call(networkConnection.cancelOrder(orderId, custId));
+  }
+
+  Future<BaseResponse> mergeCart(Map<String, dynamic> map) {
+    return call(networkConnection.mergeCart(map));
   }
 
   Future<T> call<T>(Future<T> call) async {

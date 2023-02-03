@@ -253,7 +253,10 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                                                               MaterialPageRoute(
                                                                   builder:
                                                                       (context) =>
-                                                                          CartScreen()));
+                                                                          CartScreen())).then(
+                                                              (value) {
+                                                            getCart();
+                                                          });
 
                                                           // Navigator
                                                           //     .pushAndRemoveUntil(
@@ -269,7 +272,6 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                                                           // context);
                                                           // showFlashMsg(
                                                           //     "Item Removed Successfully");
-                                                          getCart();
                                                         },
                                                         style: ButtonStyle(
                                                             backgroundColor:

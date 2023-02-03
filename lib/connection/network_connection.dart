@@ -293,4 +293,8 @@ abstract class NetworkConnection {
     @Query("orderId") int orderId,
     @Query("custId") int custId,
   );
+
+    @FormUrlEncoded()
+  @POST("Order/MergeUserCart")
+  Future<BaseResponse> mergeCart(@Body() Map<String, dynamic> map);
 }

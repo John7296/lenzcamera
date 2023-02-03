@@ -67,7 +67,7 @@ dev_dependencies:
 flutter_icons:
   android: true
   ios: true
-  image_path: "assets/images/placeholder.png"
+  image_path: "assets/images/ic_foreground.png"
   # adaptive_icon_background: "#ffffff"
   # adaptive_icon_foreground: "assets/images/ic_foreground.png"
 
