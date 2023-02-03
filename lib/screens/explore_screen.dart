@@ -24,7 +24,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
 
     Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (context) => HomeScreen()));
-    print(NetworkManager.shared.guestId);
+    print("guestId${NetworkManager.shared.guestId}");
 
     print("Generated Random number between $min and $max is: $randomnum");
   }
