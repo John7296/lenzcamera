@@ -11,6 +11,13 @@ class ExploreScreen extends StatefulWidget {
 }
 
 class _ExploreScreenState extends State<ExploreScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    checkGuest();
+  }
+
   void guestId() {
     int min = 0;
     int max = 100;
@@ -22,11 +29,24 @@ class _ExploreScreenState extends State<ExploreScreen> {
 
     NetworkManager.shared.refreshTokens();
 
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => HomeScreen()));
+    // Navigator.pushReplacement(
+    //     context, MaterialPageRoute(builder: (context) => HomeScreen()));
     print("guestId${NetworkManager.shared.guestId}");
 
     print("Generated Random number between $min and $max is: $randomnum");
+  }
+
+  void checkGuest() {
+    SessionsManager.getGuestId().then((value) {
+      if (value != 0) {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => HomeScreen()));
+      }
+      // else {
+      //   Navigator.pushReplacement(
+      //       context, MaterialPageRoute(builder: (context) => ExploreScreen()));
+      // }
+    });
   }
 
   @override

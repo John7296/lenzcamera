@@ -244,8 +244,12 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                       padding: EdgeInsets.all(0.5.h),
                       child: TextButton(
                           onPressed: () {
-                            location(_searchController.text);
-                            showDialogue();
+                            // location(_searchController.text);
+                            // showDialogue();
+                                    Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ExploreScreen()));
                           },
                           child: Text(
                             'Change',
