@@ -191,6 +191,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     print("RegUserId${NetworkManager.shared.userId}");
+    print("RegguestId${NetworkManager.shared.guestId}");
     return Scaffold(
       appBar: AppBar(
         title: Center(

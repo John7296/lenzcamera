@@ -106,6 +106,7 @@ class DataManager extends BaseStatefulState {
     }).then((BaseResponse response) {
       getCart(product: product);
     }).catchError((e) {
+      // showFlashMsg(e.toString());
       print(e.toString());
     });
   }

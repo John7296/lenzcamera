@@ -29,24 +29,20 @@ class _ExploreScreenState extends State<ExploreScreen> {
 
     NetworkManager.shared.refreshTokens();
 
-    // Navigator.pushReplacement(
-    //     context, MaterialPageRoute(builder: (context) => HomeScreen()));
+    // if (NetworkManager.shared.guestId != 0) {
+    //   Navigator.pushReplacement(
+    //       context, MaterialPageRoute(builder: (context) => HomeScreen()));
+    // }
     print("guestId${NetworkManager.shared.guestId}");
 
     print("Generated Random number between $min and $max is: $randomnum");
   }
 
   void checkGuest() {
-    SessionsManager.getGuestId().then((value) {
-      if (value != 0) {
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => HomeScreen()));
-      }
-      // else {
-      //   Navigator.pushReplacement(
-      //       context, MaterialPageRoute(builder: (context) => ExploreScreen()));
-      // }
-    });
+    if (NetworkManager.shared.guestId != 0) {
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => HomeScreen()));
+    }
   }
 
   @override
@@ -77,6 +73,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
                 ),
                 onPressed: () {
                   guestId();
+                  checkGuest();
                 },
                 child: Center(
                     child: Text(
