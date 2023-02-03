@@ -58,7 +58,7 @@ class _WishlistScreenState extends BaseStatefulState<WishlistScreen> {
     NetworkManager.shared
         .removeFromWishlist(
       NetworkManager.shared.userId,
-      "",
+     NetworkManager.shared.guestId,
       wishList.urlKey!,
     )
         .then((BaseResponse response) {

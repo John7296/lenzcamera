@@ -221,7 +221,7 @@ abstract class NetworkConnection {
   @POST('Order/InsertWishListsDel')
   Future<BaseResponse> removeFromWishlist(
     @Query("custId") int userId,
-    @Query("guestId") String? gustId,
+    @Query("guestId") int? gustId,
     @Query("urlKey") String urlKey,
   );
 

@@ -72,15 +72,15 @@ class _CategoryScreenState extends BaseStatefulState<CategoryScreen> {
     NetworkManager.shared
         .getTopCategories()
         .then((BaseResponse<List<TopCategories>> response) {
-          isLoading = false;
+      isLoading = false;
       subCategoryList.clear();
-      
+
       setState(() {
         for (var dataTwo in response.data!) {
           // print("equals${dataTwo.parentId == catId}");
           if (catId == dataTwo.parentId) {
             // print("parenttId${dataTwo.parentId}");
-            
+
             subCategoryList.add(dataTwo);
             isLoading = false;
           }
@@ -95,6 +95,7 @@ class _CategoryScreenState extends BaseStatefulState<CategoryScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print(NetworkManager.shared.guestId);
     return Scaffold(
         appBar: AppBar(
           title: Padding(
@@ -237,148 +238,135 @@ class _CategoryScreenState extends BaseStatefulState<CategoryScreen> {
               ),
               Expanded(
                   child:
-                  //  isLoading
-                  //     ? Center(
-                  //         child: Container(
-                  //         height: 50,
-                  //         width: 50,
-                  //         child: Card(
-                  //             child: Padding(
-                  //           padding: const EdgeInsets.all(10),
-                  //           child: LinearProgressIndicator(
-                              
-                  //           ),
-                  //         )),
-                  //       ))
-                  //     : 
+                      //  isLoading
+                      //     ? Center(
+                      //         child: Container(
+                      //         height: 50,
+                      //         width: 50,
+                      //         child: Card(
+                      //             child: Padding(
+                      //           padding: const EdgeInsets.all(10),
+                      //           child: LinearProgressIndicator(
+
+                      //           ),
+                      //         )),
+                      //       ))
+                      //     :
                       PageView(
-                          // controller: _pageController,
-                          children: [
-                            // for (var i = 0; i < pageCount; i++)
-                            Container(
-                              height: 650,
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 10, right: 10, top: 20),
-                                child: (subCategoryList.isNotEmpty)
-                                    ? StaggeredGridView.countBuilder(
-                                        //physics: NeverScrollableScrollPhysics(),
-                                        crossAxisCount: 2,
-                                        itemCount: subCategoryList.length,
-                                        crossAxisSpacing: 0,
-                                        mainAxisSpacing: 0,
-                                        itemBuilder: (context, index) {
-                                          return InkWell(
-                                            onTap: (() {
-                                              Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          SearchScreenCat()));
-                                              NetworkManager.shared.catUrlKey =
-                                                  subCategoryList[index]
-                                                      .catUrlKey;
-                                            }),
-                                            child: Card(
-                                              elevation: 2,
-                                              // shape: RoundedRectangleBorder(),
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8),
-                                                child: Column(
-                                                  children: [
-                                                    Stack(
-                                                      children: [
-                                                        Container(
-                                                          height: 120,
-                                                          width:
-                                                              double.infinity,
-                                                          clipBehavior:
-                                                              Clip.antiAlias,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        0),
-                                                          ),
-                                                          child: CachedNetworkImage(
-                                                              imageUrl:
-                                                                  "https://dev.lenzcamera.com/webadmin/${subCategoryList[index].imageUrl}"),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    const SizedBox(height: 10),
-                                                    Text(
-                                                      subCategoryList[index]
-                                                          .catName,
-                                                      maxLines: 1,
-                                                      style: const TextStyle(
-                                                          fontSize: 12),
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                    ),
-                                                    const SizedBox(height: 5),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          );
-                                        },
-                                        staggeredTileBuilder: (index) =>
-                                            StaggeredTile.fit(1),
-                                      )
-                                    : Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
+                // controller: _pageController,
+                children: [
+                  // for (var i = 0; i < pageCount; i++)
+                  Container(
+                    height: 650,
+                    child: Padding(
+                      padding:
+                          const EdgeInsets.only(left: 10, right: 10, top: 20),
+                      child: (subCategoryList.isNotEmpty)
+                          ? StaggeredGridView.countBuilder(
+                              //physics: NeverScrollableScrollPhysics(),
+                              crossAxisCount: 2,
+                              itemCount: subCategoryList.length,
+                              crossAxisSpacing: 0,
+                              mainAxisSpacing: 0,
+                              itemBuilder: (context, index) {
+                                return InkWell(
+                                  onTap: (() {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                SearchScreenCat()));
+                                    NetworkManager.shared.catUrlKey =
+                                        subCategoryList[index].catUrlKey;
+                                  }),
+                                  child: Card(
+                                    elevation: 2,
+                                    // shape: RoundedRectangleBorder(),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8),
+                                      child: Column(
                                         children: [
-                                          // Image(
-                                          //   image: AssetImage(
-                                          //       "assets/images/no_items_found.png"),
-                                          //   fit: BoxFit.fitHeight,
-                                          //   height: MediaQuery.of(context)
-                                          //           .size
-                                          //           .height *
-                                          //       0.7,
-                                          // ),
-                                          Text('Oh oh no Items Available..!'),
-                                          SizedBox(height: 50),
-                                          Container(
-                                            width: 400,
-                                            height: 50,
-                                            child: ElevatedButton(
-                                              onPressed: () {
-                                                Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            SearchScreen()));
-                                              },
-                                              style: ButtonStyle(
-                                                backgroundColor:
-                                                    MaterialStateProperty.all(
-                                                        Colors.red),
-                                                shape:
-                                                    MaterialStateProperty.all(
-                                                  RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            5),
-                                                  ),
+                                          Stack(
+                                            children: [
+                                              Container(
+                                                height: 120,
+                                                width: double.infinity,
+                                                clipBehavior: Clip.antiAlias,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(0),
                                                 ),
+                                                child: CachedNetworkImage(
+                                                    imageUrl:
+                                                        "https://dev.lenzcamera.com/webadmin/${subCategoryList[index].imageUrl}"),
                                               ),
-                                              child: Text(
-                                                'Browse More',
-                                                style: TextStyle(fontSize: 20),
-                                              ),
-                                            ),
+                                            ],
                                           ),
+                                          const SizedBox(height: 10),
+                                          Text(
+                                            subCategoryList[index].catName,
+                                            maxLines: 1,
+                                            style:
+                                                const TextStyle(fontSize: 12),
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                          const SizedBox(height: 5),
                                         ],
                                       ),
-                              ),
+                                    ),
+                                  ),
+                                );
+                              },
+                              staggeredTileBuilder: (index) =>
+                                  StaggeredTile.fit(1),
+                            )
+                          : Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                // Image(
+                                //   image: AssetImage(
+                                //       "assets/images/no_items_found.png"),
+                                //   fit: BoxFit.fitHeight,
+                                //   height: MediaQuery.of(context)
+                                //           .size
+                                //           .height *
+                                //       0.7,
+                                // ),
+                                Text('Oh oh no Items Available..!'),
+                                SizedBox(height: 50),
+                                Container(
+                                  width: 400,
+                                  height: 50,
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  SearchScreen()));
+                                    },
+                                    style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateProperty.all(Colors.red),
+                                      shape: MaterialStateProperty.all(
+                                        RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                        ),
+                                      ),
+                                    ),
+                                    child: Text(
+                                      'Browse More',
+                                      style: TextStyle(fontSize: 20),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
-                          ],
-                        )),
+                    ),
+                  ),
+                ],
+              )),
 
               //     Container(
               //   child: PageView(

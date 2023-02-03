@@ -11,6 +11,7 @@ import 'package:lenzcamera/model/cart_details.dart';
 import 'package:lenzcamera/model/product.dart';
 import 'package:lenzcamera/screens/checkout_screen.dart';
 import 'package:lenzcamera/screens/home_screen.dart';
+import 'package:lenzcamera/screens/login_screen.dart';
 import 'package:lenzcamera/utils/constants.dart';
 import 'package:sizer/sizer.dart';
 
@@ -43,7 +44,7 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
     NetworkManager.shared
         .getCart(
       NetworkManager.shared.userId,
-      0,
+      NetworkManager.shared.guestId,
       8,
     )
         .then((BaseResponse<CartResponse> response) {
@@ -573,23 +574,34 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
 // width: 400,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xff444444),
+                        backgroundColor: (NetworkManager.shared.userId == 0)
+                            ? Colors.red
+                            : Color(0xff444444),
                       ),
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => CheckoutScreen(
-                                cartItemsList.first.grandTotal,
-                                cartItemsList.first.subTotal,
-                                context),
-                          ),
-                        );
+                        (NetworkManager.shared.userId == 0)
+                            ? Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => LoginScreen(),
+                                ),
+                              )
+                            : Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => CheckoutScreen(
+                                      cartItemsList.first.grandTotal,
+                                      cartItemsList.first.subTotal,
+                                      context),
+                                ),
+                              );
                         getCart();
                       },
                       child: Center(
                           child: Text(
-                        "PROCEED TO CHECKOUT",
+                        (NetworkManager.shared.userId == 0)
+                            ? "Login"
+                            : "PROCEED TO CHECKOUT",
                         style: TextStyle(
                           fontSize: 20,
                           color: Colors.white,

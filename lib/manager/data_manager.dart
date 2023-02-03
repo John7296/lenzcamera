@@ -23,7 +23,6 @@ class DataManager extends BaseStatefulState {
   FilterData? filterData;
   List<Location> locationList = [];
 
-
   ValueChanged<String>? onWishlistUpdated;
 
   void updateItemToCart(Product product, int type,
@@ -61,7 +60,7 @@ class DataManager extends BaseStatefulState {
     NetworkManager.shared
         .getCart(
       NetworkManager.shared.userId,
-      0,
+      NetworkManager.shared.guestId,
       NetworkManager.shared.pincodeId,
     )
         .then((BaseResponse<CartResponse> response) {
@@ -78,7 +77,7 @@ class DataManager extends BaseStatefulState {
     NetworkManager.shared.addToCart(<String, dynamic>{
       "urlKey": product.urlKey,
       "cusId": NetworkManager.shared.userId,
-      "guestId": 0,
+      "guestId": NetworkManager.shared.guestId,
       "productQty": 1,
     }).then((BaseResponse response) {
       getCart(product: product);
@@ -91,7 +90,7 @@ class DataManager extends BaseStatefulState {
     NetworkManager.shared.removeFromCart(<String, dynamic>{
       "urlKey": product.urlKey,
       "custId": NetworkManager.shared.userId,
-      "guestId": 0,
+      "guestId": NetworkManager.shared.guestId,
     }).then((BaseResponse response) {
       getCart(product: product);
     }).catchError((e) {
@@ -103,7 +102,7 @@ class DataManager extends BaseStatefulState {
     NetworkManager.shared.subCartQty(<String, dynamic>{
       "urlKey": product.urlKey,
       "custId": NetworkManager.shared.userId,
-      "guestId": 0,
+      "guestId": NetworkManager.shared.guestId,
     }).then((BaseResponse response) {
       getCart(product: product);
     }).catchError((e) {
@@ -147,7 +146,7 @@ class DataManager extends BaseStatefulState {
     NetworkManager.shared.addToWishlist(<String, dynamic>{
       "urlKey": product.urlKey,
       "custId": NetworkManager.shared.userId,
-      "guestId": 0,
+      "guestId": NetworkManager.shared.guestId,
     }).then((BaseResponse response) {
       showFlashMsg(response.message!);
     }).catchError((e) {
@@ -160,7 +159,7 @@ class DataManager extends BaseStatefulState {
     NetworkManager.shared
         .removeFromWishlist(
       NetworkManager.shared.userId,
-      "",
+      NetworkManager.shared.guestId,
       product.urlKey!,
     )
         .then((BaseResponse response) {
@@ -183,8 +182,9 @@ class DataManager extends BaseStatefulState {
   }
 
   void clearSession() {
-    NetworkManager.shared.userToken = "";
-    NetworkManager.shared.userId = 0;
+    NetworkManager.shared.userToken;
+    NetworkManager.shared.userId;
+    NetworkManager.shared.guestId;
     SessionsManager.clearSession();
     wishListItems.clear();
   }
