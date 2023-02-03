@@ -6,6 +6,7 @@ class SessionsManager {
   static const String userId = "userId";
   static const String place = "place";
   static const String pincodeId = "pincodeId";
+  static const String guestId = "guestId";
 
   static Future<String?> getUserToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -54,6 +55,16 @@ class SessionsManager {
   static Future<int?> getPincode() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getInt(pincodeId);
+  }
+
+    static void saveGuestId(int data) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt(guestId, data);
+  }
+
+  static Future<int?> getGuestId() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getInt(guestId);
   }
 
 }

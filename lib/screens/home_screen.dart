@@ -76,7 +76,9 @@ class _HomeScreenState extends State<HomeScreen> {
             CategoryScreen(),
             CartScreen(),
             SearchScreen(),
-            ProfileScreen(),
+            (NetworkManager.shared.userId == 0)
+                ? LoginScreen()
+                : ProfileScreen(),
           ],
         ),
       ),

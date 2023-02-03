@@ -52,6 +52,7 @@ class NetworkManager {
   late String orderNum;
   late int pincodeId;
   late String place;
+  late int guestId;
 
   init() {
     dio = Dio();
@@ -74,6 +75,11 @@ class NetworkManager {
         SessionsManager.getPincode().then((value) {
       pincodeId = value??0;
     });
+
+      SessionsManager.getGuestId().then((value) {
+      guestId = value ?? 0;
+    });
+
   }
 
   Future<BaseResponse<List<Location>>> custLocation(String search) {
@@ -159,7 +165,7 @@ class NetworkManager {
   Future<BaseResponse<Product>> getSingleProductDetails(
       Map<String, dynamic> map) {
     return call(
-        networkConnection.getSingleProductDetails(userId, 0, map['urlKey'], NetworkManager.shared.pincodeId));
+        networkConnection.getSingleProductDetails(userId, NetworkManager.shared.guestId, map['urlKey'], NetworkManager.shared.pincodeId));
   }
 
   //  Future<BaseResponse<ProductDetail>> getSingleProductDetails(
@@ -191,15 +197,15 @@ class NetworkManager {
   }
 
   Future<BaseResponse<List<Product>>> featuredProducts() {
-    return call(networkConnection.featuredProducts(userId, 0));
+    return call(networkConnection.featuredProducts(userId, NetworkManager.shared.guestId));
   }
 
   Future<BaseResponse<List<Product>>> popularProducts() {
-    return call(networkConnection.popularProducts(userId, 0));
+    return call(networkConnection.popularProducts(userId, NetworkManager.shared.guestId));
   }
 
   Future<BaseResponse<List<Product>>> recentProducts() {
-    return call(networkConnection.recentProducts(userId, 0));
+    return call(networkConnection.recentProducts(userId, NetworkManager.shared.guestId));
   }
 
   // Future<BaseResponse<List<Product>>> recentProducts(Map<String, dynamic> map) {
@@ -212,7 +218,7 @@ class NetworkManager {
   }
 
   Future<BaseResponse<List<Product>>> getWishList() {
-    return call(networkConnection.getWishList(userId, 0));
+    return call(networkConnection.getWishList(userId, NetworkManager.shared.guestId));
   }
 
   Future<BaseResponse> addToWishlist(Map<String, dynamic> map) {
@@ -220,7 +226,7 @@ class NetworkManager {
   }
 
   Future<BaseResponse> removeFromWishlist(
-      int userId, String? guestId, String urlKey) {
+      int userId, int? guestId, String urlKey) {
     print("useriddd $userId");
     // print("guestIddd $guestId");
     print("urlKeyyy $urlKey");
