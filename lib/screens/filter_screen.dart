@@ -16,14 +16,11 @@ import 'package:lenzcamera/utils/constants.dart';
 //List<String> _categories = <String>['Canon', 'Nikon', 'Sigma', 'Tamron'];
 
 class FilterScreen extends StatefulWidget {
-
-
   @override
   State<FilterScreen> createState() => _FilterScreenState();
 }
 
 class _FilterScreenState extends State<FilterScreen> {
-
   String? _searchString = "";
   bool? isExpanded;
 
@@ -52,15 +49,14 @@ class _FilterScreenState extends State<FilterScreen> {
 
   void searchFilter() {
     setState(() {
-      _searchString=null;
+      _searchString = null;
       isLoading = true;
-       
     });
 
     NetworkManager.shared.searchFilter(<String, dynamic>{
       "currentpage": 1,
       "custId": NetworkManager.shared.userId,
-      "filter": {"category":selectedCategory?.catName.toString()},
+      "filter": {"category": selectedCategory?.catName.toString()},
       "filtervalues": null,
       "guestId": null,
       "maxPrice": "100000",
@@ -73,19 +69,16 @@ class _FilterScreenState extends State<FilterScreen> {
     }).then((BaseResponse<SearchFilterResponse> response) {
       setState(() {
         isLoading = false;
-       
+
         _categoryList.clear();
         _attributeList.clear();
         _categoryList.addAll(response.data!.categoryList!);
         _attributeList.addAll(response.data!.attributes!);
-       
       });
     }).catchError((e) {
       print(e.toString());
     });
   }
-
-
 
   List<Attribute> searchAttribute(String attName) {
     List<Attribute> attributeValues = [];
@@ -157,8 +150,9 @@ class _FilterScreenState extends State<FilterScreen> {
                                 print("valueeee${value!.catId}");
                               });
                             },
-                            items: _categoryList.map<DropdownMenuItem<Category>>(
-                                (Category value) {
+                            items: _categoryList
+                                .map<DropdownMenuItem<Category>>(
+                                    (Category value) {
                               return DropdownMenuItem<Category>(
                                 value: value,
                                 child: Text(value.catName ?? '',
@@ -181,9 +175,8 @@ class _FilterScreenState extends State<FilterScreen> {
                         child: Padding(
                           padding: const EdgeInsets.all(12),
                           child: Text("Price Range",
-                          
                               style: TextStyle(
-                                fontSize:16,
+                                fontSize: 16,
                                 fontFamily: "Intro",
                               )),
                         ),
@@ -201,7 +194,7 @@ class _FilterScreenState extends State<FilterScreen> {
                           child: RangeSlider(
                             min: 3,
                             max: 19999,
-                            divisions:19996,
+                            divisions: 19996,
                             activeColor: Color(0xffea3438),
                             inactiveColor: Color(0xffadadad),
                             labels: RangeLabels(
@@ -209,14 +202,10 @@ class _FilterScreenState extends State<FilterScreen> {
                               _endValue.round().toStringAsFixed(2),
                             ),
                             values: RangeValues(_startValue, _endValue),
-                            
                             onChanged: (values) {
                               setState(() {
-                                
                                 _startValue = values.start;
                                 _endValue = values.end;
-                      
-                               
                               });
                             },
                           ),
@@ -355,7 +344,7 @@ class _FilterScreenState extends State<FilterScreen> {
             ),
             Container(
               height: 75,
-        
+
               //color: Color(0xfff2f2f2),
               child: Row(
                 children: [
@@ -377,7 +366,6 @@ class _FilterScreenState extends State<FilterScreen> {
 
                           _attributeList.clear();
                           _categoryList.clear();
-                          
                         });
 
                         Navigator.pop(context);
@@ -406,24 +394,18 @@ class _FilterScreenState extends State<FilterScreen> {
                           filterData.brand = selectedBrand;
                           filterData.manufacturer = selectedManufacturer;
                           filterData.lensMount = selectedLens;
-        
+
                           DataManager.shared.filterData = filterData;
-                          _searchString=null;
+                          _searchString = null;
 
                           Navigator.pop(context);
 
-                            selectedBrand = null;
+                          selectedBrand = null;
                           selectedManufacturer = null;
                           selectedLens = null;
-                           selectedCategory = null;
+                          selectedCategory = null;
                           _startValue = 3;
                           _endValue = 19999;
-                           
-
-                      
-
-                           
-
                         },
                         child: Text(
                           "APPLY",
