@@ -50,8 +50,8 @@ class _RegisterScreenState extends BaseStatefulState<RegisterScreen> {
       print("Customer--Id: ${response.data!.custId ?? 0}");
       hideLoader();
       showFlashMsg(response.message!);
-      SessionsManager.saveUserId(response.data?.custId ?? 0);
-      NetworkManager.shared.userId = response.data!.custId ?? 0;
+      SessionsManager.saveUserId(response.data!.custId.toString());
+      NetworkManager.shared.userId = response.data!.custId.toString();
       NetworkManager.shared.refreshTokens();
 
       print("Customer--Id: ${SessionsManager.userId}");

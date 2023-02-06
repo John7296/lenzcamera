@@ -7,7 +7,7 @@ class LoginCustomer {
 
 
   @JsonKey(name: 'custId')
-  final int? customerId;
+  final String? customerId;
 
   @JsonKey(name: 'custName')
   final String? customerName;

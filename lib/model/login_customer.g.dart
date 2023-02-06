@@ -8,7 +8,7 @@ part of 'login_customer.dart';
 
 LoginCustomer _$LoginCustomerFromJson(Map<String, dynamic> json) =>
     LoginCustomer(
-      customerId: json['custId'] as int?,
+      customerId: json['custId'] as String?,
       customerName: json['custName'] as String?,
       emailId: json['emailId'] as String?,
       phoneNo: json['phoneNo'] as String?,

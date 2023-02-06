@@ -48,10 +48,10 @@ class _LoginScreenState extends BaseStatefulState<LoginScreen> {
       "password": password
     }).then((BaseResponse<LoginCustomer> response) {
       SessionsManager.saveUserToken(response.data?.token ?? '');
-      SessionsManager.saveUserId(response.data?.customerId ?? 0);
+      SessionsManager.saveUserId(response.data?.customerId ?? '');
 
       NetworkManager.shared.userToken = response.data?.token ?? "";
-      NetworkManager.shared.userId = response.data?.customerId ?? 0;
+      NetworkManager.shared.userId = response.data?.customerId ?? '';
 
       NetworkManager.shared.refreshTokens();
 

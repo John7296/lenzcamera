@@ -47,7 +47,7 @@ class NetworkManager {
   late String userToken;
   late String otp;
   late String otpurlkey;
-  late int userId;
+  late String userId;
   late String catUrlKey;
   late String orderNum;
   late int pincodeId;
@@ -66,7 +66,7 @@ class NetworkManager {
     });
 
     SessionsManager.getUserId().then((value) {
-      userId = value ?? 0;
+      userId = value ?? '';
     });
 
     SessionsManager.getPlace().then((value) {
@@ -153,7 +153,7 @@ class NetworkManager {
     return call(networkConnection.supportMessageSend(map));
   }
 
-  Future<BaseResponse<LoginCustomer>> customerDetails(int custId) {
+  Future<BaseResponse<LoginCustomer>> customerDetails(String custId) {
     return call(networkConnection.customerDetails(custId));
   }
 
@@ -172,7 +172,7 @@ class NetworkManager {
   }
 
   //  Future<BaseResponse<ProductDetail>> getSingleProductDetails(
-  //     int userId, int guestId,String urlKey, int pincode ) {
+  //     String userId, int guestId,String urlKey, int pincode ) {
   //   return call(networkConnection.getSingleProductDetails(
   //     userId, guestId, urlKey, pincode ));
   // }
@@ -219,7 +219,7 @@ class NetworkManager {
   // }
 
   Future<BaseResponse<MainBanner>> getBanner(
-      int custId, int guestId, int pincode) {
+      String custId, int guestId, int pincode) {
     return call(networkConnection.getBanner(custId, guestId, pincode));
   }
 
@@ -233,7 +233,7 @@ class NetworkManager {
   }
 
   Future<BaseResponse> removeFromWishlist(
-      int userId, int? guestId, String urlKey) {
+      String userId, int? guestId, String urlKey) {
     print("useriddd $userId");
     // print("guestIddd $guestId");
     print("urlKeyyy $urlKey");
@@ -249,7 +249,7 @@ class NetworkManager {
   }
 
   Future<BaseResponse<CartResponse>> getCart(
-      int cusId, int guestId, int pincode) {
+      String cusId, int guestId, int pincode) {
     return call(networkConnection.getCart(cusId, guestId, pincode));
   }
 
@@ -285,7 +285,7 @@ class NetworkManager {
     return call(networkConnection.placeOrder(map));
   }
 
-  Future<BaseResponse> cancelOrder(int orderId, int custId) {
+  Future<BaseResponse> cancelOrder(int orderId, String custId) {
     return call(networkConnection.cancelOrder(orderId, custId));
   }
 

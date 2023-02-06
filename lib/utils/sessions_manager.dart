@@ -18,15 +18,17 @@ class SessionsManager {
     prefs.setString(userKey, data);
   }
 
-  static void saveUserId(int data) async {
+    static Future< String? > getUserId() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setInt(userId, data);
+    return prefs.getString(userId);
   }
 
-  static Future<int?> getUserId() async {
+  static void saveUserId(String data) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getInt(userId);
+    prefs.setString(userId, data);
   }
+
+
 
   static Future<bool> isLoggedIn() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
