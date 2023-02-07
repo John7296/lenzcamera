@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:lenzcamera/connection/network_manager.dart';
 import 'package:lenzcamera/screens/home_screen.dart';
 import 'package:lenzcamera/screens/login_screen.dart';
@@ -16,6 +17,7 @@ class _ExploreScreenState extends State<ExploreScreen> {
     // TODO: implement initState
     super.initState();
     checkGuest();
+    // guestId();
   }
 
   void guestId() {
@@ -40,8 +42,11 @@ class _ExploreScreenState extends State<ExploreScreen> {
 
   void checkGuest() {
     if (NetworkManager.shared.guestId != 0) {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => HomeScreen()));
+      SchedulerBinding.instance.addPostFrameCallback((_) {
+        // add your code here.
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => HomeScreen()));
+      });
     }
   }
 

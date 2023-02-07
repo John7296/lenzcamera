@@ -72,7 +72,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
     Future.delayed(const Duration(milliseconds: 500), () {
       getTopCategories();
       _featuredProducts();
-      location(search!);
+      location(search??'');
 
       // _updateDeviceToken();
     });

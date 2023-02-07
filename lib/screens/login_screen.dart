@@ -51,7 +51,7 @@ class _LoginScreenState extends BaseStatefulState<LoginScreen> {
       SessionsManager.saveUserId(response.data?.customerId ?? '');
 
       NetworkManager.shared.userToken = response.data?.token ?? "";
-      NetworkManager.shared.userId = response.data?.customerId ?? '';
+      NetworkManager.shared.userId = (response.data!.customerId ?? '');
 
       NetworkManager.shared.refreshTokens();
 
@@ -65,18 +65,18 @@ class _LoginScreenState extends BaseStatefulState<LoginScreen> {
     }).catchError((e) {
       showFlashMsg(e.toString());
       print(e);
-     // showFlashMsg(e.message);
-     // showFlashMsg("Invalid Username/Password");
+      // showFlashMsg(e.message);
+      // showFlashMsg("Invalid Username/Password");
     });
   }
 
   void mergeCart() {
     NetworkManager.shared
-        .userLogin(<String, dynamic>{
+        .mergeCart(<String, dynamic>{
           "custId": NetworkManager.shared.userId,
           "guestId": NetworkManager.shared.guestId
         })
-        .then((BaseResponse<LoginCustomer> response) {})
+        .then((BaseResponse response) {})
         .catchError((e) {
           showFlashMsg(e.toString());
           print(e);

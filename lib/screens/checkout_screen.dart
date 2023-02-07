@@ -63,8 +63,9 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
         }
       });
     }).catchError((e) {
-      showFlashMsg('No Address Found, Please Add  your Address');
       hideLoader();
+      showFlashMsg(e.toString());
+      
     });
   }
 
@@ -811,7 +812,7 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
           Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
-              padding: const EdgeInsets.only(bottom: 10.0),
+              padding: EdgeInsets.only(bottom: 10.0),
               child: Container(
                 height: 40,
                 child: ElevatedButton(
@@ -819,7 +820,8 @@ class _CheckoutScreenState extends BaseStatefulState<CheckoutScreen> {
                     backgroundColor: Color(0xffec3436),
                   ),
                   onPressed: () {
-                    placeOrder();
+                    (addressList.isNotEmpty)?
+                    placeOrder():showFlashMsg("Please Add Address");
                   },
                   child: Center(
                       child: Text(

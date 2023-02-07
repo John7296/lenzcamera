@@ -218,7 +218,6 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                                                               (value) {
                                                             getCart();
                                                           });
-
                                                           // Navigator.of(context)
                                                           //     .pop();
                                                           // Navigator
