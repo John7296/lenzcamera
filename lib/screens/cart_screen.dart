@@ -82,7 +82,6 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                 ? Navigator.popUntil(context, (route) => route.isFirst)
                 : Navigator.push(context,
                     MaterialPageRoute(builder: (context) => HomeScreen()));
-
             // Navigator.of(context).pop();
           },
         ),

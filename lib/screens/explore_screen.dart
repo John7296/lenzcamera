@@ -42,11 +42,11 @@ class _ExploreScreenState extends State<ExploreScreen> {
 
   void checkGuest() {
     if (NetworkManager.shared.guestId != 0) {
-      if (NetworkManager.shared.userId == 0) {
-        NetworkManager.shared.userId = int.parse('');
-        NetworkManager.shared.refreshTokens();
-        print("custIdEx1${NetworkManager.shared.userId}");
-      }
+      // if (NetworkManager.shared.userId == 0) {
+      //   NetworkManager.shared.userId = int.parse('');
+      //   NetworkManager.shared.refreshTokens();
+      //   print("custIdEx1${NetworkManager.shared.userId}");
+      // }
       SchedulerBinding.instance.addPostFrameCallback((_) {
         // add your code here.
         Navigator.pushReplacement(

@@ -49,12 +49,13 @@ class _LoginScreenState extends BaseStatefulState<LoginScreen> {
     }).then((BaseResponse<LoginCustomer> response) {
       SessionsManager.saveUserToken(response.data?.token ?? '');
       NetworkManager.shared.userToken = response.data?.token ?? "";
+      SessionsManager.saveUserId(response.data!.customerId ?? 0);
+      NetworkManager.shared.userId = (response.data!.customerId!);
+
+      NetworkManager.shared.refreshTokens();
 
       // if (response.data!.customerId!.isNotEmpty) {
-      //   SessionsManager.saveUserId(response.data.customerId);
-      //   NetworkManager.shared.userId = (response.data.customerId);
 
-      //   NetworkManager.shared.refreshTokens();
       // } else {
       //   var customerId = Null;
       //   SessionsManager.saveUserId(customerId);
