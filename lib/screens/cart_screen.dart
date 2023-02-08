@@ -78,10 +78,11 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
             color: Colors.white,
           ),
           onPressed: () {
-            (widget.fromHome)
-                ? Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => HomeScreen()))
-                : Navigator.popUntil(context, (route) => route.isFirst);
+            (widget.fromHome == true)
+                ? Navigator.popUntil(context, (route) => route.isFirst)
+                : Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => HomeScreen()));
+
             // Navigator.of(context).pop();
           },
         ),
@@ -580,7 +581,7 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                             : Color(0xff444444),
                       ),
                       onPressed: () {
-                        (NetworkManager.shared.userId==0)
+                        (NetworkManager.shared.userId == 0)
                             ? Navigator.push(
                                 context,
                                 MaterialPageRoute(

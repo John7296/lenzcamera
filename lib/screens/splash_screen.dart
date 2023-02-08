@@ -23,7 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
       () => {
         _checkTokenAndNavigate(),
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => LoginScreen()))
+            context, MaterialPageRoute(builder: (context) => ExploreScreen()))
       },
     );
     super.initState();
