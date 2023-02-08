@@ -102,7 +102,7 @@ abstract class NetworkConnection {
   @FormUrlEncoded()
   @GET("/ProductDetails")
   Future<BaseResponse<Product>> getSingleProductDetails(
-      @Query("custId") String userId,
+      @Query("custId") int userId,
       @Query("guestId") int guestId,
       @Query("urlKey") String urlKey,
       @Query("pincode") int pincode);
@@ -110,7 +110,7 @@ abstract class NetworkConnection {
   @FormUrlEncoded()
   @GET("/CustomerDetails")
   Future<BaseResponse<LoginCustomer>> customerDetails(
-    @Query("custId") String userId,
+    @Query("custId") int userId,
   );
 
   @FormUrlEncoded()
@@ -128,7 +128,7 @@ abstract class NetworkConnection {
   @FormUrlEncoded()
   @GET("/Product/ProductReview")
   Future<BaseResponse<ReviewResponse>> productReview(
-      @Query("urlKey") String urlKey, @Query("CustId") String userId);
+      @Query("urlKey") String urlKey, @Query("CustId") int userId);
 
   @FormUrlEncoded()
   @GET('CompanyPolicy')
@@ -146,7 +146,7 @@ abstract class NetworkConnection {
   @FormUrlEncoded()
   @GET('Order/CusAddressList')
   Future<BaseResponse<List<AddressList>>> getAddressList(
-    @Query("cusId") String cusId,
+    @Query("cusId") int cusId,
   );
 
   @FormUrlEncoded()
@@ -181,28 +181,28 @@ abstract class NetworkConnection {
   @FormUrlEncoded()
   @GET('FeaturedProduct')
   Future<BaseResponse<List<Product>>> featuredProducts(
-    @Query("custId") String userId,
+    @Query("custId") int userId,
     @Query("guestId") int gustId,
   );
 
   @FormUrlEncoded()
   @GET('PopularProduct')
   Future<BaseResponse<List<Product>>> popularProducts(
-    @Query("custId") String userId,
+    @Query("custId") int userId,
     @Query("guestId") int gustId,
   );
 
   @FormUrlEncoded()
   @GET('RecentProducts')
   Future<BaseResponse<List<Product>>> recentProducts(
-    @Query("custId") String userId,
+    @Query("custId") int userId,
     @Query("guestId") int gustId,
   );
 
   @FormUrlEncoded()
   @GET('Products/HomeProducts')
   Future<BaseResponse<MainBanner>> getBanner(
-    @Query("custId") String userId,
+    @Query("custId") int userId,
     @Query("guestId") int guestId,
     @Query("pincode") int pincode,
   );
@@ -210,7 +210,7 @@ abstract class NetworkConnection {
   @FormUrlEncoded()
   @GET('Order/WishLists')
   Future<BaseResponse<List<Product>>> getWishList(
-    @Query("custId") String userId,
+    @Query("custId") int userId,
     @Query("guestId") int gustId,
   );
 
@@ -220,7 +220,7 @@ abstract class NetworkConnection {
 
   @POST('Order/InsertWishListsDel')
   Future<BaseResponse> removeFromWishlist(
-    @Query("custId") String userId,
+    @Query("custId") int userId,
     @Query("guestId") int? gustId,
     @Query("urlKey") String urlKey,
   );
@@ -228,7 +228,7 @@ abstract class NetworkConnection {
   @FormUrlEncoded()
   @GET('CustomerDetails')
   Future<BaseResponse<Profile>> getProfile(
-    @Query("custId") String userId,
+    @Query("custId") int userId,
   );
 
   @FormUrlEncoded()
@@ -239,7 +239,7 @@ abstract class NetworkConnection {
   @GET('Order/CartList')
   Future<BaseResponse<CartResponse>> getCart(
     // @Body() Map<String, dynamic> map,
-    @Query("cusId") String userId,
+    @Query("cusId") int userId,
     @Query("guestId") int guestId,
     @Query("pincode") int pincode,
   );
@@ -265,7 +265,7 @@ abstract class NetworkConnection {
   @FormUrlEncoded()
   @GET('Order/CustOrderList')
   Future<BaseResponse<List<OrderList>>> getOrderList(
-    @Query("cusId") String userId,
+    @Query("cusId") int userId,
     // @Query("year") int year,
     // @Query("addressid") int addressid,
     // @Query("guestId") int guestId,
@@ -291,7 +291,7 @@ abstract class NetworkConnection {
   @GET("Order/CancelOrderItem")
   Future<BaseResponse> cancelOrder(
     @Query("orderId") int orderId,
-    @Query("custId") String custId,
+    @Query("custId") int custId,
   );
 
     @FormUrlEncoded()

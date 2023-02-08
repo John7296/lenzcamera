@@ -22,21 +22,21 @@ class _ExploreScreenState extends State<ExploreScreen> {
 
   void guestId() {
     int min = 0;
-    int max = 100;
+    int max = 1000;
 
     int randomnum = min + Random().nextInt((max + 1) - min);
 
     NetworkManager.shared.guestId = randomnum;
     SessionsManager.saveGuestId(randomnum);
-
     NetworkManager.shared.refreshTokens();
 
-    // if (NetworkManager.shared.guestId != 0) {
-    //   Navigator.pushReplacement(
-    //       context, MaterialPageRoute(builder: (context) => HomeScreen()));
-    // }
-    print("guestId${NetworkManager.shared.guestId}");
+    // dynamic userId = '';
+    // SessionsManager.saveUserId(userId);
+    // NetworkManager.shared.userId = userId;
+    // NetworkManager.shared.refreshTokens();
 
+    print("guestIdEx${NetworkManager.shared.guestId}");
+    print("custIdEx${NetworkManager.shared.userId}");
     print("Generated Random number between $min and $max is: $randomnum");
   }
 

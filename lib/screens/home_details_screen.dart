@@ -72,7 +72,7 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
     Future.delayed(const Duration(milliseconds: 500), () {
       getTopCategories();
       _featuredProducts();
-      location(search??'');
+      location(search ?? '');
 
       // _updateDeviceToken();
     });
@@ -246,12 +246,12 @@ class _HomeDetailsScreenState extends BaseStatefulState<HomeDetailsScreen> {
                       padding: EdgeInsets.all(0.5.h),
                       child: TextButton(
                           onPressed: () {
-                            location(_searchController.text);
-                            showDialogue();
-                            // Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: (context) => ExploreScreen()));
+                            // location(_searchController.text);
+                            // showDialogue();
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ExploreScreen()));
                           },
                           child: Text(
                             'Change',

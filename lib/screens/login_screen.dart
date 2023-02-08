@@ -50,17 +50,17 @@ class _LoginScreenState extends BaseStatefulState<LoginScreen> {
       SessionsManager.saveUserToken(response.data?.token ?? '');
       NetworkManager.shared.userToken = response.data?.token ?? "";
 
-      if (response.data!.customerId!.isNotEmpty) {
-        SessionsManager.saveUserId(response.data?.customerId ?? '');
-        NetworkManager.shared.userId = (response.data!.customerId ?? '');
+      // if (response.data!.customerId!.isNotEmpty) {
+      //   SessionsManager.saveUserId(response.data.customerId);
+      //   NetworkManager.shared.userId = (response.data.customerId);
 
-        NetworkManager.shared.refreshTokens();
-      } else {
-        String customerId = '';
-        SessionsManager.saveUserId(customerId);
-        NetworkManager.shared.userId = (customerId);
-        NetworkManager.shared.refreshTokens();
-      }
+      //   NetworkManager.shared.refreshTokens();
+      // } else {
+      //   var customerId = Null;
+      //   SessionsManager.saveUserId(customerId);
+      //   NetworkManager.shared.userId = (customerId);
+      //   NetworkManager.shared.refreshTokens();
+      // }
 
       showFlashMsg(response.message!);
 

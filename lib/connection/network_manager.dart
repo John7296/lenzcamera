@@ -47,7 +47,7 @@ class NetworkManager {
   late String userToken;
   late String otp;
   late String otpurlkey;
-  late String userId;
+  late dynamic userId;
   late String catUrlKey;
   late String orderNum;
   late int pincodeId;
@@ -66,7 +66,7 @@ class NetworkManager {
     });
 
     SessionsManager.getUserId().then((value) {
-      userId = value ?? '';
+      userId = value ?? 0;
     });
 
     SessionsManager.getPlace().then((value) {
@@ -153,7 +153,7 @@ class NetworkManager {
     return call(networkConnection.supportMessageSend(map));
   }
 
-  Future<BaseResponse<LoginCustomer>> customerDetails(String custId) {
+  Future<BaseResponse<LoginCustomer>> customerDetails(int custId) {
     return call(networkConnection.customerDetails(custId));
   }
 
@@ -219,7 +219,7 @@ class NetworkManager {
   // }
 
   Future<BaseResponse<MainBanner>> getBanner(
-      String custId, int guestId, int pincode) {
+      int custId, int guestId, int pincode) {
     return call(networkConnection.getBanner(custId, guestId, pincode));
   }
 
@@ -233,7 +233,7 @@ class NetworkManager {
   }
 
   Future<BaseResponse> removeFromWishlist(
-      String userId, int? guestId, String urlKey) {
+      int userId, int? guestId, String urlKey) {
     print("useriddd $userId");
     // print("guestIddd $guestId");
     print("urlKeyyy $urlKey");
@@ -249,7 +249,7 @@ class NetworkManager {
   }
 
   Future<BaseResponse<CartResponse>> getCart(
-      String cusId, int guestId, int pincode) {
+      int cusId, int guestId, int pincode) {
     return call(networkConnection.getCart(cusId, guestId, pincode));
   }
 
@@ -285,7 +285,7 @@ class NetworkManager {
     return call(networkConnection.placeOrder(map));
   }
 
-  Future<BaseResponse> cancelOrder(int orderId, String custId) {
+  Future<BaseResponse> cancelOrder(int orderId, int custId) {
     return call(networkConnection.cancelOrder(orderId, custId));
   }
 

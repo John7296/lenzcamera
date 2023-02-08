@@ -18,17 +18,15 @@ class SessionsManager {
     prefs.setString(userKey, data);
   }
 
-    static Future< String? > getUserId() async {
+  static Future<int?> getUserId() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString(userId);
+    return prefs.getInt(userId);
   }
 
-  static void saveUserId(String data) async {
+  static void saveUserId(int data) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString(userId, data);
+    prefs.setInt(userId, data);
   }
-
-
 
   static Future<bool> isLoggedIn() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -39,7 +37,8 @@ class SessionsManager {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.clear();
   }
-    static Future<String?> getPlace() async {
+
+  static Future<String?> getPlace() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString(place);
   }
@@ -49,7 +48,7 @@ class SessionsManager {
     prefs.setString(place, data);
   }
 
-    static void savePincode(int data) async {
+  static void savePincode(int data) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setInt(pincodeId, data);
   }
@@ -59,7 +58,7 @@ class SessionsManager {
     return prefs.getInt(pincodeId);
   }
 
-    static void saveGuestId(int data) async {
+  static void saveGuestId(int data) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setInt(guestId, data);
   }
@@ -68,5 +67,4 @@ class SessionsManager {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getInt(guestId);
   }
-
 }

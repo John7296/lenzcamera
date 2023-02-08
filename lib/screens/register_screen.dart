@@ -48,14 +48,12 @@ class _RegisterScreenState extends BaseStatefulState<RegisterScreen> {
     NetworkManager.shared
         .newRegister(map)
         .then((BaseResponse<NewRegister> response) {
-      print("Customer--Id: ${response.data!.custId ?? 0}");
       hideLoader();
       showFlashMsg(response.message!);
-      SessionsManager.saveUserId(response.data!.custId.toString());
-      NetworkManager.shared.userId = response.data!.custId.toString();
+      SessionsManager.saveUserId(response.data!.custId!);
+      NetworkManager.shared.userId = response.data!.custId!;
       NetworkManager.shared.refreshTokens();
 
-      print("Customer--Id: ${SessionsManager.userId}");
       Navigator.push(
         context,
         MaterialPageRoute(
