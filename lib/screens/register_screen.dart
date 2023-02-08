@@ -11,6 +11,7 @@ import 'package:lenzcamera/screens/login_screen.dart';
 import 'package:lenzcamera/screens/otp_screen.dart';
 import 'package:lenzcamera/screens/privacy_policy_screen.dart';
 import 'package:lenzcamera/utils/sessions_manager.dart';
+import 'package:sizer/sizer.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -32,10 +33,10 @@ class _RegisterScreenState extends BaseStatefulState<RegisterScreen> {
   LoginCustomer? customer;
 
   void register() {
-    showLoader();
     if (!_form.currentState!.validate()) {
       return;
     }
+    showLoader();
 
     Map<String, dynamic> map = {
       'email': _emailController.text,
@@ -236,6 +237,7 @@ class _RegisterScreenState extends BaseStatefulState<RegisterScreen> {
                           child: TextFormField(
                             decoration: InputDecoration(
                               border: OutlineInputBorder(),
+                              contentPadding: EdgeInsets.symmetric(horizontal: 1.5.h,vertical: 2.h),
                               // labelText: " ",
                               suffixIcon: Padding(
                                 padding: const EdgeInsets.only(right: 20),
@@ -260,8 +262,8 @@ class _RegisterScreenState extends BaseStatefulState<RegisterScreen> {
                               if (value!.isEmpty) {
                                 return 'Enter Your Password';
                               }
-                              if (value.length <= 6) {
-                                return 'Must be more than 6 character';
+                              if (value.length < 6) {
+                                return 'Must contain 6 characters';
                               }
                               return null;
                             },
