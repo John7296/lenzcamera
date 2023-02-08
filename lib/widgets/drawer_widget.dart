@@ -62,7 +62,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                 color: Colors.grey,
               ),
               accountName: Text(
-                userProfile?.custName ?? '',
+                "Welcome ${userProfile?.custName ?? ''}",
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               accountEmail: Text(""),

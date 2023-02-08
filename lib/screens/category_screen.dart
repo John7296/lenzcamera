@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_html/shims/dart_ui_real.dart';
@@ -93,6 +94,7 @@ class _CategoryScreenState extends BaseStatefulState<CategoryScreen> {
     });
   }
 
+
   @override
   Widget build(BuildContext context) {
     print(NetworkManager.shared.guestId);
@@ -113,9 +115,7 @@ class _CategoryScreenState extends BaseStatefulState<CategoryScreen> {
               children: [
                 IconButton(
                   onPressed: () {
-                    // Future.delayed(Duration(milliseconds: 500), () {
-                    //   getCategories();
-                    // });
+                
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => CartScreen()));
                     // getBanners();
@@ -146,8 +146,9 @@ class _CategoryScreenState extends BaseStatefulState<CategoryScreen> {
           leading: IconButton(
             onPressed: () {
               // getCategories();
-              Navigator.push(context,
+              Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (context) => HomeScreen()));
+               
             },
             icon: Icon(Icons.arrow_back_ios),
           ),

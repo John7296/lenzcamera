@@ -53,16 +53,6 @@ class _LoginScreenState extends BaseStatefulState<LoginScreen> {
       NetworkManager.shared.userId = (response.data!.customerId!);
 
       NetworkManager.shared.refreshTokens();
-
-      // if (response.data!.customerId!.isNotEmpty) {
-
-      // } else {
-      //   var customerId = Null;
-      //   SessionsManager.saveUserId(customerId);
-      //   NetworkManager.shared.userId = (customerId);
-      //   NetworkManager.shared.refreshTokens();
-      // }
-
       showFlashMsg(response.message!);
 
       Navigator.pushAndRemoveUntil(context, MaterialPageRoute(

@@ -49,13 +49,13 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
 
-  // void goBack() {
-  //   if (Navigator.canPop(context)) {
-  //     Navigator.pop(context);
-  //   } else {
-  //     SystemNavigator.pop();
-  //   }
-  // }
+  void goBack() {
+    if (Navigator.canPop(context)) {
+      Navigator.pop(context);
+    } else {
+      SystemNavigator.pop();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
