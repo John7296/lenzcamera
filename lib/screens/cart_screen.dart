@@ -575,12 +575,12 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
 // width: 400,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: (NetworkManager.shared.userId == '')
+                        backgroundColor: (NetworkManager.shared.userId == 0)
                             ? Colors.red
                             : Color(0xff444444),
                       ),
                       onPressed: () {
-                        (NetworkManager.shared.userId == '')
+                        (NetworkManager.shared.userId==0)
                             ? Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -600,7 +600,7 @@ class _CartScreenState extends BaseStatefulState<CartScreen> {
                       },
                       child: Center(
                           child: Text(
-                        (NetworkManager.shared.userId == '')
+                        (NetworkManager.shared.userId == 0)
                             ? "Login"
                             : "PROCEED TO CHECKOUT",
                         style: TextStyle(

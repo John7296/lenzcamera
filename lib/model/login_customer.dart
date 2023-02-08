@@ -5,7 +5,7 @@ part 'login_customer.g.dart';
 @JsonSerializable()
 class LoginCustomer {
   @JsonKey(name: 'custId')
-  dynamic customerId;
+  final int? customerId;
 
   @JsonKey(name: 'custName')
   final String? customerName;

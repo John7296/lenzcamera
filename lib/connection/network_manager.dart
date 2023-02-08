@@ -47,7 +47,7 @@ class NetworkManager {
   late String userToken;
   late String otp;
   late String otpurlkey;
-  late dynamic userId;
+  late int userId;
   late String catUrlKey;
   late String orderNum;
   late int pincodeId;

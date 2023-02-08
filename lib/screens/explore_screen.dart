@@ -42,6 +42,10 @@ class _ExploreScreenState extends State<ExploreScreen> {
 
   void checkGuest() {
     if (NetworkManager.shared.guestId != 0) {
+      
+    // SessionsManager.saveUserId(0);
+    // NetworkManager.shared.userId = 0;
+    // NetworkManager.shared.refreshTokens();
       SchedulerBinding.instance.addPostFrameCallback((_) {
         // add your code here.
         Navigator.pushReplacement(
