@@ -48,12 +48,19 @@ class _LoginScreenState extends BaseStatefulState<LoginScreen> {
       "password": password
     }).then((BaseResponse<LoginCustomer> response) {
       SessionsManager.saveUserToken(response.data?.token ?? '');
-      SessionsManager.saveUserId(response.data?.customerId ?? '');
-
       NetworkManager.shared.userToken = response.data?.token ?? "";
-      NetworkManager.shared.userId = (response.data!.customerId ?? '');
 
-      NetworkManager.shared.refreshTokens();
+      if (response.data!.customerId!.isNotEmpty) {
+        SessionsManager.saveUserId(response.data?.customerId ?? '');
+        NetworkManager.shared.userId = (response.data!.customerId ?? '');
+
+        NetworkManager.shared.refreshTokens();
+      } else {
+        String customerId = '';
+        SessionsManager.saveUserId(customerId);
+        NetworkManager.shared.userId = (customerId);
+        NetworkManager.shared.refreshTokens();
+      }
 
       showFlashMsg(response.message!);
 

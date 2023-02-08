@@ -69,11 +69,11 @@ class _RegisterScreenState extends BaseStatefulState<RegisterScreen> {
 
   void mergeCart() {
     NetworkManager.shared
-        .userLogin(<String, dynamic>{
+        .mergeCart(<String, dynamic>{
           "custId": NetworkManager.shared.userId,
           "guestId": NetworkManager.shared.guestId
         })
-        .then((BaseResponse<LoginCustomer> response) {})
+        .then((BaseResponse response) {})
         .catchError((e) {
           showFlashMsg(e.toString());
           print(e);

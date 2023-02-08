@@ -94,6 +94,13 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
       "state": showSelectedState!.name,
     }).then((BaseResponse response) {
       showFlashMsg(response.message!);
+      (widget.fromCheckout == true)
+          ? Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => CheckoutScreen(0, 0, context)))
+          : Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => AddressScreen()));
     }).catchError((e) {
       showFlashMsg(e.toString());
       showFlashMsg(e.toString());
@@ -162,13 +169,13 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
             leading: IconButton(
               icon: Icon(Icons.arrow_back_ios),
               onPressed: () {
-                (widget.fromCheckout == false)
-                    ? Navigator.push(
+                (widget.fromCheckout == true)
+                    ? Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
                                 CheckoutScreen(0, 0, context)))
-                    : Navigator.push(
+                    : Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                             builder: (context) => AddressScreen()));
@@ -552,11 +559,7 @@ class _AddNewAddressScreenState extends BaseStatefulState<AddNewAddressScreen> {
                                 if (formKey.currentState!.validate()) {
                                   onSaveButtonTapped();
                                   getAddress();
-                                  Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              AddressScreen()));
+
                                   showFlashMsg("Address Added");
                                   setState(() {});
                                 }
